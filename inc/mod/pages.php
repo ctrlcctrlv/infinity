@@ -100,7 +100,12 @@ function mod_dashboard() {
 			cache::set('pm_unreadcount_' . $mod['id'], $args['unread_pms']);
 	}
 	
-	$query = query('SELECT COUNT(*) FROM ``reports``') or error(db_error($query));
+	$query = prepare('SELECT COUNT(*) FROM ``reports``' . ($mod["type"] == "20" ? "WHERE board = :board" : "")); 
+
+	if ($mod['type'] == '20')
+		$query->bindValue(':board', $mod['boards'][0]);
+	
+	$query->execute() or error(db_error($query));
 	$args['reports'] = $query->fetchColumn();
 	
 	if ($mod['type'] >= ADMIN && $config['check_updates']) {
@@ -1995,8 +2000,12 @@ function mod_reports() {
 	if (!hasPermission($config['mod']['reports']))
 		error($config['error']['noaccess']);
 	
-	$query = prepare("SELECT * FROM ``reports`` ORDER BY `time` DESC LIMIT :limit");
+	$query = prepare("SELECT * FROM ``reports`` " . ($mod["type"] == "20" ? "WHERE board = :board" : "") . " ORDER BY `time` DESC LIMIT :limit");
 	$query->bindValue(':limit', $config['mod']['recent_reports'], PDO::PARAM_INT);
+	
+	if ($mod['type'] == '20')
+		$query->bindValue(':board', $mod['boards'][0]);
+
 	$query->execute() or error(db_error($query));
 	$reports = $query->fetchAll(PDO::FETCH_ASSOC);
 	
