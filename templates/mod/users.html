@@ -13,7 +13,13 @@
 	{% for user in users %}
 		<tr>
 			<td><small>{{ user.id }}</small></td>
-			<td>{{ user.username|e }}</td>
+			<td>
+				{% if user.username == mod.username %}
+					<strong>{{ user.username|e }}</strong>
+				{% else %}
+					{{ user.username|e }}
+				{% endif %}
+			</td>
 			<td>
 				{% if config.mod.groups[user.type] %}
 					{{ config.mod.groups[user.type] }}
