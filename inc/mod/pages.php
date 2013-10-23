@@ -760,7 +760,15 @@ function mod_page_ip($ip) {
 	if (isset($_POST['ban_id'], $_POST['unban'])) {
 		if (!hasPermission($config['mod']['unban']))
 			error($config['error']['noaccess']);
-		
+
+		$bans = Bans::find($ip);
+
+		foreach ($bans as $i => $ban) {
+			if ($ban['id'] == $_POST['ban_id'])
+				if ($mod['boards'][0] != '*' && !in_array($ban['board'], $mod['boards']))
+					error($config['error']['noaccess']);		
+		}
+
 		Bans::delete($_POST['ban_id'], true);
 		
 		header('Location: ?/IP/' . $ip . '#bans', true, $config['redirect_http']);
@@ -855,7 +863,7 @@ function mod_ban() {
 		return;
 	}
 
-	if (!in_array($_POST['board'], $mod['boards']))
+	if (!in_array($_POST['board'], $mod['boards']) && $mod['boards'][0] != '*')
 		error($config['error']['noaccess']);
 	
 	require_once 'inc/mod/ban.php';
