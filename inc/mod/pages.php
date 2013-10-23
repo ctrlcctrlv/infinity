@@ -840,15 +840,18 @@ function mod_page_ip($ip) {
 }
 
 function mod_ban() {
-	global $config;
-	
+	global $config, $mod;
+
 	if (!hasPermission($config['mod']['ban']))
 		error($config['error']['noaccess']);
-	
+
 	if (!isset($_POST['ip'], $_POST['reason'], $_POST['length'], $_POST['board'])) {
 		mod_page(_('New ban'), 'mod/ban_form.html', array('token' => make_secure_link_token('ban')));
 		return;
 	}
+
+	if (!in_array($_POST['board'], $mod['boards']))
+		error($config['error']['noaccess']);
 	
 	require_once 'inc/mod/ban.php';
 	
@@ -1258,7 +1261,7 @@ function mod_ban_post($board, $delete, $post, $token = false) {
 	
 	if (!hasPermission($config['mod']['delete'], $board))
 		error($config['error']['noaccess']);
-	
+
 	$security_token = make_secure_link_token($board . '/ban/' . $post);
 	
 	$query = prepare(sprintf('SELECT ' . ($config['ban_show_post'] ? '*' : '`ip`, `thread`') .
