@@ -761,14 +761,6 @@ function mod_page_ip($ip) {
 		if (!hasPermission($config['mod']['unban']))
 			error($config['error']['noaccess']);
 
-		$bans = Bans::find($ip);
-
-		foreach ($bans as $i => $ban) {
-			if ($ban['id'] == $_POST['ban_id'])
-				if ($mod['boards'][0] != '*' && !in_array($ban['board'], $mod['boards']))
-					error($config['error']['noaccess']);		
-		}
-
 		Bans::delete($_POST['ban_id'], true);
 		
 		header('Location: ?/IP/' . $ip . '#bans', true, $config['redirect_http']);
@@ -863,9 +855,6 @@ function mod_ban() {
 		return;
 	}
 
-	if (!in_array($_POST['board'], $mod['boards']) && $mod['boards'][0] != '*')
-		error($config['error']['noaccess']);
-	
 	require_once 'inc/mod/ban.php';
 	
 	Bans::new_ban($_POST['ip'], $_POST['reason'], $_POST['length'], $_POST['board'] == '*' ? false : $_POST['board']);
@@ -1275,7 +1264,6 @@ function mod_ban_post($board, $delete, $post, $token = false) {
 	if (!hasPermission($config['mod']['delete'], $board))
 		error($config['error']['noaccess']);
 
-
 	$security_token = make_secure_link_token($board . '/ban/' . $post);
 	
 	$query = prepare(sprintf('SELECT ' . ($config['ban_show_post'] ? '*' : '`ip`, `thread`') .
@@ -1289,8 +1277,6 @@ function mod_ban_post($board, $delete, $post, $token = false) {
 	$ip = $_post['ip'];
 
 	if (isset($_POST['new_ban'], $_POST['reason'], $_POST['length'], $_POST['board'])) {
-		if (!in_array($_POST['board'], $mod['boards']) && $mod['boards'][0] != '*')
-			error($config['error']['noaccess']);
 		require_once 'inc/mod/ban.php';
 		
 		if (isset($_POST['ip']))
