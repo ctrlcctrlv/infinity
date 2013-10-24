@@ -3,6 +3,7 @@
 	
 	<ul>
 		{% for board in boards %}
+		{% if board.uri in mod.boards or mod.boards[0] == '*' %}
 			<li>
 				<a href="?/{{ config.board_path|sprintf(board.uri) }}{{ config.file_index }}">{{ config.board_abbreviation|sprintf(board.uri) }}</a>
 					 - 
@@ -20,6 +21,7 @@
 					 <a href="?/edit/{{ board.uri }}"><small>[{% trans 'edit' %}]</small></a>
 				{% endif %}
 			</li>
+		{% endif %}
 		{% endfor %}
 		
 		{% if mod|hasPermission(config.mod.newboard) %}
