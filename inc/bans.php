@@ -117,20 +117,25 @@ class Bans {
 		return array($ipstart, $ipend);
 	}
 	
-	static public function find($ip, $board = false, $get_mod_info = false) {
+	static public function find($criteria, $board = false, $get_mod_info = false, $id = false) {
 		global $config;
 		
 		$query = prepare('SELECT ``bans``.*' . ($get_mod_info ? ', `username`' : '') . ' FROM ``bans``
 		' . ($get_mod_info ? 'LEFT JOIN ``mods`` ON ``mods``.`id` = `creator`' : '') . '
-		WHERE
+		WHERE ' . ($id ? 'id = :id' : '
 			(' . ($board ? '(`board` IS NULL OR `board` = :board) AND' : '') . '
-			(`ipstart` = :ip OR (:ip >= `ipstart` AND :ip <= `ipend`)))
+			(`ipstart` = :ip OR (:ip >= `ipstart` AND :ip <= `ipend`)))') . '
 		ORDER BY `expires` IS NULL, `expires` DESC');
 		
 		if ($board)
 			$query->bindValue(':board', $board);
 		
-		$query->bindValue(':ip', inet_pton($ip));
+		if (!$id) {
+			$query->bindValue(':ip', inet_pton($criteria));
+		} else {
+			$query->bindValue(':id', $criteria);
+		}
+
 		$query->execute() or error(db_error($query));
 		
 		$ban_list = array();
@@ -179,13 +184,18 @@ class Bans {
 	}
 	
 	static public function delete($ban_id, $modlog = false) {
-		if ($modlog) {
-			$query = query("SELECT `ipstart`, `ipend` FROM ``bans`` WHERE `id` = " . (int)$ban_id) or error(db_error());
-			if (!$ban = $query->fetch(PDO::FETCH_ASSOC)) {
-				// Ban doesn't exist
-				return false;
-			}
+		global $config, $mod;
+
+		$query = query("SELECT `ipstart`, `ipend`, `board` FROM ``bans`` WHERE `id` = " . (int)$ban_id) or error(db_error());
+		if (!$ban = $query->fetch(PDO::FETCH_ASSOC)) {
+			// Ban doesn't exist
+			return false;
+		}
+
+		if ($mod['boards'][0] != '*' && !in_array($ban['board'], $mod['boards']))
+			error($config['error']['noaccess']);		
 			
+		if ($modlog) {
 			$mask = self::range_to_string(array($ban['ipstart'], $ban['ipend']));
 			
 			modLog("Removed ban #{$ban_id} for " .
@@ -198,12 +208,15 @@ class Bans {
 	}
 	
 	static public function new_ban($mask, $reason, $length = false, $ban_board = false, $mod_id = false, $post = false) {
-		global $mod, $pdo, $board;
+		global $config, $mod, $pdo, $board;
 		
 		if ($mod_id === false) {
 			$mod_id = isset($mod['id']) ? $mod['id'] : -1;
 		}
 				
+		if (!in_array($ban_board, $mod['boards']) && $mod['boards'][0] != '*')
+			error($config['error']['noaccess']);
+
 		$range = self::parse_range($mask);
 		$mask = self::range_to_string($range);
 		
