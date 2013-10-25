@@ -1413,16 +1413,8 @@ function buildIndex() {
 function buildJavascript() {
 	global $config;
 
-	$stylesheets = array();
-	foreach ($config['stylesheets'] as $name => $uri) {
-		$stylesheets[] = array(
-			'name' => addslashes($name),
-			'uri' => addslashes((!empty($uri) ? $config['uri_stylesheets'] : '') . $uri));
-	}
-
 	$script = Element('main.js', array(
 		'config' => $config,
-		'stylesheets' => $stylesheets
 	));
 
 	// Check if we have translation for the javascripts; if yes, we add it to additional javascripts
