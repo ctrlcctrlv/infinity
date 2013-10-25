@@ -1,3 +1,4 @@
+{{ mod.type }}
 <fieldset>
 	<legend>{% trans 'Boards' %}</legend>
 	
@@ -16,6 +17,10 @@
 							{{ board.subtitle|e }}
 						{% endif %}
 					</small>
+
+				{% endif %}
+				{% if mod.type == "20" %}
+					<a href="?/settings/{{ board.uri }}"><small>[{% trans 'settings' %}]</small></a>
 				{% endif %}
 				{% if mod|hasPermission(config.mod.manageboards) %}
 					 <a href="?/edit/{{ board.uri }}"><small>[{% trans 'edit' %}]</small></a>

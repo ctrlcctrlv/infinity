@@ -866,7 +866,7 @@ function mod_ban() {
 }
 
 function mod_bans($page_no = 1) {
-	global $config;
+	global $config, $mod;
 	
 	if ($page_no < 1)
 		error($config['error']['404']);
@@ -892,8 +892,10 @@ function mod_bans($page_no = 1) {
 		header('Location: ?/bans', true, $config['redirect_http']);
 		return;
 	}
-	
-	$bans = Bans::list_all(($page_no - 1) * $config['mod']['banlist_page'], $config['mod']['banlist_page']);
+
+	$board = ($mod['boards'][0] == '*' ? false : $mod['boards'][0]);
+
+	$bans = Bans::list_all(($page_no - 1) * $config['mod']['banlist_page'], $config['mod']['banlist_page'], $board);
 	
 	if (empty($bans) && $page_no > 1)
 		error($config['error']['404']);
@@ -905,7 +907,7 @@ function mod_bans($page_no = 1) {
 	
 	mod_page(_('Ban list'), 'mod/ban_list.html', array(
 		'bans' => $bans,
-		'count' => Bans::count(),
+		'count' => Bans::count($board),
 		'token' => make_secure_link_token('bans')
 	));
 }

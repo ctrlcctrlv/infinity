@@ -154,13 +154,17 @@ class Bans {
 		return $ban_list;
 	}
 	
-	static public function list_all($offset = 0, $limit = 9001) {
+	static public function list_all($offset = 0, $limit = 9001, $board = false) {
 		$offset = (int)$offset;
 		$limit = (int)$limit;
 		
-		$query = query("SELECT ``bans``.*, `username` FROM ``bans``
-			LEFT JOIN ``mods`` ON ``mods``.`id` = `creator`
-			ORDER BY `created` DESC LIMIT $offset, $limit") or error(db_error());
+		$query = prepare("SELECT ``bans``.*, `username` FROM ``bans``
+			LEFT JOIN ``mods`` ON ``mods``.`id` = `creator`" . ($board ? ' WHERE ``bans``.`board` = :board' : '') . "
+			ORDER BY `created` DESC LIMIT $offset, $limit");
+		if ($board)
+			$query->bindValue(':board', $board);
+
+		$query->execute() or error(db_error());
 		$bans = $query->fetchAll(PDO::FETCH_ASSOC);
 		
 		foreach ($bans as &$ban) {
@@ -170,8 +174,10 @@ class Bans {
 		return $bans;
 	}
 	
-	static public function count() {
-		$query = query("SELECT COUNT(*) FROM ``bans``") or error(db_error());
+	static public function count($board = false) {
+		$query = prepare("SELECT COUNT(*) FROM ``bans`` WHERE `board` = :board");
+		$query->bindValue(':board', $board);
+		$query->execute() or error(db_error());
 		return (int)$query->fetchColumn();
 	}
 	
