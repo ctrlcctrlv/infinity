@@ -65,20 +65,24 @@
 			<th>{% trans 'Board' %}</th>
 			<td>
 				<ul style="list-style:none;padding:2px 5px">
+					{% if mod.boards[0] == '*' %}
 					<li>
 						<input type="radio" name="board" value="*" id="ban-allboards" checked> 
 						<label style="display:inline" for="ban-allboards">
 							<em>{% trans 'all boards' %}</em>
 						</label>
 					</li>
+					{% endif %}
 					
 					{% for board in boards %}
+					{% if board.uri in mod.boards or mod.boards[0] == '*' %}
 						<li>
-							<input type="radio" name="board" value="{{ board.uri }}" id="ban-board-{{ board.uri }}"> 
+							<input type="radio" name="board" value="{{ board.uri }}" id="ban-board-{{ board.uri }}" {%if board.uri == mod.boards[0]%}checked{%endif%}> 
 							<label style="display:inline" for="ban-board-{{ board.uri }}">
 								{{ config.board_abbreviation|sprintf(board.uri) }} - {{ board.title|e }}
 							</label>
 						</li>
+					{% endif %}
 					{% endfor %}
 				</ul>
 			</td>
