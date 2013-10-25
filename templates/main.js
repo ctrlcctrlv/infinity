@@ -26,11 +26,11 @@ var saved = {};
 
 
 var selectedstyle = '{% endraw %}{{ config.default_stylesheet.0|addslashes }}{% raw %}';
-var styles = {
+/*var styles = {
 	{% endraw %}
 	{% for stylesheet in stylesheets %}{% raw %}'{% endraw %}{{ stylesheet.name|addslashes }}{% raw %}' : '{% endraw %}{{ stylesheet.uri|addslashes }}{% raw %}',
 	{% endraw %}{% endfor %}{% raw %}
-};
+};*/
 var board_name = false;
 
 function changeStyle(styleName, link) {
