@@ -163,6 +163,8 @@ function mod_dashboard() {
 	}
 	
 	$args['logout_token'] = make_secure_link_token('logout');
+
+	modLog('Looked at dashboard', false);
 	
 	mod_page(_('Dashboard'), 'mod/dashboard.html', $args);
 }
