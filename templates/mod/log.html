@@ -6,7 +6,7 @@
 		<th>{% trans 'Board' %}</th>
 		<th>{% trans 'Action' %}</th>
 	</tr>
-	{% for log in logs %}
+	{% for log in logs if log.text != 'Looked at dashboard' %}
 		<tr>
 			<td class="minimal">
 				{% if log.username %}
