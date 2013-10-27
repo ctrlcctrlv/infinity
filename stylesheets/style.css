@@ -431,3 +431,9 @@ form.ban-appeal {
 form.ban-appeal textarea {
 	display: block;
 }
+.MathJax_Display {
+	display:inline!important
+}
+pre {
+	margin:0
+}

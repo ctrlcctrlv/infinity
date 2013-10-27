@@ -332,7 +332,7 @@ if (isset($_POST['delete'])) {
 	}
 	
 	// Check for a file
-	if ($post['op'] && !isset($post['no_longer_require_an_image_for_op'])) {
+	if ($post['op'] && !$config['disable_images'] && !isset($post['no_longer_require_an_image_for_op'])) {
 		if (!isset($_FILES['file']['tmp_name']) || $_FILES['file']['tmp_name'] == '' && $config['force_image_op'])
 			error($config['error']['noimage']);
 	}
@@ -342,7 +342,7 @@ if (isset($_POST['delete'])) {
 	$post['email'] = str_replace(' ', '%20', htmlspecialchars($_POST['email']));
 	$post['body'] = $_POST['body'];
 	$post['password'] = $_POST['password'];
-	$post['has_file'] = !isset($post['embed']) && (($post['op'] && !isset($post['no_longer_require_an_image_for_op']) && $config['force_image_op']) || (isset($_FILES['file']) && $_FILES['file']['tmp_name'] != ''));
+	$post['has_file'] = !isset($post['embed']) && !$config['disable_images'] && (($post['op'] && !isset($post['no_longer_require_an_image_for_op']) && $config['force_image_op']) || (isset($_FILES['file']) && $_FILES['file']['tmp_name'] != ''));
 	
 	if ($post['has_file'])
 		$post['filename'] = urldecode(get_magic_quotes_gpc() ? stripslashes($_FILES['file']['name']) : $_FILES['file']['name']);
