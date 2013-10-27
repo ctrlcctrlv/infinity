@@ -382,7 +382,7 @@ if (isset($_POST['delete'])) {
 	
 	$post['capcode'] = false;
 	
-	if ($mod && preg_match('/^((.+) )?## (.+)$/', $post['name'], $matches)) {
+	if ($mod && preg_match('/^((.+) )?## (.+)$/', $post['name'], $matches) && (in_array($board['uri'], $mod['boards']) or $mod['boards'][0] == '*')) {
 		$name = $matches[2] != '' ? $matches[2] : $config['anonymous'];
 		$cap = $matches[3];
 		
