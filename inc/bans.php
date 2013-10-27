@@ -198,7 +198,7 @@ class Bans {
 			return false;
 		}
 
-		if ($mod['boards'][0] != '*' && !in_array($ban['board'], $mod['boards']))
+		if ($mod && $mod['boards'][0] != '*' && !in_array($ban['board'], $mod['boards']))
 			error($config['error']['noaccess']);		
 			
 		if ($modlog) {

@@ -74,9 +74,27 @@ function changeStyle(styleName, link) {
 
 
 {% endraw %}
+
+function init_stylechooser() {
+	var newElement = document.createElement('div');
+	newElement.className = 'styles';
+	
+	for (styleName in styles) {
+		var style = document.createElement('a');
+		style.innerHTML = '[' + styleName + ']';
+		style.onclick = function() {
+			changeStyle(this.innerHTML.substring(1, this.innerHTML.length - 1), this);
+		};
+		if (styleName == selectedstyle) {
+			style.className = 'selected';
+		}
+		style.href = 'javascript:void(0);';
+		newElement.appendChild(style);
+	}	
+	
+	document.getElementsByTagName('body')[0].insertBefore(newElement, document.getElementsByTagName('body')[0].lastChild.nextSibling);
 {% if config.stylesheets_board %}
 	{# This is such an unacceptable mess. There needs to be an easier way. #}
-	var matches = document.URL.match(/\/(\w+)\/($|{{ config.dir.res|replace({'/': '\\/'}) }}{{ config.file_page|replace({'%d': '\\d+', '.': '\\.'}) }}|{{ config.file_index|replace({'.': '\\.'}) }}|{{ config.file_page|replace({'%d': '\\d+', '.': '\\.'}) }})/);
 	{% raw %}
 	if (matches) {
 		board_name = matches[1];
@@ -86,7 +104,6 @@ function changeStyle(styleName, link) {
 		localStorage.board_stylesheets = '{}';
 	}
 	
-	var stylesheet_choices = JSON.parse(localStorage.board_stylesheets);
 	if (board_name && stylesheet_choices[board_name]) {
 		for (var styleName in styles) {
 			if (styleName == stylesheet_choices[board_name]) {
@@ -109,26 +126,12 @@ function changeStyle(styleName, link) {
 	{% endraw %}
 {% endif %}
 {% raw %}
-
-function init_stylechooser() {
-	var newElement = document.createElement('div');
-	newElement.className = 'styles';
-	
-	for (styleName in styles) {
-		var style = document.createElement('a');
-		style.innerHTML = '[' + styleName + ']';
-		style.onclick = function() {
-			changeStyle(this.innerHTML.substring(1, this.innerHTML.length - 1), this);
-		};
-		if (styleName == selectedstyle) {
-			style.className = 'selected';
-		}
-		style.href = 'javascript:void(0);';
-		newElement.appendChild(style);
-	}	
-	
-	document.getElementsByTagName('body')[0].insertBefore(newElement, document.getElementsByTagName('body')[0].lastChild.nextSibling);
 }
+
+var stylesheet_choices = JSON.parse(localStorage.board_stylesheets); {% endraw %} 
+var matches = document.URL.match(/\/(\w+)\/($|{{ config.dir.res|replace({'/': '\\/'}) }}{{ config.file_page|replace({'%d': '\\d+', '.': '\\.'}) }}|{{ config.file_index|replace({'.': '\\.'}) }}|{{ config.file_page|replace({'%d': '\\d+', '.': '\\.'}) }})/);
+
+{% raw %}
 
 function get_cookie(cookie_name) {
 	var results = document.cookie.match ( '(^|;) ?' + cookie_name + '=([^;]*)(;|$)');
@@ -285,8 +288,6 @@ function ready() {
 		onready_callbacks[i]();
 	}
 }
-
-onready(init);
 
 {% endraw %}{% if config.google_analytics %}{% raw %}
 
