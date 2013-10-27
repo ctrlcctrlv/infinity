@@ -67,6 +67,7 @@
 			</td>
 		</tr>
 		{% endif %}
+		{% if not config.disable_images %}
 		<tr>
 			<th>
 				{% trans %}File{% endtrans %}
@@ -83,6 +84,7 @@
 				{{ antibot.html() }}
 			</td>
 		</tr>
+		{% endif %}
 		{% if config.enable_embedding %}
 		<tr>
 			<th>
