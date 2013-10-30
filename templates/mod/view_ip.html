@@ -1,4 +1,5 @@
 {% for board_posts in posts %}
+	{% if board_posts.board.uri in mod.boards or mod.boards.0 == '*' %}
 	<fieldset>
 		<legend>
 			<a href="?/{{ config.board_path|sprintf(board_posts.board.uri) }}{{ config.file_index }}">
@@ -9,6 +10,7 @@
 		</legend>
 		{{ board_posts.posts|join('<hr>') }}
 	</fieldset>
+	{% endif %}
 {% endfor %}
 
 {% if mod|hasPermission(config.mod.view_notes) %}
@@ -184,7 +186,7 @@
 				<th>{% trans 'Board' %}</th>
 				<th>{% trans 'Action' %}</th>
 			</tr>
-			{% for log in logs %}
+			{% for log in logs if (log.username == mod.username and mod.type == 20) or mod.type != 20 %}
 				<tr>
 					<td class="minimal">
 						{% if log.username %}
