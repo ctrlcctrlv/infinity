@@ -2390,6 +2390,9 @@ function mod_theme_rebuild($theme_name) {
 
 function mod_debug_antispam() {
 	global $pdo, $config;
+
+	if (!hasPermission($config['mod']['debug_antispam']))
+		error($config['error']['noaccess']);
 	
 	$args = array();
 	
@@ -2427,6 +2430,9 @@ function mod_debug_antispam() {
 
 function mod_debug_recent_posts() {
 	global $pdo, $config;
+
+	if (!hasPermission($config['mod']['debug_recent']))
+		error($config['error']['noaccess']);
 	
 	$limit = 500;
 	
