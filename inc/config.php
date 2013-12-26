@@ -887,6 +887,9 @@
 	// Allows js/quick-reply.js to work. This could make your imageboard more vulnerable to flood attacks.
 	$config['quick_reply'] = false;
 
+	// Show "SAGE!" next to sage posts
+	$config['show_sages'] = false;
+
 /*
  * ====================
  *  Video embedding

@@ -22,6 +22,11 @@
 			{# end email #}
 			</a>
 		{% endif %}
+
+		{% if config.show_sages and post.email == "sage" %}
+			<span class="sage_post"> SAGE!</span>
+		{% endif %}
+
 		{% if capcode %}
 			{{ capcode.cap }}
 		{% endif %}
