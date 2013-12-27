@@ -76,6 +76,7 @@ function changeStyle(styleName, link) {
 {% endraw %}
 
 function init_stylechooser() {
+	var matches = document.URL.match(/\/(\w+)\/($|{{ config.dir.res|replace({'/': '\\/'}) }}{{ config.file_page|replace({'%d': '\\d+', '.': '\\.'}) }}|{{ config.file_index|replace({'.': '\\.'}) }}|{{ config.file_page|replace({'%d': '\\d+', '.': '\\.'}) }})/);
 	var newElement = document.createElement('div');
 	newElement.className = 'styles';
 	
@@ -103,6 +104,8 @@ function init_stylechooser() {
 	if (!localStorage.board_stylesheets) {
 		localStorage.board_stylesheets = '{}';
 	}
+
+	window.stylesheet_choices = JSON.parse(localStorage.board_stylesheets);
 	
 	if (board_name && stylesheet_choices[board_name]) {
 		for (var styleName in styles) {
@@ -127,11 +130,6 @@ function init_stylechooser() {
 {% endif %}
 {% raw %}
 }
-
-var stylesheet_choices = JSON.parse(localStorage.board_stylesheets); {% endraw %} 
-var matches = document.URL.match(/\/(\w+)\/($|{{ config.dir.res|replace({'/': '\\/'}) }}{{ config.file_page|replace({'%d': '\\d+', '.': '\\.'}) }}|{{ config.file_index|replace({'.': '\\.'}) }}|{{ config.file_page|replace({'%d': '\\d+', '.': '\\.'}) }})/);
-
-{% raw %}
 
 function get_cookie(cookie_name) {
 	var results = document.cookie.match ( '(^|;) ?' + cookie_name + '=([^;]*)(;|$)');
