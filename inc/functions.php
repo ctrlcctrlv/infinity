@@ -573,7 +573,7 @@ function listBoards() {
 	if ($config['cache']['enabled'] && ($boards = cache::get('all_boards')))
 		return $boards;
 
-	$query = query("SELECT * FROM ``boards`` ORDER BY `uri`") or error(db_error());
+	$query = query("SELECT * FROM ``boards`` LEFT JOIN ``board_create`` ON ``boards``.`uri` = ``board_create``.`uri` ORDER BY ``boards``.`uri`") or error(db_error());
 	$boards = $query->fetchAll();
 
 	if ($config['cache']['enabled'])
