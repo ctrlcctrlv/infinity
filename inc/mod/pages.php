@@ -100,13 +100,18 @@ function mod_dashboard() {
 			cache::set('pm_unreadcount_' . $mod['id'], $args['unread_pms']);
 	}
 	
-	$query = prepare('SELECT COUNT(*) FROM ``reports``' . ($mod["type"] == "20" ? "WHERE board = :board" : "")); 
+	$query = prepare('SELECT COUNT(*) AS `total_reports` FROM ``reports``' . ($mod["type"] == "20" ? " WHERE board = :board" : "")); 
 
-	if ($mod['type'] == '20')
+	if ($mod['type'] == '20') {
 		$query->bindValue(':board', $mod['boards'][0]);
+	} else {
+		$query = prepare('SELECT (SELECT COUNT(id) FROM reports WHERE global = 0) AS total_reports, (SELECT COUNT(id) FROM reports WHERE global = 1) AS global_reports');
+	}
 	
 	$query->execute() or error(db_error($query));
-	$args['reports'] = $query->fetchColumn();
+	$row = $query->fetch();
+	$args['reports'] = $row['total_reports'];
+	$args['global_reports'] = isset($row['global_reports']) ? $row['global_reports'] : false;
 	
 	if ($mod['type'] >= ADMIN && $config['check_updates']) {
 		if (!$config['version'])
@@ -1995,17 +2000,25 @@ function mod_rebuild() {
 	));
 }
 
-function mod_reports() {
+function mod_reports($global = false) {
 	global $config, $mod;
 	
 	if (!hasPermission($config['mod']['reports']))
 		error($config['error']['noaccess']);
 	
-	$query = prepare("SELECT * FROM ``reports`` " . ($mod["type"] == "20" ? "WHERE board = :board" : "") . " ORDER BY `time` DESC LIMIT :limit");
-	$query->bindValue(':limit', $config['mod']['recent_reports'], PDO::PARAM_INT);
+	if ($mod['type'] == '20' and $global)
+		error($config['error']['noaccess']);
 	
+	$query = prepare("SELECT * FROM ``reports`` " . ($mod["type"] == "20" ? "WHERE board = :board" : "") . " ORDER BY `time` DESC LIMIT :limit");
 	if ($mod['type'] == '20')
 		$query->bindValue(':board', $mod['boards'][0]);
+
+	if ($global) {
+		$query = prepare("SELECT * FROM ``reports`` WHERE global = TRUE ORDER BY `time` DESC LIMIT :limit");
+	}
+
+	$query->bindValue(':limit', $config['mod']['recent_reports'], PDO::PARAM_INT);
+	
 
 	$query->execute() or error(db_error($query));
 	$reports = $query->fetchAll(PDO::FETCH_ASSOC);
