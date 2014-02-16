@@ -55,6 +55,7 @@ $pages = array(
 	
 	'/rebuild'				=> 'secure_POST rebuild',	// rebuild static files
 	'/reports'				=> 'reports',			// report queue
+	'/reports/(global)'				=> 'reports',			// global report queue
 	'/reports/(\d+)/dismiss(all)?'		=> 'secure report_dismiss',	// dismiss a report
 	
 	'/IP/([\w.:]+)'				=> 'secure_POST ip',		// view ip address
