@@ -4,6 +4,7 @@
  *
  * Released under the MIT license
  * Copyright (c) 2013 Michael Save <savetheinternet@tinyboard.org>
+ * Copyright (c) 2013-2014 Marcin Łabanowski <marcin@6irc.net>
  *
  * Usage:
  *   $config['additional_javascript'][] = 'js/jquery.min.js';
@@ -29,7 +30,7 @@
 		$('<style type="text/css" id="quick-reply-css">\
 		#quick-reply {\
 			position: fixed;\
-			right: 0;\
+			right: 5%;\
 			top: 5%;\
 			float: right;\
 			display: block;\
@@ -235,6 +236,16 @@
 						$td.removeAttr('colspan');
 					}
 				}
+
+				// Remove oekaki if existent
+				if ($(this).is('#oekaki')) {
+					$(this).remove();
+				}
+
+				// Remove upload selection
+				if ($td.is('#upload_selection')) {
+					$(this).remove();
+				}
 				
 				// Remove mod controls, because it looks shit.
 				if ($td.find('input[type="checkbox"]').length) {
@@ -385,11 +396,11 @@
 	var floating_link = function() {
 		if (!settings.get('floating_link', false))
 			return;
-		$('<a href="javascript:void(0)" class="quick-reply-btn">Quick Reply</a>')
+		$('<a href="javascript:void(0)" class="quick-reply-btn">'+_('Quick Reply')+'</a>')
 			.click(function() {
 				show_quick_reply();
 				$(this).remove();
-			}).prependTo($('body'));
+			}).appendTo($('body'));
 		
 		$(window).on('quick-reply', function() {
 			$('.quick-reply-btn').remove();
@@ -404,7 +415,7 @@
 			a.quick-reply-btn {\
 				position: fixed;\
 				right: 0;\
-				top: 0;\
+				bottom: 0;\
 				display: block;\
 				padding: 5px 13px;\
 				text-decoration: none;\

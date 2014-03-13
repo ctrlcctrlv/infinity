@@ -4,6 +4,7 @@
  *
  * Released under the MIT license
  * Copyright (c) 2013 Michael Save <savetheinternet@tinyboard.org>
+ * Copyright (c) 2013-2014 Marcin Łabanowski <marcin@6irc.net>
  *
  * Usage:
  *   $config['additional_javascript'][] = 'js/jquery.min.js';
@@ -14,6 +15,9 @@
 $(window).ready(function() {
 	var settings = new script_settings('ajax');
 	var do_not_ajax = false;
+
+	// Enable submit button if disabled (cache problem)
+	$('input[type="submit"]').removeAttr('disabled');
 	
 	var setup_form = function($form) {
 		$form.submit(function() {

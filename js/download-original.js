@@ -7,6 +7,7 @@
  *
  * Released under the MIT license
  * Copyright (c) 2012-2013 Michael Save <savetheinternet@tinyboard.org>
+ * Copyright (c) 2013-2014 Marcin Łabanowski <marcin@6irc.net>
  *
  * Usage:
  *   $config['additional_javascript'][] = 'js/jquery.min.js';
@@ -15,7 +16,7 @@
  */
 
 onready(function(){
-	$('.postfilename').each(function() {
+	var do_original_filename = function() {
 		var filename, truncated;
 		if ($(this).attr('title')) {
 			filename = $(this).attr('title');
@@ -31,5 +32,11 @@ onready(function(){
 				.attr('href', $(this).parent().parent().find('a').attr('href'))
 				.attr('title', _('Save as original filename') + (truncated ? ' (' + filename + ')' : ''))
 			);
+	};
+
+	$('.postfilename').each(do_original_filename);
+
+        $(document).bind('new_post', function(e, post) {
+		$(post).find('.postfilename').each(do_original_filename);
 	});
 });

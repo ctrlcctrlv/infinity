@@ -6,6 +6,7 @@
  *
  * Released under the MIT license
  * Copyright (c) 2013 Michael Save <savetheinternet@tinyboard.org>
+ * Copyright (c) 2013-2014 Marcin Łabanowski <marcin@6irc.net>
  *
  * Usage:
  *   $config['additional_javascript'][] = 'js/jquery.min.js';
@@ -16,8 +17,6 @@
 $(document).ready(function(){
 	$('<style type="text/css"> img.hidden{ opacity: 0.1; background: grey; border: 1px solid #000; } </style>').appendTo($('head'));
 	
-	var board = $('form input[name="board"]').val().toString();
-
 	if (!localStorage.hiddenimages)
 		localStorage.hiddenimages = '{}';
 
@@ -38,14 +37,16 @@ $(document).ready(function(){
 		}
 	}
 
-	if (!hidden_data[board]) {
-		hidden_data[board] = {}; // id : timestamp
-	}
-
-	$('div.post > a > img, div > a > img').each(function() {
+	var handle_images = function() {
 		var img = this;
 		var fileinfo = $(this).parent().prev();
 		var id = $(this).parent().parent().find('>p.intro>a.post_no:eq(1),>div.post.op>p.intro>a.post_no:eq(1)').text();
+
+		var board = $(this).parents('[id^="thread_"]').data("board");
+
+		if (!hidden_data[board]) {
+			hidden_data[board] = {}; // id : timestamp
+		}
 		
 		var replacement = $('<span>'+_('File')+' <small>(<a class="hide-image-link" href="javascript:void(0)">'+_('hide')+'</a>)</small>: </span>');
 				
@@ -79,6 +80,11 @@ $(document).ready(function(){
 		
 		if (hidden_data[board][id])
 			$(this).parent().prev().find('.hide-image-link').click();
-		
-	});
+	};
+
+	$('div.post > a > img.post-image, div > a > img.post-image').each(handle_images);
+
+        $(document).bind('new_post', function(e, post) {
+                $(post).find('> a > img.post-image').each(handle_images);
+        });
 });

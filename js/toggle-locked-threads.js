@@ -3,6 +3,7 @@
  *
  * Released under the MIT license
  * Copyright (c) 2012 Michael Save <savetheinternet@tinyboard.org>
+ * Copyright (c) 2013-2014 Marcin Łabanowski <marcin@6irc.net> 
  *
  * Usage:
  *   $config['additional_javascript'][] = 'js/jquery.min.js';
@@ -40,12 +41,12 @@ $(document).ready(function(){
 		.click(function() {
 			hide_locked_threads = !hide_locked_threads;
 			if (hide_locked_threads) {
-				$('img.icon[title="Locked"]').each(function() {
+				$('img.icon[title="Locked"], i.fa-lock.fa').each(function() {
 					hideLockedThread(getThreadFromIcon($(this)));
 				});
 				localStorage.hidelockedthreads = true;
 			} else {
-				$('img.icon[title="Locked"]').each(function() {
+				$('img.icon[title="Locked"], i.fa-lock.fa').each(function() {
 					restoreLockedThread(getThreadFromIcon($(this)));
 				});
 				delete localStorage.hidelockedthreads;
@@ -55,9 +56,16 @@ $(document).ready(function(){
 		});
 	
 	if (hide_locked_threads) {
-		$('img.icon[title="Locked"]').each(function() {
+		$('img.icon[title="Locked"], i.fa-lock.fa').each(function() {
 			hideLockedThread(getThreadFromIcon($(this)));
 		});
 	}
+        $(document).bind('new_post', function(e, post) {
+		if (hide_locked_threads) {
+			$(post).find('img.icon[title="Locked"], i.fa-lock.fa').each(function() {
+	                        hideLockedThread(getThreadFromIcon($(this)));
+       		        });
+		}
+	});
 });
 
