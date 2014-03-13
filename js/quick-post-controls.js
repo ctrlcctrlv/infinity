@@ -4,6 +4,8 @@
  *
  * Released under the MIT license
  * Copyright (c) 2012 Michael Save <savetheinternet@tinyboard.org>
+ * Copyright (c) 2013 undido <firekid109@hotmail.com>
+ * Copyright (c) 2013-2014 Marcin Łabanowski <marcin@6irc.net>
  *
  * Usage:
  *   $config['additional_javascript'][] = 'js/jquery.min.js';
@@ -38,7 +40,7 @@ $(document).ready(function(){
 				'</div>' +
 			'</form>');
 			post_form
-				.attr('action', $('form:first').attr('action'))
+				.attr('action', $('form[name="post"]:first').attr('action'))
 				.append($('input[name=board]:first').clone())
 				.find('input:not([type="checkbox"]):not([type="submit"]):not([type="hidden"])').keypress(function(e) {
 					if(e.which == 13) {

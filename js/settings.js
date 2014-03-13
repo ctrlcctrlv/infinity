@@ -11,6 +11,7 @@
 *
 * Released under the MIT license
 * Copyright (c) 2013 Michael Save <savetheinternet@tinyboard.org>
+* Copyright (c) 2013-2014 Marcin Łabanowski <marcin@6irc.net>
 *
 * Usage:
 *   $config['additional_javascript'][] = 'js/jquery.min.js';
@@ -30,7 +31,11 @@ tb_settings['quick-reply'] = {
 	// Hide form when scrolled to top of page (where original form is visible)
 	hide_at_top: true,
 	// "Quick reply" button floating at the top right hand corner of the page at all times
-	floating_link: true
+	floating_link: false,
+	// Show remote in quick reply
+	show_remote: false,
+	// Show embedding in quick reply
+	show_embed: false
 };
 
 // ajax.js
