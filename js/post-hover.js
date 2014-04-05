@@ -26,7 +26,7 @@ onready(function(){
 			return;
 		}
 		
-		var board = $(this);
+		/*var board = $(this);
 		var i = 0;
 		while (board.data('board') === undefined) {
 			board = board.parent();
@@ -42,7 +42,7 @@ onready(function(){
 		var parentboard = board;
 		
 		if ($link.is('[data-thread]')) parentboard = $('form[name="post"] input[name="board"]').val();
-		else if (matches[1] !== undefined) board = matches[1];
+		else if (matches[1] !== undefined) board = matches[1];*/
 
 		var $post = false;
 		var hovering = false;
