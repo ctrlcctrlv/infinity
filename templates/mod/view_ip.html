@@ -89,6 +89,7 @@
 		<legend>{{ bans|count }} {% trans bans_on_record %}</legend>
 		
 		{% for ban in bans %}
+			{% if ban.board in mod.boards or mod.boards.0 == '*' %}
 			<form action="" method="post" style="text-align:center">
 				<input type="hidden" name="token" value="{{ security_token }}">
 				<table style="width:400px;margin-bottom:10px;border-bottom:1px solid #ddd;padding:5px">
@@ -164,6 +165,7 @@
 				<input type="hidden" name="ban_id" value="{{ ban.id }}">
 				<input type="submit" name="unban" value="{% trans 'Remove ban' %}">
 			</form>
+			{% endif %}
 		{% endfor %}
 	</fieldset>
 {% endif %}

@@ -799,7 +799,6 @@ function mod_page_ip($ip) {
 	
 	if ($config['mod']['dns_lookup'])
 		$args['hostname'] = rDNS($ip);
-	
 	$boards = listBoards();
 	foreach ($boards as $board) {
 		openBoard($board['uri']);
