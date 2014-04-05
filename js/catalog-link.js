@@ -53,4 +53,7 @@ if (subtitle) {
 }
 }
 }
-$(document).ready(catalog); 
+
+if (!parseInt($('input[name="mod"]').val())) {
+	$(document).ready(catalog); 
+}
