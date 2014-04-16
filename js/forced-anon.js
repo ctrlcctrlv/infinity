@@ -12,6 +12,7 @@
  *
  */
 
+if (active_page == 'ukko' || active_page == 'thread' || active_page == 'index')
 $(document).ready(function() {
 	var force_anon = function() {
 		if($(this).children('a.capcode').length == 0) {
@@ -78,7 +79,7 @@ $(document).ready(function() {
 	if(forced_anon)
 		enable_fa();
 	
-	$(document).bind('new_post', function(e, post) {
+	$(document).on('new_post', function(e, post) {
 		if(forced_anon)
 			$(post).find('p.intro label').each(force_anon);
 	});

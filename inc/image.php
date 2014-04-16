@@ -339,7 +339,7 @@ class ImageConvert extends ImageBase {
 						$this->height,
 						escapeshellarg($this->temp)))) || !file_exists($this->temp)) {
 					$this->destroy();
-					error('Failed to resize image!', null, $error);
+					error(_('Failed to resize image!'), null, $error);
 				}
 				if ($size = $this->get_size($this->temp)) {
 					$this->width = $size[0];
@@ -365,6 +365,10 @@ class ImageConvert extends ImageBase {
 						$this->destroy();
 						error('Failed to resize image!', null, $error);
 					}
+				if (!file_exists($this->temp)) {
+					$this->destroy();
+					error(_('Failed to resize image!'), null, $error);
+				}
 			}
 			if ($size = $this->get_size($this->temp)) {
 				$this->width = $size[0];

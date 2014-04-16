@@ -739,6 +739,16 @@ function mod_view_thread($boardName, $thread) {
 	echo $page;
 }
 
+function mod_view_thread50($boardName, $thread) {
+	global $config, $mod;
+	
+	if (!openBoard($boardName))
+		error($config['error']['noboard']);
+	
+	$page = buildThread50($thread, true, $mod);
+	echo $page;
+}
+
 function mod_ip_remove_note($ip, $id) {
 	global $config, $mod;
 	
@@ -1069,6 +1079,104 @@ function mod_bumplock($board, $unbumplock, $post) {
 	}
 	
 	header('Location: ?/' . sprintf($config['board_path'], $board) . $config['file_index'], true, $config['redirect_http']);
+}
+
+function mod_move_reply($originBoard, $postID) { 
+	global $board, $config, $mod;
+
+	if (!openBoard($originBoard))
+		error($config['error']['noboard']);
+	
+	if (!hasPermission($config['mod']['move'], $originBoard))
+		error($config['error']['noaccess']);
+
+	$query = prepare(sprintf('SELECT * FROM ``posts_%s`` WHERE `id` = :id', $originBoard));
+	$query->bindValue(':id', $postID);
+	$query->execute() or error(db_error($query));
+	if (!$post = $query->fetch(PDO::FETCH_ASSOC))
+		error($config['error']['404']);
+
+	if (isset($_POST['board'])) {
+		$targetBoard = $_POST['board'];
+
+		if ($_POST['target_thread']) {
+			$query = prepare(sprintf('SELECT * FROM ``posts_%s`` WHERE `id` = :id', $targetBoard));
+			$query->bindValue(':id', $_POST['target_thread']);
+			$query->execute() or error(db_error($query)); // If it fails, thread probably does not exist
+			$post['op'] = false;
+			$post['thread'] = $_POST['target_thread'];
+		}
+		else {
+			$post['op'] = true;
+		}
+		
+		if ($post['file']) {
+			$post['has_file'] = true;
+			$post['width'] = &$post['filewidth'];
+			$post['height'] = &$post['fileheight'];
+			
+			$file_src = sprintf($config['board_path'], $board['uri']) . $config['dir']['img'] . $post['file'];
+			$file_thumb = sprintf($config['board_path'], $board['uri']) . $config['dir']['thumb'] . $post['thumb'];
+		} else {
+			$post['has_file'] = false;
+		}
+		
+		// allow thread to keep its same traits (stickied, locked, etc.)
+		$post['mod'] = true;
+		
+		if (!openBoard($targetBoard))
+			error($config['error']['noboard']);
+		
+		// create the new post 
+		$newID = post($post);
+		
+		if ($post['has_file']) {
+			// move the image
+			rename($file_src, sprintf($config['board_path'], $board['uri']) . $config['dir']['img'] . $post['file']);
+			if ($post['thumb'] != 'spoiler') { //trying to move/copy the spoiler thumb raises an error
+				rename($file_thumb, sprintf($config['board_path'], $board['uri']) . $config['dir']['thumb'] . $post['thumb']);
+			}
+		}
+
+		// build index
+		buildIndex();
+		// build new thread
+		buildThread($newID);
+		
+		// trigger themes
+		rebuildThemes('post', $targetBoard);
+		// mod log
+		modLog("Moved post #${postID} to " . sprintf($config['board_abbreviation'], $targetBoard) . " (#${newID})", $originBoard);
+		
+		// return to original board
+		openBoard($originBoard);
+
+		// delete original post
+		deletePost($postID);
+		buildIndex();
+
+		// open target board for redirect
+		openBoard($targetBoard);
+
+		// Find new thread on our target board
+		$query = prepare(sprintf('SELECT thread FROM ``posts_%s`` WHERE `id` = :id', $targetBoard));
+		$query->bindValue(':id', $newID);
+		$query->execute() or error(db_error($query));
+		$post = $query->fetch(PDO::FETCH_ASSOC);
+
+		// redirect
+		header('Location: ?/' . sprintf($config['board_path'], $board['uri']) . $config['dir']['res'] . sprintf($config['file_page'], $post['thread'] ? $post['thread'] : $newID) . '#' . $newID, true, $config['redirect_http']);
+	}
+
+	else {
+		$boards = listBoards();
+		
+		$security_token = make_secure_link_token($originBoard . '/move_reply/' . $postID);
+		
+		mod_page(_('Move reply'), 'mod/move_reply.html', array('post' => $postID, 'board' => $originBoard, 'boards' => $boards, 'token' => $security_token));
+
+	}
+
 }
 
 function mod_move($originBoard, $postID) {
@@ -2148,9 +2256,18 @@ function mod_config($board_config = false) {
 		
 		if (!$readonly && isset($_POST['code'])) {
 			$code = $_POST['code'];
+			// Save previous instance_config if php_check_syntax fails
+			$old_code = file_get_contents($config_file);
 			file_put_contents($config_file, $code);
-			header('Location: ?/config' . ($board_config ? '/' . $board_config : ''), true, $config['redirect_http']);
-			return;
+			$resp = shell_exec_error('php -l ' . $config_file);
+			if (preg_match('/No syntax errors detected/', $resp)) {
+				header('Location: ?/config' . ($board_config ? '/' . $board_config : ''), true, $config['redirect_http']);
+				return;
+			}
+			else {
+				file_put_contents($config_file, $old_code);
+				error($config['error']['badsyntax'] . $resp);
+			}	
 		}
 		
 		$instance_config = @file_get_contents($config_file);

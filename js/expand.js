@@ -14,10 +14,9 @@
  */
 
 $(document).ready(function(){
-	if($('div.banner').length != 0)
-		return; // not index
-	$('div.post.op span.omitted').each(function() {
-	
+	if($('span.omitted').length == 0)
+		return; // nothing to expand
+
 	var do_expand = function() {
 		$(this)
 			.html($(this).text().replace(_("Click reply to view."), '<a href="javascript:void(0)">'+_("Click to expand")+'</a>.'))
@@ -58,7 +57,7 @@ $(document).ready(function(){
 
 	$('div.post.op span.omitted').each(do_expand);
 
-	$(document).bind("new_post", function(e, post) {
+	$(document).on("new_post", function(e, post) {
 		if (!$(post).hasClass("reply")) {
 			$(post).find('div.post.op span.omitted').each(do_expand);
 		}

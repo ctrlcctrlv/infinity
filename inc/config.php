@@ -23,6 +23,7 @@
  *
  */
 
+	defined('TINYBOARD') or exit;
 
 /*
  * =======================
@@ -476,8 +477,10 @@
 	$config['auto_unicode'] = true;
 	// Whether to turn URLs into functional links.
 	$config['markup_urls'] = true;
+
 	// Optional URL prefix for links (eg. "http://anonym.to/?").
 	$config['link_prefix'] = ''; 
+	$config['url_ads'] = &$config['link_prefix'];	 // leave alias
 	
 	// Allow "uploading" images via URL as well. Users can enter the URL of the image and then Tinyboard will
 	// download it. Not usually recommended.
@@ -518,10 +521,15 @@
 	// When true, a blank password will be used for files (not usable for deletion).
 	$config['field_disable_password'] = false;
 
-	// Attach country flags to posts. Requires the PHP "geoip" extension to be installed:
-	// http://www.php.net/manual/en/intro.geoip.php. In the future, maybe I will find and include a proper
-	// pure-PHP geolocation library.
+	// When true, users are instead presented a selectbox for email. Contains, blank, noko and sage.
+	$config['field_email_selectbox'] = false;
+
+	// Attach country flags to posts.
 	$config['country_flags'] = false;
+
+	// Load all country flags from one file
+	$config['country_flags_condensed'] = true;
+	$config['country_flags_condensed_css'] = 'static/flags/flags.css';
 
 /*
 * ====================
@@ -558,7 +566,7 @@
 	$config['markup'][] = array("/'''(.+?)'''/", "<strong>\$1</strong>");
 	$config['markup'][] = array("/''(.+?)''/", "<em>\$1</em>");
 	$config['markup'][] = array("/\*\*(.+?)\*\*/", "<span class=\"spoiler\">\$1</span>");
-	// $config['markup'][] = array("/^[ |\t]*==(.+?)==[ |\t]*$/m", "<span class=\"heading\">\$1</span>");
+	$config['markup'][] = array("/^[ |\t]*==(.+?)==[ |\t]*$/m", "<span class=\"heading\">\$1</span>");
 
 	// Highlight PHP code wrapped in <code> tags (PHP 5.3+)
 	// $config['markup'][] = array(
@@ -675,6 +683,7 @@
 	// Thumbnail to use for the non-image file uploads.
 	$config['file_icons']['default'] = 'file.png';
 	$config['file_icons']['zip'] = 'zip.png';
+	$config['file_icons']['webm'] = 'video.png';
 	// Example: Custom thumbnail for certain file extension.
 	// $config['file_icons']['extension'] = 'some_file.png';
 
@@ -707,7 +716,12 @@
 
 	// Display image identification links using regex.info/exif, TinEye and Google Images.
 	$config['image_identification'] = false;
-
+	
+	// Number of posts in a "View Last X Posts" page
+	$config['noko50_count'] = 50;
+	// Number of posts a thread needs before it gets a "View Last X Posts" page.
+	// Set to an arbitrarily large value to disable.
+	$config['noko50_min'] = 100;
 /*
  * ====================
  *  Board settings
@@ -733,7 +747,12 @@
 	// Number of reports you can create at once.
 	$config['report_limit'] = 3;
 
-	// Allow unfiltered HTML in board subtitles. This is useful for placing icons and links.
+	// Attention Whoring Bar
+	// REMEMBER TO CHMOD attentionbar.txt PROPERLY
+	// Oh, and add jQuery in additional_javascript.
+	$config['attention_bar'] = false;
+
+	// Allow unfiltered HTML in board subtitle. This is useful for placing icons and links.
 	$config['allow_subtitle_html'] = false;
 
 /*
@@ -818,7 +837,7 @@
 	// );
 
 	// Whether or not to put brackets around the whole board list
-	$config['boardlist_wrap_bracket'] = true;
+	$config['boardlist_wrap_bracket'] = false;
 
 	// Show page navigation links at the top as well.
 	$config['page_nav_top'] = false;
@@ -842,6 +861,15 @@
 
 	// Automatically remove unnecessary whitespace when compiling HTML files from templates.
 	$config['minify_html'] = true;
+
+	/*
+	 * Advertisement HTML to appear at the top and bottom of board pages.
+	 */
+
+	// $config['ad'] = array(
+	//	'top' => '',
+	//	'bottom' => '',
+	// );
 
 	// Display flags (when available). This config option has no effect unless poster flags are enabled (see
 	// $config['country_flags']). Disable this if you want all previously-assigned flags to be hidden.
@@ -993,6 +1021,7 @@
 	$config['error']['modexists']		= _('That mod <a href="?/users/%d">already exists</a>!');
 	$config['error']['invalidtheme']	= _('That theme doesn\'t exist!');
 	$config['error']['csrf']		= _('Invalid security token! Please go back and try again.');
+	$config['error']['badsyntax']		= _('Your code contained PHP syntax errors. Please go back and correct them. PHP says: ');
 
 /*
  * =========================
@@ -1024,6 +1053,7 @@
 	// Location of files.
 	$config['file_index'] = 'index.html';
 	$config['file_page'] = '%d.html';
+	$config['file_page50'] = '%d+50.html';
 	$config['file_mod'] = 'mod.php';
 	$config['file_post'] = 'post.php';
 	$config['file_script'] = 'main.js';
@@ -1047,6 +1077,9 @@
 	$config['dir']['themes_uri'] = 'templates/themes';
 	// Home directory. Used by themes.
 	$config['dir']['home'] = '';
+
+	// Location of a blank 1x1 gif file. Only used when country_flags_condensed is enabled
+	// $config['image_blank'] = 'static/blank.gif';
 
 	// Static images. These can be URLs OR base64 (data URI scheme). These are only used if
 	// $config['font_awesome'] is false (default).
@@ -1122,6 +1155,9 @@
 	//	'color:red;font-weight:bold', // Change name style; optional
 	//	'color:red;font-weight:bold' // Change tripcode style; optional
 	//);
+
+	// Enable the moving of single replies
+	$config['move_replies'] = false;
 
 	// How often (minimum) to purge the ban list of expired bans (which have been seen). Only works when
 	//  $config['cache'] is enabled and working.
@@ -1390,6 +1426,28 @@
 
 /*
  * ====================
+ *  Public post search
+ * ====================
+ */
+	$config['search'] = array();
+
+	// Enable the search form
+	$config['search']['enable'] = false;
+
+	// Maximal number of queries per IP address per minutes
+        $config['search']['queries_per_minutes'] = Array(15, 2);
+
+	// Global maximal number of queries per minutes
+        $config['search']['queries_per_minutes_all'] = Array(50, 2);
+
+	// Limit of search results
+        $config['search']['search_limit'] = 100;
+        
+	// Boards for searching
+        //$config['search']['boards'] = array('a', 'b', 'c', 'd', 'e');
+
+/*
+ * ====================
  *  Events (PHP 5.3.0+)
  * ====================
  */
@@ -1415,7 +1473,7 @@
 
 	// Whether or not to enable the 4chan-compatible API, disabled by default. See
 	// https://github.com/4chan/4chan-API for API specification.
-	$config['api']['enabled'] = false;
+	$config['api']['enabled'] = true;
 
 	// Extra fields in to be shown in the array that are not in the 4chan-API. You can get these by taking a
 	// look at the schema for posts_ tables. The array should be formatted as $db_column => $translated_name.
@@ -1472,3 +1530,8 @@
 	// is the absolute maximum, because MySQL cannot handle table names greater than 64 characters.
 	$config['board_regex'] = '[0-9a-zA-Z$_\x{0080}-\x{FFFF}]{1,58}';
 
+	// Youtube.js embed HTML code
+	$config['youtube_js_html'] = '<div class="video-container" data-video="$2">'.
+		'<a href="$0" target="_blank" class="file">'.
+		'<img style="width:360px;height:270px;" src="//img.youtube.com/vi/$2/0.jpg" class="post-image"/>'.
+		'</a></div>';
