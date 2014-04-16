@@ -11,6 +11,7 @@
  *
  */
 
+if (active_page == 'ukko' || active_page == 'index')
 $(document).ready(function(){
 	if($('div.banner').length != 0)
 		return; // not index
@@ -60,7 +61,7 @@ $(document).ready(function(){
 			hideLockedThread(getThreadFromIcon($(this)));
 		});
 	}
-        $(document).bind('new_post', function(e, post) {
+        $(document).on('new_post', function(e, post) {
 		if (hide_locked_threads) {
 			$(post).find('img.icon[title="Locked"], i.fa-lock.fa').each(function() {
 	                        hideLockedThread(getThreadFromIcon($(this)));

@@ -8,7 +8,7 @@ body {
 
 a:link, a:visited {
 	text-decoration: none;
-	color: #0093AB;
+	color: #00637B;
 }
 
 a:link:hover, a:visited:hover {
@@ -54,7 +54,7 @@ p.intro span.name {
 }
 
 div.post.reply.highlighted {
-	background: #9988EE;
+	background: #a9d8ff;
 }
 
 div.post.reply {
@@ -84,4 +84,14 @@ hr {
 
 div.boardlist {
 	color: #0093AB;
+    background-color: rgba(65%, 85%, 95%, 0.2);
+}
+
+.desktop-style div.boardlist:nth-child(1) {
+  text-shadow: #D2FFEE 1px 1px 1px, #D2FFEE -1px -1px 1px;
+}
+
+
+.desktop-style div.boardlist:nth-child(1):hover, .desktop-style div.boardlist:nth-child(1).cb-menu {
+  background-color: rgba(70%, 95%, 100%, 0.45);
 }

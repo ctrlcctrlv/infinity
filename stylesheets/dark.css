@@ -9,7 +9,7 @@ body {
 	font-size: 12px;
 }
 span.quote {
-	color:#B8D962;
+    color:#B8D962;
 }
 h1 {
 	font-size: 20pt;
@@ -45,10 +45,10 @@ a.post_no:hover {
 div.post.reply {
 	background: #333333;
 	border: #555555 1px solid;
-		-webkit-border-radius: 10px;
-		-khtml-border-radius: 10px;
-		-moz-border-radius: 10px;
-		border-radius: 10px;
+        -webkit-border-radius: 10px;
+        -khtml-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
 
 }
 div.post.reply.highlighted {
@@ -112,7 +112,7 @@ div.banner {
 	font-size: 12px;
 }
 div.banner a {
-	color:#000;
+    color:#000;
 }
 input[type="submit"] {
 	background: #333333;
@@ -125,7 +125,7 @@ input[type="submit"]:hover {
 	color: #32DD72;
 }
 input[type="text"]:focus {
-	border:#aaa 1px solid;
+    border:#aaa 1px solid;
 }
 p.fileinfo a:hover {
 	text-decoration: underline;
@@ -149,7 +149,7 @@ hr {
 }
 div.boardlist {
 	color: #999999;
-	background-color: rgba(12%, 12%, 12%, 0.10);
+    background-color: rgba(12%, 12%, 12%, 0.10);
 }
 
 div.ban {
@@ -171,6 +171,10 @@ table.modlog tr th {
 }
 
 
-.desktop-style div.boardlist:nth-child(1):hover {
+.desktop-style div.boardlist:nth-child(1):hover, .desktop-style div.boardlist:nth-child(1).cb-menu {
   background-color: rgba(30%, 30%, 30%, 0.65);
+}
+
+div.report {
+	color: #666666;
 }

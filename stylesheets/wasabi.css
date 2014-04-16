@@ -128,7 +128,7 @@ div.banner a:hover {
 	color: #EEF2FF;
 	text-decoration: none;
 }
-img.banner {
+img.banner, img.board_image {
 	float: none;
 	margin: 4px auto 0 auto;
 }
@@ -345,6 +345,8 @@ div.boardlist.bottom {
 }
 div.boardlist a {
 	text-decoration: none;
+    color:#ffff22;
+    text-shadow: #000 1px 1px 1px, #000 -1px -1px 1px, #950000 1px 1px 2px, #009500 -1px -1px 2px;
 }
 div.report {
 	color: #333;
@@ -388,4 +390,13 @@ div.blotter {
 	color: red;
 	font-weight: bold;
 	text-align: center;
+}
+
+.desktop-style div.boardlist:nth-child(1) {
+ 
+}
+
+
+.desktop-style div.boardlist:nth-child(1):hover, .desktop-style div.boardlist:nth-child(1).cb-menu {
+  background-color: rgba(100%, 100%, 30%, 0.35);
 }

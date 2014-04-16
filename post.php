@@ -1,9 +1,8 @@
 <?php
-
 /*
- *  Copyright (c) 2010-2013 Tinyboard Development Group
+ *  Copyright (c) 2010-2014 Tinyboard Development Group
  */
-//
+
 require 'inc/functions.php';
 require 'inc/anti-bot.php';
 
@@ -181,7 +180,7 @@ if (isset($_POST['delete'])) {
 	
 	// Check the referrer
 	if ($config['referer_match'] !== false &&
-		(!isset($_SERVER['HTTP_REFERER']) || !preg_match($config['referer_match'], urldecode($_SERVER['HTTP_REFERER']))))
+		(!isset($_SERVER['HTTP_REFERER']) || !preg_match($config['referer_match'], rawurldecode($_SERVER['HTTP_REFERER']))))
 		error($config['error']['referer']);
 	
 	checkDNSBL();
@@ -401,10 +400,14 @@ if (isset($_POST['delete'])) {
 	$post['name'] = $trip[0];
 	$post['trip'] = isset($trip[1]) ? $trip[1] : '';
 	
+	$noko = false;
 	if (strtolower($post['email']) == 'noko') {
 		$noko = true;
 		$post['email'] = '';
-	} else $noko = false;
+	} elseif (strtolower($post['email']) == 'nonoko'){
+		$noko = false;
+		$post['email'] = '';
+	} else $noko = $config['always_noko'];
 	
 	if ($post['has_file']) {
 		$post['extension'] = strtolower(mb_substr($post['filename'], mb_strrpos($post['filename'], '.') + 1));
@@ -445,13 +448,25 @@ if (isset($_POST['delete'])) {
 	}
 	
 	if ($config['country_flags']) {
-		if (!geoip_db_avail(GEOIP_COUNTRY_EDITION)) {
-			error('GeoIP not available: ' . geoip_db_filename(GEOIP_COUNTRY_EDITION));
+		require 'inc/lib/geoip/geoip.inc';
+		$gi=geoip\geoip_open('inc/lib/geoip/GeoIPv6.dat', GEOIP_STANDARD);
+	
+		function ipv4to6($ip) {
+			if (strpos($ip, ':') !== false) {
+				if (strpos($ip, '.') > 0)
+					$ip = substr($ip, strrpos($ip, ':')+1);
+				else return $ip;  //native ipv6
+			}
+			$iparr = array_pad(explode('.', $ip), 4, 0);
+			$part7 = base_convert(($iparr[0] * 256) + $iparr[1], 10, 16);
+			$part8 = base_convert(($iparr[2] * 256) + $iparr[3], 10, 16);
+			return '::ffff:'.$part7.':'.$part8;
 		}
-		if ($country_code = @geoip_country_code_by_name($_SERVER['REMOTE_ADDR'])) {
+	
+		if ($country_code = geoip\geoip_country_code_by_addr_v6($gi, ipv4to6($_SERVER['REMOTE_ADDR']))) {
 			if (!in_array(strtolower($country_code), array('eu', 'ap', 'o1', 'a1', 'a2')))
-				$post['body'] .= "\n<tinyboard flag>" . strtolower($country_code) . "</tinyboard>" .
-					"\n<tinyboard flag alt>" . @geoip_country_name_by_name($_SERVER['REMOTE_ADDR']) . "</tinyboard>";
+				$post['body'] .= "\n<tinyboard flag>".strtolower($country_code)."</tinyboard>".
+				"\n<tinyboard flag alt>".geoip\geoip_country_name_by_addr_v6($gi, ipv4to6($_SERVER['REMOTE_ADDR']))."</tinyboard>";
 		}
 	}
 	
@@ -736,9 +751,23 @@ if (isset($_POST['delete'])) {
 	
 	$root = $post['mod'] ? $config['root'] . $config['file_mod'] . '?/' : $config['root'];
 	
-	if ($config['always_noko'] || $noko) {
+	if ($noko) {
 		$redirect = $root . $board['dir'] . $config['dir']['res'] .
 			sprintf($config['file_page'], $post['op'] ? $id:$post['thread']) . (!$post['op'] ? '#' . $id : '');
+	   	
+		if (!$post['op'] && isset($_SERVER['HTTP_REFERER'])) {
+			$regex = array(
+				'board' => str_replace('%s', '(\w{1,8})', preg_quote($config['board_path'], '/')),
+				'page' => str_replace('%d', '(\d+)', preg_quote($config['file_page'], '/')),
+				'page50' => str_replace('%d', '(\d+)', preg_quote($config['file_page50'], '/')),
+				'res' => preg_quote($config['dir']['res'], '/'),
+			);
+
+			if (preg_match('/\/' . $regex['board'] . $regex['res'] . $regex['page50'] . '([?&].*)?$/', $_SERVER['HTTP_REFERER'])) {
+				$redirect = $root . $board['dir'] . $config['dir']['res'] .
+					sprintf($config['file_page50'], $post['op'] ? $id:$post['thread']) . (!$post['op'] ? '#' . $id : '');
+			}
+		}
 	} else {
 		$redirect = $root . $board['dir'] . $config['file_index'];
 		
@@ -748,6 +777,8 @@ if (isset($_POST['delete'])) {
 		_syslog(LOG_INFO, 'New post: /' . $board['dir'] . $config['dir']['res'] .
 			sprintf($config['file_page'], $post['op'] ? $id : $post['thread']) . (!$post['op'] ? '#' . $id : ''));
 	
+	if (!$post['mod']) header('X-Associated-Content: "' . $redirect . '"');
+
 	if ($post['op'])
 		rebuildThemes('post-thread', $board['uri']);
 	else
@@ -759,7 +790,7 @@ if (isset($_POST['delete'])) {
 		header('Content-Type: text/json; charset=utf-8');
 		echo json_encode(array(
 			'redirect' => $redirect,
-			'noko' => $config['always_noko'] || $noko,
+			'noko' => $noko,
 			'id' => $id
 		));
 	}

@@ -1,7 +1,7 @@
 <?php
 
 /*
- *  Copyright (c) 2010-2013 Tinyboard Development Group
+ *  Copyright (c) 2010-2014 Tinyboard Development Group
  */
 
 require 'inc/functions.php';
@@ -72,6 +72,7 @@ $pages = array(
 
 	'/(\%b)/ban(&delete)?/(\d+)'		=> 'secure_POST ban_post', 	// ban poster
 	'/(\%b)/move/(\d+)'			=> 'secure_POST move',		// move thread
+	'/(\%b)/move_reply/(\d+)'			=> 'secure_POST move_reply',		// move reply
 	'/(\%b)/edit(_raw)?/(\d+)'		=> 'secure_POST edit_post',	// edit post
 	'/(\%b)/delete/(\d+)'			=> 'secure delete',		// delete post
 	'/(\%b)/deletefile/(\d+)'		=> 'secure deletefile',		// delete file from post
@@ -99,6 +100,8 @@ $pages = array(
 	'/(\%b)/'										=> 'view_board',
 	'/(\%b)/' . preg_quote($config['file_index'], '!')					=> 'view_board',
 	'/(\%b)/' . str_replace('%d', '(\d+)', preg_quote($config['file_page'], '!'))		=> 'view_board',
+	'/(\%b)/' . preg_quote($config['dir']['res'], '!') .
+			str_replace('%d', '(\d+)', preg_quote($config['file_page50'], '!'))	=> 'view_thread50',
 	'/(\%b)/' . preg_quote($config['dir']['res'], '!') .
 			str_replace('%d', '(\d+)', preg_quote($config['file_page'], '!'))	=> 'view_thread',
 );

@@ -1,7 +1,7 @@
 <?php
 
 // Installation/upgrade file	
-define('VERSION', 'v0.9.6-dev-22');
+define('VERSION', 'v0.9.6-dev-22 + <a href="https://int.vichan.net/devel/">vichan-devel-4.4.97</a>');
 
 require 'inc/functions.php';
 
@@ -237,8 +237,12 @@ if (file_exists($config['has_installed'])) {
 				query(sprintf("ALTER TABLE `posts_%s` DROP INDEX `thread`", $_board['uri'])) or error(db_error());
 			}
 		case 'v0.9.6-dev-7':
+		case 'v0.9.6-dev-7 + <a href="https://github.com/vichan-devel/Tinyboard/">vichan-devel-4.0-gold</a>':
 			query("ALTER TABLE  `bans` ADD  `seen` BOOLEAN NOT NULL") or error(db_error());
 		case 'v0.9.6-dev-8':
+		case 'v0.9.6-dev-8 + <a href="https://github.com/vichan-devel/Tinyboard/">vichan-devel-4.0.1</a>':
+			query("CREATE TABLE IF NOT EXISTS `search_queries` (  `ip` varchar(39) NOT NULL,  `time` int(11) NOT NULL,  `query` text NOT NULL) ENGINE=MyISAM DEFAULT CHARSET=utf8;") or error(db_error());
+		case 'v0.9.6-dev-8 + <a href="https://github.com/vichan-devel/Tinyboard/">vichan-devel-4.0.2</a>':
 			query("ALTER TABLE  `mods` CHANGE  `password`  `password` CHAR( 64 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT  'SHA256'") or error(db_error());
 			query("ALTER TABLE  `mods` ADD  `salt` CHAR( 32 ) NOT NULL AFTER  `password`") or error(db_error());
 			$query = query("SELECT `id`,`password` FROM `mods`") or error(db_error());
@@ -257,7 +261,10 @@ if (file_exists($config['has_installed'])) {
 					$_query->execute() or error(db_error($_query));
 				}
 			}
-		case 'v0.9.6-dev-9':
+                case 'v0.9.6-dev-9':
+		case 'v0.9.6-dev-9 + <a href="https://github.com/vichan-devel/Tinyboard/">vichan-devel-4.0.3</a>':
+		case 'v0.9.6-dev-9 + <a href="https://github.com/vichan-devel/Tinyboard/">vichan-devel-4.0.4-gold</a>':
+		case 'v0.9.6-dev-9 + <a href="https://github.com/vichan-devel/Tinyboard/">vichan-devel-4.0.5-gold</a>':
 			foreach ($boards as &$board) {
 				__query(sprintf("ALTER TABLE `posts_%s`
 					CHANGE `subject` `subject` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
@@ -358,6 +365,10 @@ if (file_exists($config['has_installed'])) {
 			query("ALTER TABLE  `reports`
 				CHANGE  `board`  `board` VARCHAR( 58 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;") or error(db_error());
 		case 'v0.9.6-dev-11':
+		case 'v0.9.6-dev-11 + <a href="https://int.vichan.net/devel/">vichan-devel-4.0.6</a>':
+		case 'v0.9.6-dev-11 + <a href="https://int.vichan.net/devel/">vichan-devel-4.0.7-gold</a>':
+		case 'v0.9.6-dev-11 + <a href="https://int.vichan.net/devel/">vichan-devel-4.0.8-gold</a>':
+		case 'v0.9.6-dev-11 + <a href="https://int.vichan.net/devel/">vichan-devel-4.0.9-gold</a>':
 			foreach ($boards as &$board) {
 				__query(sprintf("ALTER TABLE  ``posts_%s``
 					CHANGE  `thumb`  `thumb` VARCHAR( 255 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
@@ -365,12 +376,15 @@ if (file_exists($config['has_installed'])) {
 					$board['uri'])) or error(db_error());
 			}
 		case 'v0.9.6-dev-12':
+		case 'v0.9.6-dev-12 + <a href="https://int.vichan.net/devel/">vichan-devel-4.0.10</a>':
+		case 'v0.9.6-dev-12 + <a href="https://int.vichan.net/devel/">vichan-devel-4.0.11-gold</a>':
 			foreach ($boards as &$board) {
 				query(sprintf("ALTER TABLE  ``posts_%s`` ADD INDEX `ip` (`ip`)", $board['uri'])) or error(db_error());
 			}
 		case 'v0.9.6-dev-13':
 			query("ALTER TABLE ``antispam`` ADD INDEX `expires` (`expires`)") or error(db_error());
 		case 'v0.9.6-dev-14':
+		case 'v0.9.6-dev-14 + <a href="https://int.vichan.net/devel/">vichan-devel-4.0.12</a>':
 			foreach ($boards as &$board) {
 				query(sprintf("ALTER TABLE  ``posts_%s``
 					DROP INDEX `body`,
@@ -387,6 +401,7 @@ if (file_exists($config['has_installed'])) {
 					ADD INDEX `list_threads` (`thread`, `sticky`, `bump`)", $board['uri'])) or error(db_error());
 			}
 		case 'v0.9.6-dev-16':
+		case 'v0.9.6-dev-16 + <a href="https://int.vichan.net/devel/">vichan-devel-4.0.13</a>':
 			query("ALTER TABLE ``bans`` ADD INDEX `seen` (`seen`)") or error(db_error());
 		case 'v0.9.6-dev-17':
 			query("ALTER TABLE ``ip_notes``
@@ -473,6 +488,7 @@ if (file_exists($config['has_installed'])) {
 			// Replace with new table
 			query("RENAME TABLE ``bans_new_temp`` TO ``bans``") or error(db_error());
 		case 'v0.9.6-dev-21':
+		case 'v0.9.6-dev-21 + <a href="https://int.vichan.net/devel/">vichan-devel-4.4.90</a>':
 			__query("CREATE TABLE IF NOT EXISTS ``ban_appeals`` (
 				  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
 				  `ban_id` int(10) unsigned NOT NULL,
@@ -482,6 +498,13 @@ if (file_exists($config['has_installed'])) {
 				  PRIMARY KEY (`id`),
 				  KEY `ban_id` (`ban_id`)
 				) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 ;") or error(db_error());
+		case 'v0.9.6-dev-22':
+		case 'v0.9.6-dev-22 + <a href="https://int.vichan.net/devel/">vichan-devel-4.4.91</a>':
+		case 'v0.9.6-dev-22 + <a href="https://int.vichan.net/devel/">vichan-devel-4.4.92</a>':
+		case 'v0.9.6-dev-22 + <a href="https://int.vichan.net/devel/">vichan-devel-4.4.93</a>':
+		case 'v0.9.6-dev-22 + <a href="https://int.vichan.net/devel/">vichan-devel-4.4.94</a>':
+		case 'v0.9.6-dev-22 + <a href="https://int.vichan.net/devel/">vichan-devel-4.4.95</a>':
+		case 'v0.9.6-dev-22 + <a href="https://int.vichan.net/devel/">vichan-devel-4.4.96</a>':
 		case false:
 			// Update version number
 			file_write($config['has_installed'], VERSION);

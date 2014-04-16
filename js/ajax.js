@@ -32,6 +32,8 @@ $(window).ready(function() {
 			formData.append('json_response', '1');
 			formData.append('post', submit_txt);
 
+			$(document).trigger("ajax_before_post", formData);
+
 			var updateProgress = function(e) {
 				var percentage;
 				if (e.position === undefined) { // Firefox
@@ -85,6 +87,8 @@ $(window).ready(function() {
 										if($('#' + id).length == 0) {
 											$(this).insertAfter($('div.post:last').next()).after('<br class="clear">');
 											$(document).trigger('new_post', this);
+											// watch.js & auto-reload.js retrigger
+											setTimeout(function() { $(window).trigger("scroll"); }, 100);
 										}
 									});
 									

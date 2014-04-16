@@ -36,6 +36,7 @@
 			display: block;\
 			padding: 0 0 0 0;\
 			width: 300px;\
+			z-index: 100;\
 		}\
 		#quick-reply table {\
 			border-collapse: collapse;\
@@ -217,13 +218,16 @@
 					if ($td.find('input[name="file_url"]').length) {
 						$file_url = $td.find('input[name="file_url"]');
 						
-						// Make a new row for it
-						var $newRow = $('<tr><td colspan="2"></td></tr>');
+						if (settings.get('show_remote', false)) {
+							// Make a new row for it
+							var $newRow = $('<tr><td colspan="2"></td></tr>');
 						
-						$file_url.clone().attr('placeholder', _('Upload URL')).appendTo($newRow.find('td'));
+							$file_url.clone().attr('placeholder', _('Upload URL')).appendTo($newRow.find('td'));
+						
+							$newRow.insertBefore(this);
+						}
 						$file_url.parent().remove();
-						
-						$newRow.insertBefore(this);
+
 						
 						$td.find('label').remove();
 						$td.contents().filter(function() {
@@ -235,6 +239,11 @@
 					if ($(this).find('input[name="spoiler"]').length) {
 						$td.removeAttr('colspan');
 					}
+				}
+
+				// Disable embedding if configured so
+				if (!settings.get('show_embed', false) && $td.find('input[name="embed"]').length) {
+					$(this).remove();
 				}
 
 				// Remove oekaki if existent
@@ -285,10 +294,10 @@
 		$origPostForm = $('form[name="post"]:first');
 		
 		// Synchronise body text with original post form
-		$origPostForm.find('textarea[name="body"]').bind('change input propertychange', function() {
+		$origPostForm.find('textarea[name="body"]').on('change input propertychange', function() {
 			$postForm.find('textarea[name="body"]').val($(this).val());
 		});
-		$postForm.find('textarea[name="body"]').bind('change input propertychange', function() {
+		$postForm.find('textarea[name="body"]').on('change input propertychange', function() {
 			$origPostForm.find('textarea[name="body"]').val($(this).val());
 		});
 		$postForm.find('textarea[name="body"]').focus(function() {
@@ -300,14 +309,14 @@
 			$(this).attr('id', 'body');
 		});
 		// Synchronise other inputs
-		$origPostForm.find('input[type="text"],select').bind('change input propertychange', function() {
+		$origPostForm.find('input[type="text"],select').on('change input propertychange', function() {
 			$postForm.find('[name="' + $(this).attr('name') + '"]').val($(this).val());
 		});
-		$postForm.find('input[type="text"],select').bind('change input propertychange', function() {
+		$postForm.find('input[type="text"],select').on('change input propertychange', function() {
 			$origPostForm.find('[name="' + $(this).attr('name') + '"]').val($(this).val());
 		});
-	
-		if (typeof $postForm.draggable != 'undefined') {
+
+		if (typeof $postForm.draggable != 'undefined') {	
 			if (localStorage.quickReplyPosition) {
 				var offset = JSON.parse(localStorage.quickReplyPosition);
 				if (offset.top < 0)

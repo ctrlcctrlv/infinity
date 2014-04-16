@@ -7,18 +7,28 @@
  * Copyright (c) 2013-2014 Marcin Łabanowski <marcin@6irc.net> 
  *
  * Usage:
+ *   $config['additional_javascript'][] = 'js/mobile-style.js';
  *   $config['additional_javascript'][] = 'js/smartphone-spoiler.js';
  *
  */
 
 onready(function(){
-	if(navigator.userAgent.match(/iPhone|iPod|iPad|Android|Opera Mini|Blackberry|PlayBook|Windows Phone|Tablet PC|Windows CE|IEMobile/i)) {
-		var spoilers = document.getElementsByClassName('spoiler');
-		for(var i = 0; i < spoilers.length; i++) {
-			spoilers[i].onmousedown = function() {
-				this.style.color = 'white';
-			};
-		}
+	if(device_type == 'mobile') {
+		var fix_spoilers = function(where) {
+			var spoilers = where.getElementsByClassName('spoiler');
+			for(var i = 0; i < spoilers.length; i++) {
+				spoilers[i].onmousedown = function() {
+					this.style.color = 'white';
+				};
+			}
+		};
+		fix_spoilers(document);
+
+	        // allow to work with auto-reload.js, etc.
+	        $(document).on('new_post', function(e, post) {
+	                fix_spoilers(post);
+        	});             
+	
 	}
 });
 

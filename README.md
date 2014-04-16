@@ -1,6 +1,15 @@
 Tinyboard - A lightweight PHP imageboard.
 ==========================================
 
+Tinyboard + vichan-devel
+------------
+Tinyboard branch taking lightweightness somewhat more liberally. Running live at
+https://pl.vichan.net/ (Polish) and http://vichan.net/ (International; may be outdated).
+
+It contains many changes from original Tinyboard, mainly in frontend area.
+
+Support and announcements: https://int.vichan.net/devel/
+
 About
 ------------
 Tinyboard is a free light-weight, fast, highly configurable and user-friendly
@@ -62,6 +71,11 @@ find support from a variety of sources:
 *	You can join Tinyboard's IRC channel for support and general queries: 
 	[irc.datnode.net #tinyboard](irc://irc.datnode.net/tinyboard).
 *	You may find help at [tinyboard.org](http://tinyboard.org/#help).
+
+Tinyboard-Tools:
+-----------------
+## Directories
+*	```tools/``` -- Command-line management scripts for Tinyboard. These should not be publicly executable.
 
 License
 --------

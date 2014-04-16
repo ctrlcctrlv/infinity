@@ -4,6 +4,7 @@
  *
  * Released under the MIT license
  * Copyright (c) 2013 Michael Save <savetheinternet@tinyboard.org>
+ * Copyright (c) 2013-2014 Marcin Łabanowski <marcin@6irc.net>
  *
  * Usage:
  *   $config['additional_javascript'][] = 'js/jquery.min.js';
@@ -12,11 +13,9 @@
  */
 
 $(document).ready(function(){
-	if($('div.banner').length != 0)
+	if (active_page != "index" && active_page != "ukko")
 		return; // not index
-	
-	var board = $('form input[name="board"]').val().toString();
-	
+		
 	if (!localStorage.hiddenthreads)
 		localStorage.hiddenthreads = '{}';
 	
@@ -36,21 +35,26 @@ $(document).ready(function(){
 			}
 		}
 	}
-	
-	if (!hidden_data[board]) {
-		hidden_data[board] = {}; // id : timestamp
-	}
+
+	var fields_to_hide = 'div.post,div.video-container,video,img,p.fileinfo,a.hide-thread-link,br';
 	
 	var do_hide_threads = function() {
 		var id = $(this).children('p.intro').children('a.post_no:eq(1)').text();
 		var thread_container = $(this).parent();
+
+		var board = thread_container.data("board");
+
+		if (!hidden_data[board]) {
+			hidden_data[board] = {}; // id : timestamp
+		}
+	
 		$('<a class="hide-thread-link" style="float:left;margin-right:5px" href="javascript:void(0)">[–]</a><span> </span>')
 			.insertBefore(thread_container.find(':not(h2,h2 *):first'))
 			.click(function() {
 				hidden_data[board][id] = Math.round(Date.now() / 1000);
 				store_data();
 				
-				thread_container.find('div.post,div.video-container,img,p.fileinfo,a.hide-thread-link,br').hide();
+				thread_container.find(fields_to_hide).hide();
 				
 				var hidden_div = thread_container.find('div.post.op > p.intro').clone();
 				hidden_div.addClass('thread-hidden');
@@ -63,7 +67,7 @@ $(document).ready(function(){
 					.click(function() {
 						delete hidden_data[board][id];
 						store_data();
-						thread_container.find('div.post,div.video-container,img,p.fileinfo,a.hide-thread-link,br').show();
+						thread_container.find(fields_to_hide).show();
 						$(this).remove();
 						hidden_div.remove();
 					});
@@ -76,7 +80,7 @@ $(document).ready(function(){
 
 	$('div.post.op').each(do_hide_threads);
 
-	$(document).bind('new_post', function(e, post) {
+	$(document).on('new_post', function(e, post) {
 		do_hide_threads.call($(post).find('div.post.op')[0]);
 	});
 });
