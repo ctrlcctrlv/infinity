@@ -29,6 +29,13 @@
 		'comment' => '(space seperated)',
 		'default' => implode(' ', $__default_boards)
 	);
+
+	$theme['config'][] = Array(
+		'title' => 'Use all boards - &infin;chan',
+		'name' => 'all',
+		'type' => 'checkbox',
+		'default' => false
+	);
 	
 	$theme['config'][] = Array(
 		'title' => 'Update on new posts',

@@ -11,14 +11,21 @@
 		//	- post (a reply has been made)
 		//	- post-thread (a thread has been made)
 		
-		$boards = explode(' ', $settings['boards']);
+		if ($settings['all']) {
+			$_boards = listBoards();
+			$boards = array();
+			foreach ($_boards as $i => $b)
+				$boards[] = $b['uri'];
+		} else {
+			$boards = explode(' ', $settings['boards']);
+		}
 				
 		if ($action == 'all') {
 			foreach ($boards as $board) {
 				$b = new Catalog();
 				$b->build($settings, $board);
 			}
-		} elseif ($action == 'post-thread' || ($settings['update_on_posts'] && $action == 'post') || ($settings['update_on_posts'] && $action == 'post-delete') && in_array($board, $boards)) {
+		} elseif ($action == 'post-thread' || ($settings['update_on_posts'] && $action == 'post') || ($settings['update_on_posts'] && $action == 'post-delete') && (in_array($board, $boards) | $settings['all'])) {
 			$b = new Catalog();
 			$b->build($settings, $board);
 		}
