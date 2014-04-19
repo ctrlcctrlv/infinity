@@ -10,7 +10,7 @@
 	class ukko {
 		public $settings;
 		public function build($mod = false) {
-			global $config;
+			global $config, $board;
 			$boards = listBoards();
 			
 			$body = '';
@@ -41,7 +41,9 @@
 				}
 	
 				if($count < $this->settings['thread_limit']) {				
-					openBoard($post['board']);			
+					$config['uri_thumb'] = '/'.$post['board'].'/thumb/';
+					$config['uri_img'] = '/'.$post['board'].'/src/';
+					$board['dir'] = $post['board'].'/';
 					$thread = new Thread($post, $mod ? '?/' : $config['root'], $mod);
 
 					$posts = prepare(sprintf("SELECT * FROM ``posts_%s`` WHERE `thread` = :id ORDER BY `id` DESC LIMIT :limit", $post['board']));
@@ -51,6 +53,9 @@
 					
 					$num_images = 0;
 					while ($po = $posts->fetch()) {
+						$config['uri_thumb'] = '/'.$post['board'].'/thumb/';
+						$config['uri_img'] = '/'.$post['board'].'/src/';
+
 						if ($po['file'])
 							$num_images++;
 						
@@ -87,6 +92,7 @@
 			$body .= '<script> var overflow = ' . json_encode($overflow) . '</script>';
 			$body .= '<script type="text/javascript" src="ukko.js"></script>';
 
+			$config['default_stylesheet'] = array('Yotsuba B', $config['stylesheets']['Yotsuba B']);
 			file_write($this->settings['uri'] . '/index.html', Element('index.html', array(
 				'config' => $config,
 				'board' => $board,
