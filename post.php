@@ -150,6 +150,12 @@ if (isset($_POST['delete'])) {
 } elseif (isset($_POST['post'])) {
 	if (!isset($_POST['body'], $_POST['board']))
 		error($config['error']['bot']);
+
+	$post = array('board' => $_POST['board']);
+
+	// Check if board exists
+	if (!openBoard($post['board']))
+		error($config['error']['noboard']);
 	
 	if (!isset($_POST['name']))
 		$_POST['name'] = $config['anonymous'];
@@ -161,9 +167,7 @@ if (isset($_POST['delete'])) {
 		$_POST['subject'] = '';
 	
 	if (!isset($_POST['password']))
-		$_POST['password'] = '';
-	
-	$post = array('board' => $_POST['board']);
+		$_POST['password'] = '';	
 	
 	if (isset($_POST['thread'])) {
 		$post['op'] = false;
@@ -177,7 +181,7 @@ if (isset($_POST['delete'])) {
 	// Check if board exists
 	if (!openBoard($post['board']))
 		error($config['error']['noboard']);
-	
+
 	if (!(($post['op'] && $_POST['post'] == $config['button_newtopic']) ||
 	    (!$post['op'] && $_POST['post'] == $config['button_reply'])))
 		error($config['error']['bot']);
@@ -468,6 +472,20 @@ if (isset($_POST['delete'])) {
 				$post['body'] .= "\n<tinyboard flag>".strtolower($country_code)."</tinyboard>".
 				"\n<tinyboard flag alt>".geoip\geoip_country_name_by_addr_v6($gi, ipv4to6($_SERVER['REMOTE_ADDR']))."</tinyboard>";
 		}
+	}
+	
+	if ($config['user_flag'] && isset($_POST['user_flag']))
+	if (!empty($_POST['user_flag']) ){
+		
+		$user_flag = $_POST['user_flag'];
+		
+		if (!isset($config['user_flags'][$user_flag]))
+			error('Invalid flag selection!');
+
+		$flag_alt = isset($user_flag_alt) ? $user_flag_alt : $config['user_flags'][$user_flag];
+
+		$post['body'] .= "\n<tinyboard flag>" . strtolower($user_flag) . "</tinyboard>" .
+		"\n<tinyboard flag alt>" . $flag_alt . "</tinyboard>";
 	}
 	
 	if (mysql_version() >= 50503) {
