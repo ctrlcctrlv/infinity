@@ -12,10 +12,7 @@
 		//	- post-thread (a thread has been made)
 		
 		if ($settings['all']) {
-			$_boards = listBoards();
-			$boards = array();
-			foreach ($_boards as $i => $b)
-				$boards[] = $b['uri'];
+			$boards = listBoards(TRUE);
 		} else {
 			$boards = explode(' ', $settings['boards']);
 		}
