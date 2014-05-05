@@ -538,7 +538,7 @@
 	$config['user_flag'] = false;
 	
 	// List of user_flag the user can choose. Flags must be placed in the directory set by $config['uri_flags']
-	$config['user_flags'] = [];
+	$config['user_flags'] = array();
 	/* example: 
 	$config['user_flags'] = array (
 		'nz' => 'Nazi',
@@ -1526,6 +1526,23 @@
 	// 	if (!hasPermission($config['mod']['something']))
 	// 		error($config['error']['noaccess']);
 	// 	// ...
+	// };
+
+	// You can also enable themes (like ukko) in mod panel like this:
+	// require_once("templates/themes/ukko/theme.php");
+	//
+	// $config['mod']['custom_pages']['/\*/'] = function() {
+	//        global $mod;
+	//
+	//        $ukko = new ukko();
+	//        $ukko->settings = array();
+	//        $ukko->settings['uri'] = '*';
+	//        $ukko->settings['title'] = 'derp';
+	//        $ukko->settings['subtitle'] = 'derpity';
+	//        $ukko->settings['thread_limit'] = 15;
+	//        $ukko->settings['exclude'] = '';
+	//
+	//        echo $ukko->build($mod);
 	// };
 
 	// Example: Add links to dashboard (will all be in a new "Other" category).
