@@ -373,6 +373,7 @@ function mod_edit_board($boardName) {
 			if ($config['cache']['enabled']) {
 				cache::delete('board_' . $board['uri']);
 				cache::delete('all_boards');
+				cache::delete('all_boards_uri');
 			}
 			
 			modLog('Deleted board: ' . sprintf($config['board_abbreviation'], $board['uri']), false);
