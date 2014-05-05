@@ -6,8 +6,6 @@
 		{% if config.meta_description %}<meta name="description" content="{{ config.meta_description }}">{% endif %}
 		{% if config.default_stylesheet.1 != '' and not mod %}<link rel="stylesheet" type="text/css" id="stylesheet" href="{{ config.uri_stylesheets }}{{ config.default_stylesheet.1 }}">{% endif %}
 		{% if config.font_awesome %}<link rel="stylesheet" media="screen" href="{{ config.root }}{{ config.font_awesome_css }}">{% endif %}
-		{% if config.default_stylesheet.1 != '' %}<link rel="stylesheet" type="text/css" id="stylesheet" href="{{ config.uri_stylesheets }}{{ config.default_stylesheet.1 }}">{% endif %}
-		{% if config.font_awesome %}<link rel="stylesheet" href="{{ config.root }}{{ config.font_awesome_css }}">{% endif %}
 		{% if config.country_flags_condensed %}<link rel="stylesheet" href="{{ config.root }}{{ config.country_flags_condensed_css }}">{% endif %}
 		<script type="text/javascript">
 			var configRoot="{{ config.root }}";
