@@ -534,7 +534,8 @@ if (isset($_POST['delete'])) {
 
 			// Prepend the result to the post body
 			$modifier = ($diceZ != 0) ? ((($diceZ < 0) ? ' - ' : ' + ') . abs($diceZ)) : '';
-			$post['body'] = 'Rolled ' . implode(', ', $dicerolls) . $modifier . ' = ' . $dicesum . "\r\n" . $post['body'];
+			$dicesum = ($diceX > 1) ? ' = ' . $dicesum : '';
+			$post['body'] = 'Rolled ' . implode(', ', $dicerolls) . $modifier . $dicesum . "\r\n" . $post['body'];
 		}
 	}
 	
