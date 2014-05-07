@@ -523,7 +523,7 @@ if (isset($_POST['delete'])) {
 		$diceZ = intval($diceZ);
 
 		// Continue only if we have valid values
-		if($diceX != 0 && $diceY != 0) {
+		if($diceX > 0 && $diceY > 0) {
 			$dicerolls = array();
 			$dicesum = $diceZ;
 			for($i = 0; $i < $diceX; $i++) {
