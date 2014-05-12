@@ -95,7 +95,6 @@
 			$body .= '<script type="text/javascript" src="/'.$this->settings['uri'].'/ukko.js"></script>';
 
 			$config['default_stylesheet'] = array('Yotsuba B', $config['stylesheets']['Yotsuba B']);
-			file_write($this->settings['uri'] . '/index.html', Element('index.html', array(
 
 			return Element('index.html', array(
 				'config' => $config,
