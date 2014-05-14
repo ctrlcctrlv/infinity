@@ -270,7 +270,6 @@
 		'recaptcha_challenge_field',
 		'recaptcha_response_field',
 		'spoiler',
-		'quick-reply',
 		'page',
 		'file_url',
 		'json_response',
@@ -451,6 +450,8 @@
 	// Maximum filename length to display (the rest can be viewed upon mouseover).
 	$config['max_filename_display'] = 30;
 
+	// Allow users to delete their own posts?
+	$config['allow_delete'] = true;
 	// How long after posting should you have to wait before being able to delete that post? (In seconds.)
 	$config['delete_time'] = 10;
 	// Reply limit (stops bumping thread when this is reached).
@@ -607,6 +608,17 @@
  *  Image settings
  * ====================
  */
+	// Maximum number of images allowed. Increasing this number enabled multi image.
+	// If you make it more than 1, make sure to enable the below script for the post form to change.
+	// $config['additional_javascript'][] = 'js/multi_image.js';
+	$config['max_images'] = 1;
+
+	// Method to use for determing the max filesize. 
+	// "split" means that your max filesize is split between the images. For example, if your max filesize
+	// is 2MB, the filesizes of all files must add up to 2MB for it to work. 
+	// "each" means that each file can be 2MB, so if your max_images is 3, each post could contain 6MB of 
+	// images. "split" is recommended.
+	$config['multiimage_method'] = 'split';
 
 	// For resizing, maximum thumbnail dimensions.
 	$config['thumb_width'] = 255;
@@ -628,22 +640,22 @@
 	/*
 	 * Thumbnailing method:
 	 *
-	 *   'gd'           PHP GD (default). Only handles the most basic image formats (GIF, JPEG, PNG).
-	 *                  GD is a prerequisite for Tinyboard no matter what method you choose.
+	 *   'gd'		   PHP GD (default). Only handles the most basic image formats (GIF, JPEG, PNG).
+	 *				  GD is a prerequisite for Tinyboard no matter what method you choose.
 	 *
-	 *   'imagick'      PHP's ImageMagick bindings. Fast and efficient, supporting many image formats. 
-	 *                  A few minor bugs. http://pecl.php.net/package/imagick
+	 *   'imagick'	  PHP's ImageMagick bindings. Fast and efficient, supporting many image formats. 
+	 *				  A few minor bugs. http://pecl.php.net/package/imagick
 	 *
-	 *   'convert'      The command line version of ImageMagick (`convert`). Fixes most of the bugs in
-	 *                  PHP Imagick. `convert` produces the best still thumbnails and is highly recommended.
+	 *   'convert'	  The command line version of ImageMagick (`convert`). Fixes most of the bugs in
+	 *				  PHP Imagick. `convert` produces the best still thumbnails and is highly recommended.
 	 *
-	 *   'gm'           GraphicsMagick (`gm`) is a fork of ImageMagick with many improvements. It is more
-	 *                  efficient and gets thumbnailing done using fewer resources.
+	 *   'gm'		   GraphicsMagick (`gm`) is a fork of ImageMagick with many improvements. It is more
+	 *				  efficient and gets thumbnailing done using fewer resources.
 	 *
 	 *   'convert+gifscale'
-	 *    OR  'gm+gifsicle'  Same as above, with the exception of using `gifsicle` (command line application)
-	 *                       instead of `convert` for resizing GIFs. It's faster and resulting animated
-	 *                       thumbnails have less artifacts than if resized with ImageMagick.
+	 *	OR  'gm+gifsicle'  Same as above, with the exception of using `gifsicle` (command line application)
+	 *					   instead of `convert` for resizing GIFs. It's faster and resulting animated
+	 *					   thumbnails have less artifacts than if resized with ImageMagick.
 	 */
 	$config['thumb_method'] = 'gd';
 	// $config['thumb_method'] = 'convert';
@@ -693,7 +705,7 @@
 
 	// An alternative function for generating image filenames, instead of the default UNIX timestamp.
 	// $config['filename_func'] = function($post) {
-	//      return sprintf("%s", time() . substr(microtime(), 2, 3));
+	//	  return sprintf("%s", time() . substr(microtime(), 2, 3));
 	// };
 
 	// Thumbnail to use for the non-image file uploads.
@@ -730,8 +742,12 @@
 	// Display the file's original filename.
 	$config['show_filename'] = true;
 
-	// Display image identification links using regex.info/exif, TinEye and Google Images.
+	// Display image identification links using ImgOps, regex.info/exif and Google Images.
 	$config['image_identification'] = false;
+	// Which of the identification links to display. Only works if $config['image_identification'] is true.
+	$config['image_identification_imgops'] = true;
+	$config['image_identification_exif'] = true;
+	$config['image_identification_google'] = true;
 	
 	// Number of posts in a "View Last X Posts" page
 	$config['noko50_count'] = 50;
@@ -762,11 +778,6 @@
 
 	// Number of reports you can create at once.
 	$config['report_limit'] = 3;
-
-	// Attention Whoring Bar
-	// REMEMBER TO CHMOD attentionbar.txt PROPERLY
-	// Oh, and add jQuery in additional_javascript.
-	$config['attention_bar'] = false;
 
 	// Allow unfiltered HTML in board subtitle. This is useful for placing icons and links.
 	$config['allow_subtitle_html'] = false;
@@ -928,12 +939,6 @@
 	// Minify Javascript using http://code.google.com/p/minify/.
 	$config['minify_js'] = false;
 
-	// Allows js/quick-reply-old.js to work. This could make your imageboard more vulnerable to flood attacks.
-	$config['quick_reply'] = false;
-
-	// Show "SAGE!" next to sage posts
-	$config['show_sages'] = false;
-
 /*
  * ====================
  *  Video embedding
@@ -948,27 +953,27 @@
 	$config['embedding'] = array(
 		array(
 			'/^https?:\/\/(\w+\.)?youtube\.com\/watch\?v=([a-zA-Z0-9\-_]{10,11})(&.+)?$/i',
-			'<iframe style="float: left;margin: 10px 20px;" width="%%tb_width%%" height="%%tb_height%%" frameborder="0" id="ytplayer" type="text/html" src="https://www.youtube.com/embed/$2"></iframe>'
+			'<iframe style="float: left;margin: 10px 20px;" width="%%tb_width%%" height="%%tb_height%%" frameborder="0" id="ytplayer" type="text/html" src="http://www.youtube.com/embed/$2"></iframe>'
 		),
 		array(
 			'/^https?:\/\/(\w+\.)?vimeo\.com\/(\d{2,10})(\?.+)?$/i',
-			'<object style="float: left;margin: 10px 20px;" width="%%tb_width%%" height="%%tb_height%%"><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="movie" value="http://vimeo.com/moogaloop.swf?clip_id=$2&amp;server=vimeo.com&amp;show_title=0&amp;show_byline=0&amp;show_portrait=0&amp;color=00adef&amp;fullscreen=1&amp;autoplay=0&amp;loop=0" /><embed src="https://vimeo.com/moogaloop.swf?clip_id=$2&amp;server=vimeo.com&amp;show_title=0&amp;show_byline=0&amp;show_portrait=0&amp;color=00adef&amp;fullscreen=1&amp;autoplay=0&amp;loop=0" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" width="%%tb_width%%" height="%%tb_height%%"></embed></object>'
+			'<object style="float: left;margin: 10px 20px;" width="%%tb_width%%" height="%%tb_height%%"><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="movie" value="http://vimeo.com/moogaloop.swf?clip_id=$2&amp;server=vimeo.com&amp;show_title=0&amp;show_byline=0&amp;show_portrait=0&amp;color=00adef&amp;fullscreen=1&amp;autoplay=0&amp;loop=0" /><embed src="http://vimeo.com/moogaloop.swf?clip_id=$2&amp;server=vimeo.com&amp;show_title=0&amp;show_byline=0&amp;show_portrait=0&amp;color=00adef&amp;fullscreen=1&amp;autoplay=0&amp;loop=0" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" width="%%tb_width%%" height="%%tb_height%%"></embed></object>'
 		),
 		array(
 			'/^https?:\/\/(\w+\.)?dailymotion\.com\/video\/([a-zA-Z0-9]{2,10})(_.+)?$/i',
-			'<object style="float: left;margin: 10px 20px;" width="%%tb_width%%" height="%%tb_height%%"><param name="movie" value="http://www.dailymotion.com/swf/video/$2"></param><param name="allowFullScreen" value="true"></param><param name="allowScriptAccess" value="always"></param><param name="wmode" value="transparent"></param><embed type="application/x-shockwave-flash" src="https://www.dailymotion.com/swf/video/$2" width="%%tb_width%%" height="%%tb_height%%" wmode="transparent" allowfullscreen="true" allowscriptaccess="always"></embed></object>'
+			'<object style="float: left;margin: 10px 20px;" width="%%tb_width%%" height="%%tb_height%%"><param name="movie" value="http://www.dailymotion.com/swf/video/$2"></param><param name="allowFullScreen" value="true"></param><param name="allowScriptAccess" value="always"></param><param name="wmode" value="transparent"></param><embed type="application/x-shockwave-flash" src="http://www.dailymotion.com/swf/video/$2" width="%%tb_width%%" height="%%tb_height%%" wmode="transparent" allowfullscreen="true" allowscriptaccess="always"></embed></object>'
 		),
 		array(
 			'/^https?:\/\/(\w+\.)?metacafe\.com\/watch\/(\d+)\/([a-zA-Z0-9_\-.]+)\/(\?.+)?$/i',
-			'<div style="float:left;margin:10px 20px;width:%%tb_width%%px;height:%%tb_height%%px"><embed flashVars="playerVars=showStats=no|autoPlay=no" src="https://www.metacafe.com/fplayer/$2/$3.swf" width="%%tb_width%%" height="%%tb_height%%" wmode="transparent" allowFullScreen="true" allowScriptAccess="always" name="Metacafe_$2" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash"></embed></div>'
+			'<div style="float:left;margin:10px 20px;width:%%tb_width%%px;height:%%tb_height%%px"><embed flashVars="playerVars=showStats=no|autoPlay=no" src="http://www.metacafe.com/fplayer/$2/$3.swf" width="%%tb_width%%" height="%%tb_height%%" wmode="transparent" allowFullScreen="true" allowScriptAccess="always" name="Metacafe_$2" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash"></embed></div>'
 		),
 		array(
 			'/^https?:\/\/video\.google\.com\/videoplay\?docid=(\d+)([&#](.+)?)?$/i',
-			'<embed src="https://video.google.com/googleplayer.swf?docid=$1&hl=en&fs=true" style="width:%%tb_width%%px;height:%%tb_height%%px;float:left;margin:10px 20px" allowFullScreen="true" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>'
+			'<embed src="http://video.google.com/googleplayer.swf?docid=$1&hl=en&fs=true" style="width:%%tb_width%%px;height:%%tb_height%%px;float:left;margin:10px 20px" allowFullScreen="true" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>'
 		),
 		array(
 			'/^https?:\/\/(\w+\.)?vocaroo\.com\/i\/([a-zA-Z0-9]{2,15})$/i',
-			'<object style="float: left;margin: 10px 20px;" width="148" height="44"><param name="movie" value="https://vocaroo.com/player.swf?playMediaID=$2&autoplay=0"></param><param name="wmode" value="transparent"></param><embed src="https://vocaroo.com/player.swf?playMediaID=$2&autoplay=0" width="148" height="44" wmode="transparent" type="application/x-shockwave-flash"></embed></object>'
+			'<object style="float: left;margin: 10px 20px;" width="148" height="44"><param name="movie" value="http://vocaroo.com/player.swf?playMediaID=$2&autoplay=0"></param><param name="wmode" value="transparent"></param><embed src="http://vocaroo.com/player.swf?playMediaID=$2&autoplay=0" width="148" height="44" wmode="transparent" type="application/x-shockwave-flash"></embed></object>'
 		)
 	);
 
@@ -989,6 +994,7 @@
 	$config['error']['toolong_body']	= _('The body was too long.');
 	$config['error']['tooshort_body']	= _('The body was too short or empty.');
 	$config['error']['noimage']		= _('You must upload an image.');
+	$config['error']['toomanyimages'] = _('You have attempted to upload too many images!');
 	$config['error']['nomove']		= _('The server failed to handle your upload.');
 	$config['error']['fileext']		= _('Unsupported image format.');
 	$config['error']['noboard']		= _('Invalid board!');
@@ -1099,9 +1105,9 @@
 
 	// Static images. These can be URLs OR base64 (data URI scheme). These are only used if
 	// $config['font_awesome'] is false (default).
-	// $config['image_sticky']	= 'static/sticky.gif';
+	// $config['image_sticky']	= 'static/sticky.png';
 	// $config['image_locked']	= 'static/locked.gif';
-	// $config['image_bumplocked']	= 'static/sage.gif'.
+	// $config['image_bumplocked']	= 'static/sage.png'.
 
 	// If you want to put images and other dynamic-static stuff on another (preferably cookieless) domain.
 	// This will override $config['root'] and $config['dir']['...'] directives. "%s" will get replaced with
@@ -1396,16 +1402,14 @@
 	$config['mod']['debug_sql'] = DISABLED;
 	// Look through all cache values for debugging when APC is enabled (?/debug/apc)
 	$config['mod']['debug_apc'] = ADMIN;
-	// Look through debug information for recent posts (?/debug/recent)
-	$config['mod']['debug_recent'] = ADMIN;
-	// Look through debug information for the antispam system (?/debug/antispam)
-	$config['mod']['debug_antispam'] = ADMIN;
 	// Edit the current configuration (via web interface)
 	$config['mod']['edit_config'] = ADMIN;
 	// View ban appeals
 	$config['mod']['view_ban_appeals'] = MOD;
 	// Accept and deny ban appeals
 	$config['mod']['ban_appeals'] = MOD;
+	// View the recent posts page
+	$config['mod']['recent'] = MOD;
 
 	// Config editor permissions
 	$config['mod']['config'] = array();
@@ -1440,6 +1444,9 @@
 	// 	'db',
 	// );
 
+	// Allow OP to remove arbitrary posts in his thread
+	$config['user_moderation'] = false;
+
 /*
  * ====================
  *  Public post search
@@ -1451,16 +1458,16 @@
 	$config['search']['enable'] = false;
 
 	// Maximal number of queries per IP address per minutes
-        $config['search']['queries_per_minutes'] = Array(15, 2);
+    $config['search']['queries_per_minutes'] = Array(15, 2);
 
 	// Global maximal number of queries per minutes
-        $config['search']['queries_per_minutes_all'] = Array(50, 2);
+    $config['search']['queries_per_minutes_all'] = Array(50, 2);
 
 	// Limit of search results
-        $config['search']['search_limit'] = 100;
-        
+    $config['search']['search_limit'] = 100;
+		
 	// Boards for searching
-        //$config['search']['boards'] = array('a', 'b', 'c', 'd', 'e');
+    //$config['search']['boards'] = array('a', 'b', 'c', 'd', 'e');
 
 /*
  * ====================
