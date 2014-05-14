@@ -1110,13 +1110,13 @@ function mod_move_reply($originBoard, $postID) {
 			$post['op'] = true;
 		}
 		
-		if ($post['file']) {
+		if ($post['files']) {
+			$post['files'] = json_decode($post['files'], TRUE);
 			$post['has_file'] = true;
-			$post['width'] = &$post['filewidth'];
-			$post['height'] = &$post['fileheight'];
-			
-			$file_src = sprintf($config['board_path'], $board['uri']) . $config['dir']['img'] . $post['file'];
-			$file_thumb = sprintf($config['board_path'], $board['uri']) . $config['dir']['thumb'] . $post['thumb'];
+			foreach ($post['files'] as $i => &$file) {
+				$file['file_path'] = sprintf($config['board_path'], $board['uri']) . $config['dir']['img'] . $file['file'];
+				$file['thumb_path'] = sprintf($config['board_path'], $board['uri']) . $config['dir']['thumb'] . $file['thumb'];
+			}
 		} else {
 			$post['has_file'] = false;
 		}
@@ -1131,10 +1131,12 @@ function mod_move_reply($originBoard, $postID) {
 		$newID = post($post);
 		
 		if ($post['has_file']) {
-			// move the image
-			rename($file_src, sprintf($config['board_path'], $board['uri']) . $config['dir']['img'] . $post['file']);
-			if ($post['thumb'] != 'spoiler') { //trying to move/copy the spoiler thumb raises an error
-				rename($file_thumb, sprintf($config['board_path'], $board['uri']) . $config['dir']['thumb'] . $post['thumb']);
+			foreach ($post['files'] as $i => &$file) {
+				// move the image
+				rename($file['file_path'], sprintf($config['board_path'], $board['uri']) . $config['dir']['img'] . $file['file']);
+				if ($file['thumb'] != 'spoiler') { //trying to move/copy the spoiler thumb raises an error
+					rename($file['thumb_path'], sprintf($config['board_path'], $board['uri']) . $config['dir']['thumb'] . $file['thumb']);
+				}
 			}
 		}
 
@@ -1207,13 +1209,13 @@ function mod_move($originBoard, $postID) {
 		// indicate that the post is a thread
 		$post['op'] = true;
 		
-		if ($post['file']) {
+		if ($post['files']) {
+			$post['files'] = json_decode($post['files'], TRUE);
 			$post['has_file'] = true;
-			$post['width'] = &$post['filewidth'];
-			$post['height'] = &$post['fileheight'];
-			
-			$file_src = sprintf($config['board_path'], $board['uri']) . $config['dir']['img'] . $post['file'];
-			$file_thumb = sprintf($config['board_path'], $board['uri']) . $config['dir']['thumb'] . $post['thumb'];
+			foreach ($post['files'] as $i => &$file) {
+				$file['file_path'] = sprintf($config['board_path'], $board['uri']) . $config['dir']['img'] . $file['file'];
+				$file['thumb_path'] = sprintf($config['board_path'], $board['uri']) . $config['dir']['thumb'] . $file['thumb'];
+			}
 		} else {
 			$post['has_file'] = false;
 		}
@@ -1229,9 +1231,11 @@ function mod_move($originBoard, $postID) {
 		
 		if ($post['has_file']) {
 			// copy image
-			$clone($file_src, sprintf($config['board_path'], $board['uri']) . $config['dir']['img'] . $post['file']);
-			if (!in_array($post['thumb'], array('spoiler', 'deleted', 'file')))
-				$clone($file_thumb, sprintf($config['board_path'], $board['uri']) . $config['dir']['thumb'] . $post['thumb']);
+			foreach ($post['files'] as $i => &$file) {
+				$clone($file['file_path'], sprintf($config['board_path'], $board['uri']) . $config['dir']['img'] . $file['file']);
+				if (!in_array($file['thumb'], array('spoiler', 'deleted', 'file')))
+					$clone($file['thumb_path'], sprintf($config['board_path'], $board['uri']) . $config['dir']['thumb'] . $file['thumb']);
+			}
 		}
 		
 		// go back to the original board to fetch replies
@@ -1247,13 +1251,13 @@ function mod_move($originBoard, $postID) {
 			$post['mod'] = true;
 			$post['thread'] = $newID;
 			
-			if ($post['file']) {
+			if ($post['files']) {
+				$post['files'] = json_decode($post['files'], TRUE);
 				$post['has_file'] = true;
-				$post['width'] = &$post['filewidth'];
-				$post['height'] = &$post['fileheight'];
-				
-				$post['file_src'] = sprintf($config['board_path'], $board['uri']) . $config['dir']['img'] . $post['file'];
-				$post['file_thumb'] = sprintf($config['board_path'], $board['uri']) . $config['dir']['thumb'] . $post['thumb'];
+				foreach ($post['files'] as $i => &$file) {
+					$file['file_path'] = sprintf($config['board_path'], $board['uri']) . $config['dir']['img'] . $file['file'];
+					$file['thumb_path'] = sprintf($config['board_path'], $board['uri']) . $config['dir']['thumb'] . $file['thumb'];
+				}
 			} else {
 				$post['has_file'] = false;
 			}
@@ -1288,14 +1292,16 @@ function mod_move($originBoard, $postID) {
 			$post['op'] = false;
 			$post['tracked_cites'] = markup($post['body'], true);
 			
+			if ($post['has_file']) {
+				// copy image
+				foreach ($post['files'] as $i => &$file) {
+					$clone($file['file_path'], sprintf($config['board_path'], $board['uri']) . $config['dir']['img'] . $file['file']);
+					$clone($file['thumb_path'], sprintf($config['board_path'], $board['uri']) . $config['dir']['thumb'] . $file['thumb']);
+				}
+			}
 			// insert reply
 			$newIDs[$post['id']] = $newPostID = post($post);
 			
-			if ($post['has_file']) {
-				// copy image
-				$clone($post['file_src'], sprintf($config['board_path'], $board['uri']) . $config['dir']['img'] . $post['file']);
-				$clone($post['file_thumb'], sprintf($config['board_path'], $board['uri']) . $config['dir']['thumb'] . $post['thumb']);
-			}
 			
 			if (!empty($post['tracked_cites'])) {
 				$insert_rows = array();
@@ -1527,7 +1533,7 @@ function mod_delete($board, $post) {
 	header('Location: ?/' . sprintf($config['board_path'], $board) . $config['file_index'], true, $config['redirect_http']);
 }
 
-function mod_deletefile($board, $post) {
+function mod_deletefile($board, $post, $file) {
 	global $config, $mod;
 	
 	if (!openBoard($board))
@@ -1537,7 +1543,7 @@ function mod_deletefile($board, $post) {
 		error($config['error']['noaccess']);
 	
 	// Delete file
-	deleteFile($post);
+	deleteFile($post, TRUE, $file);
 	// Record the action
 	modLog("Deleted file from post #{$post}");
 	
@@ -1550,28 +1556,30 @@ function mod_deletefile($board, $post) {
 	header('Location: ?/' . sprintf($config['board_path'], $board) . $config['file_index'], true, $config['redirect_http']);
 }
 
-function mod_spoiler_image($board, $post) {
+function mod_spoiler_image($board, $post, $file) {
 	global $config, $mod;
-       
+	   
 	if (!openBoard($board))
 		error($config['error']['noboard']);
-       
+	   
 	if (!hasPermission($config['mod']['spoilerimage'], $board))
 		error($config['error']['noaccess']);
 
-	// Delete file
-	$query = prepare(sprintf("SELECT `thumb`, `thread` FROM ``posts_%s`` WHERE id = :id", $board));
+	// Delete file thumbnail
+	$query = prepare(sprintf("SELECT `files`, `thread` FROM ``posts_%s`` WHERE id = :id", $board));
 	$query->bindValue(':id', $post, PDO::PARAM_INT);
 	$query->execute() or error(db_error($query));
 	$result = $query->fetch(PDO::FETCH_ASSOC);
+	$files = json_decode($result['files']);
 
-	file_unlink($board . '/' . $config['dir']['thumb'] . $result['thumb']);
-
+	file_unlink($board . '/' . $config['dir']['thumb'] . $files[$file]->thumb);
+	$files[$file]->thumb = 'spoiler';
+	$files[$file]->thumbheight = 128;
+	$files[$file]->thumbwidth = 128;
+	
 	// Make thumbnail spoiler
-	$query = prepare(sprintf("UPDATE ``posts_%s`` SET `thumb` = :thumb, `thumbwidth` = :thumbwidth, `thumbheight` = :thumbheight WHERE `id` = :id", $board));
-	$query->bindValue(':thumb', "spoiler");
-	$query->bindValue(':thumbwidth', 128, PDO::PARAM_INT);
-	$query->bindValue(':thumbheight', 128, PDO::PARAM_INT);
+	$query = prepare(sprintf("UPDATE ``posts_%s`` SET `files` = :files WHERE `id` = :id", $board));
+	$query->bindValue(':files', json_encode($files));
 	$query->bindValue(':id', $post, PDO::PARAM_INT);
 	$query->execute() or error(db_error($query));
 
@@ -1586,7 +1594,7 @@ function mod_spoiler_image($board, $post) {
 
 	// Rebuild themes
 	rebuildThemes('post-delete', $board);
-       
+	   
 	// Redirect
 	header('Location: ?/' . sprintf($config['board_path'], $board) . $config['file_index'], true, $config['redirect_http']);
 }
@@ -2239,6 +2247,68 @@ function mod_report_dismiss($id, $all = false) {
 	header('Location: ?/reports', true, $config['redirect_http']);
 }
 
+function mod_recent_posts($lim) {
+	global $config, $mod, $pdo;
+
+	if (!hasPermission($config['mod']['recent']))
+		error($config['error']['noaccess']);
+
+	$limit = (is_numeric($lim))? $lim : 25;
+
+	$mod_boards = array();
+	$boards = listBoards();
+
+	//if not all boards
+	if ($mod['boards'][0]!='*') {
+		foreach ($boards as $board) {
+			if (in_array($board['uri'], $mod['boards']))
+				$mod_boards[] = $board;
+		}
+	} else {
+		$mod_boards = $boards;
+	}
+
+	// Manually build an SQL query
+	$query = 'SELECT * FROM (';
+	foreach ($mod_boards as $board) {
+		$query .= sprintf('SELECT *, %s AS `board` FROM ``posts_%s`` UNION ALL ', $pdo->quote($board['uri']), $board['uri']);
+	}
+	// Remove the last "UNION ALL" seperator and complete the query
+	$query = preg_replace('/UNION ALL $/', ') AS `all_posts` ORDER BY `time` DESC LIMIT ' . $limit, $query);
+	$query = query($query) or error(db_error());
+	$posts = $query->fetchAll(PDO::FETCH_ASSOC);
+
+	$body = '<h4>Viewing last '.$limit.' posts</h4>
+	<p>View <a href="?/recent/25"> 25 </a>|<a href="?/recent/50"> 50 </a>|<a href="?/recent/100"> 100 </a></p>
+	<a href="javascript:void(0)" id="erase-local-data" style="float:right; clear:both">Erase local data</a></div>';
+	foreach ($posts as $post) {
+		openBoard($post['board']);
+		if (!$post['thread']) {
+			// Still need to fix this:
+			$po = new Thread($post, '?/', $mod, false);
+			$string = $po->build(true);
+			$string = '<div class="post-wrapper" data-board="'.$post['board'].'"><hr/><a class="eita-link" id="eita-'.$post['board'].'-'.$post['id'].'" href="?/'.$post['board'].'/res/'.$post['id'].'.html#'.$post['id'].'">/'.$post['board'].'/'.$post['id'].'</a><br>' . $string;
+		} else {
+			$po = new Post($post, '?/', $mod);
+			$string = $po->build(true);
+			$string = '<div class="post-wrapper" data-board="'.$post['board'].'"><hr/><a class="eita-link" id="eita-'.$post['board'].'-'.$post['id'].'" href="?/'.$post['board'].'/res/'.$post['thread'].'.html#'.$post['id'].'">/'.$post['board'].'/'.$post['id'].'</a><br>' . $string; 
+		}
+		$body .= $string . '</div>';
+	}
+
+	echo Element('page.html', array(
+		'config' => $config,
+		'mod' => $mod,
+		'hide_dashboard_link' => true,
+		'title' => _('Recent posts'),
+		'subtitle' => '',
+		'nojavascript' => false,
+		'is_recent_posts' => true,
+		'body' => $body
+		)
+	);
+
+}
 
 function mod_config($board_config = false) {
 	global $config, $mod, $board;

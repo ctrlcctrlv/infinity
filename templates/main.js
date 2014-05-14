@@ -293,6 +293,7 @@ function ready() {
 {% endraw %}
 
 var post_date = "{{ config.post_date }}";
+var max_images = {{ config.max_images }};
 
 {% if config.google_analytics %}{% raw %}
 
