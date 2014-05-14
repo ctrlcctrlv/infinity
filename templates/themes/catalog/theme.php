@@ -51,8 +51,10 @@
 
 				if (isset($post['files']))
 					$files = json_decode($post['files']);
-					if ($files[0]->file == 'deleted') continue;
-					$post['file'] = $config['uri_thumb'] . $files[0]->thumb;
+					if (isset($files)) {
+						if ($files[0]->file == 'deleted') continue;
+						$post['file'] = $config['uri_thumb'] . $files[0]->thumb;
+					}
 
                                 if ($settings['use_tooltipster']) {
                                         $post['muhdifference'] = ago(time() - $post['time']);
