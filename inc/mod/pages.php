@@ -1859,11 +1859,18 @@ function mod_users() {
 	if (!hasPermission($config['mod']['manageusers']))
 		error($config['error']['noaccess']);
 	
-	$query = query("SELECT
-		*,
-		(SELECT `time` FROM ``modlogs`` WHERE `mod` = `id` ORDER BY `time` DESC LIMIT 1) AS `last`,
-		(SELECT `text` FROM ``modlogs`` WHERE `mod` = `id` ORDER BY `time` DESC LIMIT 1) AS `action`
-		FROM ``mods`` ORDER BY `type` DESC,`id`") or error(db_error());
+	$query = query("SELECT ``m``.`id`, ``m``.`username`, ``m``.`boards`, ``m``.`type`, 
+	``ml``.`time` last, ``ml``.`text` action
+	FROM ``mods`` AS m
+	LEFT JOIN (
+	    SELECT ml1.* 
+	    FROM ``modlogs`` AS ml1 
+	    JOIN (
+	        SELECT `mod`, MAX(time) AS time
+	        FROM ``modlogs``
+	        GROUP BY `mod`   
+	    ) AS ml2 USING (`mod`, time)
+	) AS ml ON m.id = ml.`mod`;") or error(db_error());
 	$users = $query->fetchAll(PDO::FETCH_ASSOC);
 	
 	foreach ($users as &$user) {
