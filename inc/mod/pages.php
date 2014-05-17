@@ -1870,7 +1870,7 @@ function mod_users() {
 	        FROM ``modlogs``
 	        GROUP BY `mod`   
 	    ) AS ml2 USING (`mod`, time)
-	) AS ml ON m.id = ml.`mod`;") or error(db_error());
+	) AS ml ON m.id = ml.`mod` ORDER BY ``m``.`type` DESC;") or error(db_error());
 	$users = $query->fetchAll(PDO::FETCH_ASSOC);
 	
 	foreach ($users as &$user) {
