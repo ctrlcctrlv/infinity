@@ -7,8 +7,8 @@ function last_activity($board) {
 	$query = prepare(sprintf("SELECT MAX(time) AS time FROM posts_%s", $board));
 	$query->execute();
 	$row = $query->fetch();
-	$ago = (new DateTime)->sub(new DateInterval('PT72H'));
-	$mod_ago = (new DateTime)->sub(new DateInterval('PT168H'));
+	$ago = (new DateTime)->sub(new DateInterval('P1W'));
+	$mod_ago = (new DateTime)->sub(new DateInterval('P2W'));
 
 	$last_activity_date = new DateTime();
 	$last_mod_date = new DateTime();	
@@ -47,7 +47,7 @@ function last_activity($board) {
 if (!isset($_GET['claim'])) {
 $title = "Boards that need new owners";
 $q = query("SELECT uri FROM boards");
-$body = '<p>The following boards have been abandoned by their owners or have less than one post in a seventy-two hour period. Think you can do a better job? Claim one! Note: You can only reclaim one board per IP per day. Choose carefully!</p><table class="modlog" style="width:auto"><thead><tr><th>Board</th><th>Last activity</th><th>Last mod login</th><th>Reclaim</th></thead></tr><tbody>';
+$body = '<p>The following boards have been abandoned by their owners or have less than one post in a seventy-two hour period. Think you can do a better job? Claim one! Note: You can only reclaim one board per IP per 72 hours. Choose carefully!</p><table class="modlog" style="width:auto"><thead><tr><th>Board</th><th>Last activity</th><th>Last mod login</th><th>Reclaim</th></thead></tr><tbody>';
 $boards = $q->fetchAll(PDO::FETCH_COLUMN);
 
 $delete = array();
@@ -72,7 +72,7 @@ $query->execute();
 
 $r_last = $query->fetch(PDO::FETCH_ASSOC);
 $last = new DateTime($r_last['last'], new DateTimeZone('UTC'));
-$ago = (new DateTime('',new DateTimeZone('UTC')))->sub(new DateInterval('P1D'));
+$ago = (new DateTime('',new DateTimeZone('UTC')))->sub(new DateInterval('P3D'));
 if ($last > $ago and $r_last) {
 error('You already claimed a board today');
 }
