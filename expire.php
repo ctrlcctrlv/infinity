@@ -124,6 +124,7 @@ foreach($delete as $i => $d){
 	
 	// Delete entire board directory
 	rrmdir($board['uri'] . '/');
+	cache::delete('board_' . $board['uri']);
 	
 	if ($d['mod']) {
 		$query = prepare('DELETE FROM ``mods`` WHERE `username` = :id');
@@ -133,7 +134,7 @@ foreach($delete as $i => $d){
 }
 fclose($f);
 }
-apc_delete('all_boards_uri');
-apc_delete('all_boards');
+cache::delete('all_boards_uri');
+cache::delete('all_boards');
 rebuildThemes('boards');
 $query = query('DELETE FROM board_create WHERE uri NOT IN (SELECT uri FROM boards);') or error(db_error());
