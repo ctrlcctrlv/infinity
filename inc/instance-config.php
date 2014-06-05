@@ -242,7 +242,7 @@ OEKAKI;
 				$_POST['max_images'] = (int)$_POST['max_images'];
 				$multiimage = "\$config['max_images'] = {$_POST['max_images']};
 					   \$config['file_script'] = '$b/main.js';
-					   \$config['additional_javascripts'][] = 'js/multi-image.js';";
+					   \$config['additional_javascript'][] = 'js/multi-image.js';";
 			} else {
 				$multiimage = '';
 			} 

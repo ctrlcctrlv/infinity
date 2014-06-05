@@ -76,7 +76,7 @@ function changeStyle(styleName, link) {
 {% endraw %}
 
 function init_stylechooser() {
-	var matches = document.URL.match(/\/(\w+)\/($|{{ config.dir.res|replace({'/': '\\/'}) }}{{ config.file_page|replace({'%d': '\\d+', '.': '\\.'}) }}|{{ config.file_index|replace({'.': '\\.'}) }}|{{ config.file_page|replace({'%d': '\\d+', '.': '\\.'}) }})/);
+	var matches = document.URL.match(/\/(\w+)\/($|{{ config.dir.res|replace({'/': '\\/'}) }}{{ config.file_page|replace({'%d': '\\d+', '.': '\\.'}) }}|{{ config.file_index|replace({'.': '\\.'}) }}|{{ config.dir.res|replace({'/': '\\/'}) }}{{ config.file_page50|replace({'+': '\\+', '%d': '\\d+', '.': '\\.'}) }})/);
 	var newElement = document.createElement('div');
 	newElement.className = 'styles';
 	
