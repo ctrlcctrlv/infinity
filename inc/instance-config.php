@@ -92,6 +92,7 @@ require_once "htmlpurifier-4.5.0/library/HTMLPurifier.auto.php";
 	$config['additional_javascript'][] = 'js/hide-images.js';
 	$config['additional_javascript'][] = 'js/expand-all-images.js';
 	$config['additional_javascript'][] = 'js/local-time.js';
+	$config['additional_javascript'][] = 'js/no-animated-gif.js';
 	
 
 	$config['font_awesome_css'] = '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css';
