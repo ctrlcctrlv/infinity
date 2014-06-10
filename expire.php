@@ -50,8 +50,8 @@ foreach($boards as $board) {
 	}
 
 	#if (($last_activity_date < $ago or ($last_mod_date and $last_mod_date < $mod_ago)) and (int)$count['count'] < 30) {
-	if (($last_activity_date < $ago or ($last_mod_date and $last_mod_date < $mod_ago))) {
-		echo $board, ' ', $last_activity_date->format('Y-m-d H:i:s'), ' ', ($last_mod_date ? $last_mod_date->format('Y-m-d H:i:s') : 'false'), ' ', $count['count'], "\r\n";
+	if (($last_activity_date < $ago or ($last_mod_date and $last_mod_date < $mod_ago)) and isset($mods[0]['id'])) {
+		echo $board, ' ', $last_activity_date->format('Y-m-d H:i:s'), ' ', ($last_mod_date ? $last_mod_date->format('Y-m-d H:i:s') : 'false'), ' ', $count['count'], ' ', $mod, "\r\n";
 		$delete[] = array('board' => $board, 'last_activity' => $last_activity_date, 'last_mod' => $last_mod_date, 'mod' => isset($mods[0]['username']) ? $mods[0]['username'] : false, 'count' => $count['count']);
 	}
 }
