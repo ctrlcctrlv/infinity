@@ -109,7 +109,8 @@ require_once "htmlpurifier-4.5.0/library/HTMLPurifier.auto.php";
 
 	$config['search']['enable'] = true;
 
-	//$config['debug'] = true;
+//$config['debug'] = true;
+	$config['syslog'] = true;
 
 	$config['flood_time'] = 2;
 	// Minimum time between between each post with the exact same content AND same IP address.
