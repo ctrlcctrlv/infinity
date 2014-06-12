@@ -157,7 +157,7 @@ function highlightReply(id) {
 			post.className += ' highlighted';
 			window.location.hash = id;
 	}
-	return false;
+	return true;
 }
 
 function generatePassword() {
@@ -189,6 +189,8 @@ function dopost(form) {
 
 function citeReply(id, with_link) {
 	var textarea = document.getElementById('body');
+
+	if (!textarea) return false;
 	
 	if (document.selection) {
 		// IE
