@@ -218,6 +218,7 @@ require_once "htmlpurifier-4.5.0/library/HTMLPurifier.auto.php";
 			$poster_ids = isset($_POST['poster_ids']) ? 'true' : 'false';
 			$show_sages = isset($_POST['show_sages']) ? 'true' : 'false';
 			$auto_unicode = isset($_POST['auto_unicode']) ? 'true' : 'false';
+			$meta_noindex = isset($_POST['meta_noindex']) ? 'true' : 'false';
 			$code_tags = isset($_POST['code_tags']) ? '$config[\'additional_javascript\'][] = \'js/code_tags/run_prettify.js\';$config[\'markup\'][] = array("/\[code\](.+?)\[\/code\]/ms", "<code><pre class=\'prettyprint\' style=\'display:inline-block\'>\$1</pre></code>");' : '';
 			$mathjax = isset($_POST['mathjax']) ? '$config[\'mathjax\'] = true;$config[\'additional_javascript\'][] = \'js/mathjax-MathJax-727332c/MathJax.js?config=TeX-AMS_HTML-full\';' : '';
 $oekaki_js = <<<OEKAKI
@@ -287,6 +288,7 @@ OEKAKI;
 \$config['poster_ids'] = $poster_ids;
 \$config['show_sages'] = $show_sages;
 \$config['auto_unicode'] = $auto_unicode;
+\$config['meta_noindex'] = $meta_noindex;
 \$config['anonymous'] = base64_decode('$anonymous');
 \$config['blotter'] = base64_decode('$blotter');
 \$config['stylesheets']['Custom'] = 'board/$b.css';
