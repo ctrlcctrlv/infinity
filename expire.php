@@ -126,6 +126,7 @@ foreach($delete as $i => $d){
 	rrmdir($board['uri'] . '/');
 	cache::delete('board_' . $board['uri']);
 	
+	_syslog(LOG_NOTICE, "Board deleted: {$board['uri']}");
 	if ($d['mod']) {
 		$query = prepare('DELETE FROM ``mods`` WHERE `username` = :id');
 		$query->bindValue(':id', $d['mod']);

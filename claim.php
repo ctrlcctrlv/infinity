@@ -102,6 +102,7 @@ query(sprintf("UPDATE posts_%s SET ip = '127.0.0.1'", $board['uri']));
 $query = prepare("DELETE FROM bans WHERE board = :board");
 $query->bindValue(":board", $board['uri']);
 $query->execute();
+_syslog(LOG_NOTICE, "Board claimed: {$board['uri']}");
 
 $body = "<p>Please read the following instructions carefully:</p>
 

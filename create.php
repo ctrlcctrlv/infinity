@@ -106,6 +106,8 @@ rebuildThemes('boards');
 
 query("INSERT INTO ``board_create``(uri) VALUES('$uri')") or error(db_error());
 
+_syslog(LOG_NOTICE, "New board: $uri");
+
 $body = <<<EOT
 
 <p>Your new board is created and is live at <a href="/{$uri}">/{$uri}/</a>.</p>
