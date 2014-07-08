@@ -244,7 +244,7 @@ function mod_search($type, $search_query_escaped, $page_no = 1) {
 	
 	// Which `field` to search?
 	if ($type == 'posts')
-		$sql_field = array('body_nomarkup', 'filename', 'file', 'subject', 'filehash', 'ip', 'name', 'trip');
+		$sql_field = array('body_nomarkup', 'files', 'subject', 'filehash', 'ip', 'name', 'trip');
 	if ($type == 'IP_notes')
 		$sql_field = 'body';
 	if ($type == 'bans')
