@@ -13,8 +13,6 @@ $publisher_html = $ayah->getPublisherHTML();
 $password = base64_encode(openssl_random_pseudo_bytes(9));
 
 $body = <<<EOT
-<p>Did you know? Many boards with popular names on 8chan.co are abandoned and can be claimed by you. <a href="/claim.php">Click here to see the list and claim yours!</a></p>
-
 <form method="POST">
 <table class="modlog" style="width:auto">
 <tbody>
