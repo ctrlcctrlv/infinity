@@ -9,14 +9,17 @@ defined('TINYBOARD') or exit;
 class Filter {
 	public $flood_check;
 	private $condition;
+	private $post;
 	
 	public function __construct(array $arr) {
 		foreach ($arr as $key => $value)
 			$this->$key = $value;		
 	}
 	
-	public function match(array $post, $condition, $match) {
+	public function match($condition, $match) {
 		$condition = strtolower($condition);
+
+		$post = &$this->post;
 		
 		switch($condition) {
 			case 'custom':
@@ -94,19 +97,35 @@ class Filter {
 			case 'filehash':
 				return $match === $post['filehash'];
 			case 'filename':
-				if (!$post['has_file'])
+				if (!$post['files'])
 					return false;
-				return preg_match($match, $post['filename']);
+
+				foreach ($post['files'] as $file) {
+					if (preg_match($match, $file['filename'])) {
+						return true;
+					}
+				}
+				return false;
 			case 'extension':
-				if (!$post['has_file'])
+				if (!$post['files'])
 					return false;
-				return preg_match($match, $post['body']);
+
+				foreach ($post['files'] as $file) {
+					if (preg_match($match, $file['extension'])) {
+						return true;
+					}
+				}
+				return false;
 			case 'ip':
 				return preg_match($match, $_SERVER['REMOTE_ADDR']);
 			case 'op':
 				return $post['op'] == $match;
 			case 'has_file':
 				return $post['has_file'] == $match;
+			case 'board':
+				return $post['board'] == $match;
+			case 'password':
+				return $post['password'] == $match;
 			default:
 				error('Unknown filter condition: ' . $condition);
 		}
@@ -114,8 +133,17 @@ class Filter {
 	
 	public function action() {
 		global $board;
-		
-		switch($this->action) {
+
+		$this->add_note = isset($this->add_note) ? $this->add_note : false;
+		if ($this->add_note) {
+			$query = prepare('INSERT INTO ``ip_notes`` VALUES (NULL, :ip, :mod, :time, :body)');
+	                $query->bindValue(':ip', $_SERVER['REMOTE_ADDR']);
+        	        $query->bindValue(':mod', -1);
+	                $query->bindValue(':time', time());
+	                $query->bindValue(':body', "Autoban message: ".$this->post['body']);
+	                $query->execute() or error(db_error($query));
+		}				
+		if (isset ($this->action)) switch($this->action) {
 			case 'reject':
 				error(isset($this->message) ? $this->message : 'Posting throttled by filter.');
 			case 'ban':
@@ -127,7 +155,7 @@ class Filter {
 				$this->all_boards = isset($this->all_boards) ? $this->all_boards : false;
 				
 				Bans::new_ban($_SERVER['REMOTE_ADDR'], $this->reason, $this->expires, $this->all_boards ? false : $board['uri'], -1);
-				
+
 				if ($this->reject) {
 					if (isset($this->message))
 						error($message);
@@ -143,13 +171,14 @@ class Filter {
 	}
 	
 	public function check(array $post) {
+		$this->post = $post;
 		foreach ($this->condition as $condition => $value) {
 			if ($condition[0] == '!') {
 				$NOT = true;
 				$condition = substr($condition, 1);
 			} else $NOT = false;
 			
-			if ($this->match($post, $condition, $value) == $NOT)
+			if ($this->match($condition, $value) == $NOT)
 				return false;
 		}
 		return true;
