@@ -2360,6 +2360,11 @@ function diceRoller($post) {
 		$diceY = intval($diceY);
 		$diceZ = intval($diceZ);
 
+		// Arbitrary maximum number of dice
+		if ($diceX > 200) {
+			$diceX = 200;
+		}
+
 		// Continue only if we have valid values
 		if($diceX > 0 && $diceY > 0) {
 			$dicerolls = array();
