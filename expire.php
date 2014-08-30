@@ -57,7 +57,7 @@ foreach($boards as $board) {
 }
 if ($argc > 1) {
 $f = fopen('rip.txt', 'a');
-fwrite($f, "--\r\n");
+fwrite($f, "--\r\n".date('c')."\r\n");
 foreach($delete as $i => $d){
 	$s = "RIP /".$d['board']."/, created by ".($d['mod']?$d['mod']:'?')." and last active on ".$d['last_activity']->format('Y-m-d H:i:s.').($d['last_mod'] ? ' Mod last active on ' . $d['last_mod']->format('Y-m-d H:i:s.') : ' Mod never active.') . " Number of posts: {$d['count']}." . "\r\n";
 	echo $s;
