@@ -4,7 +4,7 @@ include "inc/functions.php";
 if (!(php_sapi_name() == "cli")) {
 	die('nope');
 }
-
+$protected = array('burgers', 'cow', 'wilno');
 $q = query("SELECT uri FROM boards");
 $boards = $q->fetchAll(PDO::FETCH_COLUMN);
 $now = new DateTime();
@@ -14,6 +14,10 @@ $mod_ago = (new DateTime)->sub(new DateInterval('P14D'));
 // Find out the last activity for our board
 $delete = array();
 foreach($boards as $board) {
+	if (in_array($board, $protected)) {
+		continue;
+	}
+
 	// last post
 	$query = prepare(sprintf("SELECT MAX(time) AS time FROM posts_%s", $board));
 	$query->execute();
@@ -125,6 +129,7 @@ foreach($delete as $i => $d){
 	
 	// Delete entire board directory
 	rrmdir($board['uri'] . '/');
+	rrmdir('static/banners/' . $board['uri']);
 	cache::delete('board_' . $board['uri']);
 	
 	_syslog(LOG_NOTICE, "Board deleted: {$board['uri']}");
@@ -140,3 +145,4 @@ cache::delete('all_boards_uri');
 cache::delete('all_boards');
 rebuildThemes('boards');
 $query = query('DELETE FROM board_create WHERE uri NOT IN (SELECT uri FROM boards);') or error(db_error());
+file_get_contents('https://8chan.co/listboards.php');
