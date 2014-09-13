@@ -94,6 +94,7 @@ require_once "8chan-functions.php";
 	$config['additional_javascript'][] = 'js/expand-all-images.js';
 	$config['additional_javascript'][] = 'js/local-time.js';
 	$config['additional_javascript'][] = 'js/no-animated-gif.js';
+	$config['additional_javascript'][] = 'js/expand.js';
 	
 
 	$config['font_awesome_css'] = '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css';
