@@ -175,7 +175,11 @@ class Bans {
 	}
 	
 	static public function count($board = false) {
-		$query = prepare("SELECT COUNT(*) FROM ``bans`` WHERE `board` = :board");
+		if (!$board) {
+			$query = prepare("SELECT COUNT(*) FROM ``bans``");
+		} else {
+			$query = prepare("SELECT COUNT(*) FROM ``bans`` WHERE `board` = :board");
+		}
 		$query->bindValue(':board', $board);
 		$query->execute() or error(db_error());
 		return (int)$query->fetchColumn();
