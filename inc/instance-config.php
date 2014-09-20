@@ -23,9 +23,9 @@ require_once "8chan-functions.php";
 	$config['cookies']['mod'] = 'mod';
 	$config['cookies']['salt'] = 'REMOVED';
 
-	$config['flood_time'] = 10;
+	$config['flood_time'] = 2;
 	$config['flood_time_ip'] = 120;
-	$config['flood_time_same'] = 30;
+	$config['flood_time_same'] = 5;
 	$config['max_body'] = 5000;
 	$config['reply_limit'] = 250;
 	$config['max_links'] = 20;
@@ -33,11 +33,13 @@ require_once "8chan-functions.php";
 	$config['thumb_height'] = 255;
 	$config['max_width'] = 10000;
 	$config['max_height'] = 10000;
-	$config['threads_per_page'] = 10;
+	$config['threads_per_page'] = 15;
 	$config['max_pages'] = 10;
 	$config['threads_preview'] = 5;
 	$config['root'] = '/';
 	$config['secure_trip_salt'] = 'REMOVED';
+	$config['always_noko'] = true;
+	$config['allow_no_country'] = true;
 
 	// Image shit
 	$config['thumb_method'] = 'gm+gifsicle';
@@ -45,7 +47,7 @@ require_once "8chan-functions.php";
 	$config['thumb_keep_animation_frames'] = 100;
 	$config['show_ratio'] = true;
 	$config['allow_upload_by_url'] = true;
-	$config['max_filesize'] = 1024 * 1024 * 2; // 2MB
+	$config['max_filesize'] = 1024 * 1024 * 5; // 5MB
 	$config['disable_images'] = false; 
 	$config['spoiler_images'] = true;
 	$config['image_reject_repost'] = false;
@@ -75,7 +77,7 @@ require_once "8chan-functions.php";
 	$config['additional_javascript'][] = 'js/jquery.min.js';
 	$config['additional_javascript'][] = 'js/jquery.tablesorter.min.js';
 	$config['additional_javascript'][] = 'js/post-hover.js';
-	$config['additional_javascript'][] = 'js/update_boards.js';
+	$config['additional_javascript'][] = 'js/favorites.js';
 	$config['additional_javascript'][] = 'js/show-op.js';
 	$config['additional_javascript'][] = 'js/hide-threads.js';
 	//$config['additional_javascript'][] = 'js/smartphone-spoiler.js';
@@ -95,16 +97,20 @@ require_once "8chan-functions.php";
 	$config['additional_javascript'][] = 'js/local-time.js';
 	$config['additional_javascript'][] = 'js/no-animated-gif.js';
 	$config['additional_javascript'][] = 'js/expand.js';
+	$config['additional_javascript'][] = 'js/auto-reload.js';
+	$config['additional_javascript'][] = 'js/quick-reply.js';
 	
 
 	$config['font_awesome_css'] = '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css';
 	
+	$config['stylesheets']['Dark'] = 'dark.css';
+
 	$config['stylesheets_board'] = true;
 	$config['markup'][] = array("/^[ |\t]*==(.+?)==[ |\t]*$/m", "<span class=\"heading\">\$1</span>");
 	$config['markup'][] = array("/\[spoiler\](.+?)\[\/spoiler\]/", "<span class=\"spoiler\">\$1</span>");
 	$config['markup'][] = array("/~~(.+?)~~/", "<s>\$1</s>");
 
-	$config['boards'] = array(array('<i class="fa fa-home" title="Home"></i>' => '/', '<i class="fa fa-tags" title="Boards"></i>' => '/boards.html', '<i class="fa fa-question" title="FAQ"></i>' => '/faq.html', '<i class="fa fa-random" title="Random"></i>' => '/random.php', '<i class="fa fa-plus" title="New board"></i>' => '/create.php', '<i class="fa fa-search" title="Search"></i>' => '/search.php', '<i class="fa fa-cog" title="Manage board"></i>' => '/mod.php', '<i class="fa fa-quote-right" title="Chat"></i>' => 'https://qchat.rizon.net/?channels=#8chan'), array('b', 'meta', 'int'), array('<i class="fa fa-twitter" title="Home"></i>'=>'https://twitter.com/infinitechan'));
+	$config['boards'] = array(array('<i class="fa fa-home" title="Home"></i>' => '/', '<i class="fa fa-tags" title="Boards"></i>' => '/boards.html', '<i class="fa fa-question" title="FAQ"></i>' => '/faq.html', '<i class="fa fa-random" title="Random"></i>' => '/random.php', '<i class="fa fa-plus" title="New board"></i>' => '/create.php', '<i class="fa fa-search" title="Search"></i>' => '/search.php', '<i class="fa fa-cog" title="Manage board"></i>' => '/mod.php', '<i class="fa fa-quote-right" title="Chat"></i>' => 'https://qchat.rizon.net/?channels=#8chan'), array('b', 'meta', 'int'), array('v', 'a', 'tg', 'fit', 'pol', 'tech', 'mu', 'co'), array('<i class="fa fa-twitter" title="Home"></i>'=>'https://twitter.com/infinitechan'));
 
 	$config['footer'][] = 'Proprietary Tinyboard changes &amp; 8chan.co trademark and logo &copy; 2013-2014 <a href="https://blog.8chan.co">Fredrick Brennan</a>';
 	$config['footer'][] = 'To make a DMCA request or report illegal content, please email <a href="mailto:admin@8chan.co">admin@8chan.co</a> or use the "Global Report" functionality on every page.';
@@ -114,7 +120,7 @@ require_once "8chan-functions.php";
 //$config['debug'] = true;
 	$config['syslog'] = true;
 
-	$config['flood_time'] = 2;
+	$config['flood_time'] = 0;
 	// Minimum time between between each post with the exact same content AND same IP address.
 	$config['flood_time_ip'] = 120;
 	// Same as above but by a different IP address. (Same content, not necessarily same IP address.)
@@ -221,6 +227,7 @@ require_once "8chan-functions.php";
 			$show_sages = isset($_POST['show_sages']) ? 'true' : 'false';
 			$auto_unicode = isset($_POST['auto_unicode']) ? 'true' : 'false';
 			$meta_noindex = isset($_POST['meta_noindex']) ? 'true' : 'false';
+			$allow_roll = isset($_POST['allow_roll']) ? 'true' : 'false';
 			$code_tags = isset($_POST['code_tags']) ? '$config[\'additional_javascript\'][] = \'js/code_tags/run_prettify.js\';$config[\'markup\'][] = array("/\[code\](.+?)\[\/code\]/ms", "<code><pre class=\'prettyprint\' style=\'display:inline-block\'>\$1</pre></code>");' : '';
 			$mathjax = isset($_POST['mathjax']) ? '$config[\'mathjax\'] = true;$config[\'additional_javascript\'][] = \'js/mathjax-MathJax-727332c/MathJax.js?config=TeX-AMS_HTML-full\';' : '';
 $oekaki_js = <<<OEKAKI
@@ -291,6 +298,7 @@ OEKAKI;
 \$config['show_sages'] = $show_sages;
 \$config['auto_unicode'] = $auto_unicode;
 \$config['meta_noindex'] = $meta_noindex;
+\$config['allow_roll'] = $allow_roll;
 \$config['anonymous'] = base64_decode('$anonymous');
 \$config['blotter'] = base64_decode('$blotter');
 \$config['stylesheets']['Custom'] = 'board/$b.css';
