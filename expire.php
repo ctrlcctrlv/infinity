@@ -4,7 +4,7 @@ include "inc/functions.php";
 if (!(php_sapi_name() == "cli")) {
 	die('nope');
 }
-$protected = array('burgers', 'cow', 'wilno');
+$protected = array('burgers', 'cow', 'wilno', 'cute');
 $q = query("SELECT uri FROM boards");
 $boards = $q->fetchAll(PDO::FETCH_COLUMN);
 $now = new DateTime();
@@ -145,4 +145,4 @@ cache::delete('all_boards_uri');
 cache::delete('all_boards');
 rebuildThemes('boards');
 $query = query('DELETE FROM board_create WHERE uri NOT IN (SELECT uri FROM boards);') or error(db_error());
-file_get_contents('https://8chan.co/listboards.php');
+file_get_contents('http://127.0.0.1/listboards.php');
