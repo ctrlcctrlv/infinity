@@ -4,7 +4,7 @@ include "inc/functions.php";
 include "inc/ayah/ayah.php";
 include "inc/mod/auth.php";
 checkBan('*');
-$bannedWords = array('/^cake$/', '8ch', '/^cp$/', 'child');
+$bannedWords = array('/^cake$/', '8ch', '/^cp$/', 'child', '/^inc$/', '/^static$/', '/^templates$/', '/^js$/', '/^stylesheets$/', '/^tools$/');
 
 $ayah = new AYAH();
 
@@ -48,8 +48,6 @@ if (!(strlen($subtitle) < 200))
 	error('Invalid subtitle');
 if (!preg_match('/^[a-zA-Z0-9._]{1,30}$/', $username))
 	error('Invalid username');
-if (is_dir($uri)) 
-	error("Cannot create board with name of reserved directory!");
 if (!$score)
 	error('You failed the game');
 foreach (listBoards() as $i => $board) {
