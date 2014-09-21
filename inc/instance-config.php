@@ -40,18 +40,23 @@ require_once "8chan-functions.php";
 	$config['secure_trip_salt'] = 'REMOVED';
 	$config['always_noko'] = true;
 	$config['allow_no_country'] = true;
+	$config['thread_subject_in_title'] = true;
+	$config['spam']['hidden_inputs_max_pass'] = 128;
 
 	// Image shit
 	$config['thumb_method'] = 'gm+gifsicle';
 	$config['thumb_ext'] = '';
 	$config['thumb_keep_animation_frames'] = 100;
 	$config['show_ratio'] = true;
-	$config['allow_upload_by_url'] = true;
+	//$config['allow_upload_by_url'] = true;
 	$config['max_filesize'] = 1024 * 1024 * 5; // 5MB
 	$config['disable_images'] = false; 
 	$config['spoiler_images'] = true;
 	$config['image_reject_repost'] = false;
 	$config['allowed_ext_files'][] = 'webm';
+	$config['webm']['use_ffmpeg'] = true;
+	$config['webm']['allow_audio'] = true;
+	$config['webm']['max_length'] = 60 * 15;
 
 	// Mod shit
 	$config['mod']['groups'][25] = 'Supermod';
@@ -110,7 +115,7 @@ require_once "8chan-functions.php";
 	$config['markup'][] = array("/\[spoiler\](.+?)\[\/spoiler\]/", "<span class=\"spoiler\">\$1</span>");
 	$config['markup'][] = array("/~~(.+?)~~/", "<s>\$1</s>");
 
-	$config['boards'] = array(array('<i class="fa fa-home" title="Home"></i>' => '/', '<i class="fa fa-tags" title="Boards"></i>' => '/boards.html', '<i class="fa fa-question" title="FAQ"></i>' => '/faq.html', '<i class="fa fa-random" title="Random"></i>' => '/random.php', '<i class="fa fa-plus" title="New board"></i>' => '/create.php', '<i class="fa fa-search" title="Search"></i>' => '/search.php', '<i class="fa fa-cog" title="Manage board"></i>' => '/mod.php', '<i class="fa fa-quote-right" title="Chat"></i>' => 'https://qchat.rizon.net/?channels=#8chan'), array('b', 'meta', 'int'), array('v', 'a', 'tg', 'fit', 'pol', 'tech', 'mu', 'co'), array('<i class="fa fa-twitter" title="Home"></i>'=>'https://twitter.com/infinitechan'));
+	$config['boards'] = array(array('<i class="fa fa-home" title="Home"></i>' => '/', '<i class="fa fa-tags" title="Boards"></i>' => '/boards.html', '<i class="fa fa-question" title="FAQ"></i>' => '/faq.html', '<i class="fa fa-random" title="Random"></i>' => '/random.php', '<i class="fa fa-plus" title="New board"></i>' => '/create.php', '<i class="fa fa-search" title="Search"></i>' => '/search.php', '<i class="fa fa-cog" title="Manage board"></i>' => '/mod.php', '<i class="fa fa-quote-right" title="Chat"></i>' => 'https://qchat.rizon.net/?channels=#8chan'), array('b', 'meta', 'int'), array('v', 'a', 'tg', 'fit', 'pol', 'tech', 'mu', 'co', 'sp', 'boards'), array('<i class="fa fa-twitter" title="Home"></i>'=>'https://twitter.com/infinitechan'));
 
 	$config['footer'][] = 'Proprietary Tinyboard changes &amp; 8chan.co trademark and logo &copy; 2013-2014 <a href="https://blog.8chan.co">Fredrick Brennan</a>';
 	$config['footer'][] = 'To make a DMCA request or report illegal content, please email <a href="mailto:admin@8chan.co">admin@8chan.co</a> or use the "Global Report" functionality on every page.';
@@ -229,7 +234,7 @@ require_once "8chan-functions.php";
 			$meta_noindex = isset($_POST['meta_noindex']) ? 'true' : 'false';
 			$allow_roll = isset($_POST['allow_roll']) ? 'true' : 'false';
 			$code_tags = isset($_POST['code_tags']) ? '$config[\'additional_javascript\'][] = \'js/code_tags/run_prettify.js\';$config[\'markup\'][] = array("/\[code\](.+?)\[\/code\]/ms", "<code><pre class=\'prettyprint\' style=\'display:inline-block\'>\$1</pre></code>");' : '';
-			$mathjax = isset($_POST['mathjax']) ? '$config[\'mathjax\'] = true;$config[\'additional_javascript\'][] = \'js/mathjax-MathJax-727332c/MathJax.js?config=TeX-AMS_HTML-full\';' : '';
+			$katex = isset($_POST['katex']) ? '$config[\'katex\'] = true;$config[\'additional_javascript\'][] = \'js/katex/katex.min.js\'; $config[\'markup\'][] = array("/\[tex\](.+?)\[\/tex\]/ms", "<span class=\'tex\'>\$1</span>"); $config[\'additional_javascript\'][] = \'js/katex-enable.js\';' : '';
 $oekaki_js = <<<OEKAKI
     \$config['additional_javascript'][] = 'js/jquery-ui.custom.min.js';
     \$config['additional_javascript'][] = 'js/ajax.js';
@@ -303,7 +308,7 @@ OEKAKI;
 \$config['blotter'] = base64_decode('$blotter');
 \$config['stylesheets']['Custom'] = 'board/$b.css';
 \$config['default_stylesheet'] = array('Custom', \$config['stylesheets']['Custom']);
-$code_tags $mathjax $oekaki $replace $multiimage
+$code_tags $katex $oekaki $replace $multiimage
 if (\$config['disable_images'])
 	\$config['max_pages'] = 10000;
 
