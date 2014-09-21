@@ -36,7 +36,7 @@ function handle_boards(data) {
 	})
 
 	if (boards[0]) {
-		return $('<span class="favorite-boards"></span>').append(' [ '+boards.slice(0,10).join(" / ")+' ] ');
+		return $('<span class="favorite-boards"></span>').append(' [ '+boards.join(" / ")+' ] ');
 	}	
 }
 
