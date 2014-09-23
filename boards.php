@@ -33,7 +33,7 @@ th.headerSortDown {
 }
 </style>
 CSS;
-$body .= '<table class="modlog" style="width:auto"><thead><tr><th>L</th><th>Board</th><th>Posts in last hour</th><th>Total posts</th><th>Created</th></thead></tr><tbody>';
+$body .= '<table class="modlog" style="width:auto"><thead><tr><th>L</th><th>Board</th><th>Posts in last hour</th><th>Total posts</th><th>Created</th></tr></thead><tbody>';
 $total_posts_hour = 0;
 $total_posts = 0;
 
@@ -95,7 +95,12 @@ foreach ($boards as $i => &$board) {
 			$lock = '';
 		}
 		$board['ago'] = human_time_diff(strtotime($board['time']));
-		$body .= "<tr><td>$img</td><td><a href='/{$board['uri']}/' title=\"{$board['title']}\">/{$board['uri']}/</a>$lock</td><td style='text-align:right'>{$board['pph']}</td><td style='text-align:right'>{$board['max']}</td><td>{$board['time']} ({$board['ago']} ago)</td></tr>";
+    $body .= "<tr>";
+    $body .= "<td>$img</td>";
+    $body .= "<td><a href='/{$board['uri']}/' title=\"{$board['title']}\">/{$board['uri']}/</a>$lock</td>";
+    $body .= "<td style='text-align:right'>{$board['pph']}</td>";
+    $body .= "<td style='text-align:right'>{$board['max']}</td>";
+    $body .= "<td>{$board['time']} ({$board['ago']} ago)</td></tr>";
 	} else {
 		unset($boards[$i]);
 		$hidden_boards_total += 1;
