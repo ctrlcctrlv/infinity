@@ -75,6 +75,7 @@ require_once "8chan-functions.php";
 	$config['mod']['search'] = SUPERMOD;
 	$config['mod']['debug_recent'] = ADMIN;
 	$config['mod']['debug_antispam'] = ADMIN;
+	$config['mod']['recent_reports'] = 65535;
 
 	// Board shit
 	$config['url_banner'] = '/banners.php';
@@ -141,6 +142,8 @@ require_once "8chan-functions.php";
 	$config['flood_time_ip'] = 120;
 	// Same as above but by a different IP address. (Same content, not necessarily same IP address.)
 	$config['flood_time_same'] = 30;
+
+	$config['wordfilters'][] = array('\rule', ''); // 'true' means it's a regular expression
 
 	if (!function_exists('prettify_textarea')){
 		function prettify_textarea($s){
@@ -244,6 +247,7 @@ require_once "8chan-functions.php";
 			$auto_unicode = isset($_POST['auto_unicode']) ? 'true' : 'false';
 			$meta_noindex = isset($_POST['meta_noindex']) ? 'true' : 'false';
 			$allow_roll = isset($_POST['allow_roll']) ? 'true' : 'false';
+			$allow_flash = isset($_POST['allow_flash']) ? '$config[\'allowed_ext_files\'][] = \'swf\';' : '';
 			$code_tags = isset($_POST['code_tags']) ? '$config[\'additional_javascript\'][] = \'js/code_tags/run_prettify.js\';$config[\'markup\'][] = array("/\[code\](.+?)\[\/code\]/ms", "<code><pre class=\'prettyprint\' style=\'display:inline-block\'>\$1</pre></code>");' : '';
 			$katex = isset($_POST['katex']) ? '$config[\'katex\'] = true;$config[\'additional_javascript\'][] = \'js/katex/katex.min.js\'; $config[\'markup\'][] = array("/\[tex\](.+?)\[\/tex\]/ms", "<span class=\'tex\'>\$1</span>"); $config[\'additional_javascript\'][] = \'js/katex-enable.js\';' : '';
 $oekaki_js = <<<OEKAKI
@@ -319,7 +323,7 @@ OEKAKI;
 \$config['blotter'] = base64_decode('$blotter');
 \$config['stylesheets']['Custom'] = 'board/$b.css';
 \$config['default_stylesheet'] = array('Custom', \$config['stylesheets']['Custom']);
-$code_tags $katex $oekaki $replace $multiimage
+$code_tags $katex $oekaki $replace $multiimage $allow_flash
 if (\$config['disable_images'])
 	\$config['max_pages'] = 10000;
 
