@@ -1,4 +1,4 @@
-vichan - A lightweight and full featured PHP imageboard.
+8chan - The infinitely expanding imageboard.
 ========================================================
 
 About
@@ -117,6 +117,13 @@ To enable oekaki, add all the scripts listed in `js/oekaki.js` to your `instance
 WebM support
 ------------
 Read `inc/lib/webm/README.md` for information about enabling webm.
+
+Static Pages
+------------
+Some pages like `/faq.html` need to be pre-generated:
+```
+$ php faq.php > faq.html
+```
 
 License
 --------
