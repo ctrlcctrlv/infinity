@@ -1,0 +1,28 @@
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<div style="text-align:center">
+<form action="{{ action }}" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="token" value="{{ token }}">
+	<h2>Upload banner</h2>
+	<p><input type="file" name="file"></p>
+
+	<p><small>Banners must be &lt; 500KB and have image dimensions 300px x 100px.<br/>A maximum of twenty custom banners per board is enforced.</small></p>
+
+	<p><input type="submit" value="Upload"></p>
+</form>
+<hr>
+
+<h2>Banners already in use</h2>
+<form action="{{ action }}" method="post">
+<input type="hidden" name="token" value="{{ token }}">
+<table>
+<tbody>
+{% for banner in banners %}
+	<tr>
+	<td><input name="delete[]" type="checkbox" value="{{banner}}"></td><td><img src="static/banners/{{board.uri}}/{{banner}}"></td>
+	</tr>
+{% endfor %}
+</tbody>
+</table>
+<p><input type="submit" value="Delete selected"></p>
+</form>
+</div>
