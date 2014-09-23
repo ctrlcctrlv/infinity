@@ -720,3 +720,6 @@ pre {
   height: 100%;
   margin-top: 0px;
 }
+.mentioned {
+	word-wrap: break-word;
+}
