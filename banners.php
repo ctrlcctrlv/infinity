@@ -1,31 +1,31 @@
 <?php
 
-include 'inc/functions.php';
-
 header("Pragma-directive: no-cache");
 header("Cache-directive: no-cache");
 header("Cache-control: no-cache");
 header("Pragma: no-cache");
 header("Expires: 0");
-if (!isset($_GET['board'])) {
-	header("Location: static/8chan banner.png");
-	die();
-}
-$b = $_GET['board'];
-if (!preg_match('/^[a-z0-9]{1,10}$/', $b))
-	header("Location: static/8chan banner.png");
 
-$dir = 'static/banners/'.$b;
+function get_custom_banner(&$b) {
+    # Validate the board name
+    if (!(isset($b) && preg_match('/^[a-z0-9]{1,10}$/', $b)))
+        return null;
 
-if (is_dir($dir)) {
-	$banners = array_diff(scandir($dir), array('..', '.'));
-	$r = array_rand($banners);
-} else {
-	$banners = array();
+    # Check if directory exists
+    $dir = "static/banners/$b/";
+    if (!is_dir($dir))
+        return null;
+
+    # Return random file if directory is not empty
+    $banners = array_diff(scandir($dir), array('..', '.'));
+    if (!$banners)
+        return null;
+    $r = array_rand($banners);
+    return $dir.$banners[$r];
 }
 
-if (!empty($banners)) {
-	header("Location: $dir/{$banners[$r]}");
-} else {
-	header("Location: static/8chan banner.png");
-}
+$banner = get_custom_banner($_GET['board']);
+if ($banner)
+    header("Location: $banner");
+else
+    header("Location: static/8chan banner.png");
