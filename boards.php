@@ -33,7 +33,7 @@ th.headerSortDown {
 }
 </style>
 CSS;
-$body .= '<table class="modlog" style="width:auto"><thead><tr><th>L</th><th>Board</th><th>Posts in last hour</th><th>Total posts</th><th>Created</th></thead></tr><tbody>';
+$body .= '<table class="modlog" style="width:auto"><thead><tr><th>L</th><th>Board</th><th>Posts in last hour</th><th>Total posts</th><th>Created</th></tr></thead><tbody>';
 $total_posts_hour = 0;
 $total_posts = 0;
 
