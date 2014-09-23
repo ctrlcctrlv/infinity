@@ -2360,7 +2360,11 @@ function diceRoller($post) {
 		$diceY = intval($diceY);
 		$diceZ = intval($diceZ);
 
-		// Arbitrary maximum number of dice
+		// Apply sane limits
+		if ($diceY > 1024) {
+			$diceY = 1024;
+		}
+
 		if ($diceX > 200) {
 			$diceX = 200;
 		}

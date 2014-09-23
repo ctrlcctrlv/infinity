@@ -4,7 +4,7 @@ include "inc/functions.php";
 include "inc/ayah/ayah.php";
 include "inc/mod/auth.php";
 checkBan('*');
-$bannedWords = array('loli', '/^cake$/', '8ch', '/^cp$/', 'child');
+$bannedWords = array('/^cake$/', '8ch', '/^cp$/', 'child');
 
 $ayah = new AYAH();
 
