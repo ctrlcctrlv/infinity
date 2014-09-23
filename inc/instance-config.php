@@ -24,8 +24,8 @@ require_once "8chan-functions.php";
 	$config['cookies']['salt'] = 'YTBmNTUzZThkYWY5ZjYxNjIzOGQxYj';
 
 	$config['flood_time'] = 2;
-	$config['flood_time_ip'] = 120;
-	$config['flood_time_same'] = 5;
+	$config['flood_time_ip'] = 2;
+	$config['flood_time_same'] = 2;
 	$config['max_body'] = 5000;
 	$config['reply_limit'] = 250;
 	$config['max_links'] = 20;
@@ -61,8 +61,8 @@ require_once "8chan-functions.php";
 	// Mod shit
 	$config['mod']['groups'][25] = 'Supermod';
 	define_groups();
-	$config['mod']['capcode'][MOD] = array('Board Moderator');
-	$config['mod']['capcode'][SUPERMOD] = array('Global Moderator');
+	$config['mod']['capcode'][MOD] = array('Board Volunteer');
+	$config['mod']['capcode'][SUPERMOD] = array('Global Volunteer');
 	$config['custom_capcode']['Admin'] = array(
 		'<span class="capcode" style="color:blue;font-weight:bold"> <i class="fa fa-wheelchair"></i> %s</span>',
 	);
@@ -81,6 +81,9 @@ require_once "8chan-functions.php";
 	//$config['default_stylesheet'] = array('Notsuba', 'notsuba.css');
 	$config['additional_javascript'][] = 'js/jquery.min.js';
 	$config['additional_javascript'][] = 'js/jquery.tablesorter.min.js';
+	$config['additional_javascript'][] = 'js/options.js';
+	$config['additional_javascript'][] = 'js/style-select.js';
+	$config['additional_javascript'][] = 'js/options/general.js';
 	$config['additional_javascript'][] = 'js/post-hover.js';
 	$config['additional_javascript'][] = 'js/favorites.js';
 	$config['additional_javascript'][] = 'js/show-op.js';
@@ -104,11 +107,16 @@ require_once "8chan-functions.php";
 	$config['additional_javascript'][] = 'js/expand.js';
 	$config['additional_javascript'][] = 'js/auto-reload.js';
 	$config['additional_javascript'][] = 'js/quick-reply.js';
-	
+	$config['additional_javascript'][] = 'js/options/user-css.js';
+	$config['additional_javascript'][] = 'js/options/user-js.js';
+	$config['additional_javascript'][] = 'js/forced-anon.js';
+	$config['additional_javascript'][] = 'js/toggle-locked-threads.js';
+	$config['additional_javascript'][] = 'js/toggle-images.js';
 
 	$config['font_awesome_css'] = '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css';
 	
 	$config['stylesheets']['Dark'] = 'dark.css';
+	$config['stylesheets']['Photon'] = 'photon.css';
 
 	$config['stylesheets_board'] = true;
 	$config['markup'][] = array("/^[ |\t]*==(.+?)==[ |\t]*$/m", "<span class=\"heading\">\$1</span>");

@@ -318,7 +318,7 @@
 	);
 
 	// Minimum time between posts by the same IP address with the same text.
-	$config['filters'][] = array(
+	/*$config['filters'][] = array(
 		'condition' => array(
 			'flood-match' => array('ip', 'body'), // Match IP address and post body
 			'flood-time' => &$config['flood_time_ip'],
@@ -326,17 +326,18 @@
 		),
 		'action' => 'reject',
 		'message' => &$config['error']['flood']
-	);
+	);*/
 
 	// Minimum time between posts with the same text. (Same content, but not always the same IP address.)
-	$config['filters'][] = array(
+	/*$config['filters'][] = array(
 		'condition' => array(
 			'flood-match' => array('body'), // Match only post body
-			'flood-time' => &$config['flood_time_same']
+			'flood-time' => &$config['flood_time_same'],
+			'!body' => '/^$/', // Post body is NOT empty
 		),
 		'action' => 'reject',
 		'message' => &$config['error']['flood']
-	);
+	);*/
 
 	// Example: Minimum time between posts with the same file hash.
 	// $config['filters'][] = array(
