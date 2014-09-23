@@ -95,12 +95,12 @@ foreach ($boards as $i => &$board) {
 			$lock = '';
 		}
 		$board['ago'] = human_time_diff(strtotime($board['time']));
-    $body .= "<tr>";
-    $body .= "<td>$img</td>";
-    $body .= "<td><a href='/{$board['uri']}/' title=\"{$board['title']}\">/{$board['uri']}/</a>$lock</td>";
-    $body .= "<td style='text-align:right'>{$board['pph']}</td>";
-    $body .= "<td style='text-align:right'>{$board['max']}</td>";
-    $body .= "<td>{$board['time']} ({$board['ago']} ago)</td></tr>";
+		$body .= "<tr>";
+		$body .= "<td>$img</td>";
+		$body .= "<td><a href='/{$board['uri']}/' title=\"{$board['title']}\">/{$board['uri']}/</a>$lock</td>";
+		$body .= "<td style='text-align:right'>{$board['pph']}</td>";
+		$body .= "<td style='text-align:right'>{$board['max']}</td>";
+		$body .= "<td>{$board['time']} ({$board['ago']} ago)</td></tr>";
 	} else {
 		unset($boards[$i]);
 		$hidden_boards_total += 1;
