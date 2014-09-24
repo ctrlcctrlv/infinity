@@ -1,15 +1,17 @@
 <?php
 
 include "inc/functions.php";
-include "inc/lib/ayah/ayah.php";
 include "inc/mod/auth.php";
 checkBan('*');
 $bannedWords = array('/^cake$/', '8ch', '/^cp$/', 'child', '/^inc$/', '/^static$/', '/^templates$/', '/^js$/', '/^stylesheets$/', '/^tools$/');
 
-$ayah = new AYAH();
+if ($config["use_ayah"]) {
+	include "inc/lib/ayah/ayah.php";
+	$ayah = new AYAH();
+}
 
 if (!isset($_POST['uri'], $_POST['title'], $_POST['subtitle'], $_POST['username'], $_POST['password'])) {
-$publisher_html = $ayah->getPublisherHTML();
+$publisher_html = ($config["use_ayah"] ? "<tr><th>Game</th><td>" . $ayah->getPublisherHTML() . "</td></tr>" : "");
 $password = base64_encode(openssl_random_pseudo_bytes(9));
 
 $body = <<<EOT
@@ -21,7 +23,7 @@ $body = <<<EOT
 <tr><th>Subtitle</th><td><input name="subtitle" type="text"> <span class="unimportant">(must be < 200 chars)</td></tr>
 <tr><th>Username</th><td><input name="username" type="text"> <span class="unimportant">(must contain only alphanumeric, periods and underscores)</span></td></tr>
 <tr><th>Password</th><td><input name="password" type="text" value="{$password}" readonly> <span class="unimportant">(write this down)</span></td></tr>
-<tr><th>Game</th><td>{$publisher_html}</td></tr>
+{$publisher_html}
 </tbody>
 </table>
 <ul style="padding:0;text-align:center;list-style:none"><li><input type="submit" value="Create board"></li></ul>
@@ -38,7 +40,9 @@ $title = $_POST['title'];
 $subtitle = $_POST['subtitle'];
 $username = $_POST['username'];
 $password = $_POST['password'];
-$score = $ayah->scoreResult();
+if ($config["use_ayah"]) {
+	$score = $ayah->scoreResult();	
+}
 
 if (!preg_match('/^[a-z0-9]{1,10}$/', $uri))
 	error('Invalid URI');
@@ -48,7 +52,7 @@ if (!(strlen($subtitle) < 200))
 	error('Invalid subtitle');
 if (!preg_match('/^[a-zA-Z0-9._]{1,30}$/', $username))
 	error('Invalid username');
-if (!$score)
+if ($config["use_ayah"] && !$score)
 	error('You failed the game');
 foreach (listBoards() as $i => $board) {
 	if ($board['uri'] == $uri)
