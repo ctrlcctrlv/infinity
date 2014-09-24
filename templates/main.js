@@ -53,8 +53,13 @@ function changeStyle(styleName, link) {
 		var x = document.getElementsByTagName('head')[0];
 		x.appendChild(s);
 	}
+
+	{% endraw %}
+	var root = "{{ config.root }}";
+	{% raw %}
+	root = root.replace(/\/$/, "");
 	
-	document.getElementById('stylesheet').href = styles[styleName];
+	document.getElementById('stylesheet').href = root + styles[styleName];
 	selectedstyle = styleName;
 	
 	if (document.getElementsByClassName('styles').length != 0) {
@@ -76,7 +81,7 @@ function changeStyle(styleName, link) {
 {% endraw %}
 
 function init_stylechooser() {
-	var matches = document.URL.match(/\/(\w+)\/($|{{ config.dir.res|replace({'/': '\\/'}) }}{{ config.file_page|replace({'%d': '\\d+', '.': '\\.'}) }}|{{ config.file_index|replace({'.': '\\.'}) }}|{{ config.dir.res|replace({'/': '\\/'}) }}{{ config.file_page50|replace({'+': '\\+', '%d': '\\d+', '.': '\\.'}) }})/);
+	var matches = document.URL.match(/\/(\w+)\/($|{{ config.dir.res|replace({'/': '\\/'}) }}{{ config.file_page|replace({'%d': '\\d+', '.': '\\.'}) }}|{{ config.file_index|replace({'.': '\\.'}) }}|{{ config.dir.res|replace({'/': '\\/'}) }}{{ config.file_page50|replace({'+': '\\+', '%d': '\\d+', '.': '\\.'}) }}|{{ config.file_page|replace({'%d': '\\d+', '.': '\\.'}) }}|{{ config.catalog_link|replace({'.': '\\.'}) }})/);
 	var newElement = document.createElement('div');
 	newElement.className = 'styles';
 	
