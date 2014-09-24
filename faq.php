@@ -23,7 +23,7 @@ $body = <<<EOT
 <p>If either of those is true, the board was deleted automatically. You are free to recreate it. I cannot restore it, so don't bother emailing me about it.</p>
 
 <h2>How do I post as a volunteer on my board?</h2>
-<p>Make sure you are using the volunteer interface to view your board. The URL of your browser should be <a href="https://8chan.co/mod.php?/yourboard"><tt>https://8chan.co/mod.php?/yourboard</tt></a>. Then, put "## Board volunteer" in the name field. Write your post and click "Reply". It will appear with your volunteer capcode.</p>
+<p>Make sure you are using the volunteer interface to view your board. The URL of your browser should be <a href="https://8chan.co/mod.php?/yourboard"><tt>https://8chan.co/mod.php?/yourboard</tt></a>. Then, put "## Board Volunteer" in the name field. Write your post and click "Reply". It will appear with your volunteer capcode.</p>
 
 <h2>How do I donate?</h2>
 <p>Donations can be sent to 1NpQaXqmCBji6gfX8UgaQEmEstvVY7U32C (Bitcoin) or LUPgSCJt3iGeJXUETVhmnbQ89Riaq1yjZm (Litecoin). PayPal is also accepted @ fredrick.brennan1@gmail.com .</p>
