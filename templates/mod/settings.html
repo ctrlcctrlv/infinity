@@ -38,6 +38,7 @@
 		<tr><th>Format math between $$</th><td><input type="checkbox" name="katex" {% if config.katex %}checked{% endif %}></td></tr>
 		<tr><th>Allow SWF uploading</th><td><input type="checkbox" name="allow_flash" {% if 'swf' in config.allowed_ext_files %}checked{% endif %}></td></tr>
 		<tr><th>Enable dice rolling</th><td><input type="checkbox" name="allow_roll" {% if config.allow_roll %}checked{% endif %}></td></tr>
+		<tr><th>Don't allow users to repost images</th><td><input type="checkbox" name="image_reject_repost" {% if config.image_reject_repost %}checked{% endif %}></td></tr>
 		<tr><th>Language<br/><span class="unimportant">To contribute translations, register at <a href="https://www.transifex.com/projects/p/tinyboard-vichan-devel/">Transifex</a></span></th><td>
 		<select name="locale">
 			<option value="en" {% if "en" == config.locale %}selected{% endif %}>en</option>

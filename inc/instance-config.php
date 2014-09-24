@@ -52,7 +52,7 @@ require_once "8chan-functions.php";
 	$config['max_filesize'] = 1024 * 1024 * 5; // 5MB
 	$config['disable_images'] = false; 
 	$config['spoiler_images'] = true;
-	$config['image_reject_repost'] = false;
+	$config['image_reject_repost'] = true;
 	$config['allowed_ext_files'][] = 'webm';
 	$config['webm']['use_ffmpeg'] = true;
 	$config['webm']['allow_audio'] = true;
@@ -75,6 +75,7 @@ require_once "8chan-functions.php";
 	$config['mod']['search'] = SUPERMOD;
 	$config['mod']['debug_recent'] = ADMIN;
 	$config['mod']['debug_antispam'] = ADMIN;
+	$config['mod']['modlog'] = SUPERMOD;
 	$config['mod']['recent_reports'] = 65535;
 
 	// Board shit
@@ -244,6 +245,7 @@ require_once "8chan-functions.php";
 			$auto_unicode = isset($_POST['auto_unicode']) ? 'true' : 'false';
 			$meta_noindex = isset($_POST['meta_noindex']) ? 'true' : 'false';
 			$allow_roll = isset($_POST['allow_roll']) ? 'true' : 'false';
+			$image_reject_repost = isset($_POST['image_reject_repost']) ? 'true' : 'false';
 			$allow_flash = isset($_POST['allow_flash']) ? '$config[\'allowed_ext_files\'][] = \'swf\';' : '';
 			$code_tags = isset($_POST['code_tags']) ? '$config[\'additional_javascript\'][] = \'js/code_tags/run_prettify.js\';$config[\'markup\'][] = array("/\[code\](.+?)\[\/code\]/ms", "<code><pre class=\'prettyprint\' style=\'display:inline-block\'>\$1</pre></code>");' : '';
 			$katex = isset($_POST['katex']) ? '$config[\'katex\'] = true;$config[\'additional_javascript\'][] = \'js/katex/katex.min.js\'; $config[\'markup\'][] = array("/\[tex\](.+?)\[\/tex\]/ms", "<span class=\'tex\'>\$1</span>"); $config[\'additional_javascript\'][] = \'js/katex-enable.js\';' : '';
@@ -316,6 +318,7 @@ OEKAKI;
 \$config['auto_unicode'] = $auto_unicode;
 \$config['meta_noindex'] = $meta_noindex;
 \$config['allow_roll'] = $allow_roll;
+\$config['image_reject_repost'] = $image_reject_repost;
 \$config['anonymous'] = base64_decode('$anonymous');
 \$config['blotter'] = base64_decode('$blotter');
 \$config['stylesheets']['Custom'] = 'board/$b.css';
