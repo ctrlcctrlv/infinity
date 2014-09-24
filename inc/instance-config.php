@@ -127,7 +127,7 @@ require_once "8chan-functions.php";
 
 	$config['boards'] = array(array('<i class="fa fa-home" title="Home"></i>' => '/', '<i class="fa fa-tags" title="Boards"></i>' => '/boards.html', '<i class="fa fa-question" title="FAQ"></i>' => '/faq.html', '<i class="fa fa-random" title="Random"></i>' => '/random.php', '<i class="fa fa-plus" title="New board"></i>' => '/create.php', '<i class="fa fa-search" title="Search"></i>' => '/search.php', '<i class="fa fa-cog" title="Manage board"></i>' => '/mod.php', '<i class="fa fa-quote-right" title="Chat"></i>' => 'https://qchat.rizon.net/?channels=#8chan'), array('b', 'meta', 'int'), array('v', 'a', 'tg', 'fit', 'pol', 'tech', 'mu', 'co', 'sp', 'boards'), array('<i class="fa fa-twitter" title="Home"></i>'=>'https://twitter.com/infinitechan'));
 
-	$config['footer'][] = 'Proprietary Tinyboard changes &amp; 8chan.co trademark and logo &copy; 2013-2014 <a href="https://blog.8chan.co">Fredrick Brennan</a>';
+	$config['footer'][] = 'Contribute to 8chan.co development at <a href="https://github.com/ctrlcctrlv/8chan">github</a>';
 	$config['footer'][] = 'To make a DMCA request or report illegal content, please email <a href="mailto:admin@8chan.co">admin@8chan.co</a> or use the "Global Report" functionality on every page.';
 
 	$config['search']['enable'] = true;
