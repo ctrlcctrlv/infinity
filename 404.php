@@ -8,13 +8,11 @@ $errorimages = array("http://www.submitawebsite.com/blog/wp-content/uploads/2010
 $errorimage = $errorimages[array_rand($errorimages)];
 
 $page = <<<EOT
-	<center>
-		<div class="ban">
-			<h2>404 Not Found</h2>
-			
-			<img src="{$errorimage}" style="width: 700px;">
-		</div>
-	</center>
+	<div class="ban">
+		<h2 style="text-align: center">404 Not Found</h2>
+		
+		<img src="{$errorimage}" style="width: 700px;">
+	</div>
 EOT;
 
 echo Element("page.html", array("config" => $config, "body" => $page, "title" => ""));
