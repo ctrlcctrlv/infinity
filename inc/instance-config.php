@@ -15,15 +15,15 @@ require_once "8chan-functions.php";
 	$config['db']['database'] = '8chan';
 	$config['db']['prefix'] = '';
 	$config['db']['user'] = 'root';
-	$config['db']['password'] = 'C218Fu2Pg5zB6ol';
+	$config['db']['password'] = '';
 	$config['timezone'] = 'UTC';
 	$config['cache']['enabled'] = 'apc';
 
 
 	$config['cookies']['mod'] = 'mod';
-	$config['cookies']['salt'] = 'YTBmNTUzZThkYWY5ZjYxNjIzOGQxYj';
+	$config['cookies']['salt'] = '';
 
-	$config['flood_time'] = 2;
+	$config['flood_time'] = 5;
 	$config['flood_time_ip'] = 2;
 	$config['flood_time_same'] = 2;
 	$config['max_body'] = 5000;
@@ -37,7 +37,7 @@ require_once "8chan-functions.php";
 	$config['max_pages'] = 10;
 	$config['threads_preview'] = 5;
 	$config['root'] = '/';
-	$config['secure_trip_salt'] = 'OGNkMjQ4MGM5MDFkYmVhYWFhOGYwOG';
+	$config['secure_trip_salt'] = '';
 	$config['always_noko'] = true;
 	$config['allow_no_country'] = true;
 	$config['thread_subject_in_title'] = true;
@@ -107,6 +107,7 @@ require_once "8chan-functions.php";
 	$config['additional_javascript'][] = 'js/local-time.js';
 	$config['additional_javascript'][] = 'js/no-animated-gif.js';
 	$config['additional_javascript'][] = 'js/expand.js';
+	$config['additional_javascript'][] = 'js/titlebar-notifications.js';
 	$config['additional_javascript'][] = 'js/auto-reload.js';
 	$config['additional_javascript'][] = 'js/quick-reply.js';
 	$config['additional_javascript'][] = 'js/options/user-css.js';
@@ -134,12 +135,6 @@ require_once "8chan-functions.php";
 
 //$config['debug'] = true;
 	$config['syslog'] = true;
-
-	$config['flood_time'] = 0;
-	// Minimum time between between each post with the exact same content AND same IP address.
-	$config['flood_time_ip'] = 120;
-	// Same as above but by a different IP address. (Same content, not necessarily same IP address.)
-	$config['flood_time_same'] = 30;
 
 	$config['wordfilters'][] = array('\rule', ''); // 'true' means it's a regular expression
 

@@ -27,6 +27,8 @@ $(document).ready(function(){
 	
 	var poll_interval;
 
+	// Add an update link
+	$('.boardlist.bottom').prev().after("<a href='#' id='update_thread' style='padding-left:10px'>["+_("Update thread")+"]</a>");
 
 	// Grab the settings
 	var settings = new script_settings('auto-reload');
@@ -130,6 +132,8 @@ $(document).ready(function(){
 		poll_interval = setTimeout(poll, poll_interval_shortdelay);
 		end_of_page = true;
 	}).trigger('scroll');
+
+	$('#update_thread').on('click', poll);
 
 	poll_interval = setTimeout(poll, poll_interval_delay);
 });
