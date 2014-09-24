@@ -7,9 +7,8 @@
 *
 *  You can copy values from config.php (defaults) and paste them here.
 */
-require_once "lib/htmlpurifier-4.5.0/library/HTMLPurifier.auto.php";
-require_once "8chan-functions.php";
-
+	require_once "lib/htmlpurifier-4.5.0/library/HTMLPurifier.auto.php";
+	require_once "8chan-functions.php";
 
 	$config['db']['server'] = 'localhost';
 	$config['db']['database'] = '8chan';
@@ -42,6 +41,8 @@ require_once "8chan-functions.php";
 	$config['allow_no_country'] = true;
 	$config['thread_subject_in_title'] = true;
 	$config['spam']['hidden_inputs_max_pass'] = 128;
+
+	require_once "secrets.php";
 
 	// Image shit
 	$config['thumb_method'] = 'gm+gifsicle';
