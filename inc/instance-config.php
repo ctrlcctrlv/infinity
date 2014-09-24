@@ -7,7 +7,7 @@
 *
 *  You can copy values from config.php (defaults) and paste them here.
 */
-require_once "htmlpurifier-4.5.0/library/HTMLPurifier.auto.php";
+require_once "lib/htmlpurifier-4.5.0/library/HTMLPurifier.auto.php";
 require_once "8chan-functions.php";
 
 
