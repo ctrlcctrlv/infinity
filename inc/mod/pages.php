@@ -1810,7 +1810,7 @@ function mod_user($uid) {
 		
 	}
 	
-	var_dump($boards);
+
 	}
 	$user['boards'] = explode(',', $user['boards']);
 	
