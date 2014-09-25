@@ -277,8 +277,21 @@
 		'no_country'
 	);
 
+	
+	
+	/* Uses are you a human to stop automated requests to make boards disabled by default
+	 * if you wish to use 'are you a human' to block automated board creation requests
+	
+	 * to use AYAH you must enter your 'AYAH_PUBLISHER_KEY' and your 'AYAH_SCORING_KEY' in
+	 * the configuration file for AYAH. The config file for AYAH
+         * is located in the following directory:'/inc/lib/ayah/ayah_config.php'
+	 */
+	$config['ayah_enabled'] = false;
+	
 	// Enable reCaptcha to make spam even harder. Rarely necessary.
 	$config['recaptcha'] = false;
+	// Enable reCaptcha on create.php to prevent automated requests.
+	$config['cbRecaptcha'] = false;
 
 	// Public and private key pair from https://www.google.com/recaptcha/admin/create
 	$config['recaptcha_public'] = '6LcXTcUSAAAAAKBxyFWIt2SO8jwx4W7wcSMRoN3f';
@@ -1118,6 +1131,12 @@
 	$config['dir']['img'] = 'src/';
 	$config['dir']['thumb'] = 'thumb/';
 	$config['dir']['res'] = 'res/';
+
+	// Images in a seperate directory - For CDN or media servers
+	// This is a particularly advanced feature - contact ctrlcctrlv or rails unless you
+	//   really know what you're doing
+	$config['dir']['img_root'] = '';
+	
 
 	// For load balancing, having a seperate server (and domain/subdomain) for serving static content is
 	// possible. This can either be a directory or a URL. Defaults to $config['root'] . 'static/'.

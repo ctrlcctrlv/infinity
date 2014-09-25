@@ -3,13 +3,33 @@
 include "inc/functions.php";
 include "inc/lib/ayah/ayah.php";
 include "inc/mod/auth.php";
+$cbRecaptcha = false;
+//don't load recaptcha LIB unless its enabled!
+if ($config['cbRecaptcha']){
+$cbRecaptcha = true;
+include "inc/lib/recaptcha/recaptchalib.php";
+}
+
+
 checkBan('*');
 $bannedWords = array('/^cake$/', '8ch', '/^cp$/', 'child', '/^inc$/', '/^static$/', '/^templates$/', '/^js$/', '/^stylesheets$/', '/^tools$/', '/^pedo$/');
 
-$ayah = new AYAH();
+$ayah = (($config['ayah_enabled']) ? new AYAH() : false);
 
 if (!isset($_POST['uri'], $_POST['title'], $_POST['subtitle'], $_POST['username'], $_POST['password'])) {
-$publisher_html = $ayah->getPublisherHTML();
+if (!$ayah){
+	$game_html =  '';
+} else {
+	$game_html = '<tr><th>Game</th><td>' .  $ayah->getPublisherHTML() . '</td></tr>';
+}
+
+if (!$cbRecaptcha){
+	$recapcha_html = '';
+} else {
+	$recapcha_html = '<tr><th>reCaptcha</th><td>' .  recaptcha_get_html($config['recaptcha_public']) . '</td></tr>';
+}
+
+
 $password = base64_encode(openssl_random_pseudo_bytes(9));
 
 $body = <<<EOT
@@ -21,7 +41,8 @@ $body = <<<EOT
 <tr><th>Subtitle</th><td><input name="subtitle" type="text"> <span class="unimportant">(must be < 200 chars)</td></tr>
 <tr><th>Username</th><td><input name="username" type="text"> <span class="unimportant">(must contain only alphanumeric, periods and underscores)</span></td></tr>
 <tr><th>Password</th><td><input name="password" type="text" value="{$password}" readonly> <span class="unimportant">(write this down)</span></td></tr>
-<tr><th>Game</th><td>{$publisher_html}</td></tr>
+{$game_html}
+{$recapcha_html}
 </tbody>
 </table>
 <ul style="padding:0;text-align:center;list-style:none"><li><input type="submit" value="Create board"></li></ul>
@@ -38,8 +59,27 @@ $title = $_POST['title'];
 $subtitle = $_POST['subtitle'];
 $username = $_POST['username'];
 $password = $_POST['password'];
-$score = $ayah->scoreResult();
 
+  $resp = ($cbRecaptcha) ? recaptcha_check_answer ($config['recaptcha_private'],
+                                $_SERVER["REMOTE_ADDR"],
+                                $_POST["recaptcha_challenge_field"],
+                                $_POST["recaptcha_response_field"]):false;
+
+if ($resp != false){
+$passedCaptcha = $resp->is_valid;
+} else {
+$passedCaptcha = true;
+}
+
+if (!$ayah){
+$score = true;
+} else {
+$score = $ayah->scoreResult();
+}
+if (!$score)
+	error('You failed the game');
+if (!$passedCaptcha)
+	error('You failed to enter the reCaptcha correctly');
 if (!preg_match('/^[a-z0-9]{1,10}$/', $uri))
 	error('Invalid URI');
 if (!(strlen($title) < 40))
@@ -48,8 +88,7 @@ if (!(strlen($subtitle) < 200))
 	error('Invalid subtitle');
 if (!preg_match('/^[a-zA-Z0-9._]{1,30}$/', $username))
 	error('Invalid username');
-if (!$score)
-	error('You failed the game');
+
 foreach (listBoards() as $i => $board) {
 	if ($board['uri'] == $uri)
 		error('Board already exists!');
@@ -64,12 +103,13 @@ foreach ($bannedWords as $i => $w) {
 			error("Cannot create board matching banned pattern $w");
 	}
 }
-$query = prepare('SELECT * FROM ``mods``');
+$query = prepare('SELECT ``username`` FROM ``mods`` WHERE ``username`` = :username');
+$query->bindValue(':username', $username);
 $query->execute() or error(db_error($query));
 $users = $query->fetchAll(PDO::FETCH_ASSOC);
-foreach ($users as $i => $user) {
-	if ($user['username'] == $username)
-		error('Username taken!');
+
+if (sizeof($users) > 0){
+error('The username you\'ve tried to enter already exists!');
 }
 
 $salt = generate_salt();
@@ -112,9 +152,10 @@ $body = <<<EOT
 
 <p>Make sure you don't forget your password, <tt>{$_POST['password']}</tt>!</p>
 
-<p>You can manage your site at <a href="http://8chan.co/mod.php?/">http://8chan.co/mod.php?/</a>.</p>
+<p>You can manage your board at <a href="http://8chan.co/mod.php?/">http://8chan.co/mod.php?/</a>.</p>
 
 EOT;
 
 echo Element("page.html", array("config" => $config, "body" => $body, "title" => "Success", "subtitle" => "This was a triumph"));
 }
+?>

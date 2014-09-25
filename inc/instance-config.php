@@ -41,6 +41,7 @@
 	$config['allow_no_country'] = true;
 	$config['thread_subject_in_title'] = true;
 	$config['spam']['hidden_inputs_max_pass'] = 128;
+	$config['ayah_enabled'] = true;
 
 	include "secrets.php";
 
