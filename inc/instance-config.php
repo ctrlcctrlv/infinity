@@ -80,6 +80,7 @@
 	$config['mod']['recent_reports'] = 65535;
 
 	// Board shit
+	$config['ayah_enabled'] = true;
 	$config['url_banner'] = '/banners.php';
 	//$config['default_stylesheet'] = array('Notsuba', 'notsuba.css');
 	$config['additional_javascript'][] = 'js/jquery.min.js';
