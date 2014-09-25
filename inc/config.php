@@ -277,6 +277,21 @@
 		'no_country'
 	);
 
+	
+	
+		/*uses are you a human to stop automated requests to make boards disabled by default
+		if you wish to use 'are you a human' to block automated board creation requests
+		
+		to use AYAH you must enter your 'AYAH_PUBLISHER_KEY' and your 'AYAH_SCORING_KEY' in
+		the configuration file for AYAH. The config file for AYAH
+         is located in the following directory:'/inc/lib/ayah/ayah_config.php'
+	
+	*/
+	$config['playagame'] = false;
+	
+	
+	
+	
 	// Enable reCaptcha to make spam even harder. Rarely necessary.
 	$config['recaptcha'] = false;
 

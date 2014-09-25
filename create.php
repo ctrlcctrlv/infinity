@@ -6,10 +6,14 @@ include "inc/mod/auth.php";
 checkBan('*');
 $bannedWords = array('/^cake$/', '8ch', '/^cp$/', 'child', '/^inc$/', '/^static$/', '/^templates$/', '/^js$/', '/^stylesheets$/', '/^tools$/');
 
-$ayah = new AYAH();
+$ayah = (($config['playagame']) ? new AYAH() : false);
 
 if (!isset($_POST['uri'], $_POST['title'], $_POST['subtitle'], $_POST['username'], $_POST['password'])) {
-$publisher_html = $ayah->getPublisherHTML();
+if (!$ayah){
+	$game_html =  '';
+} else {
+	$game_html = '<tr><th>Game</th><td>' .  $ayah->getPublisherHTML() . '</td></tr>';
+}
 $password = base64_encode(openssl_random_pseudo_bytes(9));
 
 $body = <<<EOT
@@ -21,7 +25,7 @@ $body = <<<EOT
 <tr><th>Subtitle</th><td><input name="subtitle" type="text"> <span class="unimportant">(must be < 200 chars)</td></tr>
 <tr><th>Username</th><td><input name="username" type="text"> <span class="unimportant">(must contain only alphanumeric, periods and underscores)</span></td></tr>
 <tr><th>Password</th><td><input name="password" type="text" value="{$password}" readonly> <span class="unimportant">(write this down)</span></td></tr>
-<tr><th>Game</th><td>{$publisher_html}</td></tr>
+{$game_html}
 </tbody>
 </table>
 <ul style="padding:0;text-align:center;list-style:none"><li><input type="submit" value="Create board"></li></ul>
@@ -38,7 +42,11 @@ $title = $_POST['title'];
 $subtitle = $_POST['subtitle'];
 $username = $_POST['username'];
 $password = $_POST['password'];
+if (!$ayah){
+$score = true;
+} else {
 $score = $ayah->scoreResult();
+}
 
 if (!preg_match('/^[a-z0-9]{1,10}$/', $uri))
 	error('Invalid URI');
@@ -118,3 +126,4 @@ EOT;
 
 echo Element("page.html", array("config" => $config, "body" => $body, "title" => "Success", "subtitle" => "This was a triumph"));
 }
+?>
