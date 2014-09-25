@@ -429,6 +429,9 @@ function mod_edit_board($boardName) {
 			
 			// Delete entire board directory
 			rrmdir($board['uri'] . '/');
+			// To reiterate: HAAAAAX
+			if($config['dir']['img_root'] != '')
+				rrmdir($config['dir']['img_root'] . $board['uri']);
 		} else {
 			$query = prepare('UPDATE ``boards`` SET `title` = :title, `subtitle` = :subtitle WHERE `uri` = :uri');
 			$query->bindValue(':uri', $board['uri']);
