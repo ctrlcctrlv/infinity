@@ -52,8 +52,11 @@ widStyle = "max-width:" + maxWidth + "px;";
 heiStyle = ((maxHeight < imageHeight) ? "height:"+maxHeight+"px;":"");
 $imgH = $("<img/>", {"src":$(this).parent().attr("href"), "style":stylez + ((imageWidth > maxWidth) ? widStyle:"")+heiStyle, "id":"hover-image"});
 } else {
-videoWidth = parseInt($(this).parent().parent().find(".unimportant").text().split(",")[1].split("x")[0]);
-videoHeight = parseInt($(this).parent().parent().find(".unimportant").text().split(",")[1].split("x")[1]);
+fileInfo = $(this).parent().parent().children(".fileinfo").children(".unimportant").text();
+isSpoiler = (fileInfo.indexOf("Spoiler") > -1) ? true:false;
+imageD = ((isSpoiler) ? fileInfo.split(",")[2]:fileInfo.split(",")[1]);
+videoWidth = parseInt(imageD.split("x")[0]);
+videoHeight = parseInt(imageD.split("x")[1]);
 
 widStyle = "width:" + ((maxWidth > videoWidth) ? videoWidth:maxWidth) + "px;" + "height:" + ((maxHeight < videoHeight) ? "100%": videoHeight+"px;");
 $imgH = $("<iframe/>", {"src":$(this).parent().attr("href"), "style":stylez + widStyle, "id":"hover-image"});
