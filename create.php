@@ -3,7 +3,7 @@
 include "inc/functions.php";
 include "inc/lib/ayah/ayah.php";
 include "inc/mod/auth.php";
-
+$cbRecaptcha = false;
 //don't load recaptcha LIB unless its enabled!
 if ($config['cbRecaptcha']){
 $cbRecaptcha = true;
@@ -76,7 +76,10 @@ $score = true;
 } else {
 $score = $ayah->scoreResult();
 }
-
+if (!$score)
+	error('You failed the game');
+if (!$passedCaptcha)
+	error('You failed to enter the reCaptcha correctly');
 if (!preg_match('/^[a-z0-9]{1,10}$/', $uri))
 	error('Invalid URI');
 if (!(strlen($title) < 40))
@@ -85,10 +88,6 @@ if (!(strlen($subtitle) < 200))
 	error('Invalid subtitle');
 if (!preg_match('/^[a-zA-Z0-9._]{1,30}$/', $username))
 	error('Invalid username');
-if (!$score)
-	error('You failed the game');
-if (!$passedCaptcha)
-	error('You failed to enter the reCaptcha correctly');
 
 foreach (listBoards() as $i => $board) {
 	if ($board['uri'] == $uri)
