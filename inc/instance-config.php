@@ -116,6 +116,9 @@
 	$config['additional_javascript'][] = 'js/forced-anon.js';
 	$config['additional_javascript'][] = 'js/toggle-locked-threads.js';
 	$config['additional_javascript'][] = 'js/toggle-images.js';
+	
+	$config['compile_additional_javascript'] = true;
+	$config['minify_js'] = true;
 
 	$config['font_awesome_css'] = '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css';
 	
