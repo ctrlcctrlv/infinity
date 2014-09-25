@@ -78,6 +78,45 @@ INSERT INTO `boards` VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `posts`
+--
+
+CREATE TABLE IF NOT EXISTS `posts` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `board` varchar(58) NOT NULL,
+  `thread` int(11) DEFAULT NULL,
+  `id_for_board` int(11) unsigned NOT NULL,
+  `subject` varchar(100) DEFAULT NULL,
+  `email` varchar(30) DEFAULT NULL,
+  `name` varchar(35) DEFAULT NULL,
+  `trip` varchar(15) DEFAULT NULL,
+  `capcode` varchar(50) DEFAULT NULL,
+  `body` text NOT NULL,
+  `body_nomarkup` text,
+  `time` int(11) NOT NULL,
+  `bump` int(11) DEFAULT NULL,
+  `files` text,
+  `num_files` int(11) DEFAULT '0',
+  `filehash` text CHARACTER SET ascii,
+  `password` varchar(20) DEFAULT NULL,
+  `ip` varchar(39) CHARACTER SET ascii NOT NULL,
+  `sticky` int(1) NOT NULL,
+  `locked` int(1) NOT NULL,
+  `sage` int(1) NOT NULL,
+  `embed` text,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`),
+  UNIQUE KEY `board_id_for_board` (`board`,`id_for_board`),
+  KEY `thread_id` (`thread`,`id`),
+  KEY `filehash` (`filehash`(40)),
+  KEY `time` (`time`),
+  KEY `ip` (`ip`),
+  KEY `list_threads` (`thread`,`sticky`,`bump`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `cites`
 --
 
