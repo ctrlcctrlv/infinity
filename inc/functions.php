@@ -425,12 +425,12 @@ function setupBoard($array) {
 
 	if (!file_exists($board['dir']))
 		@mkdir($board['dir'], 0777) or error("Couldn't create " . $board['dir'] . ". Check permissions.", true);
-	if (!file_exists($board['dir'] . $config['dir']['img']))
-		@mkdir($board['dir'] . $config['dir']['img'], 0777)
-			or error("Couldn't create " . $board['dir'] . $config['dir']['img'] . ". Check permissions.", true);
-	if (!file_exists($board['dir'] . $config['dir']['thumb']))
-		@mkdir($board['dir'] . $config['dir']['thumb'], 0777)
-			or error("Couldn't create " . $board['dir'] . $config['dir']['img'] . ". Check permissions.", true);
+	if (!file_exists($config['dir']['img_root'] . $board['dir'] . $config['dir']['img']))
+		@mkdir($config['dir']['img_root'] . $board['dir'] . $config['dir']['img'], 0777)
+			or error("Couldn't create " . $config['dir']['img_root'] . $board['dir'] . $config['dir']['img'] . ". Check permissions.", true);
+	if (!file_exists($config['dir']['img_root'] . $board['dir'] . $config['dir']['thumb']))
+		@mkdir($config['dir']['img_root'] . $board['dir'] . $config['dir']['thumb'], 0777)
+			or error("Couldn't create " . $config['dir']['img_root'] . $board['dir'] . $config['dir']['img'] . ". Check permissions.", true);
 	if (!file_exists($board['dir'] . $config['dir']['res']))
 		@mkdir($board['dir'] . $config['dir']['res'], 0777)
 			or error("Couldn't create " . $board['dir'] . $config['dir']['img'] . ". Check permissions.", true);
@@ -997,11 +997,11 @@ function deleteFile($id, $remove_entirely_if_already=true, $file=null) {
 		foreach ($files as $i => $f) {
 			if (($file !== false && $i == $file) || $file === null) {
 				// Delete thumbnail
-				file_unlink($board['dir'] . $config['dir']['thumb'] . $f->thumb);
+				file_unlink($config['dir']['img_root'] . $board['dir'] . $config['dir']['thumb'] . $f->thumb);
 				unset($files[$i]->thumb);
 
 				// Delete file
-				file_unlink($board['dir'] . $config['dir']['img'] . $f->file);
+				file_unlink($config['dir']['img_root'] . $board['dir'] . $config['dir']['img'] . $f->file);
 				$files[$i]->file = 'deleted';
 			}
 		}
@@ -1080,8 +1080,8 @@ function deletePost($id, $error_if_doesnt_exist=true, $rebuild_after=true) {
 			// Delete file
 			foreach (json_decode($post['files']) as $i => $f) {
 				if ($f->file !== 'deleted') {
-					file_unlink($board['dir'] . $config['dir']['img'] . $f->file);
-					file_unlink($board['dir'] . $config['dir']['thumb'] . $f->thumb);
+					file_unlink($config['dir']['img_root'] . $board['dir'] . $config['dir']['img'] . $f->file);
+					file_unlink($config['dir']['img_root'] . $board['dir'] . $config['dir']['thumb'] . $f->thumb);
 				}
 			}
 		}

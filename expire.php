@@ -130,6 +130,10 @@ foreach($delete as $i => $d){
 	// Delete entire board directory
 	rrmdir($board['uri'] . '/');
 	rrmdir('static/banners/' . $board['uri']);
+	// HAAAAAX
+	if($config['dir']['img_root'] != '')
+		rrmdir($config['dir']['img_root'] . $board['uri']);
+	
 	cache::delete('board_' . $board['uri']);
 	
 	_syslog(LOG_NOTICE, "Board deleted: {$board['uri']}");

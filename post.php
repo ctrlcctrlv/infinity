@@ -445,8 +445,8 @@ if (isset($_POST['delete'])) {
 				if (sizeof($_FILES) > 1)
 					$file['file_id'] .= "-$i";
 				
-				$file['file'] = $board['dir'] . $config['dir']['img'] . $file['file_id'] . '.' . $file['extension'];
-				$file['thumb'] = $board['dir'] . $config['dir']['thumb'] . $file['file_id'] . '.' . ($config['thumb_ext'] ? $config['thumb_ext'] : $file['extension']);
+				$file['file'] = $config['dir']['img_root'] . $board['dir'] . $config['dir']['img'] . $file['file_id'] . '.' . $file['extension'];
+				$file['thumb'] = $config['dir']['img_root'] . $board['dir'] . $config['dir']['thumb'] . $file['file_id'] . '.' . ($config['thumb_ext'] ? $config['thumb_ext'] : $file['extension']);
 				$post['files'][] = $file;
 				$i++;
 			}
@@ -771,9 +771,9 @@ if (isset($_POST['delete'])) {
 		foreach ($post['files'] as $key => &$file) {
 			$file['file_path'] = $file['file'];
 			$file['thumb_path'] = $file['thumb'];
-			$file['file'] = mb_substr($file['file'], mb_strlen($board['dir'] . $config['dir']['img']));
+			$file['file'] = mb_substr($file['file'], mb_strlen($config['dir']['img_root'] . $board['dir'] . $config['dir']['img']));
 			if ($file['is_an_image'] && $file['thumb'] != 'spoiler')
-				$file['thumb'] = mb_substr($file['thumb'], mb_strlen($board['dir'] . $config['dir']['thumb']));
+				$file['thumb'] = mb_substr($file['thumb'], mb_strlen($config['dir']['img_root'] . $board['dir'] . $config['dir']['thumb']));
 		}
 	}
 	
