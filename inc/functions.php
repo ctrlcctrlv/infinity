@@ -883,7 +883,7 @@ function insertFloodPost(array $post) {
 function post(array $post) {
 	global $pdo, $board;
   
-	$query = prepare(sprintf("INSERT INTO `posts` (`id_for_board`, `board`, `thread`, `subject`, `email`, `name`, `trip`, `capcode`, `body`, `body_nomarkup`, `time`, `bump`, `files`, `num_files`, `filehash`, `password`, `ip`, `sticky`, `locked`, `sage`, `embed`) SELECT 1 + coalesce((SELECT max(`id_for_board`) FROM `posts` WHERE board='%s'),0), :board, :thread, :subject, :email, :name, :trip, :capcode, :body, :body_nomarkup, :time, :time, :files, :num_files, :filehash, :password, :ip, :sticky, :locked, 0, :embed", $board['uri']));
+	$query = prepare(sprintf("INSERT INTO `posts` (`id_for_board`, `board`, `thread`, `subject`, `email`, `name`, `trip`, `capcode`, `body`, `body_nomarkup`, `time`, `bump`, `files`, `num_files`, `filehash`, `password`, `ip`, `sticky`, `locked`, `sage`, `embed`) SELECT 1 + coalesce((SELECT max(`id_for_board`) FROM `posts` WHERE `board`='%s'),0), :board, :thread, :subject, :email, :name, :trip, :capcode, :body, :body_nomarkup, :time, :time, :files, :num_files, :filehash, :password, :ip, :sticky, :locked, 0, :embed", $board['uri']));
 
 	$query->bindValue(':board', $board['uri']);
 
