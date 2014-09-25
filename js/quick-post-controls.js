@@ -34,6 +34,10 @@ $(document).ready(function(){
 				
 					'<br>' +
 				
+					'[<input title="Global Report" type="checkbox" name="global" id="global_report" />' +
+					'<label for="global_report" title="Report rule violation (CP, etc) to global staff">Global</label>' +
+					']<input type="submit" name="report" value="Report" /> ' +
+
 					'<label for="reason_' + id + '">'+_('Reason')+'</label>: ' +
 					'<input id="reason_' + id + '" type="text" name="reason" size="20" maxlength="100">' +
 					' <input type="submit" name="report" value="'+_('Report')+'">' +
