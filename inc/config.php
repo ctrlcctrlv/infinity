@@ -279,18 +279,14 @@
 
 	
 	
-		/*uses are you a human to stop automated requests to make boards disabled by default
-		if you wish to use 'are you a human' to block automated board creation requests
-		
-		to use AYAH you must enter your 'AYAH_PUBLISHER_KEY' and your 'AYAH_SCORING_KEY' in
-		the configuration file for AYAH. The config file for AYAH
-         is located in the following directory:'/inc/lib/ayah/ayah_config.php'
+	/* Uses are you a human to stop automated requests to make boards disabled by default
+	 * if you wish to use 'are you a human' to block automated board creation requests
 	
-	*/
+	 * to use AYAH you must enter your 'AYAH_PUBLISHER_KEY' and your 'AYAH_SCORING_KEY' in
+	 * the configuration file for AYAH. The config file for AYAH
+         * is located in the following directory:'/inc/lib/ayah/ayah_config.php'
+	 */
 	$config['ayah_enabled'] = false;
-	
-	
-	
 	
 	// Enable reCaptcha to make spam even harder. Rarely necessary.
 	$config['recaptcha'] = false;
@@ -1633,7 +1629,3 @@
 		'<a href="$0" target="_blank" class="file">'.
 		'<img style="width:360px;height:270px;" src="//img.youtube.com/vi/$2/0.jpg" class="post-image"/>'.
 		'</a></div>';
-
-	// Set to true to use ayah. Requires to set inc/lib/ayah/ayah_config.php!
-	// Ayah is highly reccommended (it's also used only for creating boards)
-	$config["use_ayah"] = false;
