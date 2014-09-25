@@ -1132,6 +1132,12 @@
 	$config['dir']['thumb'] = 'thumb/';
 	$config['dir']['res'] = 'res/';
 
+	// Images in a seperate directory - For CDN or media servers
+	// This is a particularly advanced feature - contact ctrlcctrlv or rails unless you
+	//   really know what you're doing
+	$config['dir']['img_root'] = '';
+	
+
 	// For load balancing, having a seperate server (and domain/subdomain) for serving static content is
 	// possible. This can either be a directory or a URL. Defaults to $config['root'] . 'static/'.
 	// $config['dir']['static'] = 'http://static.example.org/';
