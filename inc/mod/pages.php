@@ -1799,12 +1799,25 @@ function mod_user($uid) {
 		$log = array();
 	}
 	
+	if ($mod['type'] >= ADMIN){
+	$boards = listBoards();
+	} else {
+	$boards2 = explode(',', $user['boards']);
+	
+	foreach($boards2 as $string){
+		
+		$boards[] = array("uri"=>$string, "title"=>"MY BOARD");
+		
+	}
+	
+	var_dump($boards);
+	}
 	$user['boards'] = explode(',', $user['boards']);
 	
 	mod_page(_('Edit user'), 'mod/user.html', array(
 		'user' => $user,
 		'logs' => $log,
-		'boards' => listBoards(),
+		'boards' => $boards,
 		'token' => make_secure_link_token('users/' . $user['id'])
 	));
 }
