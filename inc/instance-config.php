@@ -91,7 +91,8 @@
 	$config['additional_javascript'][] = 'js/favorites.js';
 	$config['additional_javascript'][] = 'js/show-op.js';
 	$config['additional_javascript'][] = 'js/hide-threads.js';
-	//$config['additional_javascript'][] = 'js/smartphone-spoiler.js';
+	$config['additional_javascript'][] = 'js/mobile-style.js'
+	$config['additional_javascript'][] = 'js/smartphone-spoiler.js';
 	$config['additional_javascript'][] = 'js/inline-expanding.js';
 	$config['additional_javascript'][] = 'js/show-backlinks.js';
 	$config['additional_javascript'][] = 'js/catalog-link.js';
