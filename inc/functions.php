@@ -882,10 +882,8 @@ function insertFloodPost(array $post) {
 
 function post(array $post) {
 	global $pdo, $board;
-	$query = prepare(sprintf("START TRANSACTION;
-SELECT @id_for_board := COALESCE((SELECT MAX(`id_for_board`) FROM `posts` WHERE board='%s'),0);
-SET @id_for_board = @id_for_board  + 1;
-INSERT INTO `posts` (`id_for_board`, `board`, `thread`, `subject`, `email`, `name`, `trip`, `capcode`, `body`, `body_nomarkup`, `time`, `bump`, `files`, `num_files`, `filehash`, `password`, `ip`, `sticky`, `locked`, `sage`, `embed`) VALUES(@id_for_board, :board, :thread, :subject, :email, :name, :trip, :capcode, :body, :body_nomarkup, :time, :time, :files, :num_files, :filehash, :password, :ip, :sticky, :locked, 0, :embed); COMMIT;", $board['uri']));
+  
+	$query = prepare(sprintf("INSERT INTO `posts` (`id_for_board`, `board`, `thread`, `subject`, `email`, `name`, `trip`, `capcode`, `body`, `body_nomarkup`, `time`, `bump`, `files`, `num_files`, `filehash`, `password`, `ip`, `sticky`, `locked`, `sage`, `embed`) SELECT 1 + coalesce((SELECT max(`id_for_board`) FROM `posts` WHERE board='%s'),0), :board, :thread, :subject, :email, :name, :trip, :capcode, :body, :body_nomarkup, :time, :time, :files, :num_files, :filehash, :password, :ip, :sticky, :locked, 0, :embed", $board['uri']));
 
 	$query->bindValue(':board', $board['uri']);
 
@@ -956,12 +954,25 @@ INSERT INTO `posts` (`id_for_board`, `board`, `thread`, `subject`, `email`, `nam
 		$query->bindValue(':filehash', null, PDO::PARAM_NULL);
 	}
 
+	$pdo->beginTransaction();
 	if (!$query->execute()) {
 		undoImage($post);
 		error(db_error($query));
 	}
+	$lastInsertId = $pdo->lastInsertId();
 
-	return $pdo->lastInsertId();
+	$query = prepare("SELECT `id_for_board` FROM `posts` WHERE `id` = :id");
+	$query->bindValue(':id', $lastInsertId);
+
+	if(!$query->execute()) {
+	undoImage($post);
+	error(db_error($query));
+	}
+	$lastIdForBoard = $query->fetch(PDO::FETCH_COLUMN);
+
+	$pdo->commit();
+
+	return $lastIdForBoard;
 }
 
 function bumpThread($id) {
