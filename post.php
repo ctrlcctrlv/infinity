@@ -200,8 +200,6 @@ if (isset($_POST['delete'])) {
 	if ($config['referer_match'] !== false &&
 		(!isset($_SERVER['HTTP_REFERER']) || !preg_match($config['referer_match'], rawurldecode($_SERVER['HTTP_REFERER']))))
 		error($config['error']['referer']);
-	
-	checkDNSBL();
 		
 	// Check if banned
 	checkBan($board['uri']);
@@ -243,6 +241,9 @@ if (isset($_POST['delete'])) {
 		$post['antispam_hash'] = checkSpam(array($board['uri'], isset($post['thread']) ? $post['thread'] : ($config['try_smarter'] && isset($_POST['page']) ? 0 - (int)$_POST['page'] : null)));
 		if ($post['antispam_hash'] === true)
 			error($config['error']['spam']);
+
+		// Check DNSBL
+		checkDNSBL();
 	}
 	
 	if ($config['robot_enable'] && $config['robot_mute']) {
