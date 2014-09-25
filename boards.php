@@ -33,7 +33,7 @@ th.headerSortDown {
 }
 </style>
 CSS;
-$body .= '<table class="modlog" style="width:auto"><thead><tr><th>L</th><th>Board</th><th>Posts in last hour</th><th>Total posts</th><th>Created</th></tr></thead><tbody>';
+$body .= '<table class="modlog" style="width:auto"><thead><tr><th>L</th><th>Board</th><th>Board title</th><th>Posts in last hour</th><th>Total posts</th><th>Created</th></tr></thead><tbody>';
 $total_posts_hour = 0;
 $total_posts = 0;
 
@@ -80,7 +80,7 @@ foreach ($boards as $i => &$board) {
 	}
 	$locale = isset($boardCONFIG['locale'])?$boardCONFIG['locale']:'en';
 
-	$board['title'] = htmlentities(utf8tohtml($board['title']));
+	$board['title'] = utf8tohtml($board['title']);
 	$locale_arr = explode('_', $locale);
 	$locale_short = isset($locale_arr[1]) ? strtolower($locale_arr[1]) : strtolower($locale_arr[0]);
 	$locale_short = str_replace('.utf-8', '', $locale_short);
@@ -97,7 +97,8 @@ foreach ($boards as $i => &$board) {
 		$board['ago'] = human_time_diff(strtotime($board['time']));
 		$body .= "<tr>";
 		$body .= "<td>$img</td>";
-		$body .= "<td><a href='/{$board['uri']}/' title=\"{$board['title']}\">/{$board['uri']}/</a>$lock</td>";
+		$body .= "<td><a href='/{$board['uri']}/'>/{$board['uri']}/</a>$lock</td>";
+		$body .= "<td>{$board['title']}</td>";
 		$body .= "<td style='text-align:right'>{$board['pph']}</td>";
 		$body .= "<td style='text-align:right'>{$board['max']}</td>";
 		$body .= "<td>{$board['time']} ({$board['ago']} ago)</td></tr>";
@@ -121,7 +122,7 @@ $body .= <<<FOOTER
     }); */
      
     $(function() { 
-$('table').tablesorter({sortList: [[2,1]], 
+$('table').tablesorter({sortList: [[3,1]], 
 textExtraction: function(node) {
 	childNode = node.childNodes[0];
 	if (!childNode) { return node.innerHTML; }
