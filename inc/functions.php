@@ -882,7 +882,12 @@ function insertFloodPost(array $post) {
 
 function post(array $post) {
 	global $pdo, $board;
-	$query = prepare(sprintf("INSERT INTO ``posts_%s`` VALUES ( NULL, :thread, :subject, :email, :name, :trip, :capcode, :body, :body_nomarkup, :time, :time, :files, :num_files, :filehash, :password, :ip, :sticky, :locked, 0, :embed)", $board['uri']));
+	$query = prepare(sprintf("START TRANSACTION;
+SELECT @id_for_board := COALESCE((SELECT MAX(`id_for_board`) FROM `posts` WHERE board='%s'),0);
+SET @id_for_board = @id_for_board  + 1;
+INSERT INTO `posts` (`id_for_board`, `board`, `thread`, `subject`, `email`, `name`, `trip`, `capcode`, `body`, `body_nomarkup`, `time`, `bump`, `files`, `num_files`, `filehash`, `password`, `ip`, `sticky`, `locked`, `sage`, `embed`) VALUES(@id_for_board, :board, :thread, :subject, :email, :name, :trip, :capcode, :body, :body_nomarkup, :time, :time, :files, :num_files, :filehash, :password, :ip, :sticky, :locked, 0, :embed); COMMIT;", $board['uri']));
+
+	$query->bindValue(':board', $board['uri']);
 
 	// Basic stuff
 	if (!empty($post['subject'])) {
