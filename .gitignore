@@ -7,6 +7,8 @@
 /*/config.php
 /*.html
 
+/inc/secrets.php
+
 # include some files though
 !/templates/*.html
 !/inc/config.php
