@@ -23,7 +23,7 @@ auto_reload_enabled = true; // for watch.js to interop
 function makeIcon(){
 	if(au) return;
 	au = true;
-	$("link[rel='icon']").attr("href", "favicon_au.png");
+	$("link[rel='icon']").attr("href", "../static/favicon_au.png");
 }
 
 $(document).ready(function(){
