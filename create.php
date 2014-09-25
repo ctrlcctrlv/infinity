@@ -72,12 +72,13 @@ foreach ($bannedWords as $i => $w) {
 			error("Cannot create board matching banned pattern $w");
 	}
 }
-$query = prepare('SELECT * FROM ``mods``');
+$query = prepare('SELECT ``username`` FROM ``mods`` WHERE ``username`` = :username');
+$query->bindValue(':username', $username);
 $query->execute() or error(db_error($query));
 $users = $query->fetchAll(PDO::FETCH_ASSOC);
-foreach ($users as $i => $user) {
-	if ($user['username'] == $username)
-		error('Username taken!');
+
+if (sizeof($users) > 0){
+error('The username you\'ve tried to enter already exists!');
 }
 
 $salt = generate_salt();
