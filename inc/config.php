@@ -1633,3 +1633,7 @@
 		'<a href="$0" target="_blank" class="file">'.
 		'<img style="width:360px;height:270px;" src="//img.youtube.com/vi/$2/0.jpg" class="post-image"/>'.
 		'</a></div>';
+
+	// Set to true to use ayah. Requires to set inc/lib/ayah/ayah_config.php!
+	// Ayah is highly reccommended (it's also used only for creating boards)
+	$config["use_ayah"] = false;
