@@ -12,7 +12,7 @@ include "inc/lib/recaptcha/recaptchalib.php";
 
 
 checkBan('*');
-$bannedWords = array('/^cake$/', '8ch', '/^cp$/', 'child', '/^inc$/', '/^static$/', '/^templates$/', '/^js$/', '/^stylesheets$/', '/^tools$/');
+$bannedWords = array('/^cake$/', '8ch', '/^cp$/', 'child', '/^inc$/', '/^static$/', '/^templates$/', '/^js$/', '/^stylesheets$/', '/^tools$/', '/^pedo$/');
 
 $ayah = (($config['ayah_enabled']) ? new AYAH() : false);
 

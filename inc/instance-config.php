@@ -42,7 +42,7 @@
 	$config['thread_subject_in_title'] = true;
 	$config['spam']['hidden_inputs_max_pass'] = 128;
 
-	require_once "secrets.php";
+	include "secrets.php";
 
 	// Image shit
 	$config['thumb_method'] = 'gm+gifsicle';
