@@ -16,7 +16,15 @@
  *
  */
 
+
+au = false;
 auto_reload_enabled = true; // for watch.js to interop
+
+function makeIcon(){
+	if(au) return;
+	au = true;
+	$("link[rel='icon']").attr("href", "../static/favicon_au.png");
+}
 
 $(document).ready(function(){
 	if($('div.banner').length == 0)
@@ -98,6 +106,7 @@ $(document).ready(function(){
 					if($('#' + id).length == 0) {
 						if (!new_posts) {
 							first_new_post = this;
+							makeIcon();
 						}
 						$(this).insertAfter($('div.post:last').next()).after('<br class="clear">');
 						new_posts++;
