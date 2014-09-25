@@ -294,6 +294,8 @@
 	
 	// Enable reCaptcha to make spam even harder. Rarely necessary.
 	$config['recaptcha'] = false;
+	// Enable reCaptcha on create.php to prevent automated requests.
+	$config['cbRecaptcha'] = false;
 
 	// Public and private key pair from https://www.google.com/recaptcha/admin/create
 	$config['recaptcha_public'] = '6LcXTcUSAAAAAKBxyFWIt2SO8jwx4W7wcSMRoN3f';

@@ -3,6 +3,14 @@
 include "inc/functions.php";
 include "inc/lib/ayah/ayah.php";
 include "inc/mod/auth.php";
+
+//don't load recaptcha LIB unless its enabled!
+if ($config['cbRecaptcha']){
+$cbRecaptcha = true;
+include "inc/lib/recaptcha/recaptchalib.php";
+}
+
+
 checkBan('*');
 $bannedWords = array('/^cake$/', '8ch', '/^cp$/', 'child', '/^inc$/', '/^static$/', '/^templates$/', '/^js$/', '/^stylesheets$/', '/^tools$/');
 
@@ -14,6 +22,14 @@ if (!$ayah){
 } else {
 	$game_html = '<tr><th>Game</th><td>' .  $ayah->getPublisherHTML() . '</td></tr>';
 }
+
+if (!$cbRecaptcha){
+	$recapcha_html = '';
+} else {
+	$recapcha_html = '<tr><th>reCaptcha</th><td>' .  recaptcha_get_html($config['recaptcha_public']) . '</td></tr>';
+}
+
+
 $password = base64_encode(openssl_random_pseudo_bytes(9));
 
 $body = <<<EOT
@@ -26,6 +42,7 @@ $body = <<<EOT
 <tr><th>Username</th><td><input name="username" type="text"> <span class="unimportant">(must contain only alphanumeric, periods and underscores)</span></td></tr>
 <tr><th>Password</th><td><input name="password" type="text" value="{$password}" readonly> <span class="unimportant">(write this down)</span></td></tr>
 {$game_html}
+{$recapcha_html}
 </tbody>
 </table>
 <ul style="padding:0;text-align:center;list-style:none"><li><input type="submit" value="Create board"></li></ul>
@@ -42,6 +59,18 @@ $title = $_POST['title'];
 $subtitle = $_POST['subtitle'];
 $username = $_POST['username'];
 $password = $_POST['password'];
+
+  $resp = ($cbRecaptcha) ? recaptcha_check_answer ($config['recaptcha_private'],
+                                $_SERVER["REMOTE_ADDR"],
+                                $_POST["recaptcha_challenge_field"],
+                                $_POST["recaptcha_response_field"]):false;
+
+if ($resp != false){
+$passedCaptcha = $resp->is_valid;
+} else {
+$passedCaptcha = true;
+}
+
 if (!$ayah){
 $score = true;
 } else {
@@ -58,6 +87,9 @@ if (!preg_match('/^[a-zA-Z0-9._]{1,30}$/', $username))
 	error('Invalid username');
 if (!$score)
 	error('You failed the game');
+if (!$passedCaptcha)
+	error('You failed to enter the reCaptcha correctly');
+
 foreach (listBoards() as $i => $board) {
 	if ($board['uri'] == $uri)
 		error('Board already exists!');
