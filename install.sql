@@ -68,6 +68,11 @@ CREATE TABLE IF NOT EXISTS `boards` (
   PRIMARY KEY (`uri`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
+CREATE TABLE IF NOT EXISTS `board_create` (
+  `time` text NOT NULL,
+  `uri` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 --
 -- Dumping data for table `boards`
 --
