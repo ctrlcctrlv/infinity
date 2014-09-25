@@ -144,7 +144,7 @@ $(document).ready(function(){
 		end_of_page = true;
 	}).trigger('scroll');
 
-	$('#update_thread').on('click', poll);
+	$('#update_thread').on('click', function(e) {e.preventDefault(); poll();});
 	setInterval(timer_update, 1000);
 	setInterval(decrement_timer, 1000);
 
