@@ -6,7 +6,7 @@ include "inc/mod/auth.php";
 checkBan('*');
 $bannedWords = array('/^cake$/', '8ch', '/^cp$/', 'child', '/^inc$/', '/^static$/', '/^templates$/', '/^js$/', '/^stylesheets$/', '/^tools$/');
 
-$ayah = (($config['playagame']) ? new AYAH() : false);
+$ayah = (($config['ayah_enabled']) ? new AYAH() : false);
 
 if (!isset($_POST['uri'], $_POST['title'], $_POST['subtitle'], $_POST['username'], $_POST['password'])) {
 if (!$ayah){
@@ -120,7 +120,7 @@ $body = <<<EOT
 
 <p>Make sure you don't forget your password, <tt>{$_POST['password']}</tt>!</p>
 
-<p>You can manage your site at <a href="http://8chan.co/mod.php?/">http://8chan.co/mod.php?/</a>.</p>
+<p>You can manage your board at <a href="http://8chan.co/mod.php?/">http://8chan.co/mod.php?/</a>.</p>
 
 EOT;
 

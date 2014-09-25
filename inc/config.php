@@ -287,7 +287,7 @@
          is located in the following directory:'/inc/lib/ayah/ayah_config.php'
 	
 	*/
-	$config['playagame'] = false;
+	$config['ayah_enabled'] = false;
 	
 	
 	
