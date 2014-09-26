@@ -527,13 +527,21 @@ pre {
 	vertical-align: top;
 	text-align:center;
 	font-weight:normal;
-	width:205px;
+  margin:2px;
+  padding: 2px;
+  height:300px;
+  width:205px;
 	overflow:hidden;
 	position: relative;
 	font-size:11px;
+<<<<<<< HEAD
+  background: rgba(182, 182, 182, 0.12);
+  border: 2px solid rgba(111, 111, 111, 0.34);
+=======
 	max-height:300px;
         background: rgba(182, 182, 182, 0.12);
         border: 2px solid rgba(111, 111, 111, 0.34);
+>>>>>>> bb4ebebe897b69008c6eae98a2062f667d7b5ed7
 }
 .theme-catalog div.thread strong {
     display: block;
@@ -543,9 +551,14 @@ pre {
         margin-left: -20px;
 }
 
+div.thread:hover {
+  background: #D6DAF0;
+  border-color: #B7C5D9;
+}
+
 .theme-catalog div.grid-size-vsmall img {
 	max-width: 100%;
-	max-height: 100px;
+	max-height: 64px;
 }
 
 .theme-catalog div.grid-size-vsmall {
