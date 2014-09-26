@@ -223,7 +223,7 @@ if (isset($_POST['delete'])) {
 			error($config['error']['noaccess']);
 	}
 	
-	if (!($mod && (in_array($board['uri'], $mod['boards']) or $mod['boards'][0] == '*'))) {
+	if (!($mod && ($config['mod']['ignore_dnsbl'] === $mod['type']))) {
 		checkDNSBL();
 	}
 	
