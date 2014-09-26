@@ -1,0 +1,55 @@
+<style>
+th.header {
+    background-image: url(/static/bg.gif); 
+    cursor: pointer; 
+    background-repeat: no-repeat; 
+    background-position: center right; 
+    padding-left: 20px; 
+    margin-left: -1px; 
+}
+th.headerSortUp { 
+    background-image: url(/static/asc.gif); 
+} 
+th.headerSortDown { 
+    background-image: url(/static/desc.gif); 
+} 
+.flag-eo {
+    background-image: url(/static/eo.png);
+}
+.flag-en {
+    background-image: url(/static/en.png);
+}
+</style>
+
+<p style='text-align:center'>{% trans %}There are currently <strong>{{n_boards}}</strong> boards + <strong>{{hidden_boards_total}}</strong> unindexed boards = <strong>{{t_boards}}</strong> total boards. Site-wide, {{total_posts_hour}} posts have been made in the last hour, with {{total_posts}} being made on all active boards since October 23, 2013.{% endtrans %}</p>
+
+<table class="modlog" style="width:auto"><thead><tr><th>L</th><th>{% trans %}Board{% endtrans %}</th><th>{% trans %}Board title{% endtrans %}</th><th>{% trans %}Posts in last hour{% endtrans %}</th><th>{% trans %}Total posts{% endtrans %}</th><th>{% trans %}Created{% endtrans %}</th></tr></thead><tbody>
+{% for board in boards %}
+	<tr>
+	<td>{{ board.img|raw }}</td>
+	<td><a href='/{{board['uri']}}/'>/{{board['uri']}}/</a>{{lock|raw}}</td>
+	<td>{{ board['title'] }}</td>
+	<td style='text-align:right'>{{board['pph']}}</td>
+	<td style='text-align:right'>{{board['max']}}</td>
+	<td>{{board['time']}} ({{board['ago']}} ago)</td></tr>
+{% endfor %}
+</tbody></table>
+<p style='text-align:center'><em>Page last updated: {{last_update}}</em></p>
+<p style='text-align:center'>{{uptime_p}} without interruption</p>
+<script>
+
+$(function() { 
+	$('table').tablesorter({sortList: [[3,1]], 
+	textExtraction: function(node) {
+		childNode = node.childNodes[0];
+		if (!childNode) { return node.innerHTML; }
+		if (childNode.tagName == 'IMG') {
+			return childNode.getAttribute('class');
+		} else {
+			return (childNode.innerHTML ? childNode.innerHTML : childNode.textContent);
+		}
+	}
+	});
+}); 
+</script>
+
