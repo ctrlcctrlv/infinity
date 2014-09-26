@@ -18,7 +18,10 @@ function multi_image() {
         var images_len = $('form:not([id="quick-reply"]) [type=file]').length;
         
         if (!(images_len >= max_images)) {
-            $('[type=file]:last').after('<br class="file_separator"/><input type="file" name="file'+(images_len+1)+'" id="upload_file'+(images_len+1)+'">');
+            $('form[name="post"]:first #upload [type=file]:last').after('<br class="file_separator"/><input type="file" name="file'+(images_len+1)+'" id="upload_file'+(images_len+1)+'">');
+			if ($("#quick-reply").length > 0){
+				$('#quick-reply #upload [type=file]:last').after('<br class="file_separator"/><input type="file" name="file'+(images_len+1)+'" id="upload_file'+(images_len+1)+'">');
+			}
             if (typeof setup_form !== 'undefined') setup_form($('form[name="post"]'));
         }
     })
