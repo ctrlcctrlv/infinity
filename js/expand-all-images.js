@@ -45,7 +45,6 @@ onready(function(){
 		
 		$(document).on('new_post', function(e, post) {
 			if (expandDong){
-			console.log(post);
 				$(post).find(".post-image").parent().click();
 			}
         });
