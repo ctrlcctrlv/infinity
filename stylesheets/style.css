@@ -527,14 +527,15 @@ pre {
 	vertical-align: top;
 	text-align:center;
 	font-weight:normal;
-	width:205px;
+  margin:2px;
+  padding: 2px;
+  height:300px;
+  width:205px;
 	overflow:hidden;
 	position: relative;
 	font-size:11px;
-	padding:5px;
-	max-height:300px;
-        background: rgba(182, 182, 182, 0.12);
-        border: 2px solid rgba(111, 111, 111, 0.34);
+  background: rgba(182, 182, 182, 0.12);
+  border: 2px solid rgba(111, 111, 111, 0.34);
 }
 .theme-catalog div.thread strong {
     display: block;
@@ -542,6 +543,11 @@ pre {
 .theme-catalog div.threads{
         text-align: center;
         margin-left: -20px;
+}
+
++div.threads:hover {
+  background: #D6DAF0;
+  border-color: #B7C5D9;
 }
 
 .theme-catalog div.grid-size-vsmall img {
