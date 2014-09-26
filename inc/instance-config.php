@@ -22,6 +22,9 @@
 	$config['cookies']['mod'] = 'mod';
 	$config['cookies']['salt'] = '';
 
+	$config['spam']['hidden_inputs_max_pass'] = 128;
+	$config['spam']['hidden_inputs_expire'] = 60 * 60 * 4; // three hours
+
 	$config['flood_time'] = 5;
 	$config['flood_time_ip'] = 2;
 	$config['flood_time_same'] = 2;
@@ -42,6 +45,7 @@
 	$config['thread_subject_in_title'] = true;
 	$config['spam']['hidden_inputs_max_pass'] = 128;
 	$config['ayah_enabled'] = true;
+	$config['dnsbl'] = array();
 
 	include "secrets.php";
 
@@ -93,7 +97,6 @@
 	$config['additional_javascript'][] = 'js/favorites.js';
 	$config['additional_javascript'][] = 'js/show-op.js';
 	$config['additional_javascript'][] = 'js/hide-threads.js';
-	$config['additional_javascript'][] = 'js/mobile-style.js'
 	$config['additional_javascript'][] = 'js/smartphone-spoiler.js';
 	$config['additional_javascript'][] = 'js/inline-expanding.js';
 	$config['additional_javascript'][] = 'js/show-backlinks.js';
@@ -119,7 +122,6 @@
 	$config['additional_javascript'][] = 'js/toggle-locked-threads.js';
 	$config['additional_javascript'][] = 'js/toggle-images.js';
 	$config['additional_javascript'][] = 'js/mobile-style.js';
-	$config['additional_javascript'][] = 'js/threadscroll.js';
 
 	$config['font_awesome_css'] = '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css';
 	
@@ -389,3 +391,5 @@ EOT;
 	);
 
 $config['gzip_static'] = false;
+
+require_once "dnsbls.php";
