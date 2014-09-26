@@ -1136,6 +1136,8 @@
 	// This is a particularly advanced feature - contact ctrlcctrlv or rails unless you
 	//   really know what you're doing
 	$config['dir']['img_root'] = '';
+	// DO NOT COMMENT OUT, LEAVE BLANK AND OVERRIDE IN INSTANCE CONFIG
+	// Though, you shouldnt be editing this file, so what do I know?
 	
 
 	// For load balancing, having a seperate server (and domain/subdomain) for serving static content is
