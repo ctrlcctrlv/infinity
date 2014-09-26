@@ -2,6 +2,8 @@
 
 include "inc/functions.php";
 include "inc/mod/auth.php";
+include "inc/countries.php";
+
 $admin = isset($mod["type"]) && $mod["type"]<=30;
 
 if (php_sapi_name() == 'fpm-fcgi' && !$admin) {
@@ -84,9 +86,10 @@ foreach ($boards as $i => &$board) {
 	$locale_arr = explode('_', $locale);
 	$locale_short = isset($locale_arr[1]) ? strtolower($locale_arr[1]) : strtolower($locale_arr[0]);
 	$locale_short = str_replace('.utf-8', '', $locale_short);
+	$country = get_country($locale_short);
 	if ($board['uri'] === 'int') {$locale_short = 'eo'; $locale = 'eo';}
 
-	$img = "<img class=\"flag flag-$locale_short\" src=\"/static/blank.gif\" style=\"width:16px;height:11px;\" alt=\"$locale\" title=\"$locale\">";
+	$img = "<img class=\"flag flag-$locale_short\" src=\"/static/blank.gif\" style=\"width:16px;height:11px;\" alt=\"$country\" title=\"$country\">";
 
 	if ($showboard || $admin) {
 		if (!$showboard) {
