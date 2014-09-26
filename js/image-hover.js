@@ -88,7 +88,7 @@ $(document).ready(function(){
 
 	$mrCheckie = $('<div><label id=\"toggle-image-hover\"><input id="toggle-hover" type=\"checkbox\"> show image on hover</label></div>');
 
-	$(".options_tab").append($mrCheckie);
+	$(".options_tab:first").append($mrCheckie);
 	$("#toggle-hover").prop("checked", imageHover);
 	$("#toggle-hover").on("click", function(){
 		if ($(this).prop("checked")){
@@ -100,7 +100,7 @@ $(document).ready(function(){
 		}
 	});
 
-	$(".options_tab").append();
+
 
 	$(document).on("new_post", function(e, post) {
 		$(post).hover(imageEnter(),imageLeave());
