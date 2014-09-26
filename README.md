@@ -123,7 +123,7 @@ git submodule init
 git submodule update
 ```
 
-To enable oekaki, add all the scripts listed in `js/oekaki.js` to your `instance-config.php`.
+To enable oekaki, add all the scripts listed in `js/wpaint.js` to your `instance-config.php`.
 
 WebM support
 ------------
@@ -135,12 +135,11 @@ Some pages like `/faq.html` need to be pre-generated:
 ```
 $ php faq.php > faq.html
 ```
-=======
+
 vichan API
 ----------
 vichan provides by default a 4chan-compatible JSON API. For documentation on this, see:
 https://github.com/vichan-devel/vichan-API/ .
->>>>>>> 3b2f4481029ba3e98d1da79f5fe1cba08ef7f8ac
 
 License
 --------

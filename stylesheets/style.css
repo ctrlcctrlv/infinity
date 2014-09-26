@@ -531,7 +531,6 @@ pre {
 	overflow:hidden;
 	position: relative;
 	font-size:11px;
-	padding:5px;
 	max-height:300px;
         background: rgba(182, 182, 182, 0.12);
         border: 2px solid rgba(111, 111, 111, 0.34);
@@ -586,8 +585,6 @@ pre {
                 overflow: hidden;
         }
 }
-
-@include url("tooltipster/tooltipster.css");
 
 .compact-boardlist {
         padding: 3px;
@@ -728,4 +725,14 @@ pre {
 }
 .mentioned {
 	word-wrap: break-word;
+}
+
+code > pre {
+/* Better code tags */
+  background:black;
+  max-width:inherit;
+}
+
+code > pre > span.pln {
+  color:grey;
 }
