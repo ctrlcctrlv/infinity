@@ -535,8 +535,13 @@ pre {
   background: rgba(182, 182, 182, 0.12);
   border: 2px solid rgba(111, 111, 111, 0.34);
 	max-height:300px;
+<<<<<<< HEAD
   background: rgba(182, 182, 182, 0.12);
   border: 2px solid rgba(111, 111, 111, 0.34);
+=======
+        background: rgba(182, 182, 182, 0.12);
+        border: 2px solid rgba(111, 111, 111, 0.34);
+>>>>>>> 5b5f3984f0d17a0dfaf6cdc7f49ec31fe5c862b8
 }
 .theme-catalog div.thread strong {
     display: block;
