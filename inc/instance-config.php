@@ -78,6 +78,7 @@
 	$config['mod']['debug_antispam'] = ADMIN;
 	$config['mod']['modlog'] = SUPERMOD;
 	$config['mod']['recent_reports'] = 65535;
+	$config['mod']['ignore_dnsbl'] = SUPERMOD;
 
 	// Board shit
 	$config['ayah_enabled'] = true;
