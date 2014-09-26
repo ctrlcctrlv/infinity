@@ -87,7 +87,7 @@ foreach ($boards as $i => &$board) {
 	$locale_short = isset($locale_arr[1]) ? strtolower($locale_arr[1]) : strtolower($locale_arr[0]);
 	$locale_short = str_replace('.utf-8', '', $locale_short);
 	$country = get_country($locale_short);
-	if ($board['uri'] === 'int') {$locale_short = 'eo'; $locale = 'eo';}
+	if ($board['uri'] === 'int') {$locale_short = 'eo'; $locale = 'eo'; $country = 'Esperanto';}
 
 	$img = "<img class=\"flag flag-$locale_short\" src=\"/static/blank.gif\" style=\"width:16px;height:11px;\" alt=\"$country\" title=\"$country\">";
 
