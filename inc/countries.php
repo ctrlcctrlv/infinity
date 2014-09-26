@@ -1,6 +1,6 @@
 <?php
 
-function country_code_to_country( $code ){
+function get_country( $code ){
     $code = strtoupper($code);
     $country = '';
     if( $code == 'AF' ) $country = 'Afghanistan';
