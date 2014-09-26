@@ -7,25 +7,33 @@ body {
 	padding-left: 5px;
 	padding-right: 5px;
 }
+
 table * {
 	margin: 0;
 }
+
 a, a:visited {
 	text-decoration: underline;
 	color: #34345C;
 }
+
 a:hover, p.intro a.post_no:hover {
 	color: #ff0000;
 }
+
 a.post_no {
 	text-decoration: none;
 	margin: 0;
 	padding: 0;
 }
+
 p.intro a.post_no {
 	color: inherit;
 }
-p.intro a.post_no, p.intro a.email, p.intro a.post_anchor {
+
+p.intro a.post_no,
+p.intro a.email,
+p.intro a.post_anchor {
 	margin: 0;
 }
 p.intro a.email span.name {
@@ -509,7 +517,6 @@ pre {
 .theme-catalog div.thread img {
 	float:none!important;
 	margin: auto;
-	margin-bottom: 12px;
 	max-height: 150px;
 	max-width: 200px;
 	box-shadow: 0 0 4px rgba(0, 0, 0, 0.55);
@@ -524,6 +531,7 @@ pre {
 	overflow:hidden;
 	position: relative;
 	font-size:11px;
+	padding:5px;
 	max-height:300px;
         background: rgba(182, 182, 182, 0.12);
         border: 2px solid rgba(111, 111, 111, 0.34);
@@ -719,15 +727,4 @@ pre {
 }
 .mentioned {
 	word-wrap: break-word;
-}
-
-
-code > pre {
-/* Better code tags */
-  background:black;
-  max-width:inherit;
-}
-
-code > pre > span.pln {
-  color:grey;
 }
