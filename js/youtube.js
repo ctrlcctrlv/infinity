@@ -159,40 +159,28 @@ $(document)
 		
 		$('.options_tab:first').append('<div><label id="emb-vid"><input type="checkbox" id="emb-toggle" class="menuOption" data-option="embvid"> Embed youtube links</label></div>');
 
-	$('#emb-toggle').prop("checked", emb_vid ? false:true);
+		$('#emb-toggle').prop("checked", emb_vid ? false:true);
 
 
         $('#emb-toggle')
             .click(function () {
-console.log($(this).prop("checked"));
-
-      			if (!$(this).prop("checked")){
-			 emb_vid = true;
-			disableYouTubeBox();
-			localStorage['embvid'] = true;
-			console.log("enabling");
-		} else {
-		console.log("disabling");
-			 emb_vid = false;
-			delete localStorage['embvid'];
-			$(".body a").each(YouTubeInit);
-		}
-
-
-
-
+			
+				if (!$(this).prop("checked")){
+					emb_vid = true;
+					disableYouTubeBox();
+					localStorage['embvid'] = true;
+				} else {
+					emb_vid = false;
+					delete localStorage['embvid'];
+					$(".body a").each(YouTubeInit);
+				}
             });
 			
-			
-
-			
-			
-			
-        if (!emb_vid)
-
-            $(".body a")
+	
+        if (!emb_vid){
+           $(".body a")
                 .each(YouTubeInit);
-
+		}
 
 
         $(document)
