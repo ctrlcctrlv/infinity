@@ -24,12 +24,22 @@ $(document).ready(function(){
 	imageHover = !imageHover;
 
 	var imageEnter = function(){
+		
 		if (!imageHover)
 			return;
+		//don't hover-image if image expanded
+		if ($(this).parent().attr("data-expanded") == "true")
+			return;
+
 
 		mouseexitedImage = false;
 		mouseisOnImage = false;
-
+		//remove hover-image if user clicks on image to expand it
+		$(this).click(function(){
+			mouseexitedImage = false;
+			mouseisOnImage = false;
+			$("#hover-image").remove();
+		});
 		isVideo = (($(this).prop("tagName") == "VIDEO") ? true:($(this).parent().attr("href").indexOf("player.php?v=") > -1) ? true:false);
 		maxWidth = document.body.offsetWidth-(document.body.offsetWidth * 0.25);
 		maxHeight = document.documentElement.clientHeight;
