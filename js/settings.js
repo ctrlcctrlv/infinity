@@ -65,3 +65,10 @@ tb_settings['auto-reload'] = {
 	// Reset the delay to the minimum upon focussing the window.
 	reset_focus: true
 };
+
+// youtube.js
+tb_settings['youtube_embed'] = {
+	player_width:"420px",//embed player width
+	player_height:"315px",//embed player height
+	autoplay:true
+};
