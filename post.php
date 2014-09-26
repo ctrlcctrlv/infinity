@@ -200,11 +200,34 @@ if (isset($_POST['delete'])) {
 	if ($config['referer_match'] !== false &&
 		(!isset($_SERVER['HTTP_REFERER']) || !preg_match($config['referer_match'], rawurldecode($_SERVER['HTTP_REFERER']))))
 		error($config['error']['referer']);
-	
-	checkDNSBL();
 		
 	// Check if banned
 	checkBan($board['uri']);
+	
+	if ($post['mod'] = isset($_POST['mod']) && $_POST['mod']) {
+		require 'inc/mod/auth.php';
+		if (!$mod) {
+			// Liar. You're not a mod.
+			error($config['error']['notamod']);
+		}
+			
+		$post['sticky'] = $post['op'] && isset($_POST['sticky']);
+		$post['locked'] = $post['op'] && isset($_POST['lock']);
+		$post['raw'] = isset($_POST['raw']);
+		
+		if ($post['sticky'] && !hasPermission($config['mod']['sticky'], $board['uri']))
+			error($config['error']['noaccess']);
+		if ($post['locked'] && !hasPermission($config['mod']['lock'], $board['uri']))
+			error($config['error']['noaccess']);
+		if ($post['raw'] && !hasPermission($config['mod']['rawhtml'], $board['uri']))
+			error($config['error']['noaccess']);
+	}
+	
+	if (!($mod && (in_array($board['uri'], $mod['boards']) or $mod['boards'][0] == '*'))) {
+		checkDNSBL();
+	}
+	
+		
 	
 	// Check for CAPTCHA right after opening the board so the "return" link is in there
 	if ($config['recaptcha']) {
@@ -220,24 +243,6 @@ if (isset($_POST['delete'])) {
 		}
 	}
 	
-	if ($post['mod'] = isset($_POST['mod']) && $_POST['mod']) {
-		require 'inc/mod/auth.php';
-		if (!$mod) {
-			// Liar. You're not a mod.
-			error($config['error']['notamod']);
-		}
-		
-		$post['sticky'] = $post['op'] && isset($_POST['sticky']);
-		$post['locked'] = $post['op'] && isset($_POST['lock']);
-		$post['raw'] = isset($_POST['raw']);
-		
-		if ($post['sticky'] && !hasPermission($config['mod']['sticky'], $board['uri']))
-			error($config['error']['noaccess']);
-		if ($post['locked'] && !hasPermission($config['mod']['lock'], $board['uri']))
-			error($config['error']['noaccess']);
-		if ($post['raw'] && !hasPermission($config['mod']['rawhtml'], $board['uri']))
-			error($config['error']['noaccess']);
-	}
 	
 	if (!$post['mod']) {
 		$post['antispam_hash'] = checkSpam(array($board['uri'], isset($post['thread']) ? $post['thread'] : ($config['try_smarter'] && isset($_POST['page']) ? 0 - (int)$_POST['page'] : null)));
