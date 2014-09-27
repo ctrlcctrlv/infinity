@@ -38,15 +38,18 @@ $total_posts_hour = 0;
 $total_posts = 0;
 
 foreach ($boards as $i => $board) {
-
-	//$query = prepare(sprintf("SELECT (SELECT MAX(id) from ``posts_%s``) AS max, (SELECT MAX(id) FROM ``posts_%s`` WHERE FROM_UNIXTIME(time) < DATE_SUB(NOW(), INTERVAL 1 HOUR)) AS oldmax, (SELECT MAX(id) from ``posts_%s``) AS max_d, (SELECT MAX(id) FROM ``posts_%s`` WHERE FROM_UNIXTIME(time) < DATE_SUB(NOW(), INTERVAL 1 DAY)) AS oldmax_d, (SELECT count(id) FROM ``posts_%s``) AS count;", $board['uri'], $board['uri'], $board['uri'], $board['uri'], $board['uri']));
-
-	$query = prepare(sprintf("
-SELECT MAX(id) max, (SELECT COUNT(*) FROM ``posts_%s`` WHERE FROM_UNIXTIME(time) > DATE_SUB(NOW(), INTERVAL 1 DAY)) ppd, 
-(SELECT COUNT(*) FROM ``posts_%s`` WHERE FROM_UNIXTIME(time) > DATE_SUB(NOW(), INTERVAL 1 HOUR)) pph,
-(SELECT count(id) FROM ``posts_%s``) count FROM ``posts_%s``
-", $board['uri'], $board['uri'], $board['uri'], $board['uri']));
+	$query = prepare("
+	SELECT
+	  (SELECT coalesce((SELECT max(`id_for_board`) FROM `posts` WHERE `board` = :board),0)) max,
+		(SELECT COUNT(*) FROM `posts` WHERE `board` = :board AND FROM_UNIXTIME(time) > DATE_SUB(NOW(), INTERVAL 1 DAY)) ppd,
+		(SELECT COUNT(*) FROM `posts` WHERE `board` = :board AND FROM_UNIXTIME(time) > DATE_SUB(NOW(), INTERVAL 1 HOUR)) pph,
+		(SELECT count(id) FROM `posts` WHERE `board` = :board) count
+	FROM `posts`
+	WHERE `board` = :board");
+	$query->bindValue(':board', $board['uri']);
+  $pdo->beginTransaction();
 	$query->execute() or error(db_error($query));
+  $pdo->commit();
 	$r = $query->fetch(PDO::FETCH_ASSOC);
 
 	$pph = $r['pph'];
