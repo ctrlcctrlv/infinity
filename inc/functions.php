@@ -992,7 +992,7 @@ function bumpThread($id_for_board) {
 }
 
 // Remove file from post
-function deleteFile($id, $remove_entirely_if_already=true, $file=null) {
+function deleteFile($id_for_board, $remove_entirely_if_already=true, $file=null) {
 	global $board, $config;
 
 	$query = prepare("SELECT `thread`, `files`, `num_files` FROM ``posts`` WHERE `id_for_board` = :id_for_board AND `board` = :board LIMIT 1");
@@ -1007,7 +1007,7 @@ function deleteFile($id, $remove_entirely_if_already=true, $file=null) {
 	if ($files[0]->file == 'deleted' && $post['num_files'] == 1 && !$post['thread'])
 		return; // Can't delete OP's image completely.
 
-	$query = prepare(sprintf("UPDATE ``posts_%s`` SET `files` = :file WHERE `id` = :id", $board['uri']));
+	$query = prepare("UPDATE ``posts`` SET `files` = :file WHERE `id_for_board` = :id_for_board AND `board` = :board");
 	if (($file && $file_to_delete->file == 'deleted') && $remove_entirely_if_already) {
 		// Already deleted; remove file fully
 		$files[$file] = null;
@@ -1027,13 +1027,14 @@ function deleteFile($id, $remove_entirely_if_already=true, $file=null) {
 
 	$query->bindValue(':file', json_encode($files), PDO::PARAM_STR);
 
-	$query->bindValue(':id', $id, PDO::PARAM_INT);
+	$query->bindValue(':id_for_board', $id_for_board, PDO::PARAM_INT);
+	$query->bindValue(':board', $board['uri']);
 	$query->execute() or error(db_error($query));
 
 	if ($post['thread'])
 		buildThread($post['thread']);
 	else
-		buildThread($id);
+		buildThread($id_for_board);
 }
 
 // rebuild post (markup)
@@ -1378,10 +1379,11 @@ function checkRobot($body) {
 }
 
 // Returns an associative array with 'replies' and 'images' keys
-function numPosts($id) {
+function numPosts($id_for_board) {
 	global $board;
-	$query = prepare(sprintf("SELECT COUNT(*) AS `replies`, SUM(`num_files`) AS `images` FROM ``posts_%s`` WHERE `thread` = :thread", $board['uri'], $board['uri']));
-	$query->bindValue(':thread', $id, PDO::PARAM_INT);
+	$query = prepare("SELECT COUNT(*) AS `replies`, SUM(`num_files`) AS `images` FROM ``posts`` WHERE `thread` = :thread AND `board` = :board");
+	$query->bindValue(':thread', $id_for_board, PDO::PARAM_INT);
+	$query->bindValue(':board', $board['uri']);
 	$query->execute() or error(db_error($query));
 
 	return $query->fetch(PDO::FETCH_ASSOC);
