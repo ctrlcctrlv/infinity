@@ -50,16 +50,18 @@ if (isset($_POST['delete'])) {
 	if (empty($delete))
 		error($config['error']['nodelete']);
 		
-	foreach ($delete as &$id) {
-		$query = prepare(sprintf("SELECT `thread`, `time`,`password` FROM ``posts_%s`` WHERE `id` = :id", $board['uri']));
-		$query->bindValue(':id', $id, PDO::PARAM_INT);
+	foreach ($delete as &$id_for_board) {
+		$query = prepare("SELECT `thread`, `time`,`password` FROM ``posts`` WHERE `id_for_board` = :id_for_board AND `board` = :board");
+		$query->bindValue(':id_for_board', $id_for_board, PDO::PARAM_INT);
+		$query->bindValue(':board', $board['uri']);
 		$query->execute() or error(db_error($query));
 		
 		if ($post = $query->fetch(PDO::FETCH_ASSOC)) {
 			$thread = false;
 			if ($config['user_moderation'] && $post['thread']) {
-				$thread_query = prepare(sprintf("SELECT `time`,`password` FROM ``posts_%s`` WHERE `id` = :id", $board['uri']));
-				$thread_query->bindValue(':id', $post['thread'], PDO::PARAM_INT);
+				$thread_query = prepare("SELECT `time`,`password` FROM ``posts`` WHERE `id_for_board` = :id_for_board AND `board` = :board");
+				$thread_query->bindValue(':id_for_board', $post['thread'], PDO::PARAM_INT);
+				$thread_query->bindValue(':board', $board['uri']);
 				$thread_query->execute() or error(db_error($query));
 
 				$thread = $thread_query->fetch(PDO::FETCH_ASSOC);	
@@ -74,14 +76,14 @@ if (isset($_POST['delete'])) {
 			
 			if (isset($_POST['file'])) {
 				// Delete just the file
-				deleteFile($id);
+				deleteFile($id_for_board);
 			} else {
 				// Delete entire post
-				deletePost($id);
+				deletePost($id_for_board);
 			}
 			
 			_syslog(LOG_INFO, 'Deleted post: ' .
-				'/' . $board['dir'] . $config['dir']['res'] . sprintf($config['file_page'], $post['thread'] ? $post['thread'] : $id) . ($post['thread'] ? '#' . $id : '')
+				'/' . $board['dir'] . $config['dir']['res'] . sprintf($config['file_page'], $post['thread'] ? $post['thread'] : $id_for_board) . ($post['thread'] ? '#' . $id_for_board : '')
 			);
 		}
 	}
