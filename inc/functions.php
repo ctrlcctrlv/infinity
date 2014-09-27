@@ -657,8 +657,8 @@ function listBoards($just_uri = false) {
 	
 	$just_uri ? $cache_name = 'all_boards_uri' : $cache_name = 'all_boards';
 
-	if ($config['cache']['enabled'] && ($boards = cache::get($cache_name)))
-		return $boards;
+	//if ($config['cache']['enabled'] && ($boards = cache::get($cache_name)))
+		//return $boards;
 
 	if (!$just_uri) {
 		$query = query("SELECT ``boards``.`uri` uri, ``boards``.`title` title, ``boards``.`subtitle` subtitle, ``board_create``.`time` time FROM ``boards`` LEFT JOIN ``board_create`` ON ``boards``.`uri` = ``board_create``.`uri` ORDER BY ``boards``.`uri`") or error(db_error());
@@ -666,7 +666,9 @@ function listBoards($just_uri = false) {
 	} else {
 		$boards = array();
 		$query = query("SELECT `uri` FROM ``boards``") or error(db_error());
-		while ($board = $query->fetchColumn()) {
+		while (true) {
+			$board = $query->fetchColumn();
+			if ($board === FALSE) break;
 			$boards[] = $board;
 		}
 	}

@@ -33,6 +33,8 @@ onready(function(){
 			} else {	
 				$(this).text("Expand all images");
 				expandDong = false;
+			}
+
 				$('a img.post-image').each(function() {
 					if ($(this).parent()[0].dataset.expanded)
 						$(this).parent().click();
