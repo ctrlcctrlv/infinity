@@ -120,7 +120,8 @@
 	$config['additional_javascript'][] = 'js/toggle-locked-threads.js';
 	$config['additional_javascript'][] = 'js/toggle-images.js';
 	$config['additional_javascript'][] = 'js/mobile-style.js';
-	$config['additional_javascript'][] = 'js/id_highlighter.js'
+	$config['additional_javascript'][] = 'js/id_highlighter.js';
+	$config['additional_javascript'][] = 'js/id_colors.js';
 
 	$config['font_awesome_css'] = '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css';
 	
