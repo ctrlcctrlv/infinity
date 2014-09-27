@@ -24,12 +24,22 @@ $(document).ready(function(){
 	imageHover = !imageHover;
 
 	var imageEnter = function(){
+		
 		if (!imageHover)
 			return;
+		//don't hover-image if image expanded
+		if ($(this).parent().attr("data-expanded") == "true")
+			return;
+
 
 		mouseexitedImage = false;
 		mouseisOnImage = false;
-
+		//remove hover-image if user clicks on image to expand it
+		$(this).click(function(){
+			mouseexitedImage = false;
+			mouseisOnImage = false;
+			$("#hover-image").remove();
+		});
 		isVideo = (($(this).prop("tagName") == "VIDEO") ? true:($(this).parent().attr("href").indexOf("player.php?v=") > -1) ? true:false);
 		maxWidth = document.body.offsetWidth-(document.body.offsetWidth * 0.25);
 		maxHeight = document.documentElement.clientHeight;
@@ -78,7 +88,7 @@ $(document).ready(function(){
 
 	$mrCheckie = $('<div><label id=\"toggle-image-hover\"><input id="toggle-hover" type=\"checkbox\"> show image on hover</label></div>');
 
-	$(".options_tab").append($mrCheckie);
+	$(".options_tab:first").append($mrCheckie);
 	$("#toggle-hover").prop("checked", imageHover);
 	$("#toggle-hover").on("click", function(){
 		if ($(this).prop("checked")){
@@ -90,7 +100,7 @@ $(document).ready(function(){
 		}
 	});
 
-	$(".options_tab").append();
+
 
 	$(document).on("new_post", function(e, post) {
 		$(post).hover(imageEnter(),imageLeave());
