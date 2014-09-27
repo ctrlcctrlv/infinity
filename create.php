@@ -20,7 +20,7 @@ if (!isset($_POST['uri'], $_POST['title'], $_POST['subtitle'], $_POST['username'
 if (!$ayah){
 	$game_html =  '';
 } else {
-	$game_html = '<tr><th>Game</th><td>' .  $ayah->getPublisherHTML() . '</td></tr>';
+	$game_html = '<tr><th>'._('Game').'</th><td>' .  $ayah->getPublisherHTML() . '</td></tr>';
 }
 
 if (!$cbRecaptcha){
@@ -32,25 +32,9 @@ if (!$cbRecaptcha){
 
 $password = base64_encode(openssl_random_pseudo_bytes(9));
 
-$body = <<<EOT
-<form method="POST">
-<table class="modlog" style="width:auto">
-<tbody>
-<tr><th>URI</th><td>/<input name="uri" type="text" size="5">/ <span class="unimportant">(must be all lowercase or numbers and < 10 chars)</td></tr>
-<tr><th>Title</th><td><input name="title" type="text"> <span class="unimportant">(must be < 40 chars)</td></tr>
-<tr><th>Subtitle</th><td><input name="subtitle" type="text"> <span class="unimportant">(must be < 200 chars)</td></tr>
-<tr><th>Username</th><td><input name="username" type="text"> <span class="unimportant">(must contain only alphanumeric, periods and underscores)</span></td></tr>
-<tr><th>Password</th><td><input name="password" type="text" value="{$password}" readonly> <span class="unimportant">(write this down)</span></td></tr>
-{$game_html}
-{$recapcha_html}
-</tbody>
-</table>
-<ul style="padding:0;text-align:center;list-style:none"><li><input type="submit" value="Create board"></li></ul>
-</form>
+$body = Element("8chan/create.html", array("config" => $config, "password" => $password, "game_html" => $game_html, "recapcha_html" => $recapcha_html));
 
-EOT;
-
-echo Element("page.html", array("config" => $config, "body" => $body, "title" => "Create your board", "subtitle" => "before someone else does"));
+echo Element("page.html", array("config" => $config, "body" => $body, "title" => _("Create your board"), "subtitle" => _("before someone else does")));
 }
 
 else {
@@ -77,30 +61,30 @@ $score = true;
 $score = $ayah->scoreResult();
 }
 if (!$score)
-	error('You failed the game');
+	error(_('You failed the game'));
 if (!$passedCaptcha)
-	error('You failed to enter the reCaptcha correctly');
+	error(_('You failed to enter the reCaptcha correctly'));
 if (!preg_match('/^[a-z0-9]{1,10}$/', $uri))
-	error('Invalid URI');
+	error(_('Invalid URI'));
 if (!(strlen($title) < 40))
-	error('Invalid title');
+	error(_('Invalid title'));
 if (!(strlen($subtitle) < 200))
-	error('Invalid subtitle');
+	error(_('Invalid subtitle'));
 if (!preg_match('/^[a-zA-Z0-9._]{1,30}$/', $username))
-	error('Invalid username');
+	error(_('Invalid username'));
 
 foreach (listBoards() as $i => $board) {
 	if ($board['uri'] == $uri)
-		error('Board already exists!');
+		error(_('Board already exists!'));
 }
 
 foreach ($bannedWords as $i => $w) {
 	if ($w[0] !== '/') {
 		if (strpos($uri,$w) !== false)
-			error("Cannot create board with banned word $w");
+			error(_("Cannot create board with banned word $w"));
 	} else {
 		if (preg_match($w,$uri))
-			error("Cannot create board matching banned pattern $w");
+			error(_("Cannot create board matching banned pattern $w"));
 	}
 }
 $query = prepare('SELECT ``username`` FROM ``mods`` WHERE ``username`` = :username');
@@ -109,7 +93,7 @@ $query->execute() or error(db_error($query));
 $users = $query->fetchAll(PDO::FETCH_ASSOC);
 
 if (sizeof($users) > 0){
-error('The username you\'ve tried to enter already exists!');
+error(_('The username you\'ve tried to enter already exists!'));
 }
 
 $salt = generate_salt();
@@ -142,20 +126,14 @@ buildIndex();
 
 rebuildThemes('boards');
 
-query("INSERT INTO ``board_create``(uri) VALUES('$uri')") or error(db_error());
+$query = prepare("INSERT INTO ``board_create``(uri) VALUES(:uri)");
+$query->bindValue(':uri', $uri);
+$query->execute() or error(db_error());
 
 _syslog(LOG_NOTICE, "New board: $uri");
 
-$body = <<<EOT
+$body = Element("8chan/create_success.html", array("config" => $config, "password" => $_POST['password'], "uri" => $uri));
 
-<p>Your new board is created and is live at <a href="/{$uri}">/{$uri}/</a>.</p>
-
-<p>Make sure you don't forget your password, <tt>{$_POST['password']}</tt>!</p>
-
-<p>You can manage your board at <a href="http://8chan.co/mod.php?/">http://8chan.co/mod.php?/</a>.</p>
-
-EOT;
-
-echo Element("page.html", array("config" => $config, "body" => $body, "title" => "Success", "subtitle" => "This was a triumph"));
+echo Element("page.html", array("config" => $config, "body" => $body, "title" => _("Success"), "subtitle" => _("This was a triumph")));
 }
 ?>
