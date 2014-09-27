@@ -1043,7 +1043,7 @@ function rebuildPost($id_for_board) {
 
 	$query = prepare("SELECT `body_nomarkup`, `thread` FROM ``posts`` WHERE `id_for_board` = :id_for_board AND `board` = :board");
 	$query->bindValue(':id_for_board', $id_for_board, PDO::PARAM_INT);
-	$query->bindValue(':board', $board);
+	$query->bindValue(':board', $board['uri']);
 	$query->execute() or error(db_error($query));
 
 	if ((!$post = $query->fetch(PDO::FETCH_ASSOC)) || !$post['body_nomarkup'])
@@ -1051,7 +1051,7 @@ function rebuildPost($id_for_board) {
 
 	markup($body = &$post['body_nomarkup']);
 
-	$query = prepare("UPDATE ``posts`` SET `body` = :body WHERE `id_for_board` = :id_for_board AND `board` = '%s'");
+	$query = prepare("UPDATE ``posts`` SET `body` = :body WHERE `id_for_board` = :id_for_board AND `board` = :board");
 	$query->bindValue(':body', $body);
 	$query->bindValue(':id_for_board', $id_for_board, PDO::PARAM_INT);
 	$query->bindValue(':board', $board['uri']);
