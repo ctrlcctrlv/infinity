@@ -975,18 +975,19 @@ function post(array $post) {
 	return $lastIdForBoard;
 }
 
-function bumpThread($id) {
+function bumpThread($id_for_board) {
 	global $config, $board, $build_pages;
 
-	if (event('bump', $id))
+	if (event('bump', $id_for_board))
 		return true;
 
 	if ($config['try_smarter'])
-		$build_pages[] = thread_find_page($id);
+		$build_pages[] = thread_find_page($id_for_board);
 
-	$query = prepare(sprintf("UPDATE ``posts_%s`` SET `bump` = :time WHERE `id` = :id AND `thread` IS NULL", $board['uri']));
+	$query = prepare("UPDATE ``posts`` SET `bump` = :time WHERE `id_for_board` = :id_for_board AND `thread` IS NULL AND `board` = :board");
 	$query->bindValue(':time', time(), PDO::PARAM_INT);
-	$query->bindValue(':id', $id, PDO::PARAM_INT);
+	$query->bindValue(':id_for_board', $id_for_board, PDO::PARAM_INT);
+	$query->bindValue(':board', $board['uri']);
 	$query->execute() or error(db_error($query));
 }
 
