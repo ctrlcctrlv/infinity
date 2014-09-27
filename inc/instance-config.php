@@ -84,6 +84,7 @@
 	$config['mod']['recent_reports'] = 65535;
 
 	// Board shit
+	$config['poster_id_length'] = 6;
 	$config['ayah_enabled'] = true;
 	$config['url_banner'] = '/banners.php';
 	//$config['default_stylesheet'] = array('Notsuba', 'notsuba.css');
