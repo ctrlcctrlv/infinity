@@ -18,27 +18,36 @@
 
 if (active_page == 'ukko' || active_page == 'thread' || active_page == 'index')
 onready(function(){
+	var expandDong = false;
 	$('hr:first').before('<div id="expand-all-images" style="text-align:right"><a class="unimportant" href="javascript:void(0)"></a></div>');
 	$('div#expand-all-images a')
 		.text(_('Expand all images'))
 		.click(function() {
-			$('a img.post-image').each(function() {
-				if (!$(this).parent()[0].dataset.expanded)
-					$(this).parent().click();
-			});
-
-			if (!$('#shrink-all-images').length) {
-				$('hr:first').before('<div id="shrink-all-images" style="text-align:right"><a class="unimportant" href="javascript:void(0)"></a></div>');
+			if (!expandDong){
+				$(this).text("Shrink all images");
+				expandDong = true;
+				$('a img.post-image').each(function() {
+					if (!$(this).parent()[0].dataset.expanded)
+						$(this).parent().click();
+				});
+			} else {	
+				$(this).text("Expand all images");
+				expandDong = false;
 			}
 
-			$('div#shrink-all-images a')
-				.text(_('Shrink all images'))
-				.click(function(){
-					$('a img.post-image').each(function() {
-						if ($(this).parent()[0].dataset.expanded)
-							$(this).parent().click();
-					});
-					$(this).parent().remove();
+				$('a img.post-image').each(function() {
+					if ($(this).parent()[0].dataset.expanded)
+						$(this).parent().click();
 				});
+			}
+
+
+
 		});
+		
+		$(document).on('new_post', function(e, post) {
+			if (expandDong){
+				$(post).find(".post-image").parent().click();
+			}
+        });
 });
