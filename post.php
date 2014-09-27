@@ -253,8 +253,9 @@ if (isset($_POST['delete'])) {
 	
 	//Check if thread exists
 	if (!$post['op']) {
-		$query = prepare(sprintf("SELECT `sticky`,`locked`,`sage` FROM ``posts_%s`` WHERE `id` = :id AND `thread` IS NULL LIMIT 1", $board['uri']));
-		$query->bindValue(':id', $post['thread'], PDO::PARAM_INT);
+		$query = prepare("SELECT `sticky`,`locked`,`sage` FROM ``posts`` WHERE `id_for_board` = :id_for_board AND `thread` IS NULL AND `board` = :board LIMIT 1");
+		$query->bindValue(':id_for_board', $post['thread'], PDO::PARAM_INT);
+		$query->bindValue(':board', $board['uri']);
 		$query->execute() or error(db_error());
 		
 		if (!$thread = $query->fetch(PDO::FETCH_ASSOC)) {
@@ -794,7 +795,7 @@ if (isset($_POST['delete'])) {
 		$post['files'] = $post['files'];
 	$post['num_files'] = sizeof($post['files']);
 	
-	$post['id'] = $id = post($post);
+	$post['id_for_board'] = $id_for_board = post($post);
 	
 	insertFloodPost($post);
 	
@@ -806,7 +807,7 @@ if (isset($_POST['delete'])) {
 		$insert_rows = array();
 		foreach ($post['tracked_cites'] as $cite) {
 			$insert_rows[] = '(' .
-				$pdo->quote($board['uri']) . ', ' . (int)$id . ', ' .
+				$pdo->quote($board['uri']) . ', ' . (int)$id_for_board . ', ' .
 				$pdo->quote($cite[0]) . ', ' . (int)$cite[1] . ')';
 		}
 		query('INSERT INTO ``cites`` VALUES ' . implode(', ', $insert_rows)) or error(db_error());
@@ -816,7 +817,7 @@ if (isset($_POST['delete'])) {
 		bumpThread($post['thread']);
 	}
 	
-	buildThread($post['op'] ? $id : $post['thread']);
+	buildThread($post['op'] ? $id_for_board : $post['thread']);
 	
 	if ($config['try_smarter'] && $post['op'])
 		$build_pages = range(1, $config['max_pages']);
@@ -844,7 +845,7 @@ if (isset($_POST['delete'])) {
 	
 	if ($noko) {
 		$redirect = $root . $board['dir'] . $config['dir']['res'] .
-			sprintf($config['file_page'], $post['op'] ? $id:$post['thread']) . (!$post['op'] ? '#' . $id : '');
+			sprintf($config['file_page'], $post['op'] ? $id_for_board:$post['thread']) . (!$post['op'] ? '#' . $id_for_board : '');
 	   	
 		if (!$post['op'] && isset($_SERVER['HTTP_REFERER'])) {
 			$regex = array(
@@ -856,7 +857,7 @@ if (isset($_POST['delete'])) {
 
 			if (preg_match('/\/' . $regex['board'] . $regex['res'] . $regex['page50'] . '([?&].*)?$/', $_SERVER['HTTP_REFERER'])) {
 				$redirect = $root . $board['dir'] . $config['dir']['res'] .
-					sprintf($config['file_page50'], $post['op'] ? $id:$post['thread']) . (!$post['op'] ? '#' . $id : '');
+					sprintf($config['file_page50'], $post['op'] ? $id_for_board:$post['thread']) . (!$post['op'] ? '#' . $id_for_board : '');
 			}
 		}
 	} else {
@@ -866,7 +867,7 @@ if (isset($_POST['delete'])) {
 	
 	if ($config['syslog'])
 		_syslog(LOG_INFO, 'New post: /' . $board['dir'] . $config['dir']['res'] .
-			sprintf($config['file_page'], $post['op'] ? $id : $post['thread']) . (!$post['op'] ? '#' . $id : ''));
+			sprintf($config['file_page'], $post['op'] ? $id_for_board : $post['thread']) . (!$post['op'] ? '#' . $id_for_board : ''));
 	
 	if (!$post['mod']) header('X-Associated-Content: "' . $redirect . '"');
 
@@ -882,7 +883,7 @@ if (isset($_POST['delete'])) {
 		echo json_encode(array(
 			'redirect' => $redirect,
 			'noko' => $noko,
-			'id' => $id
+			'id' => $id_for_board
 		));
 	}
 } elseif (isset($_POST['appeal'])) {
