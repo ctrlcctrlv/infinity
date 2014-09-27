@@ -25,6 +25,7 @@
 				{% endif %}
 			{% endif %}
 			{% if mod %}<p><a href="?/">{% trans %}Return to dashboard{% endtrans %}</a></p>{% endif %}
+			<p><a href="{{ config.root }}{{ board.dir }}{{ config.catalog_link }}">Catalog</a></p>
 		</div>
 	</header>
 
@@ -46,6 +47,7 @@
 	</form>
 	<a href="{{ return }}">[{% trans %}Return{% endtrans %}]</a>
         <a href="#" style="padding-left: 10px">[{% trans %}Go to top{% endtrans %}]</a>
+        <a style="padding-left: 10px" href="{{ config.root }}{{ board.dir }}{{ config.catalog_link }}">[{% trans %}Catalog{% endtrans %}]</a>
 
 	{{ boardlist.bottom }}
 
