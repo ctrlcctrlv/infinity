@@ -13,14 +13,19 @@
  */
 
 function catalog() {
-var board = $("input[name='board']");
+var isOnModPage = (document.location.href.indexOf("mod.php") > -1);
+if (!isOnModPage){
+	var board = document.location.pathname.split("/")[1];
+} else {
+	var board = document.location.href.split("/")[4];
+}
 
 if (board.length>0) { 
 if (window.location.pathname.indexOf("/res/")>0){ //if we are inside a thread
-var catalog_url = '../catalog.html';
+var catalog_url = '/' + board + '/catalog.html';
 }
 else {
-var catalog_url = 'catalog.html';
+var catalog_url = '/' + board + '/catalog.html';
 }
 var pages = document.getElementsByClassName('pages')[0];
 var bottom = document.getElementsByClassName('boardlist bottom')[0]
