@@ -1063,12 +1063,13 @@ function rebuildPost($id_for_board) {
 }
 
 // Delete a post (reply or thread)
-function deletePost($id, $error_if_doesnt_exist=true, $rebuild_after=true) {
+function deletePost($id_for_board, $error_if_doesnt_exist=true, $rebuild_after=true) {
 	global $board, $config;
 
 	// Select post and replies (if thread) in one query
-	$query = prepare(sprintf("SELECT `id`,`thread`,`files` FROM ``posts_%s`` WHERE `id` = :id OR `thread` = :id", $board['uri']));
-	$query->bindValue(':id', $id, PDO::PARAM_INT);
+	$query = prepare("SELECT `id_for_board`,`thread`,`files` FROM ``posts`` WHERE `board` = :board AND (`id_for_board` = :id_for_board OR `thread` = :id_for_board)");
+	$query->bindValue(':id_for_board', $id_for_board, PDO::PARAM_INT);
+	$query->bindValue(':board', $board['uri']);
 	$query->execute() or error(db_error($query));
 
 	if ($query->rowCount() < 1) {
@@ -1085,13 +1086,13 @@ function deletePost($id, $error_if_doesnt_exist=true, $rebuild_after=true) {
 		
 		if (!$post['thread']) {
 			// Delete thread HTML page
-			file_unlink($board['dir'] . $config['dir']['res'] . sprintf($config['file_page'], $post['id']));
-			file_unlink($board['dir'] . $config['dir']['res'] . sprintf($config['file_page50'], $post['id']));
-			file_unlink($board['dir'] . $config['dir']['res'] . sprintf('%d.json', $post['id']));
+			file_unlink($board['dir'] . $config['dir']['res'] . sprintf($config['file_page'], $post['id_for_board']));
+			file_unlink($board['dir'] . $config['dir']['res'] . sprintf($config['file_page50'], $post['id_for_board']));
+			file_unlink($board['dir'] . $config['dir']['res'] . sprintf('%d.json', $post['id_for_board']));
 
 			$antispam_query = prepare('DELETE FROM ``antispam`` WHERE `board` = :board AND `thread` = :thread');
 			$antispam_query->bindValue(':board', $board['uri']);
-			$antispam_query->bindValue(':thread', $post['id']);
+			$antispam_query->bindValue(':thread', $post['id_for_board']);
 			$antispam_query->execute() or error(db_error($antispam_query));
 		} elseif ($query->rowCount() == 1) {
 			// Rebuild thread
@@ -1107,12 +1108,13 @@ function deletePost($id, $error_if_doesnt_exist=true, $rebuild_after=true) {
 			}
 		}
 
-		$ids[] = (int)$post['id'];
+		$ids[] = (int)$post['id_for_board'];
 
 	}
 
-	$query = prepare(sprintf("DELETE FROM ``posts_%s`` WHERE `id` = :id OR `thread` = :id", $board['uri']));
-	$query->bindValue(':id', $id, PDO::PARAM_INT);
+	$query = prepare("DELETE FROM ``posts`` WHERE `board` = :board AND (`id_for_board` = :id_for_board OR `thread` = :id_for_board)");
+	$query->bindValue(':id_for_board', $id_for_board, PDO::PARAM_INT);
+	$query->bindValue(':board', $board['uri']);
 	$query->execute() or error(db_error($query));
 
 	$query = prepare("SELECT `board`, `post` FROM ``cites`` WHERE `target_board` = :board AND (`target` = " . implode(' OR `target` = ', $ids) . ") ORDER BY `board`");
