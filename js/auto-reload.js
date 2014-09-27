@@ -8,6 +8,7 @@
  * Copyright (c) 2012 Michael Save <savetheinternet@tinyboard.org>
  * Copyright (c) 2013-2014 Marcin Łabanowski <marcin@6irc.net>
  * Copyright (c) 2013 undido <firekid109@hotmail.com>
+ * Copyright (c) 2014 Fredrick Brennan <admin@8chan.co>
  *
  * Usage:
  *   $config['additional_javascript'][] = 'js/jquery.min.js';
@@ -136,6 +137,8 @@ $(document).ready(function(){
 
 		poll_interval = setTimeout(poll, poll_interval_delay);
 		poll_current_time = poll_interval_delay;
+
+		return false;
 	};
 	
 	$(window).scroll(function() {
@@ -153,11 +156,11 @@ $(document).ready(function(){
 		end_of_page = true;
 	}).trigger('scroll');
 
-	$('#update_thread').on('click', function(e) {e.preventDefault(); poll();});
+	$('#update_thread').on('click', poll);
 	setInterval(timer_update, 1000);
 	setInterval(decrement_timer, 1000);
 
-	poll_interval = setInterval(poll, poll_interval_delay);
+	poll_interval = setTimeout(poll, poll_interval_delay);
 	timer_update();
 });
 
