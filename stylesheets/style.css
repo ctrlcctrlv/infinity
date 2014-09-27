@@ -905,6 +905,10 @@ div.thread:hover {
   word-wrap: break-word;
 }
 
+.poster_id{
+	cursor: pointer;
+}
+
 code > pre {
 /* Better code tags */
   background:black;
