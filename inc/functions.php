@@ -1995,21 +1995,22 @@ function strip_combining_chars($str) {
 	return $str;
 }
 
-function buildThread($id, $return = false, $mod = false) {
+function buildThread($id_for_board, $return = false, $mod = false) {
 	global $board, $config, $build_pages;
-	$id = round($id);
+	$id_for_board = round($id_for_board);
 
-	if (event('build-thread', $id))
+	if (event('build-thread', $id_for_board))
 		return;
 
 	if ($config['cache']['enabled'] && !$mod) {
 		// Clear cache
-		cache::delete("thread_index_{$board['uri']}_{$id}");
-		cache::delete("thread_{$board['uri']}_{$id}");
+		cache::delete("thread_index_{$board['uri']}_{$id_for_board}");
+		cache::delete("thread_{$board['uri']}_{$id_for_board}");
 	}
 
-	$query = prepare(sprintf("SELECT * FROM ``posts_%s`` WHERE (`thread` IS NULL AND `id` = :id) OR `thread` = :id ORDER BY `thread`,`id`", $board['uri']));
-	$query->bindValue(':id', $id, PDO::PARAM_INT);
+	$query = prepare("SELECT * FROM ``posts`` WHERE `board` = :board AND ((`thread` IS NULL AND `id_for_board` = :id_for_board) OR `thread` = :id_for_board) ORDER BY `thread`,`id_for_board`");
+	$query->bindValue(':id_for_board', $id_for_board, PDO::PARAM_INT);
+	$query->bindValue(':board', $board['uri']);
 	$query->execute() or error(db_error($query));
 
 	while ($post = $query->fetch(PDO::FETCH_ASSOC)) {
@@ -2025,14 +2026,14 @@ function buildThread($id, $return = false, $mod = false) {
 		error($config['error']['nonexistant']);
 	
 	$hasnoko50 = $thread->postCount() >= $config['noko50_min'];
-	$antibot = $mod || $return ? false : create_antibot($board['uri'], $id);
+	$antibot = $mod || $return ? false : create_antibot($board['uri'], $id_for_board);
 
 	$body = Element('thread.html', array(
 		'board' => $board,
 		'thread' => $thread,
 		'body' => $thread->build(),
 		'config' => $config,
-		'id' => $id,
+		'id' => $id_for_board,
 		'mod' => $mod,
 		'hasnoko50' => $hasnoko50,
 		'isnoko50' => false,
@@ -2042,25 +2043,25 @@ function buildThread($id, $return = false, $mod = false) {
 	));
 
 	if ($config['try_smarter'] && !$mod)
-		$build_pages[] = thread_find_page($id);
+		$build_pages[] = thread_find_page($id_for_board);
 
 	// json api
 	if ($config['api']['enabled']) {
 		$api = new Api();
 		$json = json_encode($api->translateThread($thread));
-		$jsonFilename = $board['dir'] . $config['dir']['res'] . $id . '.json';
+		$jsonFilename = $board['dir'] . $config['dir']['res'] . $id_for_board . '.json';
 		file_write($jsonFilename, $json);
 	}
 
 	if ($return) {
 		return $body;
 	} else {
-		$noko50fn = $board['dir'] . $config['dir']['res'] . sprintf($config['file_page50'], $id);
+		$noko50fn = $board['dir'] . $config['dir']['res'] . sprintf($config['file_page50'], $id_for_board);
 		if ($hasnoko50 || file_exists($noko50fn)) {
-			buildThread50($id, $return, $mod, $thread, $antibot);
+			buildThread50($id_for_board, $return, $mod, $thread, $antibot);
 		}
 
-		file_write($board['dir'] . $config['dir']['res'] . sprintf($config['file_page'], $id), $body);
+		file_write($board['dir'] . $config['dir']['res'] . sprintf($config['file_page'], $id_for_board), $body);
 	}
 }
 
