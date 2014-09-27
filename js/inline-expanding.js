@@ -13,12 +13,27 @@
  */
 
 onready(function(){
+var fitToScreen = (localStorage['fittoscreen']) ? true:false;
 	var inline_expand_post = function() {
-		var link = this.getElementsByTagName('a');
-
+	var link = this.getElementsByTagName('a');
+	var maxWidth = document.body.offsetWidth-(document.body.offsetWidth * 0.02);
+	var maxHeight = document.documentElement.clientHeight;
+	
 		for (var i = 0; i < link.length; i++) {
 			if (typeof link[i] == "object" && link[i].childNodes && typeof link[i].childNodes[0] !== 'undefined' && link[i].childNodes[0].src && link[i].childNodes[0].className.match(/post-image/) && !link[i].className.match(/file/)) {
-				link[i].childNodes[0].style.maxWidth = '98%';
+				if (fitToScreen){
+					fileInfo = $(link[i]).parent().children(".fileinfo").children(".unimportant").text();
+					isSpoiler = (fileInfo.indexOf("Spoiler") > -1) ? true:false;
+					imageD = ((isSpoiler) ? fileInfo.split(",")[2]:fileInfo.split(",")[1]);
+					imageWidth = parseInt(imageD.split("x")[0]);
+					imageHeight = parseInt(imageD.split("x")[1]);
+					console.log(imageWidth, "X", imageHeight);
+					link[i].childNodes[0].style.maxWidth = ((imageWidth > maxWidth) ? maxWidth+"px":'98%');
+					link[i].childNodes[0].style.maxHeight = ((imageHeight > maxHeight) ? maxHeight+"px":'');
+				} else {
+					link[i].childNodes[0].style.maxWidth = '98%';
+					link[i].childNodes[0].style.maxHeight = 'none';
+				}
 				link[i].onclick = function(e) {
 					if (this.childNodes[0].className == 'hidden')
 						return false;
@@ -78,4 +93,24 @@ onready(function(){
 	} else {
 		inline_expand_post.call(document);
 	}
+	
+	
+	$mrCheckie = $('<div><label id=\"toggle-image-fittoscreen\"><input id="toggle-fittoscreen" type=\"checkbox\"> fit expanded images to screen.</label></div>');
+
+	$(".options_tab").append($mrCheckie);
+	$("#toggle-fittoscreen").prop("checked",fitToScreen);
+	$("#toggle-fittoscreen").on("click", function(){
+	console.log($(this).prop("checked"));
+		if ($(this).prop("checked")){
+			fitToScreen = true;
+			inline_expand_post.call(document);
+			localStorage['fittoscreen'] = true;
+		} else {
+			fitToScreen = false;
+			inline_expand_post.call(document);
+			delete localStorage['fittoscreen'];
+		}
+	});
+	
+	
 });
