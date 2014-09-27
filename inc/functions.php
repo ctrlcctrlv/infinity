@@ -1035,11 +1035,11 @@ function deleteFile($id, $remove_entirely_if_already=true, $file=null) {
 }
 
 // rebuild post (markup)
-function rebuildPost($id) {
+function rebuildPost($id_for_board) {
 	global $board;
 
-	$query = prepare(sprintf("SELECT `body_nomarkup`, `thread` FROM ``posts_%s`` WHERE `id` = :id", $board['uri']));
-	$query->bindValue(':id', $id, PDO::PARAM_INT);
+	$query = prepare(sprintf("SELECT `body_nomarkup`, `thread` FROM `posts` WHERE `id_for_board` = :id_for_board AND `board` = '%s'", $board['uri']));
+	$query->bindValue(':id_for_board', $id_for_board, PDO::PARAM_INT);
 	$query->execute() or error(db_error($query));
 
 	if ((!$post = $query->fetch(PDO::FETCH_ASSOC)) || !$post['body_nomarkup'])
@@ -1047,12 +1047,12 @@ function rebuildPost($id) {
 
 	markup($body = &$post['body_nomarkup']);
 
-	$query = prepare(sprintf("UPDATE ``posts_%s`` SET `body` = :body WHERE `id` = :id", $board['uri']));
+	$query = prepare(sprintf("UPDATE `posts` SET `body` = :body WHERE `id_for_board` = :id_for_board AND `board` = '%s'", $board['uri']));
 	$query->bindValue(':body', $body);
-	$query->bindValue(':id', $id, PDO::PARAM_INT);
+	$query->bindValue(':id_for_board', $id_for_board, PDO::PARAM_INT);
 	$query->execute() or error(db_error($query));
 
-	buildThread($post['thread'] ? $post['thread'] : $id);
+	buildThread($post['thread'] ? $post['thread'] : $id_for_board);
 
 	return true;
 }
