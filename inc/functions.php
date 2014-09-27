@@ -883,7 +883,7 @@ function insertFloodPost(array $post) {
 function post(array $post) {
 	global $pdo, $board;
   
-	$query = prepare(sprintf("INSERT INTO `posts` (`id_for_board`, `board`, `thread`, `subject`, `email`, `name`, `trip`, `capcode`, `body`, `body_nomarkup`, `time`, `bump`, `files`, `num_files`, `filehash`, `password`, `ip`, `sticky`, `locked`, `sage`, `embed`) SELECT 1 + coalesce((SELECT max(`id_for_board`) FROM `posts` WHERE `board`='%s'),0), :board, :thread, :subject, :email, :name, :trip, :capcode, :body, :body_nomarkup, :time, :time, :files, :num_files, :filehash, :password, :ip, :sticky, :locked, 0, :embed", $board['uri']));
+	$query = prepare("INSERT INTO ``posts`` (`id_for_board`, `board`, `thread`, `subject`, `email`, `name`, `trip`, `capcode`, `body`, `body_nomarkup`, `time`, `bump`, `files`, `num_files`, `filehash`, `password`, `ip`, `sticky`, `locked`, `sage`, `embed`) SELECT 1 + coalesce((SELECT max(`id_for_board`) FROM ``posts`` WHERE `board`=:board),0), :board, :thread, :subject, :email, :name, :trip, :capcode, :body, :body_nomarkup, :time, :time, :files, :num_files, :filehash, :password, :ip, :sticky, :locked, 0, :embed");
 
 	$query->bindValue(':board', $board['uri']);
 
@@ -961,7 +961,7 @@ function post(array $post) {
 	}
 	$lastInsertId = $pdo->lastInsertId();
 
-	$query = prepare("SELECT `id_for_board` FROM `posts` WHERE `id` = :id");
+	$query = prepare("SELECT `id_for_board` FROM ``posts`` WHERE `id` = :id");
 	$query->bindValue(':id', $lastInsertId);
 
 	if(!$query->execute()) {
@@ -994,8 +994,9 @@ function bumpThread($id) {
 function deleteFile($id, $remove_entirely_if_already=true, $file=null) {
 	global $board, $config;
 
-	$query = prepare(sprintf("SELECT `thread`, `files`, `num_files` FROM ``posts_%s`` WHERE `id` = :id LIMIT 1", $board['uri']));
-	$query->bindValue(':id', $id, PDO::PARAM_INT);
+	$query = prepare("SELECT `thread`, `files`, `num_files` FROM ``posts`` WHERE `id_for_board` = :id_for_board AND `board` = :board LIMIT 1");
+	$query->bindValue(':id_for_board', $id_for_board, PDO::PARAM_INT);
+	$query->bindValue(':board', $board['uri']);
 	$query->execute() or error(db_error($query));
 	if (!$post = $query->fetch(PDO::FETCH_ASSOC))
 		error($config['error']['invalidpost']);
@@ -1038,8 +1039,9 @@ function deleteFile($id, $remove_entirely_if_already=true, $file=null) {
 function rebuildPost($id_for_board) {
 	global $board;
 
-	$query = prepare(sprintf("SELECT `body_nomarkup`, `thread` FROM `posts` WHERE `id_for_board` = :id_for_board AND `board` = '%s'", $board['uri']));
+	$query = prepare("SELECT `body_nomarkup`, `thread` FROM ``posts`` WHERE `id_for_board` = :id_for_board AND `board` = :board");
 	$query->bindValue(':id_for_board', $id_for_board, PDO::PARAM_INT);
+	$query->bindValue(':board', $board);
 	$query->execute() or error(db_error($query));
 
 	if ((!$post = $query->fetch(PDO::FETCH_ASSOC)) || !$post['body_nomarkup'])
@@ -1047,9 +1049,10 @@ function rebuildPost($id_for_board) {
 
 	markup($body = &$post['body_nomarkup']);
 
-	$query = prepare(sprintf("UPDATE `posts` SET `body` = :body WHERE `id_for_board` = :id_for_board AND `board` = '%s'", $board['uri']));
+	$query = prepare("UPDATE ``posts`` SET `body` = :body WHERE `id_for_board` = :id_for_board AND `board` = '%s'"));
 	$query->bindValue(':body', $body);
 	$query->bindValue(':id_for_board', $id_for_board, PDO::PARAM_INT);
+	$query->bindValue(':board', $board['uri']);
 	$query->execute() or error(db_error($query));
 
 	buildThread($post['thread'] ? $post['thread'] : $id_for_board);
@@ -1167,7 +1170,8 @@ function index($page, $mod=false) {
 	$body = '';
 	$offset = round($page*$config['threads_per_page']-$config['threads_per_page']);
 
-	$query = prepare(sprintf("SELECT * FROM ``posts_%s`` WHERE `thread` IS NULL ORDER BY `sticky` DESC, `bump` DESC LIMIT :offset,:threads_per_page", $board['uri']));
+	$query = prepare("SELECT * FROM ``posts`` WHERE `thread` IS NULL AND `board` = :board ORDER BY `sticky` DESC, `bump` DESC LIMIT :offset,:threads_per_page");
+	$query->bindValue(':board', $board['uri']);
 	$query->bindValue(':offset', $offset, PDO::PARAM_INT);
 	$query->bindValue(':threads_per_page', $config['threads_per_page'], PDO::PARAM_INT);
 	$query->execute() or error(db_error($query));
