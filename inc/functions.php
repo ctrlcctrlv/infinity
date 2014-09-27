@@ -1161,7 +1161,7 @@ function clean() {
 function thread_find_page($thread) {
 	global $config, $board;
 
-	$query = query(sprintf("SELECT `id` FROM ``posts_%s`` WHERE `thread` IS NULL ORDER BY `sticky` DESC, `bump` DESC", $board['uri'])) or error(db_error($query));
+	$query = query(sprintf("SELECT `id` FROM ``posts`` WHERE `thread` IS NULL AND `board` = '%s' ORDER BY `sticky` DESC, `bump` DESC", $board['uri'])) or error(db_error($query));
 	$threads = $query->fetchAll(PDO::FETCH_COLUMN);
 	if (($index = array_search($thread, $threads)) === false)
 		return false;
@@ -1192,7 +1192,7 @@ function index($page, $mod=false) {
 		$thread = new Thread($th, $mod ? '?/' : $config['root'], $mod);
 
 		if ($config['cache']['enabled']) {
-			$cached = cache::get("thread_index_{$board['uri']}_{$th['id']}");
+			$cached = cache::get("thread_index_{$board['uri']}_{$th['id_for_board']}");
 			if (isset($cached['replies'], $cached['omitted'])) {
 				$replies = $cached['replies'];
 				$omitted = $cached['omitted'];
@@ -1201,22 +1201,23 @@ function index($page, $mod=false) {
 			}
 		}
 		if (!isset($cached)) {
-			$posts = prepare(sprintf("SELECT * FROM ``posts_%s`` WHERE `thread` = :id ORDER BY `id` DESC LIMIT :limit", $board['uri']));
-			$posts->bindValue(':id', $th['id']);
+			$posts = prepare("SELECT * FROM ``posts`` WHERE `thread` = :id_for_board AND `board` = :board ORDER BY `id_for_board` DESC LIMIT :limit");
+			$posts->bindValue(':id_for_board', $th['id_for_board']);
+			$posts->bindValue(':board', $board['uri']);
 			$posts->bindValue(':limit', ($th['sticky'] ? $config['threads_preview_sticky'] : $config['threads_preview']), PDO::PARAM_INT);
 			$posts->execute() or error(db_error($posts));
 
 			$replies = array_reverse($posts->fetchAll(PDO::FETCH_ASSOC));
 
 			if (count($replies) == ($th['sticky'] ? $config['threads_preview_sticky'] : $config['threads_preview'])) {
-				$count = numPosts($th['id']);
+				$count = numPosts($th['id_for_board']);
 				$omitted = array('post_count' => $count['replies'], 'image_count' => $count['images']);
 			} else {
 				$omitted = false;
 			}
 
 			if ($config['cache']['enabled'])
-				cache::set("thread_index_{$board['uri']}_{$th['id']}", array(
+				cache::set("thread_index_{$board['uri']}_{$th['id_for_board']}", array(
 					'replies' => $replies,
 					'omitted' => $omitted,
 				));
@@ -1306,7 +1307,7 @@ function getPages($mod=false) {
 		$count = $board['thread_count'];
 	} else {
 		// Count threads
-		$query = query(sprintf("SELECT COUNT(*) FROM ``posts_%s`` WHERE `thread` IS NULL", $board['uri'])) or error(db_error());
+		$query = query(sprintf("SELECT COUNT(*) FROM ``posts`` WHERE `thread` IS NULL AND `board` = '%s'", $board['uri'])) or error(db_error());
 		$count = $query->fetchColumn();
 	}
 	$count = floor(($config['threads_per_page'] + $count - 1) / $config['threads_per_page']);
