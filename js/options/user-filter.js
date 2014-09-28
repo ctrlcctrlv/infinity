@@ -1,10 +1,10 @@
 //>onclick
 function updateFilter(){
-	localStorage["filter"] = $("#filter_ta").val();
+	localStorage["filter"][board_name] = $("#filter_ta").val();
 	location.reload();
 }
 
-Options.add_tab("filter", "times", "Filter", "<textarea id='filter_ta' style='font-size: 12px; position: absolute; top: 35px; bottom: 35px; width: calc(100% - 12px); margin: 0px; padding: 0px; border: 1px solid black; left: 5px; right: 5px;'>"+localStorage["filter"].replace(/&/g, "&amp;")
+Options.add_tab("filter", "times", "Filter", "<textarea id='filter_ta' style='font-size: 12px; position: absolute; top: 35px; bottom: 35px; width: calc(100% - 12px); margin: 0px; padding: 0px; border: 1px solid black; left: 5px; right: 5px;'>"+localStorage["filter"][board_name].replace(/&/g, "&amp;")
          .replace(/</g, "&lt;")
          .replace(/>/g, "&gt;")
          .replace(/"/g, "&quot;")

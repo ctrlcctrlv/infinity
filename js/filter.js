@@ -1,9 +1,9 @@
 if(active_page == 'thread' || active_page == 'index' || active_page == "ukko"){
 	$(document).ready(function(){
 		function check_filter(post){
-			if(localStorage["filter"].trim().length == 0) return;
+			if(localStorage["filter"][board_name].trim().length == 0) return;
 			
-			localStorage["filter"].split("\n").forEach(function(e, i, a){
+			localStorage["filter"][board_name].split("\n").forEach(function(e, i, a){
 				var body = $(post).find(".body");
 				
 				console.log(new RegExp(e).test($(body).text()));
