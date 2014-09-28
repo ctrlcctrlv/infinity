@@ -38,6 +38,8 @@ $page = <<<EOT
 					if (window.location.pathname === '/' + v + '/') {
 						faves.pop(v);
 						localStorage.favorites = JSON.stringify(faves);
+
+						alert('As /' + v + '/ no longer exists, it has been removed from your favorites.');
 					}
 				})
 			}
