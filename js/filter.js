@@ -6,8 +6,6 @@ if(active_page == 'thread' || active_page == 'index' || active_page == "ukko"){
 			localStorage["filter"][board_name].split("\n").forEach(function(e, i, a){
 				var body = $(post).find(".body");
 				
-				console.log(new RegExp(e).test($(body).text()));
-				
 				if(new RegExp(e).test($(body).text())){
 					var filteredPost = $(body).text();
 					$(body).html("<i>Filtered.</i>");
