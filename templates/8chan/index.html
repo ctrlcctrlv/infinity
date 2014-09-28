@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta charset="utf-8">
     <title>∞chan</title>
     <style type="text/css">
       /* Responsive helpers */
@@ -49,7 +49,7 @@
 	  width: 100%;
 	}
 	
-	h420 {
+	h4 {
 	  color: #AF0A0F;
 	  font-size: 11pt;
 	  font-weight: bold;
@@ -126,6 +126,8 @@
 	
 	iframe {
 	  margin-top: 25px;
+	  width: 100%;
+	  height: 400px;
 	}
 	
 	.button {
@@ -228,12 +230,12 @@
       <header>
 
         <div class="col col-3 header_logo">
-          <img src="https://8chan.co/static/logo_33.svg" alt="logo" name="logo" width="220" height="145" id="logo">
+          <img src="https://8chan.co/static/logo_33.svg" alt="logo" width="220" height="145" id="logo">
         </div>
 
         <div class="col col-9 header_text">
           <em>{% trans %}Welcome to ∞chan, the infinitely expanding imageboard.{% endtrans %}</em>
-          <br/>
+          <br>
           <strong>{% trans %}Featured boards:{% endtrans %}</strong>
           <span class="sub" data-description="2">[ <a href="/v/index.html" title="Vidya Games">v</a> / <a href="/a/index.html" title="Anime, Manga and all things related">a</a> / <a href="/tg/index.html" title="Traditional Games">tg</a> / <a href="/fit/index.html" title="Fitness, Health, and Feels">fit</a> / <a href="/pol/index.html" title=" Politically Incorrect">pol</a> / <a href="/tech/index.html" title="Technology">tech</a> / <a href="/mu/index.html" title="Music">mu</a> / <a href="/co/index.html" title="Comics &amp; Cartoons">co</a> / <a href="/sp/index.html" title="Sports">sp</a> / <a href="/boards/index.html" title="8chan Boards">boards</a> ]</span>
         </div>
@@ -250,31 +252,32 @@
 
           <div class="content_menu">
             <ul class="content_menu_head">
-              <li><em><a href="https://qchat.rizon.net/?channels=#8chan" target="_blank" />IRC:#8chan @ irc.rizon.net</a></em></li>
+              <li><em><a href="https://qchat.rizon.net/?channels=#8chan" target="_blank">IRC:#8chan @ irc.rizon.net</a></em></li>
               <li><a href="/faq.html">{% trans %}Frequently Asked Questions{% endtrans %}</a></li>
               <li><a href="/random.php">{% trans %}View random board{% endtrans %}</a></li>
               <li><a href="/mod.php" >{% trans %}Manage your board{% endtrans %}</a></li>
             </ul>
 
             <div class="content_menu_list">
-              <h420>{% trans %}Why host your imageboard on 8ch?{% endtrans %}</h420>
-              <br/>
-              <li>{% trans %}100% free{% endtrans %}</li>
-              <li>{% trans %}Customizable board styles and banners{% endtrans %}</li
-              ><li>{% trans %}User-definable word filters{% endtrans %}</li>
-              <li>{% trans %}Optional forced anonymity{% endtrans %}</li>
-              <li>{% trans %}Optional country flags{% endtrans %}</li>
-              <li>{% trans %}YouTube embedding{% endtrans %}</li>
-              <li>{% trans %}Run by competent, experienced global staff{% endtrans %}</li>
-              <li>{% trans %}No technical knowledge needed{% endtrans %}</li>
-              <li>{% trans %}HTTPS by default{% endtrans %}</li>
-              <li>{% trans %}Simple global rules — the rest is up to you{% endtrans %}</li>
-              <li><s>{% trans %}Featured on Al Jazeera America{% endtrans %}</s> ;_;</li>
-              <li><em>{% trans %}Not owned by moot{% endtrans %}</em></li>
+              <h4>{% trans %}Why host your imageboard on 8ch?{% endtrans %}</h4>
+              <ul>
+                <li>{% trans %}100% free{% endtrans %}</li>
+                <li>{% trans %}Customizable board styles and banners{% endtrans %}</li>
+                <li>{% trans %}User-definable word filters{% endtrans %}</li>
+                <li>{% trans %}Optional forced anonymity{% endtrans %}</li>
+                <li>{% trans %}Optional country flags{% endtrans %}</li>
+                <li>{% trans %}YouTube embedding{% endtrans %}</li>
+                <li>{% trans %}Run by competent, experienced global staff{% endtrans %}</li>
+                <li>{% trans %}No technical knowledge needed{% endtrans %}</li>
+                <li>{% trans %}HTTPS by default{% endtrans %}</li>
+                <li>{% trans %}Simple global rules — the rest is up to you{% endtrans %}</li>
+                <li><s>{% trans %}Featured on Al Jazeera America{% endtrans %}</s> ;_;</li>
+                <li><em>{% trans %}Not owned by moot{% endtrans %}</em></li>
+              </ul>
             </div>
             
             <div class="clear"></div>
-            <hr/>
+            <hr>
 
             <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/infinitechan" data-widget-id="512750449955328002">Tweets by @infinitechan</a>
             <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
@@ -289,9 +292,9 @@
               <a href="create.php" class="button">{% trans %}Create&nbsp;your&nbsp;board{% endtrans %}</a>
               <a href="boards.html" class="button">{% trans %}Browse&nbsp;existing&nbsp;boards{% endtrans %}</a>
             </div>
-            <br/>
+            <br>
             <!-- START RIZON PASTE / NEWS SCRIPT CODE HERE -->
-            <iframe src="https://qchat2.rizon.net/?channels=8chan&uio=OT0xMTE05" width="100%" height="400"></iframe>
+            <iframe src="https://qchat2.rizon.net/?channels=8chan&amp;uio=OT0xMTE05"></iframe>
             <!--END PASTE CODE -->
           </div>
         </div>
@@ -307,5 +310,6 @@
 		{% for footer in config.footer %}<p class="unimportant" style="text-align:center;">{{ footer }}</p>{% endfor %}
 	</footer>
 	</div>
+  </div><!--div#main-->
 </body>
 </html>
