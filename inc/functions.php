@@ -884,7 +884,7 @@ function insertFloodPost(array $post) {
 
 function post(array $post) {
 	global $pdo, $board;
-	$query = prepare(sprintf("INSERT INTO ``posts_%s`` VALUES ( NULL, :thread, :subject, :email, :name, :trip, :capcode, :body, :body_nomarkup, :time, :time, :files, :num_files, :filehash, :password, :ip, :sticky, :locked, 0, :embed)", $board['uri']));
+	$query = prepare(sprintf("INSERT INTO ``posts_%s`` VALUES ( NULL, :thread, :subject, :email, :name, :trip, :capcode, :body, :body_nomarkup, :time, :time, :files, :num_files, :filehash, :password, :ip, :sticky, :locked, 0, :embed, :embed_url)", $board['uri']));
 
 	// Basic stuff
 	if (!empty($post['subject'])) {
@@ -932,8 +932,10 @@ function post(array $post) {
 
 	if (!empty($post['embed'])) {
 		$query->bindValue(':embed', $post['embed']);
+		$query->bindValue(':embed_url', $post['embed_url']);
 	} else {
 		$query->bindValue(':embed', null, PDO::PARAM_NULL);
+		$query->bindValue(':embed_url', null, PDO::PARAM_NULL);
 	}
 
 	if ($post['op']) {

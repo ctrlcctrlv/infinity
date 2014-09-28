@@ -270,6 +270,8 @@ if (isset($_POST['delete'])) {
 			if (preg_match($embed[0], $value)) {
 				// Valid link
 				$post['embed'] = $value;
+				// Won't get filtered by embed_html
+				$post['embed_url'] = $value;
 				// This is bad, lol.
 				$post['no_longer_require_an_image_for_op'] = true;
 				break;
