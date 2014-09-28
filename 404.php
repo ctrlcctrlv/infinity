@@ -29,6 +29,19 @@ $page = <<<EOT
 		<div class="ban">
 			<p style="text-align:center"><img src="/static/404/{$errorimage}" style="width:100%"></p>
 		</div>
+
+		<script type="text/javascript">
+			if (localStorage.favorites) {
+				var faves = JSON.parse(localStorage.favorites);
+
+				$.each(faves, function(k, v) {
+					if (window.location.pathname === '/' + v + '/') {
+						faves.pop(v);
+						localStorage.favorites = JSON.stringify(faves);
+					}
+				})
+			}
+		</script>
 EOT;
 
 echo Element("page.html", array("config" => $config, "body" => $errorimage ? $page : "", "title" => "404 Not Found"));
