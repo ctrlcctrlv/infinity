@@ -1,33 +1,34 @@
 <?php
 
 include "inc/functions.php";
-include "inc/cache.php";
 
-if(!file_exists("404/"))
-	mkdir("404/");
+$dir = "static/404/";
 
-$cache = new Cache;
-$cache->init();
+if (!is_dir($dir))
+	mkdir($dir);
 
-if($cache->get("404glob") == false){
-$files = glob("404/*.*");
-$cache->set("404glob", $files);
-}else
-$files = $cache->get("404glob");
+if ($config['cache']['enabled']) {
+	$files = cache::get('notfound_files');
+}
 
-if(count($files) == 0)
-	$errorimage = "";
-else
+if (!isset($files) or !$files) {
+	$files = array_diff(scandir($dir), array('..', '.'));
+
+	if ($config['cache']['enabled']) {
+		cache::set('notfound_files', $files);
+	}
+}
+
+if (count($files) == 0) {
+	$errorimage = false;
+} else {
 	$errorimage = $files[array_rand($files)];
+}
 
 $page = <<<EOT
-	<center>
 		<div class="ban">
-			<h2>404 Not Found</h2>
-			
-			<img src="{$errorimage}" style="width: 700px;">
+			<p style="text-align:center"><img src="/static/404/{$errorimage}" style="width:100%"></p>
 		</div>
-	</center>
 EOT;
 
-echo Element("page.html", array("config" => $config, "body" => $page, "title" => ""));
+echo Element("page.html", array("config" => $config, "body" => $errorimage ? $page : "", "title" => "404 Not Found"));
