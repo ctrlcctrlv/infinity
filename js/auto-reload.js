@@ -43,6 +43,7 @@ $(document).ready(function(){
 	var settings = new script_settings('auto-reload');
 	var poll_interval_mindelay        = settings.get('min_delay_bottom', 5000);
 	var poll_interval_maxdelay        = settings.get('max_delay', 600000);
+	var poll_interval_errordelay      = settings.get('error_delay', 30000);
 
 	// number of ms to wait before reloading
 	var poll_interval_delay = poll_interval_mindelay;
@@ -186,6 +187,7 @@ $(document).ready(function(){
 						$('#update_secs').text("Thread deleted or pruned");
 						$('#auto_update_status').prop('checked', false);
 						$('#auto_update_status').prop('disabled', true); // disable updates if thread is deleted
+						return;
 					} else {
 						$('#update_secs').text("Error: "+error_text);
 					}
@@ -193,7 +195,13 @@ $(document).ready(function(){
 					$('#update_secs').text("Error: "+status_text);
 				} else {
 					$('#update_secs').text("Unknown error");
-				}				
+				}
+				
+				// Keep trying to update
+				if ($('#auto_update_status').is(':checked')) {
+					poll_interval_delay = poll_interval_errordelay;
+					auto_update(poll_interval_delay);
+				}
 			}
 		});
 		
