@@ -179,6 +179,21 @@ $(document).ready(function(){
 					else
 						$('#update_secs').text("No new posts found");
 				}
+			},
+			error: function(xhr, status_text, error_text) {
+				if (status_text == "error") {
+					if (error_text == "Not Found") {
+						$('#update_secs').text("Thread deleted or pruned");
+						$('#auto_update_status').prop('checked', false);
+						$('#auto_update_status').prop('disabled', true); // disable updates if thread is deleted
+					} else {
+						$('#update_secs').text("Error: "+error_text);
+					}
+				} else if (status_text) {
+					$('#update_secs').text("Error: "+status_text);
+				} else {
+					$('#update_secs').text("Unknown error");
+				}				
 			}
 		});
 		
