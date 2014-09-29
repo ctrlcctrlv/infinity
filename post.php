@@ -131,23 +131,24 @@ if (isset($_POST['delete'])) {
 	$reason = escape_markup_modifiers($_POST['reason']);
 	markup($reason);
 	
-	foreach ($report as &$id) {
-		$query = prepare(sprintf("SELECT `thread` FROM ``posts_%s`` WHERE `id` = :id", $board['uri']));
-		$query->bindValue(':id', $id, PDO::PARAM_INT);
+	foreach ($report as &$id_for_board) {
+		$query = prepare("SELECT `thread` FROM ``posts`` WHERE `board` = :board AND `id_for_board` = :id_for_board");
+		$query->bindValue(':board', $board['uri']);
+		$query->bindValue(':id_for_board', $id_for_board, PDO::PARAM_INT);
 		$query->execute() or error(db_error($query));
 		
 		$thread = $query->fetchColumn();
 		
 		if ($config['syslog'])
 			_syslog(LOG_INFO, 'Reported post: ' .
-				'/' . $board['dir'] . $config['dir']['res'] . sprintf($config['file_page'], $thread ? $thread : $id) . ($thread ? '#' . $id : '') .
+				'/' . $board['dir'] . $config['dir']['res'] . sprintf($config['file_page'], $thread ? $thread : $id_for_board) . ($thread ? '#' . $id_for_board : '') .
 				' for "' . $reason . '"'
 			);
 		$query = prepare("INSERT INTO ``reports`` VALUES (NULL, :time, :ip, :board, :post, :reason, :global)");
 		$query->bindValue(':time', time(), PDO::PARAM_INT);
 		$query->bindValue(':ip', $_SERVER['REMOTE_ADDR'], PDO::PARAM_STR);
 		$query->bindValue(':board', $board['uri'], PDO::PARAM_INT);
-		$query->bindValue(':post', $id, PDO::PARAM_INT);
+		$query->bindValue(':post', $id_for_board, PDO::PARAM_INT);
 		$query->bindValue(':reason', $reason, PDO::PARAM_STR);
 		$query->bindValue(':global', isset($_POST['global']), PDO::PARAM_BOOL);
 		$query->execute() or error(db_error($query));
@@ -738,9 +739,9 @@ if (isset($_POST['delete'])) {
 					($post['mod'] ? $config['root'] . $config['file_mod'] . '?/' : $config['root']) .
 					($board['dir'] . $config['dir']['res'] .
 						($p['thread'] ?
-							$p['thread'] . '.html#' . $p['id']
+							$p['thread'] . '.html#' . $p['id_for_board']
 						:
-							$p['id'] . '.html'
+							$p['id_for_board'] . '.html'
 						))
 				));
 			}
@@ -751,9 +752,9 @@ if (isset($_POST['delete'])) {
 					($post['mod'] ? $config['root'] . $config['file_mod'] . '?/' : $config['root']) .
 					($board['dir'] . $config['dir']['res'] .
 						($p['thread'] ?
-							$p['thread'] . '.html#' . $p['id']
+							$p['thread'] . '.html#' . $p['id_for_board']
 						:
-							$p['id'] . '.html'
+							$p['id_for_board'] . '.html'
 						))
 				));
 			}
