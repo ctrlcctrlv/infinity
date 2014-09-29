@@ -42,7 +42,7 @@
 			foreach ($boards as &$_board) {
 				if (in_array($_board['uri'], $this->excluded))
 					continue;
-				$query .= sprintf("SELECT *, '%s' AS `board` FROM ``posts_%s`` WHERE `files` IS NOT NULL UNION ALL ", $_board['uri'], $_board['uri']);
+				$query .= sprintf("SELECT * FROM ``posts`` WHERE `board` = '%s' AND `files` IS NOT NULL UNION ALL ", $_board['uri']);
 			}
 			$query = preg_replace('/UNION ALL $/', 'ORDER BY `time` DESC LIMIT ' . (int)$settings['limit_images'], $query);
 			
@@ -62,7 +62,7 @@
 				
 				// board settings won't be available in the template file, so generate links now
 				$post['link'] = $config['root'] . $board['dir'] . $config['dir']['res']
-				  . sprintf($config['file_page'], ($post['thread'] ? $post['thread'] : $post['id'])) . '#' . $post['id'];
+				  . sprintf($config['file_page'], ($post['thread'] ? $post['thread'] : $post['id_for_board'])) . '#' . $post['id_for_board'];
 
 				if ($files) {
 					if ($files[0]->thumb == 'spoiler') {
@@ -84,7 +84,7 @@
 			foreach ($boards as &$_board) {
 				if (in_array($_board['uri'], $this->excluded))
 					continue;
-				$query .= sprintf("SELECT *, '%s' AS `board` FROM ``posts_%s`` UNION ALL ", $_board['uri'], $_board['uri']);
+				$query .= sprintf("SELECT * FROM ``posts`` WHERE `board` = '%s' UNION ALL ", $_board['uri']);
 			}
 			$query = preg_replace('/UNION ALL $/', 'ORDER BY `time` DESC LIMIT ' . (int)$settings['limit_posts'], $query);
 			$query = query($query) or error(db_error());
@@ -92,7 +92,7 @@
 			while ($post = $query->fetch(PDO::FETCH_ASSOC)) {
 				openBoard($post['board']);
 				
-				$post['link'] = $config['root'] . $board['dir'] . $config['dir']['res'] . sprintf($config['file_page'], ($post['thread'] ? $post['thread'] : $post['id'])) . '#' . $post['id'];
+				$post['link'] = $config['root'] . $board['dir'] . $config['dir']['res'] . sprintf($config['file_page'], ($post['thread'] ? $post['thread'] : $post['id_for_board'])) . '#' . $post['id_for_board'];
 				if ($post['body'] != "")
 					$post['snippet'] = pm_snippet($post['body'], 30);
 				else
@@ -107,7 +107,7 @@
 			foreach ($boards as &$_board) {
 				if (in_array($_board['uri'], $this->excluded))
 					continue;
-				$query .= sprintf("SELECT MAX(`id`) AS `top` FROM ``posts_%s`` UNION ALL ", $_board['uri']);
+				$query .= sprintf("SELECT MAX(`id_for_board`) AS `top` FROM ``posts`` WHERE `board` = '%s' UNION ALL ", $_board['uri']);
 			}
 			$query = preg_replace('/UNION ALL $/', ') AS `posts_all`', $query);
 			$query = query($query) or error(db_error());
@@ -118,7 +118,7 @@
 			foreach ($boards as &$_board) {
 				if (in_array($_board['uri'], $this->excluded))
 					continue;
-				$query .= sprintf("SELECT `ip` FROM ``posts_%s`` UNION ALL ", $_board['uri']);
+				$query .= sprintf("SELECT `ip` FROM ``posts`` WHERE `board` = '%s' UNION ALL ", $_board['uri']);
 			}
 			$query = preg_replace('/UNION ALL $/', ') AS `posts_all`', $query);
 			$query = query($query) or error(db_error());
@@ -129,7 +129,7 @@
 			foreach ($boards as &$_board) {
 				if (in_array($_board['uri'], $this->excluded))
 					continue;
-				$query .= sprintf("SELECT `filesize` FROM ``posts_%s`` UNION ALL ", $_board['uri']);
+				$query .= sprintf("SELECT `filesize` FROM ``posts`` WHERE `board` = '%s' UNION ALL ", $_board['uri']);
 			}
 			$query = preg_replace('/UNION ALL $/', ') AS `posts_all`', $query);
 			$query = query($query) or error(db_error());
