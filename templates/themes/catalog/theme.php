@@ -39,14 +39,14 @@
 			$recent_posts = array();
 			$stats = array();
 			
-                        $query = query(sprintf("SELECT *, `id` AS `thread_id`,
-				(SELECT COUNT(`id`) FROM ``posts_%s`` WHERE `thread` = `thread_id`) AS `reply_count`,
-				(SELECT SUM(`num_files`) FROM ``posts_%s`` WHERE `thread` = `thread_id` AND `num_files` IS NOT NULL) AS `image_count`,
-				'%s' AS `board` FROM ``posts_%s`` WHERE `thread`  IS NULL ORDER BY `bump` DESC",
+                        $query = query(sprintf("SELECT *, `id_for_board` AS `thread_id`,
+				(SELECT COUNT(`id_for_board`) FROM ``posts`` WHERE `board` = '%s' AND `thread` = `thread_id`) AS `reply_count`,
+				(SELECT SUM(`num_files`) FROM ``posts`` WHERE `board` = '%s' AND `thread` = `thread_id` AND `num_files` IS NOT NULL) AS `image_count`
+				FROM ``posts`` WHERE `board` = '%s' AND `thread` IS NULL ORDER BY `bump` DESC",
 			$board_name, $board_name, $board_name, $board_name, $board_name)) or error(db_error());
 			
 			while ($post = $query->fetch(PDO::FETCH_ASSOC)) {
-				$post['link'] = $config['root'] . $board['dir'] . $config['dir']['res'] . sprintf($config['file_page'], ($post['thread'] ? $post['thread'] : $post['id']));
+				$post['link'] = $config['root'] . $board['dir'] . $config['dir']['res'] . sprintf($config['file_page'], ($post['thread'] ? $post['thread'] : $post['id_for_board']));
 				$post['board_name'] = $board['name'];
 
 				if ($post['embed'] && preg_match('/^https?:\/\/(\w+\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9\-_]{10,11})(&.+)?$/i', $post['embed'], $matches)) {
