@@ -334,9 +334,9 @@ EOT;
 			openBoard($b);
 			buildIndex();
 			buildJavascript();
-			$query = query(sprintf("SELECT `id` FROM ``posts_%s`` WHERE `thread` IS NULL", $b)) or error(db_error());
+			$query = query(sprintf("SELECT `id_for_board` FROM ``posts`` WHERE `board` = '%s' AND `thread` IS NULL", $b)) or error(db_error());
 			while ($post = $query->fetch(PDO::FETCH_ASSOC)) {
-				buildThread($post['id']);
+				buildThread($post['id_for_board']);
 			}
 			modLog('Edited board settings', $b);
 		}

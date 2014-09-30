@@ -9,26 +9,27 @@ if (!isset ($argv[1])) {
 }
 $board = $argv[1];
 
-$q = query(sprintf("SELECT `id`, `bump`, `time` FROM ``posts_%s``
-                    WHERE `thread` IS NULL", $board));
+$q = query(sprintf("SELECT `id_for_board`, `bump`, `time` FROM ``posts``
+                    WHERE `board` = '%s' AND `thread` IS NULL", $board));
 while ($val = $q->fetch()) {
-        $lc = prepare(sprintf('SELECT MAX(`time`) AS `aq` FROM ``posts_%s``
-                               WHERE ((`thread` = :thread and
-			       `email` != "sage" ) OR `id` = :thread', $board));
+        $lc = prepare(sprintf('SELECT MAX(`time`) AS `aq` FROM ``posts``
+                               WHERE `board` = "%s" AND ((`thread` = :thread and
+			       `email` != "sage" ) OR `id_for_board` = :thread', $board));
 		
-	$lc->bindValue(":thread", $val['id']);
+	$lc->bindValue(":thread", $val['id_for_board']);
 	$lc->execute();
 
 	$f = $lc->fetch();
         if ($val['bump'] != $f['aq']) {
-                $query = prepare(sprintf("UPDATE ``posts_%s`` SET `bump`=:bump
-	                                  WHERE `id`=:id", $board));
+                $query = prepare("UPDATE ``posts`` SET `bump`=:bump
+	                                  WHERE `board` = :board AND `id_for_board`=:id_for_board");
 		$query->bindValue(":bump", $f['aq']);
-		$query->bindValue(":id", $val['id']);
-                echo("Thread $val[id] - to be $val[bump] -> $f[aq]\n");
+		$query->bindValue(":board", $board);
+		$query->bindValue(":id_for_board", $val['id_for_board']);
+                echo("Thread $val[id_for_board] - to be $val[bump] -> $f[aq]\n");
         }
 	else {
-		echo("Thread $val[id] ok\n");
+		echo("Thread $val[id_for_board] ok\n");
 	}
 }
 

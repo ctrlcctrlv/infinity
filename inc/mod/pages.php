@@ -283,7 +283,7 @@ function mod_search($type, $search_query_escaped, $page_no = 1) {
 			
 			if (!empty($query))
 				$query .= ' UNION ALL ';
-			$query .= sprintf("SELECT *, '%s' AS `board` FROM ``posts_%s`` WHERE %s", $board['uri'], $board['uri'], $sql_like);
+			$query .= sprintf("SELECT * FROM ``posts`` WHERE `board` = '%s' AND %s", $board['uri'], $sql_like);
 		}
 		
 		// You weren't allowed to search any boards
@@ -378,8 +378,10 @@ function mod_edit_board($boardName) {
 			
 			modLog('Deleted board: ' . sprintf($config['board_abbreviation'], $board['uri']), false);
 			
-			// Delete posting table
-			$query = query(sprintf('DROP TABLE IF EXISTS ``posts_%s``', $board['uri'])) or error(db_error());
+			// Delete posts
+			$query = prepare('DELETE FROM ``posts`` WHERE `board` = :board');
+      $query->bindValue(':board', $board['uri']);
+      $query->execute() or error(db_error($query));
 			
 			// Clear reports
 			$query = prepare('DELETE FROM ``reports`` WHERE `board` = :id');
@@ -503,13 +505,6 @@ function mod_new_board() {
 		
 		if (!openBoard($_POST['uri']))
 			error(_("Couldn't open board after creation."));
-		
-		$query = Element('posts.sql', array('board' => $board['uri']));
-		
-		if (mysql_version() < 50503)
-			$query = preg_replace('/(CHARSET=|CHARACTER SET )utf8mb4/', '$1utf8', $query);
-		
-		query($query) or error(db_error());
 		
 		if ($config['cache']['enabled'])
 			cache::delete('all_boards');
@@ -816,7 +811,8 @@ function mod_page_ip($ip) {
 		openBoard($board['uri']);
 		if (!hasPermission($config['mod']['show_ip'], $board['uri']))
 			continue;
-		$query = prepare(sprintf('SELECT * FROM ``posts_%s`` WHERE `ip` = :ip ORDER BY `sticky` DESC, `id` DESC LIMIT :limit', $board['uri']));
+		$query = prepare('SELECT * FROM ``posts`` WHERE `board` = :board AND `ip` = :ip ORDER BY `sticky` DESC, `id_for_board` DESC LIMIT :limit');
+		$query->bindValue(':board', $board['uri']);
 		$query->bindValue(':ip', $ip);
 		$query->bindValue(':limit', $config['mod']['ip_recentposts'], PDO::PARAM_INT);
 		$query->execute() or error(db_error($query));
@@ -976,10 +972,10 @@ function mod_ban_appeals() {
 			$ban['post'] = json_decode($ban['post'], true);
 		$ban['mask'] = Bans::range_to_string(array($ban['ipstart'], $ban['ipend']));
 		
-		if ($ban['post'] && isset($ban['post']['board'], $ban['post']['id'])) {
+		if ($ban['post'] && isset($ban['post']['board'], $ban['post']['id_for_board'])) {
 			if (openBoard($ban['post']['board'])) {
-				$query = query(sprintf("SELECT `num_files`, `files` FROM ``posts_%s`` WHERE `id` = " .
-					(int)$ban['post']['id'], $board['uri']));
+				$query = query(sprintf("SELECT `num_files`, `files` FROM ``posts`` WHERE `board` = '%s' AND `id_for_board` = " .
+					(int)$ban['post']['id_for_board'], $board['uri']));
 				if ($_post = $query->fetch(PDO::FETCH_ASSOC)) {
 					$_post['files'] = $_post['files'] ? json_decode($_post['files']) : array();
 					$ban['post'] = array_merge($ban['post'], $_post);
@@ -1019,8 +1015,9 @@ function mod_lock($board, $unlock, $post) {
 	if (!hasPermission($config['mod']['lock'], $board))
 		error($config['error']['noaccess']);
 	
-	$query = prepare(sprintf('UPDATE ``posts_%s`` SET `locked` = :locked WHERE `id` = :id AND `thread` IS NULL', $board));
-	$query->bindValue(':id', $post);
+	$query = prepare('UPDATE ``posts`` SET `locked` = :locked WHERE `id_for_board` = :id_for_board AND `board` = :board AND `thread` IS NULL');
+	$query->bindValue(':board', $board);
+	$query->bindValue(':id_for_board', $post);
 	$query->bindValue(':locked', $unlock ? 0 : 1);
 	$query->execute() or error(db_error($query));
 	if ($query->rowCount()) {
@@ -1053,8 +1050,9 @@ function mod_sticky($board, $unsticky, $post) {
 	if (!hasPermission($config['mod']['sticky'], $board))
 		error($config['error']['noaccess']);
 	
-	$query = prepare(sprintf('UPDATE ``posts_%s`` SET `sticky` = :sticky WHERE `id` = :id AND `thread` IS NULL', $board));
-	$query->bindValue(':id', $post);
+	$query = prepare('UPDATE ``posts`` SET `sticky` = :sticky WHERE `board` = :board AND `id_for_board` = :id_for_board AND `thread` IS NULL');
+	$query->bindValue(':board', $board);
+	$query->bindValue(':id_for_board', $post);
 	$query->bindValue(':sticky', $unsticky ? 0 : 1);
 	$query->execute() or error(db_error($query));
 	if ($query->rowCount()) {
@@ -1075,8 +1073,9 @@ function mod_bumplock($board, $unbumplock, $post) {
 	if (!hasPermission($config['mod']['bumplock'], $board))
 		error($config['error']['noaccess']);
 	
-	$query = prepare(sprintf('UPDATE ``posts_%s`` SET `sage` = :bumplock WHERE `id` = :id AND `thread` IS NULL', $board));
-	$query->bindValue(':id', $post);
+	$query = prepare('UPDATE ``posts`` SET `sage` = :bumplock WHERE `board` = :board AND `id_for_board` = :id_for_board AND `thread` IS NULL');
+	$query->bindValue(':board', $board);
+	$query->bindValue(':id_for_board', $post);
 	$query->bindValue(':bumplock', $unbumplock ? 0 : 1);
 	$query->execute() or error(db_error($query));
 	if ($query->rowCount()) {
@@ -1097,8 +1096,9 @@ function mod_move_reply($originBoard, $postID) {
 	if (!hasPermission($config['mod']['move'], $originBoard))
 		error($config['error']['noaccess']);
 
-	$query = prepare(sprintf('SELECT * FROM ``posts_%s`` WHERE `id` = :id', $originBoard));
-	$query->bindValue(':id', $postID);
+	$query = prepare('SELECT * FROM ``posts`` WHERE `board` = :board AND `id_for_board` = :id_for_board');
+	$query->bindValue(':board', $originBoard);
+	$query->bindValue(':id_for_board', $postID);
 	$query->execute() or error(db_error($query));
 	if (!$post = $query->fetch(PDO::FETCH_ASSOC))
 		error($config['error']['404']);
@@ -1107,8 +1107,9 @@ function mod_move_reply($originBoard, $postID) {
 		$targetBoard = $_POST['board'];
 
 		if ($_POST['target_thread']) {
-			$query = prepare(sprintf('SELECT * FROM ``posts_%s`` WHERE `id` = :id', $targetBoard));
-			$query->bindValue(':id', $_POST['target_thread']);
+			$query = prepare('SELECT * FROM ``posts`` WHERE `board` = :board AND `id_for_board` = :id_for_board');
+			$query->bindValue(':board', $targetBoard);
+			$query->bindValue(':id_for_board', $_POST['target_thread']);
 			$query->execute() or error(db_error($query)); // If it fails, thread probably does not exist
 			$post['op'] = false;
 			$post['thread'] = $_POST['target_thread'];
@@ -1168,8 +1169,9 @@ function mod_move_reply($originBoard, $postID) {
 		openBoard($targetBoard);
 
 		// Find new thread on our target board
-		$query = prepare(sprintf('SELECT thread FROM ``posts_%s`` WHERE `id` = :id', $targetBoard));
-		$query->bindValue(':id', $newID);
+		$query = prepare('SELECT thread FROM ``posts`` WHERE `board` = :board AND `id_for_board` = :id_for_board');
+		$query->bindValue(':board', $targetBoard);
+		$query->bindValue(':id_for_board', $newID);
 		$query->execute() or error(db_error($query));
 		$post = $query->fetch(PDO::FETCH_ASSOC);
 
@@ -1197,8 +1199,9 @@ function mod_move($originBoard, $postID) {
 	if (!hasPermission($config['mod']['move'], $originBoard))
 		error($config['error']['noaccess']);
 	
-	$query = prepare(sprintf('SELECT * FROM ``posts_%s`` WHERE `id` = :id AND `thread` IS NULL', $originBoard));
-	$query->bindValue(':id', $postID);
+	$query = prepare('SELECT * FROM ``posts`` WHERE `board` = :board AND `id_for_board` = :id_for_board AND `thread` IS NULL');
+	$query->bindValue(':board', $originBoard);
+	$query->bindValue(':id_for_board', $postID);
 	$query->execute() or error(db_error($query));
 	if (!$post = $query->fetch(PDO::FETCH_ASSOC))
 		error($config['error']['404']);
@@ -1251,8 +1254,9 @@ function mod_move($originBoard, $postID) {
 		// go back to the original board to fetch replies
 		openBoard($originBoard);
 		
-		$query = prepare(sprintf('SELECT * FROM ``posts_%s`` WHERE `thread` = :id ORDER BY `id`', $originBoard));
-		$query->bindValue(':id', $postID, PDO::PARAM_INT);
+		$query = prepare('SELECT * FROM ``posts`` WHERE `board` = :board AND `thread` = :id_for_board ORDER BY `id_for_board`');
+		$query->bindValue(':board', $originBoard);
+		$query->bindValue(':id_for_board', $postID, PDO::PARAM_INT);
 		$query->execute() or error(db_error($query));
 		
 		$replies = array();
@@ -1282,7 +1286,7 @@ function mod_move($originBoard, $postID) {
 		foreach ($replies as &$post) {
 			$query = prepare('SELECT `target` FROM ``cites`` WHERE `target_board` = :board AND `board` = :board AND `post` = :post');
 			$query->bindValue(':board', $originBoard);
-			$query->bindValue(':post', $post['id'], PDO::PARAM_INT);
+			$query->bindValue(':post', $post['id_for_board'], PDO::PARAM_INT);
 			$query->execute() or error(db_error($qurey));
 			
 			// correct >>X links
@@ -1310,7 +1314,7 @@ function mod_move($originBoard, $postID) {
 				}
 			}
 			// insert reply
-			$newIDs[$post['id']] = $newPostID = post($post);
+			$newIDs[$post['id_for_board']] = $newPostID = post($post);
 			
 			
 			if (!empty($post['tracked_cites'])) {
@@ -1340,8 +1344,9 @@ function mod_move($originBoard, $postID) {
 		
 		if ($shadow) {
 			// lock old thread
-			$query = prepare(sprintf('UPDATE ``posts_%s`` SET `locked` = 1 WHERE `id` = :id', $originBoard));
-			$query->bindValue(':id', $postID, PDO::PARAM_INT);
+			$query = prepare('UPDATE ``posts`` SET `locked` = 1 WHERE `board` = :board AND `id_for_board` = :id_for_board');
+			$query->bindValue(':board', $originBoard);
+			$query->bindValue(':id_for_board', $postID, PDO::PARAM_INT);
 			$query->execute() or error(db_error($query));
 			
 			// leave a reply, linking to the new thread
@@ -1399,9 +1404,10 @@ function mod_ban_post($board, $delete, $post, $token = false) {
 
 	$security_token = make_secure_link_token($board . '/ban/' . $post);
 	
-	$query = prepare(sprintf('SELECT ' . ($config['ban_show_post'] ? '*' : '`ip`, `thread`') .
-		' FROM ``posts_%s`` WHERE `id` = :id', $board));
-	$query->bindValue(':id', $post);
+	$query = prepare('SELECT ' . ($config['ban_show_post'] ? '*' : '`ip`, `thread`') .
+		' FROM ``posts`` WHERE `board` = :board AND `id_for_board` = :id_for_board');
+	$query->bindValue(':board', $board);
+	$query->bindValue(':id_for_board', $post);
 	$query->execute() or error(db_error($query));
 	if (!$_post = $query->fetch(PDO::FETCH_ASSOC))
 		error($config['error']['404']);
@@ -1424,8 +1430,9 @@ function mod_ban_post($board, $delete, $post, $token = false) {
 			$_POST['message'] = preg_replace('/[\r\n]/', '', $_POST['message']);
 			$_POST['message'] = str_replace('%length%', $length_english, $_POST['message']);
 			$_POST['message'] = str_replace('%LENGTH%', strtoupper($length_english), $_POST['message']);
-			$query = prepare(sprintf('UPDATE ``posts_%s`` SET `body_nomarkup` = CONCAT(`body_nomarkup`, :body_nomarkup) WHERE `id` = :id', $board));
-			$query->bindValue(':id', $post);
+			$query = prepare('UPDATE ``posts`` SET `body_nomarkup` = CONCAT(`body_nomarkup`, :body_nomarkup) WHERE `board` = :board AND `id_for_board` = :id_for_board');
+			$query->bindValue(':board', $board);
+			$query->bindValue(':id_for_board', $post);
 			$query->bindValue(':body_nomarkup', sprintf("\n<tinyboard ban message>%s</tinyboard>", utf8tohtml($_POST['message'])));
 			$query->execute() or error(db_error($query));
 			rebuildPost($post);
@@ -1473,8 +1480,9 @@ function mod_edit_post($board, $edit_raw_html, $postID) {
 
 	$security_token = make_secure_link_token($board . '/edit' . ($edit_raw_html ? '_raw' : '') . '/' . $postID);
 	
-	$query = prepare(sprintf('SELECT * FROM ``posts_%s`` WHERE `id` = :id', $board));
-	$query->bindValue(':id', $postID);
+	$query = prepare('SELECT * FROM ``posts`` WHERE `board` = :board AND `id_for_board` = :id_for_board');
+	$query->bindValue(':board', $board);
+	$query->bindValue(':id_for_board', $postID);
 	$query->execute() or error(db_error($query));
 
 	if (!$post = $query->fetch(PDO::FETCH_ASSOC))
@@ -1482,10 +1490,11 @@ function mod_edit_post($board, $edit_raw_html, $postID) {
 	
 	if (isset($_POST['name'], $_POST['email'], $_POST['subject'], $_POST['body'])) {
 		if ($edit_raw_html)
-			$query = prepare(sprintf('UPDATE ``posts_%s`` SET `name` = :name, `email` = :email, `subject` = :subject, `body` = :body, `body_nomarkup` = :body_nomarkup WHERE `id` = :id', $board));
+			$query = prepare('UPDATE ``posts`` SET `name` = :name, `email` = :email, `subject` = :subject, `body` = :body, `body_nomarkup` = :body_nomarkup WHERE `board` = :board AND `id_for_board` = :id_for_board');
 		else
-			$query = prepare(sprintf('UPDATE ``posts_%s`` SET `name` = :name, `email` = :email, `subject` = :subject, `body_nomarkup` = :body WHERE `id` = :id', $board));
-		$query->bindValue(':id', $postID);
+			$query = prepare('UPDATE ``posts`` SET `name` = :name, `email` = :email, `subject` = :subject, `body_nomarkup` = :body WHERE `board` = :board AND `id_for_board` = :id_for_board');
+		$query->bindValue(':board', $board);
+		$query->bindValue(':id_for_board', $postID);
 		$query->bindValue('name', $_POST['name']);
 		$query->bindValue(':email', $_POST['email']);
 		$query->bindValue(':subject', $_POST['subject']);
@@ -1576,8 +1585,9 @@ function mod_spoiler_image($board, $post, $file) {
 		error($config['error']['noaccess']);
 
 	// Delete file thumbnail
-	$query = prepare(sprintf("SELECT `files`, `thread` FROM ``posts_%s`` WHERE id = :id", $board));
-	$query->bindValue(':id', $post, PDO::PARAM_INT);
+	$query = prepare("SELECT `files`, `thread` FROM ``posts`` WHERE `board` = :board AND `id_for_board` = :id_for_board");
+	$query->bindValue(':board', $board);
+	$query->bindValue(':id_for_board', $post, PDO::PARAM_INT);
 	$query->execute() or error(db_error($query));
 	$result = $query->fetch(PDO::FETCH_ASSOC);
 	$files = json_decode($result['files']);
@@ -1588,9 +1598,10 @@ function mod_spoiler_image($board, $post, $file) {
 	$files[$file]->thumbwidth = 128;
 	
 	// Make thumbnail spoiler
-	$query = prepare(sprintf("UPDATE ``posts_%s`` SET `files` = :files WHERE `id` = :id", $board));
+	$query = prepare("UPDATE ``posts`` SET `files` = :files WHERE `board` = :board AND `id_for_board` = :id_for_board");
 	$query->bindValue(':files', json_encode($files));
-	$query->bindValue(':id', $post, PDO::PARAM_INT);
+	$query->bindValue(':board', $board);
+	$query->bindValue(':id_for_board', $post, PDO::PARAM_INT);
 	$query->execute() or error(db_error($query));
 
 	// Record the action
@@ -1624,8 +1635,9 @@ function mod_deletebyip($boardName, $post, $global = false) {
 		error($config['error']['noaccess']);
 	
 	// Find IP address
-	$query = prepare(sprintf('SELECT `ip` FROM ``posts_%s`` WHERE `id` = :id', $boardName));
-	$query->bindValue(':id', $post);
+	$query = prepare('SELECT `ip` FROM ``posts`` WHERE `board` = :board AND `id_for_board` = :id_for_board');
+	$query->bindValue(':board', $boardName);
+	$query->bindValue(':id_for_board', $post);
 	$query->execute() or error(db_error($query));
 	if (!$ip = $query->fetchColumn())
 		error($config['error']['invalidpost']);
@@ -1634,7 +1646,7 @@ function mod_deletebyip($boardName, $post, $global = false) {
 	
 	$query = '';
 	foreach ($boards as $_board) {
-		$query .= sprintf("SELECT `thread`, `id`, '%s' AS `board` FROM ``posts_%s`` WHERE `ip` = :ip UNION ALL ", $_board['uri'], $_board['uri']);
+		$query .= sprintf("SELECT `thread`, `id_for_board` FROM ``posts`` WHERE `board` = '%s' AND `ip` = :ip UNION ALL ", $_board['uri']);
 	}
 	$query = preg_replace('/UNION ALL $/', '', $query);
 	
@@ -1652,14 +1664,14 @@ function mod_deletebyip($boardName, $post, $global = false) {
 	while ($post = $query->fetch(PDO::FETCH_ASSOC)) {
 		openBoard($post['board']);
 		
-		deletePost($post['id'], false, false);
+		deletePost($post['id_for_board'], false, false);
 
 		rebuildThemes('post-delete', $board['uri']);
 
 		if ($post['thread'])
 			$threads_to_rebuild[$post['board']][$post['thread']] = true;
 		else
-			$threads_deleted[$post['board']][$post['id']] = true;
+			$threads_deleted[$post['board']][$post['id_for_board']] = true;
 	}
 	
 	foreach ($threads_to_rebuild as $_board => $_threads) {
@@ -2115,10 +2127,10 @@ function mod_rebuild() {
 			}
 			
 			if (isset($_POST['rebuild_thread'])) {
-				$query = query(sprintf("SELECT `id` FROM ``posts_%s`` WHERE `thread` IS NULL", $board['uri'])) or error(db_error());
+				$query = query(sprintf("SELECT `id_for_board` FROM ``posts`` WHERE `board` = '%s' AND `thread` IS NULL", $board['uri'])) or error(db_error());
 				while ($post = $query->fetch(PDO::FETCH_ASSOC)) {
-					$log[] = '<strong>' . sprintf($config['board_abbreviation'], $board['uri']) . '</strong>: Rebuilding thread #' . $post['id'];
-					buildThread($post['id']);
+					$log[] = '<strong>' . sprintf($config['board_abbreviation'], $board['uri']) . '</strong>: Rebuilding thread #' . $post['id_for_board'];
+					buildThread($post['id_for_board']);
 				}
 			}
 		}
@@ -2167,9 +2179,9 @@ function mod_reports($global = false) {
 	foreach ($report_queries as $board => $posts) {
 		$report_posts[$board] = array();
 		
-		$query = query(sprintf('SELECT * FROM ``posts_%s`` WHERE `id` = ' . implode(' OR `id` = ', $posts), $board)) or error(db_error());
+		$query = query(sprintf('SELECT * FROM ``posts`` WHERE `board` = "%s" AND `id_for_board` = ' . implode(' OR `id_for_board` = ', $posts), $board)) or error(db_error());
 		while ($post = $query->fetch(PDO::FETCH_ASSOC)) {
-			$report_posts[$board][$post['id']] = $post;
+			$report_posts[$board][$post['id_for_board']] = $post;
 		}
 	}
 	
@@ -2289,7 +2301,7 @@ function mod_recent_posts($lim) {
 	// Manually build an SQL query
 	$query = 'SELECT * FROM (';
 	foreach ($mod_boards as $board) {
-		$query .= sprintf('SELECT *, %s AS `board` FROM ``posts_%s`` UNION ALL ', $pdo->quote($board['uri']), $board['uri']);
+		$query .= sprintf('SELECT * FROM ``posts`` WHERE `board` = "%s" UNION ALL ', $board['uri']);
 	}
 	// Remove the last "UNION ALL" seperator and complete the query
 	$query = preg_replace('/UNION ALL $/', ') AS `all_posts` WHERE (`time` < :last_time OR NOT :last_time) ORDER BY `time` DESC LIMIT ' . $limit, $query);
@@ -2651,7 +2663,7 @@ function mod_debug_recent_posts() {
 	// Manually build an SQL query
 	$query = 'SELECT * FROM (';
 	foreach ($boards as $board) {
-		$query .= sprintf('SELECT *, %s AS `board` FROM ``posts_%s`` UNION ALL ', $pdo->quote($board['uri']), $board['uri']);
+		$query .= sprintf('SELECT * FROM ``posts`` WHERE `board` = %s UNION ALL ', $pdo->quote($board['uri']));
 	}
 	// Remove the last "UNION ALL" seperator and complete the query
 	$query = preg_replace('/UNION ALL $/', ') AS `all_posts` ORDER BY `time` DESC LIMIT ' . $limit, $query);

@@ -126,7 +126,8 @@
 		
 		$like = str_replace('%', '%%', $like);
 			
-		$query = prepare(sprintf("SELECT * FROM ``posts_%s`` WHERE " . $like . " ORDER BY `time` DESC LIMIT :limit", $board['uri']));
+		$query = prepare("SELECT * FROM ``posts`` WHERE `board` = :board AND " . $like . " ORDER BY `time` DESC LIMIT :limit");
+		$query->bindValue(':board', $board['uri']);
 		$query->bindValue(':limit', $search_limit, PDO::PARAM_INT);
 		$query->execute() or error(db_error($query));
 		
