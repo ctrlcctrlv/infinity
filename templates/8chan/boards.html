@@ -23,7 +23,16 @@ th.headerSortDown {
 
 <p style='text-align:center'>{% trans %}There are currently <strong>{{n_boards}}</strong> boards + <strong>{{hidden_boards_total}}</strong> unindexed boards = <strong>{{t_boards}}</strong> total boards. Site-wide, {{total_posts_hour}} posts have been made in the last hour, with {{total_posts}} being made on all active boards since October 23, 2013.{% endtrans %}</p>
 
-<table class="modlog" style="width:auto"><thead><tr><th>L</th><th>{% trans %}Board{% endtrans %}</th><th>{% trans %}Board title{% endtrans %}</th><th>{% trans %}Posts in last hour{% endtrans %}</th><th>{% trans %}Total posts{% endtrans %}</th><th>{% trans %}Created{% endtrans %}</th></tr></thead><tbody>
+<table class="modlog" style="width:auto"><thead>
+<tr>
+	<th>L</th>
+	<th>{% trans %}Board{% endtrans %}</th>
+	<th>{% trans %}Board title{% endtrans %}</th>
+	<th>{% trans %}Posts in last hour{% endtrans %}</th>
+	<th>{% trans %}Total posts{% endtrans %}</th>
+	<th>{% trans %}Unique IPs{% endtrans %}</th>
+	<th>{% trans %}Created{% endtrans %}</th>
+</tr></thead><tbody>
 {% for board in boards %}
 	<tr>
 	<td>{{ board.img|raw }}</td>
@@ -31,6 +40,7 @@ th.headerSortDown {
 	<td>{{ board['title'] }}</td>
 	<td style='text-align:right'>{{board['pph']}}</td>
 	<td style='text-align:right'>{{board['max']}}</td>
+	<td style='text-align:right'>{{board['uniq_ip']}}</td>
 	<td>{{board['time']}} ({{board['ago']}} ago)</td></tr>
 {% endfor %}
 </tbody></table>

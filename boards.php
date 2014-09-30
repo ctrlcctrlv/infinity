@@ -21,8 +21,10 @@ foreach ($boards as $i => $board) {
 	$query = prepare(sprintf("
 SELECT MAX(id) max, (SELECT COUNT(*) FROM ``posts_%s`` WHERE FROM_UNIXTIME(time) > DATE_SUB(NOW(), INTERVAL 1 DAY)) ppd, 
 (SELECT COUNT(*) FROM ``posts_%s`` WHERE FROM_UNIXTIME(time) > DATE_SUB(NOW(), INTERVAL 1 HOUR)) pph,
-(SELECT count(id) FROM ``posts_%s``) count FROM ``posts_%s``
-", $board['uri'], $board['uri'], $board['uri'], $board['uri']));
+(SELECT count(id) FROM ``posts_%s``) count,
+(SELECT COUNT(DISTINCT ip) FROM ``posts_%s``) uniq_ip
+ FROM ``posts_%s``
+", $board['uri'], $board['uri'], $board['uri'], $board['uri'], $board['uri']));
 	$query->execute() or error(db_error($query));
 	$r = $query->fetch(PDO::FETCH_ASSOC);
 
@@ -35,6 +37,7 @@ SELECT MAX(id) max, (SELECT COUNT(*) FROM ``posts_%s`` WHERE FROM_UNIXTIME(time)
 	$boards[$i]['pph'] = $pph;
 	$boards[$i]['ppd'] = $ppd;
 	$boards[$i]['max'] = $r['max'];
+	$boards[$i]['uniq_ip'] = $r['uniq_ip'];
 }
 
 usort($boards, 
