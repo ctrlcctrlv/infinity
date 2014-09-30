@@ -194,7 +194,7 @@ if (isset($_POST['delete'])) {
 
 	if (!(($post['op'] && $_POST['post'] == $config['button_newtopic']) ||
 		(!$post['op'] && $_POST['post'] == $config['button_reply'])))
-		error($config['error']['bot']);
+		//error($config['error']['bot']);
 	
 	// Check the referrer
 	if ($config['referer_match'] !== false &&
