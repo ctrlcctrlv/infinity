@@ -45,9 +45,11 @@
 	{{ body }}
 	{% include 'report_delete.html' %}
 	</form>
+	<div id="navlinks">
 	<a href="{{ return }}">[{% trans %}Return{% endtrans %}]</a>
         <a href="#" style="padding-left: 10px">[{% trans %}Go to top{% endtrans %}]</a>
         <a style="padding-left: 10px" href="{{ config.root }}{{ board.dir }}{{ config.catalog_link }}">[{% trans %}Catalog{% endtrans %}]</a>
+        </div>
 
 	{{ boardlist.bottom }}
 
