@@ -124,13 +124,13 @@ $(document).ready(function () {
 		
 		Options.extend_tab('general', '<div><label id="toggle-emb-vid"><input type="checkbox"> Embed youtube links</label></div>');
 		
-		selector = "#toggle-emb-vid";
+		selector = "#toggle-emb-vid>input";
 		event = "click";
 		
-		$('#toggle-emb-vid>input').prop("checked", !emb_vid);
+		$(selector).prop("checked", !emb_vid);
 
 
-        $('#toggle-emb-vid>input').on(event,function () {
+        $(selector).on(event,function () {
 		console.log($(this).prop("checked"));
 				if (!$(this).prop("checked")){
 					emb_vid = true;
