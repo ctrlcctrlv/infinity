@@ -393,4 +393,3 @@ EOT;
 
 $config['gzip_static'] = false;
 
-require_once "dnsbls.php";
