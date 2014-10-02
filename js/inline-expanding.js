@@ -99,10 +99,10 @@ onready(function(){
 		
 		var selector, event;
 
-			selector = "#toggle-image-fittoscreen";
+			selector = "#toggle-image-fittoscreen>input";
 			event = "click";
 			Options.extend_tab('general', '<div><label id=\"toggle-image-fittoscreen\"><input type=\"checkbox\"> fit expanded images to screen.</label></div>');
-			$("#toggle-image-fittoscreen>input").prop("checked",fitToScreen);
+			$(selector).prop("checked",fitToScreen);
 			$(selector).on(event, function(){
 				if ($(this).prop("checked")){
 					fitToScreen = true;
