@@ -131,7 +131,6 @@ $(document).ready(function () {
 
 
         $(selector).on(event,function () {
-		console.log($(this).prop("checked"));
 				if (!$(this).prop("checked")){
 					emb_vid = true;
 					disableYouTubeEmbed();
