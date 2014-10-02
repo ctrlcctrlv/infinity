@@ -23,12 +23,11 @@ onready(function(){
 			for (var i = 0; i < link.length; i++) {
 				if (typeof link[i] == "object" && link[i].childNodes && typeof link[i].childNodes[0] !== 'undefined' && link[i].childNodes[0].src && link[i].childNodes[0].className.match(/post-image/) && !link[i].className.match(/file/)) {
 					if (fitToScreen){
-						fileInfo = $(link[i]).parent().children(".fileinfo").children(".unimportant").text();
-						isSpoiler = (fileInfo.indexOf("Spoiler") > -1) ? true:false;
-						imageD = ((isSpoiler) ? fileInfo.split(",")[2]:fileInfo.split(",")[1]);
-						imageWidth = parseInt(imageD.split("x")[0]);
-						imageHeight = parseInt(imageD.split("x")[1]);
-						console.log(imageWidth, "X", imageHeight);
+						var fileInfo = $(link[i]).parent().children(".fileinfo").children(".unimportant").text();
+						var isSpoiler = (fileInfo.indexOf("Spoiler") > -1) ? true:false;
+						var imageDimensions = ((isSpoiler) ? fileInfo.split(",")[2]:fileInfo.split(",")[1]);
+						var imageWidth = parseInt(imageDimensions.split("x")[0]);
+						var imageHeight = parseInt(imageDimensions.split("x")[1]);
 						link[i].childNodes[0].style.maxWidth = ((imageWidth > maxWidth) ? maxWidth+"px":'98%');
 						link[i].childNodes[0].style.maxHeight = ((imageHeight > maxHeight) ? maxHeight+"px":'');
 					} else {
