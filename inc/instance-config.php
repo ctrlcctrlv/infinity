@@ -46,7 +46,7 @@
 	$config['spam']['hidden_inputs_max_pass'] = 128;
 	$config['ayah_enabled'] = true;
 
-	include "secrets.php";
+
 
 	// Image shit
 	$config['thumb_method'] = 'gm+gifsicle';
@@ -393,4 +393,3 @@ EOT;
 
 $config['gzip_static'] = false;
 
-require_once "dnsbls.php";
