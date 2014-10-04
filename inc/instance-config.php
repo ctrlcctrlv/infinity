@@ -46,7 +46,8 @@
 	$config['spam']['hidden_inputs_max_pass'] = 128;
 	$config['ayah_enabled'] = true;
 
-	include "secrets.php";
+	// Load database credentials
+	require "secrets.php";
 
 	// Image shit
 	$config['thumb_method'] = 'gm+gifsicle';
@@ -393,4 +394,7 @@ EOT;
 
 $config['gzip_static'] = false;
 
-require_once "dnsbls.php";
+// DNSBL is optional
+if (file_exists(stream_resolve_include_path("dnsbls.php"))) {
+	require_once "dnsbls.php";
+}
