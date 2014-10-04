@@ -14,12 +14,61 @@
 
 onready(function(){
 	if (window.Options && Options.get_tab("general")){
-		var fitToScreen = (localStorage['fittoscreen']) ? true:false;
+		var fitToScreen = (localStorage.fittoscreen) ? true:false;
+		
+		
+		var image_on_load = function() {
+					this.style.opacity = '';
+					delete this.style.filter;
+				};
+				
+		var image_on_click = function(e) {
+			if (this.childNodes[0].className == 'hidden')
+				return false;
+			if (e.which == 2 || e.metaKey || e.ctrlKey)
+				return true;
+			if (!this.dataset.src) {
+				this.parentNode.removeAttribute('style');
+				this.dataset.expanded = 'true';
+
+				if (this.childNodes[0].tagName === 'CANVAS') {
+					this.removeChild(this.childNodes[0]);
+					this.childNodes[0].style.display = 'block';
+				}
+
+				this.dataset.src= this.childNodes[0].src;
+				this.dataset.width = this.childNodes[0].style.width;
+				this.dataset.height = this.childNodes[0].style.height;
+				
+
+				this.childNodes[0].src = this.href;
+				this.childNodes[0].style.width = 'auto';
+				this.childNodes[0].style.height = 'auto';
+				this.childNodes[0].style.opacity = '0.4';
+				this.childNodes[0].style.filter = 'alpha(opacity=40)';
+				this.childNodes[0].onload = image_on_load;
+			} else {
+				if (this.parentNode.className.indexOf('multifile'))
+					this.parentNode.style.width = (parseInt(this.dataset.width)+40)+'px';
+				this.childNodes[0].src = this.dataset.src;
+				this.childNodes[0].style.width = this.dataset.width;
+				this.childNodes[0].style.height = this.dataset.height;
+				delete this.dataset.expanded;
+				delete this.dataset.src;
+				delete this.childNodes[0].style.opacity;
+				delete this.childNodes[0].style.filter;
+
+				if (localStorage.no_animated_gif === 'true' && typeof unanimate_gif === 'function') {
+					unanimate_gif(this.childNodes[0]);
+				}
+			}
+			return false;
+		};
+		
 		var inline_expand_post = function() {
 		var link = this.getElementsByTagName('a');
 		var maxWidth = document.body.offsetWidth-(document.body.offsetWidth * 0.02);
-		var maxHeight = document.documentElement.clientHeight;
-		
+		var maxHeight = document.documentElement.clientHeight;			
 			for (var i = 0; i < link.length; i++) {
 				if (typeof link[i] == "object" && link[i].childNodes && typeof link[i].childNodes[0] !== 'undefined' && link[i].childNodes[0].src && link[i].childNodes[0].className.match(/post-image/) && !link[i].className.match(/file/)) {
 					if (fitToScreen){
@@ -34,54 +83,10 @@ onready(function(){
 						link[i].childNodes[0].style.maxWidth = '98%';
 						link[i].childNodes[0].style.maxHeight = 'none';
 					}
-					link[i].onclick = function(e) {
-						if (this.childNodes[0].className == 'hidden')
-							return false;
-						if (e.which == 2 || e.metaKey)
-							return true;
-						if (!this.dataset.src) {
-							this.parentNode.removeAttribute('style');
-							this.dataset.expanded = 'true';
-
-							if (this.childNodes[0].tagName === 'CANVAS') {
-								this.removeChild(this.childNodes[0]);
-								this.childNodes[0].style.display = 'block';
-							}
-
-							this.dataset.src= this.childNodes[0].src;
-							this.dataset.width = this.childNodes[0].style.width;
-							this.dataset.height = this.childNodes[0].style.height;
-							
-
-							this.childNodes[0].src = this.href;
-							this.childNodes[0].style.width = 'auto';
-							this.childNodes[0].style.height = 'auto';
-							this.childNodes[0].style.opacity = '0.4';
-							this.childNodes[0].style.filter = 'alpha(opacity=40)';
-							this.childNodes[0].onload = function() {
-								this.style.opacity = '';
-								delete this.style.filter;
-							}
-						} else {
-							if (~this.parentNode.className.indexOf('multifile'))
-								this.parentNode.style.width = (parseInt(this.dataset.width)+40)+'px';
-							this.childNodes[0].src = this.dataset.src;
-							this.childNodes[0].style.width = this.dataset.width;
-							this.childNodes[0].style.height = this.dataset.height;
-							delete this.dataset.expanded;
-							delete this.dataset.src;
-							delete this.childNodes[0].style.opacity;
-							delete this.childNodes[0].style.filter;
-
-							if (localStorage.no_animated_gif === 'true' && typeof unanimate_gif === 'function') {
-								unanimate_gif(this.childNodes[0]);
-							}
-						}
-						return false;
-					}
+					link[i].onclick = image_on_click;
 				}
 			}
-		}
+		};
 
 		if (window.jQuery) {
 			$('div[id^="thread_"]').each(inline_expand_post);
@@ -106,11 +111,11 @@ onready(function(){
 				if ($(this).prop("checked")){
 					fitToScreen = true;
 					inline_expand_post.call(document);
-					localStorage['fittoscreen'] = true;
+					localStorage.fittoscreen = true;
 				} else {
 					fitToScreen = false;
 					inline_expand_post.call(document);
-					delete localStorage['fittoscreen'];
+					delete localStorage.fittoscreen;
 				}
 			});
 	}
