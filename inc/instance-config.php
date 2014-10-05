@@ -10,6 +10,8 @@
 	require_once "lib/htmlpurifier-4.5.0/library/HTMLPurifier.auto.php";
 	require_once "8chan-functions.php";
 
+	// Note - you may want to change some of these in secrets.php instead of here
+	// See the secrets.example.php file
 	$config['db']['server'] = 'localhost';
 	$config['db']['database'] = '8chan';
 	$config['db']['prefix'] = '';
@@ -46,7 +48,8 @@
 	$config['spam']['hidden_inputs_max_pass'] = 128;
 	$config['ayah_enabled'] = true;
 
-	include "secrets.php";
+	// Load database credentials
+	require "secrets.php";
 
 	// Image shit
 	$config['thumb_method'] = 'gm+gifsicle';
@@ -393,4 +396,7 @@ EOT;
 
 $config['gzip_static'] = false;
 
-require_once "dnsbls.php";
+// DNSBL is optional
+if (file_exists(stream_resolve_include_path("dnsbls.php"))) {
+	require_once "dnsbls.php";
+}
