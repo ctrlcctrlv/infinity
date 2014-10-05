@@ -26,11 +26,10 @@
 	$config['spam']['hidden_inputs_expire'] = 60 * 60 * 4; // three hours
 
 	$config['flood_time'] = 5;
-	$config['flood_time_ip'] = 2;
+	$config['flood_time_ip'] = 30;
 	$config['flood_time_same'] = 2;
 	$config['max_body'] = 5000;
 	$config['reply_limit'] = 250;
-	$config['max_links'] = 20;
 	$config['thumb_width'] = 255;
 	$config['thumb_height'] = 255;
 	$config['max_width'] = 10000;
@@ -125,7 +124,7 @@
 	$config['additional_javascript'][] = 'js/id_highlighter.js';
 	$config['additional_javascript'][] = 'js/id_colors.js';
 
-	$config['font_awesome_css'] = '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css';
+	$config['font_awesome_css'] = '/netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css';
 	
 	$config['stylesheets']['Dark'] = 'dark.css';
 	$config['stylesheets']['Photon'] = 'photon.css';
@@ -393,5 +392,3 @@ EOT;
 	);
 
 $config['gzip_static'] = false;
-
-require_once "dnsbls.php";

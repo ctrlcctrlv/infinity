@@ -5,6 +5,7 @@
 
 require 'inc/functions.php';
 require 'inc/anti-bot.php';
+include "inc/dnsbls.php";
 
 // Fix for magic quotes
 if (get_magic_quotes_gpc()) {
