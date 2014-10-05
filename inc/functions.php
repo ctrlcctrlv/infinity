@@ -2267,6 +2267,12 @@ function rDNS($ip_addr) {
 			$host = $ip_addr;
 	}
 
+	$isip = filter_var($host, FILTER_VALIDATE_IP);
+
+	if ($config['fcrdns'] && !$isip && DNS($host) != $ip_addr) {
+		$host = $ip_addr;
+	}
+
 	if ($config['cache']['enabled'])
 		cache::set('rdns_' . $ip_addr, $host);
 
