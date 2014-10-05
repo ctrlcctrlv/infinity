@@ -67,6 +67,5 @@ if (active_page == 'thread' || active_page == 'index') {
 				colorPostId(v);
 			});
 		});
-
 	});
 }
