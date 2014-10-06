@@ -92,6 +92,7 @@
 	$config['url_banner'] = '/banners.php';
 	//$config['default_stylesheet'] = array('Notsuba', 'notsuba.css');
 	$config['additional_javascript'][] = 'js/jquery.min.js';
+        $config['additional_javascript'][] = 'js/jquery-ui.custom.min.js';
 	$config['additional_javascript'][] = 'js/jquery.tablesorter.min.js';
 	$config['additional_javascript'][] = 'js/options.js';
 	$config['additional_javascript'][] = 'js/style-select.js';
@@ -127,7 +128,8 @@
 	$config['additional_javascript'][] = 'js/id_highlighter.js';
 	$config['additional_javascript'][] = 'js/id_colors.js';
 	$config['additional_javascript'][] = 'js/threadscroll.js';
-
+        $config['additional_javascript'][] = 'js/ajax.js';
+	
 	$config['font_awesome_css'] = '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css';
 	
 	$config['stylesheets']['Dark'] = 'dark.css';
@@ -257,8 +259,6 @@
 			$code_tags = isset($_POST['code_tags']) ? '$config[\'additional_javascript\'][] = \'js/code_tags/run_prettify.js\';$config[\'markup\'][] = array("/\[code\](.+?)\[\/code\]/ms", "<code><pre class=\'prettyprint\' style=\'display:inline-block\'>\$1</pre></code>");' : '';
 			$katex = isset($_POST['katex']) ? '$config[\'katex\'] = true;$config[\'additional_javascript\'][] = \'js/katex/katex.min.js\'; $config[\'markup\'][] = array("/\[tex\](.+?)\[\/tex\]/ms", "<span class=\'tex\'>\$1</span>"); $config[\'additional_javascript\'][] = \'js/katex-enable.js\';' : '';
 $oekaki_js = <<<OEKAKI
-    \$config['additional_javascript'][] = 'js/jquery-ui.custom.min.js';
-    \$config['additional_javascript'][] = 'js/ajax.js';
     \$config['additional_javascript'][] = 'js/wPaint/lib/wColorPicker.min.js';
     \$config['additional_javascript'][] = 'js/wPaint/wPaint.min.js';
     \$config['additional_javascript'][] = 'js/wPaint/plugins/main/wPaint.menu.main.min.js';
