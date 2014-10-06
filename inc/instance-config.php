@@ -104,6 +104,8 @@
 	$config['additional_javascript'][] = 'js/inline-expanding.js';
 	$config['additional_javascript'][] = 'js/show-backlinks.js';
 	$config['additional_javascript'][] = 'js/webm-settings.js';
+	$config['additional_javascript'][] = 'js/download-all.js';
+	$config['additional_javascript'][] = 'js/jszip.min.js';
 	$config['additional_javascript'][] = 'js/expand-video.js';
 	$config['additional_javascript'][] = 'js/treeview.js';
 	$config['additional_javascript'][] = 'js/quick-post-controls.js';
