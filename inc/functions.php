@@ -2138,14 +2138,14 @@ function rrmdir($dir) {
 	}
 }
 
-function poster_id($ip, $thread) {
+function poster_id($ip, $thread, $board) {
 	global $config;
 
-	if ($id = event('poster-id', $ip, $thread))
+	if ($id = event('poster-id', $ip, $thread, $board))
 		return $id;
 
 	// Confusing, hard to brute-force, but simple algorithm
-	return substr(sha1(sha1($ip . $config['secure_trip_salt'] . $thread) . $config['secure_trip_salt']), 0, $config['poster_id_length']);
+	return substr(sha1(sha1($ip . $config['secure_trip_salt'] . $thread . $board) . $config['secure_trip_salt']), 0, $config['poster_id_length']);
 }
 
 function generate_tripcode($name) {
