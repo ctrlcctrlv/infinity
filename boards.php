@@ -22,7 +22,7 @@ foreach ($boards as $i => $board) {
 SELECT MAX(id) max, (SELECT COUNT(*) FROM ``posts_%s`` WHERE FROM_UNIXTIME(time) > DATE_SUB(NOW(), INTERVAL 1 DAY)) ppd, 
 (SELECT COUNT(*) FROM ``posts_%s`` WHERE FROM_UNIXTIME(time) > DATE_SUB(NOW(), INTERVAL 1 HOUR)) pph,
 (SELECT count(id) FROM ``posts_%s``) count,
-(SELECT COUNT(DISTINCT ip) FROM ``posts_%s``) uniq_ip
+(SELECT COUNT(DISTINCT ip) FROM ``posts_%s`` WHERE FROM_UNIXTIME(time) > DATE_SUB(NOW(), INTERVAL 3 DAY)) uniq_ip
  FROM ``posts_%s``
 ", $board['uri'], $board['uri'], $board['uri'], $board['uri'], $board['uri']));
 	$query->execute() or error(db_error($query));
@@ -42,7 +42,7 @@ SELECT MAX(id) max, (SELECT COUNT(*) FROM ``posts_%s`` WHERE FROM_UNIXTIME(time)
 
 usort($boards, 
 function ($a, $b) { 
-	$x = $b['ppd'] - $a['ppd']; 
+	$x = $b['uniq_ip'] - $a['uniq_ip']; 
 	if ($x) { return $x; 
 	//} else { return strcmp($a['uri'], $b['uri']); }
 	} else { return $b['max'] - $a['max']; }
