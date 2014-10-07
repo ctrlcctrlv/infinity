@@ -9,7 +9,7 @@ function handle_boards(data) {
 	})
 
 	if (boards[0]) {
-		$('.favorite-boards').before(' [ '+boards.slice(0,15).join(" / ")+' ] ');
+		$('.favorite-boards').before('<span class="sub" data-description="3"> [ '+boards.slice(0,15).join(" / ")+' ] </span>');
 	}
 	
 }
