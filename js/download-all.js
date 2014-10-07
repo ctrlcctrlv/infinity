@@ -15,7 +15,7 @@ $('hr:first').before('<div id="download-all" style="text-align:right"><a class="
 	{
 		for(var j = 0; j < files.length; j++)
 		{
-			x = 'http://8chan.co/' + files[i].getElementsByTagName('a')[j].src;
+			x = files[i].getElementsByTagName('a')[j].src;
 			zip.file(x);
 		}		
 	}
