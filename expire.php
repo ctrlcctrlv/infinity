@@ -38,7 +38,7 @@ foreach($boards as $board) {
 
 	if ($mods) {
 		$mod = $mods[0]['id'];
-		$query = query("SELECT MAX(time) AS time FROM modlogs WHERE `mod` = $mod");
+		$query = query("SELECT MAX(time) AS time FROM modlogs WHERE `mod` = BINARY $mod");
 		$a = $query->fetchAll(PDO::FETCH_COLUMN);
 
 		if ($a[0]) { 
