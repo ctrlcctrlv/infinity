@@ -1956,17 +1956,9 @@ function strip_combining_chars($str) {
 		$o = 0;
 		$ord = ordutf8($char, $o);
 
-		if ($ord >= 768 && $ord <= 879)
+		if ( ($ord >= 768 && $ord <= 879) || ($ord >= 7616 && $ord <= 7679) || ($ord >= 8400 && $ord <= 8447) || ($ord >= 65056 && $ord <= 65071)){
 			continue;
-
-		if ($ord >= 7616 && $ord <= 7679)
-			continue;
-
-		if ($ord >= 8400 && $ord <= 8447)
-			continue;
-
-		if ($ord >= 65056 && $ord <= 65071)
-			continue;
+		}
 
 		$str .= $char;
 	}
