@@ -1588,7 +1588,7 @@ function mod_spoiler_image($board, $post, $file) {
 	$size_spoiler_image = @getimagesize($config['spoiler_image']);
 	file_unlink($config['dir']['img_root'] . $board . '/' . $config['dir']['thumb'] . $files[$file]->thumb);
 	$files[$file]->thumb = 'spoiler';
-	$files[$file]->thumbwidth = $size_spoiler[0];
+	$files[$file]->thumbwidth = $size_spoiler_image[0];
 	$files[$file]->thumbheight = $size_spoiler_image[1];
 	
 	// Make thumbnail spoiler
