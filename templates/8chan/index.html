@@ -237,7 +237,9 @@
           <em>{% trans %}Welcome to ∞chan, the infinitely expanding imageboard.{% endtrans %}</em>
           <br>
           <strong>{% trans %}Featured boards:{% endtrans %}</strong>
-          <span class="sub" data-description="2">[ <a href="/v/index.html" title="Vidya Games">v</a> / <a href="/a/index.html" title="Anime, Manga and all things related">a</a> / <a href="/tg/index.html" title="Traditional Games">tg</a> / <a href="/fit/index.html" title="Fitness, Health, and Feels">fit</a> / <a href="/pol/index.html" title=" Politically Incorrect">pol</a> / <a href="/tech/index.html" title="Technology">tech</a> / <a href="/mu/index.html" title="Music">mu</a> / <a href="/co/index.html" title="Comics &amp; Cartoons">co</a> / <a href="/sp/index.html" title="Sports">sp</a> / <a href="/boards/index.html" title="8chan Boards">boards</a> ]</span>
+          <span class="favorite-boards"></span>
+          <br>
+          <strong>{% trans %}Board of the week:{% endtrans %} /<a href="/ebola">ebola</a>/</strong>
         </div>
       </header>
 
@@ -312,5 +314,7 @@
 	</footer>
 	</div>
   </div><!--div#main-->
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript" src="/js/update_boards.js"></script>
 </body>
 </html>
