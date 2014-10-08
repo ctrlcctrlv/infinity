@@ -1485,9 +1485,9 @@ function mod_edit_post($board, $edit_raw_html, $postID) {
 	
 	if (isset($_POST['name'], $_POST['email'], $_POST['subject'], $_POST['body'])) {
 		if ($edit_raw_html)
-			$query = prepare(sprintf('UPDATE ``posts_%s`` SET `name` = :name, `email` = :email, `subject` = :subject, `body` = :body, `body_nomarkup` = :body_nomarkup WHERE `id` = :id', $board));
+			$query = prepare(sprintf('UPDATE ``posts_%s`` SET `name` = :name, `email` = :email, `subject` = :subject, `body` = :body, `body_nomarkup` = :body_nomarkup, `edited_at` = NOW() WHERE `id` = :id', $board));
 		else
-			$query = prepare(sprintf('UPDATE ``posts_%s`` SET `name` = :name, `email` = :email, `subject` = :subject, `body_nomarkup` = :body WHERE `id` = :id', $board));
+			$query = prepare(sprintf('UPDATE ``posts_%s`` SET `name` = :name, `email` = :email, `subject` = :subject, `body_nomarkup` = :body, `edited_at` = NOW() WHERE `id` = :id', $board));
 		$query->bindValue(':id', $postID);
 		$query->bindValue('name', $_POST['name']);
 		$query->bindValue(':email', $_POST['email']);
