@@ -155,7 +155,7 @@ class Bans {
 	}
 
 	static public function stream_json($out = false, $filter_ips = false, $filter_staff = false, $board_access = false) {
-		$query = query("SELECT ``bans``.*, `username` FROM ``bans``
+		$query = query("SELECT ``bans``.*, `username`, `type` as `mboards` FROM ``bans``
 			LEFT JOIN ``mods`` ON ``mods``.`id` = `creator`
  			ORDER BY `created` DESC") or error(db_error());
                 $bans = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -183,7 +183,7 @@ class Bans {
 				$ban['single_addr'] = true;
 			}
 			if ($filter_staff || ($board_access !== false && !in_array($ban['board'], $board_access))) {
-				$ban['username'] = '?';				
+				$ban['username'] = $config['mod']['capcode'][$config['mod']['groups'][$ban['type']]][0];
 			}
 			if ($filter_ips || ($board_access !== false && !in_array($ban['board'], $board_access))) {
 				list($ban['mask'], $subnet) = explode("/", $ban['mask']);
