@@ -107,7 +107,7 @@ $query->bindValue(':type', 20);
 $query->bindValue(':boards', $uri);
 $query->execute() or error(db_error($query));
 		
-$query = prepare('INSERT INTO ``boards`` VALUES (:uri, :title, :subtitle)');
+$query = prepare('INSERT INTO ``boards`` VALUES (:uri, :title, :subtitle, NULL, NULL)');
 $query->bindValue(':uri', $_POST['uri']);
 $query->bindValue(':title', $_POST['title']);
 $query->bindValue(':subtitle', $_POST['subtitle']);
