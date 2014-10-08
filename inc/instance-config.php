@@ -255,7 +255,6 @@
 			$poster_ids = isset($_POST['poster_ids']) ? 'true' : 'false';
 			$show_sages = isset($_POST['show_sages']) ? 'true' : 'false';
 			$auto_unicode = isset($_POST['auto_unicode']) ? 'true' : 'false';
-			$meta_noindex = isset($_POST['meta_noindex']) ? 'true' : 'false';
 			$allow_roll = isset($_POST['allow_roll']) ? 'true' : 'false';
 			$image_reject_repost = isset($_POST['image_reject_repost']) ? 'true' : 'false';
 			$allow_flash = isset($_POST['allow_flash']) ? '$config[\'allowed_ext_files\'][] = \'swf\';' : '';
@@ -311,10 +310,11 @@ OEKAKI;
 			if (!(strlen($subtitle) < 200))
 				error('Invalid subtitle');
 
-			$query = prepare('UPDATE ``boards`` SET `title` = :title, `subtitle` = :subtitle WHERE `uri` = :uri');
+			$query = prepare('UPDATE ``boards`` SET `title` = :title, `subtitle` = :subtitle, `indexed` = :indexed WHERE `uri` = :uri');
 			$query->bindValue(':title', $title);
 			$query->bindValue(':subtitle', $subtitle);
 			$query->bindValue(':uri', $b);
+			$query->bindValue(':indexed', !isset($_POST['meta_noindex']));
 			$query->execute() or error(db_error($query));
 
 
@@ -328,7 +328,6 @@ OEKAKI;
 \$config['poster_ids'] = $poster_ids;
 \$config['show_sages'] = $show_sages;
 \$config['auto_unicode'] = $auto_unicode;
-\$config['meta_noindex'] = $meta_noindex;
 \$config['allow_roll'] = $allow_roll;
 \$config['image_reject_repost'] = $image_reject_repost;
 \$config['anonymous'] = base64_decode('$anonymous');

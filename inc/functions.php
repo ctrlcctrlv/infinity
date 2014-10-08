@@ -652,20 +652,21 @@ function hasPermission($action = null, $board = null, $_mod = null) {
 	return true;
 }
 
-function listBoards($just_uri = false) {
+function listBoards($just_uri = false, $indexed_only = false) {
 	global $config;
 	
 	$just_uri ? $cache_name = 'all_boards_uri' : $cache_name = 'all_boards';
+	$indexed_only ? $cache_name .= 'indexed' : false;
 
 	if ($config['cache']['enabled'] && ($boards = cache::get($cache_name)))
 		return $boards;
 
 	if (!$just_uri) {
-		$query = query("SELECT ``boards``.`uri` uri, ``boards``.`title` title, ``boards``.`subtitle` subtitle, ``board_create``.`time` time FROM ``boards`` LEFT JOIN ``board_create`` ON ``boards``.`uri` = ``board_create``.`uri` ORDER BY ``boards``.`uri`") or error(db_error());
+		$query = query("SELECT ``boards``.`uri` uri, ``boards``.`title` title, ``boards``.`subtitle` subtitle, ``board_create``.`time` time, ``boards``.`indexed` indexed FROM ``boards``" . ( $indexed_only ? " WHERE `indexed` = 1 " : "" ) . "LEFT JOIN ``board_create`` ON ``boards``.`uri` = ``board_create``.`uri` ORDER BY ``boards``.`uri`") or error(db_error());
 		$boards = $query->fetchAll();
 	} else {
 		$boards = array();
-		$query = query("SELECT `uri` FROM ``boards``") or error(db_error());
+		$query = query("SELECT `uri` FROM ``boards``" . ( $indexed_only ? " WHERE `indexed` = 1" : "" ) . " ORDER BY ``boards``.`uri`") or error(db_error());
 		while (true) {
 			$board = $query->fetchColumn();
 			if ($board === FALSE) break;

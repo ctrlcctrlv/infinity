@@ -57,8 +57,8 @@ foreach ($boards as $i => &$board) {
 		$board_config = str_replace('$config', '$boardCONFIG', $board_config);
 		$board_config = str_replace('<?php', '', $board_config);
 		eval($board_config);
-		$showboard = (!isset($boardCONFIG['meta_noindex']) || !$boardCONFIG['meta_noindex']);
 	}
+	$showboard = $board['indexed'];
 	$locale = isset($boardCONFIG['locale'])?$boardCONFIG['locale']:'en';
 
 	$board['title'] = utf8tohtml($board['title']);

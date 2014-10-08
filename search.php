@@ -12,7 +12,7 @@
 	if (isset($config['search']['boards'])) {
 		$boards = $config['search']['boards'];
 	} else {
-		$boards = listBoards(TRUE);
+		$boards = listBoards(TRUE, TRUE);
 	}
 	
 	$body = Element('search_form.html', Array('boards' => $boards, 'b' => isset($_GET['board']) ? $_GET['board'] : false, 'search' => isset($_GET['search']) ? str_replace('"', '&quot;', utf8tohtml($_GET['search'])) : false));
