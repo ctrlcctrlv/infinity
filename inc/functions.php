@@ -1264,17 +1264,14 @@ function getPageButtons($pages, $mod=false) {
 					} else {
 						sprintf($config['file_page'], $num);
 					}
-
-					$btn['prev'] .= '<input type="submit" value="' . _('Previous') . '" /></form>';
+				$btn['prev'] .= '<input type="submit" value="' . _('Previous') . '" /></form>';
 			}
 
-			if ($num == (count($pages) - 1)) {
+			if ($num == count($pages) - 1) {
 				// There is no next page.
 				$btn['next'] = _('Next');
 			} else {
-				sprintf($config['file_page'], $num + 2);
-
-					if($mod){
+				if($mod){
 						$loc =  '?/' . $board['uri'] . '/';
 						$btn['next'] = '<form action="" method="get">';
 						$btn['next'] .= '<input type="hidden" name="status" value="301" />' ;
@@ -1282,12 +1279,13 @@ function getPageButtons($pages, $mod=false) {
 					}else{
 						$btn['next'] = '<form action="'.$root . '" method="get">';
 					}
+				sprintf($config['file_page'], $num + 2);
 				$btn['next'] .= '<input type="submit" value="' . _('Next') . '" /></form>';
-				}
 			}
 		}
+	}
 
-		return $btn;
+	return $btn;
 }
 
 function getPages($mod=false) {
