@@ -76,7 +76,8 @@ form table tr th{
   color: #fff !important;
   background: #222 !important;
 }
- 
+
+#download-all,
 #expand-all-images,
 #shrink-all-images,
 #treeview{
@@ -96,6 +97,10 @@ form table tr th{
   margin-top: 6em !important;
 }
  
+#download-all{
+  margin-top: 7em !important;
+}
+
 #expand-all-images + hr,
 #shrink-all-images + hr{
   opacity: 0 !important;
@@ -107,6 +112,11 @@ form table tr th{
   clear: both !important;
 }
  
+#download-all + hr{
+  opacity: 0 !important;
+  clear: both !important;
+}
+
 #options_handler{
   margin-top: 3em !important;
 }
