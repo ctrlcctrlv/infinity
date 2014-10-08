@@ -1,5 +1,10 @@
 	{% if post.embed %}
-		{{ post.embed }}
+		<div class="files">
+			<p class="fileinfo">Embed: <span class="unimportant"><a href="{{ post.embed_url }}">{{ post.embed_url }}</a></span></p>
+			<div class="file">
+			{{ post.embed }}
+			</div>
+		</div>
     {% else %}
     <div class="files">
     {% for file in post.files %}

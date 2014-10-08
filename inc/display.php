@@ -330,8 +330,10 @@ function embed_html($link) {
 			
 			$html = str_replace('%%tb_width%%', $config['embed_width'], $html);
 			$html = str_replace('%%tb_height%%', $config['embed_height'], $html);
+
+			$url = preg_replace($embed[0],$embed[2],$link);
 			
-			return $html;
+			return array($html,$url);
 		}
 	}
 	
@@ -361,8 +363,11 @@ class Post {
 		$this->mod = $mod;
 		$this->root = $root;
 		
-		if ($this->embed)
-			$this->embed = embed_html($this->embed);
+		if ($this->embed) {
+			$embed = embed_html($this->embed);
+			$this->embed = $embed[0];
+			$this->embed_url = $embed[1];
+		}
 		
 		$this->modifiers = extract_modifiers($this->body_nomarkup);
 		
@@ -416,8 +421,11 @@ class Thread {
 		$this->omitted = 0;
 		$this->omitted_images = 0;
 		
-		if ($this->embed)
-			$this->embed = embed_html($this->embed);
+		if ($this->embed) {
+			$embed = embed_html($this->embed);
+			$this->embed = $embed[0];
+			$this->embed_url = $embed[1];
+		}
 		
 		$this->modifiers = extract_modifiers($this->body_nomarkup);
 		
