@@ -234,7 +234,6 @@ class Bans {
 			if ($boards !== false && !in_array($ban['board'], $boards))
 		                error($config['error']['noaccess']);
 			
-		if ($modlog) {
 			$mask = self::range_to_string(array($ban['ipstart'], $ban['ipend']));
 			
 			modLog("Removed ban #{$ban_id} for " .
