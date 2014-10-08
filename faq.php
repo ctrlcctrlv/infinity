@@ -9,7 +9,7 @@ $body = <<<EOT
 <ul>
 <li>Do not post, request, or link to any content illegal in the United States of America. Do not create boards with the sole purpose of posting or spreading such content.</li>
 </ul>
-<p>Other than that, you are free to institute whatever rules you want on your board.</p>
+<p>Other than that, you are free to stipulate whatever rules you want on your board.</p>
 <h2>How do I add more volunteers?</h2>
 <p>Give them your password. If you don't trust them enough for that, you probably shouldn't be making them a volunteer.</p>
 <h2>How do I manage my board?</h2>
