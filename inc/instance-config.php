@@ -31,13 +31,13 @@
 	$config['flood_time_ip'] = 30;
 	$config['flood_time_same'] = 2;
 	$config['max_body'] = 5000;
-	$config['reply_limit'] = 250;
+	$config['reply_limit'] = 300;
 	$config['thumb_width'] = 255;
 	$config['thumb_height'] = 255;
 	$config['max_width'] = 10000;
 	$config['max_height'] = 10000;
 	$config['threads_per_page'] = 15;
-	$config['max_pages'] = 10;
+	$config['max_pages'] = 15;
 	$config['threads_preview'] = 5;
 	$config['root'] = '/';
 	$config['secure_trip_salt'] = '';
@@ -56,7 +56,7 @@
 	$config['thumb_keep_animation_frames'] = 100;
 	$config['show_ratio'] = true;
 	//$config['allow_upload_by_url'] = true;
-	$config['max_filesize'] = 1024 * 1024 * 5; // 5MB
+	$config['max_filesize'] = 1024 * 1024 * 8; // 8MB
 	$config['disable_images'] = false; 
 	$config['spoiler_images'] = true;
 	$config['image_reject_repost'] = true;
@@ -83,7 +83,9 @@
 	$config['mod']['debug_recent'] = ADMIN;
 	$config['mod']['debug_antispam'] = ADMIN;
 	$config['mod']['modlog'] = SUPERMOD;
+	$config['mod']['editpost'] = MOD;
 	$config['mod']['recent_reports'] = 65535;
+	$config['ban_show_post'] = true;
 
 	// Board shit
 	$config['max_links'] = 40;
@@ -210,7 +212,7 @@
 			if ($size[0] != 300 or $size[1] != 100){
 				error('Image wrong size!');
 			}
-			if (sizeof($banners) >= 20) {
+			if (sizeof($banners) >= 50) {
 				error('Too many banners.');
 			}
 
