@@ -25,7 +25,7 @@ foreach($boards as $board) {
 	$row = $query->fetch();
 
 	//count posts
-	$query = prepare("SELECT COUNT(id_for_board) AS count FROM posts WHERE `board` = :board", $board);
+	$query = prepare("SELECT COUNT(id) AS count FROM posts WHERE `board` = :board", $board);
 	$query->bindValue(':board', $board);
 	$query->execute();
 	$count = $query->fetch();

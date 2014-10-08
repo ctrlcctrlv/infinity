@@ -1,10 +1,10 @@
 {% filter remove_whitespace %}
 {# tabs and new lines will be ignored #}
-<div class="post reply" id="reply_{{ post.id_for_board }}">
+<div class="post reply" id="reply_{{ post.id }}">
 <p class="intro">
-	{% if not index %}<a id="{{ post.id_for_board }}" class="post_anchor"></a>{% endif %}
-	<input type="checkbox" class="delete" name="delete_{{ post.id_for_board }}" id="delete_{{ post.id_for_board }}" />
-	<label for="delete_{{ post.id_for_board }}">
+	{% if not index %}<a id="{{ post.id }}" class="post_anchor"></a>{% endif %}
+	<input type="checkbox" class="delete" name="delete_{{ post.id }}" id="delete_{{ post.id }}" />
+	<label for="delete_{{ post.id }}">
 		{% include 'post/subject.html' %}
 		{% include 'post/name.html' %}
 		{% include 'post/ip.html' %}
@@ -12,8 +12,8 @@
 		{% include 'post/time.html' %}
 	</label>
 	{% include 'post/poster_id.html' %}&nbsp;
-	<a class="post_no" id="post_no_{{ post.id_for_board }}" onclick="highlightReply({{ post.id_for_board }})" href="{% if isnoko50 %}{{ post.link('', config.file_page50) }}{% else %}{{ post.link }}{% endif %}">No.</a>
-	<a class="post_no" onclick="citeReply({{ post.id_for_board }})" href="{% if isnoko50 %}{{ post.link('q', config.file_page50) }}{% else %}{{ post.link('q') }}{% endif %}">{{ post.id_for_board }}</a>
+	<a class="post_no" id="post_no_{{ post.id }}" onclick="highlightReply({{ post.id }})" href="{% if isnoko50 %}{{ post.link('', config.file_page50) }}{% else %}{{ post.link }}{% endif %}">No.</a>
+	<a class="post_no" onclick="citeReply({{ post.id }})" href="{% if isnoko50 %}{{ post.link('q', config.file_page50) }}{% else %}{{ post.link('q') }}{% endif %}">{{ post.id }}</a>
 	</p>
     {% include 'post/fileinfo.html' %} 
     {% include 'post/post_controls.html' %}

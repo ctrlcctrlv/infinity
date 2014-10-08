@@ -40,7 +40,7 @@ $total_posts = 0;
 foreach ($boards as $i => $board) {
 	$query = prepare("
 	SELECT
-	  (SELECT coalesce((SELECT max(`id_for_board`) FROM ``posts`` WHERE `board` = :board),0)) max,
+	  (SELECT coalesce((SELECT max(`id`) FROM ``posts`` WHERE `board` = :board),0)) max,
 		(SELECT COUNT(*) FROM ``posts`` WHERE `board` = :board AND FROM_UNIXTIME(time) > DATE_SUB(NOW(), INTERVAL 1 DAY)) ppd,
 		(SELECT COUNT(*) FROM ``posts`` WHERE `board` = :board AND FROM_UNIXTIME(time) > DATE_SUB(NOW(), INTERVAL 1 HOUR)) pph,
 		(SELECT count(id) FROM ``posts`` WHERE `board` = :board) count

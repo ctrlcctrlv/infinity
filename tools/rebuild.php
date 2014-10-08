@@ -78,19 +78,19 @@ foreach($boards as &$board) {
 		continue; // do no more
 	
 	if($options['full']) {
-		$query = query(sprintf("SELECT `id_for_board` FROM ``posts`` WHERE `board` = '%s'", $board['uri'])) or error(db_error());
+		$query = query(sprintf("SELECT `id` FROM ``posts`` WHERE `board` = '%s'", $board['uri'])) or error(db_error());
 		while($post = $query->fetch()) {
 			if(!$options['quiet'])
-				echo "Rebuilding #{$post['id_for_board']}...\n";
-			rebuildPost($post['id_for_board']);
+				echo "Rebuilding #{$post['id']}...\n";
+			rebuildPost($post['id']);
 		}
 	}
 	
-	$query = query(sprintf("SELECT `id_for_board` FROM ``posts`` WHERE `thread` IS NULL AND `board` = '%s'", $board['uri'])) or error(db_error());
+	$query = query(sprintf("SELECT `id` FROM ``posts`` WHERE `thread` IS NULL AND `board` = '%s'", $board['uri'])) or error(db_error());
 	while($post = $query->fetch()) {
 		if(!$options['quiet'])
-			echo "Rebuilding #{$post['id_for_board']}...\n";
-		buildThread($post['id_for_board']);
+			echo "Rebuilding #{$post['id']}...\n";
+		buildThread($post['id']);
 	}
 }
 

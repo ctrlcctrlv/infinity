@@ -62,7 +62,7 @@
 				
 				// board settings won't be available in the template file, so generate links now
 				$post['link'] = $config['root'] . $board['dir'] . $config['dir']['res']
-				  . sprintf($config['file_page'], ($post['thread'] ? $post['thread'] : $post['id_for_board'])) . '#' . $post['id_for_board'];
+				  . sprintf($config['file_page'], ($post['thread'] ? $post['thread'] : $post['id'])) . '#' . $post['id'];
 
 				if ($files) {
 					if ($files[0]->thumb == 'spoiler') {
@@ -92,7 +92,7 @@
 			while ($post = $query->fetch(PDO::FETCH_ASSOC)) {
 				openBoard($post['board']);
 				
-				$post['link'] = $config['root'] . $board['dir'] . $config['dir']['res'] . sprintf($config['file_page'], ($post['thread'] ? $post['thread'] : $post['id_for_board'])) . '#' . $post['id_for_board'];
+				$post['link'] = $config['root'] . $board['dir'] . $config['dir']['res'] . sprintf($config['file_page'], ($post['thread'] ? $post['thread'] : $post['id'])) . '#' . $post['id'];
 				if ($post['body'] != "")
 					$post['snippet'] = pm_snippet($post['body'], 30);
 				else
@@ -107,7 +107,7 @@
 			foreach ($boards as &$_board) {
 				if (in_array($_board['uri'], $this->excluded))
 					continue;
-				$query .= sprintf("SELECT MAX(`id_for_board`) AS `top` FROM ``posts`` WHERE `board` = '%s' UNION ALL ", $_board['uri']);
+				$query .= sprintf("SELECT MAX(`id`) AS `top` FROM ``posts`` WHERE `board` = '%s' UNION ALL ", $_board['uri']);
 			}
 			$query = preg_replace('/UNION ALL $/', ') AS `posts_all`', $query);
 			$query = query($query) or error(db_error());

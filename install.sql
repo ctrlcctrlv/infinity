@@ -85,7 +85,6 @@ CREATE TABLE IF NOT EXISTS `posts` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `board` varchar(58) NOT NULL,
   `thread` int(11) DEFAULT NULL,
-  `id_for_board` int(11) unsigned NOT NULL,
   `subject` varchar(100) DEFAULT NULL,
   `email` varchar(30) DEFAULT NULL,
   `name` varchar(35) DEFAULT NULL,
@@ -104,15 +103,14 @@ CREATE TABLE IF NOT EXISTS `posts` (
   `locked` int(1) NOT NULL,
   `sage` int(1) NOT NULL,
   `embed` text,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id` (`id`),
-  UNIQUE KEY `board_id_for_board` (`board`,`id_for_board`),
+  PRIMARY KEY (`board`,`id`),
+  UNIQUE KEY `board_id` (`board`,`id`),
   KEY `thread_id` (`thread`,`id`),
   KEY `filehash` (`filehash`(40)),
   KEY `time` (`time`),
   KEY `ip` (`ip`),
   KEY `list_threads` (`thread`,`sticky`,`bump`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 

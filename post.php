@@ -50,17 +50,17 @@ if (isset($_POST['delete'])) {
 	if (empty($delete))
 		error($config['error']['nodelete']);
 		
-	foreach ($delete as &$id_for_board) {
-		$query = prepare("SELECT `thread`, `time`,`password` FROM ``posts`` WHERE `id_for_board` = :id_for_board AND `board` = :board");
-		$query->bindValue(':id_for_board', $id_for_board, PDO::PARAM_INT);
+	foreach ($delete as &$id) {
+		$query = prepare("SELECT `thread`, `time`,`password` FROM ``posts`` WHERE `id` = :id AND `board` = :board");
+		$query->bindValue(':id', $id, PDO::PARAM_INT);
 		$query->bindValue(':board', $board['uri']);
 		$query->execute() or error(db_error($query));
 		
 		if ($post = $query->fetch(PDO::FETCH_ASSOC)) {
 			$thread = false;
 			if ($config['user_moderation'] && $post['thread']) {
-				$thread_query = prepare("SELECT `time`,`password` FROM ``posts`` WHERE `id_for_board` = :id_for_board AND `board` = :board");
-				$thread_query->bindValue(':id_for_board', $post['thread'], PDO::PARAM_INT);
+				$thread_query = prepare("SELECT `time`,`password` FROM ``posts`` WHERE `id` = :id AND `board` = :board");
+				$thread_query->bindValue(':id', $post['thread'], PDO::PARAM_INT);
 				$thread_query->bindValue(':board', $board['uri']);
 				$thread_query->execute() or error(db_error($query));
 
@@ -76,14 +76,14 @@ if (isset($_POST['delete'])) {
 			
 			if (isset($_POST['file'])) {
 				// Delete just the file
-				deleteFile($id_for_board);
+				deleteFile($id);
 			} else {
 				// Delete entire post
-				deletePost($id_for_board);
+				deletePost($id);
 			}
 			
 			_syslog(LOG_INFO, 'Deleted post: ' .
-				'/' . $board['dir'] . $config['dir']['res'] . sprintf($config['file_page'], $post['thread'] ? $post['thread'] : $id_for_board) . ($post['thread'] ? '#' . $id_for_board : '')
+				'/' . $board['dir'] . $config['dir']['res'] . sprintf($config['file_page'], $post['thread'] ? $post['thread'] : $id) . ($post['thread'] ? '#' . $id : '')
 			);
 		}
 	}
@@ -131,24 +131,24 @@ if (isset($_POST['delete'])) {
 	$reason = escape_markup_modifiers($_POST['reason']);
 	markup($reason);
 	
-	foreach ($report as &$id_for_board) {
-		$query = prepare("SELECT `thread` FROM ``posts`` WHERE `board` = :board AND `id_for_board` = :id_for_board");
+	foreach ($report as &$id) {
+		$query = prepare("SELECT `thread` FROM ``posts`` WHERE `board` = :board AND `id` = :id");
 		$query->bindValue(':board', $board['uri']);
-		$query->bindValue(':id_for_board', $id_for_board, PDO::PARAM_INT);
+		$query->bindValue(':id', $id, PDO::PARAM_INT);
 		$query->execute() or error(db_error($query));
 		
 		$thread = $query->fetchColumn();
 		
 		if ($config['syslog'])
 			_syslog(LOG_INFO, 'Reported post: ' .
-				'/' . $board['dir'] . $config['dir']['res'] . sprintf($config['file_page'], $thread ? $thread : $id_for_board) . ($thread ? '#' . $id_for_board : '') .
+				'/' . $board['dir'] . $config['dir']['res'] . sprintf($config['file_page'], $thread ? $thread : $id) . ($thread ? '#' . $id : '') .
 				' for "' . $reason . '"'
 			);
 		$query = prepare("INSERT INTO ``reports`` VALUES (NULL, :time, :ip, :board, :post, :reason, :global)");
 		$query->bindValue(':time', time(), PDO::PARAM_INT);
 		$query->bindValue(':ip', $_SERVER['REMOTE_ADDR'], PDO::PARAM_STR);
 		$query->bindValue(':board', $board['uri'], PDO::PARAM_INT);
-		$query->bindValue(':post', $id_for_board, PDO::PARAM_INT);
+		$query->bindValue(':post', $id, PDO::PARAM_INT);
 		$query->bindValue(':reason', $reason, PDO::PARAM_STR);
 		$query->bindValue(':global', isset($_POST['global']), PDO::PARAM_BOOL);
 		$query->execute() or error(db_error($query));
@@ -254,8 +254,8 @@ if (isset($_POST['delete'])) {
 	
 	//Check if thread exists
 	if (!$post['op']) {
-		$query = prepare("SELECT `sticky`,`locked`,`sage` FROM ``posts`` WHERE `id_for_board` = :id_for_board AND `thread` IS NULL AND `board` = :board LIMIT 1");
-		$query->bindValue(':id_for_board', $post['thread'], PDO::PARAM_INT);
+		$query = prepare("SELECT `sticky`,`locked`,`sage` FROM ``posts`` WHERE `id` = :id AND `thread` IS NULL AND `board` = :board LIMIT 1");
+		$query->bindValue(':id', $post['thread'], PDO::PARAM_INT);
 		$query->bindValue(':board', $board['uri']);
 		$query->execute() or error(db_error());
 		
@@ -739,9 +739,9 @@ if (isset($_POST['delete'])) {
 					($post['mod'] ? $config['root'] . $config['file_mod'] . '?/' : $config['root']) .
 					($board['dir'] . $config['dir']['res'] .
 						($p['thread'] ?
-							$p['thread'] . '.html#' . $p['id_for_board']
+							$p['thread'] . '.html#' . $p['id']
 						:
-							$p['id_for_board'] . '.html'
+							$p['id'] . '.html'
 						))
 				));
 			}
@@ -752,9 +752,9 @@ if (isset($_POST['delete'])) {
 					($post['mod'] ? $config['root'] . $config['file_mod'] . '?/' : $config['root']) .
 					($board['dir'] . $config['dir']['res'] .
 						($p['thread'] ?
-							$p['thread'] . '.html#' . $p['id_for_board']
+							$p['thread'] . '.html#' . $p['id']
 						:
-							$p['id_for_board'] . '.html'
+							$p['id'] . '.html'
 						))
 				));
 			}
@@ -796,7 +796,7 @@ if (isset($_POST['delete'])) {
 		$post['files'] = $post['files'];
 	$post['num_files'] = sizeof($post['files']);
 	
-	$post['id_for_board'] = $id_for_board = post($post);
+	$post['id'] = $id = post($post);
 	
 	insertFloodPost($post);
 	
@@ -808,7 +808,7 @@ if (isset($_POST['delete'])) {
 		$insert_rows = array();
 		foreach ($post['tracked_cites'] as $cite) {
 			$insert_rows[] = '(' .
-				$pdo->quote($board['uri']) . ', ' . (int)$id_for_board . ', ' .
+				$pdo->quote($board['uri']) . ', ' . (int)$id . ', ' .
 				$pdo->quote($cite[0]) . ', ' . (int)$cite[1] . ')';
 		}
 		query('INSERT INTO ``cites`` VALUES ' . implode(', ', $insert_rows)) or error(db_error());
@@ -818,7 +818,7 @@ if (isset($_POST['delete'])) {
 		bumpThread($post['thread']);
 	}
 	
-	buildThread($post['op'] ? $id_for_board : $post['thread']);
+	buildThread($post['op'] ? $id : $post['thread']);
 	
 	if ($config['try_smarter'] && $post['op'])
 		$build_pages = range(1, $config['max_pages']);
@@ -846,7 +846,7 @@ if (isset($_POST['delete'])) {
 	
 	if ($noko) {
 		$redirect = $root . $board['dir'] . $config['dir']['res'] .
-			sprintf($config['file_page'], $post['op'] ? $id_for_board:$post['thread']) . (!$post['op'] ? '#' . $id_for_board : '');
+			sprintf($config['file_page'], $post['op'] ? $id:$post['thread']) . (!$post['op'] ? '#' . $id : '');
 	   	
 		if (!$post['op'] && isset($_SERVER['HTTP_REFERER'])) {
 			$regex = array(
@@ -858,7 +858,7 @@ if (isset($_POST['delete'])) {
 
 			if (preg_match('/\/' . $regex['board'] . $regex['res'] . $regex['page50'] . '([?&].*)?$/', $_SERVER['HTTP_REFERER'])) {
 				$redirect = $root . $board['dir'] . $config['dir']['res'] .
-					sprintf($config['file_page50'], $post['op'] ? $id_for_board:$post['thread']) . (!$post['op'] ? '#' . $id_for_board : '');
+					sprintf($config['file_page50'], $post['op'] ? $id:$post['thread']) . (!$post['op'] ? '#' . $id : '');
 			}
 		}
 	} else {
@@ -868,7 +868,7 @@ if (isset($_POST['delete'])) {
 	
 	if ($config['syslog'])
 		_syslog(LOG_INFO, 'New post: /' . $board['dir'] . $config['dir']['res'] .
-			sprintf($config['file_page'], $post['op'] ? $id_for_board : $post['thread']) . (!$post['op'] ? '#' . $id_for_board : ''));
+			sprintf($config['file_page'], $post['op'] ? $id : $post['thread']) . (!$post['op'] ? '#' . $id : ''));
 	
 	if (!$post['mod']) header('X-Associated-Content: "' . $redirect . '"');
 
@@ -884,7 +884,7 @@ if (isset($_POST['delete'])) {
 		echo json_encode(array(
 			'redirect' => $redirect,
 			'noko' => $noko,
-			'id' => $id_for_board
+			'id' => $id
 		));
 	}
 } elseif (isset($_POST['appeal'])) {

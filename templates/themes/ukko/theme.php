@@ -48,8 +48,8 @@
 					$board['dir'] = $post['board'].'/';
 					$thread = new Thread($post, $mod ? '?/' : $config['root'], $mod);
 
-					$posts = prepare("SELECT * FROM ``posts`` WHERE `board` = :board AND `thread` = :id_for_board ORDER BY `id_for_board` DESC LIMIT :limit");
-					$posts->bindValue(':id_for_board', $post['id_for_board']);
+					$posts = prepare("SELECT * FROM ``posts`` WHERE `board` = :board AND `thread` = :id ORDER BY `id` DESC LIMIT :limit");
+					$posts->bindValue(':id', $post['id']);
 					$posts->bindValue(':board', $post['board']);
 					$posts->bindValue(':limit', ($post['sticky'] ? $config['threads_preview_sticky'] : $config['threads_preview']), PDO::PARAM_INT);
 					$posts->execute() or error(db_error($posts));
@@ -66,8 +66,8 @@
 					
 					}
 					if ($posts->rowCount() == ($post['sticky'] ? $config['threads_preview_sticky'] : $config['threads_preview'])) {
-						$ct = prepare("SELECT COUNT(`id_for_board`) as `num` FROM ``posts`` WHERE `board` = :board AND `thread` = :thread UNION ALL SELECT COUNT(`id_for_board`) FROM ``posts`` WHERE `board` = :board AND `files` IS NOT NULL AND `thread` = :thread");
-						$ct->bindValue(':thread', $post['id_for_board'], PDO::PARAM_INT);
+						$ct = prepare("SELECT COUNT(`id`) as `num` FROM ``posts`` WHERE `board` = :board AND `thread` = :thread UNION ALL SELECT COUNT(`id`) FROM ``posts`` WHERE `board` = :board AND `files` IS NOT NULL AND `thread` = :thread");
+						$ct->bindValue(':thread', $post['id'], PDO::PARAM_INT);
 						$ct->bindValue(':board', $post['board']);
 						$ct->execute() or error(db_error($count));
 						
@@ -87,7 +87,7 @@
 					if(floor($threads[$post['board']] / $config['threads_per_page']) > 0) {
 						$page = floor($threads[$post['board']] / $config['threads_per_page']) + 1;
 					}
-					$overflow[] = array('id' => $post['id_for_board'], 'board' => $post['board'], 'page' => $page . '.html');
+					$overflow[] = array('id' => $post['id'], 'board' => $post['board'], 'page' => $page . '.html');
 				}
 
 				$count += 1;
