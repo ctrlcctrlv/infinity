@@ -10,6 +10,8 @@
 	require_once "lib/htmlpurifier-4.5.0/library/HTMLPurifier.auto.php";
 	require_once "8chan-functions.php";
 
+	// Note - you may want to change some of these in secrets.php instead of here
+	// See the secrets.example.php file
 	$config['db']['server'] = 'localhost';
 	$config['db']['database'] = '8chan';
 	$config['db']['prefix'] = '';
@@ -22,18 +24,20 @@
 	$config['cookies']['mod'] = 'mod';
 	$config['cookies']['salt'] = '';
 
+	$config['spam']['hidden_inputs_max_pass'] = 128;
+	$config['spam']['hidden_inputs_expire'] = 60 * 60 * 4; // three hours
+
 	$config['flood_time'] = 5;
-	$config['flood_time_ip'] = 2;
+	$config['flood_time_ip'] = 30;
 	$config['flood_time_same'] = 2;
 	$config['max_body'] = 5000;
-	$config['reply_limit'] = 250;
-	$config['max_links'] = 20;
+	$config['reply_limit'] = 300;
 	$config['thumb_width'] = 255;
 	$config['thumb_height'] = 255;
 	$config['max_width'] = 10000;
 	$config['max_height'] = 10000;
 	$config['threads_per_page'] = 15;
-	$config['max_pages'] = 10;
+	$config['max_pages'] = 15;
 	$config['threads_preview'] = 5;
 	$config['root'] = '/';
 	$config['secure_trip_salt'] = '';
@@ -41,8 +45,10 @@
 	$config['allow_no_country'] = true;
 	$config['thread_subject_in_title'] = true;
 	$config['spam']['hidden_inputs_max_pass'] = 128;
+	$config['ayah_enabled'] = true;
 
-	require_once "secrets.php";
+	// Load database credentials
+	require "secrets.php";
 
 	// Image shit
 	$config['thumb_method'] = 'gm+gifsicle';
@@ -50,7 +56,7 @@
 	$config['thumb_keep_animation_frames'] = 100;
 	$config['show_ratio'] = true;
 	//$config['allow_upload_by_url'] = true;
-	$config['max_filesize'] = 1024 * 1024 * 5; // 5MB
+	$config['max_filesize'] = 1024 * 1024 * 8; // 8MB
 	$config['disable_images'] = false; 
 	$config['spoiler_images'] = true;
 	$config['image_reject_repost'] = true;
@@ -77,9 +83,14 @@
 	$config['mod']['debug_recent'] = ADMIN;
 	$config['mod']['debug_antispam'] = ADMIN;
 	$config['mod']['modlog'] = SUPERMOD;
+	$config['mod']['editpost'] = MOD;
 	$config['mod']['recent_reports'] = 65535;
+	$config['ban_show_post'] = true;
 
 	// Board shit
+	$config['max_links'] = 40;
+	$config['poster_id_length'] = 6;
+	$config['ayah_enabled'] = true;
 	$config['url_banner'] = '/banners.php';
 	//$config['default_stylesheet'] = array('Notsuba', 'notsuba.css');
 	$config['additional_javascript'][] = 'js/jquery.min.js';
@@ -88,19 +99,20 @@
 	$config['additional_javascript'][] = 'js/style-select.js';
 	$config['additional_javascript'][] = 'js/options/general.js';
 	$config['additional_javascript'][] = 'js/post-hover.js';
+	$config['additional_javascript'][] = 'js/update_boards.js';
 	$config['additional_javascript'][] = 'js/favorites.js';
 	$config['additional_javascript'][] = 'js/show-op.js';
 	$config['additional_javascript'][] = 'js/hide-threads.js';
-	//$config['additional_javascript'][] = 'js/smartphone-spoiler.js';
+	$config['additional_javascript'][] = 'js/smartphone-spoiler.js';
 	$config['additional_javascript'][] = 'js/inline-expanding.js';
 	$config['additional_javascript'][] = 'js/show-backlinks.js';
-	$config['additional_javascript'][] = 'js/catalog-link.js';
 	$config['additional_javascript'][] = 'js/webm-settings.js';
 	$config['additional_javascript'][] = 'js/expand-video.js';
 	$config['additional_javascript'][] = 'js/treeview.js';
+	$config['additional_javascript'][] = 'js/download-all.js';
+	$config['additional_javascript'][] = 'js/jszip.min.js';
 	$config['additional_javascript'][] = 'js/quick-post-controls.js';
 	$config['additional_javascript'][] = 'js/expand-too-long.js';
-	//$config['additional_javascript'][] = 'js/auto-reload.js';
 	$config['additional_javascript'][] = 'js/settings.js';
 	$config['additional_javascript'][] = 'js/fix-report-delete-submit.js';
 	$config['additional_javascript'][] = 'js/hide-images.js';
@@ -116,8 +128,12 @@
 	$config['additional_javascript'][] = 'js/forced-anon.js';
 	$config['additional_javascript'][] = 'js/toggle-locked-threads.js';
 	$config['additional_javascript'][] = 'js/toggle-images.js';
+	$config['additional_javascript'][] = 'js/mobile-style.js';
+	$config['additional_javascript'][] = 'js/id_highlighter.js';
+	$config['additional_javascript'][] = 'js/id_colors.js';
+	$config['additional_javascript'][] = 'js/inline.js';
 
-	$config['font_awesome_css'] = '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css';
+	$config['font_awesome_css'] = '/netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css';
 	
 	$config['stylesheets']['Dark'] = 'dark.css';
 	$config['stylesheets']['Photon'] = 'photon.css';
@@ -127,7 +143,8 @@
 	$config['markup'][] = array("/\[spoiler\](.+?)\[\/spoiler\]/", "<span class=\"spoiler\">\$1</span>");
 	$config['markup'][] = array("/~~(.+?)~~/", "<s>\$1</s>");
 
-	$config['boards'] = array(array('<i class="fa fa-home" title="Home"></i>' => '/', '<i class="fa fa-tags" title="Boards"></i>' => '/boards.html', '<i class="fa fa-question" title="FAQ"></i>' => '/faq.html', '<i class="fa fa-random" title="Random"></i>' => '/random.php', '<i class="fa fa-plus" title="New board"></i>' => '/create.php', '<i class="fa fa-search" title="Search"></i>' => '/search.php', '<i class="fa fa-cog" title="Manage board"></i>' => '/mod.php', '<i class="fa fa-quote-right" title="Chat"></i>' => 'https://qchat.rizon.net/?channels=#8chan'), array('b', 'meta', 'int'), array('v', 'a', 'tg', 'fit', 'pol', 'tech', 'mu', 'co', 'sp', 'boards'), array('<i class="fa fa-twitter" title="Home"></i>'=>'https://twitter.com/infinitechan'));
+	$config['boards'] = array(array('<i class="fa fa-home" title="Home"></i>' => '/', '<i class="fa fa-tags" title="Boards"></i>' => '/boards.html', '<i class="fa fa-question" title="FAQ"></i>' => '/faq.html', '<i class="fa fa-random" title="Random"></i>' => '/random.php', '<i class="fa fa-plus" title="New board"></i>' => '/create.php', '<i class="fa fa-search" title="Search"></i>' => '/search.php', '<i class="fa fa-cog" title="Manage board"></i>' => '/mod.php', '<i class="fa fa-quote-right" title="Chat"></i>' => 'https://qchat.rizon.net/?channels=#8chan'), array('b', 'meta', 'int'), array('<i class="fa fa-twitter" title="Twitter"></i>'=>'https://twitter.com/infinitechan'));
+	//$config['boards'] = array(array('<i class="fa fa-home" title="Home"></i>' => '/', '<i class="fa fa-tags" title="Boards"></i>' => '/boards.html', '<i class="fa fa-question" title="FAQ"></i>' => '/faq.html', '<i class="fa fa-random" title="Random"></i>' => '/random.php', '<i class="fa fa-plus" title="New board"></i>' => '/create.php', '<i class="fa fa-search" title="Search"></i>' => '/search.php', '<i class="fa fa-cog" title="Manage board"></i>' => '/mod.php', '<i class="fa fa-quote-right" title="Chat"></i>' => 'https://qchat.rizon.net/?channels=#8chan'), array('b', 'meta', 'int'), array('v', 'a', 'tg', 'fit', 'pol', 'tech', 'mu', 'co', 'sp', 'boards'), array('<i class="fa fa-twitter" title="Twitter"></i>'=>'https://twitter.com/infinitechan'));
 
 	$config['footer'][] = 'Contribute to 8chan.co development at <a href="https://github.com/ctrlcctrlv/8chan">github</a>';
 	$config['footer'][] = 'To make a DMCA request or report illegal content, please email <a href="mailto:admin@8chan.co">admin@8chan.co</a> or use the "Global Report" functionality on every page.';
@@ -196,7 +213,7 @@
 			if ($size[0] != 300 or $size[1] != 100){
 				error('Image wrong size!');
 			}
-			if (sizeof($banners) >= 20) {
+			if (sizeof($banners) >= 50) {
 				error('Too many banners.');
 			}
 
@@ -239,7 +256,6 @@
 			$poster_ids = isset($_POST['poster_ids']) ? 'true' : 'false';
 			$show_sages = isset($_POST['show_sages']) ? 'true' : 'false';
 			$auto_unicode = isset($_POST['auto_unicode']) ? 'true' : 'false';
-			$meta_noindex = isset($_POST['meta_noindex']) ? 'true' : 'false';
 			$allow_roll = isset($_POST['allow_roll']) ? 'true' : 'false';
 			$image_reject_repost = isset($_POST['image_reject_repost']) ? 'true' : 'false';
 			$allow_flash = isset($_POST['allow_flash']) ? '$config[\'allowed_ext_files\'][] = \'swf\';' : '';
@@ -295,10 +311,12 @@ OEKAKI;
 			if (!(strlen($subtitle) < 200))
 				error('Invalid subtitle');
 
-			$query = prepare('UPDATE ``boards`` SET `title` = :title, `subtitle` = :subtitle WHERE `uri` = :uri');
+			$query = prepare('UPDATE ``boards`` SET `title` = :title, `subtitle` = :subtitle, `indexed` = :indexed, `public_bans` = :public_bans WHERE `uri` = :uri');
 			$query->bindValue(':title', $title);
 			$query->bindValue(':subtitle', $subtitle);
 			$query->bindValue(':uri', $b);
+			$query->bindValue(':indexed', !isset($_POST['meta_noindex']));
+			$query->bindValue(':public_bans', isset($_POST['public_bans']));
 			$query->execute() or error(db_error($query));
 
 
@@ -312,7 +330,6 @@ OEKAKI;
 \$config['poster_ids'] = $poster_ids;
 \$config['show_sages'] = $show_sages;
 \$config['auto_unicode'] = $auto_unicode;
-\$config['meta_noindex'] = $meta_noindex;
 \$config['allow_roll'] = $allow_roll;
 \$config['image_reject_repost'] = $image_reject_repost;
 \$config['anonymous'] = base64_decode('$anonymous');
@@ -350,6 +367,8 @@ EOT;
 		$css = @file_get_contents('stylesheets/board/' . $board['uri'] . '.css');
 	
 		openBoard($b);
+
+		rebuildThemes('bans');
 
 		if ($config['cache']['enabled']) 
 			cache::delete('board_' . $board['uri']);

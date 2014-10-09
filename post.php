@@ -5,6 +5,7 @@
 
 require 'inc/functions.php';
 require 'inc/anti-bot.php';
+include "inc/dnsbls.php";
 
 // Fix for magic quotes
 if (get_magic_quotes_gpc()) {
@@ -195,20 +196,6 @@ if (isset($_POST['delete'])) {
 	if (!openBoard($post['board']))
 		error($config['error']['noboard']);
 
-	if (!(($post['op'] && $_POST['post'] == $config['button_newtopic']) ||
-		(!$post['op'] && $_POST['post'] == $config['button_reply'])))
-		error($config['error']['bot']);
-	
-	// Check the referrer
-	if ($config['referer_match'] !== false &&
-		(!isset($_SERVER['HTTP_REFERER']) || !preg_match($config['referer_match'], rawurldecode($_SERVER['HTTP_REFERER']))))
-		error($config['error']['referer']);
-	
-	checkDNSBL();
-		
-	// Check if banned
-	checkBan($board['uri']);
-	
 	// Check for CAPTCHA right after opening the board so the "return" link is in there
 	if ($config['recaptcha']) {
 		if (!isset($_POST['recaptcha_challenge_field']) || !isset($_POST['recaptcha_response_field']))
@@ -222,7 +209,21 @@ if (isset($_POST['delete'])) {
 			error($config['error']['captcha']);
 		}
 	}
+
+	if (!(($post['op'] && $_POST['post'] == $config['button_newtopic']) ||
+		(!$post['op'] && $_POST['post'] == $config['button_reply'])))
+		error($config['error']['bot']);
 	
+	// Check the referrer
+	if ($config['referer_match'] !== false &&
+		(!isset($_SERVER['HTTP_REFERER']) || !preg_match($config['referer_match'], rawurldecode($_SERVER['HTTP_REFERER']))))
+		error($config['error']['referer']);
+	
+	checkDNSBL();
+		
+	// Check if banned
+	checkBan($board['uri']);
+
 	if ($post['mod'] = isset($_POST['mod']) && $_POST['mod']) {
 		require 'inc/mod/auth.php';
 		if (!$mod) {
@@ -242,11 +243,11 @@ if (isset($_POST['delete'])) {
 			error($config['error']['noaccess']);
 	}
 	
-	if (!$post['mod']) {
+	/*if (!$post['mod']) {
 		$post['antispam_hash'] = checkSpam(array($board['uri'], isset($post['thread']) ? $post['thread'] : ($config['try_smarter'] && isset($_POST['page']) ? 0 - (int)$_POST['page'] : null)));
 		if ($post['antispam_hash'] === true)
 			error($config['error']['spam']);
-	}
+	}*/
 	
 	if ($config['robot_enable'] && $config['robot_mute']) {
 		checkMute();
@@ -449,8 +450,8 @@ if (isset($_POST['delete'])) {
 				if (sizeof($_FILES) > 1)
 					$file['file_id'] .= "-$i";
 				
-				$file['file'] = $board['dir'] . $config['dir']['img'] . $file['file_id'] . '.' . $file['extension'];
-				$file['thumb'] = $board['dir'] . $config['dir']['thumb'] . $file['file_id'] . '.' . ($config['thumb_ext'] ? $config['thumb_ext'] : $file['extension']);
+				$file['file'] = $config['dir']['img_root'] . $board['dir'] . $config['dir']['img'] . $file['file_id'] . '.' . $file['extension'];
+				$file['thumb'] = $config['dir']['img_root'] . $board['dir'] . $config['dir']['thumb'] . $file['file_id'] . '.' . ($config['thumb_ext'] ? $config['thumb_ext'] : $file['extension']);
 				$post['files'][] = $file;
 				$i++;
 			}
@@ -775,9 +776,9 @@ if (isset($_POST['delete'])) {
 		foreach ($post['files'] as $key => &$file) {
 			$file['file_path'] = $file['file'];
 			$file['thumb_path'] = $file['thumb'];
-			$file['file'] = mb_substr($file['file'], mb_strlen($board['dir'] . $config['dir']['img']));
+			$file['file'] = mb_substr($file['file'], mb_strlen($config['dir']['img_root'] . $board['dir'] . $config['dir']['img']));
 			if ($file['is_an_image'] && $file['thumb'] != 'spoiler')
-				$file['thumb'] = mb_substr($file['thumb'], mb_strlen($board['dir'] . $config['dir']['thumb']));
+				$file['thumb'] = mb_substr($file['thumb'], mb_strlen($config['dir']['img_root'] . $board['dir'] . $config['dir']['thumb']));
 		}
 	}
 	

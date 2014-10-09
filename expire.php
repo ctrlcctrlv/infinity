@@ -40,7 +40,7 @@ foreach($boards as $board) {
 
 	if ($mods) {
 		$mod = $mods[0]['id'];
-		$query = query("SELECT MAX(time) AS time FROM modlogs WHERE `mod` = $mod");
+		$query = query("SELECT MAX(time) AS time FROM modlogs WHERE `mod` = BINARY $mod");
 		$a = $query->fetchAll(PDO::FETCH_COLUMN);
 
 		if ($a[0]) { 
@@ -55,8 +55,8 @@ foreach($boards as $board) {
 		}
 	}
 
-	#if (($last_activity_date < $ago or ($last_mod_date and $last_mod_date < $mod_ago)) and (int)$count['count'] < 30) {
-	if (($last_activity_date < $ago or ($last_mod_date and $last_mod_date < $mod_ago)) and isset($mods[0]['id'])) {
+	if (($last_activity_date < $ago or ($last_mod_date and $last_mod_date < $mod_ago)) and (int)$count['count'] < 30 and isset($mods[0]['id'])) {
+	#if (($last_activity_date < $ago or ($last_mod_date and $last_mod_date < $mod_ago)) and isset($mods[0]['id'])) {
 		echo $board, ' ', $last_activity_date->format('Y-m-d H:i:s'), ' ', ($last_mod_date ? $last_mod_date->format('Y-m-d H:i:s') : 'false'), ' ', $count['count'], ' ', $mod, "\r\n";
 		$delete[] = array('board' => $board, 'last_activity' => $last_activity_date, 'last_mod' => $last_mod_date, 'mod' => isset($mods[0]['username']) ? $mods[0]['username'] : false, 'count' => $count['count']);
 	}
@@ -65,6 +65,7 @@ if ($argc > 1) {
 $f = fopen('rip.txt', 'a');
 fwrite($f, "--\r\n".date('c')."\r\n");
 foreach($delete as $i => $d){
+	file_get_contents('http://8chan.co/listboards.php');
 	$s = "RIP /".$d['board']."/, created by ".($d['mod']?$d['mod']:'?')." and last active on ".$d['last_activity']->format('Y-m-d H:i:s.').($d['last_mod'] ? ' Mod last active on ' . $d['last_mod']->format('Y-m-d H:i:s.') : ' Mod never active.') . " Number of posts: {$d['count']}." . "\r\n";
 	echo $s;
 	fwrite($f, $s);
@@ -134,11 +135,15 @@ foreach($delete as $i => $d){
 	// Delete entire board directory
 	rrmdir($board['uri'] . '/');
 	rrmdir('static/banners/' . $board['uri']);
+	// HAAAAAX
+	if($config['dir']['img_root'] != '')
+		rrmdir($config['dir']['img_root'] . $board['uri']);
+	
 	cache::delete('board_' . $board['uri']);
 	
 	_syslog(LOG_NOTICE, "Board deleted: {$board['uri']}");
 	if ($d['mod']) {
-		$query = prepare('DELETE FROM ``mods`` WHERE `username` = :id');
+		$query = prepare('DELETE FROM ``mods`` WHERE `username` = BINARY :id');
 		$query->bindValue(':id', $d['mod']);
 		$query->execute() or error(db_error($query));
 	}
@@ -149,4 +154,3 @@ cache::delete('all_boards_uri');
 cache::delete('all_boards');
 rebuildThemes('boards');
 $query = query('DELETE FROM board_create WHERE uri NOT IN (SELECT uri FROM boards);') or error(db_error());
-file_get_contents('http://127.0.0.1/listboards.php');

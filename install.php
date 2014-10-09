@@ -548,12 +548,12 @@ if (file_exists($config['has_installed'])) {
 		case '4.9.90':
 		case '4.9.91':
 		case '4.9.92':
-			query("CREATE TABLE IF NOT EXISTS `posts` (`id` int(11) unsigned NOT NULL AUTO_INCREMENT, `board` varchar(58) NOT NULL, `thread` int(11) DEFAULT NULL, `subject` varchar(100) DEFAULT NULL, `email` varchar(30) DEFAULT NULL, `name` varchar(35) DEFAULT NULL, `trip` varchar(15) DEFAULT NULL, `capcode` varchar(50) DEFAULT NULL, `body` text NOT NULL, `body_nomarkup` text, `time` int(11) NOT NULL, `bump` int(11) DEFAULT NULL, `files` text, `num_files` int(11) DEFAULT '0', `filehash` text CHARACTER SET ascii, `password` varchar(20) DEFAULT NULL, `ip` varchar(39) CHARACTER SET ascii NOT NULL, `sticky` int(1) NOT NULL, `locked` int(1) NOT NULL, `sage` int(1) NOT NULL, `embed` text, PRIMARY KEY (`board`,`id`), UNIQUE KEY `board_id` (`board`,`id`), KEY `thread_id` (`thread`,`id`), KEY `filehash` (`filehash`(40)), KEY `time` (`time`), KEY `ip` (`ip`), KEY `list_threads` (`thread`,`sticky`,`bump`)) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;") or error(db_error());
+			query("CREATE TABLE IF NOT EXISTS `posts` (`id` int(11) unsigned NOT NULL AUTO_INCREMENT, `board` varchar(58) NOT NULL, `thread` int(11) DEFAULT NULL, `subject` varchar(100) DEFAULT NULL, `email` varchar(30) DEFAULT NULL, `name` varchar(35) DEFAULT NULL, `trip` varchar(15) DEFAULT NULL, `capcode` varchar(50) DEFAULT NULL, `body` text NOT NULL, `body_nomarkup` text, `time` int(11) NOT NULL, `bump` int(11) DEFAULT NULL, `files` text, `num_files` int(11) DEFAULT '0', `filehash` text CHARACTER SET ascii, `password` varchar(20) DEFAULT NULL, `ip` varchar(39) CHARACTER SET ascii NOT NULL, `sticky` int(1) NOT NULL, `locked` int(1) NOT NULL, `sage` int(1) NOT NULL, `embed` text, `edited_at` DATETIME NULL, PRIMARY KEY (`board`,`id`), UNIQUE KEY `board_id` (`board`,`id`), KEY `thread_id` (`thread`,`id`), KEY `filehash` (`filehash`(40)), KEY `time` (`time`), KEY `ip` (`ip`), KEY `list_threads` (`thread`,`sticky`,`bump`)) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;") or error(db_error());
 			foreach ($boards as &$board) {
 				$query = prepare(sprintf('SELECT * FROM ``posts_%s``', $board["uri"]));
 				$query->execute() or error(db_error($query));
 				while($post = $query->fetch(PDO::FETCH_ASSOC)) {
-					$insert = prepare("INSERT INTO ``posts`` (`id`, `board`, `thread`, `subject`, `email`, `name`, `trip`, `capcode`, `body`, `body_nomarkup`, `time`, `bump`, `files`, `num_files`, `filehash`, `password`, `ip`, `sticky`, `locked`, `sage`, `embed`) VALUES (:id, :board, :thread, :subject, :email, :name, :trip, :capcode, :body, :body_nomarkup, :time, :time, :files, :num_files, :filehash, :password, :ip, :sticky, :locked, :sage, :embed)");
+					$insert = prepare("INSERT INTO ``posts`` (`id`, `board`, `thread`, `subject`, `email`, `name`, `trip`, `capcode`, `body`, `body_nomarkup`, `time`, `bump`, `files`, `num_files`, `filehash`, `password`, `ip`, `sticky`, `locked`, `sage`, `embed`, `edited_at`) VALUES (:id, :board, :thread, :subject, :email, :name, :trip, :capcode, :body, :body_nomarkup, :time, :time, :files, :num_files, :filehash, :password, :ip, :sticky, :locked, :sage, :embed, :edited_at)");
 					$insert->bindValue(':id', $post['id']);
 					$insert->bindValue(':board', $board['uri']);
 					$insert->bindValue(':subject', $post['subject']);
@@ -575,6 +575,7 @@ if (file_exists($config['has_installed'])) {
 					$insert->bindValue(':embed', $post['embed']);
 					$insert->bindValue(':sage', $post['sage']);
 					$insert->bindValue(':embed', $post['embed']);
+					$insert->bindValue(':edited_at', $post['edited_at']);
 					$insert->execute() or error(db_error($insert));
 				}
 				query(sprintf("DROP TABLE ``posts_%s``", $board['uri']));
@@ -875,8 +876,6 @@ if ($step == 0) {
 	// in an array.
 	preg_match_all("/(^|\n)((SET|CREATE|INSERT).+)\n\n/msU", $sql, $queries);
 	$queries = $queries[2];
-	
-	$queries[] = Element('posts.sql', array('board' => 'b'));
 	
 	$sql_errors = '';
 	foreach ($queries as $query) {

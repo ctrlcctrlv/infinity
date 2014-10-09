@@ -431,6 +431,9 @@ function mod_edit_board($boardName) {
 			
 			// Delete entire board directory
 			rrmdir($board['uri'] . '/');
+			// To reiterate: HAAAAAX
+			if($config['dir']['img_root'] != '')
+				rrmdir($config['dir']['img_root'] . $board['uri']);
 		} else {
 			$query = prepare('UPDATE ``boards`` SET `title` = :title, `subtitle` = :subtitle WHERE `uri` = :uri');
 			$query->bindValue(':uri', $board['uri']);
@@ -774,8 +777,8 @@ function mod_page_ip($ip) {
 	if (isset($_POST['ban_id'], $_POST['unban'])) {
 		if (!hasPermission($config['mod']['unban']))
 			error($config['error']['noaccess']);
-
-		Bans::delete($_POST['ban_id'], true);
+		
+		Bans::delete($_POST['ban_id'], true, $mod['boards']);
 		
 		header('Location: ?/IP/' . $ip . '#bans', true, $config['redirect_http']);
 		return;
@@ -872,18 +875,16 @@ function mod_ban() {
 	require_once 'inc/mod/ban.php';
 	
 	Bans::new_ban($_POST['ip'], $_POST['reason'], $_POST['length'], $_POST['board'] == '*' ? false : $_POST['board']);
-	
+
 	if (isset($_POST['redirect']))
 		header('Location: ' . $_POST['redirect'], true, $config['redirect_http']);
 	else
 		header('Location: ?/', true, $config['redirect_http']);
 }
 
-function mod_bans($page_no = 1) {
-	global $config, $mod;
-	
-	if ($page_no < 1)
-		error($config['error']['404']);
+function mod_bans() {
+	global $config;
+	global $mod;
 	
 	if (!hasPermission($config['mod']['view_banlist']))
 		error($config['error']['noaccess']);
@@ -901,29 +902,31 @@ function mod_bans($page_no = 1) {
 			error(sprintf($config['error']['toomanyunban'], $config['mod']['unban_limit'], count($unban)));
 		
 		foreach ($unban as $id) {
-			Bans::delete($id, true);
+			Bans::delete($id, true, $mod['boards'], true);
 		}
+                rebuildThemes('bans');
 		header('Location: ?/bans', true, $config['redirect_http']);
 		return;
 	}
-
-	$board = ($mod['boards'][0] == '*' ? false : $mod['boards'][0]);
-
-	$bans = Bans::list_all(($page_no - 1) * $config['mod']['banlist_page'], $config['mod']['banlist_page'], $board);
-	
-	if (empty($bans) && $page_no > 1)
-		error($config['error']['404']);
-	
-	foreach ($bans as &$ban) {
-		if (filter_var($ban['mask'], FILTER_VALIDATE_IP) !== false)
-			$ban['single_addr'] = true;
-	}
 	
 	mod_page(_('Ban list'), 'mod/ban_list.html', array(
-		'bans' => $bans,
-		'count' => Bans::count($board),
-		'token' => make_secure_link_token('bans')
+		'mod' => $mod,
+		'boards' => json_encode($mod['boards']),
+		'token' => make_secure_link_token('bans'),
+		'token_json' => make_secure_link_token('bans.json')
 	));
+}
+
+function mod_bans_json() {
+        global $config, $mod;
+
+        if (!hasPermission($config['mod']['ban']))
+                error($config['error']['noaccess']);
+
+	// Compress the json for faster loads
+	if (substr_count($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip')) ob_start("ob_gzhandler");
+
+	Bans::stream_json(false, false, !hasPermission($config['mod']['view_banstaff']), $mod['boards']);
 }
 
 function mod_ban_appeals() {
@@ -1122,8 +1125,8 @@ function mod_move_reply($originBoard, $postID) {
 			$post['files'] = json_decode($post['files'], TRUE);
 			$post['has_file'] = true;
 			foreach ($post['files'] as $i => &$file) {
-				$file['file_path'] = sprintf($config['board_path'], $board['uri']) . $config['dir']['img'] . $file['file'];
-				$file['thumb_path'] = sprintf($config['board_path'], $board['uri']) . $config['dir']['thumb'] . $file['thumb'];
+				$file['file_path'] = sprintf($config['board_path'], $config['dir']['img_root'] . $board['uri']) . $config['dir']['img'] . $file['file'];
+				$file['thumb_path'] = sprintf($config['board_path'], $config['dir']['img_root'] . $board['uri']) . $config['dir']['thumb'] . $file['thumb'];
 			}
 		} else {
 			$post['has_file'] = false;
@@ -1141,9 +1144,9 @@ function mod_move_reply($originBoard, $postID) {
 		if ($post['has_file']) {
 			foreach ($post['files'] as $i => &$file) {
 				// move the image
-				rename($file['file_path'], sprintf($config['board_path'], $board['uri']) . $config['dir']['img'] . $file['file']);
+				rename($file['file_path'], sprintf($config['board_path'], $config['dir']['img_root'] . $board['uri']) . $config['dir']['img'] . $file['file']);
 				if ($file['thumb'] != 'spoiler') { //trying to move/copy the spoiler thumb raises an error
-					rename($file['thumb_path'], sprintf($config['board_path'], $board['uri']) . $config['dir']['thumb'] . $file['thumb']);
+					rename($file['thumb_path'], sprintf($config['board_path'], $config['dir']['img_root'] . $board['uri']) . $config['dir']['thumb'] . $file['thumb']);
 				}
 			}
 		}
@@ -1225,8 +1228,8 @@ function mod_move($originBoard, $postID) {
 			foreach ($post['files'] as $i => &$file) {
 				if ($file['file'] === 'deleted') 
 					continue;
-				$file['file_path'] = sprintf($config['board_path'], $board['uri']) . $config['dir']['img'] . $file['file'];
-				$file['thumb_path'] = sprintf($config['board_path'], $board['uri']) . $config['dir']['thumb'] . $file['thumb'];
+				$file['file_path'] = sprintf($config['board_path'], $config['dir']['img_root'] . $board['uri']) . $config['dir']['img'] . $file['file'];
+				$file['thumb_path'] = sprintf($config['board_path'], $config['dir']['img_root'] . $board['uri']) . $config['dir']['thumb'] . $file['thumb'];
 			}
 		} else {
 			$post['has_file'] = false;
@@ -1245,9 +1248,9 @@ function mod_move($originBoard, $postID) {
 			// copy image
 			foreach ($post['files'] as $i => &$file) {
 				if ($file['file'] !== 'deleted') 
-					$clone($file['file_path'], sprintf($config['board_path'], $board['uri']) . $config['dir']['img'] . $file['file']);
+					$clone($file['file_path'], sprintf($config['board_path'], $config['dir']['img_root'] . $board['uri']) . $config['dir']['img'] . $file['file']);
 				if (isset($file['thumb']) && !in_array($file['thumb'], array('spoiler', 'deleted', 'file')))
-					$clone($file['thumb_path'], sprintf($config['board_path'], $board['uri']) . $config['dir']['thumb'] . $file['thumb']);
+					$clone($file['thumb_path'], sprintf($config['board_path'], $config['dir']['img_root'] . $board['uri']) . $config['dir']['thumb'] . $file['thumb']);
 			}
 		}
 		
@@ -1269,8 +1272,8 @@ function mod_move($originBoard, $postID) {
 				$post['files'] = json_decode($post['files'], TRUE);
 				$post['has_file'] = true;
 				foreach ($post['files'] as $i => &$file) {
-					$file['file_path'] = sprintf($config['board_path'], $board['uri']) . $config['dir']['img'] . $file['file'];
-					$file['thumb_path'] = sprintf($config['board_path'], $board['uri']) . $config['dir']['thumb'] . $file['thumb'];
+					$file['file_path'] = sprintf($config['board_path'], $config['dir']['img_root'] . $board['uri']) . $config['dir']['img'] . $file['file'];
+					$file['thumb_path'] = sprintf($config['board_path'], $config['dir']['img_root'] . $board['uri']) . $config['dir']['thumb'] . $file['thumb'];
 				}
 			} else {
 				$post['has_file'] = false;
@@ -1309,8 +1312,8 @@ function mod_move($originBoard, $postID) {
 			if ($post['has_file']) {
 				// copy image
 				foreach ($post['files'] as $i => &$file) {
-					$clone($file['file_path'], sprintf($config['board_path'], $board['uri']) . $config['dir']['img'] . $file['file']);
-					$clone($file['thumb_path'], sprintf($config['board_path'], $board['uri']) . $config['dir']['thumb'] . $file['thumb']);
+					$clone($file['file_path'], sprintf($config['board_path'], $config['dir']['img_root'] . $board['uri']) . $config['dir']['img'] . $file['file']);
+					$clone($file['thumb_path'], sprintf($config['board_path'], $config['dir']['img_root'] . $board['uri']) . $config['dir']['thumb'] . $file['thumb']);
 				}
 			}
 			// insert reply
@@ -1490,9 +1493,9 @@ function mod_edit_post($board, $edit_raw_html, $postID) {
 	
 	if (isset($_POST['name'], $_POST['email'], $_POST['subject'], $_POST['body'])) {
 		if ($edit_raw_html)
-			$query = prepare('UPDATE ``posts`` SET `name` = :name, `email` = :email, `subject` = :subject, `body` = :body, `body_nomarkup` = :body_nomarkup WHERE `board` = :board AND `id` = :id');
+			$query = prepare('UPDATE ``posts`` SET `name` = :name, `email` = :email, `subject` = :subject, `body` = :body, `body_nomarkup` = :body_nomarkup, `edited_at` = NOW() WHERE `board` = :board AND `id` = :id');
 		else
-			$query = prepare('UPDATE ``posts`` SET `name` = :name, `email` = :email, `subject` = :subject, `body_nomarkup` = :body WHERE `board` = :board AND `id` = :id');
+			$query = prepare('UPDATE ``posts`` SET `name` = :name, `email` = :email, `subject` = :subject, `body_nomarkup` = :body, `edited_at` = NOW() WHERE `board` = :board AND `id` = :id');
 		$query->bindValue(':board', $board);
 		$query->bindValue(':id', $postID);
 		$query->bindValue('name', $_POST['name']);
@@ -1592,10 +1595,11 @@ function mod_spoiler_image($board, $post, $file) {
 	$result = $query->fetch(PDO::FETCH_ASSOC);
 	$files = json_decode($result['files']);
 
-	file_unlink($board . '/' . $config['dir']['thumb'] . $files[$file]->thumb);
+	$size_spoiler_image = @getimagesize($config['spoiler_image']);
+	file_unlink($config['dir']['img_root'] . $board . '/' . $config['dir']['thumb'] . $files[$file]->thumb);
 	$files[$file]->thumb = 'spoiler';
-	$files[$file]->thumbheight = 128;
-	$files[$file]->thumbwidth = 128;
+	$files[$file]->thumbwidth = $size_spoiler_image[0];
+	$files[$file]->thumbheight = $size_spoiler_image[1];
 	
 	// Make thumbnail spoiler
 	$query = prepare("UPDATE ``posts`` SET `files` = :files WHERE `board` = :board AND `id` = :id");
@@ -1811,12 +1815,25 @@ function mod_user($uid) {
 		$log = array();
 	}
 	
+	if ($mod['type'] >= ADMIN){
+	$boards = listBoards();
+	} else {
+	$boards2 = explode(',', $user['boards']);
+	
+	foreach($boards2 as $string){
+		
+		$boards[] = array("uri"=>$string, "title"=>"MY BOARD");
+		
+	}
+	
+
+	}
 	$user['boards'] = explode(',', $user['boards']);
 	
 	mod_page(_('Edit user'), 'mod/user.html', array(
 		'user' => $user,
 		'logs' => $log,
-		'boards' => listBoards(),
+		'boards' => $boards,
 		'token' => make_secure_link_token('users/' . $user['id'])
 	));
 }

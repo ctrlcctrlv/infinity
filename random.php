@@ -2,7 +2,7 @@
 
 include "inc/functions.php";
 
-$boards = listBoards();
+$boards = listBoards(TRUE, TRUE);
 $board = array_rand($boards);
-
-header('Location: /'.$boards[$board]["uri"]);
+header('Location: /'.$boards[$board]);
+?>

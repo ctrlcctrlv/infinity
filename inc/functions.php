@@ -335,7 +335,7 @@ function create_antibot($board, $thread = null) {
 }
 
 function rebuildThemes($action, $boardname = false) {
-	global $config, $board;
+	global $config, $board, $current_locale;
 
 	// Save the global variables
 	$_config = $config;
@@ -345,12 +345,29 @@ function rebuildThemes($action, $boardname = false) {
 	$query = query("SELECT `theme` FROM ``theme_settings`` WHERE `name` IS NULL AND `value` IS NULL") or error(db_error());
 
 	while ($theme = $query->fetch(PDO::FETCH_ASSOC)) {
+		// Restore them
+		$config = $_config;
+		$board = $_board;
+
+		// Reload the locale	
+	        if ($config['locale'] != $current_locale) {
+	                $current_locale = $config['locale'];
+	                init_locale($config['locale'], $error);
+	        }
+
+
 		rebuildTheme($theme['theme'], $action, $boardname);
 	}
 
-	// Restore them
+	// Restore them again
 	$config = $_config;
 	$board = $_board;
+
+	// Reload the locale	
+	if ($config['locale'] != $current_locale) {
+	        $current_locale = $config['locale'];
+	        init_locale($config['locale'], $error);
+	}
 }
 
 
@@ -425,12 +442,12 @@ function setupBoard($array) {
 
 	if (!file_exists($board['dir']))
 		@mkdir($board['dir'], 0777) or error("Couldn't create " . $board['dir'] . ". Check permissions.", true);
-	if (!file_exists($board['dir'] . $config['dir']['img']))
-		@mkdir($board['dir'] . $config['dir']['img'], 0777)
-			or error("Couldn't create " . $board['dir'] . $config['dir']['img'] . ". Check permissions.", true);
-	if (!file_exists($board['dir'] . $config['dir']['thumb']))
-		@mkdir($board['dir'] . $config['dir']['thumb'], 0777)
-			or error("Couldn't create " . $board['dir'] . $config['dir']['img'] . ". Check permissions.", true);
+	if (!file_exists($config['dir']['img_root'] . $board['dir'] . $config['dir']['img']))
+		@mkdir($config['dir']['img_root'] . $board['dir'] . $config['dir']['img'], 0777)
+			or error("Couldn't create " . $config['dir']['img_root'] . $board['dir'] . $config['dir']['img'] . ". Check permissions.", true);
+	if (!file_exists($config['dir']['img_root'] . $board['dir'] . $config['dir']['thumb']))
+		@mkdir($config['dir']['img_root'] . $board['dir'] . $config['dir']['thumb'], 0777)
+			or error("Couldn't create " . $config['dir']['img_root'] . $board['dir'] . $config['dir']['img'] . ". Check permissions.", true);
 	if (!file_exists($board['dir'] . $config['dir']['res']))
 		@mkdir($board['dir'] . $config['dir']['res'], 0777)
 			or error("Couldn't create " . $board['dir'] . $config['dir']['img'] . ". Check permissions.", true);
@@ -652,21 +669,24 @@ function hasPermission($action = null, $board = null, $_mod = null) {
 	return true;
 }
 
-function listBoards($just_uri = false) {
+function listBoards($just_uri = false, $indexed_only = false) {
 	global $config;
 	
 	$just_uri ? $cache_name = 'all_boards_uri' : $cache_name = 'all_boards';
+	$indexed_only ? $cache_name .= 'indexed' : false;
 
 	if ($config['cache']['enabled'] && ($boards = cache::get($cache_name)))
 		return $boards;
 
 	if (!$just_uri) {
-		$query = query("SELECT ``boards``.`uri` uri, ``boards``.`title` title, ``boards``.`subtitle` subtitle, ``board_create``.`time` time FROM ``boards`` LEFT JOIN ``board_create`` ON ``boards``.`uri` = ``board_create``.`uri` ORDER BY ``boards``.`uri`") or error(db_error());
+		$query = query("SELECT ``boards``.`uri` uri, ``boards``.`title` title, ``boards``.`subtitle` subtitle, ``board_create``.`time` time, ``boards``.`indexed` indexed FROM ``boards``" . ( $indexed_only ? " WHERE `indexed` = 1 " : "" ) . "LEFT JOIN ``board_create`` ON ``boards``.`uri` = ``board_create``.`uri` ORDER BY ``boards``.`uri`") or error(db_error());
 		$boards = $query->fetchAll();
 	} else {
 		$boards = array();
-		$query = query("SELECT `uri` FROM ``boards``") or error(db_error());
-		while ($board = $query->fetchColumn()) {
+		$query = query("SELECT `uri` FROM ``boards``" . ( $indexed_only ? " WHERE `indexed` = 1" : "" ) . " ORDER BY ``boards``.`uri`") or error(db_error());
+		while (true) {
+			$board = $query->fetchColumn();
+			if ($board === FALSE) break;
 			$boards[] = $board;
 		}
 	}
@@ -679,36 +699,38 @@ function listBoards($just_uri = false) {
 
 function until($timestamp) {
 	$difference = $timestamp - time();
-	if ($difference < 60) {
+	switch(TRUE){
+	case ($difference < 60):
 		return $difference . ' ' . ngettext('second', 'seconds', $difference);
-	} elseif ($difference < 60*60) {
+	case ($difference < 3600): //60*60 = 3600
 		return ($num = round($difference/(60))) . ' ' . ngettext('minute', 'minutes', $num);
-	} elseif ($difference < 60*60*24) {
-		return ($num = round($difference/(60*60))) . ' ' . ngettext('hour', 'hours', $num);
-	} elseif ($difference < 60*60*24*7) {
-		return ($num = round($difference/(60*60*24))) . ' ' . ngettext('day', 'days', $num);
-	} elseif ($difference < 60*60*24*365) {
-		return ($num = round($difference/(60*60*24*7))) . ' ' . ngettext('week', 'weeks', $num);
+	case ($difference < 86400): //60*60*24 = 86400
+		return ($num = round($difference/(3600))) . ' ' . ngettext('hour', 'hours', $num);
+	case ($difference < 604800): //60*60*24*7 = 604800
+		return ($num = round($difference/(86400))) . ' ' . ngettext('day', 'days', $num);
+	case ($difference < 31536000): //60*60*24*365 = 31536000
+		return ($num = round($difference/(604800))) . ' ' . ngettext('week', 'weeks', $num);
+	default:
+		return ($num = round($difference/(31536000))) . ' ' . ngettext('year', 'years', $num);
 	}
-
-	return ($num = round($difference/(60*60*24*365))) . ' ' . ngettext('year', 'years', $num);
 }
 
 function ago($timestamp) {
 	$difference = time() - $timestamp;
-	if ($difference < 60) {
+	switch(TRUE){
+	case ($difference < 60) :
 		return $difference . ' ' . ngettext('second', 'seconds', $difference);
-	} elseif ($difference < 60*60) {
+	case ($difference < 3600): //60*60 = 3600
 		return ($num = round($difference/(60))) . ' ' . ngettext('minute', 'minutes', $num);
-	} elseif ($difference < 60*60*24) {
-		return ($num = round($difference/(60*60))) . ' ' . ngettext('hour', 'hours', $num);
-	} elseif ($difference < 60*60*24*7) {
-		return ($num = round($difference/(60*60*24))) . ' ' . ngettext('day', 'days', $num);
-	} elseif ($difference < 60*60*24*365) {
-		return ($num = round($difference/(60*60*24*7))) . ' ' . ngettext('week', 'weeks', $num);
+	case ($difference <  86400): //60*60*24 = 86400
+		return ($num = round($difference/(3600))) . ' ' . ngettext('hour', 'hours', $num);
+	case ($difference < 604800): //60*60*24*7 = 604800
+		return ($num = round($difference/(86400))) . ' ' . ngettext('day', 'days', $num);
+	case ($difference < 31536000): //60*60*24*365 = 31536000
+		return ($num = round($difference/(604800))) . ' ' . ngettext('week', 'weeks', $num);
+	default:
+		return ($num = round($difference/(31536000))) . ' ' . ngettext('year', 'years', $num);
 	}
-
-	return ($num = round($difference/(60*60*24*365))) . ' ' . ngettext('year', 'years', $num);
 }
 
 function displayBan($ban) {
@@ -739,7 +761,7 @@ function displayBan($ban) {
 	$pending_appeal = false;
 	
 	if ($config['ban_appeals']) {
-		$query = query("SELECT `time`, `denied` FROM `ban_appeals` WHERE `ban_id` = " . (int)$ban['id']) or error(db_error());
+		$query = query("SELECT `time`, `denied` FROM ``ban_appeals`` WHERE `ban_id` = " . (int)$ban['id']) or error(db_error());
 		while ($ban_appeal = $query->fetch(PDO::FETCH_ASSOC)) {
 			if ($ban_appeal['denied']) {
 				$denied_appeals[] = $ban_appeal['time'];
@@ -1018,11 +1040,11 @@ function deleteFile($id, $remove_entirely_if_already=true, $file=null) {
 		foreach ($files as $i => $f) {
 			if (($file !== false && $i == $file) || $file === null) {
 				// Delete thumbnail
-				file_unlink($board['dir'] . $config['dir']['thumb'] . $f->thumb);
+				file_unlink($config['dir']['img_root'] . $board['dir'] . $config['dir']['thumb'] . $f->thumb);
 				unset($files[$i]->thumb);
 
 				// Delete file
-				file_unlink($board['dir'] . $config['dir']['img'] . $f->file);
+				file_unlink($config['dir']['img_root'] . $board['dir'] . $config['dir']['img'] . $f->file);
 				$files[$i]->file = 'deleted';
 			}
 		}
@@ -1105,8 +1127,8 @@ function deletePost($id, $error_if_doesnt_exist=true, $rebuild_after=true) {
 			// Delete file
 			foreach (json_decode($post['files']) as $i => $f) {
 				if ($f->file !== 'deleted') {
-					file_unlink($board['dir'] . $config['dir']['img'] . $f->file);
-					file_unlink($board['dir'] . $config['dir']['thumb'] . $f->thumb);
+					file_unlink($config['dir']['img_root'] . $board['dir'] . $config['dir']['img'] . $f->file);
+					file_unlink($config['dir']['img_root'] . $board['dir'] . $config['dir']['thumb'] . $f->thumb);
 				}
 			}
 		}
@@ -1982,17 +2004,9 @@ function strip_combining_chars($str) {
 		$o = 0;
 		$ord = ordutf8($char, $o);
 
-		if ($ord >= 768 && $ord <= 879)
+		if ( ($ord >= 768 && $ord <= 879) || ($ord >= 7616 && $ord <= 7679) || ($ord >= 8400 && $ord <= 8447) || ($ord >= 65056 && $ord <= 65071)){
 			continue;
-
-		if ($ord >= 7616 && $ord <= 7679)
-			continue;
-
-		if ($ord >= 8400 && $ord <= 8447)
-			continue;
-
-		if ($ord >= 65056 && $ord <= 65071)
-			continue;
+		}
 
 		$str .= $char;
 	}
@@ -2167,14 +2181,14 @@ function rrmdir($dir) {
 	}
 }
 
-function poster_id($ip, $thread) {
+function poster_id($ip, $thread, $board) {
 	global $config;
 
-	if ($id = event('poster-id', $ip, $thread))
+	if ($id = event('poster-id', $ip, $thread, $board))
 		return $id;
 
 	// Confusing, hard to brute-force, but simple algorithm
-	return substr(sha1(sha1($ip . $config['secure_trip_salt'] . $thread) . $config['secure_trip_salt']), 0, $config['poster_id_length']);
+	return substr(sha1(sha1($ip . $config['secure_trip_salt'] . $thread . $board) . $config['secure_trip_salt']), 0, $config['poster_id_length']);
 }
 
 function generate_tripcode($name) {
@@ -2298,6 +2312,12 @@ function rDNS($ip_addr) {
 			$host = $m[1];
 		else
 			$host = $ip_addr;
+	}
+
+	$isip = filter_var($host, FILTER_VALIDATE_IP);
+
+	if ($config['fcrdns'] && !$isip && DNS($host) != $ip_addr) {
+		$host = $ip_addr;
 	}
 
 	if ($config['cache']['enabled'])

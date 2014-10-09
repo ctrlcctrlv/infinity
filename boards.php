@@ -2,6 +2,8 @@
 
 include "inc/functions.php";
 include "inc/mod/auth.php";
+include "inc/countries.php";
+
 $admin = isset($mod["type"]) && $mod["type"]<=30;
 
 if (php_sapi_name() == 'fpm-fcgi' && !$admin) {
@@ -9,31 +11,6 @@ if (php_sapi_name() == 'fpm-fcgi' && !$admin) {
 }
 $boards = listBoards();
 
-$body = <<<CSS
-<style>
-th.header {
-    background-image: url(/static/bg.gif); 
-    cursor: pointer; 
-    background-repeat: no-repeat; 
-    background-position: center right; 
-    padding-left: 20px; 
-    margin-left: -1px; 
-}
-th.headerSortUp { 
-    background-image: url(/static/asc.gif); 
-} 
-th.headerSortDown { 
-    background-image: url(/static/desc.gif); 
-} 
-.flag-eo {
-    background-image: url(/static/eo.png);
-}
-.flag-en {
-    background-image: url(/static/en.png);
-}
-</style>
-CSS;
-$body .= '<table class="modlog" style="width:auto"><thead><tr><th>L</th><th>Board</th><th>Posts in last hour</th><th>Total posts</th><th>Created</th></tr></thead><tbody>';
 $total_posts_hour = 0;
 $total_posts = 0;
 
@@ -43,7 +20,8 @@ foreach ($boards as $i => $board) {
 	  (SELECT coalesce((SELECT max(`id`) FROM ``posts`` WHERE `board` = :board),0)) max,
 		(SELECT COUNT(*) FROM ``posts`` WHERE `board` = :board AND FROM_UNIXTIME(time) > DATE_SUB(NOW(), INTERVAL 1 DAY)) ppd,
 		(SELECT COUNT(*) FROM ``posts`` WHERE `board` = :board AND FROM_UNIXTIME(time) > DATE_SUB(NOW(), INTERVAL 1 HOUR)) pph,
-		(SELECT count(id) FROM ``posts`` WHERE `board` = :board) count
+		(SELECT count(id) FROM ``posts`` WHERE `board` = :board) count,
+    (SELECT COUNT(DISTINCT ip) FROM ``posts`` WHERE `board` = :board AND FROM_UNIXTIME(time) > DATE_SUB(NOW(), INTERVAL 3 DAY)) uniq_ip
 	FROM ``posts``
 	WHERE `board` = :board");
 	$query->bindValue(':board', $board['uri']);
@@ -61,17 +39,19 @@ foreach ($boards as $i => $board) {
 	$boards[$i]['pph'] = $pph;
 	$boards[$i]['ppd'] = $ppd;
 	$boards[$i]['max'] = $r['max'];
+	$boards[$i]['uniq_ip'] = $r['uniq_ip'];
 }
 
 usort($boards, 
 function ($a, $b) { 
-	$x = $b['ppd'] - $a['ppd']; 
+	$x = $b['uniq_ip'] - $a['uniq_ip']; 
 	if ($x) { return $x; 
 	//} else { return strcmp($a['uri'], $b['uri']); }
 	} else { return $b['max'] - $a['max']; }
 });
 
 $hidden_boards_total = 0;
+$rows = array();
 foreach ($boards as $i => &$board) {
 	$board_config = @file_get_contents($board['uri'].'/config.php');
 	$boardCONFIG = array();
@@ -79,17 +59,18 @@ foreach ($boards as $i => &$board) {
 		$board_config = str_replace('$config', '$boardCONFIG', $board_config);
 		$board_config = str_replace('<?php', '', $board_config);
 		eval($board_config);
-		$showboard = (!isset($boardCONFIG['meta_noindex']) || !$boardCONFIG['meta_noindex']);
 	}
+	$showboard = $board['indexed'];
 	$locale = isset($boardCONFIG['locale'])?$boardCONFIG['locale']:'en';
 
-	$board['title'] = htmlentities(utf8tohtml($board['title']));
+	$board['title'] = utf8tohtml($board['title']);
 	$locale_arr = explode('_', $locale);
 	$locale_short = isset($locale_arr[1]) ? strtolower($locale_arr[1]) : strtolower($locale_arr[0]);
 	$locale_short = str_replace('.utf-8', '', $locale_short);
-	if ($board['uri'] === 'int') {$locale_short = 'eo'; $locale = 'eo';}
+	$country = get_country($locale_short);
+	if ($board['uri'] === 'int') {$locale_short = 'eo'; $locale = 'eo'; $country = 'Esperanto';}
 
-	$img = "<img class=\"flag flag-$locale_short\" src=\"/static/blank.gif\" style=\"width:16px;height:11px;\" alt=\"$locale\" title=\"$locale\">";
+	$board['img'] = "<img class=\"flag flag-$locale_short\" src=\"/static/blank.gif\" style=\"width:16px;height:11px;\" alt=\"$country\" title=\"$country\">";
 
 	if ($showboard || $admin) {
 		if (!$showboard) {
@@ -98,57 +79,18 @@ foreach ($boards as $i => &$board) {
 			$lock = '';
 		}
 		$board['ago'] = human_time_diff(strtotime($board['time']));
-		$body .= "<tr>";
-		$body .= "<td>$img</td>";
-		$body .= "<td><a href='/{$board['uri']}/' title=\"{$board['title']}\">/{$board['uri']}/</a>$lock</td>";
-		$body .= "<td style='text-align:right'>{$board['pph']}</td>";
-		$body .= "<td style='text-align:right'>{$board['max']}</td>";
-		$body .= "<td>{$board['time']} ({$board['ago']} ago)</td></tr>";
 	} else {
 		unset($boards[$i]);
 		$hidden_boards_total += 1;
 	}
 }
 
-$body .= <<<FOOTER
-</tbody></table><script>
-    /*$.tablesorter.addParser({ 
-        id: 'flags', 
-        is: function(s) { 
-            return false; 
-        }, 
-        format: function(s) { 
-            return 0; 
-        }, 
-        type: 'text' 
-    }); */
-     
-    $(function() { 
-$('table').tablesorter({sortList: [[2,1]], 
-textExtraction: function(node) {
-	childNode = node.childNodes[0];
-	if (!childNode) { return node.innerHTML; }
-	if (childNode.tagName == 'IMG') {
-		return childNode.getAttribute('class');
-	} else {
-		return (childNode.innerHTML ? childNode.innerHTML : childNode.textContent);
-	}
-}
-});
-    }); 
-</script>
-FOOTER;
-
 $n_boards = sizeof($boards);
 $t_boards = $hidden_boards_total + $n_boards;
 
-$body = "<p style='text-align:center'>There are currently <strong>{$n_boards}</strong> boards + <strong>$hidden_boards_total</strong> unindexed boards = <strong>$t_boards</strong> total boards. Site-wide, {$total_posts_hour} posts have been made in the last hour, with {$total_posts} being made on all active boards since October 23, 2013.</p>" . $body;
-
-//date_default_timezone_set('UTC');
-$body .= "<p style='text-align:center'><em>Page last updated: ".date('r')."</em></p>";
-$body .= "<p style='text-align:center'>".shell_exec('uptime -p')." without interruption</p>";
-
 $config['additional_javascript'] = array('js/jquery.min.js', 'js/jquery.tablesorter.min.js');
+$body = Element("8chan/boards.html", array("config" => $config, "n_boards" => $n_boards, "t_boards" => $t_boards, "hidden_boards_total" => $hidden_boards_total, "total_posts" => $total_posts, "total_posts_hour" => $total_posts_hour, "boards" => $boards, "last_update" => date('r'), "uptime_p" => shell_exec('uptime -p')));
+
 $html = Element("page.html", array("config" => $config, "body" => $body, "title" => "Boards on &infin;chan"));
 if ($admin) {
 	echo $html;

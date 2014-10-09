@@ -22,6 +22,7 @@
 		{% if post.modifiers['ban message'] %}
 			{{ config.mod.ban_message|sprintf(post.modifiers['ban message']) }}
 		{% endif %}
+		{% include 'post/edited_at.html' %}
 	</div>
 </div>
 <br/>

@@ -66,7 +66,10 @@
 	// Use `host` via shell_exec() to lookup hostnames, avoiding query timeouts. May not work on your system.
 	// Requires safe_mode to be disabled.
 	$config['dns_system'] = false;
-	
+
+	// Check validity of the reverse DNS of IP addresses. Highly recommended.
+	$config['fcrdns'] = true;
+
 	// When executing most command-line tools (such as `convert` for ImageMagick image processing), add this
 	// to the environment path (seperated by :).
 	$config['shell_path'] = '/usr/local/bin';
@@ -277,8 +280,21 @@
 		'no_country'
 	);
 
+	
+	
+	/* Uses are you a human to stop automated requests to make boards disabled by default
+	 * if you wish to use 'are you a human' to block automated board creation requests
+	
+	 * to use AYAH you must enter your 'AYAH_PUBLISHER_KEY' and your 'AYAH_SCORING_KEY' in
+	 * the configuration file for AYAH. The config file for AYAH
+         * is located in the following directory:'/inc/lib/ayah/ayah_config.php'
+	 */
+	$config['ayah_enabled'] = false;
+	
 	// Enable reCaptcha to make spam even harder. Rarely necessary.
 	$config['recaptcha'] = false;
+	// Enable reCaptcha on create.php to prevent automated requests.
+	$config['cbRecaptcha'] = false;
 
 	// Public and private key pair from https://www.google.com/recaptcha/admin/create
 	$config['recaptcha_public'] = '6LcXTcUSAAAAAKBxyFWIt2SO8jwx4W7wcSMRoN3f';
@@ -318,7 +334,7 @@
 	);
 
 	// Minimum time between posts by the same IP address with the same text.
-	/*$config['filters'][] = array(
+	$config['filters'][] = array(
 		'condition' => array(
 			'flood-match' => array('ip', 'body'), // Match IP address and post body
 			'flood-time' => &$config['flood_time_ip'],
@@ -326,7 +342,7 @@
 		),
 		'action' => 'reject',
 		'message' => &$config['error']['flood']
-	);*/
+	);
 
 	// Minimum time between posts with the same text. (Same content, but not always the same IP address.)
 	/*$config['filters'][] = array(
@@ -529,6 +545,9 @@
 
 	// When true, users are instead presented a selectbox for email. Contains, blank, noko and sage.
 	$config['field_email_selectbox'] = false;
+
+	// When true, the sage won't be displayed
+	$config['hide_sage'] = false;
 
 	// Attach country flags to posts.
 	$config['country_flags'] = false;
@@ -1047,10 +1066,11 @@
 	$config['error']['unknownext']		= _('Unknown file extension.');
 	$config['error']['filesize']		= _('Maximum file size: %maxsz% bytes<br>Your file\'s size: %filesz% bytes');
 	$config['error']['maxsize']		= _('The file was too big.');
-	$config['error']['webmerror'] = _('There was a problem processing your webm.');
-	$config['error']['invalidwebm'] = _('Invalid webm uploaded.');
-	$config['error']['webmhasaudio'] = _('The uploaded webm contains an audio or another type of additional stream.');
-	$config['error']['webmtoolong'] = _('The uploaded webm is longer than ' . $config['webm']['max_length'] . ' seconds.');
+	$config['error']['genwebmerror']	= _('There was a problem processing your webm.');
+	$config['error']['webmerror'] 		= _('There was a problem processing your webm.');//Is this error used anywhere ?
+	$config['error']['invalidwebm'] 	= _('Invalid webm uploaded.');
+	$config['error']['webmhasaudio'] 	= _('The uploaded webm contains an audio or another type of additional stream.');
+	$config['error']['webmtoolong'] 	= _('The uploaded webm is longer than ' . $config['webm']['max_length'] . ' seconds.');
 	$config['error']['fileexists']		= _('That file <a href="%s">already exists</a>!');
 	$config['error']['fileexistsinthread']	= _('That file <a href="%s">already exists</a> in this thread!');
 	$config['error']['delete_too_soon']	= _('You\'ll have to wait another %s before deleting that.');
@@ -1118,6 +1138,14 @@
 	$config['dir']['img'] = 'src/';
 	$config['dir']['thumb'] = 'thumb/';
 	$config['dir']['res'] = 'res/';
+
+	// Images in a seperate directory - For CDN or media servers
+	// This is a particularly advanced feature - contact ctrlcctrlv or rails unless you
+	//   really know what you're doing
+	$config['dir']['img_root'] = '';
+	// DO NOT COMMENT OUT, LEAVE BLANK AND OVERRIDE IN INSTANCE CONFIG
+	// Though, you shouldnt be editing this file, so what do I know?
+	
 
 	// For load balancing, having a seperate server (and domain/subdomain) for serving static content is
 	// possible. This can either be a directory or a URL. Defaults to $config['root'] . 'static/'.

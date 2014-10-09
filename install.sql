@@ -65,8 +65,15 @@ CREATE TABLE IF NOT EXISTS `boards` (
   `uri` varchar(58) CHARACTER SET utf8 NOT NULL,
   `title` tinytext NOT NULL,
   `subtitle` tinytext,
+  `indexed` boolean default true,
+  `public_bans` boolean default true,
   PRIMARY KEY (`uri`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `board_create` (
+  `time` text NOT NULL,
+  `uri` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `boards`
@@ -103,6 +110,7 @@ CREATE TABLE IF NOT EXISTS `posts` (
   `locked` int(1) NOT NULL,
   `sage` int(1) NOT NULL,
   `embed` text,
+   `edited_at` DATETIME NULL,
   PRIMARY KEY (`board`,`id`),
   UNIQUE KEY `board_id` (`board`,`id`),
   KEY `thread_id` (`thread`,`id`),
@@ -257,6 +265,7 @@ CREATE TABLE IF NOT EXISTS `reports` (
   `board` varchar(58) CHARACTER SET utf8 DEFAULT NULL,
   `post` int(11) NOT NULL,
   `reason` text NOT NULL,
+  `global` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 ;
 

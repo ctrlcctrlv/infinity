@@ -31,6 +31,7 @@
 				{% endif %}
 			{% endif %}
 			{% if mod %}<p><a href="?/">{% trans %}Return to dashboard{% endtrans %}</a></p>{% endif %}
+			<p><a href="{{ config.root }}{{ board.dir }}{{ config.catalog_link }}">{% trans %}Catalog{% endtrans %}</a></p>
 		</div>
 	</header>
 
@@ -94,7 +95,5 @@
 	<script type="text/javascript">{% raw %}
 		ready();
 	{% endraw %}</script>
-	
-	<script src="js/threadscroll.js"></script>
 </body>
 </html>
