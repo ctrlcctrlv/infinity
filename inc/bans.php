@@ -155,14 +155,27 @@ class Bans {
 	}
 
 	static public function stream_json($out = false, $filter_ips = false, $filter_staff = false, $board_access = false) {
-		global $config;
+		global $config, $pdo;
+		
+
+		if ($board_access && $board_access[0] == '*') $board_access = false;
+
+		$query_addition = "";
+		if ($board_access !== FALSE) {
+			$query_addition .= "WHERE `public_bans` OR `public_bans` IS NULL";
+		}
+		if ($board_access) {
+			$boards = implode(", ", array_map(array($pdo, "quote"), $board_access));
+			$query_addition .= " OR `board` IN (".$boards.")";
+		}
 
 		$query = query("SELECT ``bans``.*, `username`, `type` FROM ``bans``
 			LEFT JOIN ``mods`` ON ``mods``.`id` = `creator`
+			LEFT JOIN ``boards`` ON ``boards``.`uri` = ``bans``.`board`
+				$query_addition
  			ORDER BY `created` DESC") or error(db_error());
                 $bans = $query->fetchAll(PDO::FETCH_ASSOC);
 
-		if ($board_access && $board_access[0] == '*') $board_access = false;
 
 		$out ? fputs($out, "[") : print("[");
 

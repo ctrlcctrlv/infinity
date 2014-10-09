@@ -32,7 +32,8 @@
 		<tr><th>Poster ID's</th><td><input type="checkbox" name="poster_ids" {% if config.poster_ids %}checked{% endif %}></td></tr>
 		<tr><th>Display SAGE! after saged posts</th><td><input type="checkbox" name="show_sages" {% if config.show_sages %}checked{% endif %}></td></tr>
 		<tr><th>Automatically convert ... to …</th><td><input type="checkbox" name="auto_unicode" {% if config.auto_unicode %}checked{% endif %}></td></tr>
-		<tr><th>No index<br><span class="unimportant">Hide from boards index<br/>and do not index in search engines</span></th><td><input type="checkbox" name="meta_noindex" {% if config.meta_noindex %}checked{% endif %}></td></tr>
+		<tr><th>No index<br><span class="unimportant">Hide from boards index<br/>and do not index in search engines</span></th><td><input type="checkbox" name="meta_noindex" {% if not board_indexed %}checked{% endif %}></td></tr>
+		<tr><th>Public bans<br><span class="unimportant">Displays your bans for the public</span></th><td><input type="checkbox" name="public_bans" {% if board.public_bans %}checked{% endif %}></td></tr>
 		<tr><th>[code] tags</th><td><input type="checkbox" name="code_tags" {% if 'js/code_tags/run_prettify.js' in config.additional_javascript %}checked{% endif %}></td></tr>
 		<tr><th>Oekaki</th><td><input type="checkbox" name="oekaki" {% if 'js/wpaint.js' in config.additional_javascript %}checked{% endif %}></td></tr>
 		<tr><th>Format math between $$</th><td><input type="checkbox" name="katex" {% if config.katex %}checked{% endif %}></td></tr>
