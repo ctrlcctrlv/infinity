@@ -1237,7 +1237,12 @@ function getPageButtons($pages, $mod=false) {
 	global $config, $board;
 
 	$btn = array();
-	$root = ($mod ? '?/' : $config['root']) . $board['dir'];
+	
+	if($mod){
+		$root = '?/'; 
+	} else { 
+		$root = $config['root'] . $board['dir'];
+	}
 
 	foreach ($pages as $num => $page) {
 		if (isset($page['selected'])) {
@@ -1246,33 +1251,37 @@ function getPageButtons($pages, $mod=false) {
 				// There is no previous page.
 				$btn['prev'] = _('Previous');
 			} else {
-				$loc = ($mod ? '?/' . $board['uri'] . '/' : '') .
-					($num == 1 ?
-						$config['file_index']
-					:
-						sprintf($config['file_page'], $num)
-					);
-
-				$btn['prev'] = '<form action="' . ($mod ? '' : $root . $loc) . '" method="get">' .
-					($mod ?
-						'<input type="hidden" name="status" value="301" />' .
-						'<input type="hidden" name="r" value="' . htmlentities($loc) . '" />'
-					:'') .
-				'<input type="submit" value="' . _('Previous') . '" /></form>';
+					if($mod){
+						$loc =  '?/' . $board['uri'] . '/';
+						$btn['prev'] = '<form action="" method="get">';
+						$btn['prev'] .='<input type="hidden" name="status" value="301" />';
+						$btn['prev'] .='<input type="hidden" name="r" value="' . htmlentities($loc) . '" />';
+					} else {
+						$btn['prev'] = '<form action="' . $root . '" method="get">';
+					}
+					
+					if($num == 1){
+						$config['file_index'];
+					} else {
+						sprintf($config['file_page'], $num);
+					}
+				$btn['prev'] .= '<input type="submit" value="' . _('Previous') . '" /></form>';
 			}
 
 			if ($num == count($pages) - 1) {
 				// There is no next page.
 				$btn['next'] = _('Next');
 			} else {
-				$loc = ($mod ? '?/' . $board['uri'] . '/' : '') . sprintf($config['file_page'], $num + 2);
-
-				$btn['next'] = '<form action="' . ($mod ? '' : $root . $loc) . '" method="get">' .
-					($mod ?
-						'<input type="hidden" name="status" value="301" />' .
-						'<input type="hidden" name="r" value="' . htmlentities($loc) . '" />'
-					:'') .
-				'<input type="submit" value="' . _('Next') . '" /></form>';
+				if($mod){
+						$loc =  '?/' . $board['uri'] . '/';
+						$btn['next'] = '<form action="" method="get">';
+						$btn['next'] .= '<input type="hidden" name="status" value="301" />' ;
+						$btn['next'] .= '<input type="hidden" name="r" value="' . htmlentities($loc) . '" />';
+					}else{
+						$btn['next'] = '<form action="'.$root . '" method="get">';
+					}
+				sprintf($config['file_page'], $num + 2);
+				$btn['next'] .= '<input type="submit" value="' . _('Next') . '" /></form>';
 			}
 		}
 	}
