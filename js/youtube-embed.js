@@ -1,6 +1,6 @@
 /*
 * youtube.js
-* https://github.com/ctrlcctrlv/8chan/blob/master/js/youtube.js
+* https://github.com/ctrlcctrlv/8chan/blob/master/js/youtube-embed.js
 *
 * Released under the MIT license
 * Copyright (c) 2014 Undido
