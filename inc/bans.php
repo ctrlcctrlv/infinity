@@ -155,7 +155,9 @@ class Bans {
 	}
 
 	static public function stream_json($out = false, $filter_ips = false, $filter_staff = false, $board_access = false) {
-		$query = query("SELECT ``bans``.*, `username`, `type` as `mboards` FROM ``bans``
+		global $config;
+
+		$query = query("SELECT ``bans``.*, `username`, `type` FROM ``bans``
 			LEFT JOIN ``mods`` ON ``mods``.`id` = `creator`
  			ORDER BY `created` DESC") or error(db_error());
                 $bans = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -183,10 +185,24 @@ class Bans {
 				$ban['single_addr'] = true;
 			}
 			if ($filter_staff || ($board_access !== false && !in_array($ban['board'], $board_access))) {
-				$ban['username'] = $config['mod']['capcode'][$config['mod']['groups'][$ban['type']]][0];
+				switch ($ban['type']) {
+					case ADMIN:
+						$ban['username'] = 'Admin';
+						break;
+					case SUPERMOD:
+						$ban['username'] = 'Global Volunteer';
+						break;
+					case MOD:
+                                                $ban['username'] = 'Local Volunteer';
+						break;
+					default:
+						$ban['username'] = '?';
+				}
+				$ban['vstaff'] = true;
 			}
+			unset($ban['type']);
 			if ($filter_ips || ($board_access !== false && !in_array($ban['board'], $board_access))) {
-				list($ban['mask'], $subnet) = explode("/", $ban['mask']);
+				@list($ban['mask'], $subnet) = explode("/", $ban['mask']);
 				$ban['mask'] = preg_split("/[\.:]/", $ban['mask']);
 				$ban['mask'] = array_slice($ban['mask'], 0, 2);
 				$ban['mask'] = implode(".", $ban['mask']);
