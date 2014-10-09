@@ -886,7 +886,7 @@ function insertFloodPost(array $post) {
 function post(array $post) {
 	global $pdo, $board;
   
-	$query = prepare("INSERT INTO ``posts`` (`id`, `board`, `thread`, `subject`, `email`, `name`, `trip`, `capcode`, `body`, `body_nomarkup`, `time`, `bump`, `files`, `num_files`, `filehash`, `password`, `ip`, `sticky`, `locked`, `sage`, `embed`) SELECT 1 + coalesce((SELECT max(`id`) FROM ``posts`` WHERE `board`=:board),0), :board, :thread, :subject, :email, :name, :trip, :capcode, :body, :body_nomarkup, :time, :time, :files, :num_files, :filehash, :password, :ip, :sticky, :locked, 0, :embed");
+	$query = prepare("INSERT INTO ``posts`` (`board`, `thread`, `subject`, `email`, `name`, `trip`, `capcode`, `body`, `body_nomarkup`, `time`, `bump`, `files`, `num_files`, `filehash`, `password`, `ip`, `sticky`, `locked`, `sage`, `embed`) VALUES (:board, :thread, :subject, :email, :name, :trip, :capcode, :body, :body_nomarkup, :time, :time, :files, :num_files, :filehash, :password, :ip, :sticky, :locked, 0, :embed)");
 
 	$query->bindValue(':board', $board['uri']);
 
