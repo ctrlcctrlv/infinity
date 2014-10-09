@@ -132,6 +132,7 @@
 	$config['additional_javascript'][] = 'js/id_highlighter.js';
 	$config['additional_javascript'][] = 'js/id_colors.js';
 	$config['additional_javascript'][] = 'js/inline.js';
+	$config['additional_javascript'][] = 'js/infinite-scroll.js';
 
 	$config['font_awesome_css'] = '/netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css';
 	
