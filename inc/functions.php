@@ -744,7 +744,7 @@ function displayBan($ban) {
 
 	if ($ban['post'] && isset($ban['post']['board'], $ban['post']['id'])) {
 		if (openBoard($ban['post']['board'])) {
-			$query = query(sprintf("SELECT `files` FROM ``posts_%s`` WHERE `id` = " .
+			$query = query(sprintf("SELECT `files` FROM ``posts`` WHERE `board` = '%s' AND `id` = " .
 				(int)$ban['post']['id'], $board['uri']));
 			if ($_post = $query->fetch(PDO::FETCH_ASSOC)) {
 				$ban['post'] = array_merge($ban['post'], $_post);
@@ -842,8 +842,9 @@ function threadLocked($id) {
 	if (event('check-locked', $id))
 		return true;
 
-	$query = prepare(sprintf("SELECT `locked` FROM ``posts_%s`` WHERE `id` = :id AND `thread` IS NULL LIMIT 1", $board['uri']));
+	$query = prepare("SELECT `locked` FROM ``posts`` WHERE `board` = :board AND `id` = :id AND `thread` IS NULL LIMIT 1");
 	$query->bindValue(':id', $id, PDO::PARAM_INT);
+	$query->bindValue(':board', $board['uri']);
 	$query->execute() or error(db_error());
 
 	if (($locked = $query->fetchColumn()) === false) {
@@ -860,8 +861,9 @@ function threadSageLocked($id) {
 	if (event('check-sage-locked', $id))
 		return true;
 
-	$query = prepare(sprintf("SELECT `sage` FROM ``posts_%s`` WHERE `id` = :id AND `thread` IS NULL LIMIT 1", $board['uri']));
+	$query = prepare("SELECT `sage` FROM ``posts`` WHERE `board` = :board AND `id` = :id AND `thread` IS NULL LIMIT 1");
 	$query->bindValue(':id', $id, PDO::PARAM_INT);
+	$query->bindValue(':board', $board['uri'], PDO::PARAM_INT);
 	$query->execute() or error(db_error());
 
 	if (($sagelocked = $query->fetchColumn()) === false) {
@@ -875,8 +877,9 @@ function threadSageLocked($id) {
 function threadExists($id) {
 	global $board;
 
-	$query = prepare(sprintf("SELECT 1 FROM ``posts_%s`` WHERE `id` = :id AND `thread` IS NULL LIMIT 1", $board['uri']));
+	$query = prepare("SELECT 1 FROM ``posts`` WHERE `board` = :board AND `id` = :id AND `thread` IS NULL LIMIT 1");
 	$query->bindValue(':id', $id, PDO::PARAM_INT);
+	$query->bindValue(':board', $board['uri']);
 	$query->execute() or error(db_error());
 
 	if ($query->rowCount()) {
@@ -904,7 +907,10 @@ function insertFloodPost(array $post) {
 
 function post(array $post) {
 	global $pdo, $board;
-	$query = prepare(sprintf("INSERT INTO ``posts_%s`` VALUES ( NULL, :thread, :subject, :email, :name, :trip, :capcode, :body, :body_nomarkup, :time, :time, :files, :num_files, :filehash, :password, :ip, :sticky, :locked, 0, :embed, NULL)", $board['uri']));
+  
+	$query = prepare("INSERT INTO ``posts`` (`board`, `thread`, `subject`, `email`, `name`, `trip`, `capcode`, `body`, `body_nomarkup`, `time`, `bump`, `files`, `num_files`, `filehash`, `password`, `ip`, `sticky`, `locked`, `sage`, `embed`) VALUES (:board, :thread, :subject, :email, :name, :trip, :capcode, :body, :body_nomarkup, :time, :time, :files, :num_files, :filehash, :password, :ip, :sticky, :locked, 0, :embed)");
+
+	$query->bindValue(':board', $board['uri']);
 
 	// Basic stuff
 	if (!empty($post['subject'])) {
@@ -973,12 +979,25 @@ function post(array $post) {
 		$query->bindValue(':filehash', null, PDO::PARAM_NULL);
 	}
 
+	$pdo->beginTransaction();
 	if (!$query->execute()) {
 		undoImage($post);
 		error(db_error($query));
 	}
+	$lastInsertId = $pdo->lastInsertId();
 
-	return $pdo->lastInsertId();
+	$query = prepare("SELECT `id` FROM ``posts`` WHERE `id` = :id");
+	$query->bindValue(':id', $lastInsertId);
+
+	if(!$query->execute()) {
+	undoImage($post);
+	error(db_error($query));
+	}
+	$lastIdForBoard = $query->fetch(PDO::FETCH_COLUMN);
+
+	$pdo->commit();
+
+	return $lastIdForBoard;
 }
 
 function bumpThread($id) {
@@ -990,9 +1009,10 @@ function bumpThread($id) {
 	if ($config['try_smarter'])
 		$build_pages[] = thread_find_page($id);
 
-	$query = prepare(sprintf("UPDATE ``posts_%s`` SET `bump` = :time WHERE `id` = :id AND `thread` IS NULL", $board['uri']));
+	$query = prepare("UPDATE ``posts`` SET `bump` = :time WHERE `id` = :id AND `thread` IS NULL AND `board` = :board");
 	$query->bindValue(':time', time(), PDO::PARAM_INT);
 	$query->bindValue(':id', $id, PDO::PARAM_INT);
+	$query->bindValue(':board', $board['uri']);
 	$query->execute() or error(db_error($query));
 }
 
@@ -1000,8 +1020,9 @@ function bumpThread($id) {
 function deleteFile($id, $remove_entirely_if_already=true, $file=null) {
 	global $board, $config;
 
-	$query = prepare(sprintf("SELECT `thread`, `files`, `num_files` FROM ``posts_%s`` WHERE `id` = :id LIMIT 1", $board['uri']));
+	$query = prepare("SELECT `thread`, `files`, `num_files` FROM ``posts`` WHERE `id` = :id AND `board` = :board LIMIT 1");
 	$query->bindValue(':id', $id, PDO::PARAM_INT);
+	$query->bindValue(':board', $board['uri']);
 	$query->execute() or error(db_error($query));
 	if (!$post = $query->fetch(PDO::FETCH_ASSOC))
 		error($config['error']['invalidpost']);
@@ -1011,7 +1032,7 @@ function deleteFile($id, $remove_entirely_if_already=true, $file=null) {
 	if ($files[0]->file == 'deleted' && $post['num_files'] == 1 && !$post['thread'])
 		return; // Can't delete OP's image completely.
 
-	$query = prepare(sprintf("UPDATE ``posts_%s`` SET `files` = :file WHERE `id` = :id", $board['uri']));
+	$query = prepare("UPDATE ``posts`` SET `files` = :file WHERE `id` = :id AND `board` = :board");
 	if (($file && $file_to_delete->file == 'deleted') && $remove_entirely_if_already) {
 		// Already deleted; remove file fully
 		$files[$file] = null;
@@ -1032,6 +1053,7 @@ function deleteFile($id, $remove_entirely_if_already=true, $file=null) {
 	$query->bindValue(':file', json_encode($files), PDO::PARAM_STR);
 
 	$query->bindValue(':id', $id, PDO::PARAM_INT);
+	$query->bindValue(':board', $board['uri']);
 	$query->execute() or error(db_error($query));
 
 	if ($post['thread'])
@@ -1044,8 +1066,9 @@ function deleteFile($id, $remove_entirely_if_already=true, $file=null) {
 function rebuildPost($id) {
 	global $board;
 
-	$query = prepare(sprintf("SELECT `body_nomarkup`, `thread` FROM ``posts_%s`` WHERE `id` = :id", $board['uri']));
+	$query = prepare("SELECT `body_nomarkup`, `thread` FROM ``posts`` WHERE `id` = :id AND `board` = :board");
 	$query->bindValue(':id', $id, PDO::PARAM_INT);
+	$query->bindValue(':board', $board['uri']);
 	$query->execute() or error(db_error($query));
 
 	if ((!$post = $query->fetch(PDO::FETCH_ASSOC)) || !$post['body_nomarkup'])
@@ -1053,9 +1076,10 @@ function rebuildPost($id) {
 
 	markup($body = &$post['body_nomarkup']);
 
-	$query = prepare(sprintf("UPDATE ``posts_%s`` SET `body` = :body WHERE `id` = :id", $board['uri']));
+	$query = prepare("UPDATE ``posts`` SET `body` = :body WHERE `id` = :id AND `board` = :board");
 	$query->bindValue(':body', $body);
 	$query->bindValue(':id', $id, PDO::PARAM_INT);
+	$query->bindValue(':board', $board['uri']);
 	$query->execute() or error(db_error($query));
 
 	buildThread($post['thread'] ? $post['thread'] : $id);
@@ -1068,8 +1092,9 @@ function deletePost($id, $error_if_doesnt_exist=true, $rebuild_after=true) {
 	global $board, $config;
 
 	// Select post and replies (if thread) in one query
-	$query = prepare(sprintf("SELECT `id`,`thread`,`files` FROM ``posts_%s`` WHERE `id` = :id OR `thread` = :id", $board['uri']));
+	$query = prepare("SELECT `id`,`thread`,`files` FROM ``posts`` WHERE `board` = :board AND (`id` = :id OR `thread` = :id)");
 	$query->bindValue(':id', $id, PDO::PARAM_INT);
+	$query->bindValue(':board', $board['uri']);
 	$query->execute() or error(db_error($query));
 
 	if ($query->rowCount() < 1) {
@@ -1112,8 +1137,9 @@ function deletePost($id, $error_if_doesnt_exist=true, $rebuild_after=true) {
 
 	}
 
-	$query = prepare(sprintf("DELETE FROM ``posts_%s`` WHERE `id` = :id OR `thread` = :id", $board['uri']));
+	$query = prepare("DELETE FROM ``posts`` WHERE `board` = :board AND (`id` = :id OR `thread` = :id)");
 	$query->bindValue(':id', $id, PDO::PARAM_INT);
+	$query->bindValue(':board', $board['uri']);
 	$query->execute() or error(db_error($query));
 
 	$query = prepare("SELECT `board`, `post` FROM ``cites`` WHERE `target_board` = :board AND (`target` = " . implode(' OR `target` = ', $ids) . ") ORDER BY `board`");
@@ -1148,7 +1174,8 @@ function clean() {
 	$offset = round($config['max_pages']*$config['threads_per_page']);
 
 	// I too wish there was an easier way of doing this...
-	$query = prepare(sprintf("SELECT `id` FROM ``posts_%s`` WHERE `thread` IS NULL ORDER BY `sticky` DESC, `bump` DESC LIMIT :offset, 9001", $board['uri']));
+	$query = prepare("SELECT `id` FROM ``posts`` WHERE `board` = :board AND `thread` IS NULL ORDER BY `sticky` DESC, `bump` DESC LIMIT :offset, 9001");
+	$query->bindValue(':board', $board['uri']);
 	$query->bindValue(':offset', $offset, PDO::PARAM_INT);
 
 	$query->execute() or error(db_error($query));
@@ -1160,7 +1187,7 @@ function clean() {
 function thread_find_page($thread) {
 	global $config, $board;
 
-	$query = query(sprintf("SELECT `id` FROM ``posts_%s`` WHERE `thread` IS NULL ORDER BY `sticky` DESC, `bump` DESC", $board['uri'])) or error(db_error($query));
+	$query = query(sprintf("SELECT `id` FROM ``posts`` WHERE `thread` IS NULL AND `board` = '%s' ORDER BY `sticky` DESC, `bump` DESC", $board['uri'])) or error(db_error($query));
 	$threads = $query->fetchAll(PDO::FETCH_COLUMN);
 	if (($index = array_search($thread, $threads)) === false)
 		return false;
@@ -1173,7 +1200,8 @@ function index($page, $mod=false) {
 	$body = '';
 	$offset = round($page*$config['threads_per_page']-$config['threads_per_page']);
 
-	$query = prepare(sprintf("SELECT * FROM ``posts_%s`` WHERE `thread` IS NULL ORDER BY `sticky` DESC, `bump` DESC LIMIT :offset,:threads_per_page", $board['uri']));
+	$query = prepare("SELECT * FROM ``posts`` WHERE `thread` IS NULL AND `board` = :board ORDER BY `sticky` DESC, `bump` DESC LIMIT :offset,:threads_per_page");
+	$query->bindValue(':board', $board['uri']);
 	$query->bindValue(':offset', $offset, PDO::PARAM_INT);
 	$query->bindValue(':threads_per_page', $config['threads_per_page'], PDO::PARAM_INT);
 	$query->execute() or error(db_error($query));
@@ -1199,8 +1227,9 @@ function index($page, $mod=false) {
 			}
 		}
 		if (!isset($cached)) {
-			$posts = prepare(sprintf("SELECT * FROM ``posts_%s`` WHERE `thread` = :id ORDER BY `id` DESC LIMIT :limit", $board['uri']));
+			$posts = prepare("SELECT * FROM ``posts`` WHERE `thread` = :id AND `board` = :board ORDER BY `id` DESC LIMIT :limit");
 			$posts->bindValue(':id', $th['id']);
+			$posts->bindValue(':board', $board['uri']);
 			$posts->bindValue(':limit', ($th['sticky'] ? $config['threads_preview_sticky'] : $config['threads_preview']), PDO::PARAM_INT);
 			$posts->execute() or error(db_error($posts));
 
@@ -1304,7 +1333,7 @@ function getPages($mod=false) {
 		$count = $board['thread_count'];
 	} else {
 		// Count threads
-		$query = query(sprintf("SELECT COUNT(*) FROM ``posts_%s`` WHERE `thread` IS NULL", $board['uri'])) or error(db_error());
+		$query = query(sprintf("SELECT COUNT(*) FROM ``posts`` WHERE `thread` IS NULL AND `board` = '%s'", $board['uri'])) or error(db_error());
 		$count = $query->fetchColumn();
 	}
 	$count = floor(($config['threads_per_page'] + $count - 1) / $config['threads_per_page']);
@@ -1381,8 +1410,9 @@ function checkRobot($body) {
 // Returns an associative array with 'replies' and 'images' keys
 function numPosts($id) {
 	global $board;
-	$query = prepare(sprintf("SELECT COUNT(*) AS `replies`, SUM(`num_files`) AS `images` FROM ``posts_%s`` WHERE `thread` = :thread", $board['uri'], $board['uri']));
+	$query = prepare("SELECT COUNT(*) AS `replies`, SUM(`num_files`) AS `images` FROM ``posts`` WHERE `thread` = :thread AND `board` = :board");
 	$query->bindValue(':thread', $id, PDO::PARAM_INT);
+	$query->bindValue(':board', $board['uri']);
 	$query->execute() or error(db_error($query));
 
 	return $query->fetch(PDO::FETCH_ASSOC);
@@ -1766,7 +1796,7 @@ function markup(&$body, $track_cites = false) {
 		}
 		$search_cites = array_unique($search_cites);
 		
-		$query = query(sprintf('SELECT `thread`, `id` FROM ``posts_%s`` WHERE ' .
+		$query = query(sprintf('SELECT `thread`, `id` FROM ``posts`` WHERE `board` = "%s" ' .
 			implode(' OR ', $search_cites), $board['uri'])) or error(db_error());
 		
 		$cited_posts = array();
@@ -1851,7 +1881,7 @@ function markup(&$body, $track_cites = false) {
 			if (!empty($clauses)) {
 				$cited_posts[$_board] = array();
 				
-				$query = query(sprintf('SELECT `thread`, `id` FROM ``posts_%s`` WHERE ' .
+				$query = query(sprintf('SELECT `thread`, `id` FROM ``posts`` WHERE `board` = "%s"' .
 					implode(' OR ', $clauses), $board['uri'])) or error(db_error());
 				
 				while ($cite = $query->fetch(PDO::FETCH_ASSOC)) {
@@ -1996,8 +2026,9 @@ function buildThread($id, $return = false, $mod = false) {
 		cache::delete("thread_{$board['uri']}_{$id}");
 	}
 
-	$query = prepare(sprintf("SELECT * FROM ``posts_%s`` WHERE (`thread` IS NULL AND `id` = :id) OR `thread` = :id ORDER BY `thread`,`id`", $board['uri']));
+	$query = prepare("SELECT * FROM ``posts`` WHERE `board` = :board AND ((`thread` IS NULL AND `id` = :id) OR `thread` = :id) ORDER BY `thread`,`id`");
 	$query->bindValue(':id', $id, PDO::PARAM_INT);
+	$query->bindValue(':board', $board['uri']);
 	$query->execute() or error(db_error($query));
 
 	while ($post = $query->fetch(PDO::FETCH_ASSOC)) {
@@ -2060,8 +2091,9 @@ function buildThread50($id, $return = false, $mod = false, $thread = null, $anti
 		$antibot->reset();
 		
 	if (!$thread) {
-		$query = prepare(sprintf("SELECT * FROM ``posts_%s`` WHERE (`thread` IS NULL AND `id` = :id) OR `thread` = :id ORDER BY `thread`,`id` DESC LIMIT :limit", $board['uri']));
+		$query = prepare("SELECT * FROM ``posts`` WHERE `board` = :board AND (`thread` IS NULL AND `id` = :id) OR `thread` = :id ORDER BY `thread`,`id` DESC LIMIT :limit");
 		$query->bindValue(':id', $id, PDO::PARAM_INT);
+		$query->bindValue(':board', $board['uri']);
 		$query->bindValue(':limit', $config['noko50_count']+1, PDO::PARAM_INT);
 		$query->execute() or error(db_error($query));
 		
@@ -2083,8 +2115,9 @@ function buildThread50($id, $return = false, $mod = false, $thread = null, $anti
 
 
 		if ($query->rowCount() == $config['noko50_count']+1) {
-			$count = prepare(sprintf("SELECT COUNT(`id`) as `num` FROM ``posts_%s`` WHERE `thread` = :thread UNION ALL
-						  SELECT SUM(`num_files`) FROM ``posts_%s`` WHERE `files` IS NOT NULL AND `thread` = :thread", $board['uri'], $board['uri']));
+			$count = prepare("SELECT COUNT(`id`) as `num` FROM ``posts`` WHERE `board` = :board AND `thread` = :thread UNION ALL
+						  SELECT SUM(`num_files`) FROM ``posts`` WHERE `board` = :board AND `files` IS NOT NULL AND `thread` = :thread");
+			$count->bindValue(':board', $board['uri']);
 			$count->bindValue(':thread', $id, PDO::PARAM_INT);
 			$count->execute() or error(db_error($count));
 			
@@ -2225,7 +2258,8 @@ function fraction($numerator, $denominator, $sep) {
 
 function getPostByHash($hash) {
 	global $board;
-	$query = prepare(sprintf("SELECT `id`,`thread` FROM ``posts_%s`` WHERE `filehash` = :hash", $board['uri']));
+	$query = prepare("SELECT `id`,`thread` FROM ``posts`` WHERE `board` = :board AND `filehash` = :hash");
+	$query->bindValue(':board', $board['uri']);
 	$query->bindValue(':hash', $hash, PDO::PARAM_STR);
 	$query->execute() or error(db_error($query));
 
@@ -2238,7 +2272,8 @@ function getPostByHash($hash) {
 
 function getPostByHashInThread($hash, $thread) {
 	global $board;
-	$query = prepare(sprintf("SELECT `id`,`thread` FROM ``posts_%s`` WHERE `filehash` = :hash AND ( `thread` = :thread OR `id` = :thread )", $board['uri']));
+	$query = prepare("SELECT `id`,`thread` FROM ``posts`` WHERE `board` = :board AND `filehash` = :hash AND ( `thread` = :thread OR `id` = :thread )");
+	$query->bindValue(':board', $board['uri']);
 	$query->bindValue(':hash', $hash, PDO::PARAM_STR);
 	$query->bindValue(':thread', $thread, PDO::PARAM_INT);
 	$query->execute() or error(db_error($query));

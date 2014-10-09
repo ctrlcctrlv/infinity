@@ -113,9 +113,6 @@ $query->bindValue(':title', $_POST['title']);
 $query->bindValue(':subtitle', $_POST['subtitle']);
 $query->execute() or error(db_error($query));
 
-$query = Element('posts.sql', array('board' => $uri));
-query($query) or error(db_error());
-
 if (!openBoard($_POST['uri']))
 	error(_("Couldn't open board after creation."));
 if ($config['cache']['enabled'])

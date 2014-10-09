@@ -18,7 +18,7 @@ foreach ($boards as $board) {
 	
 	openBoard($board['uri']);
 	
-	$query = query(sprintf("SELECT `file`, `thumb` FROM ``posts_%s`` WHERE `file` IS NOT NULL", $board['uri']));
+	$query = query(sprintf("SELECT `file`, `thumb` FROM ``posts`` WHERE `board` = '%s' AND `file` IS NOT NULL", $board['uri']));
 	$valid_src = array();
 	$valid_thumb = array();
 	

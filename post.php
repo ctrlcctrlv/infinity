@@ -52,15 +52,17 @@ if (isset($_POST['delete'])) {
 		error($config['error']['nodelete']);
 		
 	foreach ($delete as &$id) {
-		$query = prepare(sprintf("SELECT `thread`, `time`,`password` FROM ``posts_%s`` WHERE `id` = :id", $board['uri']));
+		$query = prepare("SELECT `thread`, `time`,`password` FROM ``posts`` WHERE `id` = :id AND `board` = :board");
 		$query->bindValue(':id', $id, PDO::PARAM_INT);
+		$query->bindValue(':board', $board['uri']);
 		$query->execute() or error(db_error($query));
 		
 		if ($post = $query->fetch(PDO::FETCH_ASSOC)) {
 			$thread = false;
 			if ($config['user_moderation'] && $post['thread']) {
-				$thread_query = prepare(sprintf("SELECT `time`,`password` FROM ``posts_%s`` WHERE `id` = :id", $board['uri']));
+				$thread_query = prepare("SELECT `time`,`password` FROM ``posts`` WHERE `id` = :id AND `board` = :board");
 				$thread_query->bindValue(':id', $post['thread'], PDO::PARAM_INT);
+				$thread_query->bindValue(':board', $board['uri']);
 				$thread_query->execute() or error(db_error($query));
 
 				$thread = $thread_query->fetch(PDO::FETCH_ASSOC);	
@@ -131,7 +133,8 @@ if (isset($_POST['delete'])) {
 	markup($reason);
 	
 	foreach ($report as &$id) {
-		$query = prepare(sprintf("SELECT `thread` FROM ``posts_%s`` WHERE `id` = :id", $board['uri']));
+		$query = prepare("SELECT `thread` FROM ``posts`` WHERE `board` = :board AND `id` = :id");
+		$query->bindValue(':board', $board['uri']);
 		$query->bindValue(':id', $id, PDO::PARAM_INT);
 		$query->execute() or error(db_error($query));
 		
@@ -252,8 +255,9 @@ if (isset($_POST['delete'])) {
 	
 	//Check if thread exists
 	if (!$post['op']) {
-		$query = prepare(sprintf("SELECT `sticky`,`locked`,`sage` FROM ``posts_%s`` WHERE `id` = :id AND `thread` IS NULL LIMIT 1", $board['uri']));
+		$query = prepare("SELECT `sticky`,`locked`,`sage` FROM ``posts`` WHERE `id` = :id AND `thread` IS NULL AND `board` = :board LIMIT 1");
 		$query->bindValue(':id', $post['thread'], PDO::PARAM_INT);
+		$query->bindValue(':board', $board['uri']);
 		$query->execute() or error(db_error());
 		
 		if (!$thread = $query->fetch(PDO::FETCH_ASSOC)) {

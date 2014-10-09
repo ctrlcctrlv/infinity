@@ -19,12 +19,14 @@ foreach($boards as $board) {
 	}
 
 	// last post
-	$query = prepare(sprintf("SELECT MAX(time) AS time FROM posts_%s", $board));
+	$query = prepare("SELECT MAX(time) AS time FROM posts WHERE `board` = :board");
+	$query->bindValue(':board', $board);
 	$query->execute();
 	$row = $query->fetch();
 
 	//count posts
-	$query = prepare(sprintf("SELECT COUNT(id) AS count FROM posts_%s", $board));
+	$query = prepare("SELECT COUNT(id) AS count FROM posts WHERE `board` = :board", $board);
+	$query->bindValue(':board', $board);
 	$query->execute();
 	$count = $query->fetch();
 
@@ -79,8 +81,10 @@ foreach($delete as $i => $d){
 		cache::delete('all_boards');
 	}
 	
-	// Delete posting table
-	$query = query(sprintf('DROP TABLE IF EXISTS ``posts_%s``', $board['uri'])) or error(db_error());
+	// Delete posts
+  $query = prepare('DELETE FROM ``posts`` WHERE `board` = :board');
+  $query->bindValue(':board', $board['uri']);
+  $query->execute() or error(db_error($query));
 	
 	// Clear reports
 	$query = prepare('DELETE FROM ``reports`` WHERE `board` = :id');
