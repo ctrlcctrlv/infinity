@@ -27,13 +27,10 @@ function makeIcon(){
 	$("link[rel='icon']").attr("href", "../static/favicon_au.png");
 }
 
+
+if (active_page == 'ukko' || active_page == 'thread')
 $(document).ready(function(){
-	if($('div.banner').length == 0)
-		return; // not index
-		
-	if($(".post.op").size() != 1)
-		return; //not thread page
-	
+
 	var countdown_interval;
 
 	// Add an update link
@@ -110,11 +107,11 @@ $(document).ready(function(){
 		if (new_posts && window_active &&
 			$(window).scrollTop() + $(window).height() >=
 			$('div.boardlist.bottom').position().top) {
-
-			new_posts = 0;
+				new_posts = 0;
+				first_new_post = null;
+				$('#new_post_marker').remove();
 		}
 		update_title();
-		first_new_post = null;
 	};
 	
 	// automatically updates the thread after a specified delay
@@ -167,6 +164,10 @@ $(document).ready(function(){
 				recheck_activated();
 				time_loaded = Date.now(); // interop with watch.js
 				
+				// Put a line before the first new post
+				if ((first_new_post) && ($('#new_post_marker').length == 0)) {
+					$(first_new_post).before("<hr id='new_post_marker'>");
+				}	
 				
 				if ($('#auto_update_status').is(':checked')) {
 					// If there are no new posts, double the delay. Otherwise set it to the min.
