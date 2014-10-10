@@ -966,7 +966,7 @@ function mod_page_ip_less($b, $id) {
 	
 	$args['security_token'] = make_secure_link_token('IP_less/' . $b . '/' . $id);
 	
-	mod_page(sprintf('%s: %s', _('IP'), less_ip($ip)), 'mod/view_ip_less.html', $args, less_hostmask($args['hostname']));
+	mod_page(sprintf('%s: %s', _('IP'), less_ip($ip)), 'mod/view_ip_less.html', $args);
 }
 
 function mod_ban() {
