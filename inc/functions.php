@@ -335,7 +335,7 @@ function create_antibot($board, $thread = null) {
 }
 
 function rebuildThemes($action, $boardname = false) {
-	global $config, $board, $current_locale;
+	global $config, $board, $current_locale, $error;
 
 	// Save the global variables
 	$_config = $config;
@@ -2405,4 +2405,32 @@ function diceRoller($post) {
 			$post->body = '<table class="diceroll"><tr><td><img src="'.$config['dir']['static'].'d10.svg" alt="Dice roll" width="24"></td><td>Rolled ' . implode(', ', $dicerolls) . $modifier . $dicesum . '</td></tr></table><br/>' . $post->body;
 		}
 	}
+}
+
+function less_ip($ip) {
+	$ipv6 = (strstr($ip, ':') !== false);
+
+	$in_addr = inet_pton($ip);
+
+	if ($ipv6) {
+		// Not sure how many to mask for IPv6, opinions?
+		$mask = inet_pton('ffff:ffff:ffff:ffff:ffff:0:0:0');
+	} else {
+		$mask = inet_pton('255.255.0.0');
+	}
+
+	$final = inet_ntop($in_addr & $mask);
+	return str_replace(array(':0', '.0'), array(':x', '.x'), $final);
+}
+
+function less_hostmask($hostmask) {
+	$parts = explode('.', $hostmask);
+
+	if (sizeof($parts) < 3)
+		return $hostmask;
+
+	$parts[0] = 'x';
+	$parts[1] = 'x';
+
+	return implode('.', $parts);
 }

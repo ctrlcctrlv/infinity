@@ -775,6 +775,9 @@ function mod_ip_remove_note($ip, $id) {
 
 function mod_page_ip($ip) {
 	global $config, $mod;
+
+	if (!hasPermission($config['mod']['show_ip']))
+		error($config['error']['noaccess']);
 	
 	if (filter_var($ip, FILTER_VALIDATE_IP) === false)
 		error("Invalid IP address.");
@@ -863,6 +866,107 @@ function mod_page_ip($ip) {
 	$args['security_token'] = make_secure_link_token('IP/' . $ip);
 	
 	mod_page(sprintf('%s: %s', _('IP'), $ip), 'mod/view_ip.html', $args, $args['hostname']);
+}
+
+function mod_page_ip_less($b, $id) {
+	global $config, $mod;
+
+	$query = prepare(sprintf('SELECT `ip` FROM ``posts_%s`` WHERE `id` = :id', $b));
+	$query->bindValue(':id', $id);
+	$query->execute() or error(db_error($query));
+	
+	$result = $query->fetch(PDO::FETCH_ASSOC);
+
+	if ($result) {
+		$ip = $result['ip'];
+	} else {
+		error(_('Could not find that post.'));
+	}
+
+	if (filter_var($ip, FILTER_VALIDATE_IP) === false)
+		error("Invalid IP address.");
+	
+	if (isset($_POST['ban_id'], $_POST['unban'])) {
+		if (!hasPermission($config['mod']['unban']))
+			error($config['error']['noaccess']);
+
+		Bans::delete($_POST['ban_id'], true);
+		
+		header('Location: ?/IP/' . $ip . '#bans', true, $config['redirect_http']);
+		return;
+	}
+	
+	if (isset($_POST['note'])) {
+		if (!hasPermission($config['mod']['create_notes']))
+			error($config['error']['noaccess']);
+		
+		$_POST['note'] = escape_markup_modifiers($_POST['note']);
+		markup($_POST['note']);
+		$query = prepare('INSERT INTO ``ip_notes`` VALUES (NULL, :ip, :mod, :time, :body)');
+		$query->bindValue(':ip', $ip);
+		$query->bindValue(':mod', $mod['id']);
+		$query->bindValue(':time', time());
+		$query->bindValue(':body', $_POST['note']);
+		$query->execute() or error(db_error($query));
+		
+		modLog("Added a note for <a href=\"?/IP/{$ip}\">{$ip}</a>");
+		
+		header('Location: ?/IP/' . $ip . '#notes', true, $config['redirect_http']);
+		return;
+	}
+	
+	$args = array();
+	$args['ip'] = $ip;
+	$args['posts'] = array();
+	
+	if ($config['mod']['dns_lookup'])
+		$args['hostname'] = rDNS($ip);
+
+	openBoard($b);
+
+	$query = prepare(sprintf('SELECT * FROM ``posts_%s`` WHERE `ip` = :ip ORDER BY `sticky` DESC, `id` DESC LIMIT :limit', $b));
+	$query->bindValue(':ip', $ip);
+	$query->bindValue(':limit', $config['mod']['ip_recentposts'], PDO::PARAM_INT);
+	$query->execute() or error(db_error($query));
+	
+	while ($post = $query->fetch(PDO::FETCH_ASSOC)) {
+		if (!$post['thread']) {
+			$po = new Thread($post, '?/', $mod, false);
+		} else {
+			$po = new Post($post, '?/', $mod);
+		}
+		
+		if (!isset($args['posts'][$b]))
+			$args['posts'][$b] = array('board' => $b, 'posts' => array());
+		$args['posts'][$b]['posts'][] = $po->build(true);
+	}
+	
+	$args['boards'] = listBoards();
+	$args['token'] = make_secure_link_token('ban');
+	
+	if (hasPermission($config['mod']['view_ban'])) {
+		$args['bans'] = Bans::find($ip, false, true);
+	}
+	
+	if (hasPermission($config['mod']['view_notes'])) {
+		$query = prepare("SELECT ``ip_notes``.*, `username` FROM ``ip_notes`` LEFT JOIN ``mods`` ON `mod` = ``mods``.`id` WHERE `ip` = :ip ORDER BY `time` DESC");
+		$query->bindValue(':ip', $ip);
+		$query->execute() or error(db_error($query));
+		$args['notes'] = $query->fetchAll(PDO::FETCH_ASSOC);
+	}
+	
+	if (hasPermission($config['mod']['modlog_ip'])) {
+		$query = prepare("SELECT `username`, `mod`, `ip`, `board`, `time`, `text` FROM ``modlogs`` LEFT JOIN ``mods`` ON `mod` = ``mods``.`id` WHERE `text` LIKE :search ORDER BY `time` DESC LIMIT 50");
+		$query->bindValue(':search', '%' . $ip . '%');
+		$query->execute() or error(db_error($query));
+		$args['logs'] = $query->fetchAll(PDO::FETCH_ASSOC);
+	} else {
+		$args['logs'] = array();
+	}
+	
+	$args['security_token'] = make_secure_link_token('IP_less/' . $b . '/' . $id);
+	
+	mod_page(sprintf('%s: %s', _('IP'), less_ip($ip)), 'mod/view_ip_less.html', $args, less_hostmask($args['hostname']));
 }
 
 function mod_ban() {
@@ -1417,8 +1521,11 @@ function mod_ban_post($board, $delete, $post, $token = false) {
 		
 		if (isset($_POST['ip']))
 			$ip = $_POST['ip'];
+
+		if (isset($_POST['range']))
+			$ip = $ip . $_POST['range'];
 		
-		Bans::new_ban($_POST['ip'], $_POST['reason'], $_POST['length'], $_POST['board'] == '*' ? false : $_POST['board'],
+		Bans::new_ban($ip, $_POST['reason'], $_POST['length'], $_POST['board'] == '*' ? false : $_POST['board'],
 			false, $config['ban_show_post'] ? $_post : false);
 		
 		if (isset($_POST['public_message'], $_POST['message'])) {

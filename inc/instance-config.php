@@ -77,6 +77,8 @@
 		'<span class="capcode" style="color:brown;font-weight:bold"> <img src="/static/paw.svg" height="12" width="12"> %s</span>',
 	);
 	//$config['mod']['view_banlist'] = SUPERMOD;
+	$config['mod']['show_ip'] = SUPERMOD;
+	$config['mod']['show_ip_less'] = MOD;
 	$config['mod']['manageusers'] = SUPERMOD;
 	$config['mod']['noticeboard_post'] = SUPERMOD;
 	$config['mod']['search'] = SUPERMOD;
