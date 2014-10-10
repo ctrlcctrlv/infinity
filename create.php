@@ -10,9 +10,7 @@ $cbRecaptcha = true;
 include "inc/lib/recaptcha/recaptchalib.php";
 }
 
-
 checkBan('*');
-$bannedWords = array('/^cake$/', '8ch', '/^cp$/', 'child', '/^inc$/', '/^static$/', '/^templates$/', '/^js$/', '/^stylesheets$/', '/^tools$/', '/^pedo$/', '/^reports$/');
 
 $ayah = (($config['ayah_enabled']) ? new AYAH() : false);
 
@@ -78,7 +76,7 @@ foreach (listBoards() as $i => $board) {
 		error(_('Board already exists!'));
 }
 
-foreach ($bannedWords as $i => $w) {
+foreach ($config['banned_boards'] as $i => $w) {
 	if ($w[0] !== '/') {
 		if (strpos($uri,$w) !== false)
 			error(_("Cannot create board with banned word $w"));

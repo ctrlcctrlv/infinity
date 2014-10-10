@@ -46,18 +46,27 @@ $body = <<<EOT
 <li>[tex] tags if enabled by board owner</li>
 </ul>
 
-<h2>Are you really a cripple?</h2>
-<p>Yes.</p>
-
 <h2>How are featured boards chosen?</h2>
 <p>Top fifteen boards excluding /meta/, /b/ and /int/.</p>
 
 <h2>Who owns /meta/, /b/, and /int/?</h2>
 <p>No one, so they are <em>de facto</em> property of the administration.</p>
 
+<h2>Where's the mobile app?</h2>
+<p>There is no official mobile app, however there is an unofficial Android app at <a href="https://github.com/wingy/Exodus/releases">wingy/Exodus</a>.</p>
+
+<p>I don't provide support for this app, ask the developer of it if you have a problem with it.</p>
+
+<h2>Where's the archive?</h2>
+<p>There isn't one yet and there will never be an official archive.</p>
+
 <h2>How do I donate?</h2>
 <p>Donations can be sent to 1NpQaXqmCBji6gfX8UgaQEmEstvVY7U32C (Bitcoin) or LUPgSCJt3iGeJXUETVhmnbQ89Riaq1yjZm (Litecoin). PayPal is also accepted @ fredrick.brennan1@gmail.com .</p>
 <p>You may also donate monthly via Patreon at <a href="http://www.patreon.com/user?u=162165">http://www.patreon.com/user?u=162165</a>.
+
+<h2>Are you really a cripple?</h2>
+<p>Yes.</p>
+
 </div>
 
 EOT;

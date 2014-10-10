@@ -20,6 +20,7 @@ class Twig_Extensions_Extension_Tinyboard extends Twig_Extension
 			new Twig_SimpleFilter('hasPermission', 'twig_hasPermission_filter'),
 			new Twig_SimpleFilter('date', 'twig_date_filter'),
 			new Twig_SimpleFilter('remove_whitespace', 'twig_remove_whitespace_filter'),
+			new Twig_SimpleFilter('less_ip', 'twig_less_ip'),
 			new Twig_SimpleFilter('count', 'count'),
 			new Twig_SimpleFilter('ago', 'ago'),
 			new Twig_SimpleFilter('until', 'until'),
@@ -130,4 +131,7 @@ function twig_secure_link_confirm($text, $title, $confirm_message, $href) {
 }
 function twig_secure_link($href) {
 	return $href . '/' . make_secure_link_token($href);
+}
+function twig_less_ip($ip) {
+	return less_ip($ip);
 }

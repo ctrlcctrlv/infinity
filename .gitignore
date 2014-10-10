@@ -43,3 +43,5 @@ Thumbs.db
 #vichan custom
 favicon.ico
 /static/spoiler.png
+
+/inc/locale/ja_JP/*
