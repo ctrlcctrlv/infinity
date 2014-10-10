@@ -24,23 +24,23 @@
 	</table>
 
 	<table>
-		<tr><th>Country flags</th><td><input type="checkbox" name="country_flags" {% if config.country_flags %}checked{% endif %}></td></tr>
-		<tr><th>Forced anonymous</th><td><input type="checkbox" name="field_disable_name" {% if config.field_disable_name %}checked{% endif %}></td></tr>
-		<tr><th>YouTube/Voocaroo embedding</th><td><input type="checkbox" name="enable_embedding" {% if config.enable_embedding %}checked{% endif %}></td></tr>
-		<tr><th>Require image for OP</th><td><input type="checkbox" name="force_image_op" {% if config.force_image_op %}checked{% endif %}></td></tr>
-		<tr><th>Disable images</th><td><input type="checkbox" name="disable_images" {% if config.disable_images %}checked{% endif %}></td></tr>
-		<tr><th>Poster ID's</th><td><input type="checkbox" name="poster_ids" {% if config.poster_ids %}checked{% endif %}></td></tr>
-		<tr><th>Display SAGE! after saged posts</th><td><input type="checkbox" name="show_sages" {% if config.show_sages %}checked{% endif %}></td></tr>
-		<tr><th>Automatically convert ... to …</th><td><input type="checkbox" name="auto_unicode" {% if config.auto_unicode %}checked{% endif %}></td></tr>
-		<tr><th>No index<br><span class="unimportant">Hide from boards index<br/>and do not index in search engines</span></th><td><input type="checkbox" name="meta_noindex" {% if not board.indexed %}checked{% endif %}></td></tr>
-		<tr><th>Public bans<br><span class="unimportant">Displays your bans for the public</span></th><td><input type="checkbox" name="public_bans" {% if board.public_bans %}checked{% endif %}></td></tr>
-		<tr><th>[code] tags</th><td><input type="checkbox" name="code_tags" {% if 'js/code_tags/run_prettify.js' in config.additional_javascript %}checked{% endif %}></td></tr>
-		<tr><th>Oekaki</th><td><input type="checkbox" name="oekaki" {% if 'js/wpaint.js' in config.additional_javascript %}checked{% endif %}></td></tr>
-		<tr><th>Format math between $$</th><td><input type="checkbox" name="katex" {% if config.katex %}checked{% endif %}></td></tr>
-		<tr><th>Allow SWF uploading</th><td><input type="checkbox" name="allow_flash" {% if 'swf' in config.allowed_ext_files %}checked{% endif %}></td></tr>
-		<tr><th>Enable dice rolling</th><td><input type="checkbox" name="allow_roll" {% if config.allow_roll %}checked{% endif %}></td></tr>
-		<tr><th>Don't allow users to repost images</th><td><input type="checkbox" name="image_reject_repost" {% if config.image_reject_repost %}checked{% endif %}></td></tr>
-		<tr><th>Language<br/><span class="unimportant">To contribute translations, register at <a href="https://www.transifex.com/projects/p/tinyboard-vichan-devel/">Transifex</a></span></th><td>
+		<tr><th>{% trans %}Country flags{% endtrans %}</th><td><input type="checkbox" name="country_flags" {% if config.country_flags %}checked{% endif %}></td></tr>
+		<tr><th>{% trans %}Forced anonymous{% endtrans %}</th><td><input type="checkbox" name="field_disable_name" {% if config.field_disable_name %}checked{% endif %}></td></tr>
+		<tr><th>{% trans %}YouTube/Voocaroo embedding{% endtrans %}</th><td><input type="checkbox" name="enable_embedding" {% if config.enable_embedding %}checked{% endif %}></td></tr>
+		<tr><th>{% trans %}Require image for OP{% endtrans %}</th><td><input type="checkbox" name="force_image_op" {% if config.force_image_op %}checked{% endif %}></td></tr>
+		<tr><th>{% trans %}Disable images{% endtrans %}</th><td><input type="checkbox" name="disable_images" {% if config.disable_images %}checked{% endif %}></td></tr>
+		<tr><th>{% trans %}Poster ID's{% endtrans %}</th><td><input type="checkbox" name="poster_ids" {% if config.poster_ids %}checked{% endif %}></td></tr>
+		<tr><th>{% trans %}Display SAGE! after saged posts{% endtrans %}</th><td><input type="checkbox" name="show_sages" {% if config.show_sages %}checked{% endif %}></td></tr>
+		<tr><th>{% trans %}Automatically convert ... to …{% endtrans %}</th><td><input type="checkbox" name="auto_unicode" {% if config.auto_unicode %}checked{% endif %}></td></tr>
+		<tr><th>{% trans %}No index{% endtrans %}<br><span class="unimportant">{% trans %}Hide from boards index<br/>and do not index in search engines{% endtrans %}</span></th><td><input type="checkbox" name="meta_noindex" {% if not board.indexed %}checked{% endif %}></td></tr>
+		<tr><th>{% trans %}Public bans{% endtrans %}<br><span class="unimportant">{% trans %}Displays your bans for the public{% endtrans %}</span></th><td><input type="checkbox" name="public_bans" {% if board.public_bans %}checked{% endif %}></td></tr>
+		<tr><th>{% trans %}[code] tags{% endtrans %}</th><td><input type="checkbox" name="code_tags" {% if 'js/code_tags/run_prettify.js' in config.additional_javascript %}checked{% endif %}></td></tr>
+		<tr><th>{% trans %}Oekaki{% endtrans %}</th><td><input type="checkbox" name="oekaki" {% if 'js/wpaint.js' in config.additional_javascript %}checked{% endif %}></td></tr>
+		<tr><th>{% trans %}Format math between [tex]{% endtrans %}</th><td><input type="checkbox" name="katex" {% if config.katex %}checked{% endif %}></td></tr>
+		<tr><th>{% trans %}Allow SWF uploading{% endtrans %}</th><td><input type="checkbox" name="allow_flash" {% if 'swf' in config.allowed_ext_files %}checked{% endif %}></td></tr>
+		<tr><th>{% trans %}Enable dice rolling{% endtrans %}</th><td><input type="checkbox" name="allow_roll" {% if config.allow_roll %}checked{% endif %}></td></tr>
+		<tr><th>{% trans %}Don't allow users to repost images{% endtrans %}</th><td><input type="checkbox" name="image_reject_repost" {% if config.image_reject_repost %}checked{% endif %}></td></tr>
+		<tr><th>{% trans %}Language{% endtrans %}<br/><span class="unimportant">{% trans %}To contribute translations, register at <a href="https://www.transifex.com/projects/p/tinyboard-vichan-devel/">Transifex</a>{% endtrans %}</span></th><td>
 		<select name="locale">
 			<option value="en" {% if "en" == config.locale %}selected{% endif %}>en</option>
 			{% for language in languages %}
@@ -49,24 +49,26 @@
 			{% endfor %}
 		</select>
 		</td></tr>
-		<tr><th>Max images per post</th><td><select name="max_images">{% for i in 1..5 %}<option value="{{ i }}" {% if config.max_images == i %} selected {% endif %}>{{ i }}</option>{% endfor %}</select></td></tr>
+		<tr><th>{% trans %}Max images per post{% endtrans %}</th><td><select name="max_images">{% for i in 1..5 %}<option value="{{ i }}" {% if config.max_images == i %} selected {% endif %}>{{ i }}</option>{% endfor %}</select></td></tr>
 	</table>
 
-	<p style="text-align:center"><a href="?/banners/{{board.uri}}">Edit board banners</a></p>
+	<p style="text-align:center"><a href="?/banners/{{board.uri}}">{% trans %}Edit board banners{% endtrans %}</a></p>
 
 	<table>
-		<tr><th>Default poster name</th><td><input type="text" name="anonymous" value="{{config.anonymous|e}}"></td></tr>
-		<tr><th>Board announcement</th><td><input type="text" name="blotter" value="{{config.blotter|e}}" size="75"></td></tr>
-		<tr><th>Rules<br/><span class="unimportant">Allowed tags: p li ol ul strong em u h2<br/>Rules will appear at: <a href="/{{board.uri}}/rules.html">https://8chan.co/{{board.uri}}/rules.html</a></span></th><td><textarea name="rules" style="height:100px;width:500px">{{rules}}</textarea></td><tr>
-		<tr><th>Stylesheet<br/><span class="unimportant">note: does not validate CSS</span></th><td><textarea name="css" style="height:100px;width:500px">{{css}}</textarea></td><tr>
+		<tr><th>{% trans %}Default poster name{% endtrans %}</th><td><input type="text" name="anonymous" value="{{config.anonymous|e}}"></td></tr>
+		<tr><th>{% trans %}Board announcement{% endtrans %}</th><td><input type="text" name="blotter" value="{{config.blotter|e}}" size="75"></td></tr>
+		<tr><th>{% trans %}Rules{% endtrans %}<br/><span class="unimportant">{% trans %}Allowed tags:{% endtrans %} p li ol ul strong em u h2<br/>{% trans %}Rules will appear at:{% endtrans %} <a href="/{{board.uri}}/rules.html">https://8chan.co/{{board.uri}}/rules.html</a></span></th><td><textarea name="rules" style="height:100px;width:500px">{{rules}}</textarea></td><tr>
+		<tr><th>{% trans %}Stylesheet{% endtrans %}<br/><span class="unimportant">{% trans %}note: does not validate CSS{% endtrans %}</span></th><td><textarea name="css" style="height:100px;width:500px">{{css}}</textarea></td><tr>
 	</table>
 
 	<table id="wf">
-		<th colspan="2">Wordfilters</th>
-		<tr><th>Replace</th><th>With</th></tr>
+		<th colspan="2">{% trans %}Wordfilters{% endtrans %}</th>
+		<tr><th>{% trans %}Replace{% endtrans %}</th><th>{% trans %}With{% endtrans %}</th></tr>
 		{% if config.wordfilters %}
 			{% for wf in config.wordfilters %}
-				<tr><td><input name="replace[]" value="{{wf.0|e}}"></td><td><input name="with[]" value="{{wf.1|e}}"></td></tr>
+				{% if wf.0 != '\\rule' %}
+					<tr><td><input name="replace[]" value="{{wf.0|e}}"></td><td><input name="with[]" value="{{wf.1|e}}"></td></tr>
+				{% endif %}
 			{% endfor %}
 		{% else %}
 			<tr><td><input name="replace[]"></td><td><input name="with[]"></td></tr>
@@ -78,7 +80,7 @@
 		<li><input type="submit" value="{% trans 'Save changes' %}"></li>
 		{#
 		{% if mod|hasPermission(config.mod.deleteboard) %}
-			<li><input name="delete" onclick="return confirm('Are you sure you want to permanently delete this board?');" type="submit" value="{% trans 'Delete board' %}"></li>
+			<li><input name="delete" onclick="return confirm({% trans 'Are you sure you want to permanently delete this board?' %});" type="submit" value="{% trans 'Delete board' %}"></li>
 		{% endif %} #}
 	</ul>
 </form>
