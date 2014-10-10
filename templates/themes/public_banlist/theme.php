@@ -16,7 +16,7 @@
 		public static function build($action, $settings) {
 			global $config;
 			
-			if ($action == 'all')
+			if ($action == 'all' || $action == 'bans.html')
 				file_write($config['dir']['home'] . $settings['file_bans'], PBanlist::homepage($settings));
 			
 			if ($action == 'all' || $action == 'bans')
