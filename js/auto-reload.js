@@ -37,7 +37,7 @@ $(document).ready(function(){
 	var countdown_interval;
 
 	// Add an update link
-	$('.boardlist.bottom').prev().after("<span id='updater'><a href='#' id='update_thread' style='padding-left:10px'>["+_("Update")+"]</a> (<input type='checkbox' id='auto_update_status' checked> "+_("Auto")+") <span id='update_secs'></span></span>");
+	$('#thread-links').append("<span id='updater'><a href='#' id='update_thread' style='padding-left:10px'>["+_("Update")+"]</a> (<input type='checkbox' id='auto_update_status' checked> "+_("Auto")+") <span id='update_secs'></span></span>");
 
 	// Grab the settings
 	var settings = new script_settings('auto-reload');
@@ -130,16 +130,16 @@ $(document).ready(function(){
 		clearInterval(countdown_interval);
 	}
 		
-    	var epoch = (new Date).getTime();
-    	var epochold = epoch;
+    	var epoch = Date.now();
+    	var epochold = 0;
     	
 	var timeDiff = function (delay) {
+		epoch = Date.now();
 		if((epoch-epochold) > delay) {
-			epochold = epoch = (new Date).getTime();
+			epochold = epoch;
 			return true;
 		}else{
-			epoch = (new Date).getTime();
-			return;
+			return false;
 		}
 	}
 	
@@ -162,9 +162,9 @@ $(document).ready(function(){
 						new_posts++;
 						loaded_posts++;
 						$(document).trigger('new_post', this);
-						recheck_activated();
 					}
 				});
+				recheck_activated();
 				time_loaded = Date.now(); // interop with watch.js
 				
 				
@@ -201,7 +201,7 @@ $(document).ready(function(){
 						$('#auto_update_status').prop('disabled', true); // disable updates if thread is deleted
 						return;
 					} else {
-						$('#update_secs').text("Error: "+error_text);
+						$('#update_secs').text(error_text ? "Error: "+error_text : "Connection error");
 					}
 				} else if (status_text) {
 					$('#update_secs').text(_("Error: ")+status_text);
