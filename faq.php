@@ -4,6 +4,22 @@ include "inc/functions.php";
 
 $body = <<<EOT
 <div class="ban">
+<h2>What is ∞chan?</h2>
+<p>∞chan allows anyone who wants to to become the owner of their own board. They are given free reign to institute whatever rules they wish on their board, as long as they do not affect the global rules.</p>
+
+<p>The idea of ∞chan is to minimize the trust needed in individual moderators to prevent "do it for free" moderators from accepting bribes (sexual or otherwise) to corrupt the whole site.</p>
+
+<p>The largest board owners are promoted to Global Volunteers. This is devised by an algorithm, but volunteers are only promoted with my express approval.</p>
+
+<p>All new global volunteers are sent a message congratulating them on becoming global volunteers and explaining the position. Gloval volunteers simply delete CP, excessive spam and other illegal content that comes on the server and ban the posting users and their IP ranges.</p>
+
+<p>There is a large penalty for abusing their powers to ban users for other reasons. That penalty is that I will not only remove their global volunteer position, but also commandeer their board. I will then find another suitable owner for it among the board's users and give it to them.</p>
+
+<p>Thus, the only people who can delete content from 8chan.co are those who have a stake in the site itself because they own the boards. Thus, they are not really doing it for free - they are simply protecting their boards by protecting the site as a whole. It is in their interest to keep the site free of illegal content so that their boards stay up. If they abuse their power, the board that they worked hard to create is stripped from them.</p>
+
+<p>This means that there's only one person that needs to be trusted: me. If I could have found a way to remove myself from the trust model, I would have, but that is impossible given someone has to run the server.</p>
+
+
 <h2>Are there any global rules regarding content?</h2>
 <p>Only one:</p>
 <ul>
