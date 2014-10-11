@@ -134,6 +134,7 @@
 	$config['additional_javascript'][] = 'js/inline.js';
 	$config['additional_javascript'][] = 'js/infinite-scroll.js';
 	$config['additional_javascript'][] = 'js/download-original.js';
+	$config['additional_javascript'][] = 'js/thread-watcher.js';
 
 	//$config['font_awesome_css'] = '/netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css';
 	
