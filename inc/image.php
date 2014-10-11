@@ -330,6 +330,7 @@ class ImageConvert extends ImageBase {
 					$convert_args = str_replace('-auto-orient', '', $config['convert_args']);
 				else
 					$convert_args = &$config['convert_args'];
+
 				if (($error = shell_exec_error(($this->gm ? 'gm ' : '') . 'convert ' .
 					sprintf($convert_args,
 						$this->width,
@@ -361,9 +362,9 @@ class ImageConvert extends ImageBase {
 					$this->width,
 					$this->height,
 					escapeshellarg($this->temp)))) || !file_exists($this->temp)) {
-					if (strpos($error, "known incorrect sRGB profile") === "false") {
+					if (strpos($error, "known incorrect sRGB profile") === false) {
 						$this->destroy();
-						error('Failed to resize image!', null, $error);
+						error('Failed to resize image!', null, array('convert_error' => $error));
 					}
 				if (!file_exists($this->temp)) {
 					$this->destroy();
