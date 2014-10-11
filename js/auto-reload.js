@@ -202,7 +202,7 @@ $(document).ready(function(){
 						$('#auto_update_status').prop('disabled', true); // disable updates if thread is deleted
 						return;
 					} else {
-						$('#update_secs').text(error_text ? "Error: "+error_text : "Connection error");
+						$('#update_secs').text(error_text ? _("Error: ")+error_text : _("Connection error"));
 					}
 				} else if (status_text) {
 					$('#update_secs').text(_("Error: ")+status_text);
