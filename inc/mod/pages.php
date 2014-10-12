@@ -892,7 +892,7 @@ function mod_page_ip_less($b, $id) {
 
 		Bans::delete($_POST['ban_id'], true);
 		
-		header('Location: ?/IP/' . $ip . '#bans', true, $config['redirect_http']);
+		header('Location: ?/IP_less/' . $b . '/' . $id . '#bans', true, $config['redirect_http']);
 		return;
 	}
 	
@@ -911,7 +911,7 @@ function mod_page_ip_less($b, $id) {
 		
 		modLog("Added a note for <a href=\"?/IP/{$ip}\">{$ip}</a>");
 		
-		header('Location: ?/IP/' . $ip . '#notes', true, $config['redirect_http']);
+		header('Location: ?/IP_less/' . $b . '/' . $id . '#notes', true, $config['redirect_http']);
 		return;
 	}
 	
@@ -926,7 +926,7 @@ function mod_page_ip_less($b, $id) {
 
 	$query = prepare(sprintf('SELECT * FROM ``posts_%s`` WHERE `ip` = :ip ORDER BY `sticky` DESC, `id` DESC LIMIT :limit', $b));
 	$query->bindValue(':ip', $ip);
-	$query->bindValue(':limit', $config['mod']['ip_recentposts'], PDO::PARAM_INT);
+	$query->bindValue(':limit', $config['mod']['ip_less_recentposts'], PDO::PARAM_INT);
 	$query->execute() or error(db_error($query));
 	
 	while ($post = $query->fetch(PDO::FETCH_ASSOC)) {
