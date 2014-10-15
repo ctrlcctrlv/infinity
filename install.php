@@ -572,7 +572,6 @@ if (file_exists($config['has_installed'])) {
 				`embed` text,
 				`edited_at` DATETIME NULL,
 				PRIMARY KEY (`board`,`id`),
-				UNIQUE KEY `board_id` (`board`,`id`),
 				KEY `thread_id` (`thread`,`id`),
 				KEY `filehash` (`filehash`(40)),
 				KEY `time` (`time`),

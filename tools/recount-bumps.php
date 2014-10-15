@@ -9,12 +9,15 @@ if (!isset ($argv[1])) {
 }
 $board = $argv[1];
 
-$q = query(sprintf("SELECT `id`, `bump`, `time` FROM ``posts``
-                    WHERE `board` = '%s' AND `thread` IS NULL", $board));
+$q = prepare("SELECT `id`, `bump`, `time` FROM ``posts``
+                    WHERE `board` = :board AND `thread` IS NULL");
+$q->bindValue(':board', $board);
+$q->execute();
 while ($val = $q->fetch()) {
-        $lc = prepare(sprintf('SELECT MAX(`time`) AS `aq` FROM ``posts``
-                               WHERE `board` = "%s" AND ((`thread` = :thread and
-			       `email` != "sage" ) OR `id` = :thread', $board));
+        $lc = prepare('SELECT MAX(`time`) AS `aq` FROM ``posts``
+                               WHERE `board` = :board AND ((`thread` = :thread and
+                               `email` != "sage" ) OR `id` = :thread');
+        $lc->bindValue(':board', $board);
 		
 	$lc->bindValue(":thread", $val['id']);
 	$lc->execute();

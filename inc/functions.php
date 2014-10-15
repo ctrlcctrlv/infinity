@@ -744,8 +744,10 @@ function displayBan($ban) {
 
 	if ($ban['post'] && isset($ban['post']['board'], $ban['post']['id'])) {
 		if (openBoard($ban['post']['board'])) {
-			$query = query(sprintf("SELECT `files` FROM ``posts`` WHERE `board` = '%s' AND `id` = " .
-				(int)$ban['post']['id'], $board['uri']));
+			$query = prepare("SELECT `files` FROM ``posts`` WHERE `board` = :board AND `id` = :id");
+			$query->bindValue(':board', $board['uri']);
+			$query->bindValue(':id', (int)$ban['post']['id'], PDO::PARAM_INT);
+			$query->execute() or error(db_error());
 			if ($_post = $query->fetch(PDO::FETCH_ASSOC)) {
 				$ban['post'] = array_merge($ban['post'], $_post);
 			}
@@ -1333,7 +1335,9 @@ function getPages($mod=false) {
 		$count = $board['thread_count'];
 	} else {
 		// Count threads
-		$query = query(sprintf("SELECT COUNT(*) FROM ``posts`` WHERE `thread` IS NULL AND `board` = '%s'", $board['uri'])) or error(db_error());
+		$query = prepare("SELECT COUNT(*) FROM ``posts`` WHERE `thread` IS NULL AND `board` = :board");
+		$query->bindValue(':board', $board['uri']);
+		$query->execute() or error(db_error());
 		$count = $query->fetchColumn();
 	}
 	$count = floor(($config['threads_per_page'] + $count - 1) / $config['threads_per_page']);
@@ -1796,8 +1800,10 @@ function markup(&$body, $track_cites = false) {
 		}
 		$search_cites = array_unique($search_cites);
 		
-		$query = query(sprintf('SELECT `thread`, `id` FROM ``posts`` WHERE `board` = "%s" ' .
-			implode(' OR ', $search_cites), $board['uri'])) or error(db_error());
+		$query = prepare('SELECT `thread`, `id` FROM ``posts`` WHERE `board` = :board ' .
+			implode(' OR ', $search_cites));
+		$query->bindValue(':board', $board['uri']);
+		$query->execute() or error(db_error());
 		
 		$cited_posts = array();
 		while ($cited = $query->fetch(PDO::FETCH_ASSOC)) {
@@ -1881,8 +1887,10 @@ function markup(&$body, $track_cites = false) {
 			if (!empty($clauses)) {
 				$cited_posts[$_board] = array();
 				
-				$query = query(sprintf('SELECT `thread`, `id` FROM ``posts`` WHERE `board` = "%s"' .
-					implode(' OR ', $clauses), $board['uri'])) or error(db_error());
+				$query = prepare('SELECT `thread`, `id` FROM ``posts`` WHERE `board` = :board ' .
+					implode(' OR ', $clauses));
+				$query->bindValue(':board', $board['uri']);
+				$query->execute() or error(db_error());
 				
 				while ($cite = $query->fetch(PDO::FETCH_ASSOC)) {
 					$cited_posts[$_board][$cite['id']] = $config['root'] . $board['dir'] . $config['dir']['res'] .

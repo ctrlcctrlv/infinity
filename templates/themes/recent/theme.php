@@ -38,15 +38,23 @@
 			
 			$boards = listBoards();
 			
-			$query = '';
+			$no_boards = true;
+			$first = true;
+			$query = "SELECT * FROM ``posts`` WHERE (";
 			foreach ($boards as &$_board) {
 				if (in_array($_board['uri'], $this->excluded))
 					continue;
-				$query .= sprintf("SELECT * FROM ``posts`` WHERE `board` = '%s' AND `files` IS NOT NULL UNION ALL ", $_board['uri']);
+				if($first == false) {
+					$query .= ' OR ';
+				}
+				$first = false;
+				$query .= sprintf(" `board` = '%s' ", $_board['uri']);
+
+				$no_boards = false;
 			}
-			$query = preg_replace('/UNION ALL $/', 'ORDER BY `time` DESC LIMIT ' . (int)$settings['limit_images'], $query);
-			
-			if ($query == '') {
+			$query .= ') AND `files` IS NOT NULL ORDER BY `time` DESC LIMIT ' . (int)$settings['limit_images'];
+
+			if ($no_boards) {
 				error(_("Can't build the RecentPosts theme, because there are no boards to be fetched."));
 			}
 
@@ -79,14 +87,20 @@
 				$recent_images[] = $post;
 			}
 			
-			
-			$query = '';
+			$query = "SELECT * FROM ``posts`` WHERE (";
+			$first = true;
 			foreach ($boards as &$_board) {
 				if (in_array($_board['uri'], $this->excluded))
 					continue;
-				$query .= sprintf("SELECT * FROM ``posts`` WHERE `board` = '%s' UNION ALL ", $_board['uri']);
+
+				if($first == false) {
+					$query .= ' OR ';
+				}
+				$first = false;
+				$query .= sprintf(" `board` = '%s' ", $_board['uri']);
 			}
-			$query = preg_replace('/UNION ALL $/', 'ORDER BY `time` DESC LIMIT ' . (int)$settings['limit_posts'], $query);
+			$query .= ') ORDER BY `time` DESC LIMIT ' . (int)$settings['limit_posts'];
+			
 			$query = query($query) or error(db_error());
 			
 			while ($post = $query->fetch(PDO::FETCH_ASSOC)) {

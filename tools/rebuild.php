@@ -81,7 +81,9 @@ foreach($boards as &$board) {
 		continue; // do no more
 	
 	if($options['full']) {
-		$query = query(sprintf("SELECT `id` FROM ``posts`` WHERE `board` = '%s'", $board['uri'])) or error(db_error());
+		$query = prepare("SELECT `id` FROM ``posts`` WHERE `board` = :board");
+		$query->bindValue(':board', $board['uri']);
+		$query->execute() or error(db_error());
 		while($post = $query->fetch()) {
 			if(!$options['quiet'])
 				echo "Rebuilding #{$post['id']}...\n";
@@ -89,7 +91,9 @@ foreach($boards as &$board) {
 		}
 	}
 	
-	$query = query(sprintf("SELECT `id` FROM ``posts`` WHERE `thread` IS NULL AND `board` = '%s'", $board['uri'])) or error(db_error());
+	$query = prepare("SELECT `id` FROM ``posts`` WHERE `thread` IS NULL AND `board` = :board");
+	$query->bindValue(':board', $board['uri']);
+	$query->execute() or error(db_error());
 	while($post = $query->fetch()) {
 		if(!$options['quiet'])
 			echo "Rebuilding #{$post['id']}...\n";

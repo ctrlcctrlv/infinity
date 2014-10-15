@@ -20,7 +20,9 @@ while ($f = $q->fetch()) {
 	printf("%10s || ", $f['uri']);
 	foreach ($variants as $iter) {
 		list($term, $time) = $iter;
-		$qq = query(sprintf("SELECT COUNT(*) as count FROM ``posts`` WHERE `board` = '%s' AND time > %d", $f['uri'], time()-$time));
+		$qq = prepare("SELECT COUNT(*) as count FROM ``posts`` WHERE `board` = :board AND time > :time");
+		$qq->bindValue(':board', $f['uri']);
+		$qq->bindValue(':time', time()-$time);
 		$c = $qq->fetch()['count'];
 
 		printf("%8d | ", $c);

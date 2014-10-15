@@ -39,11 +39,12 @@
 			$recent_posts = array();
 			$stats = array();
 			
-                        $query = query(sprintf("SELECT *, `id` AS `thread_id`,
-				(SELECT COUNT(`id`) FROM ``posts`` WHERE `board` = '%s' AND `thread` = `thread_id`) AS `reply_count`,
-				(SELECT SUM(`num_files`) FROM ``posts`` WHERE `board` = '%s' AND `thread` = `thread_id` AND `num_files` IS NOT NULL) AS `image_count`
-				FROM ``posts`` WHERE `board` = '%s' AND `thread` IS NULL ORDER BY `bump` DESC",
-			$board_name, $board_name, $board_name, $board_name, $board_name)) or error(db_error());
+			$query = prepare("SELECT *, `id` AS `thread_id`,
+				(SELECT COUNT(`id`) FROM ``posts`` WHERE `board` = :board AND `thread` = `thread_id`) AS `reply_count`,
+				(SELECT SUM(`num_files`) FROM ``posts`` WHERE `board` = :board AND `thread` = `thread_id` AND `num_files` IS NOT NULL) AS `image_count`
+				FROM ``posts`` WHERE `board` = :board AND `thread` IS NULL ORDER BY `bump` DESC");
+			$query->bindValue(':board', $board_name);
+			$query->execute() or error(db_error());
 			
 			while ($post = $query->fetch(PDO::FETCH_ASSOC)) {
 				$post['link'] = $config['root'] . $board['dir'] . $config['dir']['res'] . sprintf($config['file_page'], ($post['thread'] ? $post['thread'] : $post['id']));

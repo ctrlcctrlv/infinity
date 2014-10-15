@@ -27,13 +27,26 @@
 				'title' => sprintf($this->settings['subtitle'], $this->settings['thread_limit'])
 			);
 
-			$query = '';
-			foreach($boards as &$_board) {
-				if(in_array($_board['uri'], explode(' ', $this->settings['exclude'])))
-					continue;
-				$query .= sprintf("SELECT * FROM ``posts`` WHERE `board` = '%s' AND `thread` IS NULL UNION ALL ", $_board['uri']);
+			$query = 'SELECT * FROM ``posts`` WHERE ';
+			if($this->settings['exclude'] != '') {
+				$query .= '( ';
 			}
-			$query = preg_replace('/UNION ALL $/', 'ORDER BY `bump` DESC', $query);
+			$first = true;
+			# It uses `board` != '%s' instead of `board` = '%s' because I'm assuming we
+			# don't want a query with >3000 comparisons
+			foreach ($boards as &$_board) {
+				if (in_array($_board['uri'], explode(' ', $this->settings['exclude']))) {
+					if($first == false) {
+						$query .= ' OR ';
+					}
+					$first = false;
+					$query .= sprintf(" `board` != '%s' ", $_board['uri']);
+				}
+			}
+			if($this->settings['exclude'] != '') {
+				$query .= ') AND ';
+			}
+			$query .= ' `thread` IS NULL ORDER BY `bump` DESC';
 			$query = query($query) or error(db_error());
 
 			$count = 0;

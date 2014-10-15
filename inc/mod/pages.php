@@ -271,26 +271,35 @@ function mod_search($type, $search_query_escaped, $page_no = 1) {
 	// Compile SQL query
 	
 	if ($type == 'posts') {
-		$query = '';
+		$query = 'SELECT * FROM ``posts`` WHERE ';
 		$boards = listBoards();
 		if (empty($boards))
 			error(_('There are no boards to search!'));
 			
+		$sql_boards = '(';
+		$allowed_boards = false;
+		$first = true;
 		foreach ($boards as $board) {
 			openBoard($board['uri']);
-			if (!hasPermission($config['mod']['search_posts'], $board['uri']))
+			if (!hasPermission($config['mod']['search_posts'], $board['uri'])) {
 				continue;
-			
-			if (!empty($query))
-				$query .= ' UNION ALL ';
-			$query .= sprintf("SELECT * FROM ``posts`` WHERE `board` = '%s' AND %s", $board['uri'], $sql_like);
+			}
+
+			if($first) {
+				$sql_boards .= sprintf(" `board` = '%s' ", $board['uri']);
+			} else {
+				$sql_boards .= sprintf(" OR `board` = '%s' ", $board['uri']);
+			}
+			$first = false;
+			$allowed_boards = true;
 		}
+		$sql_boards .= ") AND ";
 		
 		// You weren't allowed to search any boards
-		if (empty($query))
+		if ($allowed_boards == false)
 				error($config['error']['noaccess']);
 		
-		$query .= ' ORDER BY `sticky` DESC, `id` DESC';
+		$query .= $sql_boards . $sql_like . ' ORDER BY `sticky` DESC, `id` DESC';
 	}
 	
 	if ($type == 'IP_notes') {
@@ -498,7 +507,7 @@ function mod_new_board() {
 			error(sprintf($config['error']['boardexists'], $board['url']));
 		}
 		
-		$query = prepare('INSERT INTO ``boards`` VALUES (:uri, :title, :subtitle)');
+		$query = prepare('INSERT INTO ``boards`` (`uri`, `title`, `subtitle`) VALUES (:uri, :title, :subtitle)');
 		$query->bindValue(':uri', $_POST['uri']);
 		$query->bindValue(':title', $_POST['title']);
 		$query->bindValue(':subtitle', $_POST['subtitle']);
@@ -1081,8 +1090,10 @@ function mod_ban_appeals() {
 		
 		if ($ban['post'] && isset($ban['post']['board'], $ban['post']['id'])) {
 			if (openBoard($ban['post']['board'])) {
-				$query = query(sprintf("SELECT `num_files`, `files` FROM ``posts`` WHERE `board` = '%s' AND `id` = " .
-					(int)$ban['post']['id'], $board['uri']));
+				$query = prepare("SELECT `num_files`, `files` FROM ``posts`` WHERE `board` = :board AND `id` = :id");
+				$query->bindValue(':board', $board['uri']);
+				$query->bindValue(':id', (int)$ban['post']['id']);
+				$query->execute() or error(db_error());
 				if ($_post = $query->fetch(PDO::FETCH_ASSOC)) {
 					$_post['files'] = $_post['files'] ? json_decode($_post['files']) : array();
 					$ban['post'] = array_merge($ban['post'], $_post);
@@ -1755,12 +1766,25 @@ function mod_deletebyip($boardName, $post, $global = false) {
 	
 	$boards = $global ? listBoards() : array(array('uri' => $boardName));
 	
-	$query = '';
-	foreach ($boards as $_board) {
-		$query .= sprintf("SELECT `thread`, `id` FROM ``posts`` WHERE `board` = '%s' AND `ip` = :ip UNION ALL ", $_board['uri']);
+	$query = 'SELECT `thread`, `id` FROM ``posts`` WHERE ';
+
+	if($global) {
+		$sql_boards = '';
+	} else {
+		$sql_boards = '(';
+		$first = true;
+		foreach ($boards as $_board) {
+			if($first) {
+				$sql_boards .= sprintf(" `board` = '%s' ", $_board['uri']);
+			} else {
+				$sql_boards .= sprintf(" OR `board` = '%s' ", $_board['uri']);
+			}
+			$first = false;
+		}
+		$sql_boards .= ") AND ";
 	}
-	$query = preg_replace('/UNION ALL $/', '', $query);
-	
+
+	$query .= $sql_boards . " `ip` = :ip";
 	$query = prepare($query);
 	$query->bindValue(':ip', $ip);
 	$query->execute() or error(db_error($query));
@@ -2251,7 +2275,9 @@ function mod_rebuild() {
 			}
 			
 			if (isset($_POST['rebuild_thread'])) {
-				$query = query(sprintf("SELECT `id` FROM ``posts`` WHERE `board` = '%s' AND `thread` IS NULL", $board['uri'])) or error(db_error());
+				$query = prepare("SELECT `id` FROM ``posts`` WHERE `board` = :board AND `thread` IS NULL");
+				$query->bindValue(':board', $board['uri']);
+				$query->execute() or error(db_error());
 				while ($post = $query->fetch(PDO::FETCH_ASSOC)) {
 					$log[] = '<strong>' . sprintf($config['board_abbreviation'], $board['uri']) . '</strong>: Rebuilding thread #' . $post['id'];
 					buildThread($post['id']);
@@ -2303,7 +2329,9 @@ function mod_reports($global = false) {
 	foreach ($report_queries as $board => $posts) {
 		$report_posts[$board] = array();
 		
-		$query = query(sprintf('SELECT * FROM ``posts`` WHERE `board` = "%s" AND `id` = ' . implode(' OR `id` = ', $posts), $board)) or error(db_error());
+		$query = prepare('SELECT * FROM ``posts`` WHERE `board` = :board AND `id` = ' . implode(' OR `id` = ', $posts));
+		$query->bindValue(':board', $board);
+		$query->execute() or error(db_error());
 		while ($post = $query->fetch(PDO::FETCH_ASSOC)) {
 			$report_posts[$board][$post['id']] = $post;
 		}
@@ -2418,17 +2446,24 @@ function mod_recent_posts($lim) {
 			if (in_array($board['uri'], $mod['boards']))
 				$mod_boards[] = $board;
 		}
+    $allboards = false;
 	} else {
 		$mod_boards = $boards;
+    $all_boards = true;
 	}
 
 	// Manually build an SQL query
-	$query = 'SELECT * FROM (';
-	foreach ($mod_boards as $board) {
-		$query .= sprintf('SELECT * FROM ``posts`` WHERE `board` = "%s" UNION ALL ', $board['uri']);
+	$query = 'SELECT * FROM ``posts`` WHERE ';
+	if(!$all_boards) {
+		$boards_uris = array();
+		foreach($mod_boards as $_board) {
+			$boards_uris[] = "'" . $_board['uri'] . "'";
+		}
+		$query .= ' (`board` = ';
+		$query .= implode(' OR `board` = ', $boards_uris);
+		$query .= ') AND ';
 	}
-	// Remove the last "UNION ALL" seperator and complete the query
-	$query = preg_replace('/UNION ALL $/', ') AS `all_posts` WHERE (`time` < :last_time OR NOT :last_time) ORDER BY `time` DESC LIMIT ' . $limit, $query);
+	$query .= ' (`time` < :last_time OR NOT :last_time) ORDER BY `time` DESC LIMIT ' . $limit;
 	$query = prepare($query);
 	$query->bindValue(':last_time', $last_time);
 	$query->execute() or error(db_error($query));
@@ -2785,12 +2820,7 @@ function mod_debug_recent_posts() {
 	$boards = listBoards();
 	
 	// Manually build an SQL query
-	$query = 'SELECT * FROM (';
-	foreach ($boards as $board) {
-		$query .= sprintf('SELECT * FROM ``posts`` WHERE `board` = %s UNION ALL ', $pdo->quote($board['uri']));
-	}
-	// Remove the last "UNION ALL" seperator and complete the query
-	$query = preg_replace('/UNION ALL $/', ') AS `all_posts` ORDER BY `time` DESC LIMIT ' . $limit, $query);
+	$query = 'SELECT * FROM ``posts`` ORDER BY `time` DESC LIMIT ' . $limit;
 	$query = query($query) or error(db_error());
 	$posts = $query->fetchAll(PDO::FETCH_ASSOC);
 	

@@ -26,7 +26,9 @@
 		$threads = array();
 		
 		foreach ($boards as $board) {
-			$query = query(sprintf("SELECT `id` AS `thread_id`, (SELECT `time` FROM ``posts`` WHERE `board` = '%s' AND`thread` = `thread_id` OR `id` = `thread_id` ORDER BY `time` DESC LIMIT 1) AS `lastmod` FROM ``posts`` WHERE `board` = '%s' AND`thread` IS NULL", $board, $board)) or error(db_error());
+			$query = prepare("SELECT `id` AS `thread_id`, (SELECT `time` FROM ``posts`` WHERE `board` = :board AND`thread` = `thread_id` OR `id` = `thread_id` ORDER BY `time` DESC LIMIT 1) AS `lastmod` FROM ``posts`` WHERE `board` = :board AND`thread` IS NULL");
+			$query->bindValue(':board', $board);
+			$query->execute() or error(db_error());
 			$threads[$board] = $query->fetchAll(PDO::FETCH_ASSOC);
 		}
 				
