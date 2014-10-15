@@ -11,7 +11,7 @@ $body = <<<EOT
 
 <p>The largest board owners are promoted to Global Volunteers. This is devised by an algorithm, but volunteers are only promoted with my express approval.</p>
 
-<p>All new global volunteers are sent a message congratulating them on becoming global volunteers and explaining the position. Gloval volunteers simply delete CP, excessive spam and other illegal content that comes on the server and ban the posting users and their IP ranges.</p>
+<p>All new global volunteers are sent a message congratulating them on becoming global volunteers and explaining the position. Global volunteers simply delete CP, excessive spam and other illegal content that comes on the server and ban the posting users and their IP ranges.</p>
 
 <p>There is a large penalty for abusing their powers to ban users for other reasons. That penalty is that I will not only remove their global volunteer position, but also commandeer their board. I will then find another suitable owner for it among the board's users and give it to them.</p>
 
