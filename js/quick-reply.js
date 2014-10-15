@@ -294,6 +294,8 @@
 		
 		$postForm.appendTo($('body')).hide();
 		$origPostForm = $('form[name="post"]:first');
+        
+        $postForm.prependChild($dummyStuff); //Anti-autofill features in Chrome were not working because the nonsense div was the last element in the <form>
 		
 		// Synchronise body text with original post form
 		$origPostForm.find('textarea[name="body"]').on('change input propertychange', function() {
