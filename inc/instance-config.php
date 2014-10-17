@@ -87,6 +87,7 @@
 	$config['mod']['modlog'] = SUPERMOD;
 	$config['mod']['editpost'] = MOD;
 	$config['mod']['recent_reports'] = 65535;
+	$config['mod']['ip_less_recentposts'] = 75;
 	$config['ban_show_post'] = true;
 
 	// Board shit
