@@ -496,7 +496,7 @@ function mod_new_board() {
 			error(sprintf($config['error']['boardexists'], $board['url']));
 		}
 		
-		$query = prepare('INSERT INTO ``boards`` VALUES (:uri, :title, :subtitle)');
+		$query = prepare('INSERT INTO ``boards`` (``uri``, ``title``, ``subtitle``) VALUES (:uri, :title, :subtitle)');
 		$query->bindValue(':uri', $_POST['uri']);
 		$query->bindValue(':title', $_POST['title']);
 		$query->bindValue(':subtitle', $_POST['subtitle']);

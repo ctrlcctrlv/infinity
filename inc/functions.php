@@ -894,10 +894,14 @@ function insertFloodPost(array $post) {
 	$query->bindValue(':board', $board['uri']);
 	$query->bindValue(':time', time());
 	$query->bindValue(':posthash', make_comment_hex($post['body_nomarkup']));
-	if ($post['has_file'])
+	
+	if ($post['has_file']) {
 		$query->bindValue(':filehash', $post['filehash']);
-	else
+	}
+	else {
 		$query->bindValue(':filehash', null, PDO::PARAM_NULL);
+	}
+	
 	$query->bindValue(':isreply', !$post['op'], PDO::PARAM_INT);
 	$query->execute() or error(db_error($query));
 }
@@ -2318,24 +2322,38 @@ function DNS($host) {
 
 function shell_exec_error($command, $suppress_stdout = false) {
 	global $config, $debug;
-
-	if ($config['debug'])
+	
+	if( $config['debug'] ) {
+		$which = microtime(true);
+	}
+	
+	// Determine if $command is a valid command. If we don't, the following is considered valid output.
+	// '$command' is not recognized as an internal or external command, operable program or batch file.
+	if( empty( shell_exec("which $command") ) ) {
+		return false;
+	}
+	
+	if( $config['debug'] ) {
 		$start = microtime(true);
-
+	}
+	
+	
 	$return = trim(shell_exec('PATH="' . escapeshellcmd($config['shell_path']) . ':$PATH";' .
 		$command . ' 2>&1 ' . ($suppress_stdout ? '> /dev/null ' : '') . '&& echo "TB_SUCCESS"'));
 	$return = preg_replace('/TB_SUCCESS$/', '', $return);
-
-	if ($config['debug']) {
-		$time = microtime(true) - $start;
+	
+	if( $config['debug'] ) {
+		$time_which = $start - $which;
+		$time       = microtime(true) - $start;
+		
 		$debug['exec'][] = array(
-			'command' => $command,
-			'time' => '~' . round($time * 1000, 2) . 'ms',
+			'command'  => $command,
+			'time'     => '~' . round($time * 1000, 2) . 'ms + ~' . round($time_which * 1000, 2) . 'ms',
 			'response' => $return ? $return : null
 		);
 		$debug['time']['exec'] += $time;
 	}
-
+	
 	return $return === 'TB_SUCCESS' ? false : $return;
 }
 

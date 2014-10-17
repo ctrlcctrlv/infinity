@@ -2,10 +2,13 @@
 /*
  *  Copyright (c) 2010-2014 Tinyboard Development Group
  */
+ 
+require "./inc/functions.php";
+require "./inc/anti-bot.php";
 
-require 'inc/functions.php';
-require 'inc/anti-bot.php';
-include "inc/dnsbls.php";
+// The dnsbls is an optional DNS blacklist include.
+// Squelch warnings if it doesn't exist.
+@include "./inc/dnsbls.php";
 
 // Fix for magic quotes
 if (get_magic_quotes_gpc()) {
@@ -573,14 +576,16 @@ if (isset($_POST['delete'])) {
 		}
 		
 		$md5cmd = $config['bsd_md5'] ? 'md5 -r' : 'md5sum';
-
-		if ($output = shell_exec_error("cat $filenames | $md5cmd")) {
+		
+		if( ($output = shell_exec_error("cat $filenames | $md5cmd")) !== false ) {
 			$explodedvar = explode(' ', $output);
 			$hash = $explodedvar[0];
 			$post['filehash'] = $hash;
-		} elseif ($config['max_images'] === 1) {
+		}
+		elseif ($config['max_images'] === 1) {
 			$post['filehash'] = md5_file($upload);
-		} else {
+		}
+		else {
 			$str_to_hash = '';
 			foreach (explode(' ', $filenames) as $i => $f) {
 				$str_to_hash .= file_get_contents($f);
