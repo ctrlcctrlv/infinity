@@ -362,14 +362,15 @@ class ImageConvert extends ImageBase {
 					$this->width,
 					$this->height,
 					escapeshellarg($this->temp)))) || !file_exists($this->temp)) {
+
 					if (strpos($error, "known incorrect sRGB profile") === false) {
 						$this->destroy();
 						error('Failed to resize image!', null, array('convert_error' => $error));
 					}
-				if (!file_exists($this->temp)) {
-					$this->destroy();
-					error(_('Failed to resize image!'), null, $error);
-				}
+					if (!file_exists($this->temp)) {
+						$this->destroy();
+						error(_('Failed to resize image!'), null, $error);
+					}
 			}
 			if ($size = $this->get_size($this->temp)) {
 				$this->width = $size[0];
