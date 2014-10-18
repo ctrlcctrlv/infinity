@@ -103,7 +103,7 @@
 					</tr>
 					<tr>
 						<th>{% trans 'IP' %}</th>
-						<td>{{ ban.mask }}</td>
+						<td>{{ ban.mask|less_ip }}</td>
 					</tr>
 					<tr>
 						<th>{% trans 'Reason' %}</th>

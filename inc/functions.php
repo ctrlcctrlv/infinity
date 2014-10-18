@@ -2409,6 +2409,13 @@ function diceRoller($post) {
 
 function less_ip($ip) {
 	$ipv6 = (strstr($ip, ':') !== false);
+	$has_range = (strstr($ip, '/') !== false);
+
+	if ($has_range) {
+		$ip_a = explode('/', $ip);
+		$ip = $ip_a[0];
+		$range = $ip_a[1];
+	}
 
 	$in_addr = inet_pton($ip);
 
@@ -2420,7 +2427,7 @@ function less_ip($ip) {
 	}
 
 	$final = inet_ntop($in_addr & $mask);
-	return str_replace(array(':0', '.0'), array(':x', '.x'), $final);
+	return str_replace(array(':0', '.0'), array(':x', '.x'), $final) . (isset($range) ? '/'.$range : '');
 }
 
 function less_hostmask($hostmask) {

@@ -1,4 +1,4 @@
-{% if config.poster_ids or mod %}
+{% if config.poster_ids or (mod|hasPermission(config.mod.show_ip_less, board.uri)) %}
 	{% if post.thread %}
 		 ID: <span class="poster_id">{{ poster_id(post.ip, post.thread, board.uri) }}</span>
 	{% else %}
