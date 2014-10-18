@@ -355,13 +355,22 @@ EOT;
 			file_write('stylesheets/board/'.$b.'.css', $_POST['css']);
 			file_write($b.'/rules.html', Element('page.html', array('title'=>'Rules', 'subtitle'=>'', 'config'=>$config, 'body'=>'<div class="ban">'.purify($_POST['rules']).'</div>')));
 			file_write($b.'/rules.txt', $_POST['rules']);
+
+			$_config = $config;
+
 			openBoard($b);
-			buildIndex();
-			buildJavascript();
-			$query = query(sprintf("SELECT `id` FROM ``posts_%s`` WHERE `thread` IS NULL", $b)) or error(db_error());
-			while ($post = $query->fetch(PDO::FETCH_ASSOC)) {
-				buildThread($post['id']);
+
+			// be smarter about rebuilds...only some changes really require us to rebuild all threads
+			if ($_config['blotter'] != $config['blotter'] || $_config['field_disable_name'] != $config['field_disable_name'] || $_config['show_sages'] != $config['show_sages']) {
+				buildIndex();
+				$query = query(sprintf("SELECT `id` FROM ``posts_%s`` WHERE `thread` IS NULL", $b)) or error(db_error());
+				while ($post = $query->fetch(PDO::FETCH_ASSOC)) {
+					buildThread($post['id']);
+				}
 			}
+		
+			buildJavascript();
+
 			modLog('Edited board settings', $b);
 		}
 
