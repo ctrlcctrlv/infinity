@@ -87,6 +87,7 @@
 	$config['mod']['modlog'] = SUPERMOD;
 	$config['mod']['editpost'] = MOD;
 	$config['mod']['recent_reports'] = 65535;
+	$config['mod']['ip_less_recentposts'] = 75;
 	$config['ban_show_post'] = true;
 
 	// Board shit
@@ -145,6 +146,7 @@
 	$config['markup'][] = array("/^[ |\t]*==(.+?)==[ |\t]*$/m", "<span class=\"heading\">\$1</span>");
 	$config['markup'][] = array("/\[spoiler\](.+?)\[\/spoiler\]/", "<span class=\"spoiler\">\$1</span>");
 	$config['markup'][] = array("/~~(.+?)~~/", "<s>\$1</s>");
+	$config['markup'][] = array("/__(.+?)__/", "<u>\$1</u>");
 
 	$config['boards'] = array(array('<i class="fa fa-home" title="Home"></i>' => '/', '<i class="fa fa-tags" title="Boards"></i>' => '/boards.html', '<i class="fa fa-question" title="FAQ"></i>' => '/faq.html', '<i class="fa fa-random" title="Random"></i>' => '/random.php', '<i class="fa fa-plus" title="New board"></i>' => '/create.php', '<i class="fa fa-ban" title="Public ban list"></i>' => '/bans.html', '<i class="fa fa-search" title="Search"></i>' => '/search.php', '<i class="fa fa-cog" title="Manage board"></i>' => '/mod.php', '<i class="fa fa-quote-right" title="Chat"></i>' => 'https://qchat.rizon.net/?channels=#8chan'), array('b', 'meta', 'int'), array('<i class="fa fa-twitter" title="Twitter"></i>'=>'https://twitter.com/infinitechan'));
 	//$config['boards'] = array(array('<i class="fa fa-home" title="Home"></i>' => '/', '<i class="fa fa-tags" title="Boards"></i>' => '/boards.html', '<i class="fa fa-question" title="FAQ"></i>' => '/faq.html', '<i class="fa fa-random" title="Random"></i>' => '/random.php', '<i class="fa fa-plus" title="New board"></i>' => '/create.php', '<i class="fa fa-search" title="Search"></i>' => '/search.php', '<i class="fa fa-cog" title="Manage board"></i>' => '/mod.php', '<i class="fa fa-quote-right" title="Chat"></i>' => 'https://qchat.rizon.net/?channels=#8chan'), array('b', 'meta', 'int'), array('v', 'a', 'tg', 'fit', 'pol', 'tech', 'mu', 'co', 'sp', 'boards'), array('<i class="fa fa-twitter" title="Twitter"></i>'=>'https://twitter.com/infinitechan'));
@@ -314,14 +316,14 @@ OEKAKI;
 			if (!(strlen($subtitle) < 200))
 				error('Invalid subtitle');
 
-			$query = prepare('UPDATE ``boards`` SET `title` = :title, `subtitle` = :subtitle, `indexed` = :indexed, `public_bans` = :public_bans WHERE `uri` = :uri');
+			$query = prepare('UPDATE ``boards`` SET `title` = :title, `subtitle` = :subtitle, `indexed` = :indexed, `public_bans` = :public_bans, `8archive` = :8archive WHERE `uri` = :uri');
 			$query->bindValue(':title', $title);
 			$query->bindValue(':subtitle', $subtitle);
 			$query->bindValue(':uri', $b);
 			$query->bindValue(':indexed', !isset($_POST['meta_noindex']));
 			$query->bindValue(':public_bans', isset($_POST['public_bans']));
+			$query->bindValue(':8archive', isset($_POST['8archive']));
 			$query->execute() or error(db_error($query));
-
 
 			$config_file = <<<EOT
 <?php
@@ -347,17 +349,28 @@ $locale
 $add_to_config
 EOT;
 
+			$query = query('SELECT `uri`, `title`, `subtitle` FROM ``boards`` WHERE `8archive` = TRUE');
+			file_write('8archive.json', json_encode($query->fetchAll(PDO::FETCH_ASSOC)));
 			file_write($b.'/config.php', $config_file);
 			file_write('stylesheets/board/'.$b.'.css', $_POST['css']);
 			file_write($b.'/rules.html', Element('page.html', array('title'=>'Rules', 'subtitle'=>'', 'config'=>$config, 'body'=>'<div class="ban">'.purify($_POST['rules']).'</div>')));
 			file_write($b.'/rules.txt', $_POST['rules']);
+
+			$_config = $config;
+
 			openBoard($b);
-			buildIndex();
-			buildJavascript();
-			$query = query(sprintf("SELECT `id` FROM ``posts_%s`` WHERE `thread` IS NULL", $b)) or error(db_error());
-			while ($post = $query->fetch(PDO::FETCH_ASSOC)) {
-				buildThread($post['id']);
+
+			// be smarter about rebuilds...only some changes really require us to rebuild all threads
+			if ($_config['blotter'] != $config['blotter'] || $_config['field_disable_name'] != $config['field_disable_name'] || $_config['show_sages'] != $config['show_sages']) {
+				buildIndex();
+				$query = query(sprintf("SELECT `id` FROM ``posts_%s`` WHERE `thread` IS NULL", $b)) or error(db_error());
+				while ($post = $query->fetch(PDO::FETCH_ASSOC)) {
+					buildThread($post['id']);
+				}
 			}
+		
+			buildJavascript();
+
 			modLog('Edited board settings', $b);
 		}
 

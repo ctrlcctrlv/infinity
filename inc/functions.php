@@ -680,7 +680,7 @@ function listBoards($just_uri = false, $indexed_only = false) {
 
 	if (!$just_uri) {
 		$query = query("SELECT ``boards``.`uri` uri, ``boards``.`title` title, ``boards``.`subtitle` subtitle, ``board_create``.`time` time, ``boards``.`indexed` indexed FROM ``boards``" . ( $indexed_only ? " WHERE `indexed` = 1 " : "" ) . "LEFT JOIN ``board_create`` ON ``boards``.`uri` = ``board_create``.`uri` ORDER BY ``boards``.`uri`") or error(db_error());
-		$boards = $query->fetchAll();
+		$boards = $query->fetchAll(PDO::FETCH_ASSOC);
 	} else {
 		$boards = array();
 		$query = query("SELECT `uri` FROM ``boards``" . ( $indexed_only ? " WHERE `indexed` = 1" : "" ) . " ORDER BY ``boards``.`uri`") or error(db_error());

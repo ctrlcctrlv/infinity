@@ -7,7 +7,7 @@
  *   $config['additional_javascript'][] = 'js/jquery.min.js';
  *   $config['additional_javascript'][] = 'js/katex-enable.js';
  */
-
+/*
 function render_katex(el) {
 	try {
 		katex.render($(el).text(), el)
@@ -32,3 +32,4 @@ if (active_page == 'thread' || active_page == 'index') {
 		});
 	});
 }
+*/
