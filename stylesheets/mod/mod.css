@@ -1,0 +1,51 @@
+.mod-reports {
+	display: block;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+	.mod-report {
+		border: none;
+		border-bottom: 1px solid #B7C5D9;
+		clear: left;
+		
+		margin: 0 0 0.5em 0;
+		padding: 0 0 0.5em 0;
+	}
+	.mod-report:last-child {
+		border-bottom: none;
+	}
+
+.report-list {
+	display: block;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+	.report-item {
+		display: inline-block;
+		margin: 0;
+		padding: 0;
+	}
+		.report-item .report {
+			background: #D6DAF0;
+			margin: 0.2em 4px;
+			padding: 0.2em 0.3em 0.5em 0.6em;
+			border-width: 1px;
+			border-style: none solid solid none;
+			border-color: #B7C5D9;
+			display: inline-block;
+			max-width: 94% !important;
+		}
+
+.report-content div.post.reply,
+.report-content div.thread {
+	background: #FFC4C4;
+	margin: 0.2em 4px;
+	padding: 0.2em 0.3em 0.5em 0.6em;
+	border-width: 1px;
+	border-style: none solid solid none;
+	border-color: #F88;
+	display: inline-block;
+	max-width: 94% !important;
+}
