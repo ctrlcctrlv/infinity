@@ -1388,6 +1388,10 @@
 	$config['mod']['reports'] = JANITOR;
 	// Dismiss an abuse report
 	$config['mod']['report_dismiss'] = JANITOR;
+	// Remove global status from a report
+	$config['mod']['report_demote'] = JANITOR;
+	// Elevate a global report to a local report.
+	$config['mod']['report_promote'] = JANITOR;
 	// Dismiss all abuse reports by an IP
 	$config['mod']['report_dismiss_ip'] = JANITOR;
 	// View list of bans

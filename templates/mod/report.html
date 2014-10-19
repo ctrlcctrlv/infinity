@@ -1,26 +1,52 @@
 <li class="report-item">
 	<div class="report">
-		{% trans 'Board' %}: <a href="?/{{ report.board }}/{{ config.file_index }}">{{ config.board_abbreviation|sprintf(report.board) }}</a>
-		<br>
-		{% trans 'Reason' %}: {{ report.reason }}
-		<br>
-		{% trans 'Report date' %}: {{ report.time|date(config.post_date) }}
-		<br>
-		{% if mod|hasPermission(config.mod.show_ip, report.board) %}
-			{% trans 'Reported by' %}: <a href="?/IP/{{ report.ip }}">{{ report.ip }}</a>
-			<br>
-		{% endif %}
+		<span class="report-reason">{% if report.reason %}{{ report.reason }}{% else %}<em>{% trans 'No reason given.' %}</em>{% endif %}</span>
+		
+		<ul class="report-details">
+			<li class="report-detail detail-date">
+				<span class="detail-name">{% trans 'Report date' %}:</span>
+				<span class="detail-value">{{ report.time|date(config.post_date) }}</span>
+			</li>
+			
+			{% if mod|hasPermission(config.mod.show_ip, report.board) %}
+			<li class="report-detail detail-date">
+				<span class="detail-name">{% trans 'Reported by' %}:</span>
+				<span class="detail-value"><a href="?/IP/{{ report.ip }}">{{ report.ip }}</a></span>
+			</li>
+			{% endif %}
+		</ul>
+		
 		{% if mod|hasPermission(config.mod.report_dismiss, report.board) or mod|hasPermission(config.mod.report_dismiss_ip, report.board) %}
-			<hr>
+		<ul class="report-actions">
 			{% if mod|hasPermission(config.mod.report_dismiss, report.board) %}
-				<a title="{% trans 'Discard abuse report' %}" href="?/reports/{{ report.id }}/dismiss/{{ token }}">Dismiss</a>
+			<li class="report-action">
+				<a class="action-item action-available" title="{% trans 'Discard abuse report' %}" href="?/reports/{{ report.id }}/dismiss/{{ token_dismiss }}">Dismiss</a>
+			</li>
 			{% endif %}
+			
 			{% if mod|hasPermission(config.mod.report_dismiss_ip, report.board) %}
-				{% if mod|hasPermission(config.mod.report_dismiss, report.board) %}
-				 | 
-				{% endif %}
-				<a title="{% trans 'Discard all abuse reports by this IP address' %}" href="?/reports/{{ report.id }}/dismissall/{{ token_all }}">Dismiss+</a>
+			<li class="report-action">
+				<a class="action-item action-available" title="{% trans 'Discard all abuse reports by this IP address' %}" href="?/reports/{{ report.id }}/dismissall/{{ token_ip }}">Dismiss+</a>
+			</li>
 			{% endif %}
+			
+			{% if global and mod|hasPermission(config.mod.report_demote, report.board) %}
+			<li class="report-action">
+				{% if report.local %}
+				<a class="action-item action-available" title="{% trans 'Demote global abuse report to a local report' %}" href="?/reports/{{ report.id }}/demote/{{ token_demote }}">Demote</a>
+				{% else %}
+				<span class="action-item action-unavailable" title="{% trans 'Report has already been dismissed locally' %}">Demote</span>
+				{% endif %}
+			</li>
+			{% elseif not global and mod|hasPermission(config.mod.report_promote, report.board) %}
+			<li class="report-action">
+				{% if report.global %}
+				<span class="action-item action-unavailable" title="{% trans 'Report is already a global report' %}">Promote</span>
+				{% else %}
+				<a class="action-item action-available" title="{% trans 'Promote local abuse report to a global report' %}" href="?/reports/{{ report.id }}/promote/{{ token_promote }}">Promote</a>
+				{% endif %}
+			</li>
+			{% endif %}
+		</ul>
 		{% endif %}
-	</div>
 </li>

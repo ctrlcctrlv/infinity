@@ -2266,16 +2266,18 @@ function mod_reports($global = false) {
 	if ($mod['type'] == '20' and $global)
 		error($config['error']['noaccess']);
 	
-	// Get REPORTS.
-	$query = prepare("SELECT * FROM ``reports`` " . ($mod["type"] == "20" ? "WHERE board = :board" : "") . " ORDER BY `time` DESC LIMIT :limit");
-	if ($mod['type'] == '20')
-		$query->bindValue(':board', $mod['boards'][0]);
-
-	if ($global) {
-		$query = prepare("SELECT * FROM ``reports`` WHERE global = TRUE ORDER BY `time` DESC LIMIT :limit");
-	}
+	// Limit reports to ONLY those in our scope.
+	$report_scope = $global ? "global" : "local";
 	
-	$query->bindValue(':limit', $config['mod']['recent_reports'], PDO::PARAM_INT);
+	// Get REPORTS.
+	$query = prepare("SELECT * FROM ``reports`` " . ($mod["type"] == "20" ? "WHERE board = :board" : "") . " WHERE ``{$report_scope}``=TRUE  LIMIT :limit");
+	
+	// Limit reports by board if the moderator is local.
+	if( $mod['type'] == '20' )
+		$query->bindValue(':board', $mod['boards'][0]);
+	
+	// Limit by config ceiling.
+	$query->bindValue( ':limit', $config['mod']['recent_reports'], PDO::PARAM_INT );
 	
 	$query->execute() or error(db_error($query));
 	$reports = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -2380,11 +2382,14 @@ function mod_reports($global = false) {
 				$content_reports = 0;
 				foreach( $report_item['reports'] as $report ) {
 					$report_html .= Element('mod/report.html', array(
-						'report'    => $report,
-						'config'    => $config,
-						'mod'       => $mod,
-						'token'     => make_secure_link_token('reports/' . $report['id'] . '/dismiss'),
-						'token_all' => make_secure_link_token('reports/' . $report['id'] . '/dismissall')
+						'report'        => $report,
+						'config'        => $config,
+						'mod'           => $mod,
+						'global'        => $global,
+						'token_dismiss' => make_secure_link_token('reports/' . $report['id'] . '/dismiss'),
+						'token_ip'      => make_secure_link_token('reports/' . $report['id'] . '/dismissall'),
+						'token_demote'  => make_secure_link_token('reports/' . $report['id'] . '/demote'),
+						'token_promote' => make_secure_link_token('reports/' . $report['id'] . '/promote'),
 					));
 					
 					++$content_reports;
@@ -2460,6 +2465,64 @@ function mod_report_dismiss($id, $all = false) {
 		modLog("Dismissed all reports by <a href=\"?/IP/$ip\">$ip</a>");
 	else
 		modLog("Dismissed a report for post #{$id}", $board);
+	
+	header('Location: ?/reports', true, $config['redirect_http']);
+}
+
+function mod_report_demote($id) {
+	global $config;
+	
+	$query = prepare("SELECT `post`, `board`, `ip` FROM ``reports`` WHERE `id` = :id AND ``global`` = TRUE");
+	$query->bindValue(':id', $id);
+	$query->execute() or error(db_error($query));
+	if ($report = $query->fetch(PDO::FETCH_ASSOC)) {
+		$ip = $report['ip'];
+		$board = $report['board'];
+		$post = $report['post'];
+	}
+	else {
+		error($config['error']['404']);
+	}
+	
+	if( !hasPermission($config['mod']['report_demote'], $board) ) {
+		error($config['error']['noaccess']);
+	}
+	
+	$query = prepare("UPDATE ``reports`` SET ``global`` = FALSE WHERE `id` = :id");
+	$query->bindValue(':id', $id);
+	$query->execute() or error(db_error($query));
+	
+	
+	modLog("Demoted a global report for post #{$id}", $board);
+	
+	header('Location: ?/reports', true, $config['redirect_http']);
+}
+
+function mod_report_promote($id) {
+	global $config;
+	
+	$query = prepare("SELECT `post`, `board`, `ip` FROM ``reports`` WHERE `id` = :id AND ``global`` = FALSE");
+	$query->bindValue(':id', $id);
+	$query->execute() or error(db_error($query));
+	if ($report = $query->fetch(PDO::FETCH_ASSOC)) {
+		$ip = $report['ip'];
+		$board = $report['board'];
+		$post = $report['post'];
+	}
+	else {
+		error($config['error']['404']);
+	}
+	
+	if( !hasPermission($config['mod']['report_promote'], $board) ) {
+		error($config['error']['noaccess']);
+	}
+	
+	$query = prepare("UPDATE ``reports`` SET ``global`` = TRUE WHERE `id` = :id");
+	$query->bindValue(':id', $id);
+	$query->execute() or error(db_error($query));
+	
+	
+	modLog("Promoted a local report for post #{$id}", $board);
 	
 	header('Location: ?/reports', true, $config['redirect_http']);
 }
