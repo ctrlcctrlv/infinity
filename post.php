@@ -145,12 +145,13 @@ if (isset($_POST['delete'])) {
 				'/' . $board['dir'] . $config['dir']['res'] . sprintf($config['file_page'], $thread ? $thread : $id) . ($thread ? '#' . $id : '') .
 				' for "' . $reason . '"'
 			);
-		$query = prepare("INSERT INTO ``reports`` VALUES (NULL, :time, :ip, :board, :post, :reason, :global)");
+		$query = prepare("INSERT INTO ``reports`` (`time`, `ip`, `board`, `post`, `reason`, `local`, `global`) VALUES (:time, :ip, :board, :post, :reason, :local, :global)");
 		$query->bindValue(':time', time(), PDO::PARAM_INT);
 		$query->bindValue(':ip', $_SERVER['REMOTE_ADDR'], PDO::PARAM_STR);
 		$query->bindValue(':board', $board['uri'], PDO::PARAM_INT);
 		$query->bindValue(':post', $id, PDO::PARAM_INT);
 		$query->bindValue(':reason', $reason, PDO::PARAM_STR);
+		$query->bindValue(':local', 1, PDO::PARAM_BOOL);
 		$query->bindValue(':global', isset($_POST['global']), PDO::PARAM_BOOL);
 		$query->execute() or error(db_error($query));
 	}

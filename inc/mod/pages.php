@@ -2272,6 +2272,9 @@ function mod_reports() {
 		error($config['error']['noaccess']);
 	}
 	
+	// Limit reports to ONLY those in our scope.
+	$report_scope = $global ? "global" : "local";
+	
 	// Get REPORTS.
 	$query = prepare("SELECT * FROM ``reports`` " . ($mod["type"] == "20" ? "WHERE board = :board" : "") . " WHERE ``".($global ? "global" : "local")."``=TRUE  LIMIT :limit");
 	
