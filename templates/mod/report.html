@@ -20,20 +20,20 @@
 		<ul class="report-actions">
 			{% if mod|hasPermission(config.mod.report_dismiss, report.board) %}
 			<li class="report-action">
-				<a class="action-item action-available" title="{% trans 'Discard abuse report' %}" href="?/reports/{{ report.id }}/dismiss/{{ token_dismiss }}">Dismiss</a>
+				<a class="action-item action-available" title="{% trans 'Discard abuse report' %}" href="{{uri_dismiss}}/{{token_dismiss}}">Dismiss</a>
 			</li>
 			{% endif %}
 			
 			{% if mod|hasPermission(config.mod.report_dismiss_ip, report.board) %}
 			<li class="report-action">
-				<a class="action-item action-available" title="{% trans 'Discard all abuse reports by this IP address' %}" href="?/reports/{{ report.id }}/dismissall/{{ token_ip }}">Dismiss+</a>
+				<a class="action-item action-available" title="{% trans 'Discard all abuse reports by this IP address' %}" href="{{uri_ip}}/{{token_ip}}">Dismiss+</a>
 			</li>
 			{% endif %}
 			
 			{% if global and mod|hasPermission(config.mod.report_demote, report.board) %}
 			<li class="report-action">
 				{% if report.local %}
-				<a class="action-item action-available" title="{% trans 'Demote global abuse report to a local report' %}" href="?/reports/{{ report.id }}/demote/{{ token_demote }}">Demote</a>
+				<a class="action-item action-available" title="{% trans 'Demote global abuse report to a local report' %}" href="{{uri_demote}}/{{token_demote}}">Demote</a>
 				{% else %}
 				<span class="action-item action-unavailable" title="{% trans 'Report has already been dismissed locally' %}">Demote</span>
 				{% endif %}
@@ -43,7 +43,7 @@
 				{% if report.global %}
 				<span class="action-item action-unavailable" title="{% trans 'Report is already a global report' %}">Promote</span>
 				{% else %}
-				<a class="action-item action-available" title="{% trans 'Promote local abuse report to a global report' %}" href="?/reports/{{ report.id }}/promote/{{ token_promote }}">Promote</a>
+				<a class="action-item action-available" title="{% trans 'Promote local abuse report to a global report' %}" href="{{uri_promote}}/{{token_promote}}">Promote</a>
 				{% endif %}
 			</li>
 			{% endif %}

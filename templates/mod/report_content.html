@@ -3,6 +3,57 @@
 	
 	<div class="report-content">
 		{{ content_html }}
+		
+		<!-- Content Sweep Actions -->
+		<ul class="report-content-actions">
+			{% if global and mod|hasPermission(config.mod.report_demote, report.board) %}
+			<!-- Demote All -->
+			<li class="report-action">
+				{% if reports_can_demote %}
+				<a class="content-action-item content-action-available"title="{% trans 'Demote global abuse reports to local reports' %}" href="{{uri_content_demote}}/{{token_content_demote}}">Demote All</a>
+				{% else %}
+				<span class="content-action-item content-action-unavailable" title="{% trans 'Reports have all been dismissed locally' %}">Demote All</span>
+				{% endif %}
+			</li>
+			{% elseif not global and mod|hasPermission(config.mod.report_promote, report.board) %}
+			<!-- Promote All -->
+			<li class="report-action">
+				{% if reports_can_promote %}
+				<a class="content-action-item content-action-available"title="{% trans 'Promote all local abuse reports to global reports' %}" href="{{uri_content_promote}}/{{token_content_promote}}">Promote All</a>
+				{% else %}
+				<span class="content-action-item content-action-unavailable" title="{% trans 'Reports are already global reports' %}">Promote All</span>
+				{% endif %}
+			</li>
+			{% endif %}
+			
+			{% if mod|hasPermission(config.mod.report_dismiss_post, report.board) %}
+			<!-- Dismiss All -->
+			<li class="report-content-action">
+				<a class="content-action-item content-action-available" title="{% trans 'Discard all abuse reports on this content' %}" href="{{uri_content_dismiss}}/{{token_content_dismiss}}">Dismiss All</a>
+			</li>
+			{% endif %}
+			
+			{% if mod|hasPermission(config.mod.report_content_clean, report.board) %}
+			<!-- Clean Local -->
+			<li class="report-content-action">
+				<a class="content-action-item content-action-available" title="{% trans 'Ignore and dismiss local abuse reports on this post for this board' %}" href="?/reports/clean/{{ content_board }}/{{ report.id }}/{{ token_clean }}">Clean (/{{ content_board }}/)</a>
+			</li>
+			{% endif %}
+			
+			{% if mod|hasPermission(config.mod.report_content_clean_global, report.board) %}
+			<!-- Clean Global -->
+			<li class="report-content-action">
+				<a class="content-action-item content-action-available" title="{% trans 'Ignore and demote global abuse reports on this post' %}" href="?/reports/cleanglocal/{{ report.id }}/{{ token_clean_global }}">Clean (Global)</a>
+			</li>
+			{% endif %}
+			
+			{% if mod|hasPermission(config.mod.report_content_clean, report.board) and mod|hasPermission(config.mod.report_content_clean_global, report.board) %}
+			<!-- Clean Local + Global -->
+			<li class="report-content-action">
+				<a class="content-action-item content-action-available" title="{% trans 'Ignore and dismiss local AND global abuse reports on this post' %}" href="?/reports/content/{{ content_board }}/{{ token_clean_global }}">Clean (/{{ content_board }}/+Global)</a>
+			</li>
+			{% endif %}
+		</ul>
 	</div>
 	
 	<ul class="report-list">

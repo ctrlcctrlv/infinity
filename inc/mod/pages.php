@@ -2257,24 +2257,28 @@ function mod_rebuild() {
 	));
 }
 
-function mod_reports($global = false) {
+function mod_reports() {
 	global $config, $mod;
 	
-	if (!hasPermission($config['mod']['reports']))
-		error($config['error']['noaccess']);
+	// Parse arguments.
+	$urlArgs = func_get_args();
+	$global  = in_array( "global", $urlArgs );
 	
-	if ($mod['type'] == '20' and $global)
+	if( !hasPermission($config['mod']['reports']) ) {
 		error($config['error']['noaccess']);
+	}
 	
-	// Limit reports to ONLY those in our scope.
-	$report_scope = $global ? "global" : "local";
+	if( $mod['type'] == '20' and $global ) {
+		error($config['error']['noaccess']);
+	}
 	
 	// Get REPORTS.
-	$query = prepare("SELECT * FROM ``reports`` " . ($mod["type"] == "20" ? "WHERE board = :board" : "") . " WHERE ``{$report_scope}``=TRUE  LIMIT :limit");
+	$query = prepare("SELECT * FROM ``reports`` " . ($mod["type"] == "20" ? "WHERE board = :board" : "") . " WHERE ``".($global ? "global" : "local")."``=TRUE  LIMIT :limit");
 	
 	// Limit reports by board if the moderator is local.
-	if( $mod['type'] == '20' )
+	if( $mod['type'] == '20' ) {
 		$query->bindValue(':board', $mod['boards'][0]);
+	}
 	
 	// Limit by config ceiling.
 	$query->bindValue( ':limit', $config['mod']['recent_reports'], PDO::PARAM_INT );
@@ -2379,18 +2383,37 @@ function mod_reports($global = false) {
 				
 				// Add each report's template to this container.
 				$report_html = "";
+				$reports_can_demote = false;
+				$reports_can_promote = false;
 				$content_reports = 0;
 				foreach( $report_item['reports'] as $report ) {
+					$uri_report_base = "reports/" . ($global ? "global/" : "" ) . $report['id'];
 					$report_html .= Element('mod/report.html', array(
 						'report'        => $report,
 						'config'        => $config,
 						'mod'           => $mod,
 						'global'        => $global,
-						'token_dismiss' => make_secure_link_token('reports/' . $report['id'] . '/dismiss'),
-						'token_ip'      => make_secure_link_token('reports/' . $report['id'] . '/dismissall'),
-						'token_demote'  => make_secure_link_token('reports/' . $report['id'] . '/demote'),
-						'token_promote' => make_secure_link_token('reports/' . $report['id'] . '/promote'),
+						
+						'uri_dismiss'   => "?/{$uri_report_base}/dismiss",
+						'uri_ip'        => "?/{$uri_report_base}/dismissall",
+						'uri_demote'    => "?/{$uri_report_base}/demote",
+						'uri_promote'   => "?/{$uri_report_base}/promote",
+						'token_dismiss' => make_secure_link_token( $uri_report_base . '/dismiss' ),
+						'token_ip'      => make_secure_link_token( $uri_report_base . '/dismissall' ),
+						'token_demote'  => make_secure_link_token( $uri_report_base . '/demote' ),
+						'token_promote' => make_secure_link_token( $uri_report_base . '/promote' ),
 					));
+					
+					// Determines if we can "Demote All" / "Promote All"
+					// This logic only needs one instance of a demotable or promotable report to work.
+					// DEMOTE can occur when we're global and the report has a 1 for local (meaning locally, it's not dismissed)
+					// PROMOTE can occur when we're local and the report has a 0 for global (meaning it's not global).
+					if( $global && $report['local'] == "1" ) {
+						$reports_can_demote = true;
+					}
+					else if( !$global && $report['global'] != "1" ) {
+						$reports_can_promote = true;
+					}
 					
 					++$content_reports;
 				}
@@ -2404,17 +2427,28 @@ function mod_reports($global = false) {
 					$content_reports
 				);
 				
+				$uri_content_base = "reports/" . ($global ? "global/" : "" ) . "content/";
 				$content_html = Element('mod/report_content.html', array(
-					'reports_html'  => $report_html,
-					'report_count'  => $content_reports,
+					'reports_html'          => $report_html,
+					'reports_can_demote'    => $reports_can_demote,
+					'reports_can_promote'   => $reports_can_promote,
+					'report_count'          => $content_reports,
+					'report_title'          => $report_title,
 					
-					'content_html'  => $po->build(true),
-					'content_board' => $report_item['board_id'],
-					'content'       => $content,
+					'content_html'          => $po->build(true),
+					'content_board'         => $report_item['board_id'],
+					'content'               => $content,
 					
-					'config'        => $config,
-					'mod'           => $mod,
-					'report_title'  => $report_title,
+					'uri_content_demote'    => "?/{$uri_content_base}{$report_item['board_id']}/{$content['id']}/demote",
+					'uri_content_promote'   => "?/{$uri_content_base}{$report_item['board_id']}/{$content['id']}/promote",
+					'uri_content_dismiss'   => "?/{$uri_content_base}{$report_item['board_id']}/{$content['id']}/dismiss",
+					'token_content_demote'  => make_secure_link_token( "{$uri_content_base}{$report_item['board_id']}/{$content['id']}/demote" ),
+					'token_content_promote' => make_secure_link_token( "{$uri_content_base}{$report_item['board_id']}/{$content['id']}/promote" ),
+					'token_content_dismiss' => make_secure_link_token( "{$uri_content_base}{$report_item['board_id']}/{$content['id']}/dismiss" ),
+					
+					'global'                => $global,
+					'config'                => $config,
+					'mod'                   => $mod,
 				));
 				
 				$reportHTML .= $content_html;
@@ -2431,98 +2465,277 @@ function mod_reports($global = false) {
 	mod_page( sprintf('%s (%d)', _( ( $global ? 'Global report queue' : 'Report queue' ) ), $reportCount), 'mod/reports.html', $pageArgs );
 }
 
-function mod_report_dismiss($id, $all = false) {
-	global $config;
+function mod_report_dismiss() {
+	global $config, $mod;
 	
-	$query = prepare("SELECT `post`, `board`, `ip` FROM ``reports`` WHERE `id` = :id");
-	$query->bindValue(':id', $id);
-	$query->execute() or error(db_error($query));
-	if ($report = $query->fetch(PDO::FETCH_ASSOC)) {
-		$ip = $report['ip'];
-		$board = $report['board'];
-		$post = $report['post'];
-	}
-	else
-		error($config['error']['404']);
+	// Parse arguments.
+	$arguments = func_get_args();
+	$global    = in_array( "global", $arguments );
+	$content   = in_array( "content", $arguments );
 	
-	if (!$all && !hasPermission($config['mod']['report_dismiss'], $board))
+	if( $mod['type'] == '20' and $global ) {
 		error($config['error']['noaccess']);
-	
-	if ($all && !hasPermission($config['mod']['report_dismiss_ip'], $board))
-		error($config['error']['noaccess']);
-	
-	if ($all) {
-		$query = prepare("DELETE FROM ``reports`` WHERE `ip` = :ip");
-		$query->bindValue(':ip', $ip);
-	} else {
-		$query = prepare("DELETE FROM ``reports`` WHERE `id` = :id");
-		$query->bindValue(':id', $id);
 	}
-	$query->execute() or error(db_error($query));
 	
-	
-	if ($all)
-		modLog("Dismissed all reports by <a href=\"?/IP/$ip\">$ip</a>");
-	else
-		modLog("Dismissed a report for post #{$id}", $board);
-	
-	header('Location: ?/reports', true, $config['redirect_http']);
-}
-
-function mod_report_demote($id) {
-	global $config;
-	
-	$query = prepare("SELECT `post`, `board`, `ip` FROM ``reports`` WHERE `id` = :id AND ``global`` = TRUE");
-	$query->bindValue(':id', $id);
-	$query->execute() or error(db_error($query));
-	if ($report = $query->fetch(PDO::FETCH_ASSOC)) {
-		$ip = $report['ip'];
-		$board = $report['board'];
-		$post = $report['post'];
+	if( $content ) {
+		$board = @$arguments[2];
+		$post  = @$arguments[3];
+		
+		if( !hasPermission($config['mod']['report_dismiss_content'], $board) ) {
+			error($config['error']['noaccess']);
+		}
+		
+		if( $board != "" && $post != "" ) {
+			
+			$query = prepare("SELECT `id` FROM `reports` WHERE `board` = :board AND `post` = :post");
+			$query->bindValue(':board', $board);
+			$query->bindValue(':post', $post);
+			$query->execute() or error(db_error($query));
+			if( count( $reports = $query->fetchAll(PDO::FETCH_ASSOC) ) > 0 ) {
+				
+				$report_ids = array();
+				foreach( $reports as $report ) {
+					$report_ids[ $report['id'] ] = $report['id'];
+				}
+				
+				if( $global ) {
+					$scope = "``global`` = FALSE AND ``local`` = FALSE";
+				}
+				else {
+					$scope = "``local`` = FALSE";
+				}
+				
+				$query = prepare("UPDATE ``reports`` SET {$scope} WHERE `id` IN (".implode(',', array_map('intval', $report_ids)).")");
+				$query->execute() or error(db_error($query));
+				
+				modLog("Promoted " . count($report_ids) . " local report(s) for post #{$post}", $board);
+			}
+			else {
+				error($config['error']['404']);
+			}
+		}
+		else {
+			error($config['error']['404']);
+		}
 	}
 	else {
-		error($config['error']['404']);
+		$report = @$arguments[1];
+		$all    = in_array( "all", $arguments );
+		
+		if( $report != "" ) {
+			
+			$query = prepare("SELECT `post`, `board`, `ip` FROM ``reports`` WHERE `id` = :id");
+			$query->bindValue(':id', $report);
+			$query->execute() or error(db_error($query));
+			if ($reportobj = $query->fetch(PDO::FETCH_ASSOC)) {
+				$ip = $reportobj['ip'];
+				$board = $reportobj['board'];
+				$post = $reportobj['post'];
+				
+				if( !$all && !hasPermission($config['mod']['report_dismiss'], $board) ) {
+					error($config['error']['noaccess']);
+				}
+				if( $all && !hasPermission($config['mod']['report_dismiss_ip'], $board) ) {
+					error($config['error']['noaccess']);
+				}
+				
+				// Determine scope (local and global or just local) based on /global/ being in URI.
+				if( $global ) {
+					$scope = "`global` = FALSE";
+					$boards = "";
+				}
+				else {
+					$scope = "`local` = FALSE";
+					$boards = "AND `board` = '{$board}'";
+				}
+				
+				// Prepare query.
+				// We don't delete reports, only modify scope.
+				if( $all ) {
+					$query = prepare("UPDATE ``reports`` SET {$scope} WHERE `ip` = :ip {$boards}");
+					$query->bindValue(':ip', $ip);
+				}
+				else {
+					$query = prepare("UPDATE ``reports`` SET {$scope} WHERE `id` = :id {$boards}");
+					$query->bindValue(':id', $report);
+				}
+				
+				$query->execute() or error(db_error($query));
+				
+				if( $all ) {
+					modLog("Dismissed all reports by <a href=\"?/IP/{$ip}\">{$ip}</a>");
+				}
+				else {
+					modLog("Dismissed a report for post #{$post}", $board);
+				}
+			}
+			else {
+				error($config['error']['404']);
+			}
+		}
+		else {
+			error($config['error']['404']);
+		}
 	}
 	
-	if( !hasPermission($config['mod']['report_demote'], $board) ) {
-		error($config['error']['noaccess']);
-	}
-	
-	$query = prepare("UPDATE ``reports`` SET ``global`` = FALSE WHERE `id` = :id");
-	$query->bindValue(':id', $id);
-	$query->execute() or error(db_error($query));
-	
-	
-	modLog("Demoted a global report for post #{$id}", $board);
-	
-	header('Location: ?/reports', true, $config['redirect_http']);
-}
-
-function mod_report_promote($id) {
-	global $config;
-	
-	$query = prepare("SELECT `post`, `board`, `ip` FROM ``reports`` WHERE `id` = :id AND ``global`` = FALSE");
-	$query->bindValue(':id', $id);
-	$query->execute() or error(db_error($query));
-	if ($report = $query->fetch(PDO::FETCH_ASSOC)) {
-		$ip = $report['ip'];
-		$board = $report['board'];
-		$post = $report['post'];
+	if( $global ) {
+		header('Location: ?/reports/global', true, $config['redirect_http']);
 	}
 	else {
-		error($config['error']['404']);
+		header('Location: ?/reports', true, $config['redirect_http']);
 	}
+}
+
+function mod_report_demote() {
+	global $config, $mod;
 	
-	if( !hasPermission($config['mod']['report_promote'], $board) ) {
+	if( $mod['type'] == '20' ) {
 		error($config['error']['noaccess']);
 	}
 	
-	$query = prepare("UPDATE ``reports`` SET ``global`` = TRUE WHERE `id` = :id");
-	$query->bindValue(':id', $id);
-	$query->execute() or error(db_error($query));
+	// Parse arguments.
+	$arguments = func_get_args();
+	$content = in_array( "content", $arguments );
 	
+	if( $content ) {
+		$board = @$arguments[2];
+		$post  = @$arguments[3];
+		
+		if( !hasPermission($config['mod']['report_demote'], $board) ) {
+			error($config['error']['noaccess']);
+		}
+		
+		if( $board != "" && $post != "" ) {
+			
+			$query = prepare("SELECT `id` FROM `reports` WHERE `global` = TRUE AND `board` = :board AND `post` = :post");
+			$query->bindValue(':board', $board);
+			$query->bindValue(':post', $post);
+			$query->execute() or error(db_error($query));
+			if( count( $reports = $query->fetchAll(PDO::FETCH_ASSOC) ) > 0 ) {
+				
+				$report_ids = array();
+				foreach( $reports as $report ) {
+					$report_ids[ $report['id'] ] = $report['id'];
+				}
+				
+				$query = prepare("UPDATE ``reports`` SET ``global`` = FALSE WHERE `id` IN (".implode(',', array_map('intval', $report_ids)).")");
+				$query->execute() or error(db_error($query));
+				
+				modLog("Demoted " . count($report_ids) . " global report(s) for post #{$post}", $board);
+			}
+			else {
+				error($config['error']['404']);
+			}
+		}
+		else {
+			error($config['error']['404']);
+		}
+	}
+	else {
+		$report = @$arguments[1];
+		
+		if( $report != "" ) {
+			
+			$query = prepare("SELECT `post`, `board`, `ip` FROM ``reports`` WHERE `id` = :id AND ``global`` = TRUE");
+			$query->bindValue(':id', $report);
+			$query->execute() or error(db_error($query));
+			if( $reportobj = $query->fetch(PDO::FETCH_ASSOC) ) {
+				$ip = $reportobj['ip'];
+				$board = $reportobj['board'];
+				$post = $reportobj['post'];
+				
+				if( !hasPermission($config['mod']['report_demote'], $board) ) {
+					error($config['error']['noaccess']);
+				}
+				
+				$query = prepare("UPDATE ``reports`` SET ``global`` = FALSE WHERE `id` = :id");
+				$query->bindValue(':id', $report);
+				$query->execute() or error(db_error($query));
+				
+				modLog("Demoted a global report for post #{$report}", $board);
+			}
+			else {
+				error($config['error']['404']);
+			}
+		}
+		else {
+			error($config['error']['404']);
+		}
+	}
 	
-	modLog("Promoted a local report for post #{$id}", $board);
+	header('Location: ?/reports/global', true, $config['redirect_http']);
+}
+
+function mod_report_promote() {
+	global $config, $mod;
+	
+	// Parse arguments.
+	$arguments = func_get_args();
+	$content = in_array( "content", $arguments );
+	
+	if( $content ) {
+		$board = @$arguments[2];
+		$post  = @$arguments[3];
+		
+		if( !hasPermission($config['mod']['report_promote'], $board) ) {
+			error($config['error']['noaccess']);
+		}
+		
+		if( $board != "" && $post != "" ) {
+			$query = prepare("SELECT `id` FROM `reports` WHERE `global` = FALSE AND `board` = :board AND `post` = :post");
+			$query->bindValue(':board', $board);
+			$query->bindValue(':post', $post);
+			$query->execute() or error(db_error($query));
+			if( count( $reports = $query->fetchAll(PDO::FETCH_ASSOC) ) > 0 ) {
+				
+				$report_ids = array();
+				foreach( $reports as $report ) {
+					$report_ids[ $report['id'] ] = $report['id'];
+				}
+				
+				$query = prepare("UPDATE ``reports`` SET ``global`` = TRUE WHERE `id` IN (".implode(',', array_map('intval', $report_ids)).")");
+				$query->execute() or error(db_error($query));
+				
+				modLog("Promoted " . count($report_ids) . " local report(s) for post #{$post}", $board);
+			}
+			else {
+				error($config['error']['404']);
+			}
+		}
+		else {
+			error($config['error']['404']);
+		}
+	}
+	else {
+		$report = @$arguments[1];
+		
+		if( $report != "" ) {
+			$query = prepare("SELECT `post`, `board`, `ip` FROM ``reports`` WHERE `id` = :id AND ``global`` = FALSE");
+			$query->bindValue(':id', $report);
+			$query->execute() or error(db_error($query));
+			if ($reportobj = $query->fetch(PDO::FETCH_ASSOC)) {
+				$ip = $reportobj['ip'];
+				$board = $reportobj['board'];
+				$post = $reportobj['post'];
+				
+				if( !hasPermission($config['mod']['report_promote'], $board) ) {
+					error($config['error']['noaccess']);
+				}
+				
+				$query = prepare("UPDATE ``reports`` SET ``global`` = TRUE WHERE `id` = :id");
+				$query->bindValue(':id', $report);
+				$query->execute() or error(db_error($query));
+				
+				modLog("Promoted a local report for post #{$report}", $board);
+			}
+			else {
+				error($config['error']['404']);
+			}
+		}
+		else {
+			error($config['error']['404']);
+		}
+	}
 	
 	header('Location: ?/reports', true, $config['redirect_http']);
 }

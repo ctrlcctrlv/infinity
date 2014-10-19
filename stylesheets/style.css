@@ -327,6 +327,7 @@ div#wrap {
   margin: 0 auto;
 }
 
+div.module,
 div.ban {
   background: white;
   border: 1px solid #98E;
@@ -334,7 +335,8 @@ div.ban {
   margin: 30px auto;
 }
 
-div.ban p,div.ban h2 {
+div.ban p,
+div.ban h2 {
   padding: 3px 7px;
 }
 

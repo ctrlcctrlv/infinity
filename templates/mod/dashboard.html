@@ -57,7 +57,6 @@
 					{% if mod.type != 20 %}<a href="?/reports/global">Global reports ({{global_reports}})</a>{% endif %}
 				{% if reports > 0 %}</strong>{% endif %}
 			</li>
-
 		{% endif %}
 		{% if mod|hasPermission(config.mod.view_banlist) %}
 			<li><a href="?/bans">{% trans 'Ban list' %}</a></li>

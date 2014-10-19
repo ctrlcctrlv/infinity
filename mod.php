@@ -54,11 +54,21 @@ $pages = array(
 	'/new-board'				=> 'secure_POST new_board',	// create a new board
 	
 	'/rebuild'                     => 'secure_POST rebuild',   // rebuild static files
-	'/reports'                     => 'reports',               // report queue
-	'/reports/(global)'            => 'reports',               // global report queue
-	'/reports/(\d+)/dismiss(all)?' => 'secure report_dismiss', // dismiss a report
-	'/reports/(\d+)/demote?'       => 'secure report_demote',  // demote a global report to a local report
-	'/reports/(\d+)/promote?'      => 'secure report_promote', // promote a local report to a global report
+	
+	// Report management
+	// (global) denotes if the action is being carried out from the global dashboard,
+	// and if the return address should also be the global dashboard.
+	// Important to note that (?:global) will make no argument.
+	// (global)? will make argument 0 either "global" or "".
+	'/reports(?:/)?'                                              => 'reports',               // report queue
+	'/reports/(global)?(?:/)?'                                    => 'reports',               // global report queue
+	'/reports/(global)?(?:/)?(content)/(\%b)/(\d+)(?:/)?'         => 'reports',               // specific reported content (also historic)
+	'/reports/(global)?(?:/)?(content)/(\%b)/(\d+)/dismiss(?:/)?' => 'secure report_dismiss', // dismiss all reports on content
+	'/reports/(global)?(?:/)?(content)/(\%b)/(\d+)/demote(?:/)?'  => 'secure report_demote',  // demote all reports on content
+	'/reports/(global)?(?:/)?(content)/(\%b)/(\d+)/promote(?:/)?' => 'secure report_promote', // demote all reports on content
+	'/reports/(global)?(?:/)?(\d+)/dismiss(all)?(?:/)?'           => 'secure report_dismiss', // dismiss a report
+	'/reports/(global)?(?:/)?(\d+)/demote(?:/)?'                  => 'secure report_demote',  // demote a global report to a local report
+	'/reports/(global)?(?:/)?(\d+)/promote(?:/)?'                 => 'secure report_promote', // promote a local report to a global report
 	
 	'/IP/([\w.:]+)'				=> 'secure_POST ip',		// view ip address
 	'/IP/([\w.:]+)/remove_note/(\d+)'	=> 'secure ip_remove_note',	// remove note from ip address
