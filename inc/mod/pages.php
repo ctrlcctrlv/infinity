@@ -2266,6 +2266,7 @@ function mod_reports($global = false) {
 	if ($mod['type'] == '20' and $global)
 		error($config['error']['noaccess']);
 	
+	// Get REPORTS.
 	$query = prepare("SELECT * FROM ``reports`` " . ($mod["type"] == "20" ? "WHERE board = :board" : "") . " ORDER BY `time` DESC LIMIT :limit");
 	if ($mod['type'] == '20')
 		$query->bindValue(':board', $mod['boards'][0]);
@@ -2273,82 +2274,156 @@ function mod_reports($global = false) {
 	if ($global) {
 		$query = prepare("SELECT * FROM ``reports`` WHERE global = TRUE ORDER BY `time` DESC LIMIT :limit");
 	}
-
+	
 	$query->bindValue(':limit', $config['mod']['recent_reports'], PDO::PARAM_INT);
 	
-
 	$query->execute() or error(db_error($query));
 	$reports = $query->fetchAll(PDO::FETCH_ASSOC);
 	
-	$report_queries = array();
-	foreach ($reports as $report) {
-		if (!isset($report_queries[$report['board']]))
-			$report_queries[$report['board']] = array();
-		$report_queries[$report['board']][] = $report['post'];
-	}
-	
-	$report_posts = array();
-	foreach ($report_queries as $board => $posts) {
-		$report_posts[$board] = array();
+	// Cut off here if we don't have any reports.
+	$reportCount = 0;
+	$reportHTML = '';
+	if( count( $reports ) > 0 ) {
 		
-		$query = query(sprintf('SELECT * FROM ``posts_%s`` WHERE `id` = ' . implode(' OR `id` = ', $posts), $board)) or error(db_error());
-		while ($post = $query->fetch(PDO::FETCH_ASSOC)) {
-			$report_posts[$board][$post['id']] = $post;
+		// Build queries to fetch content.
+		$report_queries = array();
+		foreach ($reports as $report) {
+			if (!isset($report_queries[$report['board']]))
+				$report_queries[$report['board']] = array();
+			$report_queries[$report['board']][] = $report['post'];
+		}
+		
+		// Get reported CONTENT.
+		$report_posts = array();
+		foreach ($report_queries as $board => $posts) {
+			$report_posts[$board] = array();
+			
+			$query = query(sprintf('SELECT * FROM ``posts_%s`` WHERE `id` = ' . implode(' OR `id` = ', $posts), $board)) or error(db_error());
+			while ($post = $query->fetch(PDO::FETCH_ASSOC)) {
+				$report_posts[$board][$post['id']] = $post;
+			}
+		}
+		
+		// Develop an associative array of posts to reports.
+		$report_index = array();
+		foreach( $reports as &$report ) {
+			
+			// Delete reports which are for removed content.
+			if( !isset( $report_posts[ $report['board'] ][ $report['post'] ] ) ) {
+				// Invalid report (post has since been deleted)
+				$query = prepare("DELETE FROM ``reports`` WHERE `post` = :id AND `board` = :board");
+				$query->bindValue(':id', $report['post'], PDO::PARAM_INT);
+				$query->bindValue(':board', $report['board']);
+				$query->execute() or error(db_error($query));
+				continue;
+			}
+			
+			// Build a unique ID.
+			$content_key = "{$report['board']}.{$report['post']}";
+			
+			// Create a dummy array if it doesn't already exist.
+			if( !isset( $report_index[ $content_key ] ) ) {
+				$report_index[ $content_key ] = array(
+					"board_id" => $report['board'],
+					"post_id"  => $report['post'],
+					"content"  => &$report_posts[ $report['board'] ][ $report['post'] ],
+					"reports"  => array(),
+				);
+			}
+			
+			// Add the report to the list of reports.
+			$report_index[ $content_key ]['reports'][ $report['id'] ] = &$report;
+			
+			// Increment the total report count.
+			++$reportCount;
+		}
+		
+		
+		// Only continue if we have something to do.
+		// If there are no valid reports left, we're done.
+		if( $reportCount > 0 ) {
+			
+			// Sort this report index by number of reports, desc.
+			usort( $report_index, function( $a, $b ) {
+				$ra = $a['reports'];
+				$rb = $b['reports'];
+				
+				if( $ra < $rb ) {
+					return 1;
+				}
+				else if( $rb > $ra ) {
+					return -1;
+				}
+				else {
+					return 0;
+				}
+			} );
+			
+			// Loop through the custom index.
+			foreach( $report_index as &$report_item ) {
+				$content = $report_item['content'];
+				
+				// Load board content.
+				openBoard($report_item['board_id']);
+				
+				// Load the reported content.
+				if( !$content['thread'] ) {
+					// Still need to fix this:
+					$po = new Thread($content, '?/', $mod, false);
+				}
+				else {
+					$po = new Post($content, '?/', $mod);
+				}
+				
+				// Add each report's template to this container.
+				$report_html = "";
+				$content_reports = 0;
+				foreach( $report_item['reports'] as $report ) {
+					$report_html .= Element('mod/report.html', array(
+						'report'    => $report,
+						'config'    => $config,
+						'mod'       => $mod,
+						'token'     => make_secure_link_token('reports/' . $report['id'] . '/dismiss'),
+						'token_all' => make_secure_link_token('reports/' . $report['id'] . '/dismissall')
+					));
+					
+					++$content_reports;
+				}
+				
+				// Build the ">>>/b/ thread reported 3 times" title.
+				$report_title = sprintf(
+					_('<a href="%s" title="View content" target="_new">&gt;&gt;&gt;/%s/</a> %s reported %d time(s).'),
+					"?/{$report_item['board_id']}/res/" . ( $content['thread'] ?: $content['id'] ) . ".html#{$content['thread']}",
+					$report_item['board_id'],
+					_( $content['thread'] ? "reply" : "thread" ),
+					$content_reports
+				);
+				
+				$content_html = Element('mod/report_content.html', array(
+					'reports_html'  => $report_html,
+					'report_count'  => $content_reports,
+					
+					'content_html'  => $po->build(true),
+					'content_board' => $report_item['board_id'],
+					'content'       => $content,
+					
+					'config'        => $config,
+					'mod'           => $mod,
+					'report_title'  => $report_title,
+				));
+				
+				$reportHTML .= $content_html;
+			}
 		}
 	}
 	
-	$count = 0;
-	$body = '';
-	foreach ($reports as $report) {
-		if (!isset($report_posts[$report['board']][$report['post']])) {
-			// // Invalid report (post has since been deleted)
-			$query = prepare("DELETE FROM ``reports`` WHERE `post` = :id AND `board` = :board");
-			$query->bindValue(':id', $report['post'], PDO::PARAM_INT);
-			$query->bindValue(':board', $report['board']);
-			$query->execute() or error(db_error($query));
-			continue;
-		}
-		
-		openBoard($report['board']);
-		
-		$post = &$report_posts[$report['board']][$report['post']];
-		
-		if (!$post['thread']) {
-			// Still need to fix this:
-			$po = new Thread($post, '?/', $mod, false);
-		} else {
-			$po = new Post($post, '?/', $mod);
-		}
-		
-		// a little messy and inefficient
-		$append_html = Element('mod/report.html', array(
-			'report' => $report,
-			'config' => $config,
-			'mod' => $mod,
-			'token' => make_secure_link_token('reports/' . $report['id'] . '/dismiss'),
-			'token_all' => make_secure_link_token('reports/' . $report['id'] . '/dismissall')
-		));
-		
-		// Bug fix for https://github.com/savetheinternet/Tinyboard/issues/21
-		$po->body = truncate($po->body, $po->link(), $config['body_truncate'] - substr_count($append_html, '<br>'));
-		
-		if (mb_strlen($po->body) + mb_strlen($append_html) > $config['body_truncate_char']) {
-			// still too long; temporarily increase limit in the config
-			$__old_body_truncate_char = $config['body_truncate_char'];
-			$config['body_truncate_char'] = mb_strlen($po->body) + mb_strlen($append_html);
-		}
-		
-		$po->body .= $append_html;
-		
-		$body .= $po->build(true) . '<hr>';
-		
-		if (isset($__old_body_truncate_char))
-			$config['body_truncate_char'] = $__old_body_truncate_char;
-		
-		$count++;
-	}
+	$pageArgs = array(
+		'count'   => $reportCount,
+		'reports' => $reportHTML,
+		'global'  => $global,
+	);
 	
-	mod_page(sprintf('%s (%d)', _('Report queue'), $count), 'mod/reports.html', array('reports' => $body, 'count' => $count));
+	mod_page( sprintf('%s (%d)', _( ( $global ? 'Global report queue' : 'Report queue' ) ), $reportCount), 'mod/reports.html', $pageArgs );
 }
 
 function mod_report_dismiss($id, $all = false) {
@@ -2361,7 +2436,8 @@ function mod_report_dismiss($id, $all = false) {
 		$ip = $report['ip'];
 		$board = $report['board'];
 		$post = $report['post'];
-	} else
+	}
+	else
 		error($config['error']['404']);
 	
 	if (!$all && !hasPermission($config['mod']['report_dismiss'], $board))

@@ -18,15 +18,15 @@
 	$config['db']['user'] = 'root';
 	$config['db']['password'] = '';
 	$config['timezone'] = 'UTC';
-	$config['cache']['enabled'] = 'apc';
-
-
+	$config['cache']['enabled'] = false;
+	
+	
 	$config['cookies']['mod'] = 'mod';
 	$config['cookies']['salt'] = '';
-
+	
 	$config['spam']['hidden_inputs_max_pass'] = 128;
 	$config['spam']['hidden_inputs_expire'] = 60 * 60 * 4; // three hours
-
+	
 	$config['flood_time'] = 5;
 	$config['flood_time_ip'] = 30;
 	$config['flood_time_same'] = 2;
@@ -46,10 +46,10 @@
 	$config['thread_subject_in_title'] = true;
 	$config['spam']['hidden_inputs_max_pass'] = 128;
 	$config['ayah_enabled'] = true;
-
+	
 	// Load database credentials
 	require "secrets.php";
-
+	
 	// Image shit
 	$config['thumb_method'] = 'gm+gifsicle';
 	$config['thumb_ext'] = '';
