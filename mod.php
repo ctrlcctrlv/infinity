@@ -53,10 +53,12 @@ $pages = array(
 	'/edit/(\%b)'				=> 'secure_POST edit_board',	// edit board details
 	'/new-board'				=> 'secure_POST new_board',	// create a new board
 	
-	'/rebuild'				=> 'secure_POST rebuild',	// rebuild static files
-	'/reports'				=> 'reports',			// report queue
-	'/reports/(global)'				=> 'reports',			// global report queue
-	'/reports/(\d+)/dismiss(all)?'		=> 'secure report_dismiss',	// dismiss a report
+	'/rebuild'                     => 'secure_POST rebuild',   // rebuild static files
+	'/reports'                     => 'reports',               // report queue
+	'/reports/(global)'            => 'reports',               // global report queue
+	'/reports/(\d+)/dismiss(all)?' => 'secure report_dismiss', // dismiss a report
+	'/reports/(\d+)/demote?'       => 'secure report_demote',  // demote a global report to a local report
+	'/reports/(\d+)/promote?'      => 'secure report_promote', // promote a local report to a global report
 	
 	'/IP/([\w.:]+)'				=> 'secure_POST ip',		// view ip address
 	'/IP/([\w.:]+)/remove_note/(\d+)'	=> 'secure ip_remove_note',	// remove note from ip address

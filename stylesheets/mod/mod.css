@@ -16,6 +16,10 @@
 		border-bottom: none;
 	}
 
+.report-header {
+	margin: 0 0 0.25em 0;
+}
+
 .report-list {
 	display: block;
 	list-style: none;
@@ -29,19 +33,67 @@
 	}
 		.report-item .report {
 			background: #D6DAF0;
-			margin: 0.2em 4px;
-			padding: 0.2em 0.3em 0.5em 0.6em;
+			margin: 0.2em 4px 0.2em 0;
+			padding: 0.3em 0.3em 0.5em 0.6em;
 			border-width: 1px;
 			border-style: none solid solid none;
 			border-color: #B7C5D9;
 			display: inline-block;
 			max-width: 94% !important;
 		}
+			.report-reason {
+				display: block;
+				font-size: 115%;
+				line-height: 115%;
+			}
+			
+			.report-details {
+				display: block;
+				margin: 0.3em 0 0 0;
+				padding: 0.3em 0 0 0;
+				clear: left;
+				list-style: none;
+			}
+				.report-detail {
+					display: block;
+					margin: 0;
+					padding: 0;
+				}
+					.detail-name {
+						display: inline-block;
+						min-width: 6.25em;
+					}
+			
+			.report-actions {
+				display: block;
+				border: none;
+				border-top: 1px solid #B7C5D9;
+				margin: 0.3em 0 0 0;
+				padding: 0.3em 0 0 0;
+				clear: left;
+				list-style: none;
+			}
+				.report-action {
+					display: inline-block;
+					margin: 0 0.5em 0 0;
+					padding: 0;
+				}
+				.report-action::after {
+					display: inline-block;
+					margin: 0 0 0 0.5em;
+					padding: 0;
+					content: ' | ';
+				}
+				.report-action:last-child::after {
+					display: none;
+					content: '';
+				}
+			
 
 .report-content div.post.reply,
 .report-content div.thread {
 	background: #FFC4C4;
-	margin: 0.2em 4px;
+	margin: 0.2em 4px 0.2em 0;
 	padding: 0.2em 0.3em 0.5em 0.6em;
 	border-width: 1px;
 	border-style: none solid solid none;
@@ -49,3 +101,4 @@
 	display: inline-block;
 	max-width: 94% !important;
 }
+
