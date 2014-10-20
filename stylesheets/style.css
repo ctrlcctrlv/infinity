@@ -949,10 +949,18 @@ span.pln {
 	margin-bottom: 10px;
 }
 
+#watchlist {
+	font-size: 8pt;
+	width: 15%;
+	position: fixed;
+	right: 0pt;
+	bottom: 0pt;
+	margin: 0pt;
+	padding: 0pt;
+}
+
 .watchlist-inner, .watchlist-controls {
-	margin: 0 auto;
-	margin-top: 10px;
-	margin-bottom: 10px;
+	margin: 0pt;
 	text-align: center;
 }
 
