@@ -1382,7 +1382,10 @@
 	$config['mod']['flood'] = &$config['mod']['bypass_filters'];
 	// Raw HTML posting
 	$config['mod']['rawhtml'] = ADMIN;
-
+	// Clean/Unclean posts
+	$config['mod']['clean'] = JANITOR;
+	$config['mod']['clean_global'] = MOD;
+	
 	/* Administration */
 	// View the report queue
 	$config['mod']['reports'] = JANITOR;

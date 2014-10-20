@@ -288,6 +288,18 @@ div.post.reply {
   max-width: 94%!important;
 }
 
+div.post_modified {
+  font-size: 10px;
+  min-width: 47.5em;
+  margin-left: 1.8em;
+  padding-top: 0.8em;
+}
+
+div.post_modified div.content-status {
+  margin-top: 0.4em;
+  padding-bottom: 0em;
+}
+
 span.trip {
   color: #228854;
 }

@@ -2257,6 +2257,7 @@ function mod_rebuild() {
 	));
 }
 
+
 function mod_reports() {
 	global $config, $mod;
 	
@@ -2276,7 +2277,7 @@ function mod_reports() {
 	$report_scope = $global ? "global" : "local";
 	
 	// Get REPORTS.
-	$query = prepare("SELECT * FROM ``reports`` " . ($mod["type"] == "20" ? "WHERE board = :board" : "") . " WHERE ``".($global ? "global" : "local")."``=TRUE  LIMIT :limit");
+	$query = prepare("SELECT * FROM ``reports`` " . ($mod["type"] == "20" ? "WHERE board = :board" : "") . " WHERE ``".($global ? "global" : "local")."`` = TRUE  LIMIT :limit");
 	
 	// Limit reports by board if the moderator is local.
 	if( $mod['type'] == '20' ) {
@@ -2335,18 +2336,17 @@ function mod_reports() {
 				$report_index[ $content_key ] = array(
 					"board_id" => $report['board'],
 					"post_id"  => $report['post'],
-					"content"  => &$report_posts[ $report['board'] ][ $report['post'] ],
+					"content"  => $report_posts[ $report['board'] ][ $report['post'] ],
 					"reports"  => array(),
 				);
 			}
 			
 			// Add the report to the list of reports.
-			$report_index[ $content_key ]['reports'][ $report['id'] ] = &$report;
+			$report_index[ $content_key ]['reports'][ $report['id'] ] = $report;
 			
 			// Increment the total report count.
 			++$reportCount;
 		}
-		
 		
 		// Only continue if we have something to do.
 		// If there are no valid reports left, we're done.
@@ -2354,8 +2354,8 @@ function mod_reports() {
 			
 			// Sort this report index by number of reports, desc.
 			usort( $report_index, function( $a, $b ) {
-				$ra = $a['reports'];
-				$rb = $b['reports'];
+				$ra = count( $a['reports'] );
+				$rb = count( $b['reports'] );
 				
 				if( $ra < $rb ) {
 					return 1;
@@ -2404,7 +2404,7 @@ function mod_reports() {
 						'token_dismiss' => make_secure_link_token( $uri_report_base . '/dismiss' ),
 						'token_ip'      => make_secure_link_token( $uri_report_base . '/dismissall' ),
 						'token_demote'  => make_secure_link_token( $uri_report_base . '/demote' ),
-						'token_promote' => make_secure_link_token( $uri_report_base . '/promote' ),
+						'token_promote' => make_secure_link_token( $uri_report_base . '/promote'  ),
 					));
 					
 					// Determines if we can "Demote All" / "Promote All"
@@ -2431,6 +2431,7 @@ function mod_reports() {
 				);
 				
 				$uri_content_base = "reports/" . ($global ? "global/" : "" ) . "content/";
+				$uri_clean_base   = "{$report_item['board_id']}/clean/{$content['id']}";
 				$content_html = Element('mod/report_content.html', array(
 					'reports_html'          => $report_html,
 					'reports_can_demote'    => $reports_can_demote,
@@ -2448,6 +2449,13 @@ function mod_reports() {
 					'token_content_demote'  => make_secure_link_token( "{$uri_content_base}{$report_item['board_id']}/{$content['id']}/demote" ),
 					'token_content_promote' => make_secure_link_token( "{$uri_content_base}{$report_item['board_id']}/{$content['id']}/promote" ),
 					'token_content_dismiss' => make_secure_link_token( "{$uri_content_base}{$report_item['board_id']}/{$content['id']}/dismiss" ),
+					
+					'uri_clean'             => "?/{$uri_clean_base}/local",
+					'uri_clean_global'      => "?/{$uri_clean_base}/global",
+					'uri_clean_both'        => "?/{$uri_clean_base}/global+local",
+					'token_clean'           => make_secure_link_token( $uri_clean_base . '/local' ),
+					'token_clean_global'    => make_secure_link_token( $uri_clean_base . '/global' ),
+					'token_clean_both'      => make_secure_link_token( $uri_clean_base . '/global+local' ),
 					
 					'global'                => $global,
 					'config'                => $config,
@@ -2564,6 +2572,12 @@ function mod_report_dismiss() {
 				}
 				
 				$query->execute() or error(db_error($query));
+				
+				
+				// Cleanup - Remove reports that have been completely dismissed.
+				$query = prepare("DELETE FROM `reports` WHERE `local` = FALSE AND `global` = FALSE");
+				$query->execute() or error(db_error($query));
+				
 				
 				if( $all ) {
 					modLog("Dismissed all reports by <a href=\"?/IP/{$ip}\">{$ip}</a>");
@@ -2797,6 +2811,105 @@ function mod_recent_posts($lim) {
 		)
 	);
 
+}
+
+function mod_clean( $board, $unclean, $post, $global, $local ) {
+	global $config, $mod;
+	
+	if( !openBoard($board) ) {
+		error($config['error']['noboard']);
+	}
+	
+	$query_global = "";
+	$query_global_mod = "";
+	if( $global ) {
+		if( !hasPermission($config['mod']['clean_global'], $board) ) {
+			error($config['error']['noaccess']);
+		}
+		
+		$query_global = "`clean_global` = :clean";
+		$query_global_mod = "`clean_global_mod_id` = :mod";
+	}
+	
+	$query_local = "";
+	$query_local_mod = "";
+	if( $local ) {
+		if( !hasPermission($config['mod']['clean'], $board) ) {
+			error($config['error']['noaccess']);
+		}
+		
+		$query_local = "`clean_local` = :clean";
+		$query_local_mod = "`clean_local_mod_id` = :mod";
+	}
+	
+	
+	// Marking this post as "Clean" (report immune?)
+	if( !$unclean ) {
+		// Attempt to find a `post_clean` row for this content.
+		$query = prepare("SELECT * FROM `post_clean` WHERE `board_id` = :board AND `post_id` = :post");
+		$query->bindValue( ':board', $board );
+		$query->bindValue( ':post',  $post );
+		
+		$query->execute() or error(db_error($query));
+		
+		// If the $clean object doesn't exist we need to insert a row for this post.
+		if( !($clean = $query->fetch(PDO::FETCH_ASSOC)) ) {
+			$query = prepare("INSERT INTO `post_clean` (`post_id`, `board_id`) VALUES ( :post, :board )");
+			$query->bindValue( ':board', $board );
+			$query->bindValue( ':post',  $post );
+			
+			$query->execute() or error(db_error($query));
+			
+			if( $query->rowCount() == 0 ) {
+				error("The database failed to create a record for this content in `post_clean` to record clean status.");
+			}
+			
+			$clean = true;
+		}
+	}
+	// Revoking clean status (open it to reports?)
+	else {
+		// Attempt to find a `post_clean` row for this content.
+		$query = prepare("SELECT * FROM `post_clean` WHERE `board_id` = :board AND `post_id` = :post");
+		$query->bindValue( ':board', $board );
+		$query->bindValue( ':post',  $post );
+		
+		$query->execute() or error(db_error($query));
+		
+		if( !($clean = $query->fetch(PDO::FETCH_ASSOC)) ) {
+			error($config['error']['404']);
+		}
+	}
+	
+	// Update the `post_clean` row represented by $clean.
+	if( $clean ) {
+		// Build our query based on the URI arguments.
+		if( $global && $local ) {
+			$query = prepare("UPDATE `post_clean` SET {$query_global}, {$query_global_mod}, {$query_local}, {$query_local_mod} WHERE `board_id` = :board AND `post_id` = :post");
+		}
+		else if( $global ) {
+			$query = prepare("UPDATE `post_clean` SET {$query_global}, {$query_global_mod} WHERE `board_id` = :board AND `post_id` = :post");
+		}
+		else {
+			$query = prepare("UPDATE `post_clean` SET {$query_local}, {$query_local_mod} WHERE `board_id` = :board AND `post_id` = :post");
+		}
+		
+		$query->bindValue( ':clean', !$unclean );
+		$query->bindValue( ':mod',   $mod['id'] );
+		$query->bindValue( ':board', $board );
+		$query->bindValue( ':post',  $post );
+		
+		$query->execute() or error(db_error($query));
+		
+		// Log the action.
+		// This is super important because a mod intentionally screwing with clean status needs to be found out, fast.
+		$log_action = ($unclean ? "Closed" : "Re-opened" );
+		$log_scope  = ($local && $global ? "local and global" : ($local ? "local" : "global" ) );
+		modLog( "{$log_action} reports for post #{$post} in {$log_scope}.", $board);
+	}
+	
+	// Redirect
+	header('Location: ?/' . sprintf($config['board_path'], $board) . $config['file_index'], true, $config['redirect_http']);
 }
 
 function mod_config($board_config = false) {

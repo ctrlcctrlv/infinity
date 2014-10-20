@@ -389,7 +389,32 @@ class Post {
 	public function build($index=false) {
 		global $board, $config;
 		
-		return Element('post_reply.html', array('config' => $config, 'board' => $board, 'post' => &$this, 'index' => $index, 'mod' => $this->mod));
+		return Element('post_reply.html', array(
+			'config' => $config,
+			'board' => $board,
+			'post' => &$this,
+			'index' => $index,
+			'mod' => $this->mod,
+			'clean' => $this->getClean(),
+		));
+	}
+	
+	public function getClean( ) {
+		global $board;
+		
+		if( !isset( $this->clean ) ) {
+			$query = prepare("SELECT * FROM `post_clean` WHERE `post_id` = :post AND `board_id` = :board");
+			$query->bindValue( ':board', $board['uri'] );
+			$query->bindValue( ':post',  $this->id );
+			
+			$query->execute() or error(db_error($query));
+			
+			if( !($this->clean = $query->fetch(PDO::FETCH_ASSOC)) ) {
+				$this->clean = array();
+			}
+		}
+		
+		return $this->clean;
 	}
 };
 
@@ -453,9 +478,35 @@ class Thread {
 		
 		event('show-thread', $this);
 
-		$built = Element('post_thread.html', array('config' => $config, 'board' => $board, 'post' => &$this, 'index' => $index, 'hasnoko50' => $hasnoko50, 'isnoko50' => $isnoko50, 'mod' => $this->mod));
+		$built = Element('post_thread.html', array(
+			'config' => $config,
+			'board' => $board,
+			'post' => &$this,
+			'index' => $index,
+			'hasnoko50' => $hasnoko50,
+			'isnoko50' => $isnoko50,
+			'mod' => $this->mod,
+			'clean' => $this->getClean(),
+		));
 		
 		return $built;
+	}
+	public function getClean( ) {
+		global $board, $config, $debug;
+		
+		if( !isset( $this->clean ) ) {
+			$query = prepare("SELECT * FROM `post_clean` WHERE `post_id` = :post AND `board_id` = :board");
+			$query->bindValue( ':board', $board['uri'] );
+			$query->bindValue( ':post',  $this->id );
+			
+			$query->execute() or error(db_error($query));
+			
+			if( !($this->clean = $query->fetch(PDO::FETCH_ASSOC)) ) {
+				$this->clean = array();
+			}
+		}
+		
+		return $this->clean;
 	}
 };
 

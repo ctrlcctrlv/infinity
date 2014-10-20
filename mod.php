@@ -85,18 +85,20 @@ $pages = array(
 	'/search'				=> 'search_redirect',		// search
 	'/search/(posts|IP_notes|bans|log)/(.+)/(\d+)'	=> 'search',		// search
 	'/search/(posts|IP_notes|bans|log)/(.+)'	=> 'search',		// search
-
-	'/(\%b)/ban(&delete)?/(\d+)'		=> 'secure_POST ban_post', 	// ban poster
-	'/(\%b)/move/(\d+)'			=> 'secure_POST move',		// move thread
-	'/(\%b)/move_reply/(\d+)'			=> 'secure_POST move_reply',		// move reply
-	'/(\%b)/edit(_raw)?/(\d+)'		=> 'secure_POST edit_post',	// edit post
-	'/(\%b)/delete/(\d+)'			=> 'secure delete',		// delete post
-	'/(\%b)/deletefile/(\d+)/(\d+)'		=> 'secure deletefile',		// delete file from post
-	'/(\%b+)/spoiler/(\d+)/(\d+)'			=> 'secure spoiler_image',	// spoiler file
-	'/(\%b)/deletebyip/(\d+)(/global)?'	=> 'secure deletebyip',		// delete all posts by IP address
-	'/(\%b)/(un)?lock/(\d+)'		=> 'secure lock',		// lock thread
-	'/(\%b)/(un)?sticky/(\d+)'		=> 'secure sticky',		// sticky thread
-	'/(\%b)/bump(un)?lock/(\d+)'		=> 'secure bumplock',		// "bumplock" thread
+	
+	// Content management
+	'/(\%b)/ban(&delete)?/(\d+)'                      => 'secure_POST ban_post',   // ban poster
+	'/(\%b)/move/(\d+)'                               => 'secure_POST move',       // move thread
+	'/(\%b)/move_reply/(\d+)'                         => 'secure_POST move_reply', // move reply
+	'/(\%b)/edit(_raw)?/(\d+)'                        => 'secure_POST edit_post',  // edit post
+	'/(\%b)/delete/(\d+)'                             => 'secure delete',          // delete post
+	'/(\%b)/deletefile/(\d+)/(\d+)'                   => 'secure deletefile',      // delete file from post
+	'/(\%b+)/spoiler/(\d+)/(\d+)'                     => 'secure spoiler_image',   // spoiler file
+	'/(\%b)/deletebyip/(\d+)(/global)?'               => 'secure deletebyip',      // delete all posts by IP address
+	'/(\%b)/(un)?lock/(\d+)'                          => 'secure lock',            // lock thread
+	'/(\%b)/(un)?sticky/(\d+)'                        => 'secure sticky',          // sticky thread
+	'/(\%b)/bump(un)?lock/(\d+)'                      => 'secure bumplock',        // "bumplock" thread
+	'/(\%b)/(un)?clean/(\d+)/(global)?(?:\+)?(local)?' => 'secure clean',           // protect/unprotect from reports
 	
 	'/themes'				=> 'themes_list',		// manage themes
 	'/themes/(\w+)'				=> 'secure_POST theme_configure',		// configure/reconfigure theme

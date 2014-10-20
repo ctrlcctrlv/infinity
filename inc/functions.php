@@ -311,6 +311,7 @@ function _syslog($priority, $message) {
 function verbose_error_handler($errno, $errstr, $errfile, $errline) {
 	if (error_reporting() == 0)
 		return false; // Looks like this warning was suppressed by the @ operator.
+	
 	error(utf8tohtml($errstr), true, array(
 		'file' => $errfile . ':' . $errline,
 		'errno' => $errno,
