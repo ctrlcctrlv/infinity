@@ -136,6 +136,7 @@
 	$config['additional_javascript'][] = 'js/infinite-scroll.js';
 	$config['additional_javascript'][] = 'js/download-original.js';
 	$config['additional_javascript'][] = 'js/thread-watcher.js';
+	$config['additional_javascript'][] = 'js/youtube.js';
 
 	//$config['font_awesome_css'] = '/netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css';
 	
@@ -392,10 +393,11 @@ EOT;
 
 		mod_page(_('Board configuration'), 'mod/settings.html', array('board'=>$board, 'rules'=>prettify_textarea($rules), 'css'=>prettify_textarea($css), 'token'=>make_secure_link_token('settings/'.$board['uri']), 'languages'=>$possible_languages));
 	};
+
 	$config['embedding'] = array(
 		array(
-			'/^https?:\/\/(\w+\.)?youtube\.com\/watch\?v=([a-zA-Z0-9\-_]{10,11})(&.+)?$/i',
-			'<iframe style="float: left;margin: 10px 20px;" width="%%tb_width%%" height="%%tb_height%%" frameborder="0" id="ytplayer" type="text/html" src="https://www.youtube.com/embed/$2"></iframe>'
+			'/^https?:\/\/(\w+\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9\-_]{10,11})(&.+)?$/i',
+			$config['youtube_js_html']
 		),
 		array(
 			'/^https?:\/\/(\w+\.)?vimeo\.com\/(\d{2,10})(\?.+)?$/i',
