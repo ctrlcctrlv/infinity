@@ -1382,8 +1382,15 @@
 	$config['mod']['flood'] = &$config['mod']['bypass_filters'];
 	// Raw HTML posting
 	$config['mod']['rawhtml'] = ADMIN;
-	// Clean/Unclean posts
+	
+	// Clean System
+	// Post edits remove local clean?
+	$config['clean']['edits_remove_local'] = true;
+	// Post edits remove global clean?
+	$config['clean']['edits_remove_global'] = true;
+	// Mark post clean for board rule
 	$config['mod']['clean'] = JANITOR;
+	// Mark post clean for global rule
 	$config['mod']['clean_global'] = MOD;
 	
 	/* Administration */

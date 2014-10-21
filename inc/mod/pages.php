@@ -1606,6 +1606,35 @@ function mod_edit_post($board, $edit_raw_html, $postID) {
 		}
 		$query->execute() or error(db_error($query));
 		
+		if( $config['clean']['edits_remove_local'] || $config['clean']['edits_remove_global'] ) {
+			
+			$query_global     = "`clean_global` = :clean";
+			$query_global_mod = "`clean_global_mod_id` = :mod";
+			$query_local      = "`clean_local` = :clean";
+			$query_local_mod  = "`clean_local_mod_id` = :mod";
+			
+			if( $config['clean']['edits_remove_local'] && $config['clean']['edits_remove_global'] ) {
+				$query = prepare("UPDATE `post_clean` SET {$query_global}, {$query_global_mod}, {$query_local}, {$query_local_mod} WHERE `board_id` = :board AND `post_id` = :post");
+			}
+			else if( $config['clean']['edits_remove_global'] ) {
+				$query = prepare("UPDATE `post_clean` SET {$query_global}, {$query_global_mod} WHERE `board_id` = :board AND `post_id` = :post");
+			}
+			else {
+				$query = prepare("UPDATE `post_clean` SET {$query_local}, {$query_local_mod} WHERE `board_id` = :board AND `post_id` = :post");
+			}
+			
+			$query->bindValue( ':clean', false );
+			$query->bindValue( ':mod',   NULL );
+			$query->bindValue( ':board', $board );
+			$query->bindValue( ':post',  $postID );
+			
+			$query->execute() or error(db_error($query));
+			
+			// Finally, run a query to tidy up our records.
+			$cleanup = prepare("DELETE FROM `post_clean` WHERE `clean_local` = FALSE AND `clean_global` = FALSE");
+			$query->execute() or error(db_error($query));
+		}
+		
 		if ($edit_raw_html) {
 			modLog("Edited raw HTML of post #{$postID}");
 		} else {
@@ -2958,6 +2987,8 @@ function mod_report_clean( $global_reports, $board, $unclean, $post, $global, $l
 		$log_action = ($unclean ? "Closed" : "Re-opened" );
 		$log_scope  = ($local && $global ? "local and global" : ($local ? "local" : "global" ) );
 		modLog( "{$log_action} reports for post #{$post} in {$log_scope}.", $board);
+		
+		rebuildPost( $post );
 	}
 	
 	// Redirect
