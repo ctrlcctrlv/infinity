@@ -343,6 +343,7 @@ function embed_html($link) {
 	return 'Embedding error.';
 }
 
+
 class Post {
 	public function __construct($post, $root=null, $mod=false) {
 		global $config;
@@ -410,7 +411,14 @@ class Post {
 			$query->execute() or error(db_error($query));
 			
 			if( !($this->clean = $query->fetch(PDO::FETCH_ASSOC)) ) {
-				$this->clean = array();
+				$this->clean = array(
+					'post_id' => $this->id,
+					'board_id' => $board['uri'],
+					'clean_local' => "0",
+					'clean_global' => "0",
+					'clean_local_mod_id' => null,
+					'clean_global_mod_id' => null,
+				);
 			}
 		}
 		
@@ -418,7 +426,7 @@ class Post {
 	}
 };
 
-class Thread {
+class Thread extends Post {
 	public function __construct($post, $root = null, $mod = false, $hr = true) {
 		global $config;
 		if (!isset($root))
@@ -490,23 +498,6 @@ class Thread {
 		));
 		
 		return $built;
-	}
-	public function getClean( ) {
-		global $board, $config, $debug;
-		
-		if( !isset( $this->clean ) ) {
-			$query = prepare("SELECT * FROM `post_clean` WHERE `post_id` = :post AND `board_id` = :board");
-			$query->bindValue( ':board', $board['uri'] );
-			$query->bindValue( ':post',  $this->id );
-			
-			$query->execute() or error(db_error($query));
-			
-			if( !($this->clean = $query->fetch(PDO::FETCH_ASSOC)) ) {
-				$this->clean = array();
-			}
-		}
-		
-		return $this->clean;
 	}
 };
 

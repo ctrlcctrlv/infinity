@@ -60,15 +60,16 @@ $pages = array(
 	// and if the return address should also be the global dashboard.
 	// Important to note that (?:global) will make no argument.
 	// (global)? will make argument 0 either "global" or "".
-	'/reports(?:/)?'                                              => 'reports',               // report queue
-	'/reports/(global)?(?:/)?'                                    => 'reports',               // global report queue
-	'/reports/(global)?(?:/)?(content)/(\%b)/(\d+)(?:/)?'         => 'reports',               // specific reported content (also historic)
-	'/reports/(global)?(?:/)?(content)/(\%b)/(\d+)/dismiss(?:/)?' => 'secure report_dismiss', // dismiss all reports on content
-	'/reports/(global)?(?:/)?(content)/(\%b)/(\d+)/demote(?:/)?'  => 'secure report_demote',  // demote all reports on content
-	'/reports/(global)?(?:/)?(content)/(\%b)/(\d+)/promote(?:/)?' => 'secure report_promote', // demote all reports on content
-	'/reports/(global)?(?:/)?(\d+)/dismiss(all)?(?:/)?'           => 'secure report_dismiss', // dismiss a report
-	'/reports/(global)?(?:/)?(\d+)/demote(?:/)?'                  => 'secure report_demote',  // demote a global report to a local report
-	'/reports/(global)?(?:/)?(\d+)/promote(?:/)?'                 => 'secure report_promote', // promote a local report to a global report
+	'/reports(?:/)?'                                                          => 'reports',               // report queue
+	'/reports/(global)?(?:/)?'                                                => 'reports',               // global report queue
+	'/reports/(global)?(?:/)?(content)/(\%b)/(\d+)(?:/)?'                     => 'reports',               // specific reported content (also historic)
+	'/reports/(global)?(?:/)?(content)/(\%b)/(\d+)/dismiss(?:/)?'             => 'secure report_dismiss', // dismiss all reports on content
+	'/reports/(global)?(?:/)?(content)/(\%b)/(\d+)/demote(?:/)?'              => 'secure report_demote',  // demote all reports on content
+	'/reports/(global)?(?:/)?(content)/(\%b)/(\d+)/promote(?:/)?'             => 'secure report_promote', // demote all reports on content
+	'/reports/(global)?(?:/)?(\d+)/dismiss(all)?(?:/)?'                       => 'secure report_dismiss', // dismiss a report
+	'/reports/(global)?(?:/)?(\d+)/demote(?:/)?'                              => 'secure report_demote',  // demote a global report to a local report
+	'/reports/(global)?(?:/)?(\d+)/promote(?:/)?'                             => 'secure report_promote', // promote a local report to a global report
+	'/reports/(global)?(?:/)?(\%b)/(un)?clean/(\d+)/(global)?(?:\+)?(local)?' => 'secure report_clean',   // protect/unprotect from reports
 	
 	'/IP/([\w.:]+)'				=> 'secure_POST ip',		// view ip address
 	'/IP/([\w.:]+)/remove_note/(\d+)'	=> 'secure ip_remove_note',	// remove note from ip address
@@ -98,7 +99,6 @@ $pages = array(
 	'/(\%b)/(un)?lock/(\d+)'                          => 'secure lock',            // lock thread
 	'/(\%b)/(un)?sticky/(\d+)'                        => 'secure sticky',          // sticky thread
 	'/(\%b)/bump(un)?lock/(\d+)'                      => 'secure bumplock',        // "bumplock" thread
-	'/(\%b)/(un)?clean/(\d+)/(global)?(?:\+)?(local)?' => 'secure clean',           // protect/unprotect from reports
 	
 	'/themes'				=> 'themes_list',		// manage themes
 	'/themes/(\w+)'				=> 'secure_POST theme_configure',		// configure/reconfigure theme

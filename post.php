@@ -104,7 +104,8 @@ if (isset($_POST['delete'])) {
 		header('Content-Type: text/json');
 		echo json_encode(array('success' => true));
 	}
-} elseif (isset($_POST['report'])) {
+}
+elseif (isset($_POST['report'])) {
 	if (!isset($_POST['board'], $_POST['reason']))
 		error($config['error']['bot']);
 	
@@ -134,26 +135,45 @@ if (isset($_POST['delete'])) {
 	markup($reason);
 	
 	foreach ($report as &$id) {
-		$query = prepare(sprintf("SELECT `thread` FROM ``posts_%s`` WHERE `id` = :id", $board['uri']));
+		$query = prepare(
+			"SELECT
+				`thread`,
+				`post_clean`.`clean_local`,
+				`post_clean`.`clean_global`
+			FROM `posts_{$board['uri']}`
+			LEFT JOIN `post_clean`
+				ON `post_clean`.`board_id` = '{$board['uri']}'
+				AND `post_clean`.`post_id` = :id
+			WHERE `id` = :id"
+		);
 		$query->bindValue(':id', $id, PDO::PARAM_INT);
 		$query->execute() or error(db_error($query));
 		
-		$thread = $query->fetchColumn();
-		
-		if ($config['syslog'])
-			_syslog(LOG_INFO, 'Reported post: ' .
-				'/' . $board['dir'] . $config['dir']['res'] . sprintf($config['file_page'], $thread ? $thread : $id) . ($thread ? '#' . $id : '') .
-				' for "' . $reason . '"'
-			);
-		$query = prepare("INSERT INTO ``reports`` (`time`, `ip`, `board`, `post`, `reason`, `local`, `global`) VALUES (:time, :ip, :board, :post, :reason, :local, :global)");
-		$query->bindValue(':time', time(), PDO::PARAM_INT);
-		$query->bindValue(':ip', $_SERVER['REMOTE_ADDR'], PDO::PARAM_STR);
-		$query->bindValue(':board', $board['uri'], PDO::PARAM_INT);
-		$query->bindValue(':post', $id, PDO::PARAM_INT);
-		$query->bindValue(':reason', $reason, PDO::PARAM_STR);
-		$query->bindValue(':local', 1, PDO::PARAM_BOOL);
-		$query->bindValue(':global', isset($_POST['global']), PDO::PARAM_BOOL);
-		$query->execute() or error(db_error($query));
+		if( $post = $query->fetch(PDO::FETCH_ASSOC) ) {
+			$report_local  = !$post['clean_local'];
+			$report_global = isset($_POST['global']) && !$post['clean_global'];
+			
+			if( $report_local || $report_global ) {
+				$thread = $post['thread'];
+				
+				if ($config['syslog']) {
+					_syslog(LOG_INFO, 'Reported post: ' .
+						'/' . $board['dir'] . $config['dir']['res'] . sprintf($config['file_page'], $thread ? $thread : $id) . ($thread ? '#' . $id : '') .
+						' for "' . $reason . '"'
+					);
+				}
+				
+				$query = prepare("INSERT INTO `reports` (`time`, `ip`, `board`, `post`, `reason`, `local`, `global`) VALUES (:time, :ip, :board, :post, :reason, :local, :global)");
+				$query->bindValue(':time',   time(), PDO::PARAM_INT);
+				$query->bindValue(':ip',     $_SERVER['REMOTE_ADDR'], PDO::PARAM_STR);
+				$query->bindValue(':board',  $board['uri'], PDO::PARAM_INT);
+				$query->bindValue(':post',   $id, PDO::PARAM_INT);
+				$query->bindValue(':reason', $reason, PDO::PARAM_STR);
+				$query->bindValue(':local',  $report_local, PDO::PARAM_BOOL);
+				$query->bindValue(':global', $report_global, PDO::PARAM_BOOL);
+				$query->execute() or error(db_error($query));
+			}
+		}
 	}
 	
 	$is_mod = isset($_POST['mod']) && $_POST['mod'];
@@ -165,7 +185,8 @@ if (isset($_POST['delete'])) {
 		header('Content-Type: text/json');
 		echo json_encode(array('success' => true));
 	}
-} elseif (isset($_POST['post'])) {
+}
+elseif (isset($_POST['post'])) {
 	if (!isset($_POST['body'], $_POST['board']))
 		error($config['error']['bot']);
 
@@ -890,7 +911,8 @@ if (isset($_POST['delete'])) {
 			'id' => $id
 		));
 	}
-} elseif (isset($_POST['appeal'])) {
+}
+elseif (isset($_POST['appeal'])) {
 	if (!isset($_POST['ban_id']))
 		error($config['error']['bot']);
 	
@@ -931,7 +953,8 @@ if (isset($_POST['delete'])) {
 	$query->execute() or error(db_error($query));
 	
 	displayBan($ban);
-} else {
+}
+else {
 	if (!file_exists($config['has_installed'])) {
 		header('Location: install.php', true, $config['redirect_http']);
 	} else {

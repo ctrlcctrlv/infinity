@@ -1614,7 +1614,7 @@ function mod_edit_post($board, $edit_raw_html, $postID) {
 		}
 		
 		buildIndex();
-
+		
 		rebuildThemes('post', $board);
 		
 		header('Location: ?/' . sprintf($config['board_path'], $board) . $config['dir']['res'] . sprintf($config['file_page'], $post['thread'] ? $post['thread'] : $postID) . '#' . $postID, true, $config['redirect_http']);
@@ -2384,6 +2384,11 @@ function mod_reports() {
 					$po = new Post($content, '?/', $mod);
 				}
 				
+				// Fetch clean status.
+				$po->getClean();
+				$clean = $po->clean;
+				
+				
 				// Add each report's template to this container.
 				$report_html = "";
 				$reports_can_demote = false;
@@ -2396,6 +2401,7 @@ function mod_reports() {
 						'config'        => $config,
 						'mod'           => $mod,
 						'global'        => $global,
+						'clean'         => $clean,
 						
 						'uri_dismiss'   => "?/{$uri_report_base}/dismiss",
 						'uri_ip'        => "?/{$uri_report_base}/dismissall",
@@ -2430,8 +2436,14 @@ function mod_reports() {
 					$content_reports
 				);
 				
-				$uri_content_base = "reports/" . ($global ? "global/" : "" ) . "content/";
-				$uri_clean_base   = "{$report_item['board_id']}/clean/{$content['id']}";
+				
+				// Figure out some stuff we need for the page.
+				$reports_can_demote  = ( $clean['clean_local'] ? false : $reports_can_demote );
+				$reports_can_promote = ( $clean['clean_global'] ? false : $reports_can_promote );
+				$uri_content_base    = "reports/" . ($global ? "global/" : "" ) . "content/";
+				$uri_clean_base      = "reports/" . ($global ? "global/" : "" ) . "{$report_item['board_id']}/clean/{$content['id']}";
+				
+				// Build the actions page.
 				$content_html = Element('mod/report_content.html', array(
 					'reports_html'          => $report_html,
 					'reports_can_demote'    => $reports_can_demote,
@@ -2441,7 +2453,9 @@ function mod_reports() {
 					
 					'content_html'          => $po->build(true),
 					'content_board'         => $report_item['board_id'],
-					'content'               => $content,
+					'content'               => (array) $content,
+					
+					'clean'                 => $clean,
 					
 					'uri_content_demote'    => "?/{$uri_content_base}{$report_item['board_id']}/{$content['id']}/demote",
 					'uri_content_promote'   => "?/{$uri_content_base}{$report_item['board_id']}/{$content['id']}/promote",
@@ -2813,7 +2827,7 @@ function mod_recent_posts($lim) {
 
 }
 
-function mod_clean( $board, $unclean, $post, $global, $local ) {
+function mod_report_clean( $global_reports, $board, $unclean, $post, $global, $local ) {
 	global $config, $mod;
 	
 	if( !openBoard($board) ) {
@@ -2853,7 +2867,7 @@ function mod_clean( $board, $unclean, $post, $global, $local ) {
 		$query->execute() or error(db_error($query));
 		
 		// If the $clean object doesn't exist we need to insert a row for this post.
-		if( !($clean = $query->fetch(PDO::FETCH_ASSOC)) ) {
+		if( !($cleanRecord = $query->fetch(PDO::FETCH_ASSOC)) ) {
 			$query = prepare("INSERT INTO `post_clean` (`post_id`, `board_id`) VALUES ( :post, :board )");
 			$query->bindValue( ':board', $board );
 			$query->bindValue( ':post',  $post );
@@ -2864,7 +2878,7 @@ function mod_clean( $board, $unclean, $post, $global, $local ) {
 				error("The database failed to create a record for this content in `post_clean` to record clean status.");
 			}
 			
-			$clean = true;
+			$cleanRecord = true;
 		}
 	}
 	// Revoking clean status (open it to reports?)
@@ -2876,13 +2890,13 @@ function mod_clean( $board, $unclean, $post, $global, $local ) {
 		
 		$query->execute() or error(db_error($query));
 		
-		if( !($clean = $query->fetch(PDO::FETCH_ASSOC)) ) {
+		if( !($cleanRecord = $query->fetch(PDO::FETCH_ASSOC)) ) {
 			error($config['error']['404']);
 		}
 	}
 	
 	// Update the `post_clean` row represented by $clean.
-	if( $clean ) {
+	if( $cleanRecord ) {
 		// Build our query based on the URI arguments.
 		if( $global && $local ) {
 			$query = prepare("UPDATE `post_clean` SET {$query_global}, {$query_global_mod}, {$query_local}, {$query_local_mod} WHERE `board_id` = :board AND `post_id` = :post");
@@ -2895,21 +2909,64 @@ function mod_clean( $board, $unclean, $post, $global, $local ) {
 		}
 		
 		$query->bindValue( ':clean', !$unclean );
-		$query->bindValue( ':mod',   $mod['id'] );
+		$query->bindValue( ':mod',   $unclean ? NULL : $mod['id'] );
 		$query->bindValue( ':board', $board );
 		$query->bindValue( ':post',  $post );
 		
 		$query->execute() or error(db_error($query));
 		
+		// Finally, run a query to tidy up our records.
+		if( $unclean ) {
+			// Query is removing clean status from content.
+			// Remove any clean records that are now null.
+			$cleanup = prepare("DELETE FROM `post_clean` WHERE `clean_local` = FALSE AND `clean_global` = FALSE");
+			$query->execute() or error(db_error($query));
+		}
+		else {
+			// Content is clean, auto-handle all reports.
+			
+			// If this is a total clean, we don't need to update records first. 
+			if( !($global && $local) ) {
+				$query  = prepare("UPDATE `reports` SET `" . ($local ? "local" : "global") . "` = FALSE WHERE `board` = :board AND `post` = :post");
+				$query->bindValue( ':board', $board );
+				$query->bindValue( ':post',  $post );
+				
+				$query->execute() or error(db_error($query));
+				
+				// If we didn't hit anything, this content doesn't have reports, so don't run the delete query.
+				$require_delete = ($query->rowCount() > 0);
+				
+				if( $require_delete ) {
+					$query = prepare("DELETE FROM `reports` WHERE `local` = FALSE and `global` = FALSE");
+					
+					$query->execute() or error(db_error($query));
+				}
+			}
+			// This is a total clean, so delete content by ID rather than via cleanup.
+			else {
+				$query = prepare("DELETE FROM `reports` WHERE `board` = :board AND `post` = :post");
+				
+				$query->bindValue( ':board', $board );
+				$query->bindValue( ':post',  $post );
+				
+				$query->execute() or error(db_error($query));
+			}
+		}
+		
 		// Log the action.
-		// This is super important because a mod intentionally screwing with clean status needs to be found out, fast.
+		// Having clear wording of ths log is very important because of the nature of clean status.
 		$log_action = ($unclean ? "Closed" : "Re-opened" );
 		$log_scope  = ($local && $global ? "local and global" : ($local ? "local" : "global" ) );
 		modLog( "{$log_action} reports for post #{$post} in {$log_scope}.", $board);
 	}
 	
 	// Redirect
-	header('Location: ?/' . sprintf($config['board_path'], $board) . $config['file_index'], true, $config['redirect_http']);
+	if( $global_reports ) {
+		header('Location: ?/reports/global', true, $config['redirect_http']);
+	}
+	else {
+		header('Location: ?/reports', true, $config['redirect_http']);
+	}
 }
 
 function mod_config($board_config = false) {

@@ -32,7 +32,9 @@
 			
 			{% if global and mod|hasPermission(config.mod.report_demote, report.board) %}
 			<li class="report-action">
-				{% if report.local %}
+				{% if clean.clean_local %}
+				<span class="content-action-item content-action-unavailable" title="{% trans 'Content is permitted by board rules' %}">Demote</span>
+				{% elseif report.local %}
 				<a class="action-item action-available" title="{% trans 'Demote global abuse report to a local report' %}" href="{{uri_demote}}/{{token_demote}}">Demote</a>
 				{% else %}
 				<span class="action-item action-unavailable" title="{% trans 'Report has already been dismissed locally' %}">Demote</span>
@@ -40,7 +42,9 @@
 			</li>
 			{% elseif not global and mod|hasPermission(config.mod.report_promote, report.board) %}
 			<li class="report-action">
-				{% if report.global %}
+				{% if clean.clean_global %}
+				<span class="content-action-item content-action-unavailable" title="{% trans 'Content is permitted by global rules' %}">Promote</span>
+				{% elseif report.global %}
 				<span class="action-item action-unavailable" title="{% trans 'Report is already a global report' %}">Promote</span>
 				{% else %}
 				<a class="action-item action-available" title="{% trans 'Promote local abuse report to a global report' %}" href="{{uri_promote}}/{{token_promote}}">Promote</a>
