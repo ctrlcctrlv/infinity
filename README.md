@@ -3,10 +3,10 @@
 
 About
 ------------
-vichan is a free light-weight, fast, highly configurable and user-friendly
+8chan is a free light-weight, fast, highly configurable and user-friendly
 imageboard software package. It is written in PHP and has few dependencies.
 
-vichan is a fork of [Tinyboard](http://tinyboard.org/), a great imageboard package, actively
+8chan is a fork of [vichan](https://github.com/vichan-devel/vichan), which is a fork of [Tinyboard](http://tinyboard.org/), a great imageboard package, actively
 building on it and adding a lot of features and other improvements.
 
 Support and announcements: https://int.vichan.net/devel/
@@ -44,11 +44,13 @@ Installation
 1.	Download and extract Tinyboard to your web directory or get the latest
 	development version with:
 
-        git clone git://github.com/vichan-devel/vichan.git
+        git clone git://github.com/ctrlcctrlv/8chan.git
+        
+2.      Copy secrets.example.php to secrets.php and edit it.
 	
-2.	Navigate to ```install.php``` in your web browser and follow the
+3.	Navigate to ```install.php``` in your web browser and follow the
 	prompts.
-3.	vichan should now be installed. Log in to ```mod.php``` with the
+4.	vichan should now be installed. Log in to ```mod.php``` with the
 	default username and password combination: **admin / password**.
 
 Please remember to change the administrator account password.
@@ -63,8 +65,6 @@ Either run ```git pull``` to update your files, if you used git, or
 backup your ```inc/instance-config.php```, replace all your files in place
 (don't remove boards etc.), then put ```inc/instance-config.php``` back and
 finally run ```install.php```.
-
-To migrate from a Kusaba X board:
 
 Support
 --------
@@ -81,7 +81,7 @@ find support from a variety of sources:
 	[irc.6irc.net #vichan-devel](irc://irc.6irc.net/vichan-devel)
 
 ### Tinyboard support
-vichan is based on a Tinyboard, so both engines have very much in common. These
+8chan is based on a Tinyboard, so both engines have very much in common. These
 links may be helpful for you as well: 
 
 *	Tinyboard documentation can be found [here](http://tinyboard.org/docs/).
@@ -110,7 +110,7 @@ at the power users. You won't be able to run these from shared hosting accounts
 
 Localisation
 ------------
-Wanting to have vichan in your language? You can contribute your translations at this URL:
+Want to have vichan/8chan in your language? You can contribute your translations at this URL:
 
 https://www.transifex.com/projects/p/tinyboard-vichan-devel/
 
