@@ -24,7 +24,7 @@ if (!$ayah){
 if (!$cbRecaptcha){
 	$recapcha_html = '';
 } else {
-	$recapcha_html = '<tr><th>reCaptcha</th><td>' .  recaptcha_get_html($config['recaptcha_public']) . '</td></tr>';
+	$recapcha_html = '<tr><th>reCaptcha</th><td>' .  recaptcha_get_html($config['recaptcha_public'], NULL, TRUE) . '</td></tr>';
 }
 
 

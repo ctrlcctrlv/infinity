@@ -973,4 +973,11 @@ span.pln {
 #watchlist-toggle, .watchThread, .watchlist-remove, #clearList, #clearGhosts {
 	cursor: pointer;
 }
-
+.own_post {
+	font-style: italic;
+	font-weight: normal;
+	opacity: .666;
+}
+div.mix {
+	display: inline-block;
+}
