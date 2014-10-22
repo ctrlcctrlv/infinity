@@ -354,8 +354,13 @@ class Post {
 			$this->{$key} = $value;
 		}
 
-		if (isset($this->files) && $this->files)
+		if (isset($this->files) && $this->files) {
 			$this->files = json_decode($this->files);
+			// Compatibility for posts before individual file hashing
+			foreach ($this->files as &$file)
+				if (!isset($file->hash))
+					$file->hash = $this->filehash;
+		}
 		
 		$this->subject = utf8tohtml($this->subject);
 		$this->name = utf8tohtml($this->name);
