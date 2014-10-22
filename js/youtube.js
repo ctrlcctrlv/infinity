@@ -16,7 +16,8 @@
 *	$config['embedding'] = array();
 *	$config['embedding'][0] = array(
 *		'/^https?:\/\/(\w+\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9\-_]{10,11})(&.+)?$/i',
-*		$config['youtube_js_html']);
+*		$config['youtube_js_html'],
+*		'https://youtube.com/watch?v=$2');
 *   $config['additional_javascript'][] = 'js/jquery.min.js';
 *   $config['additional_javascript'][] = 'js/youtube.js';
 *
