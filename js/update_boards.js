@@ -14,7 +14,7 @@ function handle_boards(data) {
 	
 }
 
-$.getJSON("/boards.json", handle_boards)
+$.getJSON("/boards-top20.json", handle_boards)
 
 
 });
