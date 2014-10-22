@@ -34,11 +34,13 @@ function handle_boards(data) {
 	data = JSON.parse(data);
 
 	$.each(data, function(k, v) {
-		boards.push('<a href="/'+v+'">'+v+'</a>');
+		boards.push('<a href="/'+v+(window.active_page === 'catalog' ? '/catalog.html' : '')+'">'+v+'</a>');
 	})
 
 	if (boards[0]) {
 		return $('<span class="favorite-boards"></span>').append(' [ '+boards.join(" / ")+' ] ');
+	} else {
+		return $('<span class="favorite-boards"></span>');
 	}	
 }
 
@@ -50,7 +52,7 @@ function add_favorites() {
 	$('.boardlist').append(boards);
 };
 
-if (active_page == 'thread' || active_page == 'index') {
+if (active_page == 'thread' || active_page == 'index' || active_page == 'catalog') {
 	$(document).ready(function(){
 		var favorites = JSON.parse(localStorage.favorites);
 		var is_board_favorite = ~$.inArray(board_name, favorites);
