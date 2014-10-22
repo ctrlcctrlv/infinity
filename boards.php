@@ -94,6 +94,8 @@ if ($admin) {
 	echo $html;
 } else {
 	file_write("boards.json", json_encode($boards));
+	array_splice($boards, 20);
+	file_write("boards-top20.json", json_encode($boards));
 	file_write("boards.html", $html);
 	echo 'Done';
 }
