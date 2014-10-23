@@ -6,9 +6,10 @@
 		active_page = "page";
 	</script>
 	{% include 'header.html' %}
+	{% if mod %}{% include 'mod/header.html' %}{% endif %}
 	<title>{{ title }}</title>
 </head>
-<body>
+<body class="8chan {% if mod %}is-moderator{% else %}is-not-moderator{% endif %} stylesheet-{% if config.default_stylesheet.1 != '' and not mod %}{{ config.default_stylesheet.1 }}{% else %}default{% endif %}">
 	{% if pm %}<div class="top_notice">You have <a href="?/PM/{{ pm.id }}">an unread PM</a>{% if pm.waiting > 0 %}, plus {{ pm.waiting }} more waiting{% endif %}.</div><hr>{% endif %}
 	<header>
 		<h1>{{ title }}</h1>

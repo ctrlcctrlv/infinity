@@ -1,4 +1,11 @@
-{% if post.edited_at %}
-	<br>
-	<span class="unimportant edited">Post last edited at <em class="edited-time">{{ post.edited_at }}</em></span>
-{% endif %}
+<div class="post_modified">
+	{% if post.edited_at %}
+		<div class="content-status edited">{% trans 'Post last edited at' %} <em class="edited-time">{{ post.edited_at }}</em></div>
+	{% endif %}
+	{% if clean.clean_local == '1' %}
+		<div class="content-status clean-local">{% trans 'Board rules permit this content' %}</div>
+	{% endif %}
+	{% if clean.clean_global == '1' %}
+		<div class="content-status clean-global">{% trans 'Global rules permit this content' %}</div>
+	{% endif %}
+</div>

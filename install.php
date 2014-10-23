@@ -579,7 +579,8 @@ if ($step == 0) {
 	</p>';
 	
 	echo Element('page.html', $page);
-} elseif ($step == 1) {
+}
+elseif ($step == 1) {
 	$page['title'] = 'Pre-installation test';
 	
 	$can_exec = true;
@@ -761,7 +762,8 @@ if ($step == 0) {
 		'title' => 'Checking environment',
 		'config' => $config
 	));
-} elseif ($step == 2) {
+}
+elseif ($step == 2) {
 	// Basic config
 	$page['title'] = 'Configuration';
 	
@@ -775,7 +777,8 @@ if ($step == 0) {
 		'title' => 'Configuration',
 		'config' => $config
 	));
-} elseif ($step == 3) {
+}
+elseif ($step == 3) {
 	$instance_config = 
 '<?php
 
@@ -814,7 +817,8 @@ if ($step == 0) {
 	
 	if (@file_put_contents('inc/instance-config.php', $instance_config)) {
 		header('Location: ?step=4', true, $config['redirect_http']);
-	} else {
+	}
+	else {
 		$page['title'] = 'Manual installation required';
 		$page['body'] = '
 			<p>I couldn\'t write to <strong>inc/instance-config.php</strong> with the new configuration, probably due to a permissions error.</p>
@@ -826,7 +830,8 @@ if ($step == 0) {
 		';
 		echo Element('page.html', $page);
 	}
-} elseif ($step == 4) {
+}
+elseif ($step == 4) {
 	// SQL installation
 	
 	buildJavascript();
@@ -846,11 +851,15 @@ if ($step == 0) {
 	
 	$sql_errors = '';
 	foreach ($queries as $query) {
-		if ($mysql_version < 50503)
+		if ($mysql_version < 50503) {
 			$query = preg_replace('/(CHARSET=|CHARACTER SET )utf8mb4/', '$1utf8', $query);
+		}
+		
 		$query = preg_replace('/^([\w\s]*)`([0-9a-zA-Z$_\x{0080}-\x{FFFF}]+)`/u', '$1``$2``', $query);
-		if (!query($query))
+		
+		if (!query($query)) {
 			$sql_errors .= '<li>' . db_error() . '</li>';
+		}
 	}
 	
 	$page['title'] = 'Installation complete';
@@ -858,7 +867,8 @@ if ($step == 0) {
 	
 	if (!empty($sql_errors)) {
 		$page['body'] .= '<div class="ban"><h2>SQL errors</h2><p>SQL errors were encountered when trying to install the database. This may be the result of using a database which is already occupied with a vichan installation; if so, you can probably ignore this.</p><p>The errors encountered were:</p><ul>' . $sql_errors . '</ul><p><a href="?step=5">Ignore errors and complete installation.</a></p></div>';
-	} else {
+	}
+	else {
 		$boards = listBoards();
 		foreach ($boards as &$_board) {
 			setupBoard($_board);
@@ -866,13 +876,11 @@ if ($step == 0) {
 		}
 		
 		file_write($config['has_installed'], VERSION);
-		/*if (!file_unlink(__FILE__)) {
-			$page['body'] .= '<div class="ban"><h2>Delete install.php!</h2><p>I couldn\'t remove <strong>install.php</strong>. You will have to remove it manually.</p></div>';
-		}*/
 	}
 	
 	echo Element('page.html', $page);
-} elseif ($step == 5) {
+}
+elseif ($step == 5) {
 	$page['title'] = 'Installation complete';
 	$page['body'] = '<p style="text-align:center">Thank you for using vichan. Please remember to report any bugs you discover.</p>';
 	

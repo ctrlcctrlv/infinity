@@ -53,10 +53,23 @@ $pages = array(
 	'/edit/(\%b)'				=> 'secure_POST edit_board',	// edit board details
 	'/new-board'				=> 'secure_POST new_board',	// create a new board
 	
-	'/rebuild'				=> 'secure_POST rebuild',	// rebuild static files
-	'/reports'				=> 'reports',			// report queue
-	'/reports/(global)'				=> 'reports',			// global report queue
-	'/reports/(\d+)/dismiss(all)?'		=> 'secure report_dismiss',	// dismiss a report
+	'/rebuild'                     => 'secure_POST rebuild',   // rebuild static files
+	
+	// Report management
+	// (global) denotes if the action is being carried out from the global dashboard,
+	// and if the return address should also be the global dashboard.
+	// Important to note that (?:global) will make no argument.
+	// (global)? will make argument 0 either "global" or "".
+	'/reports(?:/)?'                                                          => 'reports',               // report queue
+	'/reports/(global)?(?:/)?'                                                => 'reports',               // global report queue
+	'/reports/(global)?(?:/)?(content)/(\%b)/(\d+)(?:/)?'                     => 'reports',               // specific reported content (also historic)
+	'/reports/(global)?(?:/)?(content)/(\%b)/(\d+)/dismiss(?:/)?'             => 'secure report_dismiss', // dismiss all reports on content
+	'/reports/(global)?(?:/)?(content)/(\%b)/(\d+)/demote(?:/)?'              => 'secure report_demote',  // demote all reports on content
+	'/reports/(global)?(?:/)?(content)/(\%b)/(\d+)/promote(?:/)?'             => 'secure report_promote', // demote all reports on content
+	'/reports/(global)?(?:/)?(\d+)/dismiss(all)?(?:/)?'                       => 'secure report_dismiss', // dismiss a report
+	'/reports/(global)?(?:/)?(\d+)/demote(?:/)?'                              => 'secure report_demote',  // demote a global report to a local report
+	'/reports/(global)?(?:/)?(\d+)/promote(?:/)?'                             => 'secure report_promote', // promote a local report to a global report
+	'/reports/(global)?(?:/)?(\%b)/(un)?clean/(\d+)/(global)?(?:\+)?(local)?' => 'secure report_clean',   // protect/unprotect from reports
 	
 	'/IP/([\w.:]+)'				=> 'secure_POST ip',		// view ip address
 	'/IP/([\w.:]+)/remove_note/(\d+)'	=> 'secure ip_remove_note',	// remove note from ip address
@@ -73,18 +86,19 @@ $pages = array(
 	'/search'				=> 'search_redirect',		// search
 	'/search/(posts|IP_notes|bans|log)/(.+)/(\d+)'	=> 'search',		// search
 	'/search/(posts|IP_notes|bans|log)/(.+)'	=> 'search',		// search
-
-	'/(\%b)/ban(&delete)?/(\d+)'		=> 'secure_POST ban_post', 	// ban poster
-	'/(\%b)/move/(\d+)'			=> 'secure_POST move',		// move thread
-	'/(\%b)/move_reply/(\d+)'			=> 'secure_POST move_reply',		// move reply
-	'/(\%b)/edit(_raw)?/(\d+)'		=> 'secure_POST edit_post',	// edit post
-	'/(\%b)/delete/(\d+)'			=> 'secure delete',		// delete post
-	'/(\%b)/deletefile/(\d+)/(\d+)'		=> 'secure deletefile',		// delete file from post
-	'/(\%b+)/spoiler/(\d+)/(\d+)'			=> 'secure spoiler_image',	// spoiler file
-	'/(\%b)/deletebyip/(\d+)(/global)?'	=> 'secure deletebyip',		// delete all posts by IP address
-	'/(\%b)/(un)?lock/(\d+)'		=> 'secure lock',		// lock thread
-	'/(\%b)/(un)?sticky/(\d+)'		=> 'secure sticky',		// sticky thread
-	'/(\%b)/bump(un)?lock/(\d+)'		=> 'secure bumplock',		// "bumplock" thread
+	
+	// Content management
+	'/(\%b)/ban(&delete)?/(\d+)'                      => 'secure_POST ban_post',   // ban poster
+	'/(\%b)/move/(\d+)'                               => 'secure_POST move',       // move thread
+	'/(\%b)/move_reply/(\d+)'                         => 'secure_POST move_reply', // move reply
+	'/(\%b)/edit(_raw)?/(\d+)'                        => 'secure_POST edit_post',  // edit post
+	'/(\%b)/delete/(\d+)'                             => 'secure delete',          // delete post
+	'/(\%b)/deletefile/(\d+)/(\d+)'                   => 'secure deletefile',      // delete file from post
+	'/(\%b+)/spoiler/(\d+)/(\d+)'                     => 'secure spoiler_image',   // spoiler file
+	'/(\%b)/deletebyip/(\d+)(/global)?'               => 'secure deletebyip',      // delete all posts by IP address
+	'/(\%b)/(un)?lock/(\d+)'                          => 'secure lock',            // lock thread
+	'/(\%b)/(un)?sticky/(\d+)'                        => 'secure sticky',          // sticky thread
+	'/(\%b)/bump(un)?lock/(\d+)'                      => 'secure bumplock',        // "bumplock" thread
 	
 	'/themes'				=> 'themes_list',		// manage themes
 	'/themes/(\w+)'				=> 'secure_POST theme_configure',		// configure/reconfigure theme

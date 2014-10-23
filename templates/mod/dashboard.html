@@ -1,40 +1,5 @@
-<fieldset>
-	<legend>{% trans 'Boards' %}</legend>
-	
-	<ul>
-		{% for board in boards %}
-		{% if board.uri in mod.boards or mod.boards[0] == '*' %}
-			<li>
-				<a href="?/{{ config.board_path|sprintf(board.uri) }}{{ config.file_index }}">{{ config.board_abbreviation|sprintf(board.uri) }}</a>
-					 - 
-				{{ board.title|e }}
-				{% if board.subtitle %}
-					<small>&mdash; 
-						{% if config.allow_subtitle_html %}
-							{{ board.subtitle }}
-						{% else %}
-							{{ board.subtitle|e }}
-						{% endif %}
-					</small>
-
-				{% endif %}
-				{% if mod.type == "20" %}
-					<a href="?/settings/{{ board.uri }}"><small>[{% trans 'settings' %}]</small></a>
-				{% endif %}
-				{% if mod|hasPermission(config.mod.manageboards) %}
-					 <a href="?/edit/{{ board.uri }}"><small>[{% trans 'edit' %}]</small></a>
-				{% endif %}
-			</li>
-		{% endif %}
-		{% endfor %}
-		
-		{% if mod|hasPermission(config.mod.newboard) %}
-			<li style="margin-top:15px"><a href="?/new-board"><strong>{% trans 'Create new board' %}</strong></a></li>
-		{% endif %}
-	</ul>
-</fieldset>
-
-<fieldset>
+<!-- Messages -->
+<fieldset class="mod-dash mod-dash-set mod-dash-messages">
 	<legend>{% trans 'Messages' %}</legend>
 	<ul>
 		{% if mod|hasPermission(config.mod.noticeboard) %}
@@ -78,7 +43,8 @@
 	</ul>
 </fieldset>
 
-<fieldset>
+<!-- Administration -->
+<fieldset class="mod-dash mod-dash-set mod-dash-messages">
 	<legend>{% trans 'Administration' %}</legend>
 	
 	<ul>
@@ -91,7 +57,6 @@
 					{% if mod.type != 20 %}<a href="?/reports/global">Global reports ({{global_reports}})</a>{% endif %}
 				{% if reports > 0 %}</strong>{% endif %}
 			</li>
-
 		{% endif %}
 		{% if mod|hasPermission(config.mod.view_banlist) %}
 			<li><a href="?/bans">{% trans 'Ban list' %}</a></li>
@@ -123,57 +88,99 @@
 	</ul>
 </fieldset>
 
+<!-- Search -->
 {% if mod|hasPermission(config.mod.search) %}
-	<fieldset>
-		<legend>{% trans 'Search' %}</legend>
-		
-		<ul>
-			<li>
-				{% include 'mod/search_form.html' %}
-			</li>
-		</ul>
-	</fieldset>
+<fieldset class="mod-dash mod-dash-set mod-dash-search">
+	<legend>{% trans 'Search' %}</legend>
+	
+	<ul>
+		<li>
+			{% include 'mod/search_form.html' %}
+		</li>
+	</ul>
+</fieldset>
 {%  endif %}
 
-{% if config.mod.dashboard_links|count %}
-	<fieldset>
-		<legend>{% trans 'Other' %}</legend>
+<!-- Boards -->
+<fieldset class="mod-dash mod-dash-set mod-dash-boards">
+	<legend>{% trans 'Boards' %}</legend>
 	
-		<ul>
-			{% for label,link in config.mod.dashboard_links %}
-				<li><a href="{{ link }}">{{ label }}</a></li>
-			{% endfor %}
-		</ul>
-	</fieldset>
-{% endif %}
-
-{% if config.debug %}
-	<fieldset>
-		<legend>{% trans 'Debug' %}</legend>
-		<ul>
-			<li><a href="?/debug/antispam">{% trans 'Anti-spam' %}</a></li>
-			<li><a href="?/debug/recent">{% trans 'Recent posts' %}</a></li>
-			{% if mod|hasPermission(config.mod.debug_sql) %}
-				<li><a href="?/debug/sql">{% trans 'SQL' %}</a></li>
-			{% endif %}
-		</ul>
-	</fieldset>
-{% endif %}
-
-{% if newer_release %}
-	<fieldset>
-		<legend>Update</legend>
-		<ul>
+	<ul>
+		{% for board in boards %}
+		{% if board.uri in mod.boards or mod.boards[0] == '*' %}
 			<li>
-				A newer version of Tinyboard 
-				(<strong>v{{ newer_release.massive }}.{{ newer_release.major }}.{{ newer_release.minor }}</strong>) is available! 
-				See <a href="http://tinyboard.org">http://tinyboard.org/</a> for upgrade instructions.
+				<a href="?/{{ config.board_path|sprintf(board.uri) }}{{ config.file_index }}">{{ config.board_abbreviation|sprintf(board.uri) }}</a>
+					 - 
+				{{ board.title|e }}
+				{% if board.subtitle %}
+					<small>&mdash; 
+						{% if config.allow_subtitle_html %}
+							{{ board.subtitle }}
+						{% else %}
+							{{ board.subtitle|e }}
+						{% endif %}
+					</small>
+
+				{% endif %}
+				{% if mod.type == "20" %}
+					<a href="?/settings/{{ board.uri }}"><small>[{% trans 'settings' %}]</small></a>
+				{% endif %}
+				{% if mod|hasPermission(config.mod.manageboards) %}
+					 <a href="?/edit/{{ board.uri }}"><small>[{% trans 'edit' %}]</small></a>
+				{% endif %}
 			</li>
-		</ul>
-	</fieldset>
+		{% endif %}
+		{% endfor %}
+		
+		{% if mod|hasPermission(config.mod.newboard) %}
+			<li style="margin-top:15px"><a href="?/new-board"><strong>{% trans 'Create new board' %}</strong></a></li>
+		{% endif %}
+	</ul>
+</fieldset>
+
+<!-- Misc -->
+{% if config.mod.dashboard_links|count %}
+<fieldset class="mod-dash mod-dash-set mod-dash-misc">
+	<legend>{% trans 'Other' %}</legend>
+
+	<ul>
+		{% for label,link in config.mod.dashboard_links %}
+			<li><a href="{{ link }}">{{ label }}</a></li>
+		{% endfor %}
+	</ul>
+</fieldset>
 {% endif %}
 
-<fieldset>
+<!-- Debug Information -->
+{% if config.debug %}
+<fieldset class="mod-dash mod-dash-set mod-dash-debug">
+	<legend>{% trans 'Debug' %}</legend>
+	<ul>
+		<li><a href="?/debug/antispam">{% trans 'Anti-spam' %}</a></li>
+		<li><a href="?/debug/recent">{% trans 'Recent posts' %}</a></li>
+		{% if mod|hasPermission(config.mod.debug_sql) %}
+			<li><a href="?/debug/sql">{% trans 'SQL' %}</a></li>
+		{% endif %}
+	</ul>
+</fieldset>
+{% endif %}
+
+<!-- Update -->
+{% if newer_release %}
+<fieldset class="mod-dash mod-dash-set mod-dash-update">
+	<legend>Update</legend>
+	<ul>
+		<li>
+			A newer version of Tinyboard 
+			(<strong>v{{ newer_release.massive }}.{{ newer_release.major }}.{{ newer_release.minor }}</strong>) is available! 
+			See <a href="http://tinyboard.org">http://tinyboard.org/</a> for upgrade instructions.
+		</li>
+	</ul>
+</fieldset>
+{% endif %}
+
+<!-- Account Actions -->
+<fieldset class="mod-dash mod-dash-set mod-dash-account">
 	<legend>{% trans 'User account' %}</legend>
 	
 	<ul>
