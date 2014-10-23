@@ -830,7 +830,7 @@ function checkBan($board = false) {
 			return;
 	}
 	
-	Bans::purge();
+	//Bans::purge();
 	
 	if ($config['cache']['enabled'])
 		cache::set('purged_bans_last', time());
