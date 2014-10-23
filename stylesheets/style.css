@@ -291,13 +291,16 @@ div.post.reply {
 div.post_modified {
   min-width: 47.5em;
   margin-left: 1.8em;
-  padding-top: 0.8em;
 }
 
 div.post_modified div.content-status {
   margin-top: 0.5em;
   padding-bottom: 0em;
   font-size: 72%;
+}
+
+div.post_modified div.content-status:first-child {
+  margin-top: 1.3em;
 }
 
 span.trip {
