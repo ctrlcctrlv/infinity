@@ -873,9 +873,10 @@
 	// Custom stylesheets available for the user to choose. See the "stylesheets/" folder for a list of
 	// available stylesheets (or create your own).
 	$config['stylesheets']['Yotsuba B'] = ''; // Default; there is no additional/custom stylesheet for this.
-	$config['stylesheets']['Yotsuba'] = 'yotsuba.css';
-	// $config['stylesheets']['Futaba'] = 'futaba.css';
-	// $config['stylesheets']['Dark'] = 'dark.css';
+	$config['stylesheets']['Yotsuba']   = 'yotsuba.css';
+	// $config['stylesheets']['Futaba']    = 'futaba.css';
+	// $config['stylesheets']['Dark']      = 'dark.css';
+	$config['stylesheets']['Tomorrow']  = 'tomorrow.css';
 
 	// The prefix for each stylesheet URI. Defaults to $config['root']/stylesheets/
 	// $config['uri_stylesheets'] = 'http://static.example.org/stylesheets/';
@@ -1222,21 +1223,21 @@
 	$config['capcode'] = ' <span class="capcode">## %s</span>';
 
 	// "## Custom" becomes lightgreen, italic and bold:
-	//$config['custom_capcode']['Custom'] ='<span class="capcode" style="color:lightgreen;font-style:italic;font-weight:bold"> ## %s</span>';
+	$config['custom_capcode']['Custom'] ='<span class="capcode" style="color:lightgreen;font-style:italic;font-weight:bold"> ## %s</span>';
 
 	// "## Mod" makes everything purple, including the name and tripcode:
-	//$config['custom_capcode']['Mod'] = array(
-	//	'<span class="capcode" style="color:purple"> ## %s</span>',
-	//	'color:purple', // Change name style; optional
-	//	'color:purple' // Change tripcode style; optional
-	//);
+	$config['custom_capcode']['Mod'] = array(
+		'<span class="capcode" style="color:purple"> ## %s</span>',
+		'color:purple', // Change name style; optional
+		'color:purple' // Change tripcode style; optional
+	);
 
 	// "## Admin" makes everything red and bold, including the name and tripcode:
-	//$config['custom_capcode']['Admin'] = array(
-	//	'<span class="capcode" style="color:red;font-weight:bold"> ## %s</span>',
-	//	'color:red;font-weight:bold', // Change name style; optional
-	//	'color:red;font-weight:bold' // Change tripcode style; optional
-	//);
+	$config['custom_capcode']['Admin'] = array(
+		'<span class="capcode" style="color:red;font-weight:bold"> ## %s</span>',
+		'color:red;font-weight:bold', // Change name style; optional
+		'color:red;font-weight:bold' // Change tripcode style; optional
+	);
 
 	// Enable the moving of single replies
 	$config['move_replies'] = false;
@@ -1381,14 +1382,30 @@
 	$config['mod']['flood'] = &$config['mod']['bypass_filters'];
 	// Raw HTML posting
 	$config['mod']['rawhtml'] = ADMIN;
-
+	
+	// Clean System
+	// Post edits remove local clean?
+	$config['clean']['edits_remove_local'] = true;
+	// Post edits remove global clean?
+	$config['clean']['edits_remove_global'] = true;
+	// Mark post clean for board rule
+	$config['mod']['clean'] = JANITOR;
+	// Mark post clean for global rule
+	$config['mod']['clean_global'] = MOD;
+	
 	/* Administration */
 	// View the report queue
 	$config['mod']['reports'] = JANITOR;
 	// Dismiss an abuse report
 	$config['mod']['report_dismiss'] = JANITOR;
+	// Remove global status from a report
+	$config['mod']['report_demote'] = JANITOR;
+	// Elevate a global report to a local report.
+	$config['mod']['report_promote'] = JANITOR;
 	// Dismiss all abuse reports by an IP
 	$config['mod']['report_dismiss_ip'] = JANITOR;
+	// Dismiss all abuse reports on an individual post or thread
+	$config['mod']['report_dismiss_content'] = JANITOR;
 	// View list of bans
 	$config['mod']['view_banlist'] = MOD;
 	// View the username of the mod who made a ban

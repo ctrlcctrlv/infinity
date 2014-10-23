@@ -288,6 +288,18 @@ div.post.reply {
   max-width: 94%!important;
 }
 
+div.post_modified {
+  min-width: 47.5em;
+  margin-left: 1.8em;
+  padding-top: 0.8em;
+}
+
+div.post_modified div.content-status {
+  margin-top: 0.5em;
+  padding-bottom: 0em;
+  font-size: 72%;
+}
+
 span.trip {
   color: #228854;
 }
@@ -327,6 +339,7 @@ div#wrap {
   margin: 0 auto;
 }
 
+div.module,
 div.ban {
   background: white;
   border: 1px solid #98E;
@@ -334,7 +347,8 @@ div.ban {
   margin: 30px auto;
 }
 
-div.ban p,div.ban h2 {
+div.ban p,
+div.ban h2 {
   padding: 3px 7px;
 }
 
@@ -658,7 +672,7 @@ pre {
   margin-left: -20px;
 }
 
-div.thread:hover {
+.theme-catalog div.thread:hover {
   background: #D6DAF0;
   border-color: #B7C5D9;
 }

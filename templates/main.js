@@ -96,11 +96,6 @@ var saved = {};
 
 
 var selectedstyle = '{% endraw %}{{ config.default_stylesheet.0|addslashes }}{% raw %}';
-/*var styles = {
-	{% endraw %}
-	{% for stylesheet in stylesheets %}{% raw %}'{% endraw %}{{ stylesheet.name|addslashes }}{% raw %}' : '{% endraw %}{{ stylesheet.uri|addslashes }}{% raw %}',
-	{% endraw %}{% endfor %}{% raw %}
-};*/
 var board_name = false;
 
 function changeStyle(styleName, link) {
@@ -115,36 +110,78 @@ function changeStyle(styleName, link) {
 	{% endif %}
 	{% raw %}
 	
-	if (!document.getElementById('stylesheet')) {
-		var s = document.createElement('link');
-		s.rel = 'stylesheet';
-		s.type = 'text/css';
-		s.id = 'stylesheet';
+	// Find the <dom> for the stylesheet. May be nothing.
+	var domStylesheet = document.getElementById('stylesheet');
+	// Determine if this stylesheet is the default.
+	var setToDefault  = ( styles[styleName] == "" || styles[styleName] == "/stylesheets/" );
+	// Turn "Yotsuba B" to "yotsuba_b" 
+	var attributeName = styleName.replace(/[^a-z0-9_\-]/gi, '_').toLowerCase();
+	
+	if( !domStylesheet && !setToDefault ) {
+		domStylesheet = document.createElement('link');
+		domStylesheet.rel = 'stylesheet';
+		domStylesheet.type = 'text/css';
+		domStylesheet.id = 'stylesheet';
+		
 		var x = document.getElementsByTagName('head')[0];
-		x.appendChild(s);
+		x.appendChild(domStylesheet);
 	}
-
-	{% endraw %}
-	var root = "{{ config.root }}";
-	{% raw %}
-	root = root.replace(/\/$/, "");
 	
-	document.getElementById('stylesheet').href = root + styles[styleName];
-	selectedstyle = styleName;
-	
-	if (document.getElementsByClassName('styles').length != 0) {
-		var styleLinks = document.getElementsByClassName('styles')[0].childNodes;
-		for (var i = 0; i < styleLinks.length; i++) {
-			styleLinks[i].className = '';
+	if( !setToDefault ) {
+		{% endraw %}
+		var root = "{{ config.root }}";
+		{% raw %}
+		root = root.replace(/\/$/, "");
+		
+		domStylesheet.href = root + styles[styleName];
+		selectedstyle = styleName;
+		
+		if (document.getElementsByClassName('styles').length != 0) {
+			var styleLinks = document.getElementsByClassName('styles')[0].childNodes;
+			for (var i = 0; i < styleLinks.length; i++) {
+				styleLinks[i].className = '';
+			}
+		}
+		
+		if (link) {
+			link.className = 'selected';
 		}
 	}
-	
-	if (link) {
-		link.className = 'selected';
+	else if( domStylesheet ) {
+		domStylesheet.parentNode.removeChild( domStylesheet );
 	}
 	
-	if (typeof $ != 'undefined')
+	// Fix the classes on the body tag.
+	var body = document.getElementsByTagName('body')[0];
+	
+	if( body ) {
+		var bodyClasses = document.getElementsByTagName('body')[0].getAttribute('class').split(" ");
+		var bodyClassesNew = [];
+		
+		for( i = 0; i < bodyClasses.length; ++i ) {
+			var bodyClass = bodyClasses[ i ];
+			
+			// null class from a double-space.
+			if( bodyClass == "" ) {
+				continue;
+			}
+			
+			if( bodyClass.indexOf( "stylesheet-" ) == 0 ) {
+				continue;
+			}
+			
+			bodyClassesNew.push( bodyClass );
+		}
+		
+		// Add stylesheet-yotsuba_b at the end.
+		bodyClassesNew.push( "stylesheet-" + attributeName );
+		body.setAttribute( 'class', bodyClassesNew.join(" ") );
+		body.setAttribute( 'data-stylesheet', attributeName );
+	}
+	
+	if (typeof $ != 'undefined') {
 		$(window).trigger('stylesheet', styleName);
+	}
 }
 
 
@@ -190,7 +227,7 @@ function init_stylechooser() {
 			}
 		}
 	}
-	{% endraw%}
+	{% endraw %}
 {% else %}
 	{% raw %}
 	if (localStorage.stylesheet) {
@@ -208,10 +245,13 @@ function init_stylechooser() {
 
 function get_cookie(cookie_name) {
 	var results = document.cookie.match ( '(^|;) ?' + cookie_name + '=([^;]*)(;|$)');
-	if (results)
+	
+	if (results) {
 		return (unescape(results[2]));
-	else
+	}
+	else {
 		return null;
+	}
 }
 
 function highlightReply(id) {
