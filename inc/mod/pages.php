@@ -2306,7 +2306,7 @@ function mod_reports() {
 	$report_scope = $global ? "global" : "local";
 	
 	// Get REPORTS.
-	$query = prepare("SELECT * FROM ``reports`` " . ($mod["type"] == "20" ? "WHERE board = :board" : "") . " WHERE ``".($global ? "global" : "local")."`` = TRUE  LIMIT :limit");
+	$query = prepare("SELECT * FROM ``reports`` WHERE " . ($mod["type"] == "20" ? "board = :board AND" : "") . " ``".($global ? "global" : "local")."`` = TRUE  LIMIT :limit");
 	
 	// Limit reports by board if the moderator is local.
 	if( $mod['type'] == '20' ) {

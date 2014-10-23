@@ -82,6 +82,7 @@
 	$config['mod']['manageusers'] = SUPERMOD;
 	$config['mod']['noticeboard_post'] = SUPERMOD;
 	$config['mod']['search'] = SUPERMOD;
+	$config['mod']['clean_global'] = SUPERMOD;
 	$config['mod']['debug_recent'] = ADMIN;
 	$config['mod']['debug_antispam'] = ADMIN;
 	$config['mod']['modlog'] = SUPERMOD;
@@ -89,6 +90,7 @@
 	$config['mod']['edit_banners'] = MOD;
 	$config['mod']['edit_flags'] = MOD;
 	$config['mod']['edit_settings'] = MOD;
+	$config['mod']['clean'] = MOD;
 	$config['mod']['recent_reports'] = 65535;
 	$config['mod']['ip_less_recentposts'] = 75;
 	$config['ban_show_post'] = true;
