@@ -1541,7 +1541,7 @@ function buildJavascript() {
 	}
 
 	if ($config['additional_javascript_compile']) {
-		foreach ($config['additional_javascript'] as $file) {
+		foreach (array_unique($config['additional_javascript']) as $file) {
 			$script .= file_get_contents($file);
 		}
 	}
