@@ -18,7 +18,7 @@
 	$config['db']['user'] = 'root';
 	$config['db']['password'] = '';
 	$config['timezone'] = 'UTC';
-	$config['cache']['enabled'] = false;
+	$config['cache']['enabled'] = 'apc';
 	
 	
 	$config['cookies']['mod'] = 'mod';
