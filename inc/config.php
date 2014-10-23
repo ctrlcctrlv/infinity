@@ -1223,21 +1223,21 @@
 	$config['capcode'] = ' <span class="capcode">## %s</span>';
 
 	// "## Custom" becomes lightgreen, italic and bold:
-	$config['custom_capcode']['Custom'] ='<span class="capcode" style="color:lightgreen;font-style:italic;font-weight:bold"> ## %s</span>';
+	//$config['custom_capcode']['Custom'] ='<span class="capcode" style="color:lightgreen;font-style:italic;font-weight:bold"> ## %s</span>';
 
 	// "## Mod" makes everything purple, including the name and tripcode:
-	$config['custom_capcode']['Mod'] = array(
-		'<span class="capcode" style="color:purple"> ## %s</span>',
-		'color:purple', // Change name style; optional
-		'color:purple' // Change tripcode style; optional
-	);
+	//$config['custom_capcode']['Mod'] = array(
+	//	'<span class="capcode" style="color:purple"> ## %s</span>',
+	//	'color:purple', // Change name style; optional
+	//	'color:purple' // Change tripcode style; optional
+	//);
 
 	// "## Admin" makes everything red and bold, including the name and tripcode:
-	$config['custom_capcode']['Admin'] = array(
-		'<span class="capcode" style="color:red;font-weight:bold"> ## %s</span>',
-		'color:red;font-weight:bold', // Change name style; optional
-		'color:red;font-weight:bold' // Change tripcode style; optional
-	);
+	//$config['custom_capcode']['Admin'] = array(
+	//	'<span class="capcode" style="color:red;font-weight:bold"> ## %s</span>',
+	//	'color:red;font-weight:bold', // Change name style; optional
+	//	'color:red;font-weight:bold' // Change tripcode style; optional
+	//);
 
 	// Enable the moving of single replies
 	$config['move_replies'] = false;

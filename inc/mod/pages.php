@@ -102,7 +102,7 @@ function mod_dashboard() {
 	
 	$query = prepare('SELECT COUNT(*) AS `total_reports` FROM ``reports``' . ($mod["type"] == "20" ? " WHERE board = :board" : "")); 
 
-	if ($mod['type'] == '20') {
+	if ($mod['type'] == MOD) {
 		$query->bindValue(':board', $mod['boards'][0]);
 	} else {
 		$query = prepare('SELECT (SELECT COUNT(id) FROM reports WHERE global = 0) AS total_reports, (SELECT COUNT(id) FROM reports WHERE global = 1) AS global_reports');
@@ -1032,7 +1032,7 @@ function mod_bans_json() {
                 error($config['error']['noaccess']);
 
 	// Compress the json for faster loads
-	if (substr_count($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip')) ob_start("ob_gzhandler");
+	if (isset($_SERVER['HTTP_ACCEPT_ENCODING']) && substr_count($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip')) ob_start("ob_gzhandler");
 
 	Bans::stream_json(false, !hasPermission($config['mod']['show_ip']), !hasPermission($config['mod']['view_banstaff']), $mod['boards']);
 }
@@ -2298,7 +2298,7 @@ function mod_reports() {
 		error($config['error']['noaccess']);
 	}
 	
-	if( $mod['type'] == '20' and $global ) {
+	if( $mod['type'] == MOD and $global) {
 		error($config['error']['noaccess']);
 	}
 	
@@ -2306,10 +2306,10 @@ function mod_reports() {
 	$report_scope = $global ? "global" : "local";
 	
 	// Get REPORTS.
-	$query = prepare("SELECT * FROM ``reports`` " . ($mod["type"] == "20" ? "WHERE board = :board" : "") . " WHERE ``".($global ? "global" : "local")."`` = TRUE  LIMIT :limit");
+	$query = prepare("SELECT * FROM ``reports`` WHERE " . ($mod["type"] == MOD ? "board = :board AND" : "") . " ``".($global ? "global" : "local")."`` = TRUE  LIMIT :limit");
 	
 	// Limit reports by board if the moderator is local.
-	if( $mod['type'] == '20' ) {
+	if( $mod['type'] == MOD ) {
 		$query->bindValue(':board', $mod['boards'][0]);
 	}
 	
@@ -2527,7 +2527,7 @@ function mod_report_dismiss() {
 	$global    = in_array( "global", $arguments );
 	$content   = in_array( "content", $arguments );
 	
-	if( $mod['type'] == '20' and $global ) {
+	if( $mod['type'] == MOD and $global ) {
 		error($config['error']['noaccess']);
 	}
 	
@@ -2649,7 +2649,7 @@ function mod_report_dismiss() {
 function mod_report_demote() {
 	global $config, $mod;
 	
-	if( $mod['type'] == '20' ) {
+	if( $mod['type'] == MOD ) {
 		error($config['error']['noaccess']);
 	}
 	

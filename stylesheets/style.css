@@ -301,6 +301,10 @@ div.post_modified div.content-status:first-child {
   margin-top: 1.3em;
 }
 
+div.post_modified div.content-status:first-child {
+  margin-top: 1.3em;
+}
+
 span.trip {
   color: #228854;
 }

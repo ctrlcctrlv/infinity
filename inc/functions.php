@@ -831,7 +831,7 @@ function checkBan($board = false) {
 			return;
 	}
 	
-	Bans::purge();
+	//Bans::purge();
 	
 	if ($config['cache']['enabled'])
 		cache::set('purged_bans_last', time());
@@ -1546,7 +1546,7 @@ function buildJavascript() {
 	}
 
 	if ($config['additional_javascript_compile']) {
-		foreach ($config['additional_javascript'] as $file) {
+		foreach (array_unique($config['additional_javascript']) as $file) {
 			$script .= file_get_contents($file);
 		}
 	}
