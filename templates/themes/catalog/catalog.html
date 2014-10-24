@@ -47,8 +47,7 @@
 						{% endif %}
                                                  id="img-{{ post.id }}" data-subject="{% if post.subject %}{{ post.subject }}{% endif %}" data-name="{{ post.name }}" data-muhdifference="{{ post.muhdifference }}" data-last-reply="{% if post.last_reply %}{{ post.last_reply }}{% endif %}" data-last-subject="{% if post.last_reply_subject %}{{ post.last_reply_subject }}{% endif %}" data-last-name="{% if post.last_reply %}{{ post.last_reply_name }}{% endif %}" data-last-difference="{% if post.last_reply %}{{ post.last_reply_difference }}{% endif %}" class="{{post.board}} thread-image" title="{{post.bump|date('%b %d %H:%M')}}">
                                         </a>
-                                        <p>
-                                                <span class="replies">
+                                                <div class="replies">
                                                         <strong>R: {{ post.reply_count }} / I: {{ post.image_count }}</strong>
                                                         {% if post.subject %}
 								<p class="intro">
@@ -61,8 +60,7 @@
 							{% endif %}
 
 								{{ post.body }}
-                                                </span>
-                                        </p>
+                                                </div>
                                 </div>
                         </div>
                 {% endfor %}
