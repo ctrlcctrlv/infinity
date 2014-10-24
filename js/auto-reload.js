@@ -158,7 +158,7 @@ $(document).ready(function(){
 							first_new_post = this;
 							makeIcon();
 						}
-						$('<br class="clear">').appendTo($('div.thread')).after(this);
+						$('div.thread').append($('<br class="clear">')).after(this);
 						new_posts++;
 						loaded_posts++;
 						$(document).trigger('new_post', this);
