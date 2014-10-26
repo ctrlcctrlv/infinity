@@ -117,6 +117,7 @@
 	$config['additional_javascript'][] = 'js/hide-threads.js';
 	$config['additional_javascript'][] = 'js/smartphone-spoiler.js';
 	$config['additional_javascript'][] = 'js/inline-expanding.js';
+	$config['additional_javascript'][] = 'js/inline-expanding-scroll-to-thumb.js';
 	$config['additional_javascript'][] = 'js/show-backlinks.js';
 	$config['additional_javascript'][] = 'js/webm-settings.js';
 	$config['additional_javascript'][] = 'js/expand-video.js';
