@@ -191,6 +191,8 @@ img.banner,img.board_image {
 }
 
 .full-image {
+  padding: 5px;
+  margin: 0 20px 0 0;
   max-width: 98%;
 }
 
