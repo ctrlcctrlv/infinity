@@ -94,7 +94,17 @@ if ($admin) {
 	echo $html;
 } else {
 	file_write("boards.json", json_encode($boards));
+	foreach ($boards as $i => $b) {
+		if (in_array($b['uri'], $config['no_top_bar_boards'])) {
+			unset($boards[$i]);
+		}
+		unset($boards[$i]['img']);
+	}
+
 	array_splice($boards, 20);
+
+	$boards = array_values($boards);
+
 	file_write("boards-top20.json", json_encode($boards));
 	file_write("boards.html", $html);
 	echo 'Done';

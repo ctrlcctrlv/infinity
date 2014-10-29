@@ -3,7 +3,7 @@ $(document).ready(function(){
 window.boards = new Array();
 function handle_boards(data) {
 	$.each(data, function(k, v) {
-		if (v.uri != 'meta' && v.uri != 'b' && v.uri != 'int') {
+		if (v.uri != 'meta' && v.uri != 'b') {
 			boards.push('<a href="/'+v.uri+(window.active_page === 'catalog' ? '/catalog.html' : '')+'">'+v.uri+'</a>');
 		}
 	})
