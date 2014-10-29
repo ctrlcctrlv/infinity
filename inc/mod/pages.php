@@ -100,9 +100,9 @@ function mod_dashboard() {
 			cache::set('pm_unreadcount_' . $mod['id'], $args['unread_pms']);
 	}
 	
-	$query = prepare('SELECT COUNT(*) AS `total_reports` FROM ``reports``' . ($mod["type"] == "20" ? " WHERE board = :board" : "")); 
+	$query = prepare('SELECT COUNT(*) AS `total_reports` FROM ``reports``' . (($mod["type"] == MOD || $mod["type"] == BOARDVOLUNTEER) ? " WHERE board = :board" : "")); 
 
-	if ($mod['type'] == MOD) {
+	if ($mod['type'] == MOD || $mod["type"] == BOARDVOLUNTEER) {
 		$query->bindValue(':board', $mod['boards'][0]);
 	} else {
 		$query = prepare('SELECT (SELECT COUNT(id) FROM reports WHERE global = 0) AS total_reports, (SELECT COUNT(id) FROM reports WHERE global = 1) AS global_reports');
@@ -2298,7 +2298,7 @@ function mod_reports() {
 		error($config['error']['noaccess']);
 	}
 	
-	if( $mod['type'] == MOD and $global) {
+	if( ($mod['type'] == MOD || $mod["type"] == BOARDVOLUNTEER) and $global) {
 		error($config['error']['noaccess']);
 	}
 	
@@ -2306,10 +2306,10 @@ function mod_reports() {
 	$report_scope = $global ? "global" : "local";
 	
 	// Get REPORTS.
-	$query = prepare("SELECT * FROM ``reports`` WHERE " . ($mod["type"] == MOD ? "board = :board AND" : "") . " ``".($global ? "global" : "local")."`` = TRUE  LIMIT :limit");
+	$query = prepare("SELECT * FROM ``reports`` WHERE " . (($mod["type"] == MOD || $mod["type"] == BOARDVOLUNTEER) ? "board = :board AND" : "") . " ``".($global ? "global" : "local")."`` = TRUE  LIMIT :limit");
 	
 	// Limit reports by board if the moderator is local.
-	if( $mod['type'] == MOD ) {
+	if( $mod['type'] == MOD || $mod["type"] == BOARDVOLUNTEER ) {
 		$query->bindValue(':board', $mod['boards'][0]);
 	}
 	
@@ -2527,7 +2527,7 @@ function mod_report_dismiss() {
 	$global    = in_array( "global", $arguments );
 	$content   = in_array( "content", $arguments );
 	
-	if( $mod['type'] == MOD and $global ) {
+	if( ($mod['type'] == MOD || $mod["type"] == BOARDVOLUNTEER) and $global ) {
 		error($config['error']['noaccess']);
 	}
 	
@@ -2649,7 +2649,7 @@ function mod_report_dismiss() {
 function mod_report_demote() {
 	global $config, $mod;
 	
-	if( $mod['type'] == MOD ) {
+	if( $mod['type'] == MOD || $mod["type"] == BOARDVOLUNTEER ) {
 		error($config['error']['noaccess']);
 	}
 	

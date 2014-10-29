@@ -202,11 +202,14 @@ class Bans {
 					case ADMIN:
 						$ban['username'] = 'Admin';
 						break;
-					case SUPERMOD:
+					case GLOBALVOLUNTEER:
 						$ban['username'] = 'Global Volunteer';
 						break;
 					case MOD:
-                                                $ban['username'] = 'Local Volunteer';
+                                                $ban['username'] = 'Board Owner';
+						break;
+					case BOARDVOLUNTEER:
+                                                $ban['username'] = 'Board Volunteer';
 						break;
 					default:
 						$ban['username'] = '?';

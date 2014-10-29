@@ -27,7 +27,7 @@ $body = <<<EOT
 </ul>
 <p>Other than that, you are free to institute whatever rules you want on your board.</p>
 <h2>How do I add more volunteers?</h2>
-<p>Give them your password. If you don't trust them enough for that, you probably shouldn't be making them a volunteer.</p>
+<p>You may do this in your board settings, click on "Edit board volunteers".
 <h2>How do I manage my board?</h2>
 <p>Go to <a href="/mod.php">the volunteer panel</a> and click on the board link for your board.</p>
 <h2>How do I contact the admin?</h2>
@@ -39,7 +39,9 @@ $body = <<<EOT
 <p>If either of those is true, the board was deleted automatically. You are free to recreate it. I cannot restore it, so don't bother emailing me about it.</p>
 
 <h2>How do I post as a volunteer on my board?</h2>
-<p>Make sure you are using the volunteer interface to view your board. The URL of your browser should be <a href="https://8chan.co/mod.php?/yourboard"><tt>https://8chan.co/mod.php?/yourboard</tt></a>. Then, put "## Board Volunteer" in the name field. Write your post and click "Reply". It will appear with your volunteer capcode.</p>
+<p>Make sure you are using the volunteer interface to view your board. The URL of your browser should be <a href="https://8chan.co/mod.php?/yourboard"><tt>https://8chan.co/mod.php?/yourboard</tt></a>.</p>
+
+<p>If you are the owner of the board, put "## Board Owner" in the name field. If someone else is the owner and you are just assisting them, put "## Board Volunteer" in the name field. Write your post and click "Reply". It will appear with your capcode.</p>
 <h2>Help! The owner of X board is doing something I don't like!</h2>
 <p>If they aren't doing anything illegal, I can't help you. I don't dictate how board owners should manage their boards.</p>
 <p>If they are doing something illegal, email me.</p>

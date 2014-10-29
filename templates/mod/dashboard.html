@@ -54,7 +54,7 @@
 					<a href="?/reports">{% trans 'Report queue' %} ({{ reports }})</a>
 				{% if reports > 0 %}</strong>{% endif %}&nbsp;
 				{% if global_reports > 0 %}<strong>{% endif %}
-					{% if mod.type != 20 %}<a href="?/reports/global">Global reports ({{global_reports}})</a>{% endif %}
+					{% if mod.type != constant('MOD') and mod.type != constant('BOARDVOLUNTEER') %}<a href="?/reports/global">Global reports ({{global_reports}})</a>{% endif %}
 				{% if reports > 0 %}</strong>{% endif %}
 			</li>
 		{% endif %}
