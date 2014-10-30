@@ -190,6 +190,13 @@ img.banner,img.board_image {
   border: none;
 }
 
+.full-image {
+  float: left;
+  padding: 5px;
+  margin: 0 20px 0 0;
+  max-width: 98%;
+}
+
 div.post .post-image {
   padding: 5px;
   margin: 0 20px 0 0;

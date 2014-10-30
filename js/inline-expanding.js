@@ -7,7 +7,7 @@
  * Copyright (c) 2013-2014 Marcin Łabanowski <marcin@6irc.net>
  *
  * Usage:
- *   // $config['additional_javascript'][] = 'js/jquery.min.js';
+ *   $config['additional_javascript'][] = 'js/jquery.min.js';
  *   $config['additional_javascript'][] = 'js/inline-expanding.js';
  *
  */
@@ -18,55 +18,85 @@ onready(function(){
 
 		for (var i = 0; i < link.length; i++) {
 			if (typeof link[i] == "object" && link[i].childNodes && typeof link[i].childNodes[0] !== 'undefined' && link[i].childNodes[0].src && link[i].childNodes[0].className.match(/post-image/) && !link[i].className.match(/file/)) {
-				link[i].childNodes[0].style.maxWidth = '98%';
 				link[i].onclick = function(e) {
-					if (this.childNodes[0].className == 'hidden')
+					var img, post_body, still_open;
+					var thumb = this.childNodes[0];
+					var padding = 5;
+					var boardlist = $('.boardlist')[0];
+					
+					var loadImage = function(img, thumb) {
+						if (img.naturalWidth) {
+							thumb.style.display = 'none';
+							img.style.display = '';
+						}
+						else {
+							return thumb.parentNode.timeout = setTimeout(loadImage, 30, img, thumb);
+						}
+					};
+
+					if (thumb.className == 'hidden')
 						return false;
-					if (e.which == 2 || e.metaKey)
+					if (e.which == 2 || e.ctrlKey) //open in new tab
 						return true;
-					if (!this.dataset.src) {
+					if (!this.dataset.expanded) {
 						this.parentNode.removeAttribute('style');
 						this.dataset.expanded = 'true';
 
-						if (this.childNodes[0].tagName === 'CANVAS') {
-							this.removeChild(this.childNodes[0]);
-							this.childNodes[0].style.display = 'block';
+						if (thumb.tagName === 'CANVAS') {
+							this.removeChild(thumb);
+							thumb.style.display = 'block';
 						}
 
-						this.dataset.src= this.childNodes[0].src;
-						this.dataset.width = this.childNodes[0].style.width;
-						this.dataset.height = this.childNodes[0].style.height;
-						
+						thumb.style.opacity = '0.4';
+						thumb.style.filter = 'alpha(opacity=40)';
 
-						this.childNodes[0].src = this.href;
-						this.childNodes[0].style.width = 'auto';
-						this.childNodes[0].style.height = 'auto';
-						this.childNodes[0].style.opacity = '0.4';
-						this.childNodes[0].style.filter = 'alpha(opacity=40)';
-						this.childNodes[0].onload = function() {
-							this.style.opacity = '';
-							delete this.style.filter;
-						}
+						img = document.createElement('img');
+						img.className = 'full-image';
+						img.setAttribute('src', this.href);
+						img.setAttribute('alt', 'Fullsized image');
+						img.style.display = 'none';
+						this.appendChild(img);
+
+						this.timeout = loadImage(img, thumb);
 					} else {
+						clearTimeout(this.timeout);
+
+						//scroll to thumb if not triggered by 'shrink all image'
+						if (e.target.className == 'full-image') {
+							post_body = $(e.target).parentsUntil('form > div').last();
+							still_open = post_body.find('.post-image').filter(function(){return $(this).parent().attr('data-expanded') == 'true'}).length;
+
+							//deal with differnt boards' menu styles
+							if ($(boardlist).css('position') == 'fixed')
+								padding += boardlist.getBoundingClientRect().height;
+
+							if (still_open > 1) {
+								if (e.target.getBoundingClientRect().top - padding < 0)
+									$('body').scrollTop($(e.target).parent().parent().offset().top - padding);
+							} else {
+								if (post_body[0].getBoundingClientRect().top - padding < 0)
+									$('body').scrollTop(post_body.offset().top - padding);
+							}
+						}
+
 						if (~this.parentNode.className.indexOf('multifile'))
 							this.parentNode.style.width = (parseInt(this.dataset.width)+40)+'px';
-						this.childNodes[0].src = this.dataset.src;
-						this.childNodes[0].style.width = this.dataset.width;
-						this.childNodes[0].style.height = this.dataset.height;
+
+						thumb.style.opacity = '';
+						thumb.style.display = '';
+						this.removeChild(thumb.nextSibling);
 						delete this.dataset.expanded;
-						delete this.dataset.src;
-						delete this.childNodes[0].style.opacity;
-						delete this.childNodes[0].style.filter;
+						delete thumb.style.filter;
 
 						if (localStorage.no_animated_gif === 'true' && typeof unanimate_gif === 'function') {
-							unanimate_gif(this.childNodes[0]);
+							unanimate_gif(thumb);
 						}
 					}
 					return false;
-				}
+				};
 			}
 		}
-	}
+	};
 
 	if (window.jQuery) {
 		$('div[id^="thread_"]').each(inline_expand_post);
