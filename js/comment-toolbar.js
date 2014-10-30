@@ -220,7 +220,6 @@ if (active_page == 'thread' || active_page == 'index') {
 			if (selector === '#show-post-toolbar>input') {
 				$(selector).removeAttr('checked');
 			}
-			return;
 		}
 
 		/*	Sets the CSS style
