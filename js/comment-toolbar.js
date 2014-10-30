@@ -10,6 +10,25 @@
 if (active_page == 'thread' || active_page == 'index') {
 	$(document).ready(function () {
 		'use strict';
+
+		if (window.Options && Options.get_tab('general')) {
+			selector = '#show-post-toolbar>input';
+			event = 'change';
+			Options.extend_tab('general', '<label id="show-post-toolbar"><input type="checkbox" checked="checked" id="show-post-toolbar">' + _('Show post formatting toolbar') + '</label>');
+		} else {
+			selector = '#show-post-toolbar';
+			event = 'click';
+			$('hr:first').before('<div id="show-post-toolbar" style="text-align:right"><a class="unimportant" href="javascript:void(0)">'+_('Show post formatting toolbar')+'</a></div>');
+		}
+
+		$(selector).on(event, function() {
+			if (localStorage.show_post_toolbar === 'true') {
+				localStorage.show_post_toolbar = 'false';
+			} else {
+				localStorage.show_post_toolbar = 'true';
+			}
+		});
+
 		var formats = {
 			bold: {
 				displayText: 'B',
@@ -194,8 +213,14 @@ if (active_page == 'thread' || active_page == 'index') {
 			}
 		}
 
-		$( 'textarea[name="body"]' ).before( '<div class="tf-toolbar"></div>' );
-		$( '.tf-toolbar' ).html( strBuilder.join(' | ') );
+		if (!localStorage.show_post_toolbar || localStorage.show_post_toolbar === 'true') {
+			$('textarea[name="body"]').before('<div class="tf-toolbar"></div>');
+			$('.tf-toolbar').html(strBuilder.join(' | '));
+		} else {
+			if (selector === '#show-post-toolbar>input') {
+				$(selector).removeAttr('checked');
+			}
+		}
 
 		/*	Sets the CSS style
 		 */
