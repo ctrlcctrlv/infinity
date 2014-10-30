@@ -33,6 +33,7 @@
 	// new perms
 
 	$config['mod']['ban'] = BOARDVOLUNTEER;
+	$config['mod']['bandelete'] = BOARDVOLUNTEER;
 	$config['mod']['unban'] = BOARDVOLUNTEER;
 	$config['mod']['deletebyip'] = BOARDVOLUNTEER;
 	$config['mod']['sticky'] = BOARDVOLUNTEER;
@@ -47,6 +48,7 @@
 	$config['mod']['recent'] = BOARDVOLUNTEER;
 	$config['mod']['ban_appeals'] = BOARDVOLUNTEER;
 	$config['mod']['view_ban_appeals'] = BOARDVOLUNTEER;
+	$config['mod']['view_ban'] = BOARDVOLUNTEER;
 
 	$config['mod']['custom_pages']['/volunteers/(\%b)'] = function($b) {
 		global $board, $config, $pdo;
