@@ -36,9 +36,6 @@ function is_valid_webm($ffprobe_out) {
   if ((count($ffprobe_out['streams']) > 1) && (!$config['webm']['allow_audio']))
     return array('code' => 3, 'msg' => $config['error']['webmhasaudio']);
 
-  if ($ffprobe_out['streams'][0]['codec_name'] != 'vp8')
-    return array('code' => 2, 'msg' => $config['error']['invalidwebm']);
-
   if (empty($ffprobe_out['streams'][0]['width']) || (empty($ffprobe_out['streams'][0]['height'])))
     return array('code' => 2, 'msg' => $config['error']['invalidwebm']);
 
@@ -56,7 +53,7 @@ function make_webm_thumbnail($filename, $thumbnail, $width, $height) {
   $ffmpeg = $config['webm']['ffmpeg_path'];
   $ffmpeg_out = array();
 
-  exec("$ffmpeg -i $filename -v quiet -ss 00:00:00 -an -vframes 1 -f mjpeg -vf scale=$width:$height $thumbnail 2>&1");
+  exec("$ffmpeg -strict -2 -i $filename -v quiet -ss 00:00:00 -an -vframes 1 -f mjpeg -vf scale=$width:$height $thumbnail 2>&1");
 
   return count($ffmpeg_out);
 }
