@@ -2409,7 +2409,7 @@ function diceRoller($post) {
 		}
 
 		// Continue only if we have valid values
-		if($diceX > 0 && $diceY > 0) {
+		if($diceX > 0 && $diceY > 1) {
 			$dicerolls = array();
 			$dicesum = $diceZ;
 			for($i = 0; $i < $diceX; $i++) {
