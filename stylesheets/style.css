@@ -883,6 +883,7 @@ pre {
   bottom: 0px;
   height: 100%;
   border-right: 1px solid black;
+  overflow-y: auto;
 }
 
 .options_tab_icon {
@@ -912,6 +913,7 @@ pre {
   right: 0px;
   text-align: left;
   font-size: 12px;
+  overflow-y: auto;
 }
 
 .options_tab h2 {
