@@ -100,6 +100,10 @@ input[type="text"],input[type="password"],textarea {
   max-width: 100%;
 }
 
+#upload_file {
+  max-width: 230px;
+}
+
 form table tr td {
   text-align: left;
   margin: 0;
