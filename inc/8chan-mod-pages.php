@@ -258,6 +258,9 @@
 
 		if (!in_array($b, $mod['boards']) and $mod['boards'][0] != '*')
 			error($config['error']['noaccess']);
+
+		if (!hasPermission($config['mod']['edit_settings'], $b))
+			error($config['error']['noaccess']);
 	
 		if (!openBoard($b))
 			error("Could not open board!");
@@ -279,6 +282,7 @@
 			$image_reject_repost = isset($_POST['image_reject_repost']) ? 'true' : 'false';
 			$allow_delete = isset($_POST['allow_delete']) ? 'true' : 'false';
 			$allow_flash = isset($_POST['allow_flash']) ? '$config[\'allowed_ext_files\'][] = \'swf\';' : '';
+			$allow_pdf = isset($_POST['allow_pdf']) ? '$config[\'allowed_ext_files\'][] = \'pdf\';' : '';
 			$code_tags = isset($_POST['code_tags']) ? '$config[\'additional_javascript\'][] = \'js/code_tags/run_prettify.js\';$config[\'markup\'][] = array("/\[code\](.+?)\[\/code\]/ms", "<code><pre class=\'prettyprint\' style=\'display:inline-block\'>\$1</pre></code>");' : '';
 			$katex = isset($_POST['katex']) ? '$config[\'katex\'] = true;$config[\'additional_javascript\'][] = \'js/katex/katex.min.js\'; $config[\'markup\'][] = array("/\[tex\](.+?)\[\/tex\]/ms", "<span class=\'tex\'>\$1</span>"); $config[\'additional_javascript\'][] = \'js/katex-enable.js\';' : '';
 $oekaki_js = <<<OEKAKI
@@ -355,7 +359,7 @@ OEKAKI;
 \$config['blotter'] = base64_decode('$blotter');
 \$config['stylesheets']['Custom'] = 'board/$b.css';
 \$config['default_stylesheet'] = array('Custom', \$config['stylesheets']['Custom']);
-$code_tags $katex $oekaki $replace $multiimage $allow_flash
+$code_tags $katex $oekaki $replace $multiimage $allow_flash $allow_pdf
 if (\$config['disable_images'])
 	\$config['max_pages'] = 10000;
 
