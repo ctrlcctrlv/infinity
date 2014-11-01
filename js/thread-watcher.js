@@ -28,10 +28,10 @@ watchlist.render = function(reset) {
 	JSON.parse(localStorage.watchlist).forEach(function(e, i) {
 		//look at line 69, that's what (e) is here.
 		threads.push('<div class="watchlist-inner" id="watchlist-'+i+'">' +
-		'<span>Board: '+e[0]+'</span>&nbsp' +
-		'<span>Thread: '+'<a href="'+e[3]+'">'+e[1]+'</a></span>&nbsp' +
-		'<span>Replies: '+e[2]+'</span>&nbsp' +
-		'<a class="watchlist-remove">[Unwatch]</a>'+
+		'<span>/'+e[0]+'/ - ' +
+		'<a href="'+e[3]+'">'+e[1].replace("thread_", "Thread #")+'</a>' +
+		' ('+e[2]+') </span>' +
+		'<a class="watchlist-remove">X</a>'+
 	'</div>');
 	});
 	if ($('#watchlist').length) {
@@ -40,6 +40,7 @@ watchlist.render = function(reset) {
 		$('#watchlist').append(threads.join(''));
 	} else {
 		//If the watchlist has not yet been rendered, create it.
+		var menuStyle = getComputedStyle($('.boardlist')[0]);
 		$('form[name="post"]').before(
 			$('<div id="watchlist">'+
 					'<div class="watchlist-controls">'+
@@ -47,10 +48,7 @@ watchlist.render = function(reset) {
 						'<span><a id="clearGhosts">[Clear Ghosts]</a></span>'+
 					'</div>'+
 					threads.join('')+
-				'</div>').css({
-			background: $('.reply').css('background'),
-			borderColor : $('.reply').css('border-color')
-		}));
+				'</div>').css("background-color", menuStyle.backgroundColor).css("border", menuStyle.borderBottomWidth+" "+menuStyle.borderBottomStyle+" "+menuStyle.borderBottomColor));
 	}
 	return this;
 };
