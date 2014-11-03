@@ -28,7 +28,7 @@ onready(function(){
 		$('div.video-container a', tag).click(function() {
 			$(this.parentNode).html('<iframe style="float:left;margin: 10px 20px" type="text/html" '+
 				'width="360" height="270" src="//www.youtube.com/embed/' + $(this.parentNode).data('video') +
-				'?'+ $(this.parentNode).data('params') +'autoplay=1&html5=1" allowfullscreen frameborder="0"/>');
+				'?autoplay=1&html5=1'+ $(this.parentNode).data('params') +'" allowfullscreen frameborder="0"/>');
 
 			return false;
 		});
