@@ -1000,7 +1000,7 @@
 	$config['embedding'] = array(
 		array(
 			'/^https?:\/\/(?:\w+\.)?youtube\.com\/watch\?(?:&?v=([a-zA-Z0-9\-_]{10,11})|(&?start=\d*)|(&?end=\d*)|(?:&?[^&]+))*$/i',
-			'<iframe style="float: left;margin: 10px 20px;" width="%%tb_width%%" height="%%tb_height%%" frameborder="0" id="ytplayer" src="http://youtube.com/embed/$1?$2$3&rel=0&autoplay=1&html5=1"></iframe>'
+			'<iframe style="float: left;margin: 10px 20px;" width="%%tb_width%%" height="%%tb_height%%" frameborder="0" id="ytplayer" src="http://youtube.com/embed/$1?$2$3"></iframe>'
 		),
 		array(
 			'/^https?:\/\/(\w+\.)?vimeo\.com\/(\d{2,10})(\?.+)?$/i',
@@ -1657,7 +1657,7 @@
 	$config['board_regex'] = '[0-9a-zA-Z$_\x{0080}-\x{FFFF}]{1,58}';
 
 	// Youtube.js embed HTML code
-	$config['youtube_js_html'] = '<div class="video-container" data-video="$2">'.
+	$config['youtube_js_html'] = '<div class="video-container" data-video="$1" data-params="$2$3">'.
 		'<a href="$0" target="_blank" class="file">'.
-		'<img style="width:360px;height:270px;" src="//img.youtube.com/vi/$2/0.jpg" class="post-image"/>'.
+		'<img style="width:360px;height:270px;" src="//img.youtube.com/vi/$1/0.jpg" class="post-image"/>'.
 		'</a></div>';
