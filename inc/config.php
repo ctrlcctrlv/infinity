@@ -999,8 +999,8 @@
 	// It's very important that you match the entire input (with ^ and $) or things will not work correctly.
 	$config['embedding'] = array(
 		array(
-			'/^https?:\/\/(\w+\.)?youtube\.com\/watch\?v=([a-zA-Z0-9\-_]{10,11})(&.+)?$/i',
-			'<iframe style="float: left;margin: 10px 20px;" width="%%tb_width%%" height="%%tb_height%%" frameborder="0" id="ytplayer" src="http://www.youtube.com/embed/$2"></iframe>'
+			'/^https?:\/\/(?:\w+\.)?youtube\.com\/watch\?(?:&?v=([a-zA-Z0-9\-_]{10,11})|(&?start=\d*)|(&?end=\d*)|(?:&?[^&]+))*$/i',
+			'<iframe style="float: left;margin: 10px 20px;" width="%%tb_width%%" height="%%tb_height%%" frameborder="0" id="ytplayer" src="http://youtube.com/embed/$1?$2$3&rel=0&autoplay=1&html5=1"></iframe>'
 		),
 		array(
 			'/^https?:\/\/(\w+\.)?vimeo\.com\/(\d{2,10})(\?.+)?$/i',
