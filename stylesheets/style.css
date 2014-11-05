@@ -309,6 +309,11 @@ div.post_modified div.content-status:first-child {
   margin-top: 1.3em;
 }
 
+a.dashed-underline {
+  text-decoration: none;
+  border-bottom: 1px dashed;
+}
+
 span.trip {
   color: #228854;
 }
