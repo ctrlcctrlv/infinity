@@ -74,13 +74,26 @@ onready(function(){
 						.css('z-index', '100')
 						.css('left', '0')
 						.addClass('reply').addClass('post')
-						.insertAfter(link.parent())
+						.appendTo(link.parents('div.post'))
 						
 					// shrink expanded images
 					newPost.find('div.file a[data-expanded="true"]').each(function() {
 						var thumb = $(this).data('src');
 						$(this).find('img.post-image').attr('src', thumb);
 					});
+					
+					// Highlight references to the current post
+					if (link.hasClass('mentioned-'+id)) {
+						var postLinks = newPost.find('div.body a:not([rel="nofollow"])');
+						if (postLinks.length > 1) {
+							var originalPost = link.parents('div.post').attr('id').replace("reply_", "");
+							postLinks.each(function() {
+								if ($(this).text() == ">>"+originalPost) {
+									$(this).addClass('dashed-underline');
+								}
+							});
+						}
+					}
 					
 					var previewWidth = newPost.outerWidth(true);
 					var widthDiff = previewWidth - newPost.width();
