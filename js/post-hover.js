@@ -74,7 +74,7 @@ onready(function(){
 						.css('z-index', '100')
 						.css('left', '0')
 						.addClass('reply').addClass('post')
-						.appendTo(link.parents('div.post'))
+						.appendTo(link.closest('div.post'))
 						
 					// shrink expanded images
 					newPost.find('div.file a[data-expanded="true"]').each(function() {
@@ -86,7 +86,7 @@ onready(function(){
 					if (link.hasClass('mentioned-'+id)) {
 						var postLinks = newPost.find('div.body a:not([rel="nofollow"])');
 						if (postLinks.length > 1) {
-							var originalPost = link.parents('div.post').attr('id').replace("reply_", "");
+							var originalPost = link.closest('div.post').attr('id').replace("reply_", "").replace("inline_", "");
 							postLinks.each(function() {
 								if ($(this).text() == ">>"+originalPost) {
 									$(this).addClass('dashed-underline');
