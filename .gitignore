@@ -1,6 +1,6 @@
 # static html and json
-/*/*.html
-/*/*.json
+*.html
+*.json
 /*/res
 /*/src
 /*/thumb
