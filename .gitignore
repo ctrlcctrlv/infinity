@@ -22,8 +22,11 @@
 # .installed
 /.installed
 
-# script file
+# script files
 /main.js
+/*/main.js
+/*/rules.txt
+/stylesheets/board/*.css
 
 # templates cache
 /templates/cache
