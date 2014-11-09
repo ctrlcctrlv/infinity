@@ -100,7 +100,7 @@
 				{% trans %}File{% endtrans %}
 			</th>
 			<td>
-				<input type="file" name="file" id="upload_file">
+				<input type="file" name="files[]">
 				{% if config.allow_upload_by_url %}
 					<div style="float:none;text-align:left" id="upload_url">
 						<label for="file_url">{% trans %}Or URL{% endtrans %}</label>: 

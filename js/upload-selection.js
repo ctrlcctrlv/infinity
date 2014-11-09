@@ -19,14 +19,13 @@ $(function(){
   var enabled_oekaki = typeof window.oekaki != "undefined";
 
   var disable_all = function() {
-    $("#upload").hide();
-    $("[id^=upload_file]").hide();
-    $(".file_separator").hide();
-    $("#upload_url").hide();
-    $("#upload_embed").hide();
-    $(".add_image").hide();
+    $('#upload').hide();
+    $('input[name^="files"],input[name^="files"]+br').hide();
+    $('#upload_url').hide();
+    $('#upload_embed').hide();
+    $('.add_image').hide();
 
-    $('[id^=upload_file]').each(function(i, v) {
+    $('[name^="files"]').each(function(i, v) {
         $(v).val('');
     });
 
@@ -40,8 +39,7 @@ $(function(){
   enable_file = function() {
     disable_all();
     $("#upload").show();
-    $(".file_separator").show();
-    $("[id^=upload_file]").show();
+    $('input[name^="files"],input[name^="files"]+br').show();
     $(".add_image").show();
   };
 
