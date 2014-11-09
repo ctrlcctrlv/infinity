@@ -4,7 +4,7 @@ include "inc/functions.php";
 if (!(php_sapi_name() == "cli")) {
 	die('nope');
 }
-$protected = array('burgers', 'cow', 'wilno', 'cute');
+$protected = array('burgers', 'cow', 'wilno', 'cute', 'yoga');
 $q = query("SELECT uri FROM boards");
 $boards = $q->fetchAll(PDO::FETCH_COLUMN);
 $now = new DateTime();
