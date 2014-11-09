@@ -100,7 +100,7 @@ $(window).ready(function() {
 									$(form).find('input[type="submit"]').removeAttr('disabled');
 									$(form).find('input[name="subject"],input[name="file_url"],\
 										textarea[name="body"],input[type="file"]').val('').change();
-									$('input[name^="file"]:not(:first-of-type),input[name^="file"]+br').remove();
+									$('input[name^="files"]:not(:first-of-type),input[name^="files"]+br').remove();
 								},
 								cache: false,
 								contentType: false,
