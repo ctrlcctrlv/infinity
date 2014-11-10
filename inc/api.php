@@ -91,7 +91,8 @@ class Api {
 		$dotPos = strrpos($file->file, '.');
 		$apiPost['ext'] = substr($file->file, $dotPos);
 		$apiPost['tim'] = substr($file->file, 0, $dotPos);
-		$apiPost['md5'] = base64_encode(hex2bin($file->hash));
+		if (isset($file->hash))
+			$apiPost['md5'] = base64_encode(hex2bin($file->hash));
 	}
 
 	private function translatePost($post, $threadsPage = false) {
