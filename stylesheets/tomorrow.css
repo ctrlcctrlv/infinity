@@ -150,3 +150,7 @@ a:not([data-expanded="true"]) .post-image{
   max-height:200px!important;
   max-width:200px!important
 }
+
+.theme-catalog div.thread:hover {
+  background: #222222;
+}

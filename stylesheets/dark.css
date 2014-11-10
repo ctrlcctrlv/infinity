@@ -3,167 +3,197 @@
  * For AwsumChan by Circlepuller
  */
 body {
-	background: #1E1E1E;
-	color: #999999;
-	font-family: sans-serif;
-	font-size: 12px;
+  background: #1E1E1E;
+  color: #999999;
+  font-family: sans-serif;
+  font-size: 12px;
 }
+
 span.quote {
-    color:#B8D962;
+  color: #B8D962;
 }
+
 h1 {
-	font-size: 20pt;
-	text-align: center;
-	letter-spacing: 0px;
+  font-size: 20pt;
+  text-align: center;
+  letter-spacing: 0px;
 }
+
 div.title, h1 {
-	color: #32DD72;
-	font-family: Arial, Helvetica, sans-serif;
+  color: #32DD72;
+  font-family: Arial, Helvetica, sans-serif;
 }
+
 div.title p {
-	font-size: 10px;
+  font-size: 10px;
 }
+
 a:link, a:visited, p.intro a.email span.name {
-	color: #CCCCCC;
-	text-decoration: none;
-	font-family: sans-serif;
+  color: #CCCCCC;
+  text-decoration: none;
+  font-family: sans-serif;
 }
+
 a:link:hover, a:visited:hover {
-	color: #fff;
-	font-family: sans-serif;
-	text-decoration: none;
-
+  color: #fff;
+  font-family: sans-serif;
+  text-decoration: none;
 }
+
 a.post_no {
-	color: #AAAAAA;
-	text-decoration: none;
+  color: #AAAAAA;
+  text-decoration: none;
 }
-a.post_no:hover {
-	color: #32DD72 !important;
-	text-decoration: underline overline;
-}
-div.post.reply {
-	background: #333333;
-	border: #555555 1px solid;
-        -webkit-border-radius: 10px;
-        -khtml-border-radius: 10px;
-        -moz-border-radius: 10px;
-        border-radius: 10px;
 
+a.post_no:hover {
+  color: #32DD72 !important;
+  text-decoration: underline overline;
 }
+
+div.post.reply {
+  background: #333333;
+  border: #555555 1px solid;
+  -webkit-border-radius: 10px;
+  -khtml-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}
+
 div.post.reply.highlighted {
-	background: #555;
-	border: transparent 1px solid;
+  background: #555;
+  border: transparent 1px solid;
 }
+
 div.post.reply div.body a:link, div.post.reply div.body a:visited {
-	color: #CCCCCC;
+  color: #CCCCCC;
 }
+
 div.post.reply div.body a:link:hover, div.post.reply div.body a:visited:hover {
-	color: #32DD72;
+  color: #32DD72;
 }
+
 p.intro span.subject {
-	font-size: 12px;
-	font-family: sans-serif;
-	color: #446655;
-	font-weight: 800;
+  font-size: 12px;
+  font-family: sans-serif;
+  color: #446655;
+  font-weight: 800;
 }
+
 p.intro span.name {
-	color: #32DD72;
-	font-weight: 800;
+  color: #32DD72;
+  font-weight: 800;
 }
+
 p.intro a.capcode, p.intro a.nametag {
-	color: magenta;
-	margin-left: 0;
+  color: magenta;
+  margin-left: 0;
 }
+
 p.intro a.email, p.intro a.email span.name, p.intro a.email:hover, p.intro a.email:hover span.name {
-	color: #32ddaf;
+  color: #32ddaf;
 }
+
 input[type="text"], textarea, select {
-	background: #333333;
-	color: #CCCCCC;
-	border: #666666 1px solid;
-	padding-left: 5px;
-	padding-right: -5px;
-	font-family: sans-serif;
-	font-size: 10pt;
+  background: #333333;
+  color: #CCCCCC;
+  border: #666666 1px solid;
+  padding-left: 5px;
+  padding-right: -5px;
+  font-family: sans-serif;
+  font-size: 10pt;
 }
+
 input[type="password"] {
-	background: #333333;
-	color: #CCCCCC;
-	border: #666666 1px solid;
+  background: #333333;
+  color: #CCCCCC;
+  border: #666666 1px solid;
 }
+
 form table tr th {
-	background: #333333;
-	color: #AAAAAA;
-	font-weight: 800;
-	text-align: left;
-	padding: 0;
+  background: #333333;
+  color: #AAAAAA;
+  font-weight: 800;
+  text-align: left;
+  padding: 0;
 }
+
 div.banner {
-	background: #32DD72;
-	color: #000;
-	text-align: center;
-	width: 250px;
-	padding: 4px;
-	padding-left: 12px;
-	padding-right: 12px;
-	margin-left: auto;
-	margin-right: auto;
-	font-size: 12px;
+  background: #32DD72;
+  color: #000;
+  text-align: center;
+  width: 250px;
+  padding: 4px;
+  padding-left: 12px;
+  padding-right: 12px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 12px;
 }
+
 div.banner a {
-    color:#000;
+  color: #000;
 }
+
 input[type="submit"] {
-	background: #333333;
-	border: #888888 1px solid;
-	color: #CCCCCC;
+  background: #333333;
+  border: #888888 1px solid;
+  color: #CCCCCC;
 }
+
 input[type="submit"]:hover {
-	background: #555555;
-	border: #888888 1px solid;
-	color: #32DD72;
+  background: #555555;
+  border: #888888 1px solid;
+  color: #32DD72;
 }
+
 input[type="text"]:focus {
-    border:#aaa 1px solid;
+  border: #aaa 1px solid;
 }
+
 p.fileinfo a:hover {
-	text-decoration: underline;
+  text-decoration: underline;
 }
+
 span.trip {
-	color: #AAAAAA;
+  color: #AAAAAA;
 }
+
 div.pages {
-	color: #AAAAAA;
-	background: #333333;
-	border: #666666 1px solid;
-	font-family: sans-serif;
-	font-size: 10pt;
+  color: #AAAAAA;
+  background: #333333;
+  border: #666666 1px solid;
+  font-family: sans-serif;
+  font-size: 10pt;
 }
+
 div.pages a.selected {
-	color: #CCCCCC;
+  color: #CCCCCC;
 }
+
 hr {
-	height: 1px;
-	border: #333333 1px solid;
+  height: 1px;
+  border: #333333 1px solid;
 }
+
 div.boardlist {
-	color: #999999;
-    background-color: rgba(12%, 12%, 12%, 0.10);
+  color: #999999;
+  background-color: rgba(12%, 12%, 12%, 0.10);
 }
 
 div.ban {
-	background-color: transparent;
-	border: transparent 0px solid;
+  background-color: transparent;
+  border: transparent 0px solid;
 }
+
 div.ban h2 {
-	background: transparent;
-	color: lime;
-	font-size: 12px;
+  background: transparent;
+  color: lime;
+  font-size: 12px;
 }
+
 table.modlog tr th {
-	background: #333333;
-	color: #AAAAAA;
+  background: #333333;
+  color: #AAAAAA;
 }
 
 .desktop-style div.boardlist:nth-child(1) {
@@ -171,22 +201,28 @@ table.modlog tr th {
   background-color: #666666;
 }
 
-
 .desktop-style div.boardlist:nth-child(1):hover, .desktop-style div.boardlist:nth-child(1).cb-menu {
   background-color: rgba(30%, 30%, 30%, 0.65);
 }
 
 div.report {
-	color: #666666;
+  color: #666666;
 }
 
 /* options.js */
 #options_div, #alert_div {
-	background: #333333;
+  background: #333333;
 }
+
 .options_tab_icon {
-	color: #AAAAAA;
+  color: #AAAAAA;
 }
+
 .options_tab_icon.active {
-	color: #FFFFFF;
+  color: #FFFFFF;
+}
+
+.theme-catalog div.thread:hover {
+  background: #222222;
+  border-color: #eee;
 }
