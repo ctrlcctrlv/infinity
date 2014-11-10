@@ -29,6 +29,9 @@ function load_twig() {
 	));
 	$twig->addExtension(new Twig_Extensions_Extension_Tinyboard());
 	$twig->addExtension(new Twig_Extensions_Extension_I18n());
+
+	$twig->addFilter(new Twig_SimpleFilter('hex2bin', 'hex2bin'));
+	$twig->addFilter(new Twig_SimpleFilter('base64_encode', 'base64_encode'));
 }
 
 function Element($templateFile, array $options) {

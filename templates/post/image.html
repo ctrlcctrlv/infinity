@@ -21,6 +21,7 @@
 				{% endif %}
 			"
 			 style="width:{{ post.thumbwidth }}px;height:{{ post.thumbheight }}px"
+			 data-md5="{{ post.hash|hex2bin|base64_encode }}"
 		>
 		</video>
 	{% else %}
@@ -40,6 +41,7 @@
 				{% endif %}
 			"
 			 style="width:{{ post.thumbwidth }}px;height:{{ post.thumbheight }}px" alt="" 
+			 data-md5="{{ post.hash|hex2bin|base64_encode }}"
 		/>
 	{% endif %}
 </a>

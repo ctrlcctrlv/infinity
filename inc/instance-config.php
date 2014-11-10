@@ -162,7 +162,7 @@
 
 	$config['embedding'] = array(
 		array(
-			'/^https?:\/\/(\w+\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9\-_]{10,11})(&.+)?$/i',
+			'/^https?:\/\/(?:\w+\.)?(?:youtube\.com\/watch\?|youtu\.be\/)(?:(?:&?v=)?([a-zA-Z0-9\-_]{10,11})\??|&?(start=\d*)|&?(end=\d*)|(?:&?[^&]+))*$/i',
 			$config['youtube_js_html']
 		),
 		array(

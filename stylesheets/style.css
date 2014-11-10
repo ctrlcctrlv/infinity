@@ -8,6 +8,10 @@ body {
   padding-right: 4px;
 }
 
+.hidden {
+  display:none;
+}
+
 a,a:visited {
   text-decoration: underline;
   color: #34345C;
@@ -98,6 +102,10 @@ input[type="text"],input[type="password"],textarea {
 
 #quick-reply input[type="text"], input[type="password"], #quick-reply textarea {
   max-width: 100%;
+}
+
+#upload input[type="file"] {
+  max-width: 230px;
 }
 
 form table tr td {
@@ -307,6 +315,11 @@ div.post_modified div.content-status {
 
 div.post_modified div.content-status:first-child {
   margin-top: 1.3em;
+}
+
+a.dashed-underline {
+  text-decoration: none;
+  border-bottom: 1px dashed;
 }
 
 span.trip {
@@ -932,6 +945,10 @@ pre {
 
 .poster_id {
   cursor: pointer;
+}
+
+.poster_id::before {
+  content: " ID: ";
 }
 
 pre {
