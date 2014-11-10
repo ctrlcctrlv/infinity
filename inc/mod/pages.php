@@ -495,7 +495,15 @@ function mod_new_board() {
 		if (openBoard($_POST['uri'])) {
 			error(sprintf($config['error']['boardexists'], $board['url']));
 		}
-		
+		foreach ($config['banned_boards'] as $i => $w) {
+			if ($w[0] !== '/') {
+				if (strpos($_POST['uri'],$w) !== false)
+					error(_("Cannot create board with banned word $w"));
+			} else {
+				if (preg_match($w,$_POST['uri']))
+					error(_("Cannot create board matching banned pattern $w"));
+			}
+		}
 		$query = prepare('INSERT INTO ``boards`` (``uri``, ``title``, ``subtitle``) VALUES (:uri, :title, :subtitle)');
 		$query->bindValue(':uri', $_POST['uri']);
 		$query->bindValue(':title', $_POST['title']);
