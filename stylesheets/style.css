@@ -100,7 +100,7 @@ input[type="text"],input[type="password"],textarea {
   max-width: 100%;
 }
 
-#quick-reply input[type="file"] {
+#upload input[type="file"] {
   max-width: 230px;
 }
 
