@@ -1,5 +1,4 @@
 <?php
-
 /*
 *  Instance Configuration
 *  ----------------------
@@ -9,7 +8,6 @@
 */
 	require_once "lib/htmlpurifier-4.5.0/library/HTMLPurifier.auto.php";
 	require_once "8chan-functions.php";
-
 	// Note - you may want to change some of these in secrets.php instead of here
 	// See the secrets.example.php file
 	$config['db']['server'] = 'localhost';
@@ -47,9 +45,6 @@
 	$config['spam']['hidden_inputs_max_pass'] = 128;
 	$config['ayah_enabled'] = true;
 	
-	// Load database credentials
-	require "secrets.php";
-
 	// Image shit
 	$config['thumb_method'] = 'gm+gifsicle';
 	$config['thumb_ext'] = '';
@@ -64,7 +59,6 @@
 	$config['webm']['use_ffmpeg'] = true;
 	$config['webm']['allow_audio'] = true;
 	$config['webm']['max_length'] = 60 * 15;
-
 	// Mod shit
 	$config['mod']['groups'][25] = 'GlobalVolunteer';
 	$config['mod']['groups'][19] = 'BoardVolunteer';
@@ -79,7 +73,6 @@
 	$config['mod']['recent_reports'] = 65535;
 	$config['mod']['ip_less_recentposts'] = 75;
 	$config['ban_show_post'] = true;
-
 	// Board shit
 	$config['max_links'] = 40;
 	$config['poster_id_length'] = 6;
@@ -134,32 +127,23 @@
 	$config['additional_javascript'][] = 'js/show-own-posts.js';
 	$config['additional_javascript'][] = 'js/youtube.js';
 	$config['additional_javascript'][] = 'js/comment-toolbar.js';
-
 	//$config['font_awesome_css'] = '/netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css';
 	
 	$config['stylesheets']['Dark'] = 'dark.css';
 	$config['stylesheets']['Photon'] = 'photon.css';
-
 	$config['stylesheets_board'] = true;
 	$config['markup'][] = array("/^[ |\t]*==(.+?)==[ |\t]*$/m", "<span class=\"heading\">\$1</span>");
 	$config['markup'][] = array("/\[spoiler\](.+?)\[\/spoiler\]/", "<span class=\"spoiler\">\$1</span>");
 	$config['markup'][] = array("/~~(.+?)~~/", "<s>\$1</s>");
 	$config['markup'][] = array("/__(.+?)__/", "<u>\$1</u>");
-
 	$config['boards'] = array(array('<i class="fa fa-home" title="Home"></i>' => '/', '<i class="fa fa-tags" title="Boards"></i>' => '/boards.html', '<i class="fa fa-question" title="FAQ"></i>' => '/faq.html', '<i class="fa fa-random" title="Random"></i>' => '/random.php', '<i class="fa fa-plus" title="New board"></i>' => '/create.php', '<i class="fa fa-ban" title="Public ban list"></i>' => '/bans.html', '<i class="fa fa-search" title="Search"></i>' => '/search.php', '<i class="fa fa-cog" title="Manage board"></i>' => '/mod.php', '<i class="fa fa-quote-right" title="Chat"></i>' => 'https://qchat.rizon.net/?channels=#8chan'), array('b', 'meta'), array('<i class="fa fa-twitter" title="Twitter"></i>'=>'https://twitter.com/infinitechan'));
 	//$config['boards'] = array(array('<i class="fa fa-home" title="Home"></i>' => '/', '<i class="fa fa-tags" title="Boards"></i>' => '/boards.html', '<i class="fa fa-question" title="FAQ"></i>' => '/faq.html', '<i class="fa fa-random" title="Random"></i>' => '/random.php', '<i class="fa fa-plus" title="New board"></i>' => '/create.php', '<i class="fa fa-search" title="Search"></i>' => '/search.php', '<i class="fa fa-cog" title="Manage board"></i>' => '/mod.php', '<i class="fa fa-quote-right" title="Chat"></i>' => 'https://qchat.rizon.net/?channels=#8chan'), array('b', 'meta', 'int'), array('v', 'a', 'tg', 'fit', 'pol', 'tech', 'mu', 'co', 'sp', 'boards'), array('<i class="fa fa-twitter" title="Twitter"></i>'=>'https://twitter.com/infinitechan'));
-
 	$config['footer'][] = 'Contribute to 8chan.co development at <a href="https://github.com/ctrlcctrlv/8chan">github</a>';
 	$config['footer'][] = 'To make a DMCA request or report illegal content, please email <a href="mailto:admin@8chan.co">admin@8chan.co</a> or use the "Global Report" functionality on every page.';
-
 	$config['search']['enable'] = true;
-
-//$config['debug'] = true;
+	//$config['debug'] = true;
 	$config['syslog'] = true;
-
 	$config['wordfilters'][] = array('\rule', ''); // 'true' means it's a regular expression
-
-
 	$config['embedding'] = array(
 		array(
 			'/^https?:\/\/(?:\w+\.)?(?:youtube\.com\/watch\?|youtu\.be\/)(?:(?:&?v=)?([a-zA-Z0-9\-_]{10,11})\??|&?(start=\d*)|&?(end=\d*)|(?:&?[^&]+))*$/i',
@@ -186,8 +170,8 @@
 			'<object style="float: left;margin: 10px 20px;" width="148" height="44"><param name="movie" value="https://vocaroo.com/player.swf?playMediaID=$2&autoplay=0"></param><param name="wmode" value="transparent"></param><embed src="https://vocaroo.com/player.swf?playMediaID=$2&autoplay=0" width="148" height="44" wmode="transparent" type="application/x-shockwave-flash"></embed></object>'
 		)
 	);
-
-$config['gzip_static'] = false;
-// 8chan specific mod pages
-require '8chan-mod-pages.php';
-	
+	$config['gzip_static'] = false;
+	// Load database credentials
+	require "secrets.php";
+	// 8chan specific mod pages
+	require '8chan-mod-pages.php';
