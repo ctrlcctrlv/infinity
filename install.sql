@@ -304,6 +304,24 @@ CREATE TABLE IF NOT EXISTS `ban_appeals` (
   KEY `ban_id` (`ban_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 ;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `post_clean`
+--
+
+CREATE TABLE `post_clean` (
+  `clean_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `post_id` int(11) unsigned NOT NULL,
+  `board_id` varchar(58) NOT NULL,
+  `clean_local` tinyint(1) NOT NULL DEFAULT '0',
+  `clean_local_mod_id` smallint(6) unsigned DEFAULT NULL,
+  `clean_global` tinyint(1) NOT NULL DEFAULT '0',
+  `clean_global_mod_id` smallint(6) unsigned DEFAULT NULL,
+  PRIMARY KEY (`clean_id`),
+  UNIQUE KEY `clean_id_UNIQUE` (`clean_id`)
+);
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
