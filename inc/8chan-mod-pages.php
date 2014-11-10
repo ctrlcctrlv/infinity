@@ -132,12 +132,14 @@
 	$config['mod']['custom_pages']['/flags/(\%b)'] = function($b) {
 		global $config, $mod, $board;
 		require_once 'inc/image.php';
-
 		if (!hasPermission($config['mod']['edit_flags'], $b))
 			error($config['error']['noaccess']);
 
 		if (!openBoard($b))
 			error("Could not open board!");
+
+		if (file_exists("$b/flags.ser"))
+			$config['user_flags'] = unserialize(file_get_contents("$b/flags.ser"));
 
 		$dir = 'static/custom-flags/'.$b;
 
@@ -146,6 +148,12 @@
 		}
 	
 		if (isset($_FILES['file'])){
+			if (!isset($_POST['description']) and $_POST['description'])
+				error(_('You must enter a flag description!'));
+
+			if (strlen($_POST['description']) > 255)
+				error(_('Flag description too long!'));
+	
 			$upload = $_FILES['file']['tmp_name'];
 			$banners = array_diff(scandir($dir), array('..', '.'));
 
@@ -167,27 +175,50 @@
 				error($config['error']['invalidimg']);
 			}
 
-			if ($size[0] != 16 or $size[1] != 11){
+			if ($size[0] > 20 or $size[0] < 11 or $size[1] != 11){
 				error(_('Image wrong size!'));
 			}
-			if (sizeof($banners) >= 100) {
+			if (sizeof($banners) > 256) {
 				error(_('Too many flags.'));
 			}
 
 			copy($upload, "$dir/$id.$extension");
+			$config['user_flags'][$id] = utf8tohtml($_POST['description']);
+
+			$flags = <<<FLAGS
+<?php
+\$config['country_flags'] = false;
+\$config['country_flags_condensed'] = false;
+\$config['user_flag'] = true;
+\$config['uri_flags'] = '/static/custom-flags/$b/%s.png';
+\$config['flag_style'] = '';
+\$config['user_flags'] = unserialize(file_get_contents('$b/flags.ser'));
+FLAGS;
+
+			file_write($b.'/flags.php', $flags);
+			file_write($b.'/flags.ser', serialize($config['user_flags']));
+
 		}
 
 		if (isset($_POST['delete'])){
 			foreach ($_POST['delete'] as $i => $d){
-				if (!preg_match('/[0-9+]\.(png|jpeg|jpg|gif)/', $d)){
+				if (!preg_match('/[0-9+]/', $d)){
 					error('Nice try.');
 				}
-				unlink("$dir/$d");
+				unlink("$dir/$d.png");
+				$id = explode('.', $d)[0];
+				unset($config['user_flags'][$id]);
+				file_write($b.'/flags.ser', serialize($config['user_flags']));
 			}
 		}
 
+		if (isset($_POST['alphabetize'])) {
+			asort($config['user_flags'], SORT_NATURAL | SORT_FLAG_CASE);
+			file_write($b.'/flags.ser', serialize($config['user_flags']));
+		}
+
 		$banners = array_diff(scandir($dir), array('..', '.'));
-		mod_page(_('Edit banners'), 'mod/banners.html', array('board'=>$board,'banners'=>$banners,'token'=>make_secure_link_token('banners/'.$board['uri'])));
+		mod_page(_('Edit flags'), 'mod/flags.html', array('board'=>$board,'banners'=>$banners,'token'=>make_secure_link_token('banners/'.$board['uri'])));
 	};
 
 	$config['mod']['custom_pages']['/banners/(\%b)'] = function($b) {
@@ -285,6 +316,8 @@
 			$allow_pdf = isset($_POST['allow_pdf']) ? '$config[\'allowed_ext_files\'][] = \'pdf\';' : '';
 			$code_tags = isset($_POST['code_tags']) ? '$config[\'additional_javascript\'][] = \'js/code_tags/run_prettify.js\';$config[\'markup\'][] = array("/\[code\](.+?)\[\/code\]/ms", "<code><pre class=\'prettyprint\' style=\'display:inline-block\'>\$1</pre></code>");' : '';
 			$katex = isset($_POST['katex']) ? '$config[\'katex\'] = true;$config[\'additional_javascript\'][] = \'js/katex/katex.min.js\'; $config[\'markup\'][] = array("/\[tex\](.+?)\[\/tex\]/ms", "<span class=\'tex\'>\$1</span>"); $config[\'additional_javascript\'][] = \'js/katex-enable.js\';' : '';
+			$user_flags = isset($_POST['user_flags']) ? "if (file_exists('$b/flags.php')) { include 'flags.php'; }\n" : '';
+
 $oekaki_js = <<<OEKAKI
     \$config['additional_javascript'][] = 'js/jquery-ui.custom.min.js';
     \$config['additional_javascript'][] = 'js/wPaint/lib/wColorPicker.min.js';
@@ -359,7 +392,7 @@ OEKAKI;
 \$config['blotter'] = base64_decode('$blotter');
 \$config['stylesheets']['Custom'] = 'board/$b.css';
 \$config['default_stylesheet'] = array('Custom', \$config['stylesheets']['Custom']);
-$code_tags $katex $oekaki $replace $multiimage $allow_flash $allow_pdf
+$code_tags $katex $oekaki $replace $multiimage $allow_flash $allow_pdf $user_flags
 if (\$config['disable_images'])
 	\$config['max_pages'] = 10000;
 

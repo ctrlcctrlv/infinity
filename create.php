@@ -62,7 +62,7 @@ if (!$score)
 	error(_('You failed the game'));
 if (!$passedCaptcha)
 	error(_('You failed to enter the reCaptcha correctly'));
-if (!preg_match('/^[a-z0-9]{1,10}$/', $uri))
+if (!preg_match('/^[a-z0-9]{1,30}$/', $uri))
 	error(_('Invalid URI'));
 if (!(strlen($title) < 40))
 	error(_('Invalid title'));

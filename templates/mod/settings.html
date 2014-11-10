@@ -25,6 +25,7 @@
 
 	<table>
 		<tr><th>{% trans %}Country flags{% endtrans %}</th><td><input type="checkbox" name="country_flags" {% if config.country_flags %}checked{% endif %}></td></tr>
+		<tr><th>{% trans %}/pol/-style user flags{% endtrans %}<br><span class="unimportant">Enabling this disables country flags<br>Make sure to actually upload some first!</span></th><td><input type="checkbox" name="user_flags" {% if config.user_flag %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Forced anonymous{% endtrans %}</th><td><input type="checkbox" name="field_disable_name" {% if config.field_disable_name %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}YouTube/Voocaroo embedding{% endtrans %}</th><td><input type="checkbox" name="enable_embedding" {% if config.enable_embedding %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Require image for OP{% endtrans %}</th><td><input type="checkbox" name="force_image_op" {% if config.force_image_op %}checked{% endif %}></td></tr>
@@ -56,6 +57,7 @@
 	</table>
 
 	<p style="text-align:center"><a href="?/banners/{{board.uri}}">{% trans %}Edit board banners{% endtrans %}</a></p>
+	<p style="text-align:center"><a href="?/flags/{{board.uri}}">{% trans %}Edit board flags{% endtrans %}</a></p>
 	<p style="text-align:center"><a href="?/volunteers/{{board.uri}}">{% trans %}Edit board volunteers{% endtrans %}</a></p>
 
 	<table>

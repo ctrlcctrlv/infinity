@@ -56,7 +56,7 @@ foreach ($boards as $i => &$board) {
 	if ($board_config && $board['uri'] !== 'int') {
 		$board_config = str_replace('$config', '$boardCONFIG', $board_config);
 		$board_config = str_replace('<?php', '', $board_config);
-		eval($board_config);
+		@eval($board_config);
 	}
 	$showboard = $board['indexed'];
 	$locale = isset($boardCONFIG['locale'])?$boardCONFIG['locale']:'en';
