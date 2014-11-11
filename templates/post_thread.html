@@ -38,6 +38,7 @@
 			<img class="icon" title="Bumplocked" src="{{ config.image_bumplocked }}" alt="Bumplocked" />
 		{% endif %}
 	{% endif %}
+	<span class="threadviewlinks">
 	{% if index %}
 		<a href="{{ post.root }}{{ board.dir }}{{ config.dir.res }}{{ config.file_page|sprintf(post.id) }}">[{% trans %}Reply{% endtrans %}]</a>
 	{% endif %}
@@ -48,6 +49,7 @@
 		{% set lastcount = config.noko50_count %}
 		<a href="{{ post.root }}{{ board.dir }}{{ config.dir.res }}{{ config.file_page50|sprintf(post.id) }}">[{% trans %}Last 1 Post{% plural lastcount %}Last {{ count }} Posts{% endtrans %}]</a>
 	{% endif %}
+	</span>
 	{% include 'post/post_controls.html' %}
 	</p>
 	<div class="body">

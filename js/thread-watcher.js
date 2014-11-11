@@ -149,7 +149,7 @@ $(document).ready(function(){
 	//Append the watchlist toggle button.
 	$('.boardlist').append('<span>[ <a class="watchlist-toggle" href="#">watchlist</a> ]</span>');
 	//Append a watch thread button after every OP.
-	$('.op>.intro').append('<a class="watchThread" href="#">[Watch Thread]</a>');
+	$('.op>.intro>.threadviewlinks').append('<a class="watchThread" href="#">[Watch Thread]</a>');
 
 	//Draw the watchlist, hidden.
 	watchlist.render();
