@@ -1013,7 +1013,7 @@ span.pln {
 div.file.multifile {
   margin: 0;
   padding: 0;
-  max-width: 49%!important;
+  max-width: 40%!important;
 }
 
 div.files > p.fileinfo > a {
