@@ -47,9 +47,9 @@ div.post-hover {
   border:1px solid #000!important;
   box-shadow:none!important
 }
-div.thread:hover {
+.theme-catalog div.thread:hover {
   background-color:#1d1f21;
-  border-color:#000
+  border-color:#111
 }
 p.intro span.subject {
   color:#b294bb
@@ -106,13 +106,13 @@ div#options_div {
   background-color:#282a2e
 }
 div.options_tab_icon {
-  color: #AAA
+  color:#AAA
 }
 div.options_tab_icon:hover {
-  background-color: #111
+  background-color:#111
 }
 div.options_tab_icon.active {
-  color: #F20
+  color:#F20
 }
 div.blotter {
   color:#F20
@@ -120,7 +120,7 @@ div.blotter {
 span.omitted {
   color:#707070
 }
-p.intro a, span.omitted a {
+p.intro a,span.omitted a {
   text-decoration:none
 }
 form#quick-reply {
@@ -132,9 +132,9 @@ span.capcode {
   padding:2px 5px;
   border-radius: 10px
 }
-div#watchlist {
- border:1px solid #111;
- background-color:#282a2e
+div#watchlist,div#alert_div {
+  border:1px solid #111;
+  background-color:#282a2e
 }
 div#watchlist a,a.watchThread {
   color:#81a2be;
@@ -143,10 +143,20 @@ div#watchlist a,a.watchThread {
 div#watchlist a:hover,a.watchThread:hover {
   color:#5F89AC
 }
-/* Keep small thumbnails */
-a:not([data-expanded="true"]) .post-image{
+
+/* Remove the following parts if those annoy you */
+/* Youtube borders */
+div.video-container img.post-image {
+  background-color:#000;
+  border-color:#fff;
+  border-width:2px;
+  border-style:none dotted none;
+  padding:0
+}
+/* Keep small thumbnails in replies */
+.post.reply a:not([data-expanded="true"]) .post-image{
   width:auto!important;
   height:auto!important;
-  max-height:200px!important;
-  max-width:200px!important
+  max-height:160px;
+  max-width:160px
 }
