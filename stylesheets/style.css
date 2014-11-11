@@ -1016,10 +1016,6 @@ div.file.multifile {
   max-width: 49%!important;
 }
 
-div.thread > div.files {
-  clear: both;
-}
-
 div.files > p.fileinfo > a {
   display: none !important;
 }
