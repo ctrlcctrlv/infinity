@@ -9,7 +9,7 @@ body {
 body {
   background: #EEF2FF url('img/fade-blue.png') repeat-x 50% 0%;
   color: black;
-  font: 10pt/13px arial, helvetica, sans-serif;
+  font: 10pt/16px arial, helvetica, sans-serif;
   margin: 1px 2px;
   padding: 1px 2px;
 }
@@ -955,7 +955,7 @@ pre {
 /* Code Tags */
 pre {
   display: block!important;
-  font: 9pt/13px monospace;
+  font: 9pt/14px monospace;
   max-width: 99%;
   overflow: auto;
   word-wrap: normal;
@@ -1101,6 +1101,22 @@ div.files > p.fileinfo > a {
 
   div.pages.top {
     display: block!important;
+  }
+
+  /* Keep small thumbnails */
+  a:not([data-expanded="true"]) .post-image{
+    width:auto!important;
+    height:auto!important;
+    max-height:200px!important;
+    max-width:200px!important
+  }
+
+  /* Keep small thumbnails in replies */
+  .post.reply a:not([data-expanded="true"]) .post-image{
+    width:auto!important;
+    height:auto!important;
+    max-height:160px;
+    max-width:160px
   }
 }
 
