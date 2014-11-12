@@ -35,7 +35,7 @@ $page = <<<EOT
 				var faves = JSON.parse(localStorage.favorites);
 
 				$.each(faves, function(k, v) {
-					if (window.location.pathname === '/' + v + '/') {
+					if ((window.location.pathname === '/' + v + '/') || (window.location.pathname === '/' + v)) {
 						faves.pop(v);
 						localStorage.favorites = JSON.stringify(faves);
 
