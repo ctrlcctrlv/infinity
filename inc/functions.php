@@ -1091,9 +1091,9 @@ function deletePost($id, $error_if_doesnt_exist=true, $rebuild_after=true) {
 		
 		if (!$post['thread']) {
 			// Delete thread HTML page
-			file_unlink($board['dir'] . $config['dir']['res'] . sprintf($config['file_page'], $post['id']));
-			file_unlink($board['dir'] . $config['dir']['res'] . sprintf($config['file_page50'], $post['id']));
-			file_unlink($board['dir'] . $config['dir']['res'] . sprintf('%d.json', $post['id']));
+			@file_unlink($board['dir'] . $config['dir']['res'] . sprintf($config['file_page'], $post['id']));
+			@file_unlink($board['dir'] . $config['dir']['res'] . sprintf($config['file_page50'], $post['id']));
+			@file_unlink($board['dir'] . $config['dir']['res'] . sprintf('%d.json', $post['id']));
 
 			$antispam_query = prepare('DELETE FROM ``antispam`` WHERE `board` = :board AND `thread` = :thread');
 			$antispam_query->bindValue(':board', $board['uri']);
@@ -1106,9 +1106,9 @@ function deletePost($id, $error_if_doesnt_exist=true, $rebuild_after=true) {
 		if ($post['files']) {
 			// Delete file
 			foreach (json_decode($post['files']) as $i => $f) {
-				if ($f->file !== 'deleted') {
-					file_unlink($config['dir']['img_root'] . $board['dir'] . $config['dir']['img'] . $f->file);
-					file_unlink($config['dir']['img_root'] . $board['dir'] . $config['dir']['thumb'] . $f->thumb);
+				if (isset($f->file, $f->thumb) && $f->file !== 'deleted') {
+					@file_unlink($config['dir']['img_root'] . $board['dir'] . $config['dir']['img'] . $f->file);
+					@file_unlink($config['dir']['img_root'] . $board['dir'] . $config['dir']['thumb'] . $f->thumb);
 				}
 			}
 		}
