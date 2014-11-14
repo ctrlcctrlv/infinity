@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `board_create` (
 --
 
 INSERT INTO `boards` VALUES
-('b', 'Random', NULL);
+('b', 'Random', NULL, TRUE, TRUE);
 
 -- --------------------------------------------------------
 
