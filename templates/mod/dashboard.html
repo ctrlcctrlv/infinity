@@ -127,8 +127,6 @@
 				{% endif %}
 				{% if mod|hasPermission(config.mod.manageboards) %}
 					 <a href="?/edit/{{ board.uri }}"><small>[{% trans 'edit' %}]</small></a>
-				{% endif %}
-				{% if mod|hasPermission(config.mod.manageboards) %}
 					 <a href="?/settings/{{ board.uri }}"><small>[{% trans 'settings' %}]</small></a>
 				{% endif %}
 			</li>
