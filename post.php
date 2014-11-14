@@ -232,15 +232,16 @@ elseif (isset($_POST['post'])) {
 		}
 	}
 
-	if (!(($post['op'] && $_POST['post'] == $config['button_newtopic']) ||
-		(!$post['op'] && $_POST['post'] == $config['button_reply'])))
+	//if (!(($post['op'] && $_POST['post'] == $config['button_newtopic']) ||
+		//(!$post['op'] && $_POST['post'] == $config['button_reply'])))
 		//error($config['error']['bot']);
 	
 	// Check the referrer
 	if ($config['referer_match'] !== false &&
-		(!isset($_SERVER['HTTP_REFERER']) || !preg_match($config['referer_match'], rawurldecode($_SERVER['HTTP_REFERER']))))
+		(!isset($_SERVER['HTTP_REFERER']) || !preg_match($config['referer_match'], rawurldecode($_SERVER['HTTP_REFERER'])))) {
 		error($config['error']['referer']);
-	
+	}	
+
 	checkDNSBL();
 		
 	// Check if banned

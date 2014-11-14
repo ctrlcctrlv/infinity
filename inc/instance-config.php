@@ -135,6 +135,7 @@
 	$config['additional_javascript'][] = 'js/youtube.js';
 	$config['additional_javascript'][] = 'js/comment-toolbar.js';
 	$config['additional_javascript'][] = 'js/catalog-search.js';
+	$config['additional_javascript'][] = 'js/thread-stats.js';
 
 	//$config['font_awesome_css'] = '/netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css';
 	

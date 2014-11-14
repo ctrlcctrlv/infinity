@@ -79,7 +79,7 @@ $body = <<<EOT
 <p>There isn't one yet and there will never be an official archive.</p>
 
 <h2>How do I donate?</h2>
-<p>Donations can be sent to 1NpQaXqmCBji6gfX8UgaQEmEstvVY7U32C (Bitcoin) or LUPgSCJt3iGeJXUETVhmnbQ89Riaq1yjZm (Litecoin). PayPal is also accepted @ fredrick.brennan1@gmail.com .</p>
+<p>Donations can be sent to 1NpQaXqmCBji6gfX8UgaQEmEstvVY7U32C (Bitcoin) or LUPgSCJt3iGeJXUETVhmnbQ89Riaq1yjZm (Litecoin).</p>
 <p>You may also donate monthly via Patreon at <a href="http://www.patreon.com/user?u=162165">http://www.patreon.com/user?u=162165</a>.
 
 <h2>Are you really a cripple?</h2>
