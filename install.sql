@@ -75,13 +75,6 @@ CREATE TABLE IF NOT EXISTS `board_create` (
   `uri` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `boards`
---
-
-INSERT INTO `boards` VALUES
-('b', 'Random', NULL);
-
 -- --------------------------------------------------------
 
 --
