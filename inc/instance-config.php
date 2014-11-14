@@ -91,6 +91,7 @@
 	$config['additional_javascript'][] = 'js/jquery.min.js';
 	$config['additional_javascript'][] = 'js/jquery.mixitup.min.js';
 	$config['additional_javascript'][] = 'js/catalog.js';
+	$config['additional_javascript'][] = 'js/captcha.js';
 	$config['additional_javascript'][] = 'js/jquery.tablesorter.min.js';
 	$config['additional_javascript'][] = 'js/options.js';
 	$config['additional_javascript'][] = 'js/style-select.js';
