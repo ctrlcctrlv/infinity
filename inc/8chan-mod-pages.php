@@ -14,6 +14,12 @@
 		}
 	}
 
+	if (!function_exists('b2')){
+		function b2($s){
+			return filter_var($s, FILTER_VALIDATE_BOOLEAN);
+		}
+	}
+
 	$config['mod']['show_ip'] = GLOBALVOLUNTEER;
 	$config['mod']['show_ip_less'] = BOARDVOLUNTEER;
 	$config['mod']['manageusers'] = GLOBALVOLUNTEER;
@@ -400,12 +406,30 @@ $locale
 $add_to_config
 EOT;
 
+			$banners = array_slice(scandir('static/banners/'.$b), 2);
+			if (file_exists("$b/flags.ser")) {
+				$custom_flags = unserialize(file_get_contents("$b/flags.ser"));
+			} else {
+				$custom_flags = (object)null;
+			}
+
 			$query = query('SELECT `uri`, `title`, `subtitle` FROM ``boards`` WHERE `8archive` = TRUE');
 			file_write('8archive.json', json_encode($query->fetchAll(PDO::FETCH_ASSOC)));
 			file_write($b.'/config.php', $config_file);
 			file_write('stylesheets/board/'.$b.'.css', $_POST['css']);
 			file_write($b.'/rules.html', Element('page.html', array('title'=>'Rules', 'subtitle'=>'', 'config'=>$config, 'body'=>'<div class="ban">'.purify($_POST['rules']).'</div>')));
 			file_write($b.'/rules.txt', $_POST['rules']);
+			file_write($b.'/config.json', json_encode(array(
+				'uri' => $b, 'title' => $title, 'subtitle' => $subtitle, 'country_flags' => b2($country_flags), 'user_flags' => b2($user_flags),
+				'forced_anonymous' => b2($field_disable_name), 'enable_embedding' => b2($enable_embedding), 'require_op_image' => b2($force_image_op),
+				'disable_images' => b2($disable_images), 'poster_ids' => b2($poster_ids), 'show_sages' => b2($show_sages),
+				'auto_unicode' => b2($auto_unicode), 'indexed' => !isset($_POST['meta_noindex']), '8archive' => isset($_POST['8archive']),
+				'public_bans' => isset($_POST['public_bans']), 'code_tags' => isset($_POST['code_tags']), 'oekaki' => isset($_POST['okaki']),
+				'katex' => isset($_POST['katex']), 'allow_swf' => isset($_POST['allow_flash']), 'allow_pdf' => isset($_POST['allow_pdf']),
+				'enable_dice' => isset($_POST['allow_roll']), 'reject_duplicate_files' => b2($image_reject_repost),
+				'allow_delete' => isset($_POST['allow_delete']), 'lang' => $_POST['locale'], 'max_images' => $_POST['max_images'],
+				'banners' => $banners, 'flags' => $custom_flags, 'default_name' => $_POST['anonymous'], 'announcement' => purify(html_entity_decode($_POST['blotter'])),
+				)));
 
 			$_config = $config;
 
