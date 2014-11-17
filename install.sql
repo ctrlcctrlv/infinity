@@ -220,6 +220,7 @@ CREATE TABLE IF NOT EXISTS `reports` (
   `board` varchar(58) CHARACTER SET utf8 DEFAULT NULL,
   `post` int(11) NOT NULL,
   `reason` text NOT NULL,
+  `local` tinyint(1) NOT NULL DEFAULT '0',
   `global` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 ;

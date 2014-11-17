@@ -272,6 +272,8 @@
 		'embed',
 		'recaptcha_challenge_field',
 		'recaptcha_response_field',
+		'captcha_cookie',
+		'captcha_text',
 		'spoiler',
 		'page',
 		'file_url',
@@ -299,6 +301,19 @@
 	// Public and private key pair from https://www.google.com/recaptcha/admin/create
 	$config['recaptcha_public'] = '6LcXTcUSAAAAAKBxyFWIt2SO8jwx4W7wcSMRoN3f';
 	$config['recaptcha_private'] = '6LcXTcUSAAAAAOGVbVdhmEM1_SyRF4xTKe8jbzf_';
+
+	$config['captcha'] = array();
+
+	// Enable custom captcha provider
+	$config['captcha']['enabled'] = false;
+
+	// Custom captcha provider path
+	$config['captcha']['provider_get']   = 'http://8chan.vichan.net/captcha/entrypoint.php';
+	$config['captcha']['provider_check'] = 'http://8chan.vichan.net/captcha/entrypoint.php';
+
+	// Custom captcha extra field (eg. charset)
+	$config['captcha']['extra'] = 'abcdefghijklmnopqrstuvwxyz';
+
 
 	/*
 	 * Custom filters detect certain posts and reject/ban accordingly. They are made up of a condition and an
@@ -602,6 +617,17 @@
 
 	// How many ban appeals can be made for a single ban?
 	$config['ban_appeals_max'] = 1;
+	
+	// Blacklisted board names. Default values to protect existing folders in the core codebase.
+	$config['banned_boards'] = array(
+		'.git',
+		'inc',
+		'js',
+		'static',
+		'stylesheets',
+		'templates',
+		'tools'
+	);
 
 	// Show moderator name on ban page.
 	$config['show_modname'] = false;
@@ -1326,8 +1352,8 @@
 	// Capcode permissions.
 	$config['mod']['capcode'] = array(
 	//	JANITOR		=> array('Janitor'),
-		MOD		=> array('Mod'),
-		ADMIN		=> true
+		MOD				=> array('Mod'),
+		ADMIN			=> true
 	);
 
 	// Example: Allow mods to post with "## Moderator" as well
@@ -1410,7 +1436,7 @@
 	$config['mod']['view_banlist'] = MOD;
 	// View the username of the mod who made a ban
 	$config['mod']['view_banstaff'] = MOD;
-	// If the moderator doesn't fit the $config['mod']['view_banstaff''] (previous) permission, show him just
+	// If the moderator doesn't fit the $config['mod']['view_banstaff'] (previous) permission, show him just
 	// a "?" instead. Otherwise, it will be "Mod" or "Admin".
 	$config['mod']['view_banquestionmark'] = false;
 	// Show expired bans in the ban list (they are kept in cache until the culprit returns)

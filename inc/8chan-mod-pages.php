@@ -317,6 +317,9 @@ FLAGS;
 			$code_tags = isset($_POST['code_tags']) ? '$config[\'additional_javascript\'][] = \'js/code_tags/run_prettify.js\';$config[\'markup\'][] = array("/\[code\](.+?)\[\/code\]/ms", "<code><pre class=\'prettyprint\' style=\'display:inline-block\'>\$1</pre></code>");' : '';
 			$katex = isset($_POST['katex']) ? '$config[\'katex\'] = true;$config[\'additional_javascript\'][] = \'js/katex/katex.min.js\'; $config[\'markup\'][] = array("/\[tex\](.+?)\[\/tex\]/ms", "<span class=\'tex\'>\$1</span>"); $config[\'additional_javascript\'][] = \'js/katex-enable.js\';' : '';
 			$user_flags = isset($_POST['user_flags']) ? "if (file_exists('$b/flags.php')) { include 'flags.php'; }\n" : '';
+			$captcha = isset($_POST['captcha']) ? 'true' : 'false';
+			$captcha_charset = base64_encode(isset($_POST['captcha_charset']) && $_POST['captcha_charset'] ? $_POST['captcha_charset'] : 'abcdefghijklmnopqrstuvwxyz');
+
 
 $oekaki_js = <<<OEKAKI
     \$config['additional_javascript'][] = 'js/jquery-ui.custom.min.js';
@@ -392,6 +395,8 @@ OEKAKI;
 \$config['blotter'] = base64_decode('$blotter');
 \$config['stylesheets']['Custom'] = 'board/$b.css';
 \$config['default_stylesheet'] = array('Custom', \$config['stylesheets']['Custom']);
+\$config['captcha']['enabled'] = $captcha;
+\$config['captcha']['extra'] = base64_decode('$captcha_charset');
 $code_tags $katex $oekaki $replace $multiimage $allow_flash $allow_pdf $user_flags
 if (\$config['disable_images'])
 	\$config['max_pages'] = 10000;
@@ -412,7 +417,11 @@ EOT;
 			openBoard($b);
 
 			// be smarter about rebuilds...only some changes really require us to rebuild all threads
-			if ($_config['blotter'] != $config['blotter'] || $_config['field_disable_name'] != $config['field_disable_name'] || $_config['show_sages'] != $config['show_sages']) {
+			if ($_config['captcha']['enabled'] != $config['captcha']['enabled']
+			 || $_config['captcha']['extra'] != $config['captcha']['extra']
+			 || $_config['blotter'] != $config['blotter']
+			 || $_config['field_disable_name'] != $config['field_disable_name']
+			 || $_config['show_sages'] != $config['show_sages']) {
 				buildIndex();
 				$query = query(sprintf("SELECT `id` FROM ``posts_%s`` WHERE `thread` IS NULL", $b)) or error(db_error());
 				while ($post = $query->fetch(PDO::FETCH_ASSOC)) {
