@@ -689,6 +689,14 @@ pre {
   display: block;
 }
 
+.theme-catalog div.thread div.replies {
+    height: 62%;
+    width: 100%;
+    overflow: hidden;
+    position: absolute;
+    word-break: break-word;
+}
+
 .theme-catalog div.threads {
   text-align: center;
   margin-left: -20px;
