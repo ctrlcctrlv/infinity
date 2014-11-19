@@ -412,7 +412,9 @@ EOT;
 
 			$_config = $config;
 
-			openBoard($b);
+			// Faster than openBoard and bypasses cache...we're trusting the PHP output
+			// to be safe enough to run with every request, we can eval it here.
+			eval(preg_replace('/^\<\?php$/m', '', $config_file));
 
 			// be smarter about rebuilds...only some changes really require us to rebuild all threads
 			if ($_config['captcha']['enabled'] != $config['captcha']['enabled']
