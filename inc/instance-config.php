@@ -61,6 +61,7 @@
 	$config['spoiler_images'] = true;
 	$config['image_reject_repost'] = true;
 	$config['allowed_ext_files'][] = 'webm';
+	$config['allowed_ext_files'][] = 'mp4';
 	$config['webm']['use_ffmpeg'] = true;
 	$config['webm']['allow_audio'] = true;
 	$config['webm']['max_length'] = 60 * 15;

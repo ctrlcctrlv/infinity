@@ -30,8 +30,17 @@ function is_valid_webm($ffprobe_out) {
   if (empty($ffprobe_out))
     return array('code' => 1, 'msg' => $config['error']['genwebmerror']);
 
-  if ($ffprobe_out['format']['format_name'] != 'matroska,webm')
-    return array('code' => 2, 'msg' => $config['error']['invalidwebm']);
+  $extension = pathinfo($ffprobe_out['format']['filename'], PATHINFO_EXTENSION);
+
+  if ($extension === 'webm') {
+    if ($ffprobe_out['format']['format_name'] != 'matroska,webm')
+      return array('code' => 2, 'msg' => $config['error']['invalidwebm']);
+  } elseif ($extension === 'mp4') {
+    if ($ffprobe_out['streams'][0]['codec_name'] != 'h264' && $ffprobe_out['streams'][1]['codec_name'] != 'aac')
+      return array('code' => 2, 'msg' => $config['error']['invalidwebm']);
+  } else {
+    return array('code' => 1, 'msg' => $config['error']['genwebmerror']);  
+  }
 
   if ((count($ffprobe_out['streams']) > 1) && (!$config['webm']['allow_audio']))
     return array('code' => 3, 'msg' => $config['error']['webmhasaudio']);
@@ -49,11 +58,11 @@ function make_webm_thumbnail($filename, $thumbnail, $width, $height) {
   $filename = escapeshellarg($filename);
   $thumbnail = escapeshellarg($thumbnail); // Should be safe by default but you
                                            // can never be too safe.
-
   $ffmpeg = $config['webm']['ffmpeg_path'];
+
+  $ret = 0;
   $ffmpeg_out = array();
+  exec("$ffmpeg -strict -2 -i $filename -v quiet -ss 00:00:00 -an -vframes 1 -f mjpeg -vf scale=$width:$height $thumbnail 2>&1", $ffmpeg_out, $ret);
 
-  exec("$ffmpeg -strict -2 -i $filename -v quiet -ss 00:00:00 -an -vframes 1 -f mjpeg -vf scale=$width:$height $thumbnail 2>&1");
-
-  return count($ffmpeg_out);
+  return $ret;
 }
