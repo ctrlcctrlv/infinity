@@ -2,8 +2,9 @@
 
 /* Adds a checkbox in the General options tab to disable and enable board style sheets. */
 
-var disableStyleSheet = function () {
+$(document).ready(function () {
 	var disableStyles = localStorage['disablestylesheet'] ? true : false;
+	/* only search for and disable board stylesheets if the user is on a page that uses them */
 	if(active_page == 'ukko' || active_page == 'thread' || active_page == 'index' || active_page == 'catalog')
 	{
 		var i = 0
@@ -18,22 +19,19 @@ var disableStyleSheet = function () {
 			i++
 		}
 	}
-
+	/* add the option on all pages so that the user doesn't need to goto a board to toggle it */
 	if (window.Options && Options.get_tab('general')){
-		element = '#disablestyle'
-		event = 'change'
 		Options.extend_tab('general','<label id=\'disablestyle\'><input type=\'checkbox\' />' + ' Disable board specific style sheets' + '</label>')
-		$(element).find('input').prop('checked', disableStyles)
+		$('#disablestyle').find('input').prop('checked', disableStyles)
 	}
 
-	$(element).on(event, function() {
+	$('#disablestyle').on('change', function() {
 		if(disableStyles) {
-			delete localStorage.disablestylesheet;
+			delete localStorage.disablestylesheet
 		} else {
-			localStorage.disablestylesheet = true;
+			localStorage.disablestylesheet = true
 		}
-		disableStyles =! disableStyles;
-		if(active_page == 'ukko' || active_page == 'thread' || active_page == 'index' || active_page == 'catalog') document.styleSheets[sheet].disabled = disableStyles;
+		disableStyles =! disableStyles
+		if(active_page == 'ukko' || active_page == 'thread' || active_page == 'index' || active_page == 'catalog') document.styleSheets[sheet].disabled = disableStyles
 	})
-}
-$(document).ready(disableStyleSheet());
+})
