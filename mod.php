@@ -99,6 +99,8 @@ $pages = array(
 	'/(\%b)/(un)?lock/(\d+)'                          => 'secure lock',            // lock thread
 	'/(\%b)/(un)?sticky/(\d+)'                        => 'secure sticky',          // sticky thread
 	'/(\%b)/bump(un)?lock/(\d+)'                      => 'secure bumplock',        // "bumplock" thread
+	'/(\%b)/anonymize/(\d+)'                          => 'secure anonymize',       // make post anonymous
+	'/(\%b)/anonymizebyip/(\d+)(/global)?'            => 'secure anonymizebyip',   // make all posts by IP address anonymous
 	
 	'/themes'				=> 'themes_list',		// manage themes
 	'/themes/(\w+)'				=> 'secure_POST theme_configure',		// configure/reconfigure theme

@@ -1604,7 +1604,7 @@ function mod_edit_post($board, $edit_raw_html, $postID) {
 		else
 			$query = prepare(sprintf('UPDATE ``posts_%s`` SET `name` = :name, `email` = :email, `subject` = :subject, `body_nomarkup` = :body, `edited_at` = NOW() WHERE `id` = :id', $board));
 		$query->bindValue(':id', $postID);
-		$query->bindValue('name', $_POST['name']);
+		$query->bindValue(':name', $_POST['name']);
 		$query->bindValue(':email', $_POST['email']);
 		$query->bindValue(':subject', $_POST['subject']);
 		$query->bindValue(':body', $_POST['body']);
@@ -1825,6 +1825,105 @@ function mod_deletebyip($boardName, $post, $global = false) {
 	
 	// Record the action
 	modLog("Deleted all posts by IP address: <a href=\"?/IP/$ip\">$ip</a>");
+	
+	// Redirect
+	header('Location: ?/' . sprintf($config['board_path'], $boardName) . $config['file_index'], true, $config['redirect_http']);
+}
+
+function mod_anonymize($board, $post) {
+	global $config, $mod;
+	   
+	if (!openBoard($board))
+		error($config['error']['noboard']);
+	   
+	if (!hasPermission($config['mod']['spoilerimage'], $board))
+		error($config['error']['noaccess']);
+		
+	$query = prepare(sprintf("SELECT `id`, `thread` FROM ``posts_%s`` WHERE id = :id", $board));
+	$query->bindValue(':id', $post, PDO::PARAM_INT);
+	$query->execute() or error(db_error($query));
+	$result = $query->fetch(PDO::FETCH_ASSOC);
+	
+	// Make post anonymous
+	$query = prepare(sprintf("UPDATE ``posts_%s`` SET `name` = :name, `email` = NULL, `trip` = NULL WHERE `id` = :id", $board));
+	$query->bindValue(':name', $config['anonymous']);
+	$query->bindValue(':id', $post, PDO::PARAM_INT);
+	$query->execute() or error(db_error($query));
+
+	// Record the action
+	modLog("Anonymized post #{$post}");
+
+	// Rebuild thread
+	buildThread($result['thread'] ? $result['thread'] : $post);
+
+	// Rebuild board
+	buildIndex();
+
+	// Rebuild themes
+	rebuildThemes('post-anonymize', $board);
+	   
+	// Redirect
+	header('Location: ?/' . sprintf($config['board_path'], $board) . $config['file_index'], true, $config['redirect_http']);
+}
+
+function mod_anonymizebyip($boardName, $post, $global = false) {
+	global $config, $mod, $board;
+	
+	$global = (bool)$global;
+	
+	if (!openBoard($boardName))
+		error($config['error']['noboard']);
+	
+	if (!$global && !hasPermission($config['mod']['anonymizebyip'], $boardName))
+		error($config['error']['noaccess']);
+	
+	if ($global && !hasPermission($config['mod']['anonymizebyip_global'], $boardName))
+		error($config['error']['noaccess']);
+	
+	// Find IP address
+	$query = prepare(sprintf('SELECT `ip` FROM ``posts_%s`` WHERE `id` = :id', $boardName));
+	$query->bindValue(':id', $post);
+	$query->execute() or error(db_error($query));
+	if (!$ip = $query->fetchColumn())
+		error($config['error']['invalidpost']);
+	
+	$boards = $global ? listBoards() : array(array('uri' => $boardName));
+	
+	$query = '';
+	foreach ($boards as $_board) {
+		$query .= sprintf("SELECT `thread`, `id`, '%s' AS `board` FROM ``posts_%s`` WHERE `ip` = :ip UNION ALL ", $_board['uri'], $_board['uri']);
+	}
+	$query = preg_replace('/UNION ALL $/', '', $query);
+	
+	$query = prepare($query);
+	$query->bindValue(':ip', $ip);
+	$query->execute() or error(db_error($query));
+	
+	if ($query->rowCount() < 1)
+		error($config['error']['invalidpost']);
+	
+	$threads_to_rebuild = array();
+	while ($post = $query->fetch(PDO::FETCH_ASSOC)) {
+		openBoard($post['board']);
+		
+		// Make post anonymous
+		$_query = prepare(sprintf("UPDATE ``posts_%s`` SET `name` = :name, `email` = NULL, `trip` = NULL WHERE `id` = :id", $post['board']));
+		$_query->bindValue(':name', $config['anonymous']);
+		$_query->bindValue(':id', $post['id'], PDO::PARAM_INT);
+		$_query->execute() or error(db_error($_query));;
+
+		rebuildThemes('post-anonymize', $board['uri']);
+
+		buildThread(($post['thread']) ? $post['thread'] : $post['id']);
+		buildIndex();
+	}
+	
+	if ($global) {
+		$board = false;
+	}
+	
+	// Record the action
+	modLog("Anonymized all posts by IP address: <a href=\"?/IP/$ip\">$ip</a>");
 	
 	// Redirect
 	header('Location: ?/' . sprintf($config['board_path'], $boardName) . $config['file_index'], true, $config['redirect_http']);
