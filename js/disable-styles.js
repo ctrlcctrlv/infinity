@@ -4,17 +4,21 @@
 
 var disableStyleSheet = function () {
 	var disableStyles = localStorage['disablestylesheet'] ? true : false;
-	var i = 0
-	while(i<document.styleSheets.length) {
-		var protAndHost = window.location.protocol + '//' + window.location.host
-		if(document.styleSheets[i].href == protAndHost + $('link[id="stylesheet"]').attr('href'))
-		{
-			var sheet = i
-			break
+	if(active_page == 'ukko' || active_page == 'thread' || active_page == 'index' || active_page == 'catalog')
+	{
+		var i = 0
+		while(i<document.styleSheets.length) {
+			var protAndHost = window.location.protocol + '//' + window.location.host
+			if(document.styleSheets[i].href == protAndHost + $('link[id="stylesheet"]').attr('href'))
+			{
+				var sheet = i
+				document.styleSheets[sheet].disabled = disableStyles
+				break
+			}
+			i++
 		}
-		i++
-	};
-	document.styleSheets[sheet].disabled = disableStyles;
+	}
+
 	if (window.Options && Options.get_tab('general')){
 		element = '#disablestyle'
 		event = 'change'
@@ -29,7 +33,7 @@ var disableStyleSheet = function () {
 			localStorage.disablestylesheet = true;
 		}
 		disableStyles =! disableStyles;
-		document.styleSheets[sheet].disabled = disableStyles;
+		if(active_page == 'ukko' || active_page == 'thread' || active_page == 'index' || active_page == 'catalog') document.styleSheets[sheet].disabled = disableStyles;
 	})
 }
 $(document).ready(disableStyleSheet());
