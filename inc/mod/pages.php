@@ -1893,7 +1893,7 @@ function mod_anonymizebyip($boardName, $post, $global = false) {
 	foreach ($boards as $_board) {
 		$query .= sprintf("SELECT `thread`, `id`, '%s' AS `board` FROM ``posts_%s`` WHERE `ip` = :ip UNION ALL ", $_board['uri'], $_board['uri']);
 	}
-	$query = preg_replace('/UNION ALL $/', '', $query);
+	$query = preg_replace('/UNION ALL $/', 'ORDER BY `board` ASC', $query);
 	
 	$query = prepare($query);
 	$query->bindValue(':ip', $ip);
@@ -1902,9 +1902,11 @@ function mod_anonymizebyip($boardName, $post, $global = false) {
 	if ($query->rowCount() < 1)
 		error($config['error']['invalidpost']);
 	
-	$threads_to_rebuild = array();
-	while ($post = $query->fetch(PDO::FETCH_ASSOC)) {
-		openBoard($post['board']);
+	$prev = false;
+	$post = $query->fetch(PDO::FETCH_ASSOC);
+	while ($post) {
+		if ($prev != $post['board'])
+			openBoard($post['board']);
 		
 		// Make post anonymous
 		$_query = prepare(sprintf("UPDATE ``posts_%s`` SET `name` = :name, `email` = NULL, `trip` = NULL WHERE `id` = :id", $post['board']));
@@ -1912,10 +1914,15 @@ function mod_anonymizebyip($boardName, $post, $global = false) {
 		$_query->bindValue(':id', $post['id'], PDO::PARAM_INT);
 		$_query->execute() or error(db_error($_query));;
 
-		rebuildThemes('post-anonymize', $board['uri']);
-
 		buildThread(($post['thread']) ? $post['thread'] : $post['id']);
-		buildIndex();
+		$prev = $post['board'];
+		
+		$post = $query->fetch(PDO::FETCH_ASSOC);
+		
+		if ($prev != $post['board']) {
+			buildIndex();
+			rebuildThemes('post-anonymize', $post['board']);
+		}
 	}
 	
 	if ($global) {
