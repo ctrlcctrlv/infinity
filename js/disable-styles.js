@@ -1,5 +1,3 @@
-/* This file is dedicated to the public domain; you may do as you wish with it. */
-
 /* Adds a checkbox in the General options tab to disable and enable board style sheets. */
 
 $(document).ready(function () {
