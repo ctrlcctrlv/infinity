@@ -1688,3 +1688,10 @@
 		'<a href="$0" target="_blank" class="file">'.
 		'<img style="width:360px;height:270px;" src="//img.youtube.com/vi/$1/0.jpg" class="post-image"/>'.
 		'</a></div>';
+
+	// Use read.php?
+	// read.php is a file that dynamically displays pages to users instead of the build on demand system in use in Tinyboard since 2010.
+	//
+	// read.php is basically a watered down mod.php -- if coupled with caching, it improves performance and allows for easier replication
+	// across machines.
+	$config['use_read_php'] = false;

@@ -55,7 +55,7 @@ $(window).ready(function() {
 					}
 					return xhr;
 				},
-				success: function(post_response) {
+				success: function(post_response, textStatus, xhr) {
 					if (post_response.error) {
 						if (post_response.banned) {
 							// You are banned. Must post the form normally so the user can see the ban message.
@@ -109,12 +109,14 @@ $(window).ready(function() {
 						$(form).find('input[type="submit"]').val(_('Posted...'));
 						$(document).trigger("ajax_after_post", post_response);
 					} else {
+						console.log(xhr);
 						alert(_('An unknown error occured when posting!'));
 						$(form).find('input[type="submit"]').val(submit_txt);
 						$(form).find('input[type="submit"]').removeAttr('disabled');
 					}
 				},
 				error: function(xhr, status, er) {
+					console.log(xhr);
 					alert(_('The server returned an error or truncated response -- your post was probably still submitted. If it wasn\'t, 8chan.co might be experiencing issues right now -- please try your post again later.'));
 				},
 				data: formData,

@@ -2995,6 +2995,9 @@ function mod_report_clean( $global_reports, $board, $unclean, $post, $global, $l
 		$log_action = ($unclean ? "Closed" : "Re-opened" );
 		$log_scope  = ($local && $global ? "local and global" : ($local ? "local" : "global" ) );
 		modLog( "{$log_action} reports for post #{$post} in {$log_scope}.", $board);
+		if ($config['cache']['enabled']) {
+			cache::delete("post_clean_{$board}_{$post}");
+		}
 		
 		rebuildPost( $post );
 	}

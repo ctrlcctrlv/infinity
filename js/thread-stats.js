@@ -1,4 +1,4 @@
-﻿/*
+/*
  * thread-stats.js
  *   - Adds statistics of the thread below the posts area
  *   - Shows ID post count beside each postID on hover

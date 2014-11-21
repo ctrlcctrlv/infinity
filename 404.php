@@ -1,6 +1,7 @@
 <?php
 
-include "inc/functions.php";
+require_once "inc/functions.php";
+header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found");
 
 $dir = "static/404/";
 
