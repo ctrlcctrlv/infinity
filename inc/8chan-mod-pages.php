@@ -350,7 +350,9 @@ FLAGS;
 			$katex = isset($_POST['katex']) ? '$config[\'katex\'] = true;$config[\'additional_javascript\'][] = \'js/katex/katex.min.js\'; $config[\'markup\'][] = array("/\[tex\](.+?)\[\/tex\]/ms", "<span class=\'tex\'>\$1</span>"); $config[\'additional_javascript\'][] = \'js/katex-enable.js\';' : '';
 			$user_flags = isset($_POST['user_flags']) ? "if (file_exists('$b/flags.php')) { include 'flags.php'; }\n" : '';
 			$captcha = isset($_POST['captcha']) ? 'true' : 'false';
-
+			$indexed = !isset($_POST['meta_noindex']) ? 'true' : 'false';
+			$public_bans = isset($_POST['public_bans']) ? 'true' : 'false';
+			$eightarchive = isset($_POST['8archive']) ? 'true' : 'false';
 
 $oekaki_js = <<<OEKAKI
     \$config['additional_javascript'][] = 'js/jquery-ui.custom.min.js';
@@ -380,6 +382,8 @@ OEKAKI;
 
 			$anonymous = base64_encode($_POST['anonymous']);
 			$blotter = base64_encode(purify(html_entity_decode($_POST['blotter'])));
+			$title_encoded = base64_encode($title);
+			$subtitle_encoded = base64_encode($subtitle);
 			$add_to_config = @file_get_contents($b.'/extra_config.php');
 			$replace = '';
 
@@ -410,6 +414,11 @@ OEKAKI;
 
 			$config_file = <<<EOT
 <?php
+\$config['title'] = base64_decode('$title_encoded');
+\$config['subtitle'] = base64_decode('$subtitle_encoded');
+\$config['indexed'] = $indexed;
+\$config['public_bans'] = $public_bans;
+\$config['8archive'] = $eightarchive;
 \$config['file_script'] = '$b/main.js';
 \$config['country_flags'] = $country_flags;
 \$config['field_disable_name'] = $field_disable_name;
@@ -446,7 +455,7 @@ EOT;
 
 			// Faster than openBoard and bypasses cache...we're trusting the PHP output
 			// to be safe enough to run with every request, we can eval it here.
-			eval(preg_replace('/^\<\?php$/m', '', $config_file));
+			eval("?>".$config_file);
 
 			// be smarter about rebuilds...only some changes really require us to rebuild all threads
 			if ($_config['captcha']['enabled'] != $config['captcha']['enabled']
