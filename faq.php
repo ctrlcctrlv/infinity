@@ -34,9 +34,9 @@ $body = <<<EOT
 <p>The admin can be reached at <tt>admin at 8chan dot co</tt>.</p>
 
 <h2>Help! My board has been deleted!</h2>
-<p>Were you inactive for longer than one week? Were there no posts on the board for 72 hours?</p>
+<p>As of November 13th, 2014, board expiration no longer occurs.</p>
 
-<p>If either of those is true, the board was deleted automatically. You are free to recreate it. I cannot restore it, so don't bother emailing me about it.</p>
+<p>You still may lose access to your board, however, if you fail to log in for two weeks or it receives no posts for a week. See <a href="/claim.html">here</a> for a list of boards that are available for reclaiming.</p>
 
 <h2>How do I post as a volunteer on my board?</h2>
 <p>Make sure you are using the volunteer interface to view your board. The URL of your browser should be <a href="https://8chan.co/mod.php?/yourboard"><tt>https://8chan.co/mod.php?/yourboard</tt></a>.</p>
@@ -47,7 +47,7 @@ $body = <<<EOT
 <p>If they are doing something illegal, email me.</p>
 
 <h2>Can you give me X board?</h2>
-<p>If the owner of the board is inactive or the board is broken due to bad CSS, sure. Send me an email.</p>
+<p>If the owner of the board is inactive or the board is broken due to bad CSS, sure. Send me an email. You can see a list of boards that qualify for being taken over <a href="/claim.html">here</a>.</p>
 
 <h2>Can you add some new feature?</h2>
 <p>Open a <a href="https://github.com/ctrlcctrlv/8chan/issues">Github issue</a>. Better yet, write it yourself and open a pull request.
