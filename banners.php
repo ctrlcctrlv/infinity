@@ -1,3 +1,4 @@
+cukiez r gud
 <?php
 
 header("Pragma-directive: no-cache");
