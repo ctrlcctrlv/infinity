@@ -1197,7 +1197,7 @@ function index($page, $mod=false) {
 	$threads = array();
 
 	while ($th = $query->fetch(PDO::FETCH_ASSOC)) {
-		if ($config['cache']['enabled'] && !($thread = cache::get("thread_index_display_{$board['uri']}_{$th['id']}"))) {
+		if (($config['cache']['enabled'] && !($thread = cache::get("thread_index_display_{$board['uri']}_{$th['id']}")) || $mod)) {
 			$thread = new Thread($th, $mod ? '?/' : $config['root'], $mod);
 
 			if ($config['cache']['enabled']) {
@@ -1247,7 +1247,7 @@ function index($page, $mod=false) {
 				$thread->omitted_images = $omitted['image_count'] - $num_images;
 			}
 			
-			if ($config['cache']['enabled'])
+			if ($config['cache']['enabled'] && !$mod)
 				cache::set("thread_index_display_{$board['uri']}_{$th['id']}", $thread);
 
 		}
@@ -2035,7 +2035,7 @@ function buildThread($id, $return = false, $mod = false) {
 	if (event('build-thread', $id))
 		return;
 
-	if (!($thread = cache::get("thread_{$board['uri']}_{$id}"))) {
+	if (!($thread = cache::get("thread_{$board['uri']}_{$id}")) || $mod) {
 		unset($thread);
 		$query = prepare(sprintf("SELECT * FROM ``posts_%s`` WHERE (`thread` IS NULL AND `id` = :id) OR `thread` = :id ORDER BY `thread`,`id`", $board['uri']));
 		$query->bindValue(':id', $id, PDO::PARAM_INT);
