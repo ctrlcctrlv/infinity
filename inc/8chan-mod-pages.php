@@ -421,7 +421,7 @@ EOT;
 			 || $_config['captcha']['extra'] != $config['captcha']['extra']
 			 || $_config['blotter'] != $config['blotter']
 			 || $_config['field_disable_name'] != $config['field_disable_name']
-			 || $_config['show_sages'] != $config['show_sages']) {
+			 || $_config['show_sages'] != (isset($config['show_sages']) && $config['show_sages'])) {
 				buildIndex();
 				$query = query(sprintf("SELECT `id` FROM ``posts_%s`` WHERE `thread` IS NULL", $b)) or error(db_error());
 				while ($post = $query->fetch(PDO::FETCH_ASSOC)) {
