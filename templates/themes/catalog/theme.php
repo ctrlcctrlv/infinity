@@ -17,15 +17,18 @@
 			$boards = explode(' ', $settings['boards']);
 		}
 				
-		if ($action == 'all') {
-			foreach ($boards as $board) {
+		if (!$config['use_read_php']) {
+			if ($action == 'all') {
+				foreach ($boards as $board) {
+					$b = new Catalog();
+					$b->build($settings, $board);
+				}
+			} elseif ($action == 'post-thread' || ($settings['update_on_posts'] && $action == 'post') || ($settings['update_on_posts'] && $action == 'post-delete') && (in_array($board, $boards) | $settings['all'])) {
 				$b = new Catalog();
 				$b->build($settings, $board);
 			}
-		} elseif ($action == 'post-thread' || ($settings['update_on_posts'] && $action == 'post') || ($settings['update_on_posts'] && $action == 'post-delete') && (in_array($board, $boards) | $settings['all'])) {
-			$b = new Catalog();
-			$b->build($settings, $board);
-		} elseif ($action == 'read_php') {
+		}
+		if ($action == 'read_php') {
 			$b = new Catalog();
 			return $b->build($settings, $board, true);
 		}
