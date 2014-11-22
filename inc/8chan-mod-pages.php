@@ -49,6 +49,38 @@
 	$config['mod']['ban_appeals'] = BOARDVOLUNTEER;
 	$config['mod']['view_ban_appeals'] = BOARDVOLUNTEER;
 	$config['mod']['view_ban'] = BOARDVOLUNTEER;
+	$config['mod']['reassign_board'] = ADMIN;
+
+	$config['mod']['custom_pages']['/reassign/(\%b)'] = function($b) {
+		global $board, $config;
+
+		if (!openBoard($b))
+			error("Could not open board!");
+
+		if (!hasPermission($config['mod']['reassign_board'], $b))
+			error($config['error']['noaccess']);
+
+		$query = query("SELECT id, username FROM mods WHERE boards = '$b' AND type = 20");
+		$mods = $query->fetchAll();
+
+		if (!$mods) {
+			error('No mods?');
+		}
+
+		$password = base64_encode(openssl_random_pseudo_bytes(9));
+		$salt = generate_salt();
+		$hashed = hash('sha256', $salt . sha1($password));
+
+		$query = prepare('UPDATE ``mods`` SET `password` = :hashed, `salt` = :salt WHERE BINARY username = :mod');
+		$query->bindValue(':hashed', $hashed);
+		$query->bindValue(':salt', $salt);
+		$query->bindValue(':mod', $mods[0]['username']);
+		$query->execute();
+
+		$body = "Thanks for your interest in this board. Kindly find the username and password below. You can login at 8chan.co/mod.php.<br>Username: {$mods[0]['username']}<br>Password: {$password}<br>Thanks for using 8chan.co!";
+		
+		mod_page(_('Edit reassign'), 'blank.html', array('board'=>$board,'token'=>make_secure_link_token('reassign/'.$board['uri']),'body'=>$body));
+	};
 
 	$config['mod']['custom_pages']['/volunteers/(\%b)'] = function($b) {
 		global $board, $config, $pdo;
