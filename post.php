@@ -852,8 +852,10 @@ elseif (isset($_POST['post'])) {
 		bumpThread($post['thread']);
 	}
 	
-	buildThread($post['op'] ? $id : $post['thread']);
-	
+	$pid = $post['op'] ? $id : $post['thread'];
+
+	buildThread($pid);
+
 	if ($config['try_smarter'] && $post['op'])
 		$build_pages = range(1, $config['max_pages']);
 	
