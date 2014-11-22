@@ -1103,6 +1103,7 @@ function deletePost($id, $error_if_doesnt_exist=true, $rebuild_after=true) {
 			cache::delete("thread_index_{$board['uri']}_{$post['id']}");
 			cache::delete("thread_index_display_{$board['uri']}_{$post['id']}");
 			cache::delete("thread_{$board['uri']}_{$post['id']}");
+			cache::delete("thread_50_{$board['uri']}_{$post['id']}");
 			cache::delete("catalog_{$board['uri']}");
 		} elseif ($query->rowCount() == 1) {
 			// Rebuild thread
@@ -2024,6 +2025,7 @@ function buildThread($id, $return = false, $mod = false) {
 	global $board, $config, $build_pages;
 	if (!$return && $config['use_read_php']) {
 		cache::delete("thread_index_{$board['uri']}_{$id}");
+		cache::delete("thread_50_{$board['uri']}_{$id}");
 		cache::delete("thread_index_display_{$board['uri']}_{$id}");
 		cache::delete("thread_{$board['uri']}_{$id}");
 		cache::delete("catalog_{$board['uri']}");
@@ -2103,7 +2105,8 @@ function buildThread50($id, $return = false, $mod = false, $thread = null, $anti
 	if ($antibot)
 		$antibot->reset();
 		
-	if (!$thread) {
+	if (!$thread && ($config['cache']['enabled'] && !($thread = cache::get("thread_50_{$board['uri']}_{$id}")))) {
+		unset($thread);
 		$query = prepare(sprintf("SELECT * FROM ``posts_%s`` WHERE (`thread` IS NULL AND `id` = :id) OR `thread` = :id ORDER BY `thread`,`id` DESC LIMIT :limit", $board['uri']));
 		$query->bindValue(':id', $id, PDO::PARAM_INT);
 		$query->bindValue(':limit', $config['noko50_count']+1, PDO::PARAM_INT);
@@ -2140,6 +2143,8 @@ function buildThread50($id, $return = false, $mod = false, $thread = null, $anti
 		}
 
 		$thread->posts = array_reverse($thread->posts);
+		if ($config['cache']['enabled'])
+			cache::set("thread_50_{$board['uri']}_{$id}", $thread);
 	} else {
 		$allPosts = $thread->posts;
 
