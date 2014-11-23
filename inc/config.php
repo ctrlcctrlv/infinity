@@ -73,6 +73,9 @@
 	// When executing most command-line tools (such as `convert` for ImageMagick image processing), add this
 	// to the environment path (seperated by :).
 	$config['shell_path'] = '/usr/local/bin';
+	
+	// Set whether to use the archive or not.
+	$config['enable_archive'] = false;
 
 /*
  * ====================

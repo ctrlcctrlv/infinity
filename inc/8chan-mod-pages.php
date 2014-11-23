@@ -398,14 +398,16 @@ OEKAKI;
 				error('Invalid title');
 			if (!(strlen($subtitle) < 200))
 				error('Invalid subtitle');
-
-			$query = prepare('UPDATE ``boards`` SET `title` = :title, `subtitle` = :subtitle, `indexed` = :indexed, `public_bans` = :public_bans, `8archive` = :8archive WHERE `uri` = :uri');
+			$archive = $config['enable_archive'] ? '`8archive` = :8archive, ' : '';
+			
+			$query = prepare('UPDATE ``boards`` SET `title` = :title, `subtitle` = :subtitle, `indexed` = :indexed, '. $archive .'`public_bans` = :public_bans WHERE `uri` = :uri');
 			$query->bindValue(':title', $title);
 			$query->bindValue(':subtitle', $subtitle);
 			$query->bindValue(':uri', $b);
 			$query->bindValue(':indexed', !isset($_POST['meta_noindex']));
 			$query->bindValue(':public_bans', isset($_POST['public_bans']));
-			$query->bindValue(':8archive', isset($_POST['8archive']));
+			if ($config['enable_archive'])
+				$query->bindValue(':8archive', isset($_POST['8archive']) ? 1:0);
 			$query->execute() or error(db_error($query));
 
 			$config_file = <<<EOT
@@ -434,9 +436,10 @@ if (\$config['disable_images'])
 $locale
 $add_to_config
 EOT;
-
-			$query = query('SELECT `uri`, `title`, `subtitle` FROM ``boards`` WHERE `8archive` = TRUE');
-			file_write('8archive.json', json_encode($query->fetchAll(PDO::FETCH_ASSOC)));
+			if ($config['enable_archive']) {
+				$query = query('SELECT `uri`, `title`, `subtitle` FROM ``boards`` WHERE `8archive` = TRUE');
+				file_write('8archive.json', json_encode($query->fetchAll(PDO::FETCH_ASSOC)));
+			}
 			file_write($b.'/config.php', $config_file);
 			file_write('stylesheets/board/'.$b.'.css', $_POST['css']);
 			file_write($b.'/rules.html', Element('page.html', array('title'=>'Rules', 'subtitle'=>'', 'config'=>$config, 'body'=>'<div class="ban">'.purify($_POST['rules']).'</div>')));

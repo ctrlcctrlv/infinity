@@ -34,7 +34,9 @@
 		<tr><th>{% trans %}Display SAGE! after saged posts{% endtrans %}</th><td><input type="checkbox" name="show_sages" {% if config.show_sages %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Automatically convert ... to …{% endtrans %}</th><td><input type="checkbox" name="auto_unicode" {% if config.auto_unicode %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}No index{% endtrans %}<br><span class="unimportant">{% trans %}Hide from boards index<br/>and do not index in search engines{% endtrans %}</span></th><td><input type="checkbox" name="meta_noindex" {% if not board.indexed %}checked{% endif %}></td></tr>
-		<tr><th>{% trans %}Archive my board on 8archive.moe{% endtrans %}<br><span class="unimportant">{% trans %}This archives your board on 8archive.moe if you opt in{% endtrans %}</span></th><td><input type="checkbox" name="8archive" {% if board['8archive'] %}checked{% endif %}></td></tr>
+		{% if config.enable_archive %}
+			<tr><th>{% trans %}Archive my board on 8archive.moe{% endtrans %}<br><span class="unimportant">{% trans %}This archives your board on 8archive.moe if you opt in{% endtrans %}</span></th><td><input type="checkbox" name="8archive" {% if board['8archive'] %}checked{% endif %}></td></tr>
+		{% endif %}
 		<tr><th>{% trans %}Public bans{% endtrans %}<br><span class="unimportant">{% trans %}Displays your bans for the public{% endtrans %}</span></th><td><input type="checkbox" name="public_bans" {% if board.public_bans %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}[code] tags{% endtrans %}</th><td><input type="checkbox" name="code_tags" {% if 'js/code_tags/run_prettify.js' in config.additional_javascript %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Oekaki{% endtrans %}</th><td><input type="checkbox" name="oekaki" {% if 'js/wpaint.js' in config.additional_javascript %}checked{% endif %}></td></tr>

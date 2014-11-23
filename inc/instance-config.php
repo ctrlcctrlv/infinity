@@ -46,6 +46,7 @@
 	$config['thread_subject_in_title'] = true;
 	$config['spam']['hidden_inputs_max_pass'] = 128;
 	$config['ayah_enabled'] = true;
+	$config['enable_archive'] = true; // Set to false in secrets.php for local environments.
 	
 	// Load database credentials
 	require "secrets.php";
