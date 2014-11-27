@@ -73,6 +73,7 @@ onready(function(){
 						.css('font-style', 'normal')
 						.css('z-index', '100')
 						.css('left', '0')
+						.css('margin-left', '0')
 						.addClass('reply').addClass('post')
 						.appendTo(link.closest('div.post'))
 						
