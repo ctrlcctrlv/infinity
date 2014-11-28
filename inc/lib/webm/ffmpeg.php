@@ -19,6 +19,7 @@ function get_webm_info($filename) {
   if(empty($webminfo['error'])) {
     $webminfo['width'] = $ffprobe_out['streams'][0]['width'];
     $webminfo['height'] = $ffprobe_out['streams'][0]['height'];
+    $webminfo['duration'] = $ffprobe_out['format']['duration'];
   }
 
   return $webminfo;
@@ -52,7 +53,7 @@ function is_valid_webm($ffprobe_out) {
     return array('code' => 4, 'msg' => $config['error']['webmtoolong']);
 }
 
-function make_webm_thumbnail($filename, $thumbnail, $width, $height) {
+function make_webm_thumbnail($filename, $thumbnail, $width, $height, $duration) {
   global $board, $config;
 
   $filename = escapeshellarg($filename);
@@ -62,7 +63,7 @@ function make_webm_thumbnail($filename, $thumbnail, $width, $height) {
 
   $ret = 0;
   $ffmpeg_out = array();
-  exec("$ffmpeg -strict -2 -i $filename -v quiet -ss 00:00:00 -an -vframes 1 -f mjpeg -vf scale=$width:$height $thumbnail 2>&1", $ffmpeg_out, $ret);
+  exec("$ffmpeg -strict -2 -ss " . $duration / 2 . " -i $filename -v quiet -an -vframes 1 -f mjpeg -vf scale=$width:$height $thumbnail 2>&1", $ffmpeg_out, $ret);
 
   return $ret;
 }

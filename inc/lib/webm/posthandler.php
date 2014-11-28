@@ -21,7 +21,7 @@ function postHandler($post) {
             $file = set_thumbnail_dimensions($post, $file);
             $tn_path = $board['dir'] . $config['dir']['thumb'] . $file->file_id . '.jpg';
 
-            if(0 == make_webm_thumbnail($file->file_path, $tn_path, $file->thumbwidth, $file->thumbheight)) {
+            if(0 == make_webm_thumbnail($file->file_path, $tn_path, $file->thumbwidth, $file->thumbheight, $webminfo['duration'])) {
               $file->thumb = $file->file_id . '.jpg';
             }
             else {
