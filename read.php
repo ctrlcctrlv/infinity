@@ -11,6 +11,7 @@ $pages = array(
 	'/(\%b)/(\d+)\.json'									=> 'view_api_index',
 	'/(\%b)/catalog\.json'									=> 'view_api_catalog',
 	'/(\%b)/threads\.json'									=> 'view_api_threads',
+	'/(\%b)/config\.json'									=> 'view_api_config',
 	'/(\%b)/main\.js'									=> 'view_js',
 	'/main\.js'										=> 'view_js',
 	'/(\%b)/catalog(\.html)?'								=> 'view_catalog',
@@ -86,7 +87,7 @@ function APICatalog($boardName, $gen_threads = false) {
 		return;
 	}
 
-	header('Content-Type: text/json');
+	header('Content-Type: application/json');
 
 	$catalog = array();
 	$api = new Api();
@@ -109,6 +110,52 @@ function view_api_catalog($boardName) {
 
 function view_api_threads($boardName) {
 	APICatalog($boardName, true);
+}
+
+function view_api_config($boardName) {
+	global $config;
+	if (!openBoard($boardName)) {
+		include '404.php';
+		return;
+	}
+
+	$banners = file_exists("static/banners/$boardName") ? array_slice(scandir('static/banners/'.$boardName), 2) : array();
+
+	header('Content-Type: application/json');
+	$output = array(
+		'uri' => $boardName,
+		'title' => $config['title'],
+		'subtitle' => $config['subtitle'],
+		'user_flags_enabled' => $config['user_flag'],
+		'user_flags' => $config['user_flags'],
+		'banners' => $banners,
+		'forced_anon' => $config['field_disable_name'],
+		'embedding_enabled' => $config['enable_embedding'],
+		'require_op_file' => $config['force_image_op'],
+		'images_disabled' => $config['disable_images'],
+		'poster_ids' => $config['poster_ids'],
+		'show_sages' => $config['show_sages'],
+		'auto_unicode' => $config['auto_unicode'],
+		'indexed' => $config['indexed'],
+		'public_bans' => $config['public_bans'],
+		'8archive' => $config['8archive'],
+		'code_enabled' => $config['code_enabled'],
+		'katex_enabled' => $config['katex'],
+		'allowed_filetypes' => array_merge($config['allowed_ext'], $config['allowed_ext_files']),
+		'dice_enabled' => $config['allow_roll'],
+		'no_duplicate_files' => $config['image_reject_repost'],
+		'delete_enabled' => $config['allow_delete'],
+		'language' => $config['locale'],
+		'max_files' => $config['max_images'],
+		'default_name' => $config['anonymous'],
+		'announcement' => $config['blotter'],
+		'captcha_enabled' => $config['captcha']['enabled'],
+		'captcha_extra' => $config['captcha']['extra'],
+		'max_filesize' => $config['max_filesize'],
+		'max_body' => $config['max_body']
+	);
+
+	echo json_encode($output);
 }
 
 function view_board($boardName, $page_no = 1) {
