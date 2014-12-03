@@ -20,8 +20,8 @@
 	$config['mod']['noticeboard_post'] = GLOBALVOLUNTEER;
 	$config['mod']['search'] = GLOBALVOLUNTEER;
 	$config['mod']['clean_global'] = GLOBALVOLUNTEER;
-	$config['mod']['view_notes'] = GLOBALVOLUNTEER;
-	$config['mod']['create_notes'] = GLOBALVOLUNTEER;
+	$config['mod']['view_notes'] = DISABLED;
+	$config['mod']['create_notes'] = DISABLED;
 	$config['mod']['debug_recent'] = ADMIN;
 	$config['mod']['debug_antispam'] = ADMIN;
 	$config['mod']['noticeboard_post'] = ADMIN;
