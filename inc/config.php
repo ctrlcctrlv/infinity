@@ -1246,8 +1246,6 @@
 	$config['mod']['link_editpost'] = '[Edit]';
 	$config['mod']['link_move'] = '[Move]';
 	$config['mod']['link_anonymize'] = '[A]';
-	$config['mod']['link_anonymizebyip'] = '[A+]';
-	$config['mod']['link_anonymizebyip_global'] = '[A++]';
 
 	// Moderator capcodes.
 	$config['capcode'] = ' <span class="capcode">## %s</span>';

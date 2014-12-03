@@ -1836,7 +1836,7 @@ function mod_anonymize($board, $post) {
 	if (!openBoard($board))
 		error($config['error']['noboard']);
 	   
-	if (!hasPermission($config['mod']['spoilerimage'], $board))
+	if (!hasPermission($config['mod']['anonymize'], $board))
 		error($config['error']['noaccess']);
 		
 	$query = prepare(sprintf("SELECT `id`, `thread` FROM ``posts_%s`` WHERE id = :id", $board));
@@ -1861,79 +1861,9 @@ function mod_anonymize($board, $post) {
 
 	// Rebuild themes
 	rebuildThemes('post-anonymize', $board);
-	   
+	
 	// Redirect
 	header('Location: ?/' . sprintf($config['board_path'], $board) . $config['file_index'], true, $config['redirect_http']);
-}
-
-function mod_anonymizebyip($boardName, $post, $global = false) {
-	global $config, $mod, $board;
-	
-	$global = (bool)$global;
-	
-	if (!openBoard($boardName))
-		error($config['error']['noboard']);
-	
-	if (!$global && !hasPermission($config['mod']['anonymizebyip'], $boardName))
-		error($config['error']['noaccess']);
-	
-	if ($global && !hasPermission($config['mod']['anonymizebyip_global'], $boardName))
-		error($config['error']['noaccess']);
-	
-	// Find IP address
-	$query = prepare(sprintf('SELECT `ip` FROM ``posts_%s`` WHERE `id` = :id', $boardName));
-	$query->bindValue(':id', $post);
-	$query->execute() or error(db_error($query));
-	if (!$ip = $query->fetchColumn())
-		error($config['error']['invalidpost']);
-	
-	$boards = $global ? listBoards() : array(array('uri' => $boardName));
-	
-	$query = '';
-	foreach ($boards as $_board) {
-		$query .= sprintf("SELECT `thread`, `id`, '%s' AS `board` FROM ``posts_%s`` WHERE `ip` = :ip UNION ALL ", $_board['uri'], $_board['uri']);
-	}
-	$query = preg_replace('/UNION ALL $/', 'ORDER BY `board` ASC', $query);
-	
-	$query = prepare($query);
-	$query->bindValue(':ip', $ip);
-	$query->execute() or error(db_error($query));
-	
-	if ($query->rowCount() < 1)
-		error($config['error']['invalidpost']);
-	
-	$prev = false;
-	$post = $query->fetch(PDO::FETCH_ASSOC);
-	while ($post) {
-		if ($prev != $post['board'])
-			openBoard($post['board']);
-		
-		// Make post anonymous
-		$_query = prepare(sprintf("UPDATE ``posts_%s`` SET `name` = :name, `email` = NULL, `trip` = NULL WHERE `id` = :id", $post['board']));
-		$_query->bindValue(':name', $config['anonymous']);
-		$_query->bindValue(':id', $post['id'], PDO::PARAM_INT);
-		$_query->execute() or error(db_error($_query));;
-
-		buildThread(($post['thread']) ? $post['thread'] : $post['id']);
-		$prev = $post['board'];
-		
-		$post = $query->fetch(PDO::FETCH_ASSOC);
-		
-		if ($prev != $post['board']) {
-			buildIndex();
-			rebuildThemes('post-anonymize', $post['board']);
-		}
-	}
-	
-	if ($global) {
-		$board = false;
-	}
-	
-	// Record the action
-	modLog("Anonymized all posts by IP address: <a href=\"?/IP/$ip\">$ip</a>");
-	
-	// Redirect
-	header('Location: ?/' . sprintf($config['board_path'], $boardName) . $config['file_index'], true, $config['redirect_http']);
 }
 
 function mod_user($uid) {
