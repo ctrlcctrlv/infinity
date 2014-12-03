@@ -1099,12 +1099,6 @@ function deletePost($id, $error_if_doesnt_exist=true, $rebuild_after=true) {
 			$antispam_query->bindValue(':board', $board['uri']);
 			$antispam_query->bindValue(':thread', $post['id']);
 			$antispam_query->execute() or error(db_error($antispam_query));
-
-			cache::delete("thread_index_{$board['uri']}_{$post['id']}");
-			cache::delete("thread_index_display_{$board['uri']}_{$post['id']}");
-			cache::delete("thread_{$board['uri']}_{$post['id']}");
-			cache::delete("thread_50_{$board['uri']}_{$post['id']}");
-			cache::delete("catalog_{$board['uri']}");
 		} elseif ($query->rowCount() == 1) {
 			// Rebuild thread
 			$rebuild = &$post['thread'];
@@ -1196,62 +1190,57 @@ function index($page, $mod=false) {
 		return false;
 
 	$threads = array();
-
+	
 	while ($th = $query->fetch(PDO::FETCH_ASSOC)) {
-		if (($config['cache']['enabled'] && !($thread = cache::get("thread_index_display_{$board['uri']}_{$th['id']}")) || $mod)) {
-			$thread = new Thread($th, $mod ? '?/' : $config['root'], $mod);
+		$thread = new Thread($th, $mod ? '?/' : $config['root'], $mod);
 
-			if ($config['cache']['enabled']) {
-				$cached = cache::get("thread_index_{$board['uri']}_{$th['id']}");
-				if (isset($cached['replies'], $cached['omitted'])) {
-					$replies = $cached['replies'];
-					$omitted = $cached['omitted'];
-				} else {
-					unset($cached);
-				}
+		if ($config['cache']['enabled']) {
+			$cached = cache::get("thread_index_{$board['uri']}_{$th['id']}");
+			if (isset($cached['replies'], $cached['omitted'])) {
+				$replies = $cached['replies'];
+				$omitted = $cached['omitted'];
+			} else {
+				unset($cached);
 			}
-			if (!isset($cached)) {
-				$posts = prepare(sprintf("SELECT * FROM ``posts_%s`` WHERE `thread` = :id ORDER BY `id` DESC LIMIT :limit", $board['uri']));
-				$posts->bindValue(':id', $th['id']);
-				$posts->bindValue(':limit', ($th['sticky'] ? $config['threads_preview_sticky'] : $config['threads_preview']), PDO::PARAM_INT);
-				$posts->execute() or error(db_error($posts));
-
-				$replies = array_reverse($posts->fetchAll(PDO::FETCH_ASSOC));
-
-				if (count($replies) == ($th['sticky'] ? $config['threads_preview_sticky'] : $config['threads_preview'])) {
-					$count = numPosts($th['id']);
-					$omitted = array('post_count' => $count['replies'], 'image_count' => $count['images']);
-				} else {
-					$omitted = false;
-				}
-
-				if ($config['cache']['enabled'])
-					cache::set("thread_index_{$board['uri']}_{$th['id']}", array(
-						'replies' => $replies,
-						'omitted' => $omitted,
-					));
-			}
-
-			$num_images = 0;
-			foreach ($replies as $po) {
-				if ($po['num_files'])
-					$num_images+=$po['num_files'];
-
-				$thread->add(new Post($po, $mod ? '?/' : $config['root'], $mod));
-			}
-
-			$thread->images = $num_images;
-			$thread->replies = isset($omitted['post_count']) ? $omitted['post_count'] : count($replies);
-
-			if ($omitted) {
-				$thread->omitted = $omitted['post_count'] - ($th['sticky'] ? $config['threads_preview_sticky'] : $config['threads_preview']);
-				$thread->omitted_images = $omitted['image_count'] - $num_images;
-			}
-			
-			if ($config['cache']['enabled'] && !$mod)
-				cache::set("thread_index_display_{$board['uri']}_{$th['id']}", $thread);
-
 		}
+		if (!isset($cached)) {
+			$posts = prepare(sprintf("SELECT * FROM ``posts_%s`` WHERE `thread` = :id ORDER BY `id` DESC LIMIT :limit", $board['uri']));
+			$posts->bindValue(':id', $th['id']);
+			$posts->bindValue(':limit', ($th['sticky'] ? $config['threads_preview_sticky'] : $config['threads_preview']), PDO::PARAM_INT);
+			$posts->execute() or error(db_error($posts));
+
+			$replies = array_reverse($posts->fetchAll(PDO::FETCH_ASSOC));
+
+			if (count($replies) == ($th['sticky'] ? $config['threads_preview_sticky'] : $config['threads_preview'])) {
+				$count = numPosts($th['id']);
+				$omitted = array('post_count' => $count['replies'], 'image_count' => $count['images']);
+			} else {
+				$omitted = false;
+			}
+
+			if ($config['cache']['enabled'])
+				cache::set("thread_index_{$board['uri']}_{$th['id']}", array(
+					'replies' => $replies,
+					'omitted' => $omitted,
+				));
+		}
+
+		$num_images = 0;
+		foreach ($replies as $po) {
+			if ($po['num_files'])
+				$num_images+=$po['num_files'];
+
+			$thread->add(new Post($po, $mod ? '?/' : $config['root'], $mod));
+		}
+
+		$thread->images = $num_images;
+		$thread->replies = isset($omitted['post_count']) ? $omitted['post_count'] : count($replies);
+
+		if ($omitted) {
+			$thread->omitted = $omitted['post_count'] - ($th['sticky'] ? $config['threads_preview_sticky'] : $config['threads_preview']);
+			$thread->omitted_images = $omitted['image_count'] - $num_images;
+		}
+		
 		$threads[] = $thread;
 		$body .= $thread->build(true);
 	}
@@ -1469,10 +1458,6 @@ function checkMute() {
 
 function buildIndex() {
 	global $board, $config, $build_pages;
-	if ($config['use_read_php']) {
-		cache::delete("catalog_{$board['uri']}");
-		return;
-	}
 
 	$pages = getPages();
 	if (!$config['try_smarter'])
@@ -1550,17 +1535,6 @@ function buildIndex() {
 function buildJavascript() {
 	global $config;
 
-	if ($config['cache']['enabled']) {
-		if (false === strpos($config['file_script'], '/')) {
-			$cache_name = 'main_js';
-		} else {
-			$b = explode('/', $config['file_script'])[0];
-			$cache_name = "board_{$b}_js";
-		}
-
-		cache::delete($cache_name);
-	}
-
 	$script = Element('main.js', array(
 		'config' => $config,
 	));
@@ -1582,14 +1556,7 @@ function buildJavascript() {
 		$script = JSMin::minify($script);
 	}
 
-	if ($config['cache']['enabled']) 
-		cache::set($cache_name, $script);
-
-	if (!$config['use_read_php']) {
-		file_write($config['file_script'], $script);
-	} else {
-		return $script;
-	}
+	file_write($config['file_script'], $script);
 }
 
 function checkDNSBL() {
@@ -2023,35 +1990,27 @@ function strip_combining_chars($str) {
 
 function buildThread($id, $return = false, $mod = false) {
 	global $board, $config, $build_pages;
-	if (!$return && $config['use_read_php']) {
-		cache::delete("thread_index_{$board['uri']}_{$id}");
-		cache::delete("thread_50_{$board['uri']}_{$id}");
-		cache::delete("thread_index_display_{$board['uri']}_{$id}");
-		cache::delete("thread_{$board['uri']}_{$id}");
-		cache::delete("catalog_{$board['uri']}");
-		return;
-	}
-
 	$id = round($id);
 
 	if (event('build-thread', $id))
 		return;
 
-	if (!($thread = cache::get("thread_{$board['uri']}_{$id}")) || $mod) {
-		unset($thread);
-		$query = prepare(sprintf("SELECT * FROM ``posts_%s`` WHERE (`thread` IS NULL AND `id` = :id) OR `thread` = :id ORDER BY `thread`,`id`", $board['uri']));
-		$query->bindValue(':id', $id, PDO::PARAM_INT);
-		$query->execute() or error(db_error($query));
+	if ($config['cache']['enabled'] && !$mod) {
+		// Clear cache
+		cache::delete("thread_index_{$board['uri']}_{$id}");
+		cache::delete("thread_{$board['uri']}_{$id}");
+	}
 
-		while ($post = $query->fetch(PDO::FETCH_ASSOC)) {
-			if (!isset($thread)) {
-				$thread = new Thread($post, $mod ? '?/' : $config['root'], $mod);
-			} else {
-				$thread->add(new Post($post, $mod ? '?/' : $config['root'], $mod));
-			}
+	$query = prepare(sprintf("SELECT * FROM ``posts_%s`` WHERE (`thread` IS NULL AND `id` = :id) OR `thread` = :id ORDER BY `thread`,`id`", $board['uri']));
+	$query->bindValue(':id', $id, PDO::PARAM_INT);
+	$query->execute() or error(db_error($query));
+
+	while ($post = $query->fetch(PDO::FETCH_ASSOC)) {
+		if (!isset($thread)) {
+			$thread = new Thread($post, $mod ? '?/' : $config['root'], $mod);
+		} else {
+			$thread->add(new Post($post, $mod ? '?/' : $config['root'], $mod));
 		}
-
-		if (isset($thread)) cache::set("thread_{$board['uri']}_{$id}", $thread);
 	}
 
 	// Check if any posts were found
@@ -2079,7 +2038,7 @@ function buildThread($id, $return = false, $mod = false) {
 		$build_pages[] = thread_find_page($id);
 
 	// json api
-	if ($config['api']['enabled'] && !$config['use_read_php']) {
+	if ($config['api']['enabled']) {
 		$api = new Api();
 		$json = json_encode($api->translateThread($thread));
 		$jsonFilename = $board['dir'] . $config['dir']['res'] . $id . '.json';
@@ -2105,8 +2064,7 @@ function buildThread50($id, $return = false, $mod = false, $thread = null, $anti
 	if ($antibot)
 		$antibot->reset();
 		
-	if (!$thread && ($config['cache']['enabled'] && !($thread = cache::get("thread_50_{$board['uri']}_{$id}")))) {
-		unset($thread);
+	if (!$thread) {
 		$query = prepare(sprintf("SELECT * FROM ``posts_%s`` WHERE (`thread` IS NULL AND `id` = :id) OR `thread` = :id ORDER BY `thread`,`id` DESC LIMIT :limit", $board['uri']));
 		$query->bindValue(':id', $id, PDO::PARAM_INT);
 		$query->bindValue(':limit', $config['noko50_count']+1, PDO::PARAM_INT);
@@ -2143,8 +2101,6 @@ function buildThread50($id, $return = false, $mod = false, $thread = null, $anti
 		}
 
 		$thread->posts = array_reverse($thread->posts);
-		if ($config['cache']['enabled'])
-			cache::set("thread_50_{$board['uri']}_{$id}", $thread);
 	} else {
 		$allPosts = $thread->posts;
 
