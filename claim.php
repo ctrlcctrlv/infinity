@@ -16,7 +16,7 @@ function last_activity($board) {
 
 	$last_activity_date->setTimestamp($row['time']);
 
-	$query = query("SELECT id, username FROM mods WHERE boards = '$board'");
+	$query = query("SELECT id, username FROM mods WHERE boards = '$board' AND type = 20");
 	$mods = $query->fetchAll();
 
 	if ($mods) {
