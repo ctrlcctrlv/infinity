@@ -29,14 +29,16 @@ mb_internal_encoding('UTF-8');
 loadConfig();
 
 function init_locale($locale, $error='error') {
-	if (_setlocale(LC_ALL, $locale) === false) {
-		$error('The specified locale (' . $locale . ') does not exist on your platform!');
-	}
+	if ($locale === 'en') 
+		$locale = 'en_US.utf8';
+
 	if (extension_loaded('gettext')) {
+		setlocale(LC_ALL, $locale); 
 		bindtextdomain('tinyboard', './inc/locale');
 		bind_textdomain_codeset('tinyboard', 'UTF-8');
 		textdomain('tinyboard');
 	} else {
+		_setlocale(LC_ALL, $locale);
 		_bindtextdomain('tinyboard', './inc/locale');
 		_bind_textdomain_codeset('tinyboard', 'UTF-8');
 		_textdomain('tinyboard');
