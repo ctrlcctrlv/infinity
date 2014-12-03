@@ -819,7 +819,7 @@ pre {
   margin-top: 1em;
 }
 
-.new-threads {
+.new-threads, .board-settings {
   text-align: center;
 }
 

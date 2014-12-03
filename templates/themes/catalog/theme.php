@@ -17,29 +17,22 @@
 			$boards = explode(' ', $settings['boards']);
 		}
 				
-		if (!$config['use_read_php']) {
-			if ($action == 'all') {
-				foreach ($boards as $board) {
-					$b = new Catalog();
-					$b->build($settings, $board);
-				}
-			} elseif ($action == 'post-thread' || ($settings['update_on_posts'] && $action == 'post') || ($settings['update_on_posts'] && $action == 'post-delete') && (in_array($board, $boards) | $settings['all'])) {
+		if ($action == 'all') {
+			foreach ($boards as $board) {
 				$b = new Catalog();
 				$b->build($settings, $board);
 			}
-		}
-		if ($action == 'read_php') {
+		} elseif ($action == 'post-thread' || ($settings['update_on_posts'] && $action == 'post') || ($settings['update_on_posts'] && $action == 'post-delete') && (in_array($board, $boards) | $settings['all'])) {
 			$b = new Catalog();
-			return $b->build($settings, $board, true);
+			$b->build($settings, $board);
 		}
 	}
 	
 	// Wrap functions in a class so they don't interfere with normal Tinyboard operations
 	class Catalog {
-		public function build($settings, $board_name, $return = false) {
+		public function build($settings, $board_name) {
 			global $config, $board;
 			
-			if (!($config['cache']['enabled'] && $catalog_out = cache::get("catalog_{$board['uri']}"))) {;
 			openBoard($board_name);
 			
 			$recent_images = array();
@@ -97,7 +90,7 @@
 					$config['additional_javascript'][] = $s;
 			}
 
-			$catalog_out = Element('themes/catalog/catalog.html', Array(
+			file_write($config['dir']['home'] . $board_name . '/catalog.html', Element('themes/catalog/catalog.html', Array(
 				'settings' => $settings,
 				'config' => $config,
 				'boardlist' => createBoardlist(),
@@ -106,15 +99,6 @@
 				'stats' => $stats,
 				'board' => $board_name,
 				'link' => $config['root'] . $board['dir']
-			));
-
-			cache::set("catalog_{$board['uri']}", $catalog_out);
-			}
-
-			if ($return) {
-				return $catalog_out;
-			} else {
-				file_write($config['dir']['home'] . $board_name . '/catalog.html', $catalog_out);
-			}
+			)));
 		}
 	};

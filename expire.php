@@ -8,8 +8,8 @@ $protected = array('burgers', 'cow', 'wilno', 'cute', 'yoga');
 $q = query("SELECT uri FROM boards");
 $boards = $q->fetchAll(PDO::FETCH_COLUMN);
 $now = new DateTime();
-$ago = (new DateTime)->sub(new DateInterval('P3D'));
-$mod_ago = (new DateTime)->sub(new DateInterval('P7D'));
+$ago = (new DateTime)->sub(new DateInterval('P7D'));
+$mod_ago = (new DateTime)->sub(new DateInterval('P14D'));
 
 // Find out the last activity for our board
 $delete = array();

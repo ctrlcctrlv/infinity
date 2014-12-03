@@ -67,6 +67,8 @@ CREATE TABLE IF NOT EXISTS `boards` (
   `subtitle` tinytext,
   `indexed` boolean default true,
   `public_bans` boolean default true,
+  `8archive` boolean default false,
+  `sfw` boolean default false,
   PRIMARY KEY (`uri`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
@@ -314,6 +316,19 @@ CREATE TABLE `post_clean` (
   `clean_global_mod_id` smallint(6) unsigned DEFAULT NULL,
   PRIMARY KEY (`clean_id`),
   UNIQUE KEY `clean_id_UNIQUE` (`clean_id`)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `board_tags`
+--
+
+CREATE TABLE `board_tags` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uri` varchar(30) DEFAULT NULL,
+  `tag` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 );
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

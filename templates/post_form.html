@@ -178,3 +178,15 @@
 <script type="text/javascript">{% raw %}
 	rememberStuff();
 {% endraw %}</script>
+
+<p class="unimportant board-settings">
+{% if not config.disable_images %}
+Allowed file types: {{ config.allowed_ext|join(', ') }}{% if config.allowed_ext_files %}, {{ config.allowed_ext_files|join(', ') }}{% endif %}<br />
+Max filesize is {{ config.max_filesize|filesize }}.<br />
+Max image dimensions are {{ config.max_height }} x {{ config.max_width }}.<br />
+You may upload {{ config.max_images }} per post.<br />
+{% endif %}
+{% if config.allow_roll %}
+You may roll dice on this board, type "dice XdY+Z" in the email field where X is number of dice, Y is max roll and Z is modifier.<br />
+{% endif %}
+</p>

@@ -753,7 +753,6 @@
 	// Allowed image file extensions.
 	$config['allowed_ext'][] = 'jpg';
 	$config['allowed_ext'][] = 'jpeg';
-	$config['allowed_ext'][] = 'bmp';
 	$config['allowed_ext'][] = 'gif';
 	$config['allowed_ext'][] = 'png';
 	// $config['allowed_ext'][] = 'svg';
@@ -885,7 +884,7 @@
 	$config['thread_subject_in_title'] = false;
 
 	// Additional lines added to the footer of all pages.
-	$config['footer'][] = _('All trademarks, copyrights, comments, and images on this page are owned by and are the responsibility of their respective parties.');
+	// $config['footer'][] = _('All trademarks, copyrights, comments, and images on this page are owned by and are the responsibility of their respective parties.');
 
 	// Characters used to generate a random password (with Javascript).
 	$config['genpassword_chars'] = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+';
