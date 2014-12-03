@@ -49,7 +49,7 @@ if (isset($_POST['delete'])) {
 
 	// Check if deletion enabled
 	if (!$config['allow_delete'])
-		error(_('Post deletion is not allowed!'));
+		error(_('Users are not allowed to delete their own posts on this board.'));
 	
 	if (empty($delete))
 		error($config['error']['nodelete']);
