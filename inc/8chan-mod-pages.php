@@ -20,6 +20,8 @@
 	$config['mod']['noticeboard_post'] = GLOBALVOLUNTEER;
 	$config['mod']['search'] = GLOBALVOLUNTEER;
 	$config['mod']['clean_global'] = GLOBALVOLUNTEER;
+	$config['mod']['view_notes'] = GLOBALVOLUNTEER;
+	$config['mod']['create_notes'] = GLOBALVOLUNTEER;
 	$config['mod']['debug_recent'] = ADMIN;
 	$config['mod']['debug_antispam'] = ADMIN;
 	$config['mod']['noticeboard_post'] = ADMIN;
@@ -29,6 +31,7 @@
 	$config['mod']['edit_flags'] = MOD;
 	$config['mod']['edit_settings'] = MOD;
 	$config['mod']['edit_volunteers'] = MOD;
+	$config['mod']['edit_tags'] = MOD;
 	$config['mod']['clean'] = BOARDVOLUNTEER;
 	// new perms
 
@@ -50,6 +53,55 @@
 	$config['mod']['view_ban_appeals'] = BOARDVOLUNTEER;
 	$config['mod']['view_ban'] = BOARDVOLUNTEER;
 	$config['mod']['reassign_board'] = ADMIN;
+
+	$config['mod']['custom_pages']['/tags/(\%b)'] = function ($b) {
+		global $board, $config;
+
+		if (!openBoard($b))
+			error("Could not open board!");
+
+		if (!hasPermission($config['mod']['edit_tags'], $b))
+			error($config['error']['noaccess']);
+
+		if (isset($_POST['tags'])) {
+			if (sizeof($_POST['tags']) > 5)
+				error(_('Too many tags.'));
+
+			$delete = prepare('DELETE FROM ``board_tags`` WHERE uri = :uri');
+			$delete->bindValue(':uri', $b);
+			$delete->execute();
+
+			foreach ($_POST['tags'] as $i => $tag) {
+				if ($tag) {
+					if (strlen($tag) > 255)
+						continue;
+
+					$insert = prepare('INSERT INTO ``board_tags``(uri, tag) VALUES (:uri, :tag)');
+					$insert->bindValue(':uri', $b);
+					$insert->bindValue(':tag', utf8tohtml($tag));
+					$insert->execute();
+				}
+			}
+
+			$update = prepare('UPDATE ``boards`` SET sfw = :sfw WHERE uri = :uri');
+			$update->bindValue(':uri', $b);
+			$update->bindValue(':sfw', isset($_POST['sfw']));
+			$update->execute();
+		}
+		$query = prepare('SELECT * FROM ``board_tags`` WHERE uri = :uri');
+		$query->bindValue(':uri', $b);
+		$query->execute();
+
+		$tags = $query->fetchAll();
+
+		$query = prepare('SELECT `sfw` FROM ``boards`` WHERE uri = :uri');
+		$query->bindValue(':uri', $b);
+		$query->execute();
+
+		$sfw = $query->fetchColumn();
+
+		mod_page(_('Edit tags'), 'mod/tags.html', array('board'=>$board,'token'=>make_secure_link_token('reassign/'.$board['uri']), 'tags'=>$tags, 'sfw'=>$sfw));
+	};
 
 	$config['mod']['custom_pages']['/reassign/(\%b)'] = function($b) {
 		global $board, $config;
@@ -435,10 +487,39 @@ $locale
 $add_to_config
 EOT;
 
+			// Clean up our CSS...no more expression() or off-site URLs.
+			$clean_css = preg_replace('/expression\s*\(/', '', $_POST['css']);
+	
+			// URL matcher from SO: 
+			$match_urls = '(?xi)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«»“”‘’]))';
+
+			$matched = array();
+
+			preg_match_all("#$match_urls#im", $clean_css, $matched);
+			
+			$allowed_urls = array('https://i.imgur.com/', 'https://media.8chan.co/', 'https://a.pomf.se/', 'https://fonts.googleapis.com/', 'http://8ch.net/');
+			$error = false;
+
+			if (isset($matched[0])) {
+				foreach ($matched[0] as $i => $v) {
+					$error = true;
+					foreach ($allowed_urls as $ii => $url) {
+						if (strpos($v, $url) === 0) {
+							$error = false;
+							break;
+						}
+					}
+				}
+			}
+
+			if ($error) {
+				error(_('Off-site links are not allowed in board stylesheets!'));
+			}
+
 			$query = query('SELECT `uri`, `title`, `subtitle` FROM ``boards`` WHERE `8archive` = TRUE');
 			file_write('8archive.json', json_encode($query->fetchAll(PDO::FETCH_ASSOC)));
 			file_write($b.'/config.php', $config_file);
-			file_write('stylesheets/board/'.$b.'.css', $_POST['css']);
+			file_write('stylesheets/board/'.$b.'.css', $clean_css);
 			file_write($b.'/rules.html', Element('page.html', array('title'=>'Rules', 'subtitle'=>'', 'config'=>$config, 'body'=>'<div class="ban">'.purify($_POST['rules']).'</div>')));
 			file_write($b.'/rules.txt', $_POST['rules']);
 
@@ -446,7 +527,7 @@ EOT;
 
 			// Faster than openBoard and bypasses cache...we're trusting the PHP output
 			// to be safe enough to run with every request, we can eval it here.
-			eval(preg_replace('/^\<\?php$/m', '', $config_file));
+			eval(str_replace('flags.php', "$b/flags.php", preg_replace('/^\<\?php$/m', '', $config_file)));
 
 			// be smarter about rebuilds...only some changes really require us to rebuild all threads
 			if ($_config['captcha']['enabled'] != $config['captcha']['enabled']
