@@ -2427,6 +2427,8 @@ function diceRoller($post) {
 }
 
 function less_ip($ip) {
+	global $config;
+
 	$ipv6 = (strstr($ip, ':') !== false);
 	$has_range = (strstr($ip, '/') !== false);
 
@@ -2446,7 +2448,15 @@ function less_ip($ip) {
 	}
 
 	$final = inet_ntop($in_addr & $mask);
-	return str_replace(array(':0', '.0'), array(':x', '.x'), $final) . (isset($range) ? '/'.$range : '');
+	$masked = str_replace(array(':0', '.0'), array(':x', '.x'), $final);
+
+	if ($config['hash_masked_ip']) {
+		$masked = substr(sha1(sha1($masked) . $config['secure_trip_salt']), 0, 10);
+	}
+
+	$masked .= (isset($range) ? '/'.$range : '');
+
+	return $masked;
 }
 
 function less_hostmask($hostmask) {

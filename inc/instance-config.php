@@ -192,6 +192,7 @@
 	);
 
 $config['gzip_static'] = false;
+$config['hash_masked_ip'] = true;
 // 8chan specific mod pages
 require '8chan-mod-pages.php';
 	
