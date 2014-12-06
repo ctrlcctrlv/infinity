@@ -12,6 +12,7 @@ if (active_page == 'catalog') $(function(){
 		$('#Grid').mixItUp('sort', value);
 		catalog.sort_by = value;
 		localStorage.catalog = JSON.stringify(catalog);
+		$('.threads .thread .replies').perfectScrollbar('update');
 	});
 
 	$("#image_size").change(function(){
@@ -22,6 +23,7 @@ if (active_page == 'catalog') $(function(){
 		$(".grid-li").addClass("grid-size-"+value);
 		catalog.image_size = value;
 		localStorage.catalog = JSON.stringify(catalog);
+		$('.threads .thread .replies').perfectScrollbar('update');
 	});
 
 	$('#Grid').mixItUp({
@@ -36,5 +38,6 @@ if (active_page == 'catalog') $(function(){
 	if (catalog.image_size !== undefined) {
 		$('#image_size').val(catalog.image_size).trigger('change');
 	}
-
+	
+	$('.threads .thread .replies').perfectScrollbar()
 });
