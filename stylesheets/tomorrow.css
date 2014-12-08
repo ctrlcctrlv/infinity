@@ -143,10 +143,8 @@ div#watchlist a,a.watchThread {
 div#watchlist a:hover,a.watchThread:hover {
   color:#5F89AC
 }
-/* Keep small thumbnails */
-a:not([data-expanded="true"]) .post-image{
-  width:auto!important;
-  height:auto!important;
-  max-height:200px!important;
-  max-width:200px!important
+
+.theme-catalog div.thread:hover {
+  background: #222222;
 }
+z
