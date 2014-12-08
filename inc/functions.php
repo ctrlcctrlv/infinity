@@ -175,6 +175,8 @@ function loadConfig() {
 
 	if (!isset($config['image_sticky']))
 		$config['image_sticky'] = $config['dir']['static'] . 'sticky.gif';
+	if (!isset($config['image_anchor']))
+		$config['image_anchor'] = $config['dir']['static'] . 'anchor.gif';
 	if (!isset($config['image_locked']))
 		$config['image_locked'] = $config['dir']['static'] . 'locked.gif';
 	if (!isset($config['image_bumplocked']))
@@ -911,7 +913,7 @@ function insertFloodPost(array $post) {
 
 function post(array $post) {
 	global $pdo, $board;
-	$query = prepare(sprintf("INSERT INTO ``posts_%s`` VALUES ( NULL, :thread, :subject, :email, :name, :trip, :capcode, :body, :body_nomarkup, :time, :time, :files, :num_files, :filehash, :password, :ip, :sticky, :locked, 0, :embed, NULL)", $board['uri']));
+	$query = prepare(sprintf("INSERT INTO ``posts_%s`` VALUES ( NULL, :thread, :subject, :email, :name, :trip, :capcode, :body, :body_nomarkup, :time, :time, :files, :num_files, :filehash, :password, :ip, :sticky, :anchor, :locked, 0, :embed, NULL)", $board['uri']));
 
 	// Basic stuff
 	if (!empty($post['subject'])) {
@@ -943,6 +945,11 @@ function post(array $post) {
 		$query->bindValue(':sticky', true, PDO::PARAM_INT);
 	} else {
 		$query->bindValue(':sticky', false, PDO::PARAM_INT);
+	}
+	if ($post['op'] && $post['mod'] && isset($post['anchor']) && $post['anchor']) {
+		$query->bindValue(':anchor', true, PDO::PARAM_INT);
+	} else {
+		$query->bindValue(':anchor', false, PDO::PARAM_INT);
 	}
 
 	if ($post['op'] && $post['mod'] && isset($post['locked']) && $post['locked']) {
@@ -1155,7 +1162,7 @@ function clean() {
 	$offset = round($config['max_pages']*$config['threads_per_page']);
 
 	// I too wish there was an easier way of doing this...
-	$query = prepare(sprintf("SELECT `id` FROM ``posts_%s`` WHERE `thread` IS NULL ORDER BY `sticky` DESC, `bump` DESC LIMIT :offset, 9001", $board['uri']));
+	$query = prepare(sprintf("SELECT `id` FROM ``posts_%s`` WHERE `thread` IS NULL ORDER BY `sticky` DESC, `anchor` DESC, `bump` DESC LIMIT :offset, 9001", $board['uri']));
 	$query->bindValue(':offset', $offset, PDO::PARAM_INT);
 
 	$query->execute() or error(db_error($query));

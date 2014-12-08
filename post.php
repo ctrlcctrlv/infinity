@@ -270,10 +270,11 @@ elseif (isset($_POST['post'])) {
 		}
 		
 		$post['sticky'] = $post['op'] && isset($_POST['sticky']);
+		$post['anchor'] = $post['op'] && isset($_POST['anchor']);
 		$post['locked'] = $post['op'] && isset($_POST['lock']);
 		$post['raw'] = isset($_POST['raw']);
 		
-		if ($post['sticky'] && !hasPermission($config['mod']['sticky'], $board['uri']))
+		if (($post['sticky'] || $post['anchor']) && !hasPermission($config['mod']['sticky'], $board['uri']))
 			error($config['error']['noaccess']);
 		if ($post['locked'] && !hasPermission($config['mod']['lock'], $board['uri']))
 			error($config['error']['noaccess']);
@@ -293,7 +294,7 @@ elseif (isset($_POST['post'])) {
 	
 	//Check if thread exists
 	if (!$post['op']) {
-		$query = prepare(sprintf("SELECT `sticky`,`locked`,`sage` FROM ``posts_%s`` WHERE `id` = :id AND `thread` IS NULL LIMIT 1", $board['uri']));
+		$query = prepare(sprintf("SELECT `sticky`,`anchor`,`locked`,`sage` FROM ``posts_%s`` WHERE `id` = :id AND `thread` IS NULL LIMIT 1", $board['uri']));
 		$query->bindValue(':id', $post['thread'], PDO::PARAM_INT);
 		$query->execute() or error(db_error());
 		

@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS ``posts_{{ board }}`` (
    `password` varchar(20) DEFAULT NULL,
    `ip` varchar(39) CHARACTER SET ascii NOT NULL,
    `sticky` int(1) NOT NULL,
+   `anchor` int(1) NOT NULL,
    `locked` int(1) NOT NULL,
    `sage` int(1) NOT NULL,
    `embed` text,

@@ -31,6 +31,7 @@ class Api {
 			'replies' => 'replies',
 			'images' => 'images',
 			'sticky' => 'sticky',
+			'anchor' => 'anchor',
 			'locked' => 'locked',
 			'bump' => 'last_modified',
 		);
@@ -67,6 +68,7 @@ class Api {
 		'replies' => 1,
 		'images' => 1,
 		'sticky' => 1,
+		'anchor' => 1,
 		'locked' => 1,
 		'last_modified' => 1
 	);

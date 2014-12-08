@@ -267,6 +267,7 @@
 		'body',
 		'password',
 		'sticky',
+		'anchor',
 		'lock',
 		'raw',
 		'embed',
@@ -1193,6 +1194,7 @@
 	// Static images. These can be URLs OR base64 (data URI scheme). These are only used if
 	// $config['font_awesome'] is false (default).
 	// $config['image_sticky']	= 'static/sticky.png';
+	// $config['image_anchor']	= 'static/anchor.png';
 	// $config['image_locked']	= 'static/locked.gif';
 	// $config['image_bumplocked']	= 'static/sage.png'.
 
@@ -1238,6 +1240,8 @@
 	$config['mod']['link_deletebyip_global'] = '[D++]';
 	$config['mod']['link_sticky'] = '[Sticky]';
 	$config['mod']['link_desticky'] = '[-Sticky]';
+	$config['mod']['link_anchor'] = '[Anchor]';
+	$config['mod']['link_deanchor'] = '[-Anchor]';
 	$config['mod']['link_lock'] = '[Lock]';
 	$config['mod']['link_unlock'] = '[-Lock]';
 	$config['mod']['link_bumplock'] = '[Sage]';
@@ -1387,6 +1391,8 @@
 	$config['mod']['deletebyip_global'] = ADMIN;
 	// Sticky a thread
 	$config['mod']['sticky'] = MOD;
+	// Anchor a thread
+	$config['mod']['anchor'] = MOD;
 	// Lock a thread
 	$config['mod']['lock'] = MOD;
 	// Post in a locked thread
