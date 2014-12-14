@@ -394,7 +394,8 @@ elseif (isset($_POST['post'])) {
 	$post['has_file'] = (!isset($post['embed']) && (($post['op'] && !isset($post['no_longer_require_an_image_for_op']) && $config['force_image_op']) || !empty($_FILES['file']['name'])));
 	
 	if (!($post['has_file'] || isset($post['embed'])) || (($post['op'] && $config['force_body_op']) || (!$post['op'] && $config['force_body']))) {
-		$stripped_whitespace = preg_replace('/[\s]/u', '', $post['body']);
+		// http://stackoverflow.com/a/4167053
+		$stripped_whitespace = preg_replace('/^[\pZ\pC]+|[\pZ\pC]+$/u', '', $post['body']);
 		if ($stripped_whitespace == '') {
 			error($config['error']['tooshort_body']);
 		}
