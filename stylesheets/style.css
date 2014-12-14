@@ -925,6 +925,7 @@ pre {
   right: 0px;
   text-align: left;
   font-size: 12px;
+  overflow-y: auto;
 }
 
 .options_tab h2 {
