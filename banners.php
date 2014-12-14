@@ -8,7 +8,7 @@ header("Expires: 0");
 
 function get_custom_banner(&$b) {
     # Validate the board name
-    if (!(isset($b) && preg_match('/^[a-z0-9]{1,30}$/', $b)))
+    if (!(isset($b) && preg_match('/^[a-z0-9+]{1,30}$/', $b)))
         return null;
 
     # Check if directory exists

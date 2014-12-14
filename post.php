@@ -399,6 +399,13 @@ elseif (isset($_POST['post'])) {
 			error($config['error']['tooshort_body']);
 		}
 	}
+
+	if ($config['force_subject_op'] && $post['op']) {
+		$stripped_whitespace = preg_replace('/^[\pZ\pC]+|[\pZ\pC]+$/u', '', $post['subject']);
+		if ($stripped_whitespace == '') {
+			error(_('It is required to enter a subject when starting a new thread on this board.'));
+		}
+	}
 	
 	if (!$post['op']) {
 		// Check if thread is locked
@@ -523,6 +530,8 @@ elseif (isset($_POST['post'])) {
 		error(sprintf($config['error']['toolong'], 'subject'));
 	if (!$mod && mb_strlen($post['body']) > $config['max_body'])
 		error($config['error']['toolong_body']);
+	if (mb_strlen($post['body']) < $config['min_body'] && $post['op'])
+		error(_(sprintf('OP must be at least %d chars on this board.', $config['min_body'])));
 	if (mb_strlen($post['password']) > 20)
 		error(sprintf($config['error']['toolong'], 'password'));
 		
@@ -588,7 +597,7 @@ elseif (isset($_POST['post'])) {
 		}
 	}
 	
-	$post['tracked_cites'] = markup($post['body'], true);
+	$post['tracked_cites'] = markup($post['body'], true, $post['op']);
 
 	
 	
