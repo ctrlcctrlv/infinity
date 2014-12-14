@@ -432,7 +432,8 @@ function setupBoard($array) {
 	$board = array(
 		'uri' => $array['uri'],
 		'title' => $array['title'],
-		'subtitle' => $array['subtitle']
+		'subtitle' => $array['subtitle'],
+		'indexed' => $array['indexed']
 	);
 
 	// older versions
@@ -1703,7 +1704,7 @@ function extract_modifiers($body) {
 	return $modifiers;
 }
 
-function markup(&$body, $track_cites = false) {
+function markup(&$body, $track_cites = false, $op = false) {
 	global $board, $config, $markup_urls;
 	
 	$modifiers = extract_modifiers($body);
@@ -1741,6 +1742,9 @@ function markup(&$body, $track_cites = false) {
 
 		if ($num_links > $config['max_links'])
 			error($config['error']['toomanylinks']);
+
+		if ($num_links < $config['min_links'] && $op)
+			error(sprintf($config['error']['notenoughlinks'], $config['min_links']));
 	}
 	
 	if ($config['markup_repair_tidy'])

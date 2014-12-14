@@ -65,9 +65,9 @@ $body = <<<EOT
 </ul>
 
 <h2>How are featured boards chosen?</h2>
-<p>Top fifteen boards excluding /meta/, /b/ and /int/.</p>
+<p>Top fifteen boards excluding /meta/, /b/ and /pol/.</p>
 
-<h2>Who owns /meta/, /b/, and /int/?</h2>
+<h2>Who owns /meta/ and /b/?</h2>
 <p>No one, so they are <em>de facto</em> property of the administration.</p>
 
 <h2>Where's the mobile app?</h2>
@@ -76,12 +76,22 @@ $body = <<<EOT
 <p>I don't provide support for this app, ask the developer of it if you have a problem with it.</p>
 
 <h2>Where's the archive?</h2>
-<p>There isn't one yet and there will never be an official archive.</p>
+<p><s>There isn't one yet and there will never be an official archive.</s></p>
+<p>Given that archives are inevitable and will be created anyway via <a href="https://archive.today">archive.today</a>, Google cache, and anyone who installs Asagi, I'm softening my stance on this. Currently, 8archive.moe provides our archive, and I may set up an official one. <strong>All archives officially partnered with us will be opt-in by our board owners, not opt-out. Archives who archive boards that have not opted in will be considered pirate archives, and legal action may be taken.</strong></p>
+
+<h2>I got an email from an @8chan.co email address, is that you?</h2>
+<p>8chan.co uses <a href="https://cock.li">cock.li</a> to manage our domain's email. cock.li allows anyone to create an email account @8chan.co.</p>
+<p>That said, we have quite a few official 8chan.co email addresses. They are:</p>
+<ul>
+<li>admin at 8chan dot co</li>
+<li>dmca at 8chan dot co</li>
+<li>claim at 8chan dot co</li>
+</ul>
 
 <h2>How do I donate?</h2>
 <p>Donations can be sent to 1NpQaXqmCBji6gfX8UgaQEmEstvVY7U32C (Bitcoin) or LUPgSCJt3iGeJXUETVhmnbQ89Riaq1yjZm (Litecoin).</p>
+<p>I am also a big fan of Monero (XMR). You can send XMR to our <a href="http://openalias.org">OpenAlias</a> in the simplewallet client, or simply send to 49dBJhGhYFxJEfydS6hH6GRyg1W4cDgupdNVtw7j1WtcUY7xPXwNLw6fUVay644viaCcEhMFG1Z7SjjxRXEFDdNWJdvH9kS.</p>
 <p>You may also donate monthly via Patreon at <a href="http://www.patreon.com/user?u=162165">http://www.patreon.com/user?u=162165</a>.
-
 <h2>Are you really a cripple?</h2>
 <p>Yes.</p>
 

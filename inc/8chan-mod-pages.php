@@ -22,6 +22,7 @@
 	$config['mod']['clean_global'] = GLOBALVOLUNTEER;
 	$config['mod']['view_notes'] = DISABLED;
 	$config['mod']['create_notes'] = DISABLED;
+	$config['mod']['edit_config'] = DISABLED;
 	$config['mod']['debug_recent'] = ADMIN;
 	$config['mod']['debug_antispam'] = ADMIN;
 	$config['mod']['noticeboard_post'] = ADMIN;
@@ -155,14 +156,16 @@
 				error(sprintf($config['error']['required'], 'username'));
 			if ($_POST['password'] == '')
 				error(sprintf($config['error']['required'], 'password'));
+			if (!preg_match('/^[a-zA-Z0-9._]{1,30}$/', $_POST['username']))
+				error(_('Invalid username'));
 
 			if ($count > 10) {
 				error(_('Too many board volunteers!'));
 			}
 
 			foreach ($volunteers as $i => $v) {
-				if ($_POST['username'] == $v['username']) {
-				error(_('Refusing to create a volunteer with the same username as an existing one.'));
+				if (strtolower($_POST['username']) == strtolower($v['username'])) {
+					error(_('Refusing to create a volunteer with the same username as an existing one.'));
 				}
 			}
 

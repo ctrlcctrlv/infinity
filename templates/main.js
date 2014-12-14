@@ -188,7 +188,7 @@ function changeStyle(styleName, link) {
 {% endraw %}
 
 function init_stylechooser() {
-	var matches = document.URL.match(/\/(\w+)\/($|{{ config.dir.res|replace({'/': '\\/'}) }}{{ config.file_page|replace({'%d': '\\d+', '.': '\\.'}) }}|{{ config.file_index|replace({'.': '\\.'}) }}|{{ config.dir.res|replace({'/': '\\/'}) }}{{ config.file_page50|replace({'+': '\\+', '%d': '\\d+', '.': '\\.'}) }}|{{ config.file_page|replace({'%d': '\\d+', '.': '\\.'}) }}|{{ config.catalog_link|replace({'.': '\\.'}) }})/);
+	var matches = document.URL.match(/\/([0-9a-zA-Z\+$_\u0080-\uFFFF]{1,58})\/($|{{ config.dir.res|replace({'/': '\\/'}) }}{{ config.file_page|replace({'%d': '\\d+', '.': '\\.'}) }}|{{ config.file_index|replace({'.': '\\.'}) }}|{{ config.dir.res|replace({'/': '\\/'}) }}{{ config.file_page50|replace({'+': '\\+', '%d': '\\d+', '.': '\\.'}) }}|{{ config.file_page|replace({'%d': '\\d+', '.': '\\.'}) }}|{{ config.catalog_link|replace({'.': '\\.'}) }})/);
 	var newElement = document.createElement('div');
 	newElement.className = 'styles';
 	
@@ -255,9 +255,10 @@ function get_cookie(cookie_name) {
 }
 
 function highlightReply(id) {
-	if (typeof window.event != "undefined" && event.which == 2) {
+	if (typeof window.event != "undefined") {
 		// don't highlight on middle click
-		return true;
+		if (event.which == 2) return true;
+		window.event.preventDefault();
 	}
 	
 	var divs = document.getElementsByTagName('div');
@@ -268,9 +269,18 @@ function highlightReply(id) {
 	}
 	if (id) {
 		var post = document.getElementById('reply_'+id);
-		if (post)
+		if (post) {
 			post.className += ' highlighted';
 			window.location.hash = id;
+			
+			// Better offset to keep in mind new hovering boardlist
+			var post_top = post.getBoundingClientRect().top;
+			var body_top = document.body.getBoundingClientRect().top;
+			var boardlist_height = document.getElementsByClassName('boardlist')[0].getBoundingClientRect().height;
+			var offset = (post_top - body_top) - boardlist_height;
+
+			window.scrollTo(0, offset);
+		}
 	}
 	return true;
 }
