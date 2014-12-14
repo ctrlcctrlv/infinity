@@ -1604,7 +1604,7 @@ function mod_edit_post($board, $edit_raw_html, $postID) {
 		else
 			$query = prepare(sprintf('UPDATE ``posts_%s`` SET `name` = :name, `email` = :email, `subject` = :subject, `body_nomarkup` = :body, `edited_at` = NOW() WHERE `id` = :id', $board));
 		$query->bindValue(':id', $postID);
-		$query->bindValue('name', $_POST['name']);
+		$query->bindValue(':name', $_POST['name']);
 		$query->bindValue(':email', $_POST['email']);
 		$query->bindValue(':subject', $_POST['subject']);
 		$query->bindValue(':body', $_POST['body']);
@@ -1828,6 +1828,42 @@ function mod_deletebyip($boardName, $post, $global = false) {
 	
 	// Redirect
 	header('Location: ?/' . sprintf($config['board_path'], $boardName) . $config['file_index'], true, $config['redirect_http']);
+}
+
+function mod_anonymize($board, $post) {
+	global $config, $mod;
+	   
+	if (!openBoard($board))
+		error($config['error']['noboard']);
+	   
+	if (!hasPermission($config['mod']['anonymize'], $board))
+		error($config['error']['noaccess']);
+		
+	$query = prepare(sprintf("SELECT `id`, `thread` FROM ``posts_%s`` WHERE id = :id", $board));
+	$query->bindValue(':id', $post, PDO::PARAM_INT);
+	$query->execute() or error(db_error($query));
+	$result = $query->fetch(PDO::FETCH_ASSOC);
+	
+	// Make post anonymous
+	$query = prepare(sprintf("UPDATE ``posts_%s`` SET `name` = :name, `email` = NULL, `trip` = NULL WHERE `id` = :id", $board));
+	$query->bindValue(':name', $config['anonymous']);
+	$query->bindValue(':id', $post, PDO::PARAM_INT);
+	$query->execute() or error(db_error($query));
+
+	// Record the action
+	modLog("Anonymized post #{$post}");
+
+	// Rebuild thread
+	buildThread($result['thread'] ? $result['thread'] : $post);
+
+	// Rebuild board
+	buildIndex();
+
+	// Rebuild themes
+	rebuildThemes('post-anonymize', $board);
+	
+	// Redirect
+	header('Location: ?/' . sprintf($config['board_path'], $board) . $config['file_index'], true, $config['redirect_http']);
 }
 
 function mod_user($uid) {

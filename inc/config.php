@@ -1245,6 +1245,7 @@
 	$config['mod']['link_bumpunlock'] = '[-Sage]';
 	$config['mod']['link_editpost'] = '[Edit]';
 	$config['mod']['link_move'] = '[Move]';
+	$config['mod']['link_anonymize'] = '[A]';
 
 	// Moderator capcodes.
 	$config['capcode'] = ' <span class="capcode">## %s</span>';
@@ -1409,6 +1410,12 @@
 	$config['mod']['flood'] = &$config['mod']['bypass_filters'];
 	// Raw HTML posting
 	$config['mod']['rawhtml'] = ADMIN;
+	// Anonymize a post
+	$config['mod']['anonymize'] = JANITOR;
+	// Anonymize all posts by IP
+	$config['mod']['anonymizebyip'] = MOD;
+	// Anonymize all posts by IP across all boards
+	$config['mod']['anonymizebyip_global'] = ADMIN;
 	
 	// Clean System
 	// Post edits remove local clean?

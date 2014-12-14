@@ -1,6 +1,9 @@
 {% if mod %}
 
 <span class="controls {% if not post.thread %}op{% endif %}">
+{% if mod|hasPermission(config.mod.anonymize, board.uri) %}
+	{{ secure_link_confirm(config.mod.link_anonymize, 'Anonymize'|trans, 'Are you sure you want to remove any name or tripcode from this?'|trans, board.dir ~ 'anonymize/' ~ post.id) }}&nbsp;
+{% endif %}
 {% if mod|hasPermission(config.mod.delete, board.uri) %}
 	{{ secure_link_confirm(config.mod.link_delete, 'Delete'|trans, 'Are you sure you want to delete this?'|trans, board.dir ~ 'delete/' ~ post.id) }}&nbsp;
 {% endif %}
