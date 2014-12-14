@@ -42,9 +42,9 @@ $pages = array(
 	'/log/(\d+)'				=> 'log',			// modlog
 	'/log:([^/]+)'				=> 'user_log',			// modlog
 	'/log:([^/]+)/(\d+)'			=> 'user_log',			// modlog
-	'/news'					=> 'secure_POST news',		// view news
-	'/news/(\d+)'				=> 'secure_POST news',		// view news
-	'/news/delete/(\d+)'			=> 'secure news_delete',	// delete from news
+	'/edit_news'				=> 'secure_POST news',		// view news
+	'/edit_news/(\d+)'			=> 'secure_POST news',		// view news
+	'/edit_news/delete/(\d+)'		=> 'secure news_delete',	// delete from news
 	
 	'/noticeboard'				=> 'secure_POST noticeboard',	// view noticeboard
 	'/noticeboard/(\d+)'			=> 'secure_POST noticeboard',	// view noticeboard
