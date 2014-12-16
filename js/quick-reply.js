@@ -87,7 +87,7 @@
 			-webkit-box-sizing:border-box;\
 			-moz-box-sizing: border-box;\
 			font-size: 10pt;\
-			resize: vertical;\
+			resize: both;\
 		}\
 		#quick-reply input, #quick-reply select, #quick-reply textarea {\
 			margin: 0 0 1px 0;\
