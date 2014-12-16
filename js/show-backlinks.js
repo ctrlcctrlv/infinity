@@ -15,7 +15,7 @@
 
 onready(function(){
 	var showBackLinks = function() {
-		var reply_id = $(this).attr('id').replace(/^reply_/, '');
+		var reply_id = $(this).attr('id').replace(/^(reply|op)_/, '');
 		
 		$(this).find('div.body a:not([rel="nofollow"])').each(function() {
 			var id, post, $mentioned;
@@ -26,6 +26,9 @@ onready(function(){
 				return;
 		
 			$post = $('#reply_' + id);
+			if($post.length == 0)
+				$post = $('#op_' + id);
+
 			if($post.length == 0)
 				return;
 		
