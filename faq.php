@@ -65,7 +65,7 @@ $body = <<<EOT
 </ul>
 
 <h2>How are featured boards chosen?</h2>
-<p>Top fifteen boards excluding /meta/, /b/ and /pol/.</p>
+<p>Top fifteen boards excluding /meta/, /b/ and /news+/.</p>
 
 <h2>Who owns /meta/ and /b/?</h2>
 <p>No one, so they are <em>de facto</em> property of the administration.</p>
