@@ -37,7 +37,7 @@ $page = <<<EOT
 
 				$.each(faves, function(k, v) {
 					if ((window.location.pathname === '/' + v + '/') || (window.location.pathname === '/' + v)) {
-						faves.pop(v);
+						faves.splice(k, 1);
 						localStorage.favorites = JSON.stringify(faves);
 
 						alert('As /' + v + '/ no longer exists, it has been removed from your favorites.');

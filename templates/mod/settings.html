@@ -29,6 +29,7 @@
 		<tr><th>{% trans %}Forced anonymous{% endtrans %}</th><td><input type="checkbox" name="field_disable_name" {% if config.field_disable_name %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}YouTube/Voocaroo embedding{% endtrans %}</th><td><input type="checkbox" name="enable_embedding" {% if config.enable_embedding %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Require image for OP{% endtrans %}</th><td><input type="checkbox" name="force_image_op" {% if config.force_image_op %}checked{% endif %}></td></tr>
+		<tr><th>{% trans %}Require subject for OP{% endtrans %}</th><td><input type="checkbox" name="force_subject_op" {% if config.force_subject_op %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Disable images{% endtrans %}</th><td><input type="checkbox" name="disable_images" {% if config.disable_images %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Poster ID's{% endtrans %}</th><td><input type="checkbox" name="poster_ids" {% if config.poster_ids %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Display SAGE! after saged posts{% endtrans %}</th><td><input type="checkbox" name="show_sages" {% if config.show_sages %}checked{% endif %}></td></tr>

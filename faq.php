@@ -26,6 +26,7 @@ $body = <<<EOT
 <li>Do not post, request, or link to any content illegal in the United States of America. Do not create boards with the sole purpose of posting or spreading such content.</li>
 </ul>
 <p>Other than that, you are free to institute whatever rules you want on your board.</p>
+<p><a href="https://8chan.co/obscenity.html">More information about US obscenity laws and how they relate to 8chan boards</a></p>
 <h2>How do I add more volunteers?</h2>
 <p>You may do this in your board settings, click on "Edit board volunteers".
 <h2>How do I manage my board?</h2>
