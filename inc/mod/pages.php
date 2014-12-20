@@ -742,27 +742,17 @@ function mod_view_board($boardName, $page_no = 1) {
 	echo Element('index.html', $page);
 }
 
-function mod_view_catalog($board_name, $page_no = 1) {
+function mod_view_catalog($board_name) {
 	global $config, $mod, $board;
 	
 	if (!openBoard($board_name))
 		error($config['error']['noboard']);
 	
-	if (!$page = index($page_no, $mod)) {
-		error($config['error']['404']);
-	}
-	
-	$page['pages'] = getPages(true);
-	$page['pages'][$page_no-1]['selected'] = true;
-	$page['btn'] = getPageButtons($page['pages'], true);
-	$page['mod'] = true;
-	$page['config'] = $config;
-	
 	$recent_images = array();
 	$recent_posts = array();
 	$stats = array();
 	
-				$query = query(sprintf("SELECT *, `id` AS `thread_id`,
+	$query = query(sprintf("SELECT *, `id` AS `thread_id`,
 		(SELECT COUNT(`id`) FROM ``posts_%s`` WHERE `thread` = `thread_id`) AS `reply_count`,
 		(SELECT SUM(`num_files`) FROM ``posts_%s`` WHERE `thread` = `thread_id` AND `num_files` IS NOT NULL) AS `image_count`,
 		'%s' AS `board` FROM ``posts_%s`` WHERE `thread`  IS NULL ORDER BY `bump` DESC",
