@@ -405,6 +405,7 @@ FLAGS;
 			$katex = isset($_POST['katex']) ? '$config[\'katex\'] = true;$config[\'additional_javascript\'][] = \'js/katex/katex.min.js\'; $config[\'markup\'][] = array("/\[tex\](.+?)\[\/tex\]/ms", "<span class=\'tex\'>\$1</span>"); $config[\'additional_javascript\'][] = \'js/katex-enable.js\';' : '';
 			$user_flags = isset($_POST['user_flags']) ? "if (file_exists('$b/flags.php')) { include 'flags.php'; }\n" : '';
 			$captcha = isset($_POST['captcha']) ? 'true' : 'false';
+			$force_subject_op = isset($_POST['force_subject_op']) ? 'true' : 'false';
 
 
 $oekaki_js = <<<OEKAKI
@@ -482,6 +483,7 @@ OEKAKI;
 \$config['stylesheets']['Custom'] = 'board/$b.css';
 \$config['default_stylesheet'] = array('Custom', \$config['stylesheets']['Custom']);
 \$config['captcha']['enabled'] = $captcha;
+\$config['force_subject_op'] = $force_subject_op;
 $code_tags $katex $oekaki $replace $multiimage $allow_flash $allow_pdf $user_flags
 if (\$config['disable_images'])
 	\$config['max_pages'] = 10000;
