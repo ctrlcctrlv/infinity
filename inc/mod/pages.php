@@ -1151,7 +1151,7 @@ function mod_lock($board, $unlock, $post) {
 		$query->execute() or error(db_error($query));
 	}
 	
-	header('Location: ?/' . sprintf($config['board_path'], $board) . $config['file_index'], true, $config['redirect_http']);
+	header('Location: '. $_SERVER['HTTP_REFERER'], true, $config['redirect_http']);
 	
 	if ($unlock)
 		event('unlock', $post);
@@ -1178,7 +1178,7 @@ function mod_sticky($board, $unsticky, $post) {
 		buildIndex();
 	}
 	
-	header('Location: ?/' . sprintf($config['board_path'], $board) . $config['file_index'], true, $config['redirect_http']);
+	header('Location: '. $_SERVER['HTTP_REFERER'], true, $config['redirect_http']);
 }
 
 function mod_bumplock($board, $unbumplock, $post) {
@@ -1200,7 +1200,7 @@ function mod_bumplock($board, $unbumplock, $post) {
 		buildIndex();
 	}
 	
-	header('Location: ?/' . sprintf($config['board_path'], $board) . $config['file_index'], true, $config['redirect_http']);
+	header('Location: '. $_SERVER['HTTP_REFERER'], true, $config['redirect_http']);
 }
 
 function mod_move_reply($originBoard, $postID) { 
@@ -1679,6 +1679,13 @@ function mod_delete($board, $post) {
 	if (!hasPermission($config['mod']['delete'], $board))
 		error($config['error']['noaccess']);
 	
+	// Check if post is an OP
+	$query = prepare(sprintf('SELECT `thread` FROM ``posts_%s`` WHERE `id` = :id', $board));
+	$query->bindValue(':id', $post);
+	$query->execute() or error(db_error($query));
+	if (!$row = $query->fetch(PDO::FETCH_ASSOC))
+		error($config['error']['invalidpost']);
+		
 	// Delete post
 	deletePost($post);
 	// Record the action
@@ -1688,7 +1695,10 @@ function mod_delete($board, $post) {
 	// Rebuild themes
 	rebuildThemes('post-delete', $board);
 	// Redirect
-	header('Location: ?/' . sprintf($config['board_path'], $board) . $config['file_index'], true, $config['redirect_http']);
+	if ($row['thread'])
+		header('Location: '. $_SERVER['HTTP_REFERER'], true, $config['redirect_http']);
+	else
+		header('Location: ?/' . sprintf($config['board_path'], $board) . $config['file_index'], true, $config['redirect_http']);
 }
 
 function mod_deletefile($board, $post, $file) {
@@ -1711,7 +1721,7 @@ function mod_deletefile($board, $post, $file) {
 	rebuildThemes('post-delete', $board);
 	
 	// Redirect
-	header('Location: ?/' . sprintf($config['board_path'], $board) . $config['file_index'], true, $config['redirect_http']);
+	header('Location: '. $_SERVER['HTTP_REFERER'], true, $config['redirect_http']);
 }
 
 function mod_spoiler_image($board, $post, $file) {
@@ -1755,7 +1765,7 @@ function mod_spoiler_image($board, $post, $file) {
 	rebuildThemes('post-delete', $board);
 	   
 	// Redirect
-	header('Location: ?/' . sprintf($config['board_path'], $board) . $config['file_index'], true, $config['redirect_http']);
+	header('Location: '. $_SERVER['HTTP_REFERER'], true, $config['redirect_http']);
 }
 
 function mod_deletebyip($boardName, $post, $global = false) {
@@ -1773,10 +1783,10 @@ function mod_deletebyip($boardName, $post, $global = false) {
 		error($config['error']['noaccess']);
 	
 	// Find IP address
-	$query = prepare(sprintf('SELECT `ip` FROM ``posts_%s`` WHERE `id` = :id', $boardName));
+	$query = prepare(sprintf('SELECT `ip`, `thread` FROM ``posts_%s`` WHERE `id` = :id', $boardName));
 	$query->bindValue(':id', $post);
 	$query->execute() or error(db_error($query));
-	if (!$ip = $query->fetchColumn())
+	if (!$row = $query->fetch(PDO::FETCH_ASSOC))
 		error($config['error']['invalidpost']);
 	
 	$boards = $global ? listBoards() : array(array('uri' => $boardName));
@@ -1788,7 +1798,7 @@ function mod_deletebyip($boardName, $post, $global = false) {
 	$query = preg_replace('/UNION ALL $/', '', $query);
 	
 	$query = prepare($query);
-	$query->bindValue(':ip', $ip);
+	$query->bindValue(':ip', $row['ip']);
 	$query->execute() or error(db_error($query));
 	
 	if ($query->rowCount() < 1)
@@ -1825,10 +1835,14 @@ function mod_deletebyip($boardName, $post, $global = false) {
 	}
 	
 	// Record the action
-	modLog("Deleted all posts by IP address: <a href=\"?/IP/$ip\">$ip</a>");
+	modLog("Deleted all posts by IP address: <a href=\"?/IP/". $row['ip'] ."\">". $row['ip'] ."</a>");
 	
 	// Redirect
-	header('Location: ?/' . sprintf($config['board_path'], $boardName) . $config['file_index'], true, $config['redirect_http']);
+	if ($row['thread'])
+		header('Location: '. $_SERVER['HTTP_REFERER'], true, $config['redirect_http']);
+	else
+		header('Location: ?/' . sprintf($config['board_path'], $boardName) . $config['file_index'], true, $config['redirect_http']);
+		
 }
 
 function mod_user($uid) {
