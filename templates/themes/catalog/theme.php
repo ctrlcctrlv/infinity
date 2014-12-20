@@ -98,7 +98,8 @@
 				'recent_posts' => $recent_posts,
 				'stats' => $stats,
 				'board' => $board_name,
-				'link' => $config['root'] . $board['dir']
+				'link' => $config['root'] . $board['dir'],
+				'mod' => false
 			)));
 		}
 	};

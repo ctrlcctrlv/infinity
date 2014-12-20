@@ -12,7 +12,7 @@
 <body class="theme-catalog">
 	{{ boardlist.top }}
 	<header>
-		<h1>{{ settings.title }} (<a href="{{link}}">/{{ board }}/</a>)</h1>
+		<h1>{{ settings.title }} (<a href="{% if mod %}/mod.php?{% endif %}{{link}}">/{{ board }}/</a>)</h1>
 		<div class="subtitle">{{ settings.subtitle }}</div>
 	</header>
 
@@ -39,7 +39,7 @@
 				 data-time="{{ post.time }}"
 			>
                                 <div class="thread grid-li grid-size-small">  
-                                        <a href="{{post.link}}">  
+                                        <a href="{% if mod %}/mod.php?{% endif %}{{post.link}}">  
 						{% if post.youtube %}
 							<img src="https://img.youtube.com/vi/{{ post.youtube }}/0.jpg" 
 						{% else %}
