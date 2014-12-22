@@ -8,7 +8,7 @@
  *   $config['additional_javascript'][] = 'js/relative-time.js';
  */
 if (active_page == 'index' || active_page == 'thread') {
-	$(document).ready(function () {
+	onready(function () {
 		'use strict';
 
 		var selector, event_type;
