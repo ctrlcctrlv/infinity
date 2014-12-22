@@ -29,14 +29,16 @@ mb_internal_encoding('UTF-8');
 loadConfig();
 
 function init_locale($locale, $error='error') {
-	if (_setlocale(LC_ALL, $locale) === false) {
-		$error('The specified locale (' . $locale . ') does not exist on your platform!');
-	}
+	if ($locale === 'en') 
+		$locale = 'en_US.utf8';
+
 	if (extension_loaded('gettext')) {
+		setlocale(LC_ALL, $locale); 
 		bindtextdomain('tinyboard', './inc/locale');
 		bind_textdomain_codeset('tinyboard', 'UTF-8');
 		textdomain('tinyboard');
 	} else {
+		_setlocale(LC_ALL, $locale);
 		_bindtextdomain('tinyboard', './inc/locale');
 		_bind_textdomain_codeset('tinyboard', 'UTF-8');
 		_textdomain('tinyboard');
@@ -430,7 +432,8 @@ function setupBoard($array) {
 	$board = array(
 		'uri' => $array['uri'],
 		'title' => $array['title'],
-		'subtitle' => $array['subtitle']
+		'subtitle' => $array['subtitle'],
+		'indexed' => $array['indexed']
 	);
 
 	// older versions
@@ -680,7 +683,7 @@ function listBoards($just_uri = false, $indexed_only = false) {
 		return $boards;
 
 	if (!$just_uri) {
-		$query = query("SELECT ``boards``.`uri` uri, ``boards``.`title` title, ``boards``.`subtitle` subtitle, ``board_create``.`time` time, ``boards``.`indexed` indexed FROM ``boards``" . ( $indexed_only ? " WHERE `indexed` = 1 " : "" ) . "LEFT JOIN ``board_create`` ON ``boards``.`uri` = ``board_create``.`uri` ORDER BY ``boards``.`uri`") or error(db_error());
+		$query = query("SELECT ``boards``.`uri` uri, ``boards``.`title` title, ``boards``.`subtitle` subtitle, ``board_create``.`time` time, ``boards``.`indexed` indexed, ``boards``.`sfw` sfw FROM ``boards``" . ( $indexed_only ? " WHERE `indexed` = 1 " : "" ) . "LEFT JOIN ``board_create`` ON ``boards``.`uri` = ``board_create``.`uri` ORDER BY ``boards``.`uri`") or error(db_error());
 		$boards = $query->fetchAll(PDO::FETCH_ASSOC);
 	} else {
 		$boards = array();
@@ -1091,9 +1094,9 @@ function deletePost($id, $error_if_doesnt_exist=true, $rebuild_after=true) {
 		
 		if (!$post['thread']) {
 			// Delete thread HTML page
-			file_unlink($board['dir'] . $config['dir']['res'] . sprintf($config['file_page'], $post['id']));
-			file_unlink($board['dir'] . $config['dir']['res'] . sprintf($config['file_page50'], $post['id']));
-			file_unlink($board['dir'] . $config['dir']['res'] . sprintf('%d.json', $post['id']));
+			@file_unlink($board['dir'] . $config['dir']['res'] . sprintf($config['file_page'], $post['id']));
+			@file_unlink($board['dir'] . $config['dir']['res'] . sprintf($config['file_page50'], $post['id']));
+			@file_unlink($board['dir'] . $config['dir']['res'] . sprintf('%d.json', $post['id']));
 
 			$antispam_query = prepare('DELETE FROM ``antispam`` WHERE `board` = :board AND `thread` = :thread');
 			$antispam_query->bindValue(':board', $board['uri']);
@@ -1106,9 +1109,9 @@ function deletePost($id, $error_if_doesnt_exist=true, $rebuild_after=true) {
 		if ($post['files']) {
 			// Delete file
 			foreach (json_decode($post['files']) as $i => $f) {
-				if ($f->file !== 'deleted') {
-					file_unlink($config['dir']['img_root'] . $board['dir'] . $config['dir']['img'] . $f->file);
-					file_unlink($config['dir']['img_root'] . $board['dir'] . $config['dir']['thumb'] . $f->thumb);
+				if (isset($f->file, $f->thumb) && $f->file !== 'deleted') {
+					@file_unlink($config['dir']['img_root'] . $board['dir'] . $config['dir']['img'] . $f->file);
+					@file_unlink($config['dir']['img_root'] . $board['dir'] . $config['dir']['thumb'] . $f->thumb);
 				}
 			}
 		}
@@ -1329,22 +1332,25 @@ function getPages($mod=false) {
 
 // Stolen with permission from PlainIB (by Frank Usrs)
 function make_comment_hex($str) {
+	global $config;
 	// remove cross-board citations
 	// the numbers don't matter
-	$str = preg_replace('!>>>/[A-Za-z0-9]+/!', '', $str);
+	$str = preg_replace("!>>>/[A-Za-z0-9]+/!", '', $str);
 
-	if (function_exists('iconv')) {
-		// remove diacritics and other noise
-		// FIXME: this removes cyrillic entirely
-		$oldstr = $str;
-		$str = @iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $str);
-		if (!$str) $str = $oldstr;
+	if ($config['robot_enable']) {
+		if (function_exists('iconv')) {
+			// remove diacritics and other noise
+			// FIXME: this removes cyrillic entirely
+			$oldstr = $str;
+			$str = @iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $str);
+			if (!$str) $str = $oldstr;
+		}
+
+		$str = strtolower($str);
+
+		// strip all non-alphabet characters
+		$str = preg_replace('/[^a-z]/', '', $str);
 	}
-
-	$str = strtolower($str);
-
-	// strip all non-alphabet characters
-	$str = preg_replace('/[^a-z]/', '', $str);
 
 	return md5($str);
 }
@@ -1701,7 +1707,7 @@ function extract_modifiers($body) {
 	return $modifiers;
 }
 
-function markup(&$body, $track_cites = false) {
+function markup(&$body, $track_cites = false, $op = false) {
 	global $board, $config, $markup_urls;
 	
 	$modifiers = extract_modifiers($body);
@@ -1739,6 +1745,9 @@ function markup(&$body, $track_cites = false) {
 
 		if ($num_links > $config['max_links'])
 			error($config['error']['toomanylinks']);
+
+		if ($num_links < $config['min_links'] && $op)
+			error(sprintf($config['error']['notenoughlinks'], $config['min_links']));
 	}
 	
 	if ($config['markup_repair_tidy'])
@@ -2427,6 +2436,8 @@ function diceRoller($post) {
 }
 
 function less_ip($ip) {
+	global $config;
+
 	$ipv6 = (strstr($ip, ':') !== false);
 	$has_range = (strstr($ip, '/') !== false);
 
@@ -2446,7 +2457,15 @@ function less_ip($ip) {
 	}
 
 	$final = inet_ntop($in_addr & $mask);
-	return str_replace(array(':0', '.0'), array(':x', '.x'), $final) . (isset($range) ? '/'.$range : '');
+	$masked = str_replace(array(':0', '.0'), array(':x', '.x'), $final);
+
+	if ($config['hash_masked_ip']) {
+		$masked = substr(sha1(sha1($masked) . $config['secure_trip_salt']), 0, 10);
+	}
+
+	$masked .= (isset($range) ? '/'.$range : '');
+
+	return $masked;
 }
 
 function less_hostmask($hostmask) {

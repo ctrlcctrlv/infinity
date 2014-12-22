@@ -10,9 +10,16 @@ if (php_sapi_name() == 'fpm-fcgi' && !$admin) {
 	error('Cannot be run directly.');
 }
 $boards = listBoards();
-
+$all_tags = array();
 $total_posts_hour = 0;
 $total_posts = 0;
+
+function to_tag($str) {
+	$str = trim($str);
+	$str = strtolower($str);
+	$str = str_replace(['_', ' '], '-', $str);
+	return $str;
+}
 
 foreach ($boards as $i => $board) {
 
@@ -28,6 +35,23 @@ SELECT MAX(id) max, (SELECT COUNT(*) FROM ``posts_%s`` WHERE FROM_UNIXTIME(time)
 	$query->execute() or error(db_error($query));
 	$r = $query->fetch(PDO::FETCH_ASSOC);
 
+	$tquery = prepare("SELECT `tag` FROM ``board_tags`` WHERE `uri` = :uri");
+	$tquery->execute([":uri" => $board['uri']]) or error(db_error($tquery));
+	$r2 = $tquery->fetchAll(PDO::FETCH_ASSOC);
+
+	$tags = array();
+	if ($r2) {
+		foreach ($r2 as $ii => $t) {
+			$tag=to_tag($t['tag']);
+			$tags[] = $tag;
+			if (!isset($all_tags[$tag])) {
+				$all_tags[$tag] = (int)$r['uniq_ip'];
+			} else {
+				$all_tags[$tag] += $r['uniq_ip'];
+			}
+		}
+	}
+
 	$pph = $r['pph'];
 	$ppd = $r['ppd'];
 
@@ -38,6 +62,7 @@ SELECT MAX(id) max, (SELECT COUNT(*) FROM ``posts_%s`` WHERE FROM_UNIXTIME(time)
 	$boards[$i]['ppd'] = $ppd;
 	$boards[$i]['max'] = $r['max'];
 	$boards[$i]['uniq_ip'] = $r['uniq_ip'];
+	$boards[$i]['tags'] = $tags;
 }
 
 usort($boards, 
@@ -86,14 +111,18 @@ foreach ($boards as $i => &$board) {
 $n_boards = sizeof($boards);
 $t_boards = $hidden_boards_total + $n_boards;
 
+$boards = array_values($boards);
+arsort($all_tags);
+
 $config['additional_javascript'] = array('js/jquery.min.js', 'js/jquery.tablesorter.min.js');
-$body = Element("8chan/boards.html", array("config" => $config, "n_boards" => $n_boards, "t_boards" => $t_boards, "hidden_boards_total" => $hidden_boards_total, "total_posts" => $total_posts, "total_posts_hour" => $total_posts_hour, "boards" => $boards, "last_update" => date('r'), "uptime_p" => shell_exec('uptime -p')));
+$body = Element("8chan/boards-tags.html", array("config" => $config, "n_boards" => $n_boards, "t_boards" => $t_boards, "hidden_boards_total" => $hidden_boards_total, "total_posts" => $total_posts, "total_posts_hour" => $total_posts_hour, "boards" => $boards, "last_update" => date('r'), "uptime_p" => shell_exec('uptime -p'), 'tags' => $all_tags));
 
 $html = Element("page.html", array("config" => $config, "body" => $body, "title" => "Boards on &infin;chan"));
 if ($admin) {
 	echo $html;
 } else {
 	file_write("boards.json", json_encode($boards));
+	file_write("tags.json", json_encode($all_tags));
 	foreach ($boards as $i => $b) {
 		if (in_array($b['uri'], $config['no_top_bar_boards'])) {
 			unset($boards[$i]);

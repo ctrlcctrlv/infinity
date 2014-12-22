@@ -218,14 +218,8 @@ class Bans {
 			}
 			unset($ban['type']);
 			if ($filter_ips || ($board_access !== false && !in_array($ban['board'], $board_access))) {
-				@list($ban['mask'], $subnet) = explode("/", $ban['mask']);
-				$ban['mask'] = preg_split("/[\.:]/", $ban['mask']);
-				$ban['mask'] = array_slice($ban['mask'], 0, 2);
-				$ban['mask'] = implode(".", $ban['mask']);
-				$ban['mask'] .= ".x.x";
-				if (isset ($subnet)) {
-					$ban['mask'] .= "/$subnet";
-				}
+				$ban['mask'] = @less_ip($ban['mask']);
+
 				$ban['masked'] = true;
 			}
 

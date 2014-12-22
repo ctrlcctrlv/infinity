@@ -87,7 +87,7 @@
 			-webkit-box-sizing:border-box;\
 			-moz-box-sizing: border-box;\
 			font-size: 10pt;\
-			resize: vertical;\
+			resize: both;\
 		}\
 		#quick-reply input, #quick-reply select, #quick-reply textarea {\
 			margin: 0 0 1px 0;\
@@ -149,14 +149,14 @@
 						.removeAttr('size')
 						.attr('placeholder', $th.clone().children().remove().end().text());
 				}
-	
+
 				// Move anti-spam nonsense and remove <th>
 				$th.contents().filter(function() {
 					return this.nodeType == 3; // Node.TEXT_NODE
 				}).remove();
 				$th.contents().appendTo($dummyStuff);
 				$th.remove();
-	
+
 				if ($td.find('input[name="password"]').length) {
 					// Hide password field
 					$(this).hide();
@@ -280,7 +280,7 @@
 		
 		$postForm.find('textarea[name="body"]').removeAttr('id').removeAttr('cols').attr('placeholder', _('Comment'));
 	
-		$postForm.find('textarea:not([name="body"]),input[type="hidden"]').removeAttr('id').appendTo($dummyStuff);
+		$postForm.find('textarea:not([name="body"]),input[type="hidden"]:not(.captcha_cookie)').removeAttr('id').appendTo($dummyStuff);
 	
 		$postForm.find('br').remove();
 		$postForm.find('table').prepend('<tr><th colspan="2">\

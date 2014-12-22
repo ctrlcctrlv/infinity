@@ -5,7 +5,7 @@
 function postHandler($post) {
     global $board, $config;
 
-    if ($post->has_file) foreach ($post->files as &$file) if ($file->extension == 'webm') {
+    if ($post->has_file) foreach ($post->files as &$file) if ($file->extension == 'webm' || $file->extension == 'mp4') {
       if ($config['webm']['use_ffmpeg']) {
         require_once dirname(__FILE__) . '/ffmpeg.php';
         $webminfo = get_webm_info($file->file_path);
@@ -21,7 +21,7 @@ function postHandler($post) {
             $file = set_thumbnail_dimensions($post, $file);
             $tn_path = $board['dir'] . $config['dir']['thumb'] . $file->file_id . '.jpg';
 
-            if(false == make_webm_thumbnail($file->file_path, $tn_path, $file->thumbwidth, $file->thumbheight)) {
+            if(0 == make_webm_thumbnail($file->file_path, $tn_path, $file->thumbwidth, $file->thumbheight)) {
               $file->thumb = $file->file_id . '.jpg';
             }
             else {

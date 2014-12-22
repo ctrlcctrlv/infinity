@@ -689,7 +689,7 @@ msgstr ""
 msgid "You seem to have mistyped the verification."
 msgstr ""
 
-#. Moderator errors
+#. Volunteer errors
 #: ../../../../inc/config.php:906 ../../../../inc/config.php:1011
 #: ../../../../inc/config.php:1002 ../../../../inc/config.php:1004
 #: ../../../../inc/config.php:1006 ../../../../inc/config.php:1022
@@ -879,7 +879,7 @@ msgstr ""
 #: ../../../../inc/mod/pages.php:671 ../../../../inc/mod/pages.php:698
 #: ../../../../templates/cache/72/7e/271125664718133518fd942f20fb724224e100f8a0d47cb0b52f895ac12f.php:300
 #: ../../../../templates/cache/73/f8/5e3142a8a6f8d7e40422ff577e83b0dedf55a7cb9bc7082839b24f653545.php:75
-msgid "Moderation log"
+msgid "Volunteer log"
 msgstr ""
 
 #. line 104
@@ -3489,7 +3489,7 @@ msgid "There are no active posts."
 msgstr ""
 
 #: ../../../../templates/cache/ba/55/2553cc018aecf7d29a62331aec4bedc71b646817c7e4c4e7d1a885263676.php:49
-msgid "Show only bans from boards I moderate"
+msgid "Show only bans from boards I volunteer on"
 msgstr ""
 
 #: ../../../../templates/cache/ba/55/2553cc018aecf7d29a62331aec4bedc71b646817c7e4c4e7d1a885263676.php:55

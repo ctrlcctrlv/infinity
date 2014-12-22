@@ -495,7 +495,15 @@ function mod_new_board() {
 		if (openBoard($_POST['uri'])) {
 			error(sprintf($config['error']['boardexists'], $board['url']));
 		}
-		
+		foreach ($config['banned_boards'] as $i => $w) {
+			if ($w[0] !== '/') {
+				if (strpos($_POST['uri'],$w) !== false)
+					error(_("Cannot create board with banned word $w"));
+			} else {
+				if (preg_match($w,$_POST['uri']))
+					error(_("Cannot create board matching banned pattern $w"));
+			}
+		}
 		$query = prepare('INSERT INTO ``boards`` (``uri``, ``title``, ``subtitle``) VALUES (:uri, :title, :subtitle)');
 		$query->bindValue(':uri', $_POST['uri']);
 		$query->bindValue(':title', $_POST['title']);
@@ -625,7 +633,7 @@ function mod_news($page_no = 1) {
 		
 		rebuildThemes('news');
 		
-		header('Location: ?/news#' . $pdo->lastInsertId(), true, $config['redirect_http']);
+		header('Location: ?/edit_news#' . $pdo->lastInsertId(), true, $config['redirect_http']);
 	}
 	
 	$query = prepare("SELECT * FROM ``news`` ORDER BY `id` DESC LIMIT :offset, :limit");
@@ -638,14 +646,14 @@ function mod_news($page_no = 1) {
 		error($config['error']['404']);
 	
 	foreach ($news as &$entry) {
-		$entry['delete_token'] = make_secure_link_token('news/delete/' . $entry['id']);
+		$entry['delete_token'] = make_secure_link_token('edit_news/delete/' . $entry['id']);
 	}
 	
 	$query = prepare("SELECT COUNT(*) FROM ``news``");
 	$query->execute() or error(db_error($query));
 	$count = $query->fetchColumn();
 	
-	mod_page(_('News'), 'mod/news.html', array('news' => $news, 'count' => $count, 'token' => make_secure_link_token('news')));
+	mod_page(_('News'), 'mod/news.html', array('news' => $news, 'count' => $count, 'token' => make_secure_link_token('edit_news')));
 }
 
 function mod_news_delete($id) {
@@ -660,7 +668,7 @@ function mod_news_delete($id) {
 	
 	modLog('Deleted a news entry');
 	
-	header('Location: ?/news', true, $config['redirect_http']);
+	header('Location: ?/edit_news', true, $config['redirect_http']);
 }
 
 function mod_log($page_no = 1) {
@@ -1591,12 +1599,13 @@ function mod_edit_post($board, $edit_raw_html, $postID) {
 		error($config['error']['404']);
 	
 	if (isset($_POST['name'], $_POST['email'], $_POST['subject'], $_POST['body'])) {
+		$trip = isset($_POST['remove_trip']) ? ' `trip` = NULL,' : '';
 		if ($edit_raw_html)
-			$query = prepare(sprintf('UPDATE ``posts_%s`` SET `name` = :name, `email` = :email, `subject` = :subject, `body` = :body, `body_nomarkup` = :body_nomarkup, `edited_at` = NOW() WHERE `id` = :id', $board));
+			$query = prepare(sprintf('UPDATE ``posts_%s`` SET `name` = :name,'. $trip .' `email` = :email, `subject` = :subject, `body` = :body, `body_nomarkup` = :body_nomarkup, `edited_at` = NOW() WHERE `id` = :id', $board));
 		else
-			$query = prepare(sprintf('UPDATE ``posts_%s`` SET `name` = :name, `email` = :email, `subject` = :subject, `body_nomarkup` = :body, `edited_at` = NOW() WHERE `id` = :id', $board));
+			$query = prepare(sprintf('UPDATE ``posts_%s`` SET `name` = :name,'. $trip .' `email` = :email, `subject` = :subject, `body_nomarkup` = :body, `edited_at` = NOW() WHERE `id` = :id', $board));
 		$query->bindValue(':id', $postID);
-		$query->bindValue('name', $_POST['name']);
+		$query->bindValue(':name', $_POST['name'] ? $_POST['name'] : $config['anonymous']);
 		$query->bindValue(':email', $_POST['email']);
 		$query->bindValue(':subject', $_POST['subject']);
 		$query->bindValue(':body', $_POST['body']);
@@ -2987,6 +2996,9 @@ function mod_report_clean( $global_reports, $board, $unclean, $post, $global, $l
 		$log_action = ($unclean ? "Closed" : "Re-opened" );
 		$log_scope  = ($local && $global ? "local and global" : ($local ? "local" : "global" ) );
 		modLog( "{$log_action} reports for post #{$post} in {$log_scope}.", $board);
+		if ($config['cache']['enabled']) {
+			cache::delete("post_clean_{$board}_{$post}");
+		}
 		
 		rebuildPost( $post );
 	}

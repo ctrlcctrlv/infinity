@@ -49,7 +49,7 @@ if (isset($_POST['delete'])) {
 
 	// Check if deletion enabled
 	if (!$config['allow_delete'])
-		error(_('Post deletion is not allowed!'));
+		error(_('Users are not allowed to delete their own posts on this board.'));
 	
 	if (empty($delete))
 		error($config['error']['nodelete']);
@@ -232,15 +232,31 @@ elseif (isset($_POST['post'])) {
 		}
 	}
 
-	if (!(($post['op'] && $_POST['post'] == $config['button_newtopic']) ||
-		(!$post['op'] && $_POST['post'] == $config['button_reply'])))
+	// Same, but now with our custom captcha provider
+	if ($config['captcha']['enabled']) {
+		$resp = file_get_contents($config['captcha']['provider_check'] . "?" . http_build_query([
+			'mode' => 'check',
+			'text' => $_POST['captcha_text'],
+			'extra' => $config['captcha']['extra'],
+			'cookie' => $_POST['captcha_cookie']
+		]));
+
+		if ($resp !== '1') {
+                        error($config['error']['captcha'] .
+			'<script>if (actually_load_captcha !== undefined) actually_load_captcha("'.$config['captcha']['provider_get'].'", "'.$config['captcha']['extra'].'");</script>');
+		}
+	}
+
+	//if (!(($post['op'] && $_POST['post'] == $config['button_newtopic']) ||
+		//(!$post['op'] && $_POST['post'] == $config['button_reply'])))
 		//error($config['error']['bot']);
 	
 	// Check the referrer
 	if ($config['referer_match'] !== false &&
-		(!isset($_SERVER['HTTP_REFERER']) || !preg_match($config['referer_match'], rawurldecode($_SERVER['HTTP_REFERER']))))
+		(!isset($_SERVER['HTTP_REFERER']) || !preg_match($config['referer_match'], rawurldecode($_SERVER['HTTP_REFERER'])))) {
 		error($config['error']['referer']);
-	
+	}	
+
 	checkDNSBL();
 		
 	// Check if banned
@@ -378,9 +394,17 @@ elseif (isset($_POST['post'])) {
 	$post['has_file'] = (!isset($post['embed']) && (($post['op'] && !isset($post['no_longer_require_an_image_for_op']) && $config['force_image_op']) || !empty($_FILES['file']['name'])));
 	
 	if (!($post['has_file'] || isset($post['embed'])) || (($post['op'] && $config['force_body_op']) || (!$post['op'] && $config['force_body']))) {
-		$stripped_whitespace = preg_replace('/[\s]/u', '', $post['body']);
+		// http://stackoverflow.com/a/4167053
+		$stripped_whitespace = preg_replace('/^[\pZ\pC]+|[\pZ\pC]+$/u', '', $post['body']);
 		if ($stripped_whitespace == '') {
 			error($config['error']['tooshort_body']);
+		}
+	}
+
+	if ($config['force_subject_op'] && $post['op']) {
+		$stripped_whitespace = preg_replace('/^[\pZ\pC]+|[\pZ\pC]+$/u', '', $post['subject']);
+		if ($stripped_whitespace == '') {
+			error(_('It is required to enter a subject when starting a new thread on this board.'));
 		}
 	}
 	
@@ -507,6 +531,8 @@ elseif (isset($_POST['post'])) {
 		error(sprintf($config['error']['toolong'], 'subject'));
 	if (!$mod && mb_strlen($post['body']) > $config['max_body'])
 		error($config['error']['toolong_body']);
+	if (mb_strlen($post['body']) < $config['min_body'] && $post['op'])
+		error(_(sprintf('OP must be at least %d chars on this board.', $config['min_body'])));
 	if (mb_strlen($post['password']) > 20)
 		error(sprintf($config['error']['toolong'], 'password'));
 		
@@ -572,7 +598,7 @@ elseif (isset($_POST['post'])) {
 		}
 	}
 	
-	$post['tracked_cites'] = markup($post['body'], true);
+	$post['tracked_cites'] = markup($post['body'], true, $post['op']);
 
 	
 	
@@ -836,8 +862,10 @@ elseif (isset($_POST['post'])) {
 		bumpThread($post['thread']);
 	}
 	
-	buildThread($post['op'] ? $id : $post['thread']);
-	
+	$pid = $post['op'] ? $id : $post['thread'];
+
+	buildThread($pid);
+
 	if ($config['try_smarter'] && $post['op'])
 		$build_pages = range(1, $config['max_pages']);
 	

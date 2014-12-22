@@ -1,4 +1,4 @@
-﻿/*
+/*
  * thread-stats.js
  *   - Adds statistics of the thread below the posts area
  *   - Shows ID post count beside each postID on hover
@@ -8,8 +8,9 @@
  *   $config['additional_javascript'][] = 'js/thread-stats.js';
  */
 if (active_page == 'thread') {
+$(document).ready(function(){
 	//check if page uses unique ID
-    var IDsupport = ($('.poster_id').length > 0);
+	var IDsupport = ($('.poster_id').length > 0);
 	var thread_id = (document.location.pathname + document.location.search).split('/');
 	thread_id = thread_id[thread_id.length -1].split('+')[0].split('.')[0];
 	
@@ -49,9 +50,12 @@ if (active_page == 'thread') {
 				ids[opID] = 0;
 			}
 			ids[opID]++;
+			var cur = op.find('>.intro >.poster_id');
+			cur.find('+.posts_by_id').remove();
+			cur.after('<span class="posts_by_id"> ('+ ids[cur.text()] +')</span>');
 			replies.each(function(){
-				var cur = $(this).find('> .intro > .poster_id');
-				cur.find('+ .posts_by_id').remove();
+				cur = $(this).find('>.intro >.poster_id');
+				cur.find('+.posts_by_id').remove();
 				cur.after('<span class="posts_by_id"> ('+ ids[cur.text()] +')</span>');
 			});
 			var size = function(obj) {
@@ -64,7 +68,7 @@ if (active_page == 'thread') {
 			$('#thread_stats_uids').text(size(ids));
 		}
 		$.getJSON('//'+ document.location.host +'/'+ board_name +'/threads.json').success(function(data){
-			var found, page = 'Pruned or Deleted';
+			var found, page = '???';
 			for (var i=0;data[i];i++){
 				var threads = data[i].threads;
 				for (var j=0; threads[j]; j++){
@@ -78,13 +82,14 @@ if (active_page == 'thread') {
 			}
 			$('#thread_stats_page').text(page);
 			if (!found) $('#thread_stats_page').css('color','red');
+			else $('#thread_stats_page').css('color','');
 		});
 	}
 	// load the current page the thread is on.
 	// uses ajax call so it gets loaded on a delay (depending on network resources available)
 	var thread_stats_page_timer = setInterval(function(){
 		$.getJSON('//'+ document.location.host +'/'+ board_name +'/threads.json').success(function(data){
-			var found, page = 'Pruned or Deleted';
+			var found, page = '???';
 			for (var i=0;data[i];i++){
 				var threads = data[i].threads;
 				for (var j=0; threads[j]; j++){
@@ -98,12 +103,12 @@ if (active_page == 'thread') {
 			}
 			$('#thread_stats_page').text(page);
 			if (!found) $('#thread_stats_page').css('color','red');
+			else $('#thread_stats_page').css('color','');
 		});
 	},30000);
-	$(document).ready(function(){
 		$('body').append('<style>.posts_by_id{display:none;}.poster_id:hover+.posts_by_id{display:initial}</style>');
 		update_thread_stats();
 		$('#update_thread').click(update_thread_stats);
 		$(document).on('new_post',update_thread_stats);
-	});
+});
 }

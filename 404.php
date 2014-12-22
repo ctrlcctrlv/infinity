@@ -1,6 +1,7 @@
 <?php
 
-include "inc/functions.php";
+require_once "inc/functions.php";
+header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found");
 
 $dir = "static/404/";
 
@@ -35,8 +36,8 @@ $page = <<<EOT
 				var faves = JSON.parse(localStorage.favorites);
 
 				$.each(faves, function(k, v) {
-					if (window.location.pathname === '/' + v + '/') {
-						faves.pop(v);
+					if ((window.location.pathname === '/' + v + '/') || (window.location.pathname === '/' + v)) {
+						faves.splice(k, 1);
 						localStorage.favorites = JSON.stringify(faves);
 
 						alert('As /' + v + '/ no longer exists, it has been removed from your favorites.');

@@ -29,6 +29,7 @@
 		<tr><th>{% trans %}Forced anonymous{% endtrans %}</th><td><input type="checkbox" name="field_disable_name" {% if config.field_disable_name %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}YouTube/Voocaroo embedding{% endtrans %}</th><td><input type="checkbox" name="enable_embedding" {% if config.enable_embedding %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Require image for OP{% endtrans %}</th><td><input type="checkbox" name="force_image_op" {% if config.force_image_op %}checked{% endif %}></td></tr>
+		<tr><th>{% trans %}Require subject for OP{% endtrans %}</th><td><input type="checkbox" name="force_subject_op" {% if config.force_subject_op %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Disable images{% endtrans %}</th><td><input type="checkbox" name="disable_images" {% if config.disable_images %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Poster ID's{% endtrans %}</th><td><input type="checkbox" name="poster_ids" {% if config.poster_ids %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Display SAGE! after saged posts{% endtrans %}</th><td><input type="checkbox" name="show_sages" {% if config.show_sages %}checked{% endif %}></td></tr>
@@ -44,6 +45,7 @@
 		<tr><th>{% trans %}Enable dice rolling{% endtrans %}</th><td><input type="checkbox" name="allow_roll" {% if config.allow_roll %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Don't allow users to repost images{% endtrans %}</th><td><input type="checkbox" name="image_reject_repost" {% if config.image_reject_repost %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Allow a poster to delete his own posts{% endtrans %}</th><td><input type="checkbox" name="allow_delete" {% if config.allow_delete %}checked{% endif %}></td></tr>
+		<tr><th>{% trans %}Enable CAPTCHA{% endtrans %}<br/><span class="unimportant">This is not ReCAPTCHA, it is custom to 8chan</span></th><td><input type="checkbox" name="captcha" {% if config.captcha.enabled %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Language{% endtrans %}<br/><span class="unimportant">{% trans %}To contribute translations, register at <a href="https://www.transifex.com/projects/p/tinyboard-vichan-devel/">Transifex</a>{% endtrans %}</span></th><td>
 		<select name="locale">
 			<option value="en" {% if "en" == config.locale %}selected{% endif %}>en</option>
@@ -59,6 +61,7 @@
 	<p style="text-align:center"><a href="?/banners/{{board.uri}}">{% trans %}Edit board banners{% endtrans %}</a></p>
 	<p style="text-align:center"><a href="?/flags/{{board.uri}}">{% trans %}Edit board flags{% endtrans %}</a></p>
 	<p style="text-align:center"><a href="?/volunteers/{{board.uri}}">{% trans %}Edit board volunteers{% endtrans %}</a></p>
+	<p style="text-align:center"><a href="?/tags/{{board.uri}}">{% trans %}Edit board tags{% endtrans %}</a></p>
 
 	<table>
 		<tr><th>{% trans %}Default poster name{% endtrans %}</th><td><input type="text" name="anonymous" value="{{config.anonymous|e}}"></td></tr>

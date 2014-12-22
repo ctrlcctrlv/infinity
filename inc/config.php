@@ -272,6 +272,8 @@
 		'embed',
 		'recaptcha_challenge_field',
 		'recaptcha_response_field',
+		'captcha_cookie',
+		'captcha_text',
 		'spoiler',
 		'page',
 		'file_url',
@@ -299,6 +301,19 @@
 	// Public and private key pair from https://www.google.com/recaptcha/admin/create
 	$config['recaptcha_public'] = '6LcXTcUSAAAAAKBxyFWIt2SO8jwx4W7wcSMRoN3f';
 	$config['recaptcha_private'] = '6LcXTcUSAAAAAOGVbVdhmEM1_SyRF4xTKe8jbzf_';
+
+	$config['captcha'] = array();
+
+	// Enable custom captcha provider
+	$config['captcha']['enabled'] = false;
+
+	// Custom captcha provider path
+	$config['captcha']['provider_get']   = 'http://8chan.vichan.net/captcha/entrypoint.php';
+	$config['captcha']['provider_check'] = 'http://8chan.vichan.net/captcha/entrypoint.php';
+
+	// Custom captcha extra field (eg. charset)
+	$config['captcha']['extra'] = 'abcdefghijklmnopqrstuvwxyz';
+
 
 	/*
 	 * Custom filters detect certain posts and reject/ban accordingly. They are made up of a condition and an
@@ -602,6 +617,17 @@
 
 	// How many ban appeals can be made for a single ban?
 	$config['ban_appeals_max'] = 1;
+	
+	// Blacklisted board names. Default values to protect existing folders in the core codebase.
+	$config['banned_boards'] = array(
+		'.git',
+		'inc',
+		'js',
+		'static',
+		'stylesheets',
+		'templates',
+		'tools'
+	);
 
 	// Show moderator name on ban page.
 	$config['show_modname'] = false;
@@ -727,7 +753,6 @@
 	// Allowed image file extensions.
 	$config['allowed_ext'][] = 'jpg';
 	$config['allowed_ext'][] = 'jpeg';
-	$config['allowed_ext'][] = 'bmp';
 	$config['allowed_ext'][] = 'gif';
 	$config['allowed_ext'][] = 'png';
 	// $config['allowed_ext'][] = 'svg';
@@ -745,6 +770,7 @@
 	$config['file_icons']['default'] = 'file.png';
 	$config['file_icons']['zip'] = 'zip.png';
 	$config['file_icons']['webm'] = 'video.png';
+	$config['file_icons']['mp4'] = 'video.png';
 	// Example: Custom thumbnail for certain file extension.
 	// $config['file_icons']['extension'] = 'some_file.png';
 
@@ -858,7 +884,7 @@
 	$config['thread_subject_in_title'] = false;
 
 	// Additional lines added to the footer of all pages.
-	$config['footer'][] = _('All trademarks, copyrights, comments, and images on this page are owned by and are the responsibility of their respective parties.');
+	// $config['footer'][] = _('All trademarks, copyrights, comments, and images on this page are owned by and are the responsibility of their respective parties.');
 
 	// Characters used to generate a random password (with Javascript).
 	$config['genpassword_chars'] = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+';
@@ -1057,6 +1083,7 @@
 	$config['error']['youaremuted']		= _('You are muted! Expires in %d seconds.');
 	$config['error']['dnsbl']		= _('Your IP address is listed in %s.');
 	$config['error']['toomanylinks']	= _('Too many links; flood detected.');
+	$config['error']['notenoughlinks']	= _('OPs are required to have at least %d links on this board.');
 	$config['error']['toomanycites']	= _('Too many cites; post discarded.');
 	$config['error']['toomanycross']	= _('Too many cross-board links; post discarded.');
 	$config['error']['nodelete']		= _('You didn\'t select anything to delete.');
@@ -1326,8 +1353,8 @@
 	// Capcode permissions.
 	$config['mod']['capcode'] = array(
 	//	JANITOR		=> array('Janitor'),
-		MOD		=> array('Mod'),
-		ADMIN		=> true
+		MOD				=> array('Mod'),
+		ADMIN			=> true
 	);
 
 	// Example: Allow mods to post with "## Moderator" as well
@@ -1410,7 +1437,7 @@
 	$config['mod']['view_banlist'] = MOD;
 	// View the username of the mod who made a ban
 	$config['mod']['view_banstaff'] = MOD;
-	// If the moderator doesn't fit the $config['mod']['view_banstaff''] (previous) permission, show him just
+	// If the moderator doesn't fit the $config['mod']['view_banstaff'] (previous) permission, show him just
 	// a "?" instead. Otherwise, it will be "Mod" or "Admin".
 	$config['mod']['view_banquestionmark'] = false;
 	// Show expired bans in the ban list (they are kept in cache until the culprit returns)
@@ -1654,10 +1681,17 @@
 
 	// Regex for board URIs. Don't add "`" character or any Unicode that MySQL can't handle. 58 characters
 	// is the absolute maximum, because MySQL cannot handle table names greater than 64 characters.
-	$config['board_regex'] = '[0-9a-zA-Z$_\x{0080}-\x{FFFF}]{1,58}';
+	$config['board_regex'] = '[0-9a-zA-Z\+$_\x{0080}-\x{FFFF}]{1,58}';
 
 	// Youtube.js embed HTML code
 	$config['youtube_js_html'] = '<div class="video-container" data-video="$1" data-params="&$2&$3">'.
 		'<a href="$0" target="_blank" class="file">'.
 		'<img style="width:360px;height:270px;" src="//img.youtube.com/vi/$1/0.jpg" class="post-image"/>'.
 		'</a></div>';
+
+	// Use read.php?
+	// read.php is a file that dynamically displays pages to users instead of the build on demand system in use in Tinyboard since 2010.
+	//
+	// read.php is basically a watered down mod.php -- if coupled with caching, it improves performance and allows for easier replication
+	// across machines.
+	$config['use_read_php'] = false;
