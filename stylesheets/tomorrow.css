@@ -145,14 +145,6 @@ div#watchlist a:hover,a.watchThread:hover {
 }
 
 /* Remove the following parts if those annoy you */
-/* Youtube borders */
-div.video-container img.post-image {
-  background-color:#000;
-  border-color:#fff;
-  border-width:2px;
-  border-style:none dotted none;
-  padding:0
-}
 /* Keep small thumbnails in replies */
 .post.reply a:not([data-expanded="true"]) .post-image{
   width:auto!important;
