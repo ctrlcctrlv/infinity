@@ -1,13 +1,13 @@
-8chan - The infinitely expanding imageboard.
+infinity
 ========================================================
 
 About
 ------------
-8chan is a fork of vichan, with the difference that 8chan is geared towards allowing users to create their own boards.
+infinity is a fork of vichan, with the difference that 8chan is geared towards allowing users to create their own boards. A running instance is at https://8chan.co.
 
-Most things (other than installation) that apply to upstream vichan also apply to 8chan. See their readme for a detailed FAQ: https://github.com/vichan-devel/vichan/blob/master/README.md
+Most things (other than installation) that apply to upstream vichan also apply to infinity. See their readme for a detailed FAQ: https://github.com/vichan-devel/vichan/blob/master/README.md
 
-If you are not interested in letting your users make their own boards, install vichan instead of 8chan.
+If you are not interested in letting your users make their own boards, install vichan instead of infinity.
 
 Because I cannot be bothered to maintain `install.php`, the install process is as such:
 
