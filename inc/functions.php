@@ -1707,6 +1707,10 @@ function extract_modifiers($body) {
 	return $modifiers;
 }
 
+function remove_modifiers($body) {
+	return preg_replace('@<tinyboard ([\w\s]+)>(.+?)</tinyboard>@usm', '', $body);
+}
+
 function markup(&$body, $track_cites = false, $op = false) {
 	global $board, $config, $markup_urls;
 	
