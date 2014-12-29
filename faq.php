@@ -34,6 +34,9 @@ $body = <<<EOT
 <h2>How do I contact the admin?</h2>
 <p>The admin can be reached at <tt>admin at 8chan dot co</tt>.</p>
 
+<h2>What's your privacy policy?</h2>
+<p>Find it <a href="/privacy.pdf">here</a>.</p>
+
 <h2>Help! My board has been deleted!</h2>
 <p>As of November 13th, 2014, board expiration no longer occurs.</p>
 
@@ -66,10 +69,13 @@ $body = <<<EOT
 </ul>
 
 <h2>How are featured boards chosen?</h2>
-<p>Top fifteen boards excluding /meta/, /b/ and /news+/.</p>
+<p>Top twenty-five boards excluding /meta/, /b/ and /news+/.</p>
 
-<h2>Who owns /meta/ and /b/?</h2>
+<h2>Who owns /meta/, /b/ and /news+/?</h2>
 <p>No one, so they are <em>de facto</em> property of the administration.</p>
+
+<h2>Why does <a href="https://8chan.co/banned">https://8chan.co/banned</a> say that I'm banned? I can still use the boards?</h2>
+<p>8chan is centered around user created boards. That's a board with CSS that makes it look like the ban page, not an official page. You've been tricked. 8chan.co has no official ban check page.</p>
 
 <h2>Where's the mobile app?</h2>
 <p>There is no official mobile app, however there is an unofficial Android app at <a href="https://github.com/wingy/Exodus/releases">wingy/Exodus</a>.</p>
