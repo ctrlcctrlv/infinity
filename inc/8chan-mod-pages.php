@@ -398,6 +398,7 @@ FLAGS;
 			$auto_unicode = isset($_POST['auto_unicode']) ? 'true' : 'false';
 			$allow_roll = isset($_POST['allow_roll']) ? 'true' : 'false';
 			$image_reject_repost = isset($_POST['image_reject_repost']) ? 'true' : 'false';
+			$early_404 = isset($_POST['early_404']) ? 'true' : 'false';
 			$allow_delete = isset($_POST['allow_delete']) ? 'true' : 'false';
 			$allow_flash = isset($_POST['allow_flash']) ? '$config[\'allowed_ext_files\'][] = \'swf\';' : '';
 			$allow_pdf = isset($_POST['allow_pdf']) ? '$config[\'allowed_ext_files\'][] = \'pdf\';' : '';
@@ -406,6 +407,7 @@ FLAGS;
 			$user_flags = isset($_POST['user_flags']) ? "if (file_exists('$b/flags.php')) { include 'flags.php'; }\n" : '';
 			$captcha = isset($_POST['captcha']) ? 'true' : 'false';
 			$force_subject_op = isset($_POST['force_subject_op']) ? 'true' : 'false';
+			
 
 
 $oekaki_js = <<<OEKAKI
@@ -440,14 +442,28 @@ OEKAKI;
 			$replace = '';
 
 			if (isset($_POST['replace'])) {
+				if (sizeof($_POST['replace']) > 200 || sizeof($_POST['with']) > 200) {
+					error(_('Sorry, max 200 wordfilters allowed.'));
+				}
 				if (count($_POST['replace']) == count($_POST['with'])) {
 					foreach ($_POST['replace'] as $i => $r ) {
 						if ($r !== '') {
 							$w = $_POST['with'][$i];
+							
+							if (strlen($w) > 255) {
+								error(sprintf(_('Sorry, %s is too long. Max replacement is 255 characters', utf8tohtml($w))));
+							}
+
 							$replace .= '$config[\'wordfilters\'][] = array(base64_decode(\'' . base64_encode($r) . '\'), base64_decode(\'' . base64_encode($w) . '\'));';
 						}
 					}
 				}
+			}
+
+			if (isset($_POST['hour_max_threads']) && in_array($_POST['hour_max_threads'], ['10', '25', '50', '100'])) {
+				$hour_max_threads = $_POST['hour_max_threads'];	
+			} else {
+				$hour_max_threads = 'false';
 			}
 
 			if (!(strlen($title) < 40))
@@ -477,6 +493,7 @@ OEKAKI;
 \$config['auto_unicode'] = $auto_unicode;
 \$config['allow_roll'] = $allow_roll;
 \$config['image_reject_repost'] = $image_reject_repost;
+\$config['early_404'] = $early_404;
 \$config['allow_delete'] = $allow_delete;
 \$config['anonymous'] = base64_decode('$anonymous');
 \$config['blotter'] = base64_decode('$blotter');
@@ -484,6 +501,7 @@ OEKAKI;
 \$config['default_stylesheet'] = array('Custom', \$config['stylesheets']['Custom']);
 \$config['captcha']['enabled'] = $captcha;
 \$config['force_subject_op'] = $force_subject_op;
+\$config['hour_max_threads'] = $hour_max_threads;
 $code_tags $katex $oekaki $replace $multiimage $allow_flash $allow_pdf $user_flags
 if (\$config['disable_images'])
 	\$config['max_pages'] = 10000;
@@ -529,6 +547,7 @@ EOT;
 			file_write($b.'/rules.txt', $_POST['rules']);
 
 			$_config = $config;
+			unset($config['wordfilters']);
 
 			// Faster than openBoard and bypasses cache...we're trusting the PHP output
 			// to be safe enough to run with every request, we can eval it here.
@@ -560,10 +579,6 @@ EOT;
 		$rules = @file_get_contents($board['uri'] . '/rules.txt');
 		$css = @file_get_contents('stylesheets/board/' . $board['uri'] . '.css');
 	
-		openBoard($b);
-
-		rebuildThemes('bans');
-
 		if ($config['cache']['enabled']) 
 			cache::delete('board_' . $board['uri']);
 			cache::delete('all_boards');

@@ -160,7 +160,6 @@
 
 	$config['footer'][] = 'All posts on 8chan.co are the responsibility of the individual poster and not the administration of 8chan.co, pursuant to 47 U.S.C. &sect; 230.';
 	$config['footer'][] = 'We have not been served any secret court orders and are not under any gag orders.';
-	$config['footer'][] = 'Contribute to 8chan.co development at <a href="https://github.com/ctrlcctrlv/8chan">github</a>';
 	$config['footer'][] = 'To make a DMCA request or report illegal content, please email <a href="mailto:admin@8chan.co">admin@8chan.co</a>.';
 
 	$config['search']['enable'] = true;
@@ -168,6 +167,27 @@
 	$config['syslog'] = true;
 
 	$config['wordfilters'][] = array('\rule', ''); // 'true' means it's a regular expression
+
+	$config['hour_max_threads'] = false;
+	$config['filters'][] = array(
+		'condition' => array(
+			'custom' => function($post) {
+				global $config, $board;
+				if (!$config['hour_max_threads']) return false;
+
+				if ($post['op']) {
+					$query = prepare(sprintf('SELECT COUNT(*) AS `count` FROM ``posts_%s`` WHERE `thread` IS NULL AND FROM_UNIXTIME(`time`) > DATE_SUB(NOW(), INTERVAL 1 HOUR);', $board['uri']));
+					$query->bindValue(':ip', $_SERVER['REMOTE_ADDR']);
+					$query->execute() or error(db_error($query));
+					$r = $query->fetch(PDO::FETCH_ASSOC);
+
+					return ($r['count'] > $config['hour_max_threads']);
+				}
+			}	
+		),
+		'action' => 'reject',
+		'message' => sprintf(_('On this board, to prevent raids only %d threads can be made per hour. Please try again later, or post in an existing thread.'), $config['hour_max_threads'])
+	);
 
 
 	$config['embedding'] = array(
@@ -202,6 +222,11 @@ $config['hash_masked_ip'] = true;
 $config['force_subject_op'] = false;
 $config['min_links'] = 0;
 $config['min_body'] = 0;
+$config['early_404'] = false;
+$config['early_404_page'] = 5;
+$config['early_404_replies'] = 10;
+$config['cron_bans'] = true;
+$config['mask_db_error'] = true;
 // 8chan specific mod pages
 require '8chan-mod-pages.php';
 	

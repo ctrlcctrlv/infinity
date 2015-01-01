@@ -149,7 +149,11 @@ function query($query) {
 }
 
 function db_error($PDOStatement = null) {
-	global $pdo, $db_error;
+	global $pdo, $db_error, $config;
+
+	if ($config['mask_db_error']) {
+		return _('The database returned an error while processing your request. Please try again later.');
+	}
 
 	if (isset($PDOStatement)) {
 		$db_error = $PDOStatement->errorInfo();

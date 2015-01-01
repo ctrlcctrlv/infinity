@@ -218,6 +218,11 @@ elseif (isset($_POST['post'])) {
 	if (!openBoard($post['board']))
 		error($config['error']['noboard']);
 
+	checkDNSBL();
+		
+	// Check if banned
+	checkBan($board['uri']);
+
 	// Check for CAPTCHA right after opening the board so the "return" link is in there
 	if ($config['recaptcha']) {
 		if (!isset($_POST['recaptcha_challenge_field']) || !isset($_POST['recaptcha_response_field']))
@@ -257,13 +262,9 @@ elseif (isset($_POST['post'])) {
 		error($config['error']['referer']);
 	}	
 
-	checkDNSBL();
-		
-	// Check if banned
-	checkBan($board['uri']);
-
 	if ($post['mod'] = isset($_POST['mod']) && $_POST['mod']) {
 		require 'inc/mod/auth.php';
+		check_login(false);
 		if (!$mod) {
 			// Liar. You're not a mod.
 			error($config['error']['notamod']);

@@ -1158,11 +1158,26 @@ function clean() {
 	// I too wish there was an easier way of doing this...
 	$query = prepare(sprintf("SELECT `id` FROM ``posts_%s`` WHERE `thread` IS NULL ORDER BY `sticky` DESC, `bump` DESC LIMIT :offset, 9001", $board['uri']));
 	$query->bindValue(':offset', $offset, PDO::PARAM_INT);
-
 	$query->execute() or error(db_error($query));
+
 	while ($post = $query->fetch(PDO::FETCH_ASSOC)) {
 		deletePost($post['id'], false, false);
 	}
+
+	// Bump off threads with X replies earlier, spam prevention method
+	if ($config['early_404']) {
+		$offset = round($config['early_404_page']*$config['threads_per_page']);
+		$query = prepare(sprintf("SELECT `id` AS `thread_id`, (SELECT COUNT(`id`) FROM ``posts_%s`` WHERE `thread` = `thread_id`) AS `reply_count` FROM ``posts_%s`` WHERE `thread` IS NULL ORDER BY `sticky` DESC, `bump` DESC LIMIT :offset, 9001", $board['uri'], $board['uri']));
+		$query->bindValue(':offset', $offset, PDO::PARAM_INT);
+		$query->execute() or error(db_error($query));
+		
+		while ($post = $query->fetch(PDO::FETCH_ASSOC)) {
+			if ($post['reply_count'] < $config['early_404_replies']) {
+				deletePost($post['thread_id'], false, false);
+			}
+		}
+	}
+
 }
 
 function thread_find_page($thread) {

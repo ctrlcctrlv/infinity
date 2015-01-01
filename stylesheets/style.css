@@ -98,6 +98,7 @@ input[type="text"],input[type="password"],textarea {
   text-transform: none;
   word-spacing: normal;
   max-width: 75%;
+  font-size: inherit;
 }
 
 #quick-reply input[type="text"], input[type="password"], #quick-reply textarea {
@@ -858,7 +859,7 @@ pre {
 
 #options_div {
   width: 600px;
-  height: 320px;
+  height: 360px;
 }
 
 #alert_div {
@@ -938,6 +939,10 @@ pre {
   width: 100%;
   height: 100%;
   margin-top: 0px;
+}
+
+.mentioned {
+  word-wrap: break-word;
 }
 
 .poster_id {
