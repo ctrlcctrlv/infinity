@@ -3,7 +3,7 @@ infinity
 
 About
 ------------
-infinity is a fork of vichan, with the difference that 8chan is geared towards allowing users to create their own boards. A running instance is at https://8chan.co.
+infinity is a fork of vichan, with the difference that infinity is geared towards allowing users to create their own boards. A running instance is at https://8chan.co.
 
 Most things (other than installation) that apply to upstream vichan also apply to infinity. See their readme for a detailed FAQ: https://github.com/vichan-devel/vichan/blob/master/README.md
 
@@ -12,8 +12,8 @@ If you are not interested in letting your users make their own boards, install v
 Because I cannot be bothered to maintain `install.php`, the install process is as such:
 
 ```
-mysql -uroot 8chan < install.sql
-echo '8chan' > .installed
+mysql -uroot infinity < install.sql
+echo 'infinity' > .installed
 ```
 
 Here's my install script as of 11/14/2014 for the 8chan servers which run Ubuntu 14.04:
