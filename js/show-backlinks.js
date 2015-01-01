@@ -41,7 +41,8 @@ onready(function(){
 			
 			var $link = $('<a class="mentioned-' + reply_id + '" onclick="highlightReply(\'' + reply_id + '\');" href="#' + reply_id + '">&gt;&gt;' +
 				reply_id + '</a>');
-			$link.appendTo($mentioned)
+			$link.appendTo($mentioned);
+			$link.after(" ");
 			
 			if (window.init_hover) {
 				$link.each(init_hover);
