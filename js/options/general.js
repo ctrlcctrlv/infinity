@@ -15,6 +15,9 @@
 var tab = Options.add_tab("general", "home", _("General"));
 
 $(function(){
+  var help = $("<div><em>"+_("Note: Most option changes will only take effect on future page loads.")+"</em></div>");
+  help.appendTo(tab.content);
+
   var stor = $("<div>"+_("Storage: ")+"</div>");
   stor.appendTo(tab.content);
 
