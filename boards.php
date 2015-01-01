@@ -130,7 +130,7 @@ if ($admin) {
 		unset($boards[$i]['img']);
 	}
 
-	array_splice($boards, 20);
+	array_splice($boards, 48);
 
 	$boards = array_values($boards);
 
