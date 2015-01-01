@@ -202,6 +202,11 @@ $config['hash_masked_ip'] = true;
 $config['force_subject_op'] = false;
 $config['min_links'] = 0;
 $config['min_body'] = 0;
+$config['early_404'] = false;
+$config['early_404_page'] = 5;
+$config['early_404_replies'] = 10;
+$config['cron_bans'] = true;
+$config['mask_db_error'] = true;
 // 8chan specific mod pages
 require '8chan-mod-pages.php';
 	
