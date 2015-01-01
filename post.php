@@ -264,6 +264,7 @@ elseif (isset($_POST['post'])) {
 
 	if ($post['mod'] = isset($_POST['mod']) && $_POST['mod']) {
 		require 'inc/mod/auth.php';
+		check_login(false);
 		if (!$mod) {
 			// Liar. You're not a mod.
 			error($config['error']['notamod']);

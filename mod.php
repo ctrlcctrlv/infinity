@@ -8,18 +8,7 @@ require 'inc/functions.php';
 require 'inc/mod/pages.php';
 require 'inc/mod/auth.php';
 
-if ($config['debug'])
-	$parse_start_time = microtime(true);
-
-// Fix for magic quotes
-if (get_magic_quotes_gpc()) {
-	function strip_array($var) {
-		return is_array($var) ? array_map('strip_array', $var) : stripslashes($var);
-	}
-	
-	$_GET = strip_array($_GET);
-	$_POST = strip_array($_POST);
-}
+check_login(true);
 
 $query = isset($_SERVER['QUERY_STRING']) ? rawurldecode($_SERVER['QUERY_STRING']) : '';
 
