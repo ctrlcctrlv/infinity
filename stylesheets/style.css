@@ -98,6 +98,7 @@ input[type="text"],input[type="password"],textarea {
   text-transform: none;
   word-spacing: normal;
   max-width: 75%;
+  font-size: inherit;
 }
 
 #quick-reply input[type="text"], input[type="password"], #quick-reply textarea {
