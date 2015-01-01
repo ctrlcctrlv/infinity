@@ -26,9 +26,16 @@ if (count($files) == 0) {
 	$errorimage = $files[array_rand($files)];
 }
 
+if (preg_match('!'.$config['board_regex'].'/'.$config['dir']['res'].'\d+\.html!u', $_SERVER['REQUEST_URI'])) {
+	$return_link = '<a href="../index.html">[ Return ]</a>';
+} else {
+	$return_link = '';
+}
+
 $page = <<<EOT
 		<div class="ban">
 			<p style="text-align:center"><img src="/static/404/{$errorimage}" style="width:100%"></p>
+			<p style="text-align:center"><a href="/index.html">[ Home ]</a>{$return_link}</p>
 		</div>
 
 		<script type="text/javascript">
