@@ -520,7 +520,7 @@ EOT;
 
 			preg_match_all("#$match_urls#im", $clean_css, $matched);
 			
-			$allowed_urls = array('https://i.imgur.com/', 'https://media.8chan.co/', 'https://a.pomf.se/', 'https://fonts.googleapis.com/', 'http://8ch.net/');
+			$allowed_urls = array('https://i.imgur.com/', 'https://media.8chan.co/', 'https://a.pomf.se/', 'https://fonts.googleapis.com/', 'https://fonts.gstatic.com/', 'http://8ch.net/', 'https://8chan.co/');
 			$error = false;
 
 			if (isset($matched[0])) {
