@@ -521,22 +521,19 @@ EOT;
 			preg_match_all("#$match_urls#im", $clean_css, $matched);
 			
 			$allowed_urls = array('https://i.imgur.com/', 'https://media.8chan.co/', 'https://a.pomf.se/', 'https://fonts.googleapis.com/', 'https://fonts.gstatic.com/', 'http://8ch.net/', 'https://8chan.co/');
-			$error = false;
 
 			if (isset($matched[0])) {
-				foreach ($matched[0] as $i => $v) {
-					$error = true;
-					foreach ($allowed_urls as $ii => $url) {
-						if (strpos($v, $url) === 0) {
-							$error = false;
-							break;
+				foreach ($matched[0] as $match) {
+					$match_okay = false;
+					foreach ($allowed_urls as $allowed_url) {
+						if (strpos($match, $allowed_url) !== false) {
+							$match_okay = true;
 						}
 					}
+					if ($match_okay !== true) {
+						error(sprintf(_("Off-site link \"%s\" is not allowed!"), $match));
+					}
 				}
-			}
-
-			if ($error) {
-				error(_('Off-site links are not allowed in board stylesheets!'));
 			}
 
 			$query = query('SELECT `uri`, `title`, `subtitle` FROM ``boards`` WHERE `8archive` = TRUE');
