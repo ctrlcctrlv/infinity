@@ -1,5 +1,4 @@
 <?php
-
 header("Pragma-directive: no-cache");
 header("Cache-directive: no-cache");
 header("Cache-control: no-cache");
@@ -27,5 +26,7 @@ function get_custom_banner(&$b) {
 $banner = get_custom_banner($_GET['board']);
 if ($banner)
     header("Location: $banner");
-else
-    header("Location: static/8chan banner.png");
+else {
+    include "inc/functions.php"; // if inc/instance-config.php was solo-includable this wouldn't need to load the entire DB
+    header("Location: /templates/" . $config['instance_id'] . "/static/defaultbanner.png");
+}

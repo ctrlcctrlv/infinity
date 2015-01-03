@@ -20,6 +20,8 @@
 	$config['timezone'] = 'UTC';
 	$config['cache']['enabled'] = 'apc';
 
+	$config['instance_id'] = "infinity"; // Allow for better runtime configuration
+
 	$config['cookies']['mod'] = 'mod';
 	$config['cookies']['salt'] = '';
 

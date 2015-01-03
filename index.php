@@ -1,4 +1,4 @@
 <?php
 include 'inc/functions.php';
 
-echo Element("8chan/index.html", array("config" => $config));
+echo Element($config['instance_id'] . "/index.html", array("config" => $config)); // TODO: do a sanity check here?
