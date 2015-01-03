@@ -535,6 +535,28 @@ EOT;
 					}
 				}
 			}
+			
+			//Filter out imports from sites with potentially unsafe content
+			$css_no_comments = preg_replace('|\/\*.*\*\/|', '', $clean_css); //I can't figure out how to ignore comments in the match
+			$match_imports = '@import[^;]*';
+			$matched = array();
+			preg_match_all("#$match_imports#im", $css_no_comments, $matched);
+			
+			$unsafe_import_urls = array('https://a.pomf.se/');
+			
+			if (isset($matched[0])) {
+				foreach ($matched[0] as $match) {
+					$match_okay = true;
+					foreach ($unsafe_import_urls as $unsafe_import_url) {
+						if (strpos($match, $unsafe_import_url) !== false) {
+							$match_okay = false;
+						}
+					}
+					if ($match_okay !== true) {
+						error(sprintf(_("Potentially unsafe import \"%s\" is not allowed in the board stylesheet"), $match));
+					}
+				}
+			}
 
 			$query = query('SELECT `uri`, `title`, `subtitle` FROM ``boards`` WHERE `8archive` = TRUE');
 			file_write('8archive.json', json_encode($query->fetchAll(PDO::FETCH_ASSOC)));
