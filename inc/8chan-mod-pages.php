@@ -531,7 +531,7 @@ EOT;
 						}
 					}
 					if ($match_okay !== true) {
-						error(sprintf(_("Off-site link \"%s\" is not allowed!"), $match));
+						error(sprintf(_("Off-site link \"%s\" is not allowed in the board stylesheet"), $match));
 					}
 				}
 			}
