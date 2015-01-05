@@ -520,23 +520,42 @@ EOT;
 
 			preg_match_all("#$match_urls#im", $clean_css, $matched);
 			
-			$allowed_urls = array('https://i.imgur.com/', 'https://media.8chan.co/', 'https://a.pomf.se/', 'https://fonts.googleapis.com/', 'http://8ch.net/');
-			$error = false;
+			$allowed_urls = array('https://i.imgur.com/', 'https://media.8chan.co/', 'https://a.pomf.se/', 'https://fonts.googleapis.com/', 'https://fonts.gstatic.com/', 'http://8ch.net/', 'https://8chan.co/');
 
 			if (isset($matched[0])) {
-				foreach ($matched[0] as $i => $v) {
-					$error = true;
-					foreach ($allowed_urls as $ii => $url) {
-						if (strpos($v, $url) === 0) {
-							$error = false;
-							break;
+				foreach ($matched[0] as $match) {
+					$match_okay = false;
+					foreach ($allowed_urls as $allowed_url) {
+						if (strpos($match, $allowed_url) !== false) {
+							$match_okay = true;
 						}
+					}
+					if ($match_okay !== true) {
+						error(sprintf(_("Off-site link \"%s\" is not allowed in the board stylesheet"), $match));
 					}
 				}
 			}
-
-			if ($error) {
-				error(_('Off-site links are not allowed in board stylesheets!'));
+			
+			//Filter out imports from sites with potentially unsafe content
+			$css_no_comments = preg_replace('|\/\*.*\*\/|', '', $clean_css); //I can't figure out how to ignore comments in the match
+			$match_imports = '@import[^;]*';
+			$matched = array();
+			preg_match_all("#$match_imports#im", $css_no_comments, $matched);
+			
+			$unsafe_import_urls = array('https://a.pomf.se/');
+			
+			if (isset($matched[0])) {
+				foreach ($matched[0] as $match) {
+					$match_okay = true;
+					foreach ($unsafe_import_urls as $unsafe_import_url) {
+						if (strpos($match, $unsafe_import_url) !== false) {
+							$match_okay = false;
+						}
+					}
+					if ($match_okay !== true) {
+						error(sprintf(_("Potentially unsafe import \"%s\" is not allowed in the board stylesheet"), $match));
+					}
+				}
 			}
 
 			$query = query('SELECT `uri`, `title`, `subtitle` FROM ``boards`` WHERE `8archive` = TRUE');
