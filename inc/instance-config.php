@@ -19,14 +19,15 @@
 	$config['db']['password'] = '';
 	$config['timezone'] = 'UTC';
 	$config['cache']['enabled'] = 'apc';
-	
-	
+
+	$config['instance_id'] = "infinity"; // Allow for better runtime configuration
+
 	$config['cookies']['mod'] = 'mod';
 	$config['cookies']['salt'] = '';
-	
+
 	$config['spam']['hidden_inputs_max_pass'] = 128;
 	$config['spam']['hidden_inputs_expire'] = 60 * 60 * 4; // three hours
-	
+
 	$config['flood_time'] = 5;
 	$config['flood_time_ip'] = 30;
 	$config['flood_time_same'] = 2;
@@ -46,7 +47,9 @@
 	$config['thread_subject_in_title'] = true;
 	$config['spam']['hidden_inputs_max_pass'] = 128;
 	$config['ayah_enabled'] = true;
-	
+
+	$config['no_top_bar_boards'] = array();
+
 	// Load database credentials
 	require "secrets.php";
 
@@ -144,7 +147,7 @@
 	$config['additional_javascript'][] = 'js/flag-previews.js';
 
 	//$config['font_awesome_css'] = '/netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css';
-	
+
 	$config['stylesheets']['Dark'] = 'dark.css';
 	$config['stylesheets']['Photon'] = 'photon.css';
 
@@ -183,7 +186,7 @@
 
 					return ($r['count'] > $config['hour_max_threads']);
 				}
-			}	
+			}
 		),
 		'action' => 'reject',
 		'message' => sprintf(_('On this board, to prevent raids only %d threads can be made per hour. Please try again later, or post in an existing thread.'), $config['hour_max_threads'])
@@ -229,4 +232,3 @@ $config['cron_bans'] = true;
 $config['mask_db_error'] = true;
 // 8chan specific mod pages
 require '8chan-mod-pages.php';
-	

@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>∞chan</title>
+		<title>infinity</title>
 		<style type="text/css">
 			/* Responsive helpers */
 
@@ -229,11 +229,11 @@
 			<header>
 
 				<div class="col col-3 header_logo">
-					<img src="/templates/{{ config.instance_id}}/static/logo.svg" alt="logo" width="220" height="145" id="logo">
+					<img src="/templates/{{ config.instance_id}}/static/logo.svg" alt="logo" style="max-height: 145px;" id="logo">
 				</div>
 
 				<div class="col col-9 header_text">
-					<em>{% trans %}Welcome to ∞chan, the infinitely expanding imageboard.{% endtrans %}</em>
+					<em>{% trans %}Welcome to infinity, the infinitely expanding imageboard.{% endtrans %}</em>
 					<br>
 					<span>[ <a href="/b/">/b/ - Random</a> | <a href="/meta/">/meta/ - Help &amp; Support</a> | <a href="/news+/">/news+/ - News</a> ]</span>
 					<br>
@@ -268,7 +268,7 @@
 						</ul>
 
 						<div class="content_menu_list">
-							<h4>{% trans %}Why host your imageboard on 8ch?{% endtrans %}</h4>
+							<h4>{% trans %}Why host your imageboard on infinity?{% endtrans %}</h4>
 							<ul>
 								<li>{% trans %}100% free{% endtrans %}</li>
 								<li>{% trans %}Customizable board styles and banners{% endtrans %}</li>
@@ -276,37 +276,27 @@
 								<li>{% trans %}Optional forced anonymity{% endtrans %}</li>
 								<li>{% trans %}Optional country flags{% endtrans %}</li>
 								<li>{% trans %}YouTube embedding{% endtrans %}</li>
-								<li>{% trans %}Run by competent, experienced global staff{% endtrans %}</li>
 								<li>{% trans %}No technical knowledge needed{% endtrans %}</li>
 								<li>{% trans %}Simple global rules — the rest is up to you{% endtrans %}</li>
-								<li><a href="https://www.youtube.com/watch?v=MlnY17pgYwg">{% trans %}Featured on MSNBC!{% endtrans %}</a></li>
-								<li>Also featured on <a href="http://www.huffingtonpost.com/2014/10/15/gamergate_n_5989616.html">Huff Post Live</a>, <a href="https://www.youtube.com/watch?v=7hlRUDCj-XY">Arte (BiTS)</a>, <a href="https://www.youtube.com/watch?v=BWDF9WFtro4">David Pakman Show</a>, <a href="http://www.buzzfeed.com/josephbernstein/gamergates-headquarters-has-been-destroyed-by-trolls#.wvww0oyMk">BuzzFeed</a>, <a href="http://www.jpost.com/Diaspora/Jewish-organizations-express-worries-over-cyberattacks-385536">Jerusalem Post</a>, <a href="http://recode.net/2014/12/05/california-ex-governor-further-debases-self-the-fall-of-gamergate-hq-and-more-mustreads/">re/code</a>, <a href="http://technical.ly/brooklyn/2014/10/30/major-gamergate-hub-running-midwood/">technical.ly</a>, <a href="http://www.dailymail.co.uk/news/article-2789937/female-game-developer-forced-flee-home-twitter-user-publishes-address-threatens-rape-kill-criticised-video-game-group.html">Daily Mail</a>, Gawker (<a href="http://jezebel.com/gamergate-trolls-arent-ethics-crusaders-theyre-a-hate-1644984010">Jezebel</a>, <a href="http://kotaku.com/another-woman-in-gaming-flees-home-following-death-thre-1645280338">Kotaku</a>), <a href="http://www.washingtonpost.com/news/the-intersect/wp/2014/10/20/inside-gamergates-successful-attack-on-the-media/">Washington Post</a>, <a href="http://blogs.houstonpress.com/rocks/2014/11/gamergate.php">Houston Press</a>, <a href="http://www.destructoid.com/8chan-removed-from-patreon-becomes-cat-sanctuary-285272.phtml">Destructoid</a>, and <a href="http://nymag.com/daily/intelligencer/2014/10/gamergate-supporters-party-at-strip-club.html">New York Magazine</a> and <a href="http://www.dailydot.com/politics/8chan-pedophiles-child-porn-gamergate/">Daily Dot</a>! Also a popular topic of discussion on <a href="/static/gamerghazi_press_coverage.png">r/GamerGhazi</a>.</li>
-								<li><s>{% trans %}Featured on Al Jazeera America{% endtrans %}</s> ;_;</li>
-								<li><em>{% trans %}Not owned by moot{% endtrans %}</em></li>
 							</ul>
 						</div>
 						
 						<div class="clear"></div>
 						<hr>
 
-						<a class="twitter-timeline" data-dnt="true" href="https://twitter.com/infinitechan" data-widget-id="512750449955328002">Tweets by @infinitechan</a>
-						<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 					</div>
 
 				</div>
 
 				<div class="col col-9 bodyCol">
 					<div class="content_body">
-						<p>{% trans %}On ∞chan, you can create your own imageboard for free with no experience or programming knowledge needed.{% endtrans %}</p>
-						<p style="color:red">{% trans %}Warning: Some boards on this site might contain content of an adult or offensive nature. Please cease use of this site if it is illegal for you to view such content. The boards on this site are made entirely by the users and do not represent the opinions of the administration of 8chan.co. In the interest of free speech, only content that directly violates the DMCA or other US laws is deleted.{% endtrans %}</p>
+						<p>{% trans %}On infinity, you can create your own imageboard for free with no experience or programming knowledge needed.{% endtrans %}</p>
+						<p style="color:red">{% trans %}You are running on the default instance ID, copy ./template/infinity and modify the instance ID to customize this page.{% endtrans %}</p>
 						<div class="mobileHide">
 							<a href="create.php" class="button">{% trans %}Create&nbsp;your&nbsp;board{% endtrans %}</a>
 							<a href="boards.html" class="button">{% trans %}Browse&nbsp;existing&nbsp;boards{% endtrans %}</a>
 						</div>
 						<br>
-						<!-- START RIZON PASTE / NEWS SCRIPT CODE HERE -->
-						<iframe src="https://qchat2.rizon.net/?channels=8chan&amp;uio=OT0xMTE05"></iframe>
-						<!--END PASTE CODE -->
 					</div>
 				</div>
 
@@ -315,7 +305,7 @@
 	<div class="col col-12 footer">
 	<footer>
 		<p class="unimportant" style="margin-top:20px;text-align:center;">- <a href="http://tinyboard.org/">Tinyboard</a> + 
-			<a href='https://int.vichan.net/devel/'>vichan</a> {{ config.version }} -
+			<a href='https://int.vichan.net/devel/'>vichan</a> + <a href="https://github.com/ctrlcctrlv/infinity">infinity {{ config.version }}</a> -
 		<br><a href="http://tinyboard.org/">Tinyboard</a> Copyright &copy; 2010-2014 Tinyboard Development Group		
 		<br><a href="https://int.vichan.net/devel/">vichan</a> Copyright &copy; 2012-2014 vichan-devel</p>
 		{% for footer in config.footer %}<p class="unimportant" style="text-align:center;">{{ footer }}</p>{% endfor %}
