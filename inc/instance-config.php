@@ -73,6 +73,7 @@
 	$config['mod']['capcode'][BOARDVOLUNTEER] = array('Board Volunteer');
 	$config['mod']['capcode'][MOD] = array('Board Owner');
 	$config['mod']['capcode'][GLOBALVOLUNTEER] = array('Global Volunteer');
+	$config['mod']['capcode'][ADMIN] = array('Admin', 'Global Volunteer');
 	$config['custom_capcode']['Admin'] = array(
 		'<span class="capcode" title="This post is written by the global 8chan.co administrator."> <i class="fa fa-wheelchair" style="color:blue;"></i> <span style="color:red">8chan.co Administrator</span></span>',
 	);
