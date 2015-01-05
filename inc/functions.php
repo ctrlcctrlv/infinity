@@ -1964,7 +1964,7 @@ function markup(&$body, $track_cites = false, $op = false) {
 	}
 	
 	// replace tabs with 8 spaces
-	$body = str_replace("\t", '		', $body);
+	$body = str_replace("\t", '&#09;', $body);
 		
 	return $tracked_cites;
 }
