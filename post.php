@@ -218,8 +218,6 @@ elseif (isset($_POST['post'])) {
 	if (!openBoard($post['board']))
 		error($config['error']['noboard']);
 
-	checkDNSBL();
-		
 	// Check if banned
 	checkBan($board['uri']);
 
@@ -393,6 +391,9 @@ elseif (isset($_POST['post'])) {
 	$post['body'] = $_POST['body'];
 	$post['password'] = $_POST['password'];
 	$post['has_file'] = (!isset($post['embed']) && (($post['op'] && !isset($post['no_longer_require_an_image_for_op']) && $config['force_image_op']) || !empty($_FILES['file']['name'])));
+
+	if ($post['has_file'])
+		checkDNSBL();
 	
 	if (!($post['has_file'] || isset($post['embed'])) || (($post['op'] && $config['force_body_op']) || (!$post['op'] && $config['force_body']))) {
 		// http://stackoverflow.com/a/4167053
