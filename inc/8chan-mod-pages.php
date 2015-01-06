@@ -451,7 +451,7 @@ OEKAKI;
 							$w = $_POST['with'][$i];
 							
 							if (strlen($w) > 255) {
-								error(sprintf(_('Sorry, %s is too long. Max replacement is 255 characters', utf8tohtml($w))));
+								error(sprintf(_('Sorry, %s is too long. Max replacement is 255 characters'), utf8tohtml($w)));
 							}
 
 							$replace .= '$config[\'wordfilters\'][] = array(base64_decode(\'' . base64_encode($r) . '\'), base64_decode(\'' . base64_encode($w) . '\'));';
