@@ -18,6 +18,11 @@
 				<th>{% trans 'IP' %}</th>
 				<td>{{ ban.mask }}</td>
 			</tr>
+		{% elseif mod|hasPermission(config.mod.show_ip_less, board.uri) %}
+			<tr>
+				<th>{% trans 'IP' %}</th>
+				<td>{{ ban.mask|less_ip }}</td>
+			</tr>
 		{% endif %}
 		<tr>
 			<th>{% trans 'Reason' %}</th>
@@ -98,7 +103,7 @@
 	
 	{% if ban.post %}
 		<div style="">
-			{{ ban.post.build(true) }}
+			{{ ban.post }}
 		</div>
 	{% endif %}
 </form>

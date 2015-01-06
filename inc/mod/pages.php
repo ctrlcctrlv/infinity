@@ -1046,7 +1046,7 @@ function mod_bans_json() {
 }
 
 function mod_ban_appeals() {
-	global $config, $board;
+	global $config, $board, $mod;
 	
 	if (!hasPermission($config['mod']['view_ban_appeals']))
 		error($config['error']['noaccess']);
@@ -1065,6 +1065,9 @@ function mod_ban_appeals() {
 		if (!$ban = $query->fetch(PDO::FETCH_ASSOC)) {
 			error(_('Ban appeal not found!'));
 		}
+
+		if (!in_array($ban['board'], $mod['boards']))
+			error($config['error']['noaccess']);
 		
 		$ban['mask'] = Bans::range_to_string(array($ban['ipstart'], $ban['ipend']));
 		
@@ -1080,11 +1083,18 @@ function mod_ban_appeals() {
 		header('Location: ?/ban-appeals', true, $config['redirect_http']);
 		return;
 	}
+
+	$local = ($mod['type'] == MOD || $mod["type"] == BOARDVOLUNTEER);
 	
-	$query = query("SELECT *, ``ban_appeals``.`id` AS `id` FROM ``ban_appeals``
+	$query = prepare("SELECT *, ``ban_appeals``.`id` AS `id` FROM ``ban_appeals``
 		LEFT JOIN ``bans`` ON `ban_id` = ``bans``.`id`
 		LEFT JOIN ``mods`` ON ``bans``.`creator` = ``mods``.`id`
-		WHERE `denied` != 1 ORDER BY `time`") or error(db_error());
+		WHERE `denied` != 1 ".($local ? " AND ``bans``.`board` = :board " : "")." ORDER BY `time`");
+	if ($local) {
+		$query->bindValue(':board', $mod['boards'][0]);
+	}
+	$query->execute() or error(db_error());
+
 	$ban_appeals = $query->fetchAll(PDO::FETCH_ASSOC);
 	foreach ($ban_appeals as &$ban) {
 		if ($ban['post'])
@@ -1092,29 +1102,14 @@ function mod_ban_appeals() {
 		$ban['mask'] = Bans::range_to_string(array($ban['ipstart'], $ban['ipend']));
 		
 		if ($ban['post'] && isset($ban['post']['board'], $ban['post']['id'])) {
-			if (openBoard($ban['post']['board'])) {
-				$query = query(sprintf("SELECT `num_files`, `files` FROM ``posts_%s`` WHERE `id` = " .
-					(int)$ban['post']['id'], $board['uri']));
-				if ($_post = $query->fetch(PDO::FETCH_ASSOC)) {
-					$_post['files'] = $_post['files'] ? json_decode($_post['files']) : array();
-					$ban['post'] = array_merge($ban['post'], $_post);
-				} else {
-					$ban['post']['files'] = array(array());
-					$ban['post']['files'][0]['file'] = 'deleted';
-					$ban['post']['files'][0]['thumb'] = false;
-					$ban['post']['num_files'] = 1;
-				}
-			} else {
-				$ban['post']['files'] = array(array());
-				$ban['post']['files'][0]['file'] = 'deleted';
-				$ban['post']['files'][0]['thumb'] = false;
-				$ban['post']['num_files'] = 1;
-			}
-			
+			openBoard($ban['post']['board']);
+
 			if ($ban['post']['thread']) {
-				$ban['post'] = new Post($ban['post']);
+				$po = new Post($ban['post']);
+				$ban['post'] = $po->build(true);
 			} else {
-				$ban['post'] = new Thread($ban['post'], null, false, false);
+				$po = new Thread($ban['post'], null, false, false);
+				$ban['post'] = $po->build(true);
 			}
 		}
 	}

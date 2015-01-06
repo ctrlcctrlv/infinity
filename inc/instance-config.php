@@ -228,6 +228,7 @@ $config['early_404_page'] = 5;
 $config['early_404_replies'] = 10;
 $config['cron_bans'] = true;
 $config['mask_db_error'] = true;
+$config['ban_appeals'] = true;
 // 8chan specific mod pages
 require '8chan-mod-pages.php';
 	
