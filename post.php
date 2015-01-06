@@ -191,6 +191,19 @@ elseif (isset($_POST['post'])) {
 		error($config['error']['bot']);
 
 	$post = array('board' => $_POST['board'], 'files' => array());
+	
+	// Normalize files list
+	$_FILES = array_map(function(&$file_post) {
+		$file_array = array();
+		$file_count = count($file_post['name']);
+		$file_keys = array_keys($file_post);
+		for ($i=0; $i<$file_count; $i++) {
+			foreach ($file_keys as $key) {
+				$file_array[$i][$key] = $file_post[$key][$i];
+			}
+		}
+		return $file_array;
+	},$_FILES)['files'];
 
 	// Check if board exists
 	if (!openBoard($post['board']))
@@ -392,7 +405,14 @@ elseif (isset($_POST['post'])) {
 	$post['email'] = str_replace(' ', '%20', htmlspecialchars($_POST['email']));
 	$post['body'] = $_POST['body'];
 	$post['password'] = $_POST['password'];
-	$post['has_file'] = (!isset($post['embed']) && (($post['op'] && !isset($post['no_longer_require_an_image_for_op']) && $config['force_image_op']) || !empty($_FILES['file']['name'])));
+	$has_a_file = false;
+	foreach ($_FILES as $key => $file) {
+		if ($file['error'] == 0) {
+			$has_a_file = true;
+			break;
+		}
+	}
+	$post['has_file'] = (!isset($post['embed']) && (($post['op'] && !isset($post['no_longer_require_an_image_for_op']) && $config['force_image_op']) || $has_a_file));
 	
 	if (!($post['has_file'] || isset($post['embed'])) || (($post['op'] && $config['force_body_op']) || (!$post['op'] && $config['force_body']))) {
 		// http://stackoverflow.com/a/4167053
