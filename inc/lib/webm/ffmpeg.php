@@ -63,7 +63,7 @@ function make_webm_thumbnail($filename, $thumbnail, $width, $height, $duration) 
 
   $ret = 0;
   $ffmpeg_out = array();
-  exec("$ffmpeg -strict -2 -ss " . $duration / 2 . " -i $filename -v quiet -an -vframes 1 -f mjpeg -vf scale=$width:$height $thumbnail 2>&1", $ffmpeg_out, $ret);
+  exec("$ffmpeg -strict -2 -ss " . floor($duration / 2) . " -i $filename -v quiet -an -vframes 1 -f mjpeg -vf scale=$width:$height $thumbnail 2>&1", $ffmpeg_out, $ret);
 
   return $ret;
 }
