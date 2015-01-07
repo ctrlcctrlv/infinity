@@ -83,7 +83,7 @@ $(document).ready(function(){
 		var id = post.children('p.intro').children('a.post_no:eq(1)').text();
 		var board = post.parent().data('board');
 		
-		$('	<a class="post-hide-link" href="javascript:void(0)" title="Hide Post" style="float: right">[–]</a>')
+		$('<a class="post-hide-link" href="javascript:void(0)" title="Hide Post" style="float: right">[–]</a>')
 			.insertAfter($(this).children('p.intro').children('a.post_no'))
 			.click(function() {
 				hidden_data[board][id] = Math.round(Date.now() / 1000);
@@ -91,7 +91,7 @@ $(document).ready(function(){
 				var hide_link = $(this)
 				post.children('div').hide()
 				hide_link.hide()
-				$('	<a class="post-show-link" href="javascript:void(0)" title="Show Post" style="float: right">[+]</a>')
+				$('<a class="post-show-link" href="javascript:void(0)" title="Show Post" style="float: right">[+]</a>')
 					.insertAfter($(this).children('p.intro').children('a.post_no'))
 					.click(function() {
 						delete hidden_data[board][id];
