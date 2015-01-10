@@ -432,7 +432,8 @@ function setupBoard($array) {
 	$board = array(
 		'uri' => $array['uri'],
 		'title' => $array['title'],
-		'subtitle' => $array['subtitle']
+		'subtitle' => $array['subtitle'],
+		'indexed' => $array['indexed']
 	);
 
 	// older versions
@@ -1157,11 +1158,26 @@ function clean() {
 	// I too wish there was an easier way of doing this...
 	$query = prepare(sprintf("SELECT `id` FROM ``posts_%s`` WHERE `thread` IS NULL ORDER BY `sticky` DESC, `bump` DESC LIMIT :offset, 9001", $board['uri']));
 	$query->bindValue(':offset', $offset, PDO::PARAM_INT);
-
 	$query->execute() or error(db_error($query));
+
 	while ($post = $query->fetch(PDO::FETCH_ASSOC)) {
 		deletePost($post['id'], false, false);
 	}
+
+	// Bump off threads with X replies earlier, spam prevention method
+	if ($config['early_404']) {
+		$offset = round($config['early_404_page']*$config['threads_per_page']);
+		$query = prepare(sprintf("SELECT `id` AS `thread_id`, (SELECT COUNT(`id`) FROM ``posts_%s`` WHERE `thread` = `thread_id`) AS `reply_count` FROM ``posts_%s`` WHERE `thread` IS NULL ORDER BY `sticky` DESC, `bump` DESC LIMIT :offset, 9001", $board['uri'], $board['uri']));
+		$query->bindValue(':offset', $offset, PDO::PARAM_INT);
+		$query->execute() or error(db_error($query));
+		
+		while ($post = $query->fetch(PDO::FETCH_ASSOC)) {
+			if ($post['reply_count'] < $config['early_404_replies']) {
+				deletePost($post['thread_id'], false, false);
+			}
+		}
+	}
+
 }
 
 function thread_find_page($thread) {
@@ -1331,22 +1347,25 @@ function getPages($mod=false) {
 
 // Stolen with permission from PlainIB (by Frank Usrs)
 function make_comment_hex($str) {
+	global $config;
 	// remove cross-board citations
 	// the numbers don't matter
-	$str = preg_replace('!>>>/[A-Za-z0-9]+/!', '', $str);
+	$str = preg_replace("!>>>/[A-Za-z0-9]+/!", '', $str);
 
-	if (function_exists('iconv')) {
-		// remove diacritics and other noise
-		// FIXME: this removes cyrillic entirely
-		$oldstr = $str;
-		$str = @iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $str);
-		if (!$str) $str = $oldstr;
+	if ($config['robot_enable']) {
+		if (function_exists('iconv')) {
+			// remove diacritics and other noise
+			// FIXME: this removes cyrillic entirely
+			$oldstr = $str;
+			$str = @iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $str);
+			if (!$str) $str = $oldstr;
+		}
+
+		$str = strtolower($str);
+
+		// strip all non-alphabet characters
+		$str = preg_replace('/[^a-z]/', '', $str);
 	}
-
-	$str = strtolower($str);
-
-	// strip all non-alphabet characters
-	$str = preg_replace('/[^a-z]/', '', $str);
 
 	return md5($str);
 }
@@ -1703,7 +1722,11 @@ function extract_modifiers($body) {
 	return $modifiers;
 }
 
-function markup(&$body, $track_cites = false) {
+function remove_modifiers($body) {
+	return preg_replace('@<tinyboard ([\w\s]+)>(.+?)</tinyboard>@usm', '', $body);
+}
+
+function markup(&$body, $track_cites = false, $op = false) {
 	global $board, $config, $markup_urls;
 	
 	$modifiers = extract_modifiers($body);
@@ -1741,6 +1764,9 @@ function markup(&$body, $track_cites = false) {
 
 		if ($num_links > $config['max_links'])
 			error($config['error']['toomanylinks']);
+
+		if ($num_links < $config['min_links'] && $op)
+			error(sprintf($config['error']['notenoughlinks'], $config['min_links']));
 	}
 	
 	if ($config['markup_repair_tidy'])
@@ -1938,7 +1964,7 @@ function markup(&$body, $track_cites = false) {
 	}
 	
 	// replace tabs with 8 spaces
-	$body = str_replace("\t", '		', $body);
+	$body = str_replace("\t", '&#09;', $body);
 		
 	return $tracked_cites;
 }

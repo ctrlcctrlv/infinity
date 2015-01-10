@@ -98,6 +98,7 @@ input[type="text"],input[type="password"],textarea {
   text-transform: none;
   word-spacing: normal;
   max-width: 75%;
+  font-size: inherit;
 }
 
 #quick-reply input[type="text"], input[type="password"], #quick-reply textarea {
@@ -257,7 +258,7 @@ p.intro span.capcode,p.intro a.capcode,p.intro a.nametag {
 }
 
 p.intro a {
-  margin-left: 8px;
+  margin-left: 5px;
 }
 
 div.delete {
@@ -858,7 +859,7 @@ pre {
 
 #options_div {
   width: 600px;
-  height: 300px;
+  height: 360px;
 }
 
 #alert_div {
@@ -925,6 +926,7 @@ pre {
   right: 0px;
   text-align: left;
   font-size: 12px;
+  overflow-y: auto;
 }
 
 .options_tab h2 {

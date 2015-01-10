@@ -26,12 +26,16 @@ $body = <<<EOT
 <li>Do not post, request, or link to any content illegal in the United States of America. Do not create boards with the sole purpose of posting or spreading such content.</li>
 </ul>
 <p>Other than that, you are free to institute whatever rules you want on your board.</p>
+<p><a href="https://8chan.co/obscenity.html">More information about US obscenity laws and how they relate to 8chan boards</a></p>
 <h2>How do I add more volunteers?</h2>
 <p>You may do this in your board settings, click on "Edit board volunteers".
 <h2>How do I manage my board?</h2>
 <p>Go to <a href="/mod.php">the volunteer panel</a> and click on the board link for your board.</p>
 <h2>How do I contact the admin?</h2>
 <p>The admin can be reached at <tt>admin at 8chan dot co</tt>.</p>
+
+<h2>What's your privacy policy?</h2>
+<p>Find it <a href="/privacy.pdf">here</a>.</p>
 
 <h2>Help! My board has been deleted!</h2>
 <p>As of November 13th, 2014, board expiration no longer occurs.</p>
@@ -65,10 +69,13 @@ $body = <<<EOT
 </ul>
 
 <h2>How are featured boards chosen?</h2>
-<p>Top fifteen boards excluding /meta/, /b/ and /int/.</p>
+<p>Top twenty-five boards excluding /meta/, /b/ and /news+/.</p>
 
-<h2>Who owns /meta/, /b/, and /int/?</h2>
+<h2>Who owns /meta/, /b/ and /news+/?</h2>
 <p>No one, so they are <em>de facto</em> property of the administration.</p>
+
+<h2>Why does <a href="https://8chan.co/banned">https://8chan.co/banned</a> say that I'm banned? I can still use the boards?</h2>
+<p>8chan is centered around user created boards. That's a board with CSS that makes it look like the ban page, not an official page. You've been tricked. 8chan.co has no official ban check page.</p>
 
 <h2>Where's the mobile app?</h2>
 <p>There is no official mobile app, however there is an unofficial Android app at <a href="https://github.com/wingy/Exodus/releases">wingy/Exodus</a>.</p>
@@ -76,12 +83,22 @@ $body = <<<EOT
 <p>I don't provide support for this app, ask the developer of it if you have a problem with it.</p>
 
 <h2>Where's the archive?</h2>
-<p>There isn't one yet and there will never be an official archive.</p>
+<p><s>There isn't one yet and there will never be an official archive.</s></p>
+<p>Given that archives are inevitable and will be created anyway via <a href="https://archive.today">archive.today</a>, Google cache, and anyone who installs Asagi, I'm softening my stance on this. Currently, 8archive.moe provides our archive, and I may set up an official one. <strong>All archives officially partnered with us will be opt-in by our board owners, not opt-out. Archives who archive boards that have not opted in will be considered pirate archives, and legal action may be taken.</strong></p>
+
+<h2>I got an email from an @8chan.co email address, is that you?</h2>
+<p>8chan.co uses <a href="https://cock.li">cock.li</a> to manage our domain's email. cock.li allows anyone to create an email account @8chan.co.</p>
+<p>That said, we have quite a few official 8chan.co email addresses. They are:</p>
+<ul>
+<li>admin at 8chan dot co</li>
+<li>dmca at 8chan dot co</li>
+<li>claim at 8chan dot co</li>
+</ul>
 
 <h2>How do I donate?</h2>
 <p>Donations can be sent to 1NpQaXqmCBji6gfX8UgaQEmEstvVY7U32C (Bitcoin) or LUPgSCJt3iGeJXUETVhmnbQ89Riaq1yjZm (Litecoin).</p>
+<p>I am also a big fan of Monero (XMR). You can send XMR to our <a href="http://openalias.org">OpenAlias</a> in the simplewallet client, or simply send to 49dBJhGhYFxJEfydS6hH6GRyg1W4cDgupdNVtw7j1WtcUY7xPXwNLw6fUVay644viaCcEhMFG1Z7SjjxRXEFDdNWJdvH9kS.</p>
 <p>You may also donate monthly via Patreon at <a href="http://www.patreon.com/user?u=162165">http://www.patreon.com/user?u=162165</a>.
-
 <h2>Are you really a cripple?</h2>
 <p>Yes.</p>
 

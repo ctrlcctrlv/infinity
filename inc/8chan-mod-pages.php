@@ -22,6 +22,7 @@
 	$config['mod']['clean_global'] = GLOBALVOLUNTEER;
 	$config['mod']['view_notes'] = DISABLED;
 	$config['mod']['create_notes'] = DISABLED;
+	$config['mod']['edit_config'] = DISABLED;
 	$config['mod']['debug_recent'] = ADMIN;
 	$config['mod']['debug_antispam'] = ADMIN;
 	$config['mod']['noticeboard_post'] = ADMIN;
@@ -155,14 +156,16 @@
 				error(sprintf($config['error']['required'], 'username'));
 			if ($_POST['password'] == '')
 				error(sprintf($config['error']['required'], 'password'));
+			if (!preg_match('/^[a-zA-Z0-9._]{1,30}$/', $_POST['username']))
+				error(_('Invalid username'));
 
 			if ($count > 10) {
 				error(_('Too many board volunteers!'));
 			}
 
 			foreach ($volunteers as $i => $v) {
-				if ($_POST['username'] == $v['username']) {
-				error(_('Refusing to create a volunteer with the same username as an existing one.'));
+				if (strtolower($_POST['username']) == strtolower($v['username'])) {
+					error(_('Refusing to create a volunteer with the same username as an existing one.'));
 				}
 			}
 
@@ -259,7 +262,7 @@
 				error($config['error']['invalidimg']);
 			}
 
-			if ($size[0] > 20 or $size[0] < 11 or $size[1] != 11){
+			if ($size[0] > 20 or $size[0] < 11 or $size[1] > 16 or $size[1] < 11){
 				error(_('Image wrong size!'));
 			}
 			if (sizeof($banners) > 256) {
@@ -395,6 +398,7 @@ FLAGS;
 			$auto_unicode = isset($_POST['auto_unicode']) ? 'true' : 'false';
 			$allow_roll = isset($_POST['allow_roll']) ? 'true' : 'false';
 			$image_reject_repost = isset($_POST['image_reject_repost']) ? 'true' : 'false';
+			$early_404 = isset($_POST['early_404']) ? 'true' : 'false';
 			$allow_delete = isset($_POST['allow_delete']) ? 'true' : 'false';
 			$allow_flash = isset($_POST['allow_flash']) ? '$config[\'allowed_ext_files\'][] = \'swf\';' : '';
 			$allow_pdf = isset($_POST['allow_pdf']) ? '$config[\'allowed_ext_files\'][] = \'pdf\';' : '';
@@ -402,6 +406,8 @@ FLAGS;
 			$katex = isset($_POST['katex']) ? '$config[\'katex\'] = true;$config[\'additional_javascript\'][] = \'js/katex/katex.min.js\'; $config[\'markup\'][] = array("/\[tex\](.+?)\[\/tex\]/ms", "<span class=\'tex\'>\$1</span>"); $config[\'additional_javascript\'][] = \'js/katex-enable.js\';' : '';
 			$user_flags = isset($_POST['user_flags']) ? "if (file_exists('$b/flags.php')) { include 'flags.php'; }\n" : '';
 			$captcha = isset($_POST['captcha']) ? 'true' : 'false';
+			$force_subject_op = isset($_POST['force_subject_op']) ? 'true' : 'false';
+			
 
 
 $oekaki_js = <<<OEKAKI
@@ -436,14 +442,28 @@ OEKAKI;
 			$replace = '';
 
 			if (isset($_POST['replace'])) {
+				if (sizeof($_POST['replace']) > 200 || sizeof($_POST['with']) > 200) {
+					error(_('Sorry, max 200 wordfilters allowed.'));
+				}
 				if (count($_POST['replace']) == count($_POST['with'])) {
 					foreach ($_POST['replace'] as $i => $r ) {
 						if ($r !== '') {
 							$w = $_POST['with'][$i];
+							
+							if (strlen($w) > 255) {
+								error(sprintf(_('Sorry, %s is too long. Max replacement is 255 characters', utf8tohtml($w))));
+							}
+
 							$replace .= '$config[\'wordfilters\'][] = array(base64_decode(\'' . base64_encode($r) . '\'), base64_decode(\'' . base64_encode($w) . '\'));';
 						}
 					}
 				}
+			}
+
+			if (isset($_POST['hour_max_threads']) && in_array($_POST['hour_max_threads'], ['10', '25', '50', '100'])) {
+				$hour_max_threads = $_POST['hour_max_threads'];	
+			} else {
+				$hour_max_threads = 'false';
 			}
 
 			if (!(strlen($title) < 40))
@@ -473,12 +493,15 @@ OEKAKI;
 \$config['auto_unicode'] = $auto_unicode;
 \$config['allow_roll'] = $allow_roll;
 \$config['image_reject_repost'] = $image_reject_repost;
+\$config['early_404'] = $early_404;
 \$config['allow_delete'] = $allow_delete;
 \$config['anonymous'] = base64_decode('$anonymous');
 \$config['blotter'] = base64_decode('$blotter');
 \$config['stylesheets']['Custom'] = 'board/$b.css';
 \$config['default_stylesheet'] = array('Custom', \$config['stylesheets']['Custom']);
 \$config['captcha']['enabled'] = $captcha;
+\$config['force_subject_op'] = $force_subject_op;
+\$config['hour_max_threads'] = $hour_max_threads;
 $code_tags $katex $oekaki $replace $multiimage $allow_flash $allow_pdf $user_flags
 if (\$config['disable_images'])
 	\$config['max_pages'] = 10000;
@@ -497,23 +520,42 @@ EOT;
 
 			preg_match_all("#$match_urls#im", $clean_css, $matched);
 			
-			$allowed_urls = array('https://i.imgur.com/', 'https://media.8chan.co/', 'https://a.pomf.se/', 'https://fonts.googleapis.com/', 'http://8ch.net/');
-			$error = false;
+			$allowed_urls = array('https://i.imgur.com/', 'https://media.8chan.co/', 'https://a.pomf.se/', 'https://fonts.googleapis.com/', 'https://fonts.gstatic.com/', 'http://8ch.net/', 'https://8chan.co/');
 
 			if (isset($matched[0])) {
-				foreach ($matched[0] as $i => $v) {
-					$error = true;
-					foreach ($allowed_urls as $ii => $url) {
-						if (strpos($v, $url) === 0) {
-							$error = false;
-							break;
+				foreach ($matched[0] as $match) {
+					$match_okay = false;
+					foreach ($allowed_urls as $allowed_url) {
+						if (strpos($match, $allowed_url) !== false) {
+							$match_okay = true;
 						}
+					}
+					if ($match_okay !== true) {
+						error(sprintf(_("Off-site link \"%s\" is not allowed in the board stylesheet"), $match));
 					}
 				}
 			}
-
-			if ($error) {
-				error(_('Off-site links are not allowed in board stylesheets!'));
+			
+			//Filter out imports from sites with potentially unsafe content
+			$css_no_comments = preg_replace('|\/\*.*\*\/|', '', $clean_css); //I can't figure out how to ignore comments in the match
+			$match_imports = '@import[^;]*';
+			$matched = array();
+			preg_match_all("#$match_imports#im", $css_no_comments, $matched);
+			
+			$unsafe_import_urls = array('https://a.pomf.se/');
+			
+			if (isset($matched[0])) {
+				foreach ($matched[0] as $match) {
+					$match_okay = true;
+					foreach ($unsafe_import_urls as $unsafe_import_url) {
+						if (strpos($match, $unsafe_import_url) !== false) {
+							$match_okay = false;
+						}
+					}
+					if ($match_okay !== true) {
+						error(sprintf(_("Potentially unsafe import \"%s\" is not allowed in the board stylesheet"), $match));
+					}
+				}
 			}
 
 			$query = query('SELECT `uri`, `title`, `subtitle` FROM ``boards`` WHERE `8archive` = TRUE');
@@ -524,6 +566,7 @@ EOT;
 			file_write($b.'/rules.txt', $_POST['rules']);
 
 			$_config = $config;
+			unset($config['wordfilters']);
 
 			// Faster than openBoard and bypasses cache...we're trusting the PHP output
 			// to be safe enough to run with every request, we can eval it here.
@@ -555,10 +598,6 @@ EOT;
 		$rules = @file_get_contents($board['uri'] . '/rules.txt');
 		$css = @file_get_contents('stylesheets/board/' . $board['uri'] . '.css');
 	
-		openBoard($b);
-
-		rebuildThemes('bans');
-
 		if ($config['cache']['enabled']) 
 			cache::delete('board_' . $board['uri']);
 			cache::delete('all_boards');

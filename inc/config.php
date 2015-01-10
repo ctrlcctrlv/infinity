@@ -184,7 +184,7 @@
 
 	// Prevents most Tor exit nodes from making posts. Recommended, as a lot of abuse comes from Tor because
 	// of the strong anonymity associated with it.
-	$config['dnsbl'][] = array('tor.dnsbl.sectoor.de', 1);
+	$config['dnsbl'][] = array('exitnodes.tor.dnsbl.sectoor.de', 1);
 
 	// http://www.sorbs.net/using.shtml
 	// $config['dnsbl'][] = array('dnsbl.sorbs.net', array(2, 3, 4, 5, 6, 7, 8, 9));
@@ -780,6 +780,8 @@
 	$config['spoiler_image'] = 'static/spoiler.png';
 	// Location of thumbnail to use for deleted images.
 	// $config['image_deleted'] = 'static/deleted.png';
+	// Location of placeholder image for fileless posts in catalog.
+	$config['no_file_image'] = 'static/no-file.png';
 
 	// When a thumbnailed image is going to be the same (in dimension), just copy the entire file and use
 	// that as a thumbnail instead of resizing/redrawing.
@@ -1083,6 +1085,7 @@
 	$config['error']['youaremuted']		= _('You are muted! Expires in %d seconds.');
 	$config['error']['dnsbl']		= _('Your IP address is listed in %s.');
 	$config['error']['toomanylinks']	= _('Too many links; flood detected.');
+	$config['error']['notenoughlinks']	= _('OPs are required to have at least %d links on this board.');
 	$config['error']['toomanycites']	= _('Too many cites; post discarded.');
 	$config['error']['toomanycross']	= _('Too many cross-board links; post discarded.');
 	$config['error']['nodelete']		= _('You didn\'t select anything to delete.');
@@ -1680,7 +1683,7 @@
 
 	// Regex for board URIs. Don't add "`" character or any Unicode that MySQL can't handle. 58 characters
 	// is the absolute maximum, because MySQL cannot handle table names greater than 64 characters.
-	$config['board_regex'] = '[0-9a-zA-Z$_\x{0080}-\x{FFFF}]{1,58}';
+	$config['board_regex'] = '[0-9a-zA-Z\+$_\x{0080}-\x{FFFF}]{1,58}';
 
 	// Youtube.js embed HTML code
 	$config['youtube_js_html'] = '<div class="video-container" data-video="$1" data-params="&$2&$3">'.

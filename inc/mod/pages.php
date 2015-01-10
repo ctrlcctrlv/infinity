@@ -633,7 +633,7 @@ function mod_news($page_no = 1) {
 		
 		rebuildThemes('news');
 		
-		header('Location: ?/news#' . $pdo->lastInsertId(), true, $config['redirect_http']);
+		header('Location: ?/edit_news#' . $pdo->lastInsertId(), true, $config['redirect_http']);
 	}
 	
 	$query = prepare("SELECT * FROM ``news`` ORDER BY `id` DESC LIMIT :offset, :limit");
@@ -646,14 +646,14 @@ function mod_news($page_no = 1) {
 		error($config['error']['404']);
 	
 	foreach ($news as &$entry) {
-		$entry['delete_token'] = make_secure_link_token('news/delete/' . $entry['id']);
+		$entry['delete_token'] = make_secure_link_token('edit_news/delete/' . $entry['id']);
 	}
 	
 	$query = prepare("SELECT COUNT(*) FROM ``news``");
 	$query->execute() or error(db_error($query));
 	$count = $query->fetchColumn();
 	
-	mod_page(_('News'), 'mod/news.html', array('news' => $news, 'count' => $count, 'token' => make_secure_link_token('news')));
+	mod_page(_('News'), 'mod/news.html', array('news' => $news, 'count' => $count, 'token' => make_secure_link_token('edit_news')));
 }
 
 function mod_news_delete($id) {
@@ -668,7 +668,7 @@ function mod_news_delete($id) {
 	
 	modLog('Deleted a news entry');
 	
-	header('Location: ?/news', true, $config['redirect_http']);
+	header('Location: ?/edit_news', true, $config['redirect_http']);
 }
 
 function mod_log($page_no = 1) {
@@ -1599,12 +1599,23 @@ function mod_edit_post($board, $edit_raw_html, $postID) {
 		error($config['error']['404']);
 	
 	if (isset($_POST['name'], $_POST['email'], $_POST['subject'], $_POST['body'])) {
+		$trip = isset($_POST['remove_trip']) ? ' `trip` = NULL,' : '';
+
+		// Remove any modifiers they may have put in
+		$_POST['body'] = remove_modifiers($_POST['body']);
+
+		// Add back modifiers in the original post
+		$modifiers = extract_modifiers($post['body_nomarkup']);
+		foreach ($modifiers as $key => $value) {
+			$_POST['body'] .= "<tinyboard $key>$value</tinyboard>";
+		}
+
 		if ($edit_raw_html)
-			$query = prepare(sprintf('UPDATE ``posts_%s`` SET `name` = :name, `email` = :email, `subject` = :subject, `body` = :body, `body_nomarkup` = :body_nomarkup, `edited_at` = NOW() WHERE `id` = :id', $board));
+			$query = prepare(sprintf('UPDATE ``posts_%s`` SET `name` = :name,'. $trip .' `email` = :email, `subject` = :subject, `body` = :body, `body_nomarkup` = :body_nomarkup, `edited_at` = NOW() WHERE `id` = :id', $board));
 		else
-			$query = prepare(sprintf('UPDATE ``posts_%s`` SET `name` = :name, `email` = :email, `subject` = :subject, `body_nomarkup` = :body, `edited_at` = NOW() WHERE `id` = :id', $board));
+			$query = prepare(sprintf('UPDATE ``posts_%s`` SET `name` = :name,'. $trip .' `email` = :email, `subject` = :subject, `body_nomarkup` = :body, `edited_at` = NOW() WHERE `id` = :id', $board));
 		$query->bindValue(':id', $postID);
-		$query->bindValue('name', $_POST['name']);
+		$query->bindValue(':name', $_POST['name'] ? $_POST['name'] : $config['anonymous']);
 		$query->bindValue(':email', $_POST['email']);
 		$query->bindValue(':subject', $_POST['subject']);
 		$query->bindValue(':body', $_POST['body']);
@@ -1656,15 +1667,20 @@ function mod_edit_post($board, $edit_raw_html, $postID) {
 		
 		header('Location: ?/' . sprintf($config['board_path'], $board) . $config['dir']['res'] . sprintf($config['file_page'], $post['thread'] ? $post['thread'] : $postID) . '#' . $postID, true, $config['redirect_http']);
 	} else {
+		// Remove modifiers
+		$post['body_nomarkup'] = remove_modifiers($post['body_nomarkup']);
+				
+		$post['body_nomarkup'] = utf8tohtml($post['body_nomarkup']);
+		$post['body'] = utf8tohtml($post['body']);
 		if ($config['minify_html']) {
-			$post['body_nomarkup'] = str_replace("\n", '&#010;', utf8tohtml($post['body_nomarkup']));
-			$post['body'] = str_replace("\n", '&#010;', utf8tohtml($post['body']));
+			$post['body_nomarkup'] = str_replace("\n", '&#010;', $post['body_nomarkup']);
+			$post['body'] = str_replace("\n", '&#010;', $post['body']);
 			$post['body_nomarkup'] = str_replace("\r", '', $post['body_nomarkup']);
 			$post['body'] = str_replace("\r", '', $post['body']);
 			$post['body_nomarkup'] = str_replace("\t", '&#09;', $post['body_nomarkup']);
 			$post['body'] = str_replace("\t", '&#09;', $post['body']);
 		}
-				
+
 		mod_page(_('Edit post'), 'mod/edit_post_form.html', array('token' => $security_token, 'board' => $board, 'raw' => $edit_raw_html, 'post' => $post));
 	}
 }

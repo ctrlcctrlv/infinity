@@ -21,6 +21,7 @@
 			foreach ($boards as $board) {
 				$b = new Catalog();
 				$b->build($settings, $board);
+				if (php_sapi_name() === "cli") echo "Rebuilding $board catalog...\n";
 			}
 		} elseif ($action == 'post-thread' || ($settings['update_on_posts'] && $action == 'post') || ($settings['update_on_posts'] && $action == 'post-delete') && (in_array($board, $boards) | $settings['all'])) {
 			$b = new Catalog();
@@ -77,6 +78,8 @@
 							$post['file'] = $config['uri_thumb'] . $files[0]->thumb;
 						}
 					}
+				} else {
+					$post['file'] = $config['root'] . $config['no_file_image'];
 				}
 
 				if (empty($post['image_count'])) $post['image_count'] = 0;

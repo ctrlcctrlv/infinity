@@ -236,13 +236,15 @@ class Bans {
 	}
 	
 	static public function seen($ban_id) {
+		global $config;
 		$query = query("UPDATE ``bans`` SET `seen` = 1 WHERE `id` = " . (int)$ban_id) or error(db_error());
-                rebuildThemes('bans');
+                if (!$config['cron_bans']) rebuildThemes('bans');
 	}
 	
 	static public function purge() {
+		global $config;
 		$query = query("DELETE FROM ``bans`` WHERE `expires` IS NOT NULL AND `expires` < " . time() . " AND `seen` = 1") or error(db_error());
-		rebuildThemes('bans');
+                if (!$config['cron_bans']) rebuildThemes('bans');
 	}
 	
 	static public function delete($ban_id, $modlog = false, $boards = false, $dont_rebuild = false) {
@@ -268,7 +270,7 @@ class Bans {
 		
 		query("DELETE FROM ``bans`` WHERE `id` = " . (int)$ban_id) or error(db_error());
 
-		if (!$dont_rebuild) rebuildThemes('bans');
+		if (!$dont_rebuild || !$config['cron_bans']) rebuildThemes('bans');
 		
 		return true;
 	}
@@ -322,6 +324,17 @@ class Bans {
 		
 		if ($post) {
 			$post['board'] = $board['uri'];
+			$match_urls = '(?xi)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«»“”‘’]))';
+
+			$matched = array();
+
+			preg_match_all("#$match_urls#im", $post['body_nomarkup'], $matched);
+
+			if (isset($matched[0]) && $matched[0]) {
+				$post['body'] = str_replace($matched[0], '###Link-Removed###', $post['body']);
+				$post['body_nomarkup'] = str_replace($matched[0], '###Link-Removed###', $post['body_nomarkup']);
+			}
+
 			$query->bindValue(':post', json_encode($post));
 		} else
 			$query->bindValue(':post', null, PDO::PARAM_NULL);
@@ -339,7 +352,7 @@ class Bans {
 				' with ' . ($reason ? 'reason: ' . utf8tohtml($reason) . '' : 'no reason'));
 		}
 
-		rebuildThemes('bans');
+		if (!$config['cron_bans']) rebuildThemes('bans');
 
 		return $pdo->lastInsertId();
 	}

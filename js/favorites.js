@@ -56,7 +56,6 @@ if (active_page == 'thread' || active_page == 'index' || active_page == 'catalog
 	$(document).ready(function(){
 		var favorites = JSON.parse(localStorage.favorites);
 		var is_board_favorite = ~$.inArray(board_name, favorites);
-		console.log(is_board_favorite);
 
 		$('header>h1').append('<a id="favorite-star" href="#" data-active="'+(is_board_favorite ? 'true' : 'false')+'" style="color: '+(is_board_favorite ? 'yellow' : 'grey')+'; text-decoration:none">\u2605</span>');
 		add_favorites();

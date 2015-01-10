@@ -74,7 +74,7 @@
 	$config['mod']['capcode'][MOD] = array('Board Owner');
 	$config['mod']['capcode'][GLOBALVOLUNTEER] = array('Global Volunteer');
 	$config['custom_capcode']['Admin'] = array(
-		'<span class="capcode" style="color:blue;font-weight:bold"> <i class="fa fa-wheelchair"></i> %s</span>',
+		'<span class="capcode" title="This post is written by the global 8chan.co administrator."> <i class="fa fa-wheelchair" style="color:blue;"></i> <span style="color:red">8chan.co Administrator</span></span>',
 	);
 	//$config['mod']['view_banlist'] = GLOBALVOLUNTEER;
 	$config['mod']['recent_reports'] = 65535;
@@ -91,6 +91,7 @@
 	//$config['default_stylesheet'] = array('Notsuba', 'notsuba.css');
 	$config['additional_javascript'][] = 'js/jquery.min.js';
 	$config['additional_javascript'][] = 'js/jquery.mixitup.min.js';
+	$config['additional_javascript'][] = 'js/jquery-ui.custom.min.js';
 	$config['additional_javascript'][] = 'js/catalog.js';
 	$config['additional_javascript'][] = 'js/captcha.js';
 	$config['additional_javascript'][] = 'js/jquery.tablesorter.min.js';
@@ -139,6 +140,8 @@
 	$config['additional_javascript'][] = 'js/catalog-search.js';
 	$config['additional_javascript'][] = 'js/thread-stats.js';
 	$config['additional_javascript'][] = 'js/quote-selection.js';
+	$config['additional_javascript'][] = 'js/twemoji/twemoji.js';
+	$config['additional_javascript'][] = 'js/flag-previews.js';
 
 	//$config['font_awesome_css'] = '/netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css';
 	
@@ -150,13 +153,13 @@
 	$config['markup'][] = array("/\[spoiler\](.+?)\[\/spoiler\]/", "<span class=\"spoiler\">\$1</span>");
 	$config['markup'][] = array("/~~(.+?)~~/", "<s>\$1</s>");
 	$config['markup'][] = array("/__(.+?)__/", "<u>\$1</u>");
+	$config['markup'][] = array("/###([^\s']+)###/", "<a href='/boards.html#\$1'>###\$1###</a>");
 
-	$config['boards'] = array(array('<i class="fa fa-home" title="Home"></i>' => '/', '<i class="fa fa-tags" title="Boards"></i>' => '/boards.html', '<i class="fa fa-question" title="FAQ"></i>' => '/faq.html', '<i class="fa fa-random" title="Random"></i>' => '/random.php', '<i class="fa fa-plus" title="New board"></i>' => '/create.php', '<i class="fa fa-ban" title="Public ban list"></i>' => '/bans.html', '<i class="fa fa-search" title="Search"></i>' => '/search.php', '<i class="fa fa-cog" title="Manage board"></i>' => '/mod.php', '<i class="fa fa-quote-right" title="Chat"></i>' => 'https://qchat.rizon.net/?channels=#8chan'), array('b', 'meta'), array('<i class="fa fa-twitter" title="Twitter"></i>'=>'https://twitter.com/infinitechan'));
+	$config['boards'] = array(array('<i class="fa fa-home" title="Home"></i>' => '/', '<i class="fa fa-tags" title="Boards"></i>' => '/boards.html', '<i class="fa fa-question" title="FAQ"></i>' => '/faq.html', '<i class="fa fa-random" title="Random"></i>' => '/random.php', '<i class="fa fa-plus" title="New board"></i>' => '/create.php', '<i class="fa fa-ban" title="Public ban list"></i>' => '/bans.html', '<i class="fa fa-search" title="Search"></i>' => '/search.php', '<i class="fa fa-cog" title="Manage board"></i>' => '/mod.php', '<i class="fa fa-quote-right" title="Chat"></i>' => 'https://qchat.rizon.net/?channels=#8chan'), array('b', 'meta', 'news+'), array('<i class="fa fa-twitter" title="Twitter"></i>'=>'https://twitter.com/infinitechan'));
 	//$config['boards'] = array(array('<i class="fa fa-home" title="Home"></i>' => '/', '<i class="fa fa-tags" title="Boards"></i>' => '/boards.html', '<i class="fa fa-question" title="FAQ"></i>' => '/faq.html', '<i class="fa fa-random" title="Random"></i>' => '/random.php', '<i class="fa fa-plus" title="New board"></i>' => '/create.php', '<i class="fa fa-search" title="Search"></i>' => '/search.php', '<i class="fa fa-cog" title="Manage board"></i>' => '/mod.php', '<i class="fa fa-quote-right" title="Chat"></i>' => 'https://qchat.rizon.net/?channels=#8chan'), array('b', 'meta', 'int'), array('v', 'a', 'tg', 'fit', 'pol', 'tech', 'mu', 'co', 'sp', 'boards'), array('<i class="fa fa-twitter" title="Twitter"></i>'=>'https://twitter.com/infinitechan'));
 
 	$config['footer'][] = 'All posts on 8chan.co are the responsibility of the individual poster and not the administration of 8chan.co, pursuant to 47 U.S.C. &sect; 230.';
 	$config['footer'][] = 'We have not been served any secret court orders and are not under any gag orders.';
-	$config['footer'][] = 'Contribute to 8chan.co development at <a href="https://github.com/ctrlcctrlv/8chan">github</a>';
 	$config['footer'][] = 'To make a DMCA request or report illegal content, please email <a href="mailto:admin@8chan.co">admin@8chan.co</a>.';
 
 	$config['search']['enable'] = true;
@@ -164,6 +167,27 @@
 	$config['syslog'] = true;
 
 	$config['wordfilters'][] = array('\rule', ''); // 'true' means it's a regular expression
+
+	$config['hour_max_threads'] = false;
+	$config['filters'][] = array(
+		'condition' => array(
+			'custom' => function($post) {
+				global $config, $board;
+				if (!$config['hour_max_threads']) return false;
+
+				if ($post['op']) {
+					$query = prepare(sprintf('SELECT COUNT(*) AS `count` FROM ``posts_%s`` WHERE `thread` IS NULL AND FROM_UNIXTIME(`time`) > DATE_SUB(NOW(), INTERVAL 1 HOUR);', $board['uri']));
+					$query->bindValue(':ip', $_SERVER['REMOTE_ADDR']);
+					$query->execute() or error(db_error($query));
+					$r = $query->fetch(PDO::FETCH_ASSOC);
+
+					return ($r['count'] > $config['hour_max_threads']);
+				}
+			}	
+		),
+		'action' => 'reject',
+		'message' => sprintf(_('On this board, to prevent raids only %d threads can be made per hour. Please try again later, or post in an existing thread.'), $config['hour_max_threads'])
+	);
 
 
 	$config['embedding'] = array(
@@ -195,6 +219,14 @@
 
 $config['gzip_static'] = false;
 $config['hash_masked_ip'] = true;
+$config['force_subject_op'] = false;
+$config['min_links'] = 0;
+$config['min_body'] = 0;
+$config['early_404'] = false;
+$config['early_404_page'] = 5;
+$config['early_404_replies'] = 10;
+$config['cron_bans'] = true;
+$config['mask_db_error'] = true;
 // 8chan specific mod pages
 require '8chan-mod-pages.php';
 	
