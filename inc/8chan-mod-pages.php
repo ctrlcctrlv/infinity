@@ -598,9 +598,10 @@ EOT;
 		$rules = @file_get_contents($board['uri'] . '/rules.txt');
 		$css = @file_get_contents('stylesheets/board/' . $board['uri'] . '.css');
 	
-		if ($config['cache']['enabled']) 
+		if ($config['cache']['enabled']){
 			cache::delete('board_' . $board['uri']);
 			cache::delete('all_boards');
+		}
 
 		mod_page(_('Board configuration'), 'mod/settings.html', array('board'=>$board, 'rules'=>prettify_textarea($rules), 'css'=>prettify_textarea($css), 'token'=>make_secure_link_token('settings/'.$board['uri']), 'languages'=>$possible_languages));
 	};

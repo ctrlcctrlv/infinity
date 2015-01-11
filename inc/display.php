@@ -433,8 +433,9 @@ class Post {
 					'clean_local_mod_id' => null,
 					'clean_global_mod_id' => null,
 				);
-
-				cache::set("post_clean_{$board['uri']}_{$this->id}", $this->clean);
+				if ($config['cache']['enabled']){
+					cache::set("post_clean_{$board['uri']}_{$this->id}", $this->clean);
+				}
 			}
 		}
 		
