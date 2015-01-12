@@ -253,11 +253,12 @@ function get_cookie(cookie_name) {
 	}
 }
 
-function highlightReply(id) {
+function highlightReply(id, event) {
 	if (typeof window.event != "undefined") {
 		// don't highlight on middle click
 		if (event.which == 2) return true;
-		if (active_page == 'thread' && typeof window.event.preventDefault != "undefined") window.event.preventDefault();
+		var e = event || window.event;
+		if (active_page == 'thread' && typeof e.preventDefault != "undefined") e.preventDefault();
 	}
 	
 	var divs = document.getElementsByTagName('div');
