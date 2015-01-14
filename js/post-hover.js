@@ -208,6 +208,7 @@ onready(function(){
 
 						$.each(file_array, function () {
 							var thumb_url;
+                            var file_ext = this.ext;
 
 							if (this.isImage && !this.isSpoiler) {
 								// video files uses jpg for thumbnail
@@ -220,7 +221,7 @@ onready(function(){
 							var $ele = $('<div class="file">')
 										.append($('<p class="fileinfo">')
 											.append('<span>File: </span>')
-											.append('<a>'+ this.filename + this.ext +'</a>')
+											.append('<a>'+ this.filename + file_ext +'</a>')
 											.append('<span class="unimportant"> ('+ bytesToSize(this.fsize) +', '+ this.w +'x'+ this.h +')</span>')
 										);
 							if (multifile) $ele.addClass('multifile').css('max-width', '200px');
