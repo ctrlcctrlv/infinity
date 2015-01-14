@@ -130,7 +130,7 @@
 		$query->bindValue(':mod', $mods[0]['username']);
 		$query->execute();
 
-		$body = "Thanks for your interest in this board. Kindly find the username and password below. You can login at 8chan.co/mod.php.<br>Username: {$mods[0]['username']}<br>Password: {$password}<br>Thanks for using 8chan.co!";
+		$body = "Thanks for your interest in this board. Kindly find the username and password below. You can login at https://8ch.net/mod.php.<br>Username: {$mods[0]['username']}<br>Password: {$password}<br>Thanks for using 8chan!";
 		
 		mod_page(_('Edit reassign'), 'blank.html', array('board'=>$board,'token'=>make_secure_link_token('reassign/'.$board['uri']),'body'=>$body));
 	};
@@ -520,7 +520,7 @@ EOT;
 
 			preg_match_all("#$match_urls#im", $clean_css, $matched);
 			
-			$allowed_urls = array('https://i.imgur.com/', 'https://media.8chan.co/', 'https://a.pomf.se/', 'https://fonts.googleapis.com/', 'https://fonts.gstatic.com/', 'http://8ch.net/', 'https://8chan.co/');
+			$allowed_urls = array('https://i.imgur.com/', 'https://media.8chan.co/', 'https://a.pomf.se/', 'https://fonts.googleapis.com/', 'https://fonts.gstatic.com/', 'https://8ch.net/', 'https://8chan.co/');
 
 			if (isset($matched[0])) {
 				foreach ($matched[0] as $match) {

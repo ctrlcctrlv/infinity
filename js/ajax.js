@@ -117,7 +117,7 @@ $(window).ready(function() {
 				},
 				error: function(xhr, status, er) {
 					console.log(xhr);
-					alert(_('The server returned an error or truncated response -- your post was probably still submitted. If it wasn\'t, 8chan.co might be experiencing issues right now -- please try your post again later.'));
+					alert(_('The server returned an error or truncated response -- your post was probably still submitted. If it wasn\'t, 8chan might be experiencing issues right now -- please try your post again later.'));
 				},
 				data: formData,
 				cache: false,

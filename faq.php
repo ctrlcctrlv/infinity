@@ -15,7 +15,7 @@ $body = <<<EOT
 
 <p>There is a large penalty for abusing their powers to ban users for other reasons. That penalty is that I will not only remove their global volunteer position, but also commandeer their board. I will then find another suitable owner for it among the board's users and give it to them.</p>
 
-<p>Thus, the only people who can delete content from 8chan.co are those who have a stake in the site itself because they own the boards. Thus, they are not really doing it for free - they are simply protecting their boards by protecting the site as a whole. It is in their interest to keep the site free of illegal content so that their boards stay up. If they abuse their power, the board that they worked hard to create is stripped from them.</p>
+<p>Thus, the only people who can delete content from 8chan are those who have a stake in the site itself because they own the boards. Thus, they are not really doing it for free - they are simply protecting their boards by protecting the site as a whole. It is in their interest to keep the site free of illegal content so that their boards stay up. If they abuse their power, the board that they worked hard to create is stripped from them.</p>
 
 <p>This means that there's only one person that needs to be trusted: me. If I could have found a way to remove myself from the trust model, I would have, but that is impossible given someone has to run the server.</p>
 
@@ -26,7 +26,7 @@ $body = <<<EOT
 <li>Do not post, request, or link to any content illegal in the United States of America. Do not create boards with the sole purpose of posting or spreading such content.</li>
 </ul>
 <p>Other than that, you are free to institute whatever rules you want on your board.</p>
-<p><a href="https://8chan.co/obscenity.html">More information about US obscenity laws and how they relate to 8chan boards</a></p>
+<p><a href="/obscenity.html">More information about US obscenity laws and how they relate to 8chan boards</a></p>
 <h2>How do I add more volunteers?</h2>
 <p>You may do this in your board settings, click on "Edit board volunteers".
 <h2>How do I manage my board?</h2>
@@ -43,7 +43,7 @@ $body = <<<EOT
 <p>You still may lose access to your board, however, if you fail to log in for two weeks or it receives no posts for a week. See <a href="/claim.html">here</a> for a list of boards that are available for reclaiming.</p>
 
 <h2>How do I post as a volunteer on my board?</h2>
-<p>Make sure you are using the volunteer interface to view your board. The URL of your browser should be <a href="https://8chan.co/mod.php?/yourboard"><tt>https://8chan.co/mod.php?/yourboard</tt></a>.</p>
+<p>Make sure you are using the volunteer interface to view your board. The URL of your browser should be <a href="/mod.php?/yourboard"><tt>https://8ch.net/mod.php?/yourboard</tt></a>.</p>
 
 <p>If you are the owner of the board, put "## Board Owner" in the name field. If someone else is the owner and you are just assisting them, put "## Board Volunteer" in the name field. Write your post and click "Reply". It will appear with your capcode.</p>
 <h2>Help! The owner of X board is doing something I don't like!</h2>
@@ -74,8 +74,8 @@ $body = <<<EOT
 <h2>Who owns /meta/, /b/ and /news+/?</h2>
 <p>No one, so they are <em>de facto</em> property of the administration.</p>
 
-<h2>Why does <a href="https://8chan.co/banned">https://8chan.co/banned</a> say that I'm banned? I can still use the boards?</h2>
-<p>8chan is centered around user created boards. That's a board with CSS that makes it look like the ban page, not an official page. You've been tricked. 8chan.co has no official ban check page.</p>
+<h2>Why does <a href="/banned">https://8ch.net/banned</a> say that I'm banned? I can still use the boards?</h2>
+<p>8chan is centered around user created boards. That's a board with CSS that makes it look like the ban page, not an official page. You've been tricked. 8chan has no official ban check page.</p>
 
 <h2>Where's the mobile app?</h2>
 <p>There is no official mobile app, however there is an unofficial Android app at <a href="https://github.com/wingy/Exodus/releases">wingy/Exodus</a>.</p>
