@@ -78,10 +78,41 @@ $(document).ready(function(){
 		if (hidden_data[board][id])
 			thread_container.find('.hide-thread-link').click();
 	}
+	var do_hide_posts = function(){
+		var post = $(this)
+		var id = post.children('p.intro').children('a.post_no:eq(1)').text();
+		var board = post.parent().data('board');
+		
+		$('<a class="post-hide-link" href="javascript:void(0)" title="Hide Post" style="float: right">[–]</a>')
+			.insertAfter($(this).children('p.intro').children('a.post_no:last'))
+			.click(function() {
+				hidden_data[board][id] = Math.round(Date.now() / 1000);
+				store_data();
+				var hide_link = $(this);
+				post.children('div').hide();
+				hide_link.hide();
+				$('<a class="post-show-link" href="javascript:void(0)" title="Show Post" style="float: right">[+]</a>')
+					.insertAfter($(this).children('p.intro').children('a.post_no:last'))
+					.click(function() {
+						delete hidden_data[board][id];
+						store_data();
+						post.children('div').show();
+						hide_link.show();
+						$(this).remove();
+						
+					});
+			});
+		if (hidden_data[board][id])
+			post.find('.post-hide-link').click();
+	}
 
 	$('div.post.op').each(do_hide_threads);
+	$('div.post.reply').each(do_hide_posts);
 
 	$(document).on('new_post', function(e, post) {
 		do_hide_threads.call($(post).find('div.post.op')[0]);
+		if($(post).is('div.post.reply')) {
+			$(post).each(do_hide_posts);
+		};
 	});
 });
