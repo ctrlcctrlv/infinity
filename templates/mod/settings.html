@@ -73,7 +73,7 @@
 	<table>
 		<tr><th>{% trans %}Default poster name{% endtrans %}</th><td><input type="text" name="anonymous" value="{{config.anonymous|e}}"></td></tr>
 		<tr><th>{% trans %}Board announcement{% endtrans %}</th><td><input type="text" name="blotter" value="{{config.blotter|e}}" size="75"></td></tr>
-		<tr><th>{% trans %}Rules{% endtrans %}<br/><span class="unimportant">{% trans %}Allowed tags:{% endtrans %} p li ol ul strong em u h2<br/>{% trans %}Rules will appear at:{% endtrans %} <a href="/{{board.uri}}/rules.html">https://8chan.co/{{board.uri}}/rules.html</a></span></th><td><textarea name="rules" style="height:100px;width:500px">{{rules}}</textarea></td><tr>
+		<tr><th>{% trans %}Rules{% endtrans %}<br/><span class="unimportant">{% trans %}Allowed tags:{% endtrans %} p li ol ul strong em u h2<br/>{% trans %}Rules will appear at:{% endtrans %} <a href="/{{board.uri}}/rules.html">https://8ch.net/{{board.uri}}/rules.html</a></span></th><td><textarea name="rules" style="height:100px;width:500px">{{rules}}</textarea></td><tr>
 		<tr><th>{% trans %}Stylesheet{% endtrans %}<br/><span class="unimportant">{% trans %}note: does not validate CSS{% endtrans %}</span><br/><span class="unimportant">{% trans %}Allowed URLs:{% endtrans %}<br/>{{ allowed_urls|join('<br>') }}</span></th><td><textarea name="css" style="height:100px;width:500px">{{css}}</textarea></td><tr>
 	</table>
 
