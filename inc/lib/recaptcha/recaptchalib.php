@@ -77,8 +77,8 @@ function _recaptcha_http_post($host, $path, $data, $port = 80) {
         $http_request .= $req;
 
         $response = '';
-        if( false == ( $fs = @fsockopen($host, $port, $errno, $errstr, 10) ) ) {
-                die ('Could not open socket');
+        if( false == ( $fs = fsockopen($host, $port, $errno, $errstr, 10) ) ) {
+                die ('Could not open socket ' . $errno);
         }
 
         fwrite($fs, $http_request);
@@ -149,7 +149,7 @@ class ReCaptchaResponse {
   * @param array $extra_params an array of extra variables to post to the server
   * @return ReCaptchaResponse
   */
-function recaptcha_check_answer ($privkey, $remoteip, $challenge, $response, $extra_params = array())
+function recaptcha_check_answer ($privkey, $remoteip, $challenge, $response, $extra_params = array(), $verify_server = false)
 {
 	if ($privkey == null || $privkey == '') {
 		die ("To use reCAPTCHA you must get an API key from <a href='https://www.google.com/recaptcha/admin/create'>https://www.google.com/recaptcha/admin/create</a>");
@@ -169,7 +169,7 @@ function recaptcha_check_answer ($privkey, $remoteip, $challenge, $response, $ex
                 return $recaptcha_response;
         }
 
-        $response = _recaptcha_http_post (RECAPTCHA_VERIFY_SERVER, "/recaptcha/api/verify",
+        $response = _recaptcha_http_post (($verify_server ? $verify_server : RECAPTCHA_VERIFY_SERVER), "/recaptcha/api/verify",
                                           array (
                                                  'privatekey' => $privkey,
                                                  'remoteip' => $remoteip,
