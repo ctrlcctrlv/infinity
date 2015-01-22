@@ -24,8 +24,7 @@ var twemoji = (function (
     /////////////////////////
 
       // default assets url, by default will be Twitter Inc. CDN
-      base: (location.protocol === 'https:' ? 'https:' : 'http:') +
-            '//8ch.net/js/twemoji/',
+      base: '/js/twemoji/',
 
       // default assets file extensions, by default '.png'
       ext: '.png',

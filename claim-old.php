@@ -109,7 +109,7 @@ $body = "<p>Please read the following instructions carefully:</p>
 
 <p>The username of the admin of this board is <strong>{$mods[0]['username']}</strong>. Please write this down, you will need it to log in. It cannot be changed.</p>
 <p>A new password has been generated for this board. It is <tt>{$password}</tt> . Please write this down, you will need it to log in. <em>If you forget your password, it cannot be changed. You must wait to reclaim the board again! Do not lose it.</em></p>
-<p>The URL you use to manage your board is <a href='/mod.php'>8chan.co/mod.php</a>. Log in using the details above. Note: The board can still be claimed by another user until you log in for the first time or if it still meets the inactivity criteria, so post something!</p>
+<p>The URL you use to manage your board is <a href='/mod.php'>https://8ch.net/mod.php</a>. Log in using the details above. Note: The board can still be claimed by another user until you log in for the first time or if it still meets the inactivity criteria, so post something!</p>
 <p>
 
 ";

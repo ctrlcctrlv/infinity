@@ -3,7 +3,7 @@ infinity
 
 About
 ------------
-infinity is a fork of vichan, with the difference that infinity is geared towards allowing users to create their own boards. A running instance is at https://8chan.co.
+infinity is a fork of vichan, with the difference that infinity is geared towards allowing users to create their own boards. A running instance is at [8ch.net](https://8ch.net/)
 
 Most things (other than installation) that apply to upstream vichan also apply to infinity. See their readme for a detailed FAQ: https://github.com/vichan-devel/vichan/blob/master/README.md
 
