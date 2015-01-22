@@ -1012,7 +1012,7 @@ function mod_ban_appeals() {
 			error(_('Ban appeal not found!'));
 		}
 
-		if (!in_array($ban['board'], $mod['boards']))
+		if (!in_array($ban['board'], $mod['boards']) && $mod['boards'][0] != '*')
 			error($config['error']['noaccess']);
 		
 		$ban['mask'] = Bans::range_to_string(array($ban['ipstart'], $ban['ipend']));
