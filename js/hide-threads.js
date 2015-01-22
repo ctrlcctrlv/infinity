@@ -13,7 +13,7 @@
  */
 
 $(document).ready(function(){
-	if (active_page != "index" && active_page != "ukko")
+	if (active_page != "index" && active_page != "ukko" && active_page != "thread")
 		return; // not index
 		
 	if (!localStorage.hiddenthreads)
@@ -83,6 +83,10 @@ $(document).ready(function(){
 		var id = post.children('p.intro').children('a.post_no:eq(1)').text();
 		var board = post.parent().data('board');
 		
+		if (!hidden_data[board]) {
+			hidden_data[board] = {}; // id : timestamp
+		}
+		
 		$('<a class="post-hide-link" href="javascript:void(0)" title="Hide Post" style="float: right">[–]</a>')
 			.insertAfter(post.children('p.intro').children('a.post_no:last'))
 			.click(function() {
@@ -105,8 +109,8 @@ $(document).ready(function(){
 		if (hidden_data[board][id])
 			post.find('.post-hide-link').click();
 	}
-
-	$('div.post.op').each(do_hide_threads);
+	if (active_page != "thread")
+		$('div.post.op').each(do_hide_threads);
 	$('div.post.reply').each(do_hide_posts);
 
 	$(document).on('new_post', function(e, post) {
