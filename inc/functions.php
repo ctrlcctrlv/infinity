@@ -2358,7 +2358,8 @@ function shell_exec_error($command, $suppress_stdout = false) {
 	
 	// Determine if $command is a valid command. If we don't, the following is considered valid output.
 	// '$command' is not recognized as an internal or external command, operable program or batch file.
-	if( empty( shell_exec("which $command") ) ) {
+	$cmd_out = shell_exec("which $command");
+	if( empty( $cmd_out ) ) {
 		return false;
 	}
 	
