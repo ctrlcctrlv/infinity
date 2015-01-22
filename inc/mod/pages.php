@@ -1714,6 +1714,51 @@ function mod_spoiler_image($board, $post, $file) {
 	header('Location: ?/' . sprintf($config['board_path'], $board) . $config['file_index'], true, $config['redirect_http']);
 }
 
+function mod_spoiler_images($board, $post) {
+	global $config, $mod;
+	   
+	if (!openBoard($board))
+		error($config['error']['noboard']);
+	   
+	if (!hasPermission($config['mod']['spoilerimage'], $board))
+		error($config['error']['noaccess']);
+
+	// Delete file thumbnails
+	$query = prepare(sprintf("SELECT `files`, `thread` FROM ``posts_%s`` WHERE id = :id", $board));
+	$query->bindValue(':id', $post, PDO::PARAM_INT);
+	$query->execute() or error(db_error($query));
+	$result = $query->fetch(PDO::FETCH_ASSOC);
+	$files = json_decode($result['files']);
+	
+	foreach ($files as $file => $name) {
+		$size_spoiler_image = @getimagesize($config['spoiler_image']);
+		file_unlink($config['dir']['img_root'] . $board . '/' . $config['dir']['thumb'] . $files[$file]->thumb);
+		$files[$file]->thumb = 'spoiler';
+		$files[$file]->thumbwidth = $size_spoiler_image[0];
+		$files[$file]->thumbheight = $size_spoiler_image[1];
+	};
+	// Make thumbnail spoiler
+	$query = prepare(sprintf("UPDATE ``posts_%s`` SET `files` = :files WHERE `id` = :id", $board));
+	$query->bindValue(':files', json_encode($files));
+	$query->bindValue(':id', $post, PDO::PARAM_INT);
+	$query->execute() or error(db_error($query));
+
+	// Record the action
+	modLog("Spoilered file from post #{$post}");
+
+	// Rebuild thread
+	buildThread($result['thread'] ? $result['thread'] : $post);
+
+	// Rebuild board
+	buildIndex();
+
+	// Rebuild themes
+	rebuildThemes('post-delete', $board);
+	   
+	// Redirect
+	header('Location: ?/' . sprintf($config['board_path'], $board) . $config['file_index'], true, $config['redirect_http']);
+}
+
 function mod_deletebyip($boardName, $post, $global = false) {
 	global $config, $mod, $board;
 	

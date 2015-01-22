@@ -84,6 +84,7 @@ $pages = array(
 	'/(\%b)/delete/(\d+)'                             => 'secure delete',          // delete post
 	'/(\%b)/deletefile/(\d+)/(\d+)'                   => 'secure deletefile',      // delete file from post
 	'/(\%b+)/spoiler/(\d+)/(\d+)'                     => 'secure spoiler_image',   // spoiler file
+	'/(\%b+)/spoiler_all/(\d+)'                       => 'secure spoiler_images',   // spoiler file
 	'/(\%b)/deletebyip/(\d+)(/global)?'               => 'secure deletebyip',      // delete all posts by IP address
 	'/(\%b)/(un)?lock/(\d+)'                          => 'secure lock',            // lock thread
 	'/(\%b)/(un)?sticky/(\d+)'                        => 'secure sticky',          // sticky thread
