@@ -33,6 +33,7 @@ class Api {
 			'sticky' => 'sticky',
 			'locked' => 'locked',
 			'bump' => 'last_modified',
+			'embed' => 'embed',
 		);
 
 		$this->threadsPageFields = array(
