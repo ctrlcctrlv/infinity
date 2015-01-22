@@ -14,16 +14,16 @@
  */
 
 onready(function(){
-	var dont_fetch_again = [];
+
 	init_hover = function() {
 		var link = $(this);
-		
+
 		var id;
 		var matches;
 
-                if (link.is('[data-thread]')) {
-                        id = link.attr('data-thread');
-                }
+		if (link.is('[data-thread]')) {
+				id = link.attr('data-thread');
+		}
 		else if(matches = link.text().match(/^>>(?:>\/([^\/]+)\/)?(\d+)$/)) {
 			id = matches[2];
 		}
@@ -50,8 +50,7 @@ onready(function(){
 		var hovering = false;
 		link.hover(function(e) {
 			hovering = true;
-			
-			var start_hover = function(link) {					
+			var start_hover = function(link) {
 				if(post.is(':visible') &&
 						post.offset().top >= $(window).scrollTop() &&
 						post.offset().top + post.height() <= $(window).scrollTop() + $(window).height()) {
@@ -75,7 +74,7 @@ onready(function(){
 						.css('left', '0')
 						.css('margin-left', '')
 						.addClass('reply').addClass('post')
-						.appendTo(link.closest('div.post'))
+						.appendTo(link.closest('div.post'));
 						
 					// shrink expanded images
 					newPost.find('div.file a[data-expanded="true"]').each(function() {
@@ -137,46 +136,124 @@ onready(function(){
 				}
 			};
 			
+			
 			post = $('[data-board="' + board + '"] div.post#reply_' + id + ', [data-board="' + board + '"]div#thread_' + id);
 			if(post.length > 0) {
 				start_hover($(this));
 			} else {
-				var url = link.attr('href').replace(/#.*$/, '');
-				
-				if($.inArray(url, dont_fetch_again) != -1) {
-					return;
-				}
-				dont_fetch_again.push(url);
-				
-				$.ajax({
-					url: url,
-					context: document.body,
-					success: function(data) {
-						var mythreadid = $(data).find('div[id^="thread_"]').attr('id').replace("thread_", "");
+				var url = link.attr('href').replace(/#.*$/, '').replace('.html', '.json');
+				var dataPromise = getPost(id, url);
 
-						if (mythreadid == threadid && parentboard == board) {
-							$(data).find('div.post.reply').each(function() {
-								if($('[data-board="' + board + '"] #' + $(this).attr('id')).length == 0) {
-									$('[data-board="' + board + '"]#thread_' + threadid + " .post.reply:first").before($(this).hide().addClass('hidden'));
-								}
+				dataPromise.done(function (data) {
+					//	reconstruct post from json response
+					var file_array = [];
+					var multifile = false;
+
+					var add_info = function (data) {
+						var file = {
+							'thumb_h': data.tn_h,
+							'thumb_w': data.tn_w,
+							'fsize': data.fsize,
+							'filename': data.filename,
+							'ext': data.ext,
+							'tim': data.tim
+						};
+
+						if ('h' in data) {
+							file.isImage = true; //(or video)
+							file.h = data.h;
+							file.w = data.w;
+						} else {
+							file.isImage = false;
+						}
+						// since response doens't indicate spoilered files,
+						// we'll just make do by assuming any image with 128*128px thumbnail is spoilered.
+						// which is probably 99% of the cases anyway.
+						file.isSpoiler = (data.tn_h == 128 && data.tn_w == 128);
+
+						file_array.push(file);
+					};
+
+					var bytesToSize = function (bytes) {
+						var sizes = ['Bytes', 'KB', 'MB'];
+						var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+
+						return (i === 0) ? bytes +' '+ sizes[i] : (bytes / Math.pow(1024, i)).toFixed(2) +' ' +sizes[i];
+					};
+
+					//	in case no subject
+					if (!data.sub) data.sub = '';
+
+					var $post = $('<div class="post reply hidden" id="reply_'+ data.no +'">')
+								.append($('<p class="intro"></p>')
+									.append('<span class="subject">'+ data.sub +'</span> ')
+									.append('<span class="name">'+ data.name +'</span> ')
+									.append('<a class="post_no">No.'+ data.no +'</a>')
+								)
+								.append($('<div class="body"></div>')
+									.html(data.com)
+								)
+								.css('display', 'none');
+
+					if ('filename' in data) {
+						var $files = $('<div class="files">');
+
+						add_info(data);
+						if ('extra_files' in data) {
+							multifile = true;
+							$.each(data.extra_files, function () {
+								add_info(this);
 							});
 						}
-						else if ($('[data-board="' + board + '"]#thread_'+mythreadid).length > 0) {
-							$(data).find('div.post.reply').each(function() {
-								if($('[data-board="' + board + '"] #' + $(this).attr('id')).length == 0) {
-									$('[data-board="' + board + '"]#thread_' + mythreadid + " .post.reply:first").before($(this).hide().addClass('hidden'));
-								}
-							});
-						}
-						else {
-							$(data).find('div[id^="thread_"]').hide().attr('data-cached', 'yes').prependTo('form[name="postcontrols"]');
-						}
 
-						post = $('[data-board="' + board + '"] div.post#reply_' + id + ', [data-board="' + board + '"]div#thread_' + id);
+						$.each(file_array, function () {
+							var thumb_url;
+                            var file_ext = this.ext;
 
-						if(hovering && post.length > 0) {
-							start_hover(link);
+							if (this.isImage && !this.isSpoiler) {
+								// video files uses jpg for thumbnail
+								if (this.ext === '.webm' || this.ext === '.mp4') this.ext = '.jpg';
+								thumb_url = '/'+ board +'/thumb/' + this.tim + this.ext;
+							} else {
+								thumb_url = (this.isSpoiler) ? '/static/spoiler.png' : '/static/file.png';
+							}
+							// file infos
+							var $ele = $('<div class="file">')
+										.append($('<p class="fileinfo">')
+											.append('<span>File: </span>')
+											.append('<a>'+ this.filename + file_ext +'</a>')
+											.append('<span class="unimportant"> ('+ bytesToSize(this.fsize) +', '+ this.w +'x'+ this.h +')</span>')
+										);
+							if (multifile) $ele.addClass('multifile').css('max-width', '200px');
+
+							// image
+							var $img = $('<img class="post-image">')
+												.css('width', this.thumb_w)
+												.css('height', this.thumb_h)
+												.attr('src', thumb_url);
+
+							$ele.append($img);
+							$files.append($ele);
+						});
+						
+						$post.children('p.intro').after($files);
+					}
+
+					var mythreadid = (data.resto !== 0) ? data.resto : data.no;
+
+					if (mythreadid != threadid || parentboard != board) {
+						// previewing post from external thread/board
+						if ($('div#thread_'+ mythreadid +'[data-board="'+ board +'"]').length === 0) {
+							$('form[name="postcontrols"]').prepend('<div class="thread" id="thread_'+ mythreadid +'" data-board="'+ board +'" style="display: none;"></div>');
 						}
+					}
+					if ($('div#thread_'+ mythreadid +'[data-board="'+ board +'"]').children('#reply_'+ data.no).length === 0) {
+						$('div#thread_'+ mythreadid +'[data-board="'+ board +'"]').prepend($post);
+					}
+
+					post = $('[data-board="' + board + '"] div.post#reply_' + id + ', [data-board="' + board + '"]div#thread_' + id);
+					if (hovering && post.length > 0) {
+						start_hover(link);
 					}
 				});
 			}
@@ -186,11 +263,46 @@ onready(function(){
 				return;
 			
 			post.removeClass('highlighted');
-			if(post.hasClass('hidden') || post.data('cached') == 'yes')
+			if(post.hasClass('hidden'))
 				post.css('display', 'none');
 			$('.post-hover').remove();
 		});
 	};
+
+	var getPost = (function () {
+		var cache = {};
+		return function (targetId, url) {
+			var deferred = $.Deferred();
+			var data, post;
+
+			var findPost = function (targetId, data) {
+				var arr = data.posts;
+				for (var i=0; i<arr.length; i++) {
+					if (arr[i].no == targetId)
+						return arr[i];
+				}
+				return false;
+			};
+			var get = function (targetId, url) {
+				$.ajax({
+					url: url,
+					success: function (response) {
+						cache[url] = response;
+						var post = findPost(targetId, response);
+						deferred.resolve(post);
+					}
+				});
+			};
+
+			//	check for cached response and check if it's stale
+			if ((data = cache[url]) !== undefined && (post = findPost(targetId, data))) {
+				deferred.resolve(post);
+			} else {
+				get(targetId, url);
+			}
+			return deferred.promise();
+		};
+	})();
 	
 	$('div.body a:not([rel="nofollow"])').each(init_hover);
 	
