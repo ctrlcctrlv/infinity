@@ -75,7 +75,7 @@
 	$config['mod']['capcode'][GLOBALVOLUNTEER] = array('Global Volunteer');
 	$config['mod']['capcode'][ADMIN] = array('Admin', 'Global Volunteer');
 	$config['custom_capcode']['Admin'] = array(
-		'<span class="capcode" title="This post is written by the global 8chan.co administrator."> <i class="fa fa-wheelchair" style="color:blue;"></i> <span style="color:red">8chan.co Administrator</span></span>',
+		'<span class="capcode" title="This post was written by the global 8chan administrator."> <i class="fa fa-wheelchair" style="color:blue;"></i> <span style="color:red">8chan Administrator</span></span>',
 	);
 	//$config['mod']['view_banlist'] = GLOBALVOLUNTEER;
 	$config['mod']['recent_reports'] = 65535;
@@ -159,7 +159,7 @@
 	$config['boards'] = array(array('<i class="fa fa-home" title="Home"></i>' => '/', '<i class="fa fa-tags" title="Boards"></i>' => '/boards.html', '<i class="fa fa-question" title="FAQ"></i>' => '/faq.html', '<i class="fa fa-random" title="Random"></i>' => '/random.php', '<i class="fa fa-plus" title="New board"></i>' => '/create.php', '<i class="fa fa-ban" title="Public ban list"></i>' => '/bans.html', '<i class="fa fa-search" title="Search"></i>' => '/search.php', '<i class="fa fa-cog" title="Manage board"></i>' => '/mod.php', '<i class="fa fa-quote-right" title="Chat"></i>' => 'https://qchat.rizon.net/?channels=#8chan'), array('b', 'meta', 'news+'), array('<i class="fa fa-twitter" title="Twitter"></i>'=>'https://twitter.com/infinitechan'));
 	//$config['boards'] = array(array('<i class="fa fa-home" title="Home"></i>' => '/', '<i class="fa fa-tags" title="Boards"></i>' => '/boards.html', '<i class="fa fa-question" title="FAQ"></i>' => '/faq.html', '<i class="fa fa-random" title="Random"></i>' => '/random.php', '<i class="fa fa-plus" title="New board"></i>' => '/create.php', '<i class="fa fa-search" title="Search"></i>' => '/search.php', '<i class="fa fa-cog" title="Manage board"></i>' => '/mod.php', '<i class="fa fa-quote-right" title="Chat"></i>' => 'https://qchat.rizon.net/?channels=#8chan'), array('b', 'meta', 'int'), array('v', 'a', 'tg', 'fit', 'pol', 'tech', 'mu', 'co', 'sp', 'boards'), array('<i class="fa fa-twitter" title="Twitter"></i>'=>'https://twitter.com/infinitechan'));
 
-	$config['footer'][] = 'All posts on 8chan.co are the responsibility of the individual poster and not the administration of 8chan.co, pursuant to 47 U.S.C. &sect; 230.';
+	$config['footer'][] = 'All posts on 8chan are the responsibility of the individual poster and not the administration of 8chan, pursuant to 47 U.S.C. &sect; 230.';
 	$config['footer'][] = 'We have not been served any secret court orders and are not under any gag orders.';
 	$config['footer'][] = 'To make a DMCA request or report illegal content, please email <a href="mailto:admin@8chan.co">admin@8chan.co</a>.';
 
@@ -229,6 +229,7 @@ $config['early_404_replies'] = 10;
 $config['cron_bans'] = true;
 $config['mask_db_error'] = true;
 $config['ban_appeals'] = true;
+$config['show_sages'] = false;
 // 8chan specific mod pages
 require '8chan-mod-pages.php';
 	

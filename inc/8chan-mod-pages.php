@@ -130,7 +130,7 @@
 		$query->bindValue(':mod', $mods[0]['username']);
 		$query->execute();
 
-		$body = "Thanks for your interest in this board. Kindly find the username and password below. You can login at 8chan.co/mod.php.<br>Username: {$mods[0]['username']}<br>Password: {$password}<br>Thanks for using 8chan.co!";
+		$body = "Thanks for your interest in this board. Kindly find the username and password below. You can login at https://8ch.net/mod.php.<br>Username: {$mods[0]['username']}<br>Password: {$password}<br>Thanks for using 8chan!";
 		
 		mod_page(_('Edit reassign'), 'blank.html', array('board'=>$board,'token'=>make_secure_link_token('reassign/'.$board['uri']),'body'=>$body));
 	};
@@ -384,6 +384,7 @@ FLAGS;
 			error("Could not open board!");
 
 		$possible_languages = array_diff(scandir('inc/locale/'), array('..', '.', '.tx', 'README.md'));
+		$allowed_urls = array('https://i.imgur.com/', 'https://media.8ch.net/', 'https://media.8chan.co/', 'https://a.pomf.se/', 'https://fonts.googleapis.com/', 'https://fonts.gstatic.com/', 'https://jp.8ch.net/');
 
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			$title = $_POST['title'];
@@ -520,8 +521,6 @@ EOT;
 
 			preg_match_all("#$match_urls#im", $clean_css, $matched);
 			
-			$allowed_urls = array('https://i.imgur.com/', 'https://media.8chan.co/', 'https://a.pomf.se/', 'https://fonts.googleapis.com/', 'https://fonts.gstatic.com/', 'http://8ch.net/', 'https://8chan.co/');
-
 			if (isset($matched[0])) {
 				foreach ($matched[0] as $match) {
 					$match_okay = false;
@@ -598,9 +597,10 @@ EOT;
 		$rules = @file_get_contents($board['uri'] . '/rules.txt');
 		$css = @file_get_contents('stylesheets/board/' . $board['uri'] . '.css');
 	
-		if ($config['cache']['enabled']) 
+		if ($config['cache']['enabled']) {
 			cache::delete('board_' . $board['uri']);
 			cache::delete('all_boards');
+		}
 
-		mod_page(_('Board configuration'), 'mod/settings.html', array('board'=>$board, 'rules'=>prettify_textarea($rules), 'css'=>prettify_textarea($css), 'token'=>make_secure_link_token('settings/'.$board['uri']), 'languages'=>$possible_languages));
+		mod_page(_('Board configuration'), 'mod/settings.html', array('board'=>$board, 'rules'=>prettify_textarea($rules), 'css'=>prettify_textarea($css), 'token'=>make_secure_link_token('settings/'.$board['uri']), 'languages'=>$possible_languages,'allowed_urls'=>$allowed_urls));
 	};
