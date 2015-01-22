@@ -91,7 +91,11 @@ function sql_open() {
 		$message = str_replace($config['db']['password'], '<em>hidden</em>', $message);
 		
 		// Print error
-		error(_('Database error: ') . $message);
+		if ($config['mask_db_error']) {
+			error(_('Could not connect to the database. Please try again later.'));
+		} else { 
+			error(_('Database error: ') . $message);
+		}
 	}
 }
 
