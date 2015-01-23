@@ -37,7 +37,30 @@ $(document).ready(function(){
 	var countdown_interval;
 
 	// Add an update link
-	$('.boardlist.bottom').prev().after("<span id='updater'><a href='#' id='update_thread' style='padding-left:10px'>["+_("Update")+"]</a> (<input type='checkbox' id='auto_update_status' checked> "+_("Auto")+") <span id='update_secs'></span></span>");
+	$('.boardlist.bottom').prev().after("<span id='updater'><a href='#' id='update_thread' style='padding-left:10px'>["+_("Update")+"]</a> (<input type='checkbox' id='auto_update_status'> "+_("Auto")+") <span id='update_secs'></span></span>");
+
+	// Adds Options panel item
+	if (typeof localStorage.auto_thread_update === 'undefined') {
+		localStorage.auto_thread_update = 'true'; //default value
+	}
+	if (window.Options && Options.get_tab('general')) {
+		Options.extend_tab('general', '<label id="auto-thread-update"><input type="checkbox">' + _('Auto update thread') + '</label>');
+		$('#auto-thread-update>input').on('click', function() {
+			if ($('#auto-thread-update>input').is(':checked')) {
+				localStorage.auto_thread_update = 'true';
+			} else {
+				localStorage.auto_thread_update = 'false';
+			}
+		});
+		if (localStorage.auto_thread_update === 'true') {
+			$('#show-relative-time>input').prop('checked', true);
+		}
+	}
+
+	// Set the updater checkbox according to user setting
+	if (localStorage.auto_thread_update === 'true') {
+		$('#auto_update_status').prop('checked', true);
+	}
 
 	// Grab the settings
 	var settings = new script_settings('auto-reload');
@@ -51,19 +74,19 @@ $(document).ready(function(){
 
 	var end_of_page = false;
 
-        var new_posts = 0;
+	var new_posts = 0;
 	var first_new_post = null;
 	
 	var title = document.title;
 
 	if (typeof update_title == "undefined") {
-	   var update_title = function() { 
-	   	if (new_posts) {
-	   		document.title = "("+new_posts+") "+title;
-	   	} else {
-	   		document.title = title;
-	   	}
-	   };
+		var update_title = function() { 
+			if (new_posts) {
+				document.title = "("+new_posts+") "+title;
+			} else {
+				document.title = title;
+			}
+		};
 	}
 
 	if (typeof add_title_collector != "undefined")
@@ -130,9 +153,9 @@ $(document).ready(function(){
 		clearInterval(countdown_interval);
 	}
 		
-    	var epoch = (new Date).getTime();
-    	var epochold = epoch;
-    	
+	var epoch = (new Date).getTime();
+	var epochold = epoch;
+		
 	var timeDiff = function (delay) {
 		if((epoch-epochold) > delay) {
 			epochold = epoch = (new Date).getTime();
