@@ -256,8 +256,8 @@ function get_cookie(cookie_name) {
 function highlightReply(id, event) {
 	if (typeof window.event != "undefined") {
 		// don't highlight on middle click
-		if (event.which == 2) return true;
 		var e = event || window.event;
+		if (e.which == 2) return true;
 		if (active_page == 'thread' && typeof e.preventDefault != "undefined") e.preventDefault();
 	}
 	
