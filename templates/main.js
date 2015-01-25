@@ -334,13 +334,18 @@ function citeReply(id, with_link) {
 		textarea.value += '>>' + id + '\n';
 	}
 	if (typeof $ != 'undefined') {
-		var select = document.getSelection().toString();
+		// multiline quotes
+		var select = sessionStorage.quoteClipboard;
 		if (select) {
-			var body = $('#reply_' + id + ', #op_' + id).find('div.body');  // TODO: support for OPs
-			var index = body.text().indexOf(select.replace('\n', ''));  // for some reason this only works like this
-			if (index > -1) {
-				textarea.value += '>' + select + '\n';
-			}
+			select = select.split('\n');
+			$(select).each(function () {
+				if (this !== '')
+					var str = '>'+ this +'\n';
+				else
+					var str = '\n';
+				textarea.value += str;
+			});
+			delete sessionStorage.quoteClipboard;
 		}
 
 		$(window).trigger('cite', [id, with_link]);
@@ -402,6 +407,13 @@ var script_settings = function(script_name) {
 
 function init() {
 	init_stylechooser();
+
+	if (typeof $ != 'undefined') {
+		//	store highlighted text for citeReply()
+		$('form[name="postcontrols"]').on('mouseup', function (e) {
+			sessionStorage.quoteClipboard = window.getSelection().toString();
+		});
+	}
 
 	{% endraw %}	
 	{% if config.allow_delete %}
