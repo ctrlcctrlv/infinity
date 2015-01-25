@@ -254,6 +254,17 @@ function get_cookie(cookie_name) {
 }
 
 function highlightReply(id, event) {
+	if (typeof $ != 'undefined') {
+		// check if external post
+		// TODO: Don't use jQuery
+		var post_list = $('a.post_no').filter(':not([id])').filter(function(){
+			if (!$(this).parent().parent().hasClass('hidden')) return true;
+		});
+		post_list = $.map($.makeArray(post_list), function(ele) {return $(ele).html()});
+		if (post_list.indexOf(id) == -1)
+			return true;
+	}
+	
 	if (typeof window.event != "undefined") {
 		// don't highlight on middle click
 		var e = event || window.event;
