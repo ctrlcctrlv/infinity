@@ -278,7 +278,13 @@
 			}
 		});
 		
-		$postForm.find('textarea[name="body"]').removeAttr('id').removeAttr('cols').attr('placeholder', _('Comment'));
+		$postForm.find('textarea[name="body"]').removeAttr('id').removeAttr('cols').attr('placeholder', _('Comment'))
+			.on('keydown', function (e) {
+				//close quick reply when esc is prssed
+				if (e.which === 27) {
+					$('.close-btn').trigger('click');
+				}
+			});
 	
 		$postForm.find('textarea:not([name="body"]),input[type="hidden"]:not(.captcha_cookie)').removeAttr('id').appendTo($dummyStuff);
 	
