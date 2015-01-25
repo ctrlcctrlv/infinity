@@ -379,7 +379,8 @@
 			} else {
 				$postForm.show();
 			}
-			
+
+			$postForm.find('textarea[name="body"]').focus();
 			$(window).on('stylesheet', function() {
 				do_css();
 				if ($('link#stylesheet').attr('href')) {
