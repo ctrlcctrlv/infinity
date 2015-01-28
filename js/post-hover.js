@@ -212,7 +212,7 @@ onready(function(){
 
 							if (this.isImage && !this.isSpoiler) {
 								// video files uses jpg for thumbnail
-								if (this.ext === '.webm' || this.ext === '.mp4') this.ext = '.jpg';
+								if (this.ext === '.webm' || this.ext === '.mp4' || this.ext === '.jpeg') this.ext = '.jpg';
 								thumb_url = '/'+ board +'/thumb/' + this.tim + this.ext;
 							} else {
 								thumb_url = (this.isSpoiler) ? '/static/spoiler.png' : '/static/file.png';
