@@ -12,7 +12,7 @@ If you are not interested in letting your users make their own boards, install v
 Installation
 ------------
 Basic requirements:
-A computer running a Unix-like OS(infinity has been specifically tested with and is known to work under Ubuntu 14.x), Apache, MySQL, and PHP
+A computer running a Unix or Unix-like OS(infinity has been specifically tested with and is known to work under Ubuntu 14.x), Apache, MySQL, and PHP
 * Make sure Apache has read/write access to the directory infinity resides in.
 * `install.php` is not maintained. Don't use it.
 
