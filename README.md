@@ -1,25 +1,28 @@
-infinity
-========================================================
 
-About
-------------
-infinity is a fork of vichan, with the difference that infinity is geared towards allowing users to create their own boards. A running instance is at [8ch.net](https://8ch.net/)
+This fork adds a new board option to infinity:
 
-Most things (other than installation) that apply to upstream vichan also apply to infinity. See their readme for a detailed FAQ: https://github.com/vichan-devel/vichan/blob/master/README.md
+The requirement to solve a captcha in order to create a thread, but not in order to post a reply.
 
-If you are not interested in letting your users make their own boards, install vichan instead of infinity.
+Here's a quick rundown of where code edits have been made:
 
-Because I cannot be bothered to maintain `install.php`, the install process is as such:
+ALL CODE EDITS FOR NEW THREAD CAPTCHA ARE MARKED WITH THE COMMENT "New thread captcha"
+ONE ADITIONAL EDIT TO SETTINGS.HTML MARKED WITH:
+<!--Added explanation to clarify purpose of "Enable CAPTCHA" now that "Enable CAPTCHA for new thread creation only" also exists-->
+The $config setting for new thread captcha is $config[new_thread_capt]
 
-```
-mysql -uroot infinity < install.sql
-echo 'infinity' > .installed
-```
+templates/mod/settings.html
+Option for new captcha thread creation has been added to the settings template.
+"Enable CAPTCHA" also clarified with better description.
 
-Here's my install script as of 11/14/2014 for the 8chan servers which run Ubuntu 14.04:
+inc/8chan-mod-pages.php
+Two lines of code added to 8chan-mod-pages.php
 
-```
-apt-get install graphicsmagick gifsicle php5-fpm mysql-client php5-mysql php5-cli php-pear php5-apcu; add-apt-repository ppa:jon-severinsson/ffmpeg; add-apt-repository ppa:nginx/stable; apt-get update; apt-get install nginx ffmpeg; pear install Net_DNS2
-```
+inc/config.php
+Line added, makes new thread captcha default to off.
 
-Have fun!
+/templates/post_form.html
+Several lines added. Makes the verification box show up in the new thread form
+when $config[new_thread_capt] is enabled. 
+
+/post.php
+Added two new conditions to if statement.
