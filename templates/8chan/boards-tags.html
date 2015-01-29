@@ -48,6 +48,10 @@ overflow: hidden; width: 200px; height: 1.1em; white-space: nowrap;
 
 <p style='text-align:center'>{% trans %}There are currently <strong>{{n_boards}}</strong> boards + <strong>{{hidden_boards_total}}</strong> unindexed boards = <strong>{{t_boards}}</strong> total boards. Site-wide, {{total_posts_hour}} posts have been made in the last hour, with {{total_posts}} being made on all active boards since October 23, 2013.{% endtrans %}</p>
 
+{% if top2k %}
+<p style='text-align:center'><a href="/boards_full.html">{% trans %}This list only shows the top 2000 boards. Until we can move tag searching onto the server side, click here for the full list.{% endtrans %}</a></p>
+{% endif %}
+
 <div style='height:100px; overflow-y:scroll' class="tags-container">
 	<strong class="tags-strong">Tags:</strong>&nbsp;
 	{% for tag, pop in tags %}
