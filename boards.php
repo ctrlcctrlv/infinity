@@ -115,9 +115,14 @@ $boards = array_values($boards);
 arsort($all_tags);
 
 $config['additional_javascript'] = array('js/jquery.min.js', 'js/jquery.tablesorter.min.js');
-$body = Element("8chan/boards-tags.html", array("config" => $config, "n_boards" => $n_boards, "t_boards" => $t_boards, "hidden_boards_total" => $hidden_boards_total, "total_posts" => $total_posts, "total_posts_hour" => $total_posts_hour, "boards" => $boards, "last_update" => date('r'), "uptime_p" => shell_exec('uptime -p'), 'tags' => $all_tags));
+$body = Element("8chan/boards-tags.html", array("config" => $config, "n_boards" => $n_boards, "t_boards" => $t_boards, "hidden_boards_total" => $hidden_boards_total, "total_posts" => $total_posts, "total_posts_hour" => $total_posts_hour, "boards" => $boards, "last_update" => date('r'), "uptime_p" => shell_exec('uptime -p'), 'tags' => $all_tags, 'top2k' => false));
 
 $html = Element("page.html", array("config" => $config, "body" => $body, "title" => "Boards on &infin;chan"));
+array_splice($boards, 2000);
+$boards = array_values($boards);
+$body = Element("8chan/boards-tags.html", array("config" => $config, "n_boards" => $n_boards, "t_boards" => $t_boards, "hidden_boards_total" => $hidden_boards_total, "total_posts" => $total_posts, "total_posts_hour" => $total_posts_hour, "boards" => $boards, "last_update" => date('r'), "uptime_p" => shell_exec('uptime -p'), 'tags' => $all_tags, 'top2k' => true));
+$html_top2k = Element("page.html", array("config" => $config, "body" => $body, "title" => "Boards on &infin;chan"));
+
 if ($admin) {
 	echo $html;
 } else {
@@ -135,7 +140,8 @@ if ($admin) {
 	$boards = array_values($boards);
 
 	file_write("boards-top20.json", json_encode($boards));
-	file_write("boards.html", $html);
+	file_write("boards.html", $html_top2k);
+	file_write("boards_full.html", $html);
 	echo 'Done';
 }
 
