@@ -36,7 +36,7 @@ function last_activity($board) {
 		}
 	}
 	
-	if ($mods and ($last_activity_date < $ago or ($last_mod_date and $last_mod_date < $mod_ago))) {
+	if (($last_activity_date < $ago or ($last_mod_date and $last_mod_date < $mod_ago))) {
 		return array($last_activity_date, $last_mod_date, $mods);
 	}
 	else {
