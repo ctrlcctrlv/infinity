@@ -577,7 +577,7 @@ EOT;
 
 			// be smarter about rebuilds...only some changes really require us to rebuild all threads
 			if ($_config['captcha']['enabled'] != $config['captcha']['enabled']
-			 || $_config['new_thread_capt'] != $config['new_tread_capt'] /*New thread captcha - if toggling "enable captcha" requires this, toggling new thread capt does too, I guess.*/
+			 || $_config['new_thread_capt'] != $config['new_thread_capt'] /*New thread captcha - if toggling "enable captcha" requires this, toggling new thread capt does too, I guess.*/
 			 || $_config['captcha']['extra'] != $config['captcha']['extra']
 			 || $_config['blotter'] != $config['blotter']
 			 || $_config['field_disable_name'] != $config['field_disable_name']
