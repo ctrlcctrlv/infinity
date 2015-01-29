@@ -598,7 +598,7 @@ EOT;
 		$query->bindValue(':board', $b);
 		$query->execute() or error(db_error($query));
 		$board = $query->fetchAll()[0];
-
+ 
 		$rules = @file_get_contents($board['uri'] . '/rules.txt');
 		$css = @file_get_contents('stylesheets/board/' . $board['uri'] . '.css');
 	
