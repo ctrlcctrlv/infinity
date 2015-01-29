@@ -208,20 +208,32 @@ onready(function(){
 
 						$.each(file_array, function () {
 							var thumb_url;
-                            var file_ext = this.ext;
+							var file_ext = this.ext;
 
 							if (this.isImage && !this.isSpoiler) {
-								// video files uses jpg for thumbnail
-								if (this.ext === '.webm' || this.ext === '.mp4' || this.ext === '.jpeg') this.ext = '.jpg';
+
+								// at some point around 28/29th of Jan, 2015; all the newly  generated thumbnails switched to using jpg
+								// this is a quick hack to ensure that external preview (mostly) works with old and new posts
+
+									// Note: please update if a more accurate timestamp is known 
+								if (data.last_modified > 1422489600) {
+									this.ext = '.jpg';
+								} else {
+									if (this.ext === '.webm' || this.ext === '.mp4' || this.ext === '.jpeg') {
+										this.ext = '.jpg';
+									}
+								}
+
 								thumb_url = '/'+ board +'/thumb/' + this.tim + this.ext;
+
 							} else {
 								thumb_url = (this.isSpoiler) ? '/static/spoiler.png' : '/static/file.png';
 							}
 
-                            // truncate long filenames
-                            if (this.filename.length > 23) {
-                                this.filename = this.filename.substr(0, 22) + '…';
-                            }
+							// truncate long filenames
+							if (this.filename.length > 23) {
+								this.filename = this.filename.substr(0, 22) + '…';
+							}
 
 							// file infos
 							var $ele = $('<div class="file">')
