@@ -47,7 +47,7 @@ Step 3.(Optional) By default, infinity will ignore any changes you make to the t
 
 To the array of settings passed to Twig_Environment().
 
-Step 4. Infinity can function in a very barebones fashion after the first two steps, but you should probably install these additional packages if you want to seriously run it and/or contribute to it. ffmpeg may fail to intall under certain versions of Ubuntu. If it does, remove it from the script below and install it via an alternate method. Make sure to run the below as root:
+Step 4. Infinity can function in a very barebones fashion after the first two steps, but you should probably install these additional packages if you want to seriously run it and/or contribute to it. ffmpeg may fail to install under certain versions of Ubuntu. If it does, remove it from the script below and install it via an alternate method. Make sure to run the below as root:
 
 ```
 apt-get install graphicsmagick gifsicle php5-fpm mysql-client php5-mysql php5-cli php-pear php5-apcu; add-apt-repository ppa:jon-severinsson/ffmpeg; add-apt-repository ppa:nginx/stable; apt-get update; apt-get install nginx ffmpeg; pear install Net_DNS2
