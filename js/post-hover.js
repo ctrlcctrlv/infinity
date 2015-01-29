@@ -212,11 +212,17 @@ onready(function(){
 
 							if (this.isImage && !this.isSpoiler) {
 								// video files uses jpg for thumbnail
-								if (this.ext === '.webm' || this.ext === '.mp4') this.ext = '.jpg';
+								if (this.ext === '.webm' || this.ext === '.mp4' || this.ext === '.jpeg') this.ext = '.jpg';
 								thumb_url = '/'+ board +'/thumb/' + this.tim + this.ext;
 							} else {
 								thumb_url = (this.isSpoiler) ? '/static/spoiler.png' : '/static/file.png';
 							}
+
+                            // truncate long filenames
+                            if (this.filename.length > 23) {
+                                this.filename = this.filename.substr(0, 22) + '…';
+                            }
+
 							// file infos
 							var $ele = $('<div class="file">')
 										.append($('<p class="fileinfo">')
@@ -224,7 +230,7 @@ onready(function(){
 											.append('<a>'+ this.filename + file_ext +'</a>')
 											.append('<span class="unimportant"> ('+ bytesToSize(this.fsize) +', '+ this.w +'x'+ this.h +')</span>')
 										);
-							if (multifile) $ele.addClass('multifile').css('max-width', '200px');
+							if (multifile) $ele.addClass('multifile').css('width', this.thumb_w + 30);
 
 							// image
 							var $img = $('<img class="post-image">')

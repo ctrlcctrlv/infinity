@@ -22,58 +22,58 @@ function fmt(s,a) {
 }
 
 function until($timestamp) {
-        var $difference = $timestamp - Date.now()/1000|0, $num;
-        switch(true){
-        case ($difference < 60):
-                return "" + $difference + ' ' + _('second(s)');
-        case ($difference < 3600): //60*60 = 3600
-                return "" + ($num = Math.round($difference/(60))) + ' ' + _('minute(s)');
-        case ($difference < 86400): //60*60*24 = 86400
-                return "" + ($num = Math.round($difference/(3600))) + ' ' + _('hour(s)');
-        case ($difference < 604800): //60*60*24*7 = 604800
-                return "" + ($num = Math.round($difference/(86400))) + ' ' + _('day(s)');
-        case ($difference < 31536000): //60*60*24*365 = 31536000
-                return "" + ($num = Math.round($difference/(604800))) + ' ' + _('week(s)');
-        default:
-                return "" + ($num = Math.round($difference/(31536000))) + ' ' + _('year(s)');
-        }
+		var $difference = $timestamp - Date.now()/1000|0, $num;
+		switch(true){
+		case ($difference < 60):
+				return "" + $difference + ' ' + _('second(s)');
+		case ($difference < 3600): //60*60 = 3600
+				return "" + ($num = Math.round($difference/(60))) + ' ' + _('minute(s)');
+		case ($difference < 86400): //60*60*24 = 86400
+				return "" + ($num = Math.round($difference/(3600))) + ' ' + _('hour(s)');
+		case ($difference < 604800): //60*60*24*7 = 604800
+				return "" + ($num = Math.round($difference/(86400))) + ' ' + _('day(s)');
+		case ($difference < 31536000): //60*60*24*365 = 31536000
+				return "" + ($num = Math.round($difference/(604800))) + ' ' + _('week(s)');
+		default:
+				return "" + ($num = Math.round($difference/(31536000))) + ' ' + _('year(s)');
+		}
 }
 
 function ago($timestamp) {
-        var $difference = (Date.now()/1000|0) - $timestamp, $num;
-        switch(true){
-        case ($difference < 60) :
-                return "" + $difference + ' ' + _('second(s)');
-        case ($difference < 3600): //60*60 = 3600 
-                return "" + ($num = Math.round($difference/(60))) + ' ' + _('minute(s)');
-        case ($difference <  86400): //60*60*24 = 86400
-                return "" + ($num = Math.round($difference/(3600))) + ' ' + _('hour(s)');
-        case ($difference < 604800): //60*60*24*7 = 604800
-                return "" + ($num = Math.round($difference/(86400))) + ' ' + _('day(s)');
-        case ($difference < 31536000): //60*60*24*365 = 31536000
-                return "" + ($num = Math.round($difference/(604800))) + ' ' + _('week(s)');
-        default:
-                return "" + ($num = Math.round($difference/(31536000))) + ' ' + _('year(s)');
-        }
+		var $difference = (Date.now()/1000|0) - $timestamp, $num;
+		switch(true){
+		case ($difference < 60) :
+				return "" + $difference + ' ' + _('second(s)');
+		case ($difference < 3600): //60*60 = 3600 
+				return "" + ($num = Math.round($difference/(60))) + ' ' + _('minute(s)');
+		case ($difference <  86400): //60*60*24 = 86400
+				return "" + ($num = Math.round($difference/(3600))) + ' ' + _('hour(s)');
+		case ($difference < 604800): //60*60*24*7 = 604800
+				return "" + ($num = Math.round($difference/(86400))) + ' ' + _('day(s)');
+		case ($difference < 31536000): //60*60*24*365 = 31536000
+				return "" + ($num = Math.round($difference/(604800))) + ' ' + _('week(s)');
+		default:
+				return "" + ($num = Math.round($difference/(31536000))) + ' ' + _('year(s)');
+		}
 }
 
 var datelocale =
-        { days: [_('Sunday'), _('Monday'), _('Tuesday'), _('Wednesday'), _('Thursday'), _('Friday'), _('Saturday')]
-        , shortDays: [_("Sun"), _("Mon"), _("Tue"), _("Wed"), _("Thu"), _("Fri"), _("Sat")]
-        , months: [_('January'), _('February'), _('March'), _('April'), _('May'), _('June'), _('July'), _('August'), _('September'), _('October'), _('November'), _('December')]
-        , shortMonths: [_('Jan'), _('Feb'), _('Mar'), _('Apr'), _('May'), _('Jun'), _('Jul'), _('Aug'), _('Sep'), _('Oct'), _('Nov'), _('Dec')]
-        , AM: _('AM')
-        , PM: _('PM')
-        , am: _('am')
-        , pm: _('pm')
-        };
+		{ days: [_('Sunday'), _('Monday'), _('Tuesday'), _('Wednesday'), _('Thursday'), _('Friday'), _('Saturday')]
+		, shortDays: [_("Sun"), _("Mon"), _("Tue"), _("Wed"), _("Thu"), _("Fri"), _("Sat")]
+		, months: [_('January'), _('February'), _('March'), _('April'), _('May'), _('June'), _('July'), _('August'), _('September'), _('October'), _('November'), _('December')]
+		, shortMonths: [_('Jan'), _('Feb'), _('Mar'), _('Apr'), _('May'), _('Jun'), _('Jul'), _('Aug'), _('Sep'), _('Oct'), _('Nov'), _('Dec')]
+		, AM: _('AM')
+		, PM: _('PM')
+		, am: _('am')
+		, pm: _('pm')
+		};
 
 
 function alert(a) {
   var handler, div;
   var close = function() {
-    handler.fadeOut(400, function() { handler.remove(); });
-    return false;
+	handler.fadeOut(400, function() { handler.remove(); });
+	return false;
   };
 
   handler = $("<div id='alert_handler'></div>").hide().appendTo('body');
@@ -254,6 +254,27 @@ function get_cookie(cookie_name) {
 }
 
 function highlightReply(id, event) {
+	// check if external post
+	var post_list, arr, i;
+
+	post_list = document.querySelectorAll('a.post_no');
+	for (i = 0, arr = []; i<post_list.length; i++) {
+		arr.push(post_list[i]);
+	}
+	arr = arr.filter(function (ele) {
+		if (ele.hasAttribute('id') || ((' '+ ele.parentElement.parentElement.className +' ').indexOf(' hidden ') > -1)) {
+			return false;
+		} else {
+			return true;
+		}
+	});
+	for (i = 0, post_list = []; i < arr.length; i++) {
+		post_list.push(arr[i].innerHTML);
+	}
+
+	if (post_list.indexOf(id) == -1)
+		return true;
+	
 	if (typeof window.event != "undefined") {
 		// don't highlight on middle click
 		var e = event || window.event;
@@ -333,16 +354,23 @@ function citeReply(id, with_link) {
 		// ???
 		textarea.value += '>>' + id + '\n';
 	}
-	if (typeof $ != 'undefined') {
-		var select = document.getSelection().toString();
-		if (select) {
-			var body = $('#reply_' + id + ', #op_' + id).find('div.body');  // TODO: support for OPs
-			var index = body.text().indexOf(select.replace('\n', ''));  // for some reason this only works like this
-			if (index > -1) {
-				textarea.value += '>' + select + '\n';
-			}
-		}
 
+	// multiline quotes
+	var select = sessionStorage.quoteClipboard;
+	if (select) {
+		select = select.split('\n');
+		select.forEach(function (str) {
+			if (str !== '') {
+				str = '>' + str + '\n';
+			} else {
+				str = '\n';
+			}
+			textarea.value += str;
+		});
+		delete sessionStorage.quoteClipboard;
+	}
+
+	if (typeof $ != 'undefined') {
 		$(window).trigger('cite', [id, with_link]);
 		$(textarea).change();
 	}
@@ -402,6 +430,11 @@ var script_settings = function(script_name) {
 
 function init() {
 	init_stylechooser();
+
+	//	store highlighted text for citeReply()
+	document.querySelector('form[name="postcontrols"]').addEventListener('mouseup', function (e) {
+		sessionStorage.quoteClipboard = window.getSelection().toString();
+	});
 
 	{% endraw %}	
 	{% if config.allow_delete %}

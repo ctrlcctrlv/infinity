@@ -87,23 +87,22 @@ $(document).ready(function(){
 			hidden_data[board] = {}; // id : timestamp
 		}
 		
-		$('<a class="post-hide-link" href="javascript:void(0)" title="Hide Post" style="float: right">[–]</a>')
-			.insertAfter(post.children('p.intro').children('a.post_no:last'))
+		$('<a class="post-hide-link" href="javascript:void(0)" title="Hide Post" style="float: left; margin-right: 5px">[–]</a>')
+			.insertBefore(post.children('p.intro').children('input.delete'))
 			.click(function() {
 				hidden_data[board][id] = Math.round(Date.now() / 1000);
 				store_data();
 				var hide_link = $(this);
 				post.children('div').hide();
 				hide_link.hide();
-				$('<a class="post-show-link" href="javascript:void(0)" title="Show Post" style="float: right">[+]</a>')
-					.insertAfter(post.children('p.intro').children('a.post_no:last'))
+				$('<a class="post-show-link" href="javascript:void(0)" title="Show Post" style="float: left; margin-right: 5px">[+]</a>')
+					.insertBefore(post.children('p.intro').children('input.delete'))
 					.click(function() {
 						delete hidden_data[board][id];
 						store_data();
 						post.children('div').show();
 						hide_link.show();
 						$(this).remove();
-						
 					});
 			});
 		if (hidden_data[board][id])
