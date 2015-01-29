@@ -445,6 +445,11 @@
  * ====================
  */
 
+	//New thread captcha
+	//Require solving a captcha to post a thread. 
+	//Default off.
+	$config['new_thread_capt'] = false;
+	
 	// Do you need a body for your reply posts?
 	$config['force_body'] = false;
 	// Do you need a body for new threads?
