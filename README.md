@@ -1,5 +1,5 @@
 
-This fork adds a new board option to infinity:
+This fork adds a new board option to the version of infinity as of Jan. 28th 2015:
 
 The requirement to solve a captcha in order to create a thread, but not in order to post a reply.
 
@@ -15,7 +15,7 @@ Option for new captcha thread creation has been added to the settings template.
 "Enable CAPTCHA" also clarified with better description.
 
 inc/8chan-mod-pages.php
-Two lines of code added to 8chan-mod-pages.php
+Three lines of code added to 8chan-mod-pages.php
 
 inc/config.php
 Line added, makes new thread captcha default to off.
