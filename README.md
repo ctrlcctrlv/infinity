@@ -54,6 +54,6 @@ Step 4. Infinity can function in a very barebones fashion after the first two st
 apt-get install graphicsmagick gifsicle php5-fpm mysql-client php5-mysql php5-cli php-pear php5-apcu; add-apt-repository ppa:jon-severinsson/ffmpeg; add-apt-repository ppa:nginx/stable; apt-get update; apt-get install nginx ffmpeg; pear install Net_DNS2
 ```
 
-Step 5. The current captcha provider listed inc/config.php is dead. You may want to work around this.  
+Step 5. The current captcha provider listed inc/config.php is dead. You may want to work around this. 
 
 Have fun!
