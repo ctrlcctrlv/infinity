@@ -7,7 +7,8 @@ Here's a quick rundown of where code edits have been made:
 
 ALL CODE EDITS FOR NEW THREAD CAPTCHA ARE MARKED WITH THE COMMENT "New thread captcha"
 ONE ADITIONAL EDIT TO SETTINGS.HTML MARKED WITH:
-"Added explanation to clarify purpose of "Enable CAPTCHA" now that "Enable CAPTCHA for new thread creation only" also exists"
+"Added explanation to clarify purpose of "Enable CAPTCHA" now that "Enable CAPTCHA for new thread creation only" also exists".
+
 The $config setting for new thread captcha is $config[new_thread_capt]
 
 templates/mod/settings.html
