@@ -51,9 +51,9 @@
 	require "secrets.php";
 
 	// Image shit
-	$config['thumb_method'] = 'gm+gifsicle';
-	$config['thumb_ext'] = '';
-	$config['thumb_keep_animation_frames'] = 100;
+	$config['thumb_method'] = 'gm';
+	$config['thumb_ext'] = 'jpg';
+	$config['thumb_keep_animation_frames'] = 1;
 	$config['show_ratio'] = true;
 	//$config['allow_upload_by_url'] = true;
 	$config['max_filesize'] = 1024 * 1024 * 8; // 8MB
