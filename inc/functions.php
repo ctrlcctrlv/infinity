@@ -524,12 +524,12 @@ function purge($uri) {
 		$port = &$purge[1];
 		$http_host = isset($purge[2]) ? $purge[2] : (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'localhost');
 		$request = "PURGE {$uri} HTTP/1.1\r\nHost: {$http_host}\r\nUser-Agent: Tinyboard\r\nConnection: Close\r\n\r\n";
-		if ($fp = fsockopen($host, $port, $errno, $errstr, $config['purge_timeout'])) {
+		if ($fp = @fsockopen($host, $port, $errno, $errstr, $config['purge_timeout'])) {
 			fwrite($fp, $request);
 			fclose($fp);
 		} else {
 			// Cannot connect?
-			error('Could not PURGE for ' . $host);
+			error('Could not purge');
 		}
 	}
 }
