@@ -2818,6 +2818,7 @@ function mod_recent_posts($lim) {
 
 	$limit = (is_numeric($lim))? $lim : 25;
 	$last_time = (isset($_GET['last']) && is_numeric($_GET['last'])) ? $_GET['last'] : 0;
+	if ($limit > 100) $limit = 100;
 
 	$mod_boards = array();
 	$boards = listBoards();
