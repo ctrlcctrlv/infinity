@@ -633,6 +633,30 @@
  * ====================
  */
 
+	// JIS ASCII art. This *must* be the first markup or it won't work.
+	$config['markup'][] = array(
+		"/\[(aa|code)\](.+?)\[\/(?:aa|code)\]/ms", 
+		function($matches) {
+			$markupchars = array('_', '\'', '~', '*', '=');
+			$replacement = $markupchars;
+			array_walk($replacement, function(&$v) {
+				$v = "&#".ord($v).";";
+			});
+
+			// These are hacky fixes for ###board-tags### and >quotes.
+			$markupchars[] = '###';
+			$replacement[] = '&#35;&#35;&#35;';
+			$markupchars[] = '&gt;';
+			$replacement[] = '&#62;';
+
+			if ($matches[1] === 'aa') {
+				return '<span class="aa">' . str_replace($markupchars, $replacement, $matches[2]) . '</span>';
+			} else {
+				return str_replace($markupchars, $replacement, $matches[0]);
+			}
+		}
+	);
+
 	// "Wiki" markup syntax ($config['wiki_markup'] in pervious versions):
 	$config['markup'][] = array("/'''(.+?)'''/", "<strong>\$1</strong>");
 	$config['markup'][] = array("/''(.+?)''/", "<em>\$1</em>");

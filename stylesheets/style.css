@@ -1016,4 +1016,12 @@ span.pln {
 }
 div.mix {
 	display: inline-block;
+} 
+
+/* Mona Font */
+
+.aa {
+	font-family: Mona, "MS PGothic", "ＭＳ Ｐゴシック", sans-serif;
+	display: block!important;
+	font-size: 12pt;
 }
