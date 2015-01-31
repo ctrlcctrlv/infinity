@@ -58,6 +58,19 @@ $body = <<<EOT
 <h2>Can you add some new feature?</h2>
 <p>Open a <a href="https://github.com/ctrlcctrlv/8chan/issues">Github issue</a>. Better yet, write it yourself and open a pull request.
 
+<h2>What is "sage"?</h2>
+<p>Posters may reply to threads without bumping them to the top of the index by putting "sage" in the email field.</p>
+
+<h2>What is a tripcode?</h2>
+<p>Most posts on 8chan are made anonymously, but this is not the only way to post. The name field can be used <em>four</em> ways to establish identity:</p>
+<ol>
+<li>By simply writing a name in the box. This is insecure as any other poster can write the same name.</li>
+<li>By writing a # character and then a password. Putting #example in the name field would become !KtW6XcghiY. This is reasonably secure, but with increasing GPU speeds these tripcodes can be cracked in a few days by a dedicated attacker.</li>
+<li>By writing two # characters and then a password. Putting ##example in the name field would become !!Dz.MSNRw9M. This is quite secure, but it relies on a secret salt on the server so the code will not work on sites other than 8chan.</li>
+<li>Board owners and volunteers can enter the special codes "## Board Owner" and "## Board Volunteer" which become <em>capcodes</em> that display after the name. The 8chan administrator can type "## Admin" which becomes <span class="capcode" title="This post was written by the global 8chan administrator."> <i class="fa fa-wheelchair" style="color:blue;"></i> <span style="color:red">8chan Administrator</span></span>.</li>
+</ol>
+<p>Please note, many boards on 8chan have an option set called "Forced anonymity" which causes the name field to not work. This is because many users (and therefore board owners) do not like tripcode users.</p>
+
 <h2>How do I format my text?</h2>
 <ul>
 <li>**spoiler** or [spoiler]spoiler[/spoiler] -&gt; spoiler</li>
