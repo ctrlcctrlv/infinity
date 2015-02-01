@@ -549,7 +549,7 @@
 	// When true, there will be no subject field.
 	$config['field_disable_subject'] = false;
 	// When true, there will be no subject field for replies.
-	$config['field_disable_reply_subject'] = false;
+	$config['field_disable_reply_subject'] = &$config['field_disable_name'];
 	// When true, a blank password will be used for files (not usable for deletion).
 	$config['field_disable_password'] = false;
 
@@ -632,6 +632,30 @@
  *  Markup settings
  * ====================
  */
+
+	// JIS ASCII art. This *must* be the first markup or it won't work.
+	$config['markup'][] = array(
+		"/\[(aa|code)\](.+?)\[\/(?:aa|code)\]/ms", 
+		function($matches) {
+			$markupchars = array('_', '\'', '~', '*', '=');
+			$replacement = $markupchars;
+			array_walk($replacement, function(&$v) {
+				$v = "&#".ord($v).";";
+			});
+
+			// These are hacky fixes for ###board-tags### and >quotes.
+			$markupchars[] = '###';
+			$replacement[] = '&#35;&#35;&#35;';
+			$markupchars[] = '&gt;';
+			$replacement[] = '&#62;';
+
+			if ($matches[1] === 'aa') {
+				return '<span class="aa">' . str_replace($markupchars, $replacement, $matches[2]) . '</span>';
+			} else {
+				return str_replace($markupchars, $replacement, $matches[0]);
+			}
+		}
+	);
 
 	// "Wiki" markup syntax ($config['wiki_markup'] in pervious versions):
 	$config['markup'][] = array("/'''(.+?)'''/", "<strong>\$1</strong>");
