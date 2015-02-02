@@ -408,6 +408,8 @@ FLAGS;
 			$user_flags = isset($_POST['user_flags']) ? "if (file_exists('$b/flags.php')) { include 'flags.php'; }\n" : '';
 			$captcha = isset($_POST['captcha']) ? 'true' : 'false';
 			$force_subject_op = isset($_POST['force_subject_op']) ? 'true' : 'false';
+			/*New thread captcha*/
+			$new_thread_capt = isset($_POST['new_thread_capt']) ? 'true' : 'false';
 			
 
 
@@ -502,6 +504,8 @@ OEKAKI;
 \$config['default_stylesheet'] = array('Custom', \$config['stylesheets']['Custom']);
 \$config['captcha']['enabled'] = $captcha;
 \$config['force_subject_op'] = $force_subject_op;
+/*New thread captcha*/
+\$config['new_thread_capt'] = $new_thread_capt;
 \$config['hour_max_threads'] = $hour_max_threads;
 $code_tags $katex $oekaki $replace $multiimage $allow_flash $allow_pdf $user_flags
 if (\$config['disable_images'])
@@ -573,6 +577,7 @@ EOT;
 
 			// be smarter about rebuilds...only some changes really require us to rebuild all threads
 			if ($_config['captcha']['enabled'] != $config['captcha']['enabled']
+			 || $_config['new_thread_capt'] != $config['new_thread_capt'] /*New thread captcha - if toggling "enable captcha" requires this, toggling new thread capt does too, I guess.*/
 			 || $_config['captcha']['extra'] != $config['captcha']['extra']
 			 || $_config['blotter'] != $config['blotter']
 			 || $_config['field_disable_name'] != $config['field_disable_name']
@@ -593,7 +598,7 @@ EOT;
 		$query->bindValue(':board', $b);
 		$query->execute() or error(db_error($query));
 		$board = $query->fetchAll()[0];
-
+ 
 		$rules = @file_get_contents($board['uri'] . '/rules.txt');
 		$css = @file_get_contents('stylesheets/board/' . $board['uri'] . '.css');
 	
