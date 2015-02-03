@@ -186,25 +186,21 @@ onready(function(){
 					data.name = data.name ? '<span class="name">'+data.name+'</span>' : '';
 					data.trip = data.trip ? '<span class="trip">'+data.trip+'</span>' : '';
 					data.capcode = data.capcode ? '<span class="capcode"> ## '+data.capcode+'</span>' : '';
-
-					var unixtime = new Date(parseInt(data.time)*1000);
-					var timestamp = {};
-					var pad = function(n) {
-						return (n < 10) ? ("0" + n) : n;
+					if (data.country && data.country_name) {
+						data.flag = '<img class="flag flag-'+data.country.toLowerCase()+'" src="/8chan/static/blank.gif" style="width:16px;height:11px;" alt="'+data.country_name+'" title="'+data.country_name+'">';
+					} else {
+						data.flag = '';
 					}
-					timestamp.month = pad(unixtime.getMonth()+1);
-					timestamp.date = pad(unixtime.getDate());
-					timestamp.year = unixtime.getFullYear().toString().substr(-2,2);
-					timestamp.day = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"][unixtime.getDay()].substr(0,3);
-					timestamp.time = pad(unixtime.getHours())+":"+pad(unixtime.getMinutes())+":"+pad(unixtime.getSeconds());
-					timestamp.str = timestamp.month+"/"+timestamp.date+"/"+timestamp.year+" ("+timestamp.day+") "+timestamp.time;
+
+					var timestamp = new Date(parseInt(data.time)*1000);
+					data.time = formatDate(timestamp);
 
 					var $post = $('<div class="post reply hidden" id="reply_'+ data.no +'">')
 								.append($('<p class="intro"></p>')
 								.append('<input type="checkbox"> ')
 								.append(data.sub+data.name+data.trip+data.capcode)
-								.append('&nbsp; ')
-								.append('<time datetime="'+unixtime.toISOString()+'">'+timestamp.str+'</time>&nbsp;')
+								.append('&nbsp;'+data.flag)
+								.append(' <time datetime="'+timestamp.toISOString()+'">'+data.time+'</time>&nbsp;')
 								.append('<a class="post_no">No.'+ data.no +'</a>')
 								)
 								.append($('<div class="body"></div>')
