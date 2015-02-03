@@ -141,7 +141,7 @@ onready(function(){
 			if(post.length > 0) {
 				start_hover($(this));
 			} else {
-				var url = link.attr('href').replace(/#.*$/, '').replace('.html', '.json');
+				var url = link.attr('href').replace(/\.html#.*$/, '.json');
 				var dataPromise = getPost(id, url);
 
 				dataPromise.done(function (data) {
@@ -182,13 +182,30 @@ onready(function(){
 					};
 
 					//	in case no subject
-					if (!data.sub) data.sub = '';
+					data.sub = data.sub ? '<span class="subject">'+data.sub+'</span> ' : '';
+					data.name = data.name ? '<span class="name">'+data.name+'</span>' : '';
+					data.trip = data.trip ? '<span class="trip">'+data.trip+'</span>' : '';
+					data.capcode = data.capcode ? '<span class="capcode"> ## '+data.capcode+'</span>' : '';
+
+					var unixtime = new Date(parseInt(data.time)*1000);
+					var timestamp = {};
+					var pad = function(n) {
+						return (n < 10) ? ("0" + n) : n;
+					}
+					timestamp.month = pad(unixtime.getMonth()+1);
+					timestamp.date = pad(unixtime.getDate());
+					timestamp.year = unixtime.getFullYear().toString().substr(-2,2);
+					timestamp.day = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"][unixtime.getDay()].substr(0,3);
+					timestamp.time = pad(unixtime.getHours())+":"+pad(unixtime.getMinutes())+":"+pad(unixtime.getSeconds());
+					timestamp.str = timestamp.month+"/"+timestamp.date+"/"+timestamp.year+" ("+timestamp.day+") "+timestamp.time;
 
 					var $post = $('<div class="post reply hidden" id="reply_'+ data.no +'">')
 								.append($('<p class="intro"></p>')
-									.append('<span class="subject">'+ data.sub +'</span> ')
-									.append('<span class="name">'+ data.name +'</span> ')
-									.append('<a class="post_no">No.'+ data.no +'</a>')
+								.append('<input type="checkbox"> ')
+								.append(data.sub+data.name+data.trip+data.capcode)
+								.append('&nbsp; ')
+								.append('<time datetime="'+unixtime.toISOString()+'">'+timestamp.str+'</time>&nbsp;')
+								.append('<a class="post_no">No.'+ data.no +'</a>')
 								)
 								.append($('<div class="body"></div>')
 									.html(data.com)
@@ -208,7 +225,7 @@ onready(function(){
 
 						$.each(file_array, function () {
 							var thumb_url;
-                            var file_ext = this.ext;
+							var file_ext = this.ext;
 
 							if (this.isImage && !this.isSpoiler) {
 								// video files uses jpg for thumbnail
@@ -218,25 +235,25 @@ onready(function(){
 								thumb_url = (this.isSpoiler) ? '/static/spoiler.png' : '/static/file.png';
 							}
 
-                            // truncate long filenames
-                            if (this.filename.length > 23) {
-                                this.filename = this.filename.substr(0, 22) + '…';
-                            }
+							// truncate long filenames
+							if (this.filename.length > 23) {
+								this.filename = this.filename.substr(0, 22) + '…';
+							}
 
 							// file infos
 							var $ele = $('<div class="file">')
-										.append($('<p class="fileinfo">')
-											.append('<span>File: </span>')
-											.append('<a>'+ this.filename + file_ext +'</a>')
-											.append('<span class="unimportant"> ('+ bytesToSize(this.fsize) +', '+ this.w +'x'+ this.h +')</span>')
+									.append($('<p class="fileinfo">')
+									.append('<span>File: </span>')
+									.append('<a>'+ this.filename + file_ext +'</a>')
+									.append('<span class="unimportant"> ('+ bytesToSize(this.fsize) +', '+ this.w +'x'+ this.h +')</span>')
 										);
 							if (multifile) $ele.addClass('multifile').css('width', this.thumb_w + 30);
 
 							// image
 							var $img = $('<img class="post-image">')
-												.css('width', this.thumb_w)
-												.css('height', this.thumb_h)
-												.attr('src', thumb_url);
+								.css('width', this.thumb_w)
+								.css('height', this.thumb_h)
+								.attr('src', thumb_url);
 
 							$ele.append($img);
 							$files.append($ele);
@@ -309,7 +326,22 @@ onready(function(){
 			return deferred.promise();
 		};
 	})();
-	
+
+	var formatDate = function(unix) {
+		var pad = function(n) {
+			return (n < 10) ? ("0" + n) : n;
+		}
+		var timestamp = {};
+		timestamp.month = pad(unix.getMonth()+1);
+		timestamp.date = pad(unix.getDate());
+		timestamp.year = unix.getFullYear().toString().substr(-2,2);
+		timestamp.day = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"][unix.getDay()].substr(0,3);
+		timestamp.time = pad(unix.getHours())+":"+pad(unix.getMinutes())+":"+pad(unix.getSeconds());
+		timestamp.str = timestamp.month+"/"+timestamp.date+"/"+timestamp.year+" ("+timestamp.day+") "+timestamp.time;
+		return timestamp.str;
+	}
+
+
 	$('div.body a:not([rel="nofollow"])').each(init_hover);
 	
 	// allow to work with auto-reload.js, etc.
