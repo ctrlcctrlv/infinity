@@ -78,8 +78,8 @@ onready(function(){
 						
 					// shrink expanded images
 					newPost.find('div.file a[data-expanded="true"]').each(function() {
-						var thumb = $(this).data('src');
-						$(this).find('img.post-image').attr('src', thumb);
+						var thumb = $(this).find('img.post-image').attr('src');
+						$(this).find('img.full-image').attr('src', thumb);
 					});
 					
 					// Highlight references to the current post

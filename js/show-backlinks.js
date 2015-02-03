@@ -25,7 +25,7 @@ onready(function(){
 			else
 				return;
 		
-			$post = $('#reply_' + id);
+			$post = $('#reply_' + id).add('#op_' + id).first();
 			if($post.length == 0)
 				$post = $('#op_' + id);
 
