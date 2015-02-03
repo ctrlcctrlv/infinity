@@ -30,7 +30,7 @@ onready(function(){
 		else {
 			return;
 		}
-		
+
 		var board = $(this);
 		while (board.data('board') === undefined) {
 			board = board.parent();
@@ -42,7 +42,7 @@ onready(function(){
 		board = board.data('board');
 
 		var parentboard = board;
-		
+
 		if (link.is('[data-thread]')) parentboard = $('form[name="post"] input[name="board"]').val();
 		else if (matches[1] !== undefined) board = matches[1];
 
@@ -75,13 +75,13 @@ onready(function(){
 						.css('margin-left', '')
 						.addClass('reply').addClass('post')
 						.appendTo(link.closest('div.post'));
-						
+
 					// shrink expanded images
 					newPost.find('div.file a[data-expanded="true"]').each(function() {
-						var thumb = $(this).data('src');
-						$(this).find('img.post-image').attr('src', thumb);
+						var thumb = $(this).find('img.post-image').attr('src');
+						$(this).find('img.full-image').attr('src', thumb);
 					});
-					
+
 					// Highlight references to the current post
 					if (link.hasClass('mentioned-'+id)) {
 						var postLinks = newPost.find('div.body a:not([rel="nofollow"])');
@@ -94,7 +94,7 @@ onready(function(){
 							});
 						}
 					}
-					
+
 					var previewWidth = newPost.outerWidth(true);
 					var widthDiff = previewWidth - newPost.width();
 					var linkLeft = link.offset().left;
