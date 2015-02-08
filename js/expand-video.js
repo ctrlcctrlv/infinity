@@ -130,15 +130,67 @@ function setupVideo(thumb, url) {
 	    getVideo();
 	    expanded = false;
 	    hovering = true;
-
-	    var pageURL = window.location.href;
-	    var jsonURL = pageURL.replace(/\.html$/, ".json");
-	    var vidName = video.src.split('/').pop().split(".").shift();
 	    
-	    $.getJSON(jsonURL, function (result) {
-		$.each(result.posts, function(){
-		    if (vidName==this.tim) { 
+	    var vidName = video.src.split('/').pop().split(".").shift();
+	    var isMod = (window.location.pathname.split("/")[1]=="mod.php");
+	    var thisBoard = isMod?window.location.href.split("/")[4]:window.location.pathname.split("/")[1];    
+	    var pageType = window.active_page;
+	    var pageURL = isMod?window.location.href:window.location.pathname;
+	    var jsonURL;
+	    
+	    var thisThread;
+	    var thisPost;
+	    
+	    if (pageType==="thread") {
+		jsonURL = pageURL.replace(/\.html$/, ".json");
+	    } else
+	    if (pageType==="index"){
+		var thisPage = isMod?window.location.href.split("/")[5].split(".")[0]:window.location.pathname.split("/")[2].split(".")[0];
+		if (thisPage=="index") { thisPage="0"; } else { thisPage-=1;}
+		jsonURL = pageURL.replace(/[a-z0-9]+.html$/, thisPage+".json");
+	    }
+	    
+	    $.getJSON(jsonURL, function (thread) {
+		$this = thread;
+		if(typeof thread.threads != "undefined" && thread.threads != null && thread.threads.length > 0){
+		    console.log("index page");
+		    var docRight = document.documentElement.getBoundingClientRect().right;
+		    var thumbRight = thumb.querySelector("img, video").getBoundingClientRect().right;
+		    var maxWidth = docRight - thumbRight - 20;
+		    if (maxWidth < 250) maxWidth = 250;
+		    video.style.position = "fixed";
+		    video.style.right = "0px";
+		    video.style.top = "0px";
+		    var docRight = document.documentElement.getBoundingClientRect().right;
+		    var thumbRight = thumb.querySelector("img, video").getBoundingClientRect().right;
+		    video.style.maxWidth = maxWidth + "px";
+		    video.style.maxHeight = "100%";
+		    video.style.pointerEvents = "none";
+		    
+		    video.style.display = "inline";
+		    videoHide.style.display = "none";
+		    videoContainer.style.display = "inline";
+		    videoContainer.style.position = "fixed";
+		    video.muted = (setting("videovolume") == 0);
+		    video.volume = setting("videovolume");
+		    video.controls = false;
+		    video.play();
+		}
+		else {
 
+		$.each($this.posts, function(){
+		    var tim = this.tim;
+		    var fileNum = vidName.split('-').pop();
+		    if(typeof this.extra_files != "undefined" && this.extra_files != null && this.extra_files.length > 0){
+			console.log("extra file exists");
+			$.each(this.extra_files, function() {
+			    if (vidName==this.tim){
+				tim = this.tim;
+			    }
+			});
+		    }
+		    console.log("tim = "+tim);
+		    if (vidName==tim) { 
 			var vidX = e.clientX;
 			var vidY = e.clientY;
 			var vidWidth = this.w;
@@ -153,7 +205,7 @@ function setupVideo(thumb, url) {
 			var maxHeight = maxWidth * vidAspect;
 			var vidTop = vidY;
 			var vidBottom;
-
+			
 			if (vidWidth > windowWidth) {
 			    video.style.maxWidth = maxWidth+"px";
 			    video.style.maxHeight = maxHeight+"px";
@@ -181,8 +233,8 @@ function setupVideo(thumb, url) {
 			video.controls = false;
 			video.play();
 			
-		    } 
-		});
+		    }
+		});  } //else*/
 	    });
         }
     }, false);
