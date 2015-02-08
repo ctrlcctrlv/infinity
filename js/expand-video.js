@@ -21,6 +21,7 @@ function setupVideo(thumb, url) {
     function unexpand() {
         if (expanded) {
             expanded = false;
+	    hovering = false;
             if (video.pause) video.pause();
             videoContainer.style.display = "none";
             thumb.style.display = "inline";
@@ -34,8 +35,7 @@ function setupVideo(thumb, url) {
             hovering = false;
             if (video.pause) video.pause();
             videoContainer.style.display = "none";
-            video.style.maxWidth = "inherit";
-            video.style.maxHeight = "inherit";
+	    video.style.display = "none";
         }
     }
 
@@ -56,6 +56,7 @@ function setupVideo(thumb, url) {
             videoHide.addEventListener("click", unexpand, false);
 
             videoContainer = document.createElement("div");
+	    videoContainer.id = "#expandedVideo";
             videoContainer.style.paddingLeft = "15px";
             videoContainer.style.display = "none";
             videoContainer.appendChild(videoHide);
@@ -113,6 +114,7 @@ function setupVideo(thumb, url) {
     function expand2() {
         video.style.maxWidth = "100%";
         video.style.maxHeight = window.innerHeight + "px";
+
         var bottom = video.getBoundingClientRect().bottom;
         if (bottom > window.innerHeight) {
             window.scrollBy(0, bottom - window.innerHeight);
@@ -124,34 +126,64 @@ function setupVideo(thumb, url) {
 
     // Hovering over thumbnail displays video
     thumb.addEventListener("mouseover", function(e) {
-        if (setting("videohover")) {
-            getVideo();
-            expanded = false;
-            hovering = true;
+	if (setting("videohover")) {
+	    getVideo();
+	    expanded = false;
+	    hovering = true;
 
-            var docRight = document.documentElement.getBoundingClientRect().right;
-            var thumbRight = thumb.querySelector("img, video").getBoundingClientRect().right;
-            var maxWidth = docRight - thumbRight - 20;
-            if (maxWidth < 250) maxWidth = 250;
+	    var pageURL = window.location.href;
+	    var jsonURL = pageURL.replace(/\.html$/, ".json");
+	    var vidName = video.src.split('/').pop().split(".").shift();
+	    
+	    $.getJSON(jsonURL, function (result) {
+		$.each(result.posts, function(){
+		    if (vidName==this.tim) { 
 
-            video.style.position = "fixed";
-            video.style.right = "0px";
-            video.style.top = "0px";
-            var docRight = document.documentElement.getBoundingClientRect().right;
-            var thumbRight = thumb.querySelector("img, video").getBoundingClientRect().right;
-            video.style.maxWidth = maxWidth + "px";
-            video.style.maxHeight = "100%";
-            video.style.pointerEvents = "none";
+			var vidX = e.clientX;
+			var vidY = e.clientY;
+			var vidWidth = this.w;
+			var vidHeight = this.h;
+			var vidAspect = vidHeight / vidWidth;
+			var windowWidth = $(window).width();
+			var windowHeight = $(window).height();
+			var totalWidth = windowWidth - vidX;
+			var totalHeight = totalWidth*vidAspect;
+			var maxWidth = totalWidth - 20;
+			if (maxWidth < 250) { maxWidth = 250; }
+			var maxHeight = maxWidth * vidAspect;
+			var vidTop = vidY;
+			var vidBottom;
 
-            video.style.display = "inline";
-            videoHide.style.display = "none";
-            videoContainer.style.display = "inline";
-            videoContainer.style.position = "fixed";
+			if (vidWidth > windowWidth) {
+			    video.style.maxWidth = maxWidth+"px";
+			    video.style.maxHeight = maxHeight+"px";
+			    vidBottom = vidTop + maxHeight;
+			} else {
+			    video.style.maxWidth = vidWidth+"px";
+			    video.style.maxHeight = vidHeight+"px";
+			    vidBottom = vidTop + vidHeight;
+			}
 
-            video.muted = (setting("videovolume") == 0);
-            video.volume = setting("videovolume");
-            video.controls = false;
-            video.play();
+			if (vidBottom > windowHeight) { vidTop -= vidBottom-windowHeight; }
+
+			videoContainer.style.position = "fixed";
+			videoContainer.style.display = "block";
+			
+			videoHide.style.display = "none";
+			
+			video.style.left = vidX+"px";
+			video.style.top = vidTop+"px";
+			video.style.pointerEvents = "none";
+			video.style.display = "block";
+			video.style.position = "fixed";
+			video.muted = (setting("videovolume") == 0);
+			video.volume = setting("videovolume");
+			video.controls = false;
+			video.play();
+			
+		    } 
+		});
+	    });
         }
     }, false);
 
@@ -241,4 +273,3 @@ onready(function(){
         observer.observe(document.body, {childList: true, subtree: true});
     }
 });
-
