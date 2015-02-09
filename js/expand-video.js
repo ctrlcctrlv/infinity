@@ -149,28 +149,54 @@ function setupVideo(thumb, url) {
 		if (thisPage=="index") { thisPage="0"; } else { thisPage-=1;}
 		jsonURL = pageURL.replace(/[a-z0-9]+.html$/, thisPage+".json");
 	    }
-	    
+
 	    $.getJSON(jsonURL, function (thread) {
 		$this = thread;
 		if(typeof thread.threads != "undefined" && thread.threads != null && thread.threads.length > 0){
-		    console.log("index page");
-		    var docRight = document.documentElement.getBoundingClientRect().right;
-		    var thumbRight = thumb.querySelector("img, video").getBoundingClientRect().right;
-		    var maxWidth = docRight - thumbRight - 20;
-		    if (maxWidth < 250) maxWidth = 250;
-		    video.style.position = "fixed";
-		    video.style.right = "0px";
-		    video.style.top = "0px";
-		    var docRight = document.documentElement.getBoundingClientRect().right;
-		    var thumbRight = thumb.querySelector("img, video").getBoundingClientRect().right;
-		    video.style.maxWidth = maxWidth + "px";
-		    video.style.maxHeight = "100%";
-		    video.style.pointerEvents = "none";
-		    
-		    video.style.display = "inline";
-		    videoHide.style.display = "none";
-		    videoContainer.style.display = "inline";
+
+		    var vidX = e.clientX;
+		    var vidY = e.clientY;
+		    var windowWidth = $(window).width();
+		    var windowHeight = $(window).height();
+		    var vidWidth = windowWidth - vidX;
+		    var vidHeight = windowHeight - vidY;
+		    var vidAspect = vidHeight / vidWidth;
+
+		    var totalWidth = windowWidth - vidX;
+		    var totalHeight = totalWidth*vidAspect;
+		    var maxWidth = totalWidth - 20;
+		    if (maxWidth < 250) { maxWidth = 250; }
+		    var maxHeight = maxWidth * vidAspect;
+		    var vidTop = vidY;
+		    var vidBottom;
+		    var vidRight;
+
+		    if (vidWidth > windowWidth) {
+			video.style.maxWidth = maxWidth+"px";
+			video.style.maxHeight = maxHeight+"px";
+			vidBottom = vidTop + maxHeight;
+			vidRight = vidX+maxWidth - 20;
+		    } else {
+			video.style.maxWidth = vidWidth+"px";
+			video.style.maxHeight = vidHeight+"px";
+			vidBottom = vidTop + vidHeight;
+			vidRight = vidX+vidWidth - 20;
+		    }
+
+		    if (vidBottom > windowHeight) { vidTop -= vidBottom-windowHeight; }
 		    videoContainer.style.position = "fixed";
+		    videoContainer.style.display = "block";
+		    videoHide.style.display = "none";
+		    if (vidRight > windowWidth) { 
+			video.style.left = vidX-(vidRight-windowWidth)+"px";
+		    } 
+		    else { 
+			video.style.left = vidX+"px";
+		    }
+		    video.style.top = vidTop+"px";
+		    video.style.pointerEvents = "none";
+		    video.style.display = "block";
+		    video.style.position = "fixed";
 		    video.muted = (setting("videovolume") == 0);
 		    video.volume = setting("videovolume");
 		    video.controls = false;
@@ -178,63 +204,69 @@ function setupVideo(thumb, url) {
 		}
 		else {
 
-		$.each($this.posts, function(){
-		    var tim = this.tim;
-		    var fileNum = vidName.split('-').pop();
-		    if(typeof this.extra_files != "undefined" && this.extra_files != null && this.extra_files.length > 0){
-			console.log("extra file exists");
-			$.each(this.extra_files, function() {
-			    if (vidName==this.tim){
-				tim = this.tim;
-			    }
-			});
-		    }
-		    console.log("tim = "+tim);
-		    if (vidName==tim) { 
-			var vidX = e.clientX;
-			var vidY = e.clientY;
-			var vidWidth = this.w;
-			var vidHeight = this.h;
-			var vidAspect = vidHeight / vidWidth;
-			var windowWidth = $(window).width();
-			var windowHeight = $(window).height();
-			var totalWidth = windowWidth - vidX;
-			var totalHeight = totalWidth*vidAspect;
-			var maxWidth = totalWidth - 20;
-			if (maxWidth < 250) { maxWidth = 250; }
-			var maxHeight = maxWidth * vidAspect;
-			var vidTop = vidY;
-			var vidBottom;
-			
-			if (vidWidth > windowWidth) {
-			    video.style.maxWidth = maxWidth+"px";
-			    video.style.maxHeight = maxHeight+"px";
-			    vidBottom = vidTop + maxHeight;
-			} else {
-			    video.style.maxWidth = vidWidth+"px";
-			    video.style.maxHeight = vidHeight+"px";
-			    vidBottom = vidTop + vidHeight;
+		    $.each($this.posts, function(){
+			var tim = this.tim;
+			var fileNum = vidName.split('-').pop();
+			if(typeof this.extra_files != "undefined" && this.extra_files != null && this.extra_files.length > 0){
+			    $.each(this.extra_files, function() {
+				if (vidName==this.tim){
+				    tim = this.tim;
+				}
+			    });
 			}
+			if (vidName==tim) { 
+			    var vidX = e.clientX;
+			    var vidY = e.clientY;
+			    var vidWidth = this.w;
+			    var vidHeight = this.h;
+			    var vidAspect = vidHeight / vidWidth;
+			    var windowWidth = $(window).width();
+			    var windowHeight = $(window).height();
+			    var totalWidth = windowWidth - vidX;
+			    var totalHeight = totalWidth*vidAspect;
+			    var maxWidth = totalWidth - 20;
+			    if (maxWidth < 250) { maxWidth = 250; }
+			    var maxHeight = maxWidth * vidAspect;
+			    var vidTop = vidY;
+			    var vidBottom;
+			    var vidRight;
+			    if (vidWidth > windowWidth) {
+				video.style.maxWidth = maxWidth+"px";
+				video.style.maxHeight = maxHeight+"px";
+				vidBottom = vidTop + maxHeight;
+				vidRight = maxWidth+vidX;
+			    } else {
+				video.style.maxWidth = vidWidth+"px";
+				video.style.maxHeight = vidHeight+"px";
+				vidBottom = vidTop + vidHeight;
+				vidRight = vidWidth+vidX;
+			    }
+			    if (vidBottom > windowHeight) {
+				vidTop -= vidBottom-windowHeight;
+			    }
 
-			if (vidBottom > windowHeight) { vidTop -= vidBottom-windowHeight; }
-
-			videoContainer.style.position = "fixed";
-			videoContainer.style.display = "block";
+			    videoContainer.style.position = "fixed";
+			    videoContainer.style.display = "block";
 			
-			videoHide.style.display = "none";
+			    videoHide.style.display = "none";
 			
-			video.style.left = vidX+"px";
-			video.style.top = vidTop+"px";
-			video.style.pointerEvents = "none";
-			video.style.display = "block";
-			video.style.position = "fixed";
-			video.muted = (setting("videovolume") == 0);
-			video.volume = setting("videovolume");
-			video.controls = false;
-			video.play();
-			
-		    }
-		});  } //else*/
+			    if (vidRight > windowWidth) { 
+				video.style.left = vidX-(vidRight-windowWidth)+"px";
+			    } 
+			    else { 
+				video.style.left = vidX+"px";
+			    }
+			    video.style.top = vidTop+"px";
+			    video.style.pointerEvents = "none";
+			    video.style.display = "block";
+			    video.style.position = "fixed";
+			    video.muted = (setting("videovolume") == 0);
+			    video.volume = setting("videovolume");
+			    video.controls = false;
+			    video.play();
+			}
+		    });  
+		} //else*/
 	    });
         }
     }, false);
