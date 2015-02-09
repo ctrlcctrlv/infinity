@@ -137,7 +137,7 @@ function setupVideo(thumb, url) {
 	    var pageType = window.active_page;
 	    var pageURL = isMod?window.location.href:window.location.pathname;
 	    var jsonURL;
-	    
+        console.log("vidName = "+vidName);
 	    var thisThread;
 	    var thisPost;
 	    
