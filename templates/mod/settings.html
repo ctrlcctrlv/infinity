@@ -25,9 +25,11 @@
 
 	<table>
 		<tr><th>{% trans %}Country flags{% endtrans %}</th><td><input type="checkbox" name="country_flags" {% if config.country_flags %}checked{% endif %}></td></tr>
+		<tr><th>{% trans %}/pol/-style user flags{% endtrans %}<br><span class="unimportant">Enabling this disables country flags<br>Make sure to actually upload some first!</span></th><td><input type="checkbox" name="user_flags" {% if config.user_flag %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Forced anonymous{% endtrans %}</th><td><input type="checkbox" name="field_disable_name" {% if config.field_disable_name %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}YouTube/Voocaroo embedding{% endtrans %}</th><td><input type="checkbox" name="enable_embedding" {% if config.enable_embedding %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Require image for OP{% endtrans %}</th><td><input type="checkbox" name="force_image_op" {% if config.force_image_op %}checked{% endif %}></td></tr>
+		<tr><th>{% trans %}Require subject for OP{% endtrans %}</th><td><input type="checkbox" name="force_subject_op" {% if config.force_subject_op %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Disable images{% endtrans %}</th><td><input type="checkbox" name="disable_images" {% if config.disable_images %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Poster ID's{% endtrans %}</th><td><input type="checkbox" name="poster_ids" {% if config.poster_ids %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Display SAGE! after saged posts{% endtrans %}</th><td><input type="checkbox" name="show_sages" {% if config.show_sages %}checked{% endif %}></td></tr>
@@ -39,9 +41,14 @@
 		<tr><th>{% trans %}Oekaki{% endtrans %}</th><td><input type="checkbox" name="oekaki" {% if 'js/wpaint.js' in config.additional_javascript %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Format math between [tex]{% endtrans %}</th><td><input type="checkbox" name="katex" {% if config.katex %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Allow SWF uploading{% endtrans %}</th><td><input type="checkbox" name="allow_flash" {% if 'swf' in config.allowed_ext_files %}checked{% endif %}></td></tr>
+		<tr><th>{% trans %}Allow PDF uploading{% endtrans %}</th><td><input type="checkbox" name="allow_pdf" {% if 'pdf' in config.allowed_ext_files %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Enable dice rolling{% endtrans %}</th><td><input type="checkbox" name="allow_roll" {% if config.allow_roll %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Don't allow users to repost images{% endtrans %}</th><td><input type="checkbox" name="image_reject_repost" {% if config.image_reject_repost %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Allow a poster to delete his own posts{% endtrans %}</th><td><input type="checkbox" name="allow_delete" {% if config.allow_delete %}checked{% endif %}></td></tr>
+		<!--Added explanation to clarify purpose of "Enable CAPTCHA" now that "Enable CAPTCHA for new thread creation only" also exists-->
+		<tr><th>{% trans %}Enable CAPTCHA{% endtrans %}<br/><span class="unimportant">Users must solve a CAPTCHA in order to post.<br> This is not ReCAPTCHA, it is custom to 8chan.</span></th><td><input type="checkbox" name="captcha" {% if config.captcha.enabled %}checked{% endif %}></td></tr>
+		<!--New thread captcha start-->
+		<tr><th>{% trans %}Enable CAPTCHA for thread creation only{% endtrans %}<br/><span class="unimportant">Users must solve a CAPTCHA in order to create new threads,<br>but do not have to solve a CAPTCHA in order to post replies.</span></th><td><input type="checkbox" name="new_thread_capt" {% if config.new_thread_capt %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Language{% endtrans %}<br/><span class="unimportant">{% trans %}To contribute translations, register at <a href="https://www.transifex.com/projects/p/tinyboard-vichan-devel/">Transifex</a>{% endtrans %}</span></th><td>
 		<select name="locale">
 			<option value="en" {% if "en" == config.locale %}selected{% endif %}>en</option>
@@ -54,14 +61,23 @@
 		<tr><th>{% trans %}Max images per post{% endtrans %}</th><td><select name="max_images">{% for i in 1..5 %}<option value="{{ i }}" {% if config.max_images == i %} selected {% endif %}>{{ i }}</option>{% endfor %}</select></td></tr>
 	</table>
 
+	<table>
+		<tr><th colspan="2"><strong>{% trans %}Spam settings{% endtrans %}</strong></th></tr>
+		<tr><th>{% trans %}Early 404{% endtrans %}<br><span class="unimportant">With this enabled, threads with less than 10 replies will 404 at page 5 instead of at page 15.<br>In effect, this makes it so that raiders have to put 10 replies in all their threads to slide an entire board.</span></th><td><input type="checkbox" name="early_404" {% if config.early_404 %}checked{% endif %}></td></tr>
+		<tr><th>{% trans %}Max threads per hour board-wide{% endtrans %}<br><span class="unimportant">Only allow X threads to be made per hour, regardless of poster<br>If a thread is deleted, it's not counted</span></th><td><select name="hour_max_threads"><option value="none">none</option>{% for i in ['10', '25', '50', '100'] %}<option value="{{ i }}" {% if config.hour_max_threads == i %} selected {% endif %}>{{ i }}</option>{% endfor %}</select></td></tr>
+	</table>
+
+
 	<p style="text-align:center"><a href="?/banners/{{board.uri}}">{% trans %}Edit board banners{% endtrans %}</a></p>
+	<p style="text-align:center"><a href="?/flags/{{board.uri}}">{% trans %}Edit board flags{% endtrans %}</a></p>
 	<p style="text-align:center"><a href="?/volunteers/{{board.uri}}">{% trans %}Edit board volunteers{% endtrans %}</a></p>
+	<p style="text-align:center"><a href="?/tags/{{board.uri}}">{% trans %}Edit board tags{% endtrans %}</a></p>
 
 	<table>
 		<tr><th>{% trans %}Default poster name{% endtrans %}</th><td><input type="text" name="anonymous" value="{{config.anonymous|e}}"></td></tr>
 		<tr><th>{% trans %}Board announcement{% endtrans %}</th><td><input type="text" name="blotter" value="{{config.blotter|e}}" size="75"></td></tr>
-		<tr><th>{% trans %}Rules{% endtrans %}<br/><span class="unimportant">{% trans %}Allowed tags:{% endtrans %} p li ol ul strong em u h2<br/>{% trans %}Rules will appear at:{% endtrans %} <a href="/{{board.uri}}/rules.html">https://8chan.co/{{board.uri}}/rules.html</a></span></th><td><textarea name="rules" style="height:100px;width:500px">{{rules}}</textarea></td><tr>
-		<tr><th>{% trans %}Stylesheet{% endtrans %}<br/><span class="unimportant">{% trans %}note: does not validate CSS{% endtrans %}</span></th><td><textarea name="css" style="height:100px;width:500px">{{css}}</textarea></td><tr>
+		<tr><th>{% trans %}Rules{% endtrans %}<br/><span class="unimportant">{% trans %}Allowed tags:{% endtrans %} p li ol ul strong em u h2<br/>{% trans %}Rules will appear at:{% endtrans %} <a href="/{{board.uri}}/rules.html">https://8ch.net/{{board.uri}}/rules.html</a></span></th><td><textarea name="rules" style="height:100px;width:500px">{{rules}}</textarea></td><tr>
+		<tr><th>{% trans %}Stylesheet{% endtrans %}<br/><span class="unimportant">{% trans %}note: does not validate CSS{% endtrans %}</span><br/><span class="unimportant">{% trans %}Allowed URLs:{% endtrans %}<br/>{{ allowed_urls|join('<br>') }}</span></th><td><textarea name="css" style="height:100px;width:500px">{{css}}</textarea></td><tr>
 	</table>
 
 	<table id="wf">

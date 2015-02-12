@@ -17,7 +17,7 @@ var textarea = $("<textarea></textarea>").css({
   "font-size": 12,
   position: "absolute",
   top: 35, bottom: 35,
-  width: "calc(100% - 12px)", margin: 0, padding: 0, border: "1px solid black",
+  width: "calc(100% - 20px)", margin: 0, padding: "4px", border: "1px solid black",
   left: 5, right: 5
 }).appendTo(tab.content);
 var submit = $("<input type='button' value='"+_("Update custom Javascript")+"'>").css({
@@ -54,7 +54,7 @@ var update_textarea = function() {
     textarea.text("/* "+_("Enter here your own Javascript code...")+" */\n" +
                   "/* "+_("Have a backup of your storage somewhere, as messing here\nmay render you this website unusable.")+" */\n" +
                   "/* "+_("You can include JS files from remote servers, for example:")+" */\n" +
-                  'load_js("http://example.com/script.js");');
+                  '/* load_js("http://example.com/script.js"); */');
   }
   else {
     textarea.text(localStorage.user_js);

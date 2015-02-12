@@ -8,18 +8,7 @@ require 'inc/functions.php';
 require 'inc/mod/pages.php';
 require 'inc/mod/auth.php';
 
-if ($config['debug'])
-	$parse_start_time = microtime(true);
-
-// Fix for magic quotes
-if (get_magic_quotes_gpc()) {
-	function strip_array($var) {
-		return is_array($var) ? array_map('strip_array', $var) : stripslashes($var);
-	}
-	
-	$_GET = strip_array($_GET);
-	$_POST = strip_array($_POST);
-}
+check_login(true);
 
 $query = isset($_SERVER['QUERY_STRING']) ? rawurldecode($_SERVER['QUERY_STRING']) : '';
 
@@ -42,9 +31,9 @@ $pages = array(
 	'/log/(\d+)'				=> 'log',			// modlog
 	'/log:([^/]+)'				=> 'user_log',			// modlog
 	'/log:([^/]+)/(\d+)'			=> 'user_log',			// modlog
-	'/news'					=> 'secure_POST news',		// view news
-	'/news/(\d+)'				=> 'secure_POST news',		// view news
-	'/news/delete/(\d+)'			=> 'secure news_delete',	// delete from news
+	'/edit_news'				=> 'secure_POST news',		// view news
+	'/edit_news/(\d+)'			=> 'secure_POST news',		// view news
+	'/edit_news/delete/(\d+)'		=> 'secure news_delete',	// delete from news
 	
 	'/noticeboard'				=> 'secure_POST noticeboard',	// view noticeboard
 	'/noticeboard/(\d+)'			=> 'secure_POST noticeboard',	// view noticeboard
@@ -95,6 +84,7 @@ $pages = array(
 	'/(\%b)/delete/(\d+)'                             => 'secure delete',          // delete post
 	'/(\%b)/deletefile/(\d+)/(\d+)'                   => 'secure deletefile',      // delete file from post
 	'/(\%b+)/spoiler/(\d+)/(\d+)'                     => 'secure spoiler_image',   // spoiler file
+	'/(\%b+)/spoiler_all/(\d+)'                       => 'secure spoiler_images',   // spoiler file
 	'/(\%b)/deletebyip/(\d+)(/global)?'               => 'secure deletebyip',      // delete all posts by IP address
 	'/(\%b)/(un)?lock/(\d+)'                          => 'secure lock',            // lock thread
 	'/(\%b)/(un)?sticky/(\d+)'                        => 'secure sticky',          // sticky thread

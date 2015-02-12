@@ -49,7 +49,7 @@ if (isset($_POST['delete'])) {
 
 	// Check if deletion enabled
 	if (!$config['allow_delete'])
-		error(_('Post deletion is not allowed!'));
+		error(_('Users are not allowed to delete their own posts on this board.'));
 	
 	if (empty($delete))
 		error($config['error']['nodelete']);
@@ -218,6 +218,9 @@ elseif (isset($_POST['post'])) {
 	if (!openBoard($post['board']))
 		error($config['error']['noboard']);
 
+	// Check if banned
+	checkBan($board['uri']);
+
 	// Check for CAPTCHA right after opening the board so the "return" link is in there
 	if ($config['recaptcha']) {
 		if (!isset($_POST['recaptcha_challenge_field']) || !isset($_POST['recaptcha_response_field']))
@@ -232,22 +235,36 @@ elseif (isset($_POST['post'])) {
 		}
 	}
 
-	if (!(($post['op'] && $_POST['post'] == $config['button_newtopic']) ||
-		(!$post['op'] && $_POST['post'] == $config['button_reply'])))
+	// Same, but now with our custom captcha provider
+	//if ($config['captcha']['enabled']) {
+	//New thread captcha
+	if (($config['captcha']['enabled']) || (($post['op']) && ($config['new_thread_capt'])) ) {
+		$resp = file_get_contents($config['captcha']['provider_check'] . "?" . http_build_query([
+			'mode' => 'check',
+			'text' => $_POST['captcha_text'],
+			'extra' => $config['captcha']['extra'],
+			'cookie' => $_POST['captcha_cookie']
+		]));
+
+		if ($resp !== '1') {
+                        error($config['error']['captcha'] .
+			'<script>if (actually_load_captcha !== undefined) actually_load_captcha("'.$config['captcha']['provider_get'].'", "'.$config['captcha']['extra'].'");</script>');
+		}
+	}
+
+	//if (!(($post['op'] && $_POST['post'] == $config['button_newtopic']) ||
+		//(!$post['op'] && $_POST['post'] == $config['button_reply'])))
 		//error($config['error']['bot']);
 	
 	// Check the referrer
 	if ($config['referer_match'] !== false &&
-		(!isset($_SERVER['HTTP_REFERER']) || !preg_match($config['referer_match'], rawurldecode($_SERVER['HTTP_REFERER']))))
+		(!isset($_SERVER['HTTP_REFERER']) || !preg_match($config['referer_match'], rawurldecode($_SERVER['HTTP_REFERER'])))) {
 		error($config['error']['referer']);
-	
-	checkDNSBL();
-		
-	// Check if banned
-	checkBan($board['uri']);
+	}	
 
 	if ($post['mod'] = isset($_POST['mod']) && $_POST['mod']) {
 		require 'inc/mod/auth.php';
+		check_login(false);
 		if (!$mod) {
 			// Liar. You're not a mod.
 			error($config['error']['notamod']);
@@ -376,11 +393,22 @@ elseif (isset($_POST['post'])) {
 	$post['body'] = $_POST['body'];
 	$post['password'] = $_POST['password'];
 	$post['has_file'] = (!isset($post['embed']) && (($post['op'] && !isset($post['no_longer_require_an_image_for_op']) && $config['force_image_op']) || !empty($_FILES['file']['name'])));
+
+	if ($post['has_file'])
+		checkDNSBL();
 	
 	if (!($post['has_file'] || isset($post['embed'])) || (($post['op'] && $config['force_body_op']) || (!$post['op'] && $config['force_body']))) {
-		$stripped_whitespace = preg_replace('/[\s]/u', '', $post['body']);
+		// http://stackoverflow.com/a/4167053
+		$stripped_whitespace = preg_replace('/^[\pZ\pC]+|[\pZ\pC]+$/u', '', $post['body']);
 		if ($stripped_whitespace == '') {
 			error($config['error']['tooshort_body']);
+		}
+	}
+
+	if ($config['force_subject_op'] && $post['op']) {
+		$stripped_whitespace = preg_replace('/^[\pZ\pC]+|[\pZ\pC]+$/u', '', $post['subject']);
+		if ($stripped_whitespace == '') {
+			error(_('It is required to enter a subject when starting a new thread on this board.'));
 		}
 	}
 	
@@ -507,6 +535,8 @@ elseif (isset($_POST['post'])) {
 		error(sprintf($config['error']['toolong'], 'subject'));
 	if (!$mod && mb_strlen($post['body']) > $config['max_body'])
 		error($config['error']['toolong_body']);
+	if (mb_strlen($post['body']) < $config['min_body'] && $post['op'])
+		error(_(sprintf('OP must be at least %d chars on this board.', $config['min_body'])));
 	if (mb_strlen($post['password']) > 20)
 		error(sprintf($config['error']['toolong'], 'password'));
 		
@@ -572,11 +602,12 @@ elseif (isset($_POST['post'])) {
 		}
 	}
 	
-	$post['tracked_cites'] = markup($post['body'], true);
+	$post['tracked_cites'] = markup($post['body'], true, $post['op']);
 
 	
 	
 	if ($post['has_file']) {
+		$allhashes = '';
 		foreach ($post['files'] as $key => &$file) {
 			if (!in_array($file['extension'], $config['allowed_ext']) && !in_array($file['extension'], $config['allowed_ext_files']))
 				error($config['error']['unknownext']);
@@ -586,33 +617,26 @@ elseif (isset($_POST['post'])) {
 			// Truncate filename if it is too long
 			$file['filename'] = mb_substr($file['filename'], 0, $config['max_filename_len']);
 			
-			if (!isset($filenames)) {
-				$filenames = escapeshellarg($file['tmp_name']);
-			} else {
-				$filenames .= (' ' . escapeshellarg($file['tmp_name']));
-			}
 			$upload = $file['tmp_name'];
 			
 			if (!is_readable($upload))
 				error($config['error']['nomove']);
-		}
-		
-		$md5cmd = $config['bsd_md5'] ? 'md5 -r' : 'md5sum';
-		
-		if( ($output = shell_exec_error("cat $filenames | $md5cmd")) !== false ) {
-			$explodedvar = explode(' ', $output);
-			$hash = $explodedvar[0];
-			$post['filehash'] = $hash;
-		}
-		elseif ($config['max_images'] === 1) {
-			$post['filehash'] = md5_file($upload);
-		}
-		else {
-			$str_to_hash = '';
-			foreach (explode(' ', $filenames) as $i => $f) {
-				$str_to_hash .= file_get_contents($f);
+
+			$md5cmd = $config['bsd_md5'] ? 'md5 -r' : 'md5sum';
+			if( ($output = shell_exec_error("cat " . escapeshellarg($upload) . " | $md5cmd")) !== false ) {
+				$explodedvar = explode(' ', $output);
+				$hash = $explodedvar[0];
+			} else {
+				$hash = md5_file($upload);
 			}
-			$post['filehash'] = md5($str_to_hash);
+			$file['hash'] = $hash;
+			$allhashes .= $hash;
+		}
+		
+		if (count($post['files']) == 1) {
+			$post['filehash'] = $hash;
+		} else {
+			$post['filehash'] = md5($allhashes);
 		}
 	}
 	
@@ -842,8 +866,10 @@ elseif (isset($_POST['post'])) {
 		bumpThread($post['thread']);
 	}
 	
-	buildThread($post['op'] ? $id : $post['thread']);
-	
+	$pid = $post['op'] ? $id : $post['thread'];
+
+	buildThread($pid);
+
 	if ($config['try_smarter'] && $post['op'])
 		$build_pages = range(1, $config['max_pages']);
 	

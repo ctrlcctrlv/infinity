@@ -4,12 +4,12 @@ include "inc/functions.php";
 if (!(php_sapi_name() == "cli")) {
 	die('nope');
 }
-$protected = array('burgers', 'cow', 'wilno', 'cute');
+$protected = array('burgers', 'cow', 'wilno', 'cute', 'yoga');
 $q = query("SELECT uri FROM boards");
 $boards = $q->fetchAll(PDO::FETCH_COLUMN);
 $now = new DateTime();
-$ago = (new DateTime)->sub(new DateInterval('P3D'));
-$mod_ago = (new DateTime)->sub(new DateInterval('P7D'));
+$ago = (new DateTime)->sub(new DateInterval('P7D'));
+$mod_ago = (new DateTime)->sub(new DateInterval('P14D'));
 
 // Find out the last activity for our board
 $delete = array();
@@ -63,7 +63,7 @@ if ($argc > 1) {
 $f = fopen('rip.txt', 'a');
 fwrite($f, "--\r\n".date('c')."\r\n");
 foreach($delete as $i => $d){
-	file_get_contents('http://8chan.co/listboards.php');
+	file_get_contents('http://8ch.net/listboards.php'); //I think this is bad
 	$s = "RIP /".$d['board']."/, created by ".($d['mod']?$d['mod']:'?')." and last active on ".$d['last_activity']->format('Y-m-d H:i:s.').($d['last_mod'] ? ' Mod last active on ' . $d['last_mod']->format('Y-m-d H:i:s.') : ' Mod never active.') . " Number of posts: {$d['count']}." . "\r\n";
 	echo $s;
 	fwrite($f, $s);

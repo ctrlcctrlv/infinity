@@ -1,0 +1,34 @@
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<div style="text-align:center">
+<form action="{{ action }}" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="token" value="{{ token }}">
+	<h2>{% trans %}Upload flag{% endtrans %}</h2>
+	<p><input type="text" name="description" placeholder="Flag description"><input type="file" name="file"></p>
+
+	<p><small>{% trans %}Flags must be a maximum of 48KB and 11-20 x 11-16 pixels.{% endtrans %}<br/>{% trans %}A maximum of 256 custom flags per board is enforced.{% endtrans %}</small></p>
+
+	<p><small>{% trans %}Important: Flags must be accompanied by a description of the flag that will be shown to the users to your board. The description must not exceed 255 characters. To use flags, you also must have "Enable user flags" enabled on your board settings page as well as having flags uploaded on this page.{% endtrans %}</small></p>
+
+	<p><input type="submit" value="Upload"></p>
+</form>
+<hr>
+
+<h2>{% trans %}Flags already in use{% endtrans %}</h2>
+<form action="{{ action }}" method="post">
+<input type="hidden" name="token" value="{{ token }}">
+<table>
+<tbody>
+{% for flag, description in config.user_flags %}
+	<tr>
+	<td><input name="delete[]" type="checkbox" value="{{flag}}"></td><td><img src="static/custom-flags/{{board.uri}}/{{flag}}.png"></td><td>{{description}}</td>
+	</tr>
+{% endfor %}
+</tbody>
+</table>
+<p><input type="submit" value="Delete selected"></p>
+</form>
+<form action="{{ action }}" method="post">
+<input type="hidden" name="token" value="{{ token }}">
+<input name="alphabetize" type="submit" value="{% trans 'Alphabetize flags' %}">
+</form>
+</div>

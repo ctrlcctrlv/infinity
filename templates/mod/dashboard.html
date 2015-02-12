@@ -33,7 +33,6 @@
 			{% endif %}
 			<li><a href="?/noticeboard">{% trans 'View all noticeboard entries' %}</a></li>
 		{% endif %}
-		<li><a href="?/news">{% trans 'News' %}</a></li>
 		<li>
 			<a href="?/inbox">
 				{% trans 'PM inbox' %} 
@@ -127,6 +126,7 @@
 				{% endif %}
 				{% if mod|hasPermission(config.mod.manageboards) %}
 					 <a href="?/edit/{{ board.uri }}"><small>[{% trans 'edit' %}]</small></a>
+					 <a href="?/settings/{{ board.uri }}"><small>[{% trans 'settings' %}]</small></a>
 				{% endif %}
 			</li>
 		{% endif %}

@@ -17,7 +17,7 @@ var textarea = $("<textarea></textarea>").css({
   "font-size": 12,
   position: "absolute",
   top: 35, bottom: 35,
-  width: "calc(100% - 12px)", margin: 0, padding: 0, border: "1px solid black",
+  width: "calc(100% - 20px)", margin: 0, padding: "4px", border: "1px solid black",
   left: 5, right: 5
 }).appendTo(tab.content);
 var submit = $("<input type='button' value='"+_("Update custom CSS")+"'>").css({
@@ -45,7 +45,7 @@ var update_textarea = function() {
     textarea.text("/* "+_("Enter here your own CSS rules...")+" */\n" +
                   "/* "+_("If you want to make a redistributable style, be sure to\nhave a Yotsuba B theme selected.")+" */\n" +
                   "/* "+_("You can include CSS files from remote servers, for example:")+" */\n" +
-                  '@import "http://example.com/style.css";');
+                  '/* @import "http://example.com/style.css"; */');
   }
   else {
     textarea.text(localStorage.user_css);

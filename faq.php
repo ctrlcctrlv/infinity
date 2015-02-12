@@ -15,7 +15,7 @@ $body = <<<EOT
 
 <p>There is a large penalty for abusing their powers to ban users for other reasons. That penalty is that I will not only remove their global volunteer position, but also commandeer their board. I will then find another suitable owner for it among the board's users and give it to them.</p>
 
-<p>Thus, the only people who can delete content from 8chan.co are those who have a stake in the site itself because they own the boards. Thus, they are not really doing it for free - they are simply protecting their boards by protecting the site as a whole. It is in their interest to keep the site free of illegal content so that their boards stay up. If they abuse their power, the board that they worked hard to create is stripped from them.</p>
+<p>Thus, the only people who can delete content from 8chan are those who have a stake in the site itself because they own the boards. Thus, they are not really doing it for free - they are simply protecting their boards by protecting the site as a whole. It is in their interest to keep the site free of illegal content so that their boards stay up. If they abuse their power, the board that they worked hard to create is stripped from them.</p>
 
 <p>This means that there's only one person that needs to be trusted: me. If I could have found a way to remove myself from the trust model, I would have, but that is impossible given someone has to run the server.</p>
 
@@ -26,6 +26,9 @@ $body = <<<EOT
 <li>Do not post, request, or link to any content illegal in the United States of America. Do not create boards with the sole purpose of posting or spreading such content.</li>
 </ul>
 <p>Other than that, you are free to institute whatever rules you want on your board.</p>
+<p><a href="/obscenity.html">More information about US obscenity laws and how they relate to 8chan boards</a></p>
+<p><a href="/dost.html">More information about the Dost test</a></p>
+<p><a href="/personhood.html">Just who is this 8chan person anyway?</a></p>
 <h2>How do I add more volunteers?</h2>
 <p>You may do this in your board settings, click on "Edit board volunteers".
 <h2>How do I manage my board?</h2>
@@ -33,13 +36,16 @@ $body = <<<EOT
 <h2>How do I contact the admin?</h2>
 <p>The admin can be reached at <tt>admin at 8chan dot co</tt>.</p>
 
-<h2>Help! My board has been deleted!</h2>
-<p>Were you inactive for longer than one week? Were there no posts on the board for 72 hours?</p>
+<h2>What's your privacy policy?</h2>
+<p>Find it <a href="/privacy.pdf">here</a>.</p>
 
-<p>If either of those is true, the board was deleted automatically. You are free to recreate it. I cannot restore it, so don't bother emailing me about it.</p>
+<h2>Help! My board has been deleted!</h2>
+<p>As of November 13th, 2014, board expiration no longer occurs.</p>
+
+<p>You still may lose access to your board, however, if you fail to log in for two weeks or it receives no posts for a week. See <a href="/claim.html">here</a> for a list of boards that are available for reclaiming.</p>
 
 <h2>How do I post as a volunteer on my board?</h2>
-<p>Make sure you are using the volunteer interface to view your board. The URL of your browser should be <a href="https://8chan.co/mod.php?/yourboard"><tt>https://8chan.co/mod.php?/yourboard</tt></a>.</p>
+<p>Make sure you are using the volunteer interface to view your board. The URL of your browser should be <a href="/mod.php?/yourboard"><tt>https://8ch.net/mod.php?/yourboard</tt></a>.</p>
 
 <p>If you are the owner of the board, put "## Board Owner" in the name field. If someone else is the owner and you are just assisting them, put "## Board Volunteer" in the name field. Write your post and click "Reply". It will appear with your capcode.</p>
 <h2>Help! The owner of X board is doing something I don't like!</h2>
@@ -47,10 +53,23 @@ $body = <<<EOT
 <p>If they are doing something illegal, email me.</p>
 
 <h2>Can you give me X board?</h2>
-<p>If the owner of the board is inactive or the board is broken due to bad CSS, sure. Send me an email.</p>
+<p>If the owner of the board is inactive or the board is broken due to bad CSS, sure. Send me an email. You can see a list of boards that qualify for being taken over <a href="/claim.html">here</a>.</p>
 
 <h2>Can you add some new feature?</h2>
 <p>Open a <a href="https://github.com/ctrlcctrlv/8chan/issues">Github issue</a>. Better yet, write it yourself and open a pull request.
+
+<h2>What is "sage"?</h2>
+<p>Posters may reply to threads without bumping them to the top of the index by putting "sage" in the email field.</p>
+
+<h2>What is a tripcode?</h2>
+<p>Most posts on 8chan are made anonymously, but this is not the only way to post. The name field can be used <em>four</em> ways to establish identity:</p>
+<ol>
+<li>By simply writing a name in the box. This is insecure as any other poster can write the same name.</li>
+<li>By writing a # character and then a password. Putting #example in the name field would become !KtW6XcghiY. This is reasonably secure, but with increasing GPU speeds these tripcodes can be cracked in a few days by a dedicated attacker.</li>
+<li>By writing two # characters and then a password. Putting ##example in the name field would become !!Dz.MSNRw9M. This is quite secure, but it relies on a secret salt on the server so the code will not work on sites other than 8chan.</li>
+<li>Board owners and volunteers can enter the special codes "## Board Owner" and "## Board Volunteer" which become <em>capcodes</em> that display after the name. The 8chan administrator can type "## Admin" which becomes <span class="capcode" title="This post was written by the global 8chan administrator."> <i class="fa fa-wheelchair" style="color:blue;"></i> <span style="color:red">8chan Administrator</span></span>.</li>
+</ol>
+<p>Please note, many boards on 8chan have an option set called "Forced anonymity" which causes the name field to not work. This is because many users (and therefore board owners) do not like tripcode users.</p>
 
 <h2>How do I format my text?</h2>
 <ul>
@@ -65,10 +84,13 @@ $body = <<<EOT
 </ul>
 
 <h2>How are featured boards chosen?</h2>
-<p>Top fifteen boards excluding /meta/, /b/ and /int/.</p>
+<p>Top twenty-five boards excluding /meta/, /b/ and /news+/.</p>
 
-<h2>Who owns /meta/, /b/, and /int/?</h2>
+<h2>Who owns /meta/, /b/ and /news+/?</h2>
 <p>No one, so they are <em>de facto</em> property of the administration.</p>
+
+<h2>Why does <a href="/banned">https://8ch.net/banned</a> say that I'm banned? I can still use the boards?</h2>
+<p>8chan is centered around user created boards. That's a board with CSS that makes it look like the ban page, not an official page. You've been tricked. 8chan has no official ban check page.</p>
 
 <h2>Where's the mobile app?</h2>
 <p>There is no official mobile app, however there is an unofficial Android app at <a href="https://github.com/wingy/Exodus/releases">wingy/Exodus</a>.</p>
@@ -76,12 +98,22 @@ $body = <<<EOT
 <p>I don't provide support for this app, ask the developer of it if you have a problem with it.</p>
 
 <h2>Where's the archive?</h2>
-<p>There isn't one yet and there will never be an official archive.</p>
+<p><s>There isn't one yet and there will never be an official archive.</s></p>
+<p>Given that archives are inevitable and will be created anyway via <a href="https://archive.today">archive.today</a>, Google cache, and anyone who installs Asagi, I'm softening my stance on this. Currently, 8archive.moe provides our archive, and I may set up an official one. <strong>All archives officially partnered with us will be opt-in by our board owners, not opt-out. Archives who archive boards that have not opted in will be considered pirate archives, and legal action may be taken.</strong></p>
+
+<h2>I got an email from an @8chan.co email address, is that you?</h2>
+<p>8chan.co uses <a href="https://cock.li">cock.li</a> to manage our domain's email. cock.li allows anyone to create an email account @8chan.co.</p>
+<p>That said, we have quite a few official 8chan.co email addresses. They are:</p>
+<ul>
+<li>admin at 8chan dot co</li>
+<li>dmca at 8chan dot co</li>
+<li>claim at 8chan dot co</li>
+</ul>
 
 <h2>How do I donate?</h2>
-<p>Donations can be sent to 1NpQaXqmCBji6gfX8UgaQEmEstvVY7U32C (Bitcoin) or LUPgSCJt3iGeJXUETVhmnbQ89Riaq1yjZm (Litecoin). PayPal is also accepted @ fredrick.brennan1@gmail.com .</p>
+<p>Donations can be sent to 1NpQaXqmCBji6gfX8UgaQEmEstvVY7U32C (Bitcoin) or LUPgSCJt3iGeJXUETVhmnbQ89Riaq1yjZm (Litecoin).</p>
+<p>I am also a big fan of Monero (XMR). You can send XMR to our <a href="http://openalias.org">OpenAlias</a> in the simplewallet client, or simply send to 49dBJhGhYFxJEfydS6hH6GRyg1W4cDgupdNVtw7j1WtcUY7xPXwNLw6fUVay644viaCcEhMFG1Z7SjjxRXEFDdNWJdvH9kS.</p>
 <p>You may also donate monthly via Patreon at <a href="http://www.patreon.com/user?u=162165">http://www.patreon.com/user?u=162165</a>.
-
 <h2>Are you really a cripple?</h2>
 <p>Yes.</p>
 

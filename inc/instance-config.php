@@ -51,9 +51,9 @@
 	require "secrets.php";
 
 	// Image shit
-	$config['thumb_method'] = 'gm+gifsicle';
-	$config['thumb_ext'] = '';
-	$config['thumb_keep_animation_frames'] = 100;
+	$config['thumb_method'] = 'gm';
+	$config['thumb_ext'] = 'jpg';
+	$config['thumb_keep_animation_frames'] = 1;
 	$config['show_ratio'] = true;
 	//$config['allow_upload_by_url'] = true;
 	$config['max_filesize'] = 1024 * 1024 * 8; // 8MB
@@ -61,6 +61,7 @@
 	$config['spoiler_images'] = true;
 	$config['image_reject_repost'] = true;
 	$config['allowed_ext_files'][] = 'webm';
+	$config['allowed_ext_files'][] = 'mp4';
 	$config['webm']['use_ffmpeg'] = true;
 	$config['webm']['allow_audio'] = true;
 	$config['webm']['max_length'] = 60 * 15;
@@ -72,8 +73,9 @@
 	$config['mod']['capcode'][BOARDVOLUNTEER] = array('Board Volunteer');
 	$config['mod']['capcode'][MOD] = array('Board Owner');
 	$config['mod']['capcode'][GLOBALVOLUNTEER] = array('Global Volunteer');
+	$config['mod']['capcode'][ADMIN] = array('Admin', 'Global Volunteer');
 	$config['custom_capcode']['Admin'] = array(
-		'<span class="capcode" style="color:blue;font-weight:bold"> <i class="fa fa-wheelchair"></i> %s</span>',
+		'<span class="capcode" title="This post was written by the global 8chan administrator."> <i class="fa fa-wheelchair" style="color:blue;"></i> <span style="color:red">8chan Administrator</span></span>',
 	);
 	//$config['mod']['view_banlist'] = GLOBALVOLUNTEER;
 	$config['mod']['recent_reports'] = 65535;
@@ -90,7 +92,9 @@
 	//$config['default_stylesheet'] = array('Notsuba', 'notsuba.css');
 	$config['additional_javascript'][] = 'js/jquery.min.js';
 	$config['additional_javascript'][] = 'js/jquery.mixitup.min.js';
+	$config['additional_javascript'][] = 'js/jquery-ui.custom.min.js';
 	$config['additional_javascript'][] = 'js/catalog.js';
+	$config['additional_javascript'][] = 'js/captcha.js';
 	$config['additional_javascript'][] = 'js/jquery.tablesorter.min.js';
 	$config['additional_javascript'][] = 'js/options.js';
 	$config['additional_javascript'][] = 'js/style-select.js';
@@ -132,6 +136,13 @@
 	$config['additional_javascript'][] = 'js/thread-watcher.js';
 	$config['additional_javascript'][] = 'js/ajax.js';
 	$config['additional_javascript'][] = 'js/show-own-posts.js';
+	$config['additional_javascript'][] = 'js/youtube.js';
+	$config['additional_javascript'][] = 'js/comment-toolbar.js';
+	$config['additional_javascript'][] = 'js/catalog-search.js';
+	$config['additional_javascript'][] = 'js/thread-stats.js';
+	$config['additional_javascript'][] = 'js/quote-selection.js';
+	$config['additional_javascript'][] = 'js/twemoji/twemoji.js';
+	$config['additional_javascript'][] = 'js/flag-previews.js';
 
 	//$config['font_awesome_css'] = '/netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css';
 	
@@ -143,49 +154,54 @@
 	$config['markup'][] = array("/\[spoiler\](.+?)\[\/spoiler\]/", "<span class=\"spoiler\">\$1</span>");
 	$config['markup'][] = array("/~~(.+?)~~/", "<s>\$1</s>");
 	$config['markup'][] = array("/__(.+?)__/", "<u>\$1</u>");
+	$config['markup'][] = array("/###([^\s']+)###/", "<a href='/boards.html#\$1'>###\$1###</a>");
 
-	$config['boards'] = array(array('<i class="fa fa-home" title="Home"></i>' => '/', '<i class="fa fa-tags" title="Boards"></i>' => '/boards.html', '<i class="fa fa-question" title="FAQ"></i>' => '/faq.html', '<i class="fa fa-random" title="Random"></i>' => '/random.php', '<i class="fa fa-plus" title="New board"></i>' => '/create.php', '<i class="fa fa-ban" title="Public ban list"></i>' => '/bans.html', '<i class="fa fa-search" title="Search"></i>' => '/search.php', '<i class="fa fa-cog" title="Manage board"></i>' => '/mod.php', '<i class="fa fa-quote-right" title="Chat"></i>' => 'https://qchat.rizon.net/?channels=#8chan'), array('b', 'meta'), array('<i class="fa fa-twitter" title="Twitter"></i>'=>'https://twitter.com/infinitechan'));
+	$config['boards'] = array(array('<i class="fa fa-home" title="Home"></i>' => '/', '<i class="fa fa-tags" title="Boards"></i>' => '/boards.html', '<i class="fa fa-question" title="FAQ"></i>' => '/faq.html', '<i class="fa fa-random" title="Random"></i>' => '/random.php', '<i class="fa fa-plus" title="New board"></i>' => '/create.php', '<i class="fa fa-ban" title="Public ban list"></i>' => '/bans.html', '<i class="fa fa-search" title="Search"></i>' => '/search.php', '<i class="fa fa-cog" title="Manage board"></i>' => '/mod.php', '<i class="fa fa-quote-right" title="Chat"></i>' => 'https://qchat.rizon.net/?channels=#8chan'), array('b', 'meta', 'news+'), array('<i class="fa fa-twitter" title="Twitter"></i>'=>'https://twitter.com/infinitechan'));
 	//$config['boards'] = array(array('<i class="fa fa-home" title="Home"></i>' => '/', '<i class="fa fa-tags" title="Boards"></i>' => '/boards.html', '<i class="fa fa-question" title="FAQ"></i>' => '/faq.html', '<i class="fa fa-random" title="Random"></i>' => '/random.php', '<i class="fa fa-plus" title="New board"></i>' => '/create.php', '<i class="fa fa-search" title="Search"></i>' => '/search.php', '<i class="fa fa-cog" title="Manage board"></i>' => '/mod.php', '<i class="fa fa-quote-right" title="Chat"></i>' => 'https://qchat.rizon.net/?channels=#8chan'), array('b', 'meta', 'int'), array('v', 'a', 'tg', 'fit', 'pol', 'tech', 'mu', 'co', 'sp', 'boards'), array('<i class="fa fa-twitter" title="Twitter"></i>'=>'https://twitter.com/infinitechan'));
 
-	$config['footer'][] = 'Contribute to 8chan.co development at <a href="https://github.com/ctrlcctrlv/8chan">github</a>';
-	$config['footer'][] = 'To make a DMCA request or report illegal content, please email <a href="mailto:admin@8chan.co">admin@8chan.co</a> or use the "Global Report" functionality on every page.';
+	$config['footer'][] = 'All posts on 8chan are the responsibility of the individual poster and not the administration of 8chan, pursuant to 47 U.S.C. &sect; 230.';
+	$config['footer'][] = 'We have not been served any secret court orders and are not under any gag orders.';
+	$config['footer'][] = 'To make a DMCA request or report illegal content, please email <a href="mailto:admin@8chan.co">admin@8chan.co</a>.';
 
 	$config['search']['enable'] = true;
 
-//$config['debug'] = true;
 	$config['syslog'] = true;
 
 	$config['wordfilters'][] = array('\rule', ''); // 'true' means it's a regular expression
 
+	$config['hour_max_threads'] = false;
+	$config['filters'][] = array(
+		'condition' => array(
+			'custom' => function($post) {
+				global $config, $board;
+				if (!$config['hour_max_threads']) return false;
 
-	$config['embedding'] = array(
-		array(
-			'/^https?:\/\/(\w+\.)?youtube\.com\/watch\?v=([a-zA-Z0-9\-_]{10,11})(&.+)?$/i',
-			'<iframe style="float: left;margin: 10px 20px;" width="%%tb_width%%" height="%%tb_height%%" frameborder="0" id="ytplayer" type="text/html" src="https://www.youtube.com/embed/$2"></iframe>'
+				if ($post['op']) {
+					$query = prepare(sprintf('SELECT COUNT(*) AS `count` FROM ``posts_%s`` WHERE `thread` IS NULL AND FROM_UNIXTIME(`time`) > DATE_SUB(NOW(), INTERVAL 1 HOUR);', $board['uri']));
+					$query->bindValue(':ip', $_SERVER['REMOTE_ADDR']);
+					$query->execute() or error(db_error($query));
+					$r = $query->fetch(PDO::FETCH_ASSOC);
+
+					return ($r['count'] > $config['hour_max_threads']);
+				}
+			}	
 		),
-		array(
-			'/^https?:\/\/(\w+\.)?vimeo\.com\/(\d{2,10})(\?.+)?$/i',
-			'<object style="float: left;margin: 10px 20px;" width="%%tb_width%%" height="%%tb_height%%"><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="movie" value="https://vimeo.com/moogaloop.swf?clip_id=$2&amp;server=vimeo.com&amp;show_title=0&amp;show_byline=0&amp;show_portrait=0&amp;color=00adef&amp;fullscreen=1&amp;autoplay=0&amp;loop=0" /><embed src="https://vimeo.com/moogaloop.swf?clip_id=$2&amp;server=vimeo.com&amp;show_title=0&amp;show_byline=0&amp;show_portrait=0&amp;color=00adef&amp;fullscreen=1&amp;autoplay=0&amp;loop=0" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" width="%%tb_width%%" height="%%tb_height%%"></embed></object>'
-		),
-		array(
-			'/^https?:\/\/(\w+\.)?dailymotion\.com\/video\/([a-zA-Z0-9]{2,10})(_.+)?$/i',
-			'<object style="float: left;margin: 10px 20px;" width="%%tb_width%%" height="%%tb_height%%"><param name="movie" value="https://www.dailymotion.com/swf/video/$2"></param><param name="allowFullScreen" value="true"></param><param name="allowScriptAccess" value="always"></param><param name="wmode" value="transparent"></param><embed type="application/x-shockwave-flash" src="https://www.dailymotion.com/swf/video/$2" width="%%tb_width%%" height="%%tb_height%%" wmode="transparent" allowfullscreen="true" allowscriptaccess="always"></embed></object>'
-		),
-		array(
-			'/^https?:\/\/(\w+\.)?metacafe\.com\/watch\/(\d+)\/([a-zA-Z0-9_\-.]+)\/(\?.+)?$/i',
-			'<div style="float:left;margin:10px 20px;width:%%tb_width%%px;height:%%tb_height%%px"><embed flashVars="playerVars=showStats=no|autoPlay=no" src="https://www.metacafe.com/fplayer/$2/$3.swf" width="%%tb_width%%" height="%%tb_height%%" wmode="transparent" allowFullScreen="true" allowScriptAccess="always" name="Metacafe_$2" pluginspage="https://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash"></embed></div>'
-		),
-		array(
-			'/^https?:\/\/video\.google\.com\/videoplay\?docid=(\d+)([&#](.+)?)?$/i',
-			'<embed src="https://video.google.com/googleplayer.swf?docid=$1&hl=en&fs=true" style="width:%%tb_width%%px;height:%%tb_height%%px;float:left;margin:10px 20px" allowFullScreen="true" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>'
-		),
-		array(
-			'/^https?:\/\/(\w+\.)?vocaroo\.com\/i\/([a-zA-Z0-9]{2,15})$/i',
-			'<object style="float: left;margin: 10px 20px;" width="148" height="44"><param name="movie" value="https://vocaroo.com/player.swf?playMediaID=$2&autoplay=0"></param><param name="wmode" value="transparent"></param><embed src="https://vocaroo.com/player.swf?playMediaID=$2&autoplay=0" width="148" height="44" wmode="transparent" type="application/x-shockwave-flash"></embed></object>'
-		)
+		'action' => 'reject',
+		'message' => sprintf(_('On this board, to prevent raids only %d threads can be made per hour. Please try again later, or post in an existing thread.'), $config['hour_max_threads'])
 	);
 
 $config['gzip_static'] = false;
+$config['hash_masked_ip'] = true;
+$config['force_subject_op'] = false;
+$config['min_links'] = 0;
+$config['min_body'] = 0;
+$config['early_404'] = false;
+$config['early_404_page'] = 5;
+$config['early_404_replies'] = 10;
+$config['cron_bans'] = true;
+$config['mask_db_error'] = true;
+$config['ban_appeals'] = true;
+$config['show_sages'] = false;
 // 8chan specific mod pages
 require '8chan-mod-pages.php';
 	

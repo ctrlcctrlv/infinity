@@ -8,6 +8,10 @@ body {
   padding-right: 4px;
 }
 
+.hidden {
+  display:none;
+}
+
 a,a:visited {
   text-decoration: underline;
   color: #34345C;
@@ -94,10 +98,15 @@ input[type="text"],input[type="password"],textarea {
   text-transform: none;
   word-spacing: normal;
   max-width: 75%;
+  font-size: inherit;
 }
 
 #quick-reply input[type="text"], input[type="password"], #quick-reply textarea {
   max-width: 100%;
+}
+
+#upload input[type="file"] {
+  max-width: 230px;
 }
 
 form table tr td {
@@ -249,7 +258,7 @@ p.intro span.capcode,p.intro a.capcode,p.intro a.nametag {
 }
 
 p.intro a {
-  margin-left: 8px;
+  margin-left: 5px;
 }
 
 div.delete {
@@ -307,6 +316,11 @@ div.post_modified div.content-status {
 
 div.post_modified div.content-status:first-child {
   margin-top: 1.3em;
+}
+
+a.dashed-underline {
+  text-decoration: none;
+  border-bottom: 1px dashed;
 }
 
 span.trip {
@@ -806,7 +820,7 @@ pre {
   margin-top: 1em;
 }
 
-.new-threads {
+.new-threads, .board-settings {
   text-align: center;
 }
 
@@ -845,7 +859,7 @@ pre {
 
 #options_div {
   width: 600px;
-  height: 300px;
+  height: 360px;
 }
 
 #alert_div {
@@ -912,6 +926,7 @@ pre {
   right: 0px;
   text-align: left;
   font-size: 12px;
+  overflow-y: auto;
 }
 
 .options_tab h2 {
@@ -932,6 +947,10 @@ pre {
 
 .poster_id {
   cursor: pointer;
+}
+
+.poster_id::before {
+  content: " ID: ";
 }
 
 pre {
@@ -972,10 +991,18 @@ span.pln {
 	margin-bottom: 10px;
 }
 
+#watchlist {
+	font-size: 8pt;
+	width: 15%;
+	position: fixed;
+	right: 0pt;
+	bottom: 0pt;
+	margin: 0pt;
+	padding: 0pt;
+}
+
 .watchlist-inner, .watchlist-controls {
-	margin: 0 auto;
-	margin-top: 10px;
-	margin-bottom: 10px;
+	margin: 0pt;
 	text-align: center;
 }
 
@@ -989,4 +1016,12 @@ span.pln {
 }
 div.mix {
 	display: inline-block;
+} 
+
+/* Mona Font */
+
+.aa {
+	font-family: Mona, "MS PGothic", "ＭＳ Ｐゴシック", sans-serif;
+	display: block!important;
+	font-size: 12pt;
 }

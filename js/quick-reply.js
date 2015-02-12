@@ -87,7 +87,7 @@
 			-webkit-box-sizing:border-box;\
 			-moz-box-sizing: border-box;\
 			font-size: 10pt;\
-			resize: vertical;\
+			resize: both;\
 		}\
 		#quick-reply input, #quick-reply select, #quick-reply textarea {\
 			margin: 0 0 1px 0;\
@@ -115,7 +115,7 @@
 		#quick-reply td.recaptcha-response {\
 			padding: 0 0 1px 0;\
 		}\
-		@media screen and (max-width: 800px) {\
+		@media screen and (max-width: 600px) {\
 			#quick-reply {\
 				display: none !important;\
 			}\
@@ -149,14 +149,14 @@
 						.removeAttr('size')
 						.attr('placeholder', $th.clone().children().remove().end().text());
 				}
-	
+
 				// Move anti-spam nonsense and remove <th>
 				$th.contents().filter(function() {
 					return this.nodeType == 3; // Node.TEXT_NODE
 				}).remove();
 				$th.contents().appendTo($dummyStuff);
 				$th.remove();
-	
+
 				if ($td.find('input[name="password"]').length) {
 					// Hide password field
 					$(this).hide();
@@ -278,9 +278,15 @@
 			}
 		});
 		
-		$postForm.find('textarea[name="body"]').removeAttr('id').removeAttr('cols').attr('placeholder', _('Comment'));
+		$postForm.find('textarea[name="body"]').removeAttr('id').removeAttr('cols').attr('placeholder', _('Comment'))
+			.on('keydown', function (e) {
+				//close quick reply when esc is prssed
+				if (e.which === 27) {
+					$('.close-btn').trigger('click');
+				}
+			});
 	
-		$postForm.find('textarea:not([name="body"]),input[type="hidden"]').removeAttr('id').appendTo($dummyStuff);
+		$postForm.find('textarea:not([name="body"]),input[type="hidden"]:not(.captcha_cookie)').removeAttr('id').appendTo($dummyStuff);
 	
 		$postForm.find('br').remove();
 		$postForm.find('table').prepend('<tr><th colspan="2">\
@@ -363,7 +369,7 @@
 		$(window).ready(function() {
 			if (settings.get('hide_at_top', true)) {
 				$(window).scroll(function() {
-					if ($(this).width() <= 800)
+					if ($(this).width() <= 600)
 						return;
 					if ($(this).scrollTop() < $origPostForm.offset().top + $origPostForm.height() - 100)
 						$postForm.fadeOut(100);
@@ -373,7 +379,8 @@
 			} else {
 				$postForm.show();
 			}
-			
+
+			$postForm.find('textarea[name="body"]').focus();
 			$(window).on('stylesheet', function() {
 				do_css();
 				if ($('link#stylesheet').attr('href')) {
@@ -384,7 +391,7 @@
 	};
 	
 	$(window).on('cite', function(e, id, with_link) {
-		if ($(this).width() <= 800)
+		if ($(this).width() <= 600)
 			return;
 		show_quick_reply();
 		if (with_link) {
@@ -439,7 +446,7 @@
 				$('.quick-reply-btn').hide();
 				
 				$(window).scroll(function() {
-					if ($(this).width() <= 800)
+					if ($(this).width() <= 600)
 						return;
 					if ($(this).scrollTop() < $('form[name="post"]:first').offset().top + $('form[name="post"]:first').height() - 100)
 						$('.quick-reply-btn').fadeOut(100);

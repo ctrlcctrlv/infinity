@@ -26,6 +26,9 @@ $(function() {
 					var content = $(data).find('#'+url.split('#')[1]).parent().parent().find(".body").first().html();
 
 					body.html(content);
+
+					var post = $(body).parents('.post');
+					$(document).trigger('new_post', post);
 				}
 			});
 		});

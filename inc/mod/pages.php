@@ -113,60 +113,6 @@ function mod_dashboard() {
 	$args['reports'] = $row['total_reports'];
 	$args['global_reports'] = isset($row['global_reports']) ? $row['global_reports'] : false;
 	
-	if ($mod['type'] >= ADMIN && $config['check_updates']) {
-		if (!$config['version'])
-			error(_('Could not find current version! (Check .installed)'));
-		
-		if (isset($_COOKIE['update'])) {
-			$latest = unserialize($_COOKIE['update']);
-		} else {
-			$ctx = stream_context_create(array('http' => array('timeout' => 5)));
-			if ($code = @file_get_contents('http://tinyboard.org/version.txt', 0, $ctx)) {
-				$ver = strtok($code, "\n");
-				
-				if (preg_match('@^// v(\d+)\.(\d+)\.(\d+)\s*?$@', $ver, $matches)) {
-					$latest = array(
-						'massive' => $matches[1],
-						'major' => $matches[2],
-						'minor' => $matches[3]
-					);
-					if (preg_match('/v(\d+)\.(\d)\.(\d+)(-dev.+)?$/', $config['version'], $matches)) {
-						$current = array(
-							'massive' => (int) $matches[1],
-							'major' => (int) $matches[2],
-							'minor' => (int) $matches[3]
-						);
-						if (isset($m[4])) { 
-							// Development versions are always ahead in the versioning numbers
-							$current['minor'] --;
-						}
-						// Check if it's newer
-						if (!(	$latest['massive'] > $current['massive'] ||
-							$latest['major'] > $current['major'] ||
-								($latest['massive'] == $current['massive'] &&
-									$latest['major'] == $current['major'] &&
-									$latest['minor'] > $current['minor']
-								)))
-							$latest = false;
-					} else {
-						$latest = false;
-					}
-				} else {
-					// Couldn't get latest version
-					$latest = false;
-				}
-			} else {
-				// Couldn't get latest version
-				$latest = false;
-			}
-	
-			setcookie('update', serialize($latest), time() + $config['check_updates_time'], $config['cookies']['jail'] ? $config['cookies']['path'] : '/', null, !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off', true);
-		}
-		
-		if ($latest)
-			$args['newer_release'] = $latest;
-	}
-	
 	$args['logout_token'] = make_secure_link_token('logout');
 
 	modLog('Looked at dashboard', false);
@@ -495,7 +441,15 @@ function mod_new_board() {
 		if (openBoard($_POST['uri'])) {
 			error(sprintf($config['error']['boardexists'], $board['url']));
 		}
-		
+		foreach ($config['banned_boards'] as $i => $w) {
+			if ($w[0] !== '/') {
+				if (strpos($_POST['uri'],$w) !== false)
+					error(_("Cannot create board with banned word $w"));
+			} else {
+				if (preg_match($w,$_POST['uri']))
+					error(_("Cannot create board matching banned pattern $w"));
+			}
+		}
 		$query = prepare('INSERT INTO ``boards`` (``uri``, ``title``, ``subtitle``) VALUES (:uri, :title, :subtitle)');
 		$query->bindValue(':uri', $_POST['uri']);
 		$query->bindValue(':title', $_POST['title']);
@@ -625,7 +579,7 @@ function mod_news($page_no = 1) {
 		
 		rebuildThemes('news');
 		
-		header('Location: ?/news#' . $pdo->lastInsertId(), true, $config['redirect_http']);
+		header('Location: ?/edit_news#' . $pdo->lastInsertId(), true, $config['redirect_http']);
 	}
 	
 	$query = prepare("SELECT * FROM ``news`` ORDER BY `id` DESC LIMIT :offset, :limit");
@@ -638,14 +592,14 @@ function mod_news($page_no = 1) {
 		error($config['error']['404']);
 	
 	foreach ($news as &$entry) {
-		$entry['delete_token'] = make_secure_link_token('news/delete/' . $entry['id']);
+		$entry['delete_token'] = make_secure_link_token('edit_news/delete/' . $entry['id']);
 	}
 	
 	$query = prepare("SELECT COUNT(*) FROM ``news``");
 	$query->execute() or error(db_error($query));
 	$count = $query->fetchColumn();
 	
-	mod_page(_('News'), 'mod/news.html', array('news' => $news, 'count' => $count, 'token' => make_secure_link_token('news')));
+	mod_page(_('News'), 'mod/news.html', array('news' => $news, 'count' => $count, 'token' => make_secure_link_token('edit_news')));
 }
 
 function mod_news_delete($id) {
@@ -660,7 +614,7 @@ function mod_news_delete($id) {
 	
 	modLog('Deleted a news entry');
 	
-	header('Location: ?/news', true, $config['redirect_http']);
+	header('Location: ?/edit_news', true, $config['redirect_http']);
 }
 
 function mod_log($page_no = 1) {
@@ -1038,7 +992,7 @@ function mod_bans_json() {
 }
 
 function mod_ban_appeals() {
-	global $config, $board;
+	global $config, $board, $mod;
 	
 	if (!hasPermission($config['mod']['view_ban_appeals']))
 		error($config['error']['noaccess']);
@@ -1057,6 +1011,9 @@ function mod_ban_appeals() {
 		if (!$ban = $query->fetch(PDO::FETCH_ASSOC)) {
 			error(_('Ban appeal not found!'));
 		}
+
+		if (!in_array($ban['board'], $mod['boards']) && $mod['boards'][0] != '*')
+			error($config['error']['noaccess']);
 		
 		$ban['mask'] = Bans::range_to_string(array($ban['ipstart'], $ban['ipend']));
 		
@@ -1072,11 +1029,18 @@ function mod_ban_appeals() {
 		header('Location: ?/ban-appeals', true, $config['redirect_http']);
 		return;
 	}
+
+	$local = ($mod['type'] == MOD || $mod["type"] == BOARDVOLUNTEER);
 	
-	$query = query("SELECT *, ``ban_appeals``.`id` AS `id` FROM ``ban_appeals``
+	$query = prepare("SELECT *, ``ban_appeals``.`id` AS `id` FROM ``ban_appeals``
 		LEFT JOIN ``bans`` ON `ban_id` = ``bans``.`id`
 		LEFT JOIN ``mods`` ON ``bans``.`creator` = ``mods``.`id`
-		WHERE `denied` != 1 ORDER BY `time`") or error(db_error());
+		WHERE `denied` != 1 ".($local ? " AND ``bans``.`board` = :board " : "")." ORDER BY `time`");
+	if ($local) {
+		$query->bindValue(':board', $mod['boards'][0]);
+	}
+	$query->execute() or error(db_error());
+
 	$ban_appeals = $query->fetchAll(PDO::FETCH_ASSOC);
 	foreach ($ban_appeals as &$ban) {
 		if ($ban['post'])
@@ -1084,29 +1048,14 @@ function mod_ban_appeals() {
 		$ban['mask'] = Bans::range_to_string(array($ban['ipstart'], $ban['ipend']));
 		
 		if ($ban['post'] && isset($ban['post']['board'], $ban['post']['id'])) {
-			if (openBoard($ban['post']['board'])) {
-				$query = query(sprintf("SELECT `num_files`, `files` FROM ``posts_%s`` WHERE `id` = " .
-					(int)$ban['post']['id'], $board['uri']));
-				if ($_post = $query->fetch(PDO::FETCH_ASSOC)) {
-					$_post['files'] = $_post['files'] ? json_decode($_post['files']) : array();
-					$ban['post'] = array_merge($ban['post'], $_post);
-				} else {
-					$ban['post']['files'] = array(array());
-					$ban['post']['files'][0]['file'] = 'deleted';
-					$ban['post']['files'][0]['thumb'] = false;
-					$ban['post']['num_files'] = 1;
-				}
-			} else {
-				$ban['post']['files'] = array(array());
-				$ban['post']['files'][0]['file'] = 'deleted';
-				$ban['post']['files'][0]['thumb'] = false;
-				$ban['post']['num_files'] = 1;
-			}
-			
+			openBoard($ban['post']['board']);
+
 			if ($ban['post']['thread']) {
-				$ban['post'] = new Post($ban['post']);
+				$po = new Post($ban['post']);
+				$ban['post'] = $po->build(true);
 			} else {
-				$ban['post'] = new Thread($ban['post'], null, false, false);
+				$po = new Thread($ban['post'], null, false, false);
+				$ban['post'] = $po->build(true);
 			}
 		}
 	}
@@ -1591,12 +1540,23 @@ function mod_edit_post($board, $edit_raw_html, $postID) {
 		error($config['error']['404']);
 	
 	if (isset($_POST['name'], $_POST['email'], $_POST['subject'], $_POST['body'])) {
+		$trip = isset($_POST['remove_trip']) ? ' `trip` = NULL,' : '';
+
+		// Remove any modifiers they may have put in
+		$_POST['body'] = remove_modifiers($_POST['body']);
+
+		// Add back modifiers in the original post
+		$modifiers = extract_modifiers($post['body_nomarkup']);
+		foreach ($modifiers as $key => $value) {
+			$_POST['body'] .= "<tinyboard $key>$value</tinyboard>";
+		}
+
 		if ($edit_raw_html)
-			$query = prepare(sprintf('UPDATE ``posts_%s`` SET `name` = :name, `email` = :email, `subject` = :subject, `body` = :body, `body_nomarkup` = :body_nomarkup, `edited_at` = NOW() WHERE `id` = :id', $board));
+			$query = prepare(sprintf('UPDATE ``posts_%s`` SET `name` = :name,'. $trip .' `email` = :email, `subject` = :subject, `body` = :body, `body_nomarkup` = :body_nomarkup, `edited_at` = NOW() WHERE `id` = :id', $board));
 		else
-			$query = prepare(sprintf('UPDATE ``posts_%s`` SET `name` = :name, `email` = :email, `subject` = :subject, `body_nomarkup` = :body, `edited_at` = NOW() WHERE `id` = :id', $board));
+			$query = prepare(sprintf('UPDATE ``posts_%s`` SET `name` = :name,'. $trip .' `email` = :email, `subject` = :subject, `body_nomarkup` = :body, `edited_at` = NOW() WHERE `id` = :id', $board));
 		$query->bindValue(':id', $postID);
-		$query->bindValue('name', $_POST['name']);
+		$query->bindValue(':name', $_POST['name'] ? $_POST['name'] : $config['anonymous']);
 		$query->bindValue(':email', $_POST['email']);
 		$query->bindValue(':subject', $_POST['subject']);
 		$query->bindValue(':body', $_POST['body']);
@@ -1648,15 +1608,20 @@ function mod_edit_post($board, $edit_raw_html, $postID) {
 		
 		header('Location: ?/' . sprintf($config['board_path'], $board) . $config['dir']['res'] . sprintf($config['file_page'], $post['thread'] ? $post['thread'] : $postID) . '#' . $postID, true, $config['redirect_http']);
 	} else {
+		// Remove modifiers
+		$post['body_nomarkup'] = remove_modifiers($post['body_nomarkup']);
+				
+		$post['body_nomarkup'] = utf8tohtml($post['body_nomarkup']);
+		$post['body'] = utf8tohtml($post['body']);
 		if ($config['minify_html']) {
-			$post['body_nomarkup'] = str_replace("\n", '&#010;', utf8tohtml($post['body_nomarkup']));
-			$post['body'] = str_replace("\n", '&#010;', utf8tohtml($post['body']));
+			$post['body_nomarkup'] = str_replace("\n", '&#010;', $post['body_nomarkup']);
+			$post['body'] = str_replace("\n", '&#010;', $post['body']);
 			$post['body_nomarkup'] = str_replace("\r", '', $post['body_nomarkup']);
 			$post['body'] = str_replace("\r", '', $post['body']);
 			$post['body_nomarkup'] = str_replace("\t", '&#09;', $post['body_nomarkup']);
 			$post['body'] = str_replace("\t", '&#09;', $post['body']);
 		}
-				
+
 		mod_page(_('Edit post'), 'mod/edit_post_form.html', array('token' => $security_token, 'board' => $board, 'raw' => $edit_raw_html, 'post' => $post));
 	}
 }
@@ -1727,6 +1692,51 @@ function mod_spoiler_image($board, $post, $file) {
 	$files[$file]->thumbwidth = $size_spoiler_image[0];
 	$files[$file]->thumbheight = $size_spoiler_image[1];
 	
+	// Make thumbnail spoiler
+	$query = prepare(sprintf("UPDATE ``posts_%s`` SET `files` = :files WHERE `id` = :id", $board));
+	$query->bindValue(':files', json_encode($files));
+	$query->bindValue(':id', $post, PDO::PARAM_INT);
+	$query->execute() or error(db_error($query));
+
+	// Record the action
+	modLog("Spoilered file from post #{$post}");
+
+	// Rebuild thread
+	buildThread($result['thread'] ? $result['thread'] : $post);
+
+	// Rebuild board
+	buildIndex();
+
+	// Rebuild themes
+	rebuildThemes('post-delete', $board);
+	   
+	// Redirect
+	header('Location: ?/' . sprintf($config['board_path'], $board) . $config['file_index'], true, $config['redirect_http']);
+}
+
+function mod_spoiler_images($board, $post) {
+	global $config, $mod;
+	   
+	if (!openBoard($board))
+		error($config['error']['noboard']);
+	   
+	if (!hasPermission($config['mod']['spoilerimage'], $board))
+		error($config['error']['noaccess']);
+
+	// Delete file thumbnails
+	$query = prepare(sprintf("SELECT `files`, `thread` FROM ``posts_%s`` WHERE id = :id", $board));
+	$query->bindValue(':id', $post, PDO::PARAM_INT);
+	$query->execute() or error(db_error($query));
+	$result = $query->fetch(PDO::FETCH_ASSOC);
+	$files = json_decode($result['files']);
+	
+	foreach ($files as $file => $name) {
+		$size_spoiler_image = @getimagesize($config['spoiler_image']);
+		file_unlink($config['dir']['img_root'] . $board . '/' . $config['dir']['thumb'] . $files[$file]->thumb);
+		$files[$file]->thumb = 'spoiler';
+		$files[$file]->thumbwidth = $size_spoiler_image[0];
+		$files[$file]->thumbheight = $size_spoiler_image[1];
+	};
 	// Make thumbnail spoiler
 	$query = prepare(sprintf("UPDATE ``posts_%s`` SET `files` = :files WHERE `id` = :id", $board));
 	$query->bindValue(':files', json_encode($files));
@@ -2808,6 +2818,7 @@ function mod_recent_posts($lim) {
 
 	$limit = (is_numeric($lim))? $lim : 25;
 	$last_time = (isset($_GET['last']) && is_numeric($_GET['last'])) ? $_GET['last'] : 0;
+	if ($limit > 100) $limit = 100;
 
 	$mod_boards = array();
 	$boards = listBoards();
@@ -2987,6 +2998,9 @@ function mod_report_clean( $global_reports, $board, $unclean, $post, $global, $l
 		$log_action = ($unclean ? "Closed" : "Re-opened" );
 		$log_scope  = ($local && $global ? "local and global" : ($local ? "local" : "global" ) );
 		modLog( "{$log_action} reports for post #{$post} in {$log_scope}.", $board);
+		if ($config['cache']['enabled']) {
+			cache::delete("post_clean_{$board}_{$post}");
+		}
 		
 		rebuildPost( $post );
 	}

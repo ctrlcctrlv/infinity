@@ -23,14 +23,40 @@
 */
 
 
-onready(function(){
+$(document).ready(function(){
+	if (window.Options && Options.get_tab('general')) {
+		Options.extend_tab("general", "<span id='youtube-size'>" + _('YouTube size') + ": <input type='number' id='youtube-width' value='360'>x<input type='number' id='youtube-height' value='270'>");
+
+		if (typeof localStorage.youtube_size === 'undefined') {
+			localStorage.youtube_size = '{"width":360,"height":270}';
+			var our_yt = JSON.parse(localStorage.youtube_size);
+		} else {
+			var our_yt = JSON.parse(localStorage.youtube_size);
+			$('#youtube-height').val(our_yt.height);
+			$('#youtube-width').val(our_yt.width);
+		}
+
+
+		$('#youtube-width, #youtube-height').on('change', function() {
+			if ($(this).attr('id') === 'youtube-height') {
+				our_yt.height = $(this).val();
+			} else {	
+				our_yt.width = $(this).val();
+			}
+
+			localStorage.youtube_size = JSON.stringify(our_yt);
+		});
+	}
+
 	var do_embed_yt = function(tag) {
-		$('div.video-container a', tag).click(function() {
-			var videoID = $(this.parentNode).data('video');
+		if (typeof our_yt === "undefined") {
+			our_yt = {"width":360,"height":270};
+		}
 		
+		$('div.video-container a', tag).click(function() {
 			$(this.parentNode).html('<iframe style="float:left;margin: 10px 20px" type="text/html" '+
-				'width="360" height="270" src="//www.youtube.com/embed/' + videoID +
-				'?autoplay=1&html5=1" allowfullscreen frameborder="0"/>');
+				'width="'+our_yt.width+'" height="'+our_yt.height+'" src="//www.youtube.com/embed/' + $(this.parentNode).data('video') +
+				'?autoplay=1&html5=1'+ $(this.parentNode).data('params') +'" allowfullscreen frameborder="0"/>');
 
 			return false;
 		});

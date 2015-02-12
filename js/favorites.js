@@ -41,22 +41,21 @@ function handle_boards(data) {
 		return $('<span class="favorite-boards"></span>').append(' [ '+boards.join(" / ")+' ] ');
 	} else {
 		return $('<span class="favorite-boards"></span>');
-	}	
+	}
 }
 
 function add_favorites() {
-	$('.favorite-boards').remove();
-	
+	$('.favorite-boards').empty();
+
 	var boards = handle_boards(localStorage.favorites);
 
-	$('.boardlist').append(boards);
+	$('.favorite-boards').append(boards);
 };
 
 if (active_page == 'thread' || active_page == 'index' || active_page == 'catalog') {
 	$(document).ready(function(){
 		var favorites = JSON.parse(localStorage.favorites);
 		var is_board_favorite = ~$.inArray(board_name, favorites);
-		console.log(is_board_favorite);
 
 		$('header>h1').append('<a id="favorite-star" href="#" data-active="'+(is_board_favorite ? 'true' : 'false')+'" style="color: '+(is_board_favorite ? 'yellow' : 'grey')+'; text-decoration:none">\u2605</span>');
 		add_favorites();
