@@ -14,17 +14,13 @@
 var tab = Options.add_tab("user-css", "css3", _("User CSS"));
 
 var textarea = $("<textarea></textarea>").css({
-  "font-size": 12,
-  position: "absolute",
-  top: 35, bottom: 35,
-  width: "calc(100% - 20px)", margin: 0, padding: "4px", border: "1px solid black",
-  left: 5, right: 5
+  "height"     : "85%",
+  "width"      : "100%",
+  "font-size"  : "9pt",
+  "font-family": "monospace",
 }).appendTo(tab.content);
 var submit = $("<input type='button' value='"+_("Update custom CSS")+"'>").css({
-  position: "absolute",
-  height: 25, bottom: 5,
-  width: "calc(100% - 10px)",
-  left: 5, right: 5
+  "width": "100%",
 }).click(function() {
   localStorage.user_css = textarea.val();
   apply_css();
