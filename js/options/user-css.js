@@ -19,7 +19,7 @@ var textarea = $("<textarea></textarea>").css({
   "font-size"  : "9pt",
   "font-family": "monospace",
 }).appendTo(tab.content);
-var submit = $("<input type='button' value='"+_("Update custom CSS")+"'>").css({
+var submit = $("<input type='button' value='"+_("Save custom CSS")+"'>").css({
   "width": "100%",
 }).click(function() {
   localStorage.user_css = textarea.val();
