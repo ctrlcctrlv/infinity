@@ -1583,20 +1583,22 @@ function buildJavascript() {
 	file_write($config['file_script'], $script);
 }
 
-function checkDNSBL() {
+function checkDNSBL($use_ip = false) {
 	global $config;
 
-
-	if (isIPv6())
-		return; // No IPv6 support yet.
-
-	if (!isset($_SERVER['REMOTE_ADDR']))
+	if (!$use_ip && !isset($_SERVER['REMOTE_ADDR']))
 		return; // Fix your web server configuration
 
-	if (in_array($_SERVER['REMOTE_ADDR'], $config['dnsbl_exceptions']))
+	$ip = ($use_ip ? $use_ip : $_SERVER['REMOTE_ADDR']);
+	if ($ip == '127.0.0.2') return true;
+
+	if (isIPv6($ip))
+		return; // No IPv6 support yet.
+
+	if (in_array($ip, $config['dnsbl_exceptions']))
 		return;
 
-	$ipaddr = ReverseIPOctets($_SERVER['REMOTE_ADDR']);
+	$ipaddr = ReverseIPOctets($ip);
 
 	foreach ($config['dnsbl'] as $blacklist) {
 		if (!is_array($blacklist))
@@ -1612,24 +1614,31 @@ function checkDNSBL() {
 
 		if (!isset($blacklist[1])) {
 			// If you're listed at all, you're blocked.
-			error(sprintf($config['error']['dnsbl'], $blacklist_name));
+			if ($use_ip) {
+				return true;
+			} else {
+				error(sprintf($config['error']['dnsbl'], $blacklist_name));
+			}
 		} elseif (is_array($blacklist[1])) {
 			foreach ($blacklist[1] as $octet) {
-				if ($ip == $octet || $ip == '127.0.0.' . $octet)
-					error(sprintf($config['error']['dnsbl'], $blacklist_name));
+				if ($ip == $octet || $ip == '127.0.0.' . $octet) {
+					return true;
+				}
 			}
 		} elseif (is_callable($blacklist[1])) {
-			if ($blacklist[1]($ip))
-				error(sprintf($config['error']['dnsbl'], $blacklist_name));
+			if ($blacklist[1]($ip)) {
+				return true;
+			}
 		} else {
-			if ($ip == $blacklist[1] || $ip == '127.0.0.' . $blacklist[1])
-				error(sprintf($config['error']['dnsbl'], $blacklist_name));
+			if ($ip == $blacklist[1] || $ip == '127.0.0.' . $blacklist[1]) {
+				return true;
+			}
 		}
 	}
 }
 
-function isIPv6() {
-	return strstr($_SERVER['REMOTE_ADDR'], ':') !== false;
+function isIPv6($ip = false) {
+	return strstr(($ip ? $ip : $_SERVER['REMOTE_ADDR']), ':') !== false;
 }
 
 function ReverseIPOctets($ip) {
