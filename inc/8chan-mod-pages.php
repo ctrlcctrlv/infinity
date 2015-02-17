@@ -14,6 +14,28 @@
 		}
 	}
 
+	if (!function_exists('is_billion_laughs')){
+		function is_billion_laughs($arr1, $arr2) {
+			$arr = array();
+			foreach ($arr1 as $k => $v) {
+				$arr[$v] = $arr2[$k];
+			}
+
+			for ($i = 0; $i <= sizeof($arr); $i++) {
+				$cur = array_slice($arr, $i, 1);
+				$pst = array_slice($arr, 0, $i);
+				if (!$cur) continue;
+				$kk = array_keys($cur)[0];
+				$vv = array_values($cur)[0];
+				foreach ($pst as $k => $v) {
+					if (str_replace($kk, $vv, $v) != $v)
+						return true;
+				}
+			}
+			return false;
+		}
+	}
+
 	$config['mod']['show_ip'] = GLOBALVOLUNTEER;
 	$config['mod']['show_ip_less'] = BOARDVOLUNTEER;
 	$config['mod']['manageusers'] = GLOBALVOLUNTEER;
@@ -458,6 +480,9 @@ OEKAKI;
 							$replace .= '$config[\'wordfilters\'][] = array(base64_decode(\'' . base64_encode($r) . '\'), base64_decode(\'' . base64_encode($w) . '\'));';
 						}
 					}
+				}
+				if (is_billion_laughs($_POST['replace'], $_POST['with'])) {
+					error(_('Wordfilters may not wordfilter previous wordfilters. For example, if a filters to bb and b filters to cc, that is not allowed.'));
 				}
 			}
 
