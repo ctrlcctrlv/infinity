@@ -31,7 +31,7 @@ function last_activity($board) {
 		} else {// no one ever logged in, try board creation time
 			$query = query("SELECT UNIX_TIMESTAMP(time) AS time FROM board_create WHERE uri = '$board'");
 			$crt = $query->fetchAll(PDO::FETCH_COLUMN);
-			$last_activity_date->setTimestamp($crt[0]);
+			if ($crt) $last_activity_date->setTimestamp($crt[0]);
 			$last_mod_date = false;
 		}
 	}
