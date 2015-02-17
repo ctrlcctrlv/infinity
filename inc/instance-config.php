@@ -51,7 +51,7 @@
 	require "secrets.php";
 
 	// Image shit
-	$config['thumb_method'] = 'gm';
+	$config['thumb_method'] = 'convert';
 	$config['thumb_ext'] = 'jpg';
 	$config['thumb_keep_animation_frames'] = 1;
 	$config['show_ratio'] = true;
@@ -64,7 +64,7 @@
 	$config['allowed_ext_files'][] = 'mp4';
 	$config['webm']['use_ffmpeg'] = true;
 	$config['webm']['allow_audio'] = true;
-	$config['webm']['max_length'] = 60 * 15;
+	$config['webm']['max_length'] = 60 * 30;
 
 	// Mod shit
 	$config['mod']['groups'][25] = 'GlobalVolunteer';
