@@ -554,7 +554,7 @@
 	$config['field_disable_password'] = false;
 
 	// When true, users are instead presented a selectbox for email. Contains, blank, noko and sage.
-	$config['field_email_selectbox'] = false;
+	$config['field_email_selectbox'] = &$config['field_disable_name'];
 
 	// When true, the sage won't be displayed
 	$config['hide_sage'] = false;
