@@ -1388,8 +1388,10 @@ function mod_move($originBoard, $postID) {
 			if ($post['has_file']) {
 				// copy image
 				foreach ($post['files'] as $i => &$file) {
-					$clone($file['file_path'], sprintf($config['board_path'], $config['dir']['img_root'] . $board['uri']) . $config['dir']['img'] . $file['file']);
-					$clone($file['thumb_path'], sprintf($config['board_path'], $config['dir']['img_root'] . $board['uri']) . $config['dir']['thumb'] . $file['thumb']);
+					if ($file['file'] !== 'deleted') 
+						$clone($file['file_path'], sprintf($config['board_path'], $config['dir']['img_root'] . $board['uri']) . $config['dir']['img'] . $file['file']);
+					if (isset($file['thumb']) && !in_array($file['thumb'], array('spoiler', 'deleted', 'file')))
+						$clone($file['thumb_path'], sprintf($config['board_path'], $config['dir']['img_root'] . $board['uri']) . $config['dir']['thumb'] . $file['thumb']);
 				}
 			}
 			// insert reply
@@ -1491,6 +1493,7 @@ function mod_ban_post($board, $delete, $post, $token = false) {
 	
 	$thread = $_post['thread'];
 	$ip = $_post['ip'];
+	$tor = checkDNSBL($ip);
 
 	if (isset($_POST['new_ban'], $_POST['reason'], $_POST['length'], $_POST['board'])) {
 		require_once 'inc/mod/ban.php';
@@ -1537,6 +1540,7 @@ function mod_ban_post($board, $delete, $post, $token = false) {
 		'hide_ip' => !hasPermission($config['mod']['show_ip'], $board),
 		'post' => $post,
 		'board' => $board,
+		'tor' => $tor,
 		'delete' => (bool)$delete,
 		'boards' => listBoards(),
 		'token' => $security_token
