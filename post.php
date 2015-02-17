@@ -327,6 +327,9 @@ elseif (isset($_POST['post'])) {
 	
 		if ($config['field_disable_email'])
 			$_POST['email'] = '';
+
+		if ($config['field_email_selectbox'] && $_POST['email'] != 'sage')
+			$_POST['email'] = '';
 	
 		if ($config['field_disable_password'])
 			$_POST['password'] = '';
