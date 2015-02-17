@@ -41,15 +41,15 @@ function handle_boards(data) {
 		return $('<span class="favorite-boards"></span>').append(' [ '+boards.join(" / ")+' ] ');
 	} else {
 		return $('<span class="favorite-boards"></span>');
-	}
+	}	
 }
 
 function add_favorites() {
-	$('.favorite-boards').empty();
-
+	$('.favorite-boards').remove();
+	
 	var boards = handle_boards(localStorage.favorites);
 
-	$('.favorite-boards').append(boards);
+	$('.boardlist').append(boards);
 };
 
 if (active_page == 'thread' || active_page == 'index' || active_page == 'catalog') {
