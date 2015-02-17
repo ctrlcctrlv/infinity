@@ -432,6 +432,7 @@ FLAGS;
 			$user_flags = isset($_POST['user_flags']) ? "if (file_exists('$b/flags.php')) { include 'flags.php'; }\n" : '';
 			$captcha = isset($_POST['captcha']) ? 'true' : 'false';
 			$force_subject_op = isset($_POST['force_subject_op']) ? 'true' : 'false';
+			$tor_posting = isset($_POST['tor_posting']) ? 'true' : 'false';
 			
 
 
@@ -529,6 +530,7 @@ OEKAKI;
 \$config['default_stylesheet'] = array('Custom', \$config['stylesheets']['Custom']);
 \$config['captcha']['enabled'] = $captcha;
 \$config['force_subject_op'] = $force_subject_op;
+\$config['tor_posting'] = $tor_posting;
 \$config['hour_max_threads'] = $hour_max_threads;
 $code_tags $katex $oekaki $replace $multiimage $allow_flash $allow_pdf $user_flags
 if (\$config['disable_images'])
