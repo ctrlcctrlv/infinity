@@ -156,17 +156,16 @@ class Bans {
 
 	static public function stream_json($out = false, $filter_ips = false, $filter_staff = false, $board_access = false) {
 		global $config, $pdo;
-		
 
 		if ($board_access && $board_access[0] == '*') $board_access = false;
 
 		$query_addition = "";
-		if ($board_access !== FALSE) {
-			$query_addition .= "WHERE `public_bans` OR `public_bans` IS NULL";
-		}
 		if ($board_access) {
 			$boards = implode(", ", array_map(array($pdo, "quote"), $board_access));
-			$query_addition .= " OR `board` IN (".$boards.")";
+			$query_addition .= "WHERE `board` IN (".$boards.")";
+		}
+		if ($board_access !== FALSE) {
+			$query_addition .= "AND (`public_bans` OR `public_bans` IS NULL)";
 		}
 
 		$query = query("SELECT ``bans``.*, `username`, `type` FROM ``bans``
