@@ -236,7 +236,9 @@ elseif (isset($_POST['post'])) {
 	}
 
 	// Same, but now with our custom captcha provider
-	if ($config['captcha']['enabled']) {
+	//if ($config['captcha']['enabled']) {
+	//New thread captcha
+	if (($config['captcha']['enabled']) || (($post['op']) && ($config['new_thread_capt'])) ) {
 		$resp = file_get_contents($config['captcha']['provider_check'] . "?" . http_build_query([
 			'mode' => 'check',
 			'text' => $_POST['captcha_text'],
