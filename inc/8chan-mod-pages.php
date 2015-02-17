@@ -77,7 +77,7 @@
 	$config['mod']['view_ban'] = BOARDVOLUNTEER;
 	$config['mod']['reassign_board'] = ADMIN;
 	$config['mod']['move'] = GLOBALVOLUNTEER;
-	$config['mod']['shadow_capcode'] = 'Mod';
+	$config['mod']['shadow_capcode'] = 'Global Volunteer';
 
 	$config['mod']['custom_pages']['/tags/(\%b)'] = function ($b) {
 		global $board, $config;
