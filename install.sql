@@ -331,6 +331,31 @@ CREATE TABLE `board_tags` (
   PRIMARY KEY (`id`)
 );
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tor_cookies`
+--
+
+CREATE TABLE `tor_cookies` (
+  `cookie` varchar(255) NOT NULL,
+  `created` datetime NOT NULL,
+  `uses` tinyint(3) unsigned DEFAULT '0',
+  PRIMARY KEY (`cookie`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dnsbl_bypass`
+--
+
+CREATE TABLE `dnsbl_bypass` (
+  `ip` varchar(255) NOT NULL,
+  `created` datetime DEFAULT NULL,
+  PRIMARY KEY (`ip`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
