@@ -183,11 +183,14 @@ onready(function(){
 
 					//	in case no subject
 					if (!data.sub) data.sub = '';
+					// in case no UID
+					if (!data.id) data.id = '';
 
 					var $post = $('<div class="post reply hidden" id="reply_'+ data.no +'">')
 								.append($('<p class="intro"></p>')
 									.append('<span class="subject">'+ data.sub +'</span> ')
 									.append('<span class="name">'+ data.name +'</span> ')
+									.append('<span class="poster_id">'+ data.id +'</span>')
 									.append('<a class="post_no">No.'+ data.no +'</a>')
 								)
 								.append($('<div class="body"></div>')
@@ -255,6 +258,11 @@ onready(function(){
 						});
 						
 						$post.children('p.intro').after($files);
+
+						// youtube embed
+						if ('embed' in data) {
+							$post.children('p.intro').after(data.embed);
+						}
 					}
 
 					var mythreadid = (data.resto !== 0) ? data.resto : data.no;
