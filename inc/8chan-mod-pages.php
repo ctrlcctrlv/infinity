@@ -543,8 +543,7 @@ EOT;
 			// Clean up our CSS...no more expression() or off-site URLs.
 			$clean_css = preg_replace('/expression\s*\(/', '', $_POST['css']);
 	
-			// URL matcher from SO: 
-			$match_urls = '(?xi)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«»“”‘’]))';
+			$match_urls = '((?:(?:https?:)?\/\/|ftp:\/\/|irc:\/\/)[^\s<>()"]+?(?:\([^\s<>()"]*?\)[^\s<>()"]*?)*)((?:\s|<|>|"|\.|\]|!|\?|,|&\#44;|&quot;)*(?:[\s<>()"]|$))';
 
 			$matched = array();
 
@@ -554,7 +553,7 @@ EOT;
 				foreach ($matched[0] as $match) {
 					$match_okay = false;
 					foreach ($allowed_urls as $allowed_url) {
-						if (strpos($match, $allowed_url) !== false) {
+						if (strpos($match, $allowed_url) !== false && strpos($match, '#') === false) {
 							$match_okay = true;
 						}
 					}
@@ -565,10 +564,9 @@ EOT;
 			}
 			
 			//Filter out imports from sites with potentially unsafe content
-			$css_no_comments = preg_replace('|\/\*.*\*\/|', '', $clean_css); //I can't figure out how to ignore comments in the match
 			$match_imports = '@import[^;]*';
 			$matched = array();
-			preg_match_all("#$match_imports#im", $css_no_comments, $matched);
+			preg_match_all("#$match_imports#im", $clean_css, $matched);
 			
 			$unsafe_import_urls = array('https://a.pomf.se/');
 			
@@ -576,7 +574,7 @@ EOT;
 				foreach ($matched[0] as $match) {
 					$match_okay = true;
 					foreach ($unsafe_import_urls as $unsafe_import_url) {
-						if (strpos($match, $unsafe_import_url) !== false) {
+						if (strpos($match, $unsafe_import_url) !== false && strpos($match, '#') === false) {
 							$match_okay = false;
 						}
 					}
