@@ -297,6 +297,8 @@
 			</th></tr>');
 		
 		$postForm.attr('id', 'quick-reply');
+        
+        $postForm.prependChild($dummyStuff); //Anti-autofill features in Chrome were not working because the nonsense div was the last element in the <form>
 		
 		$postForm.appendTo($('body')).hide();
 		$origPostForm = $('form[name="post"]:first');
