@@ -25,7 +25,7 @@
 				{{ antibot.html() }}
 			</th>
 			<td>
-				{% if config.field_email_selectbox %}
+				{% if config.field_email_selectbox and not (mod and post.mod|hasPermission(config.mod.bypass_field_disable, board.uri)) %}
 				<select name="email" id="email_selectbox" autocomplete="off">
 					<option value=""></option>
 					<option value="sage">sage</option>
