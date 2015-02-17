@@ -37,7 +37,9 @@
 
 	{% include 'attention_bar.html' %}
 
-	{{ config.ad.top }}
+	{% if board.uri not in config.banned_ad_boards %}
+		{% include 'ad_top.html' %}
+	{% endif %}
 
 	{% if not no_post_form %}
 		{% include 'post_form.html' %}
@@ -74,7 +76,9 @@
 	
 	{{ boardlist.bottom }}
 
-	{{ config.ad.bottom }}
+	{% if board.uri not in config.banned_ad_boards %}
+		{% include 'ad_bottom.html' %}
+	{% endif %}
 
 	<footer>
 		<p class="unimportant" style="margin-top:20px;text-align:center;">- <a href="http://tinyboard.org/">Tinyboard</a> + 

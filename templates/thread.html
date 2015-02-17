@@ -45,7 +45,9 @@
 	<div class="banner">{% trans %}Posting mode: Reply{% endtrans %} <a class="unimportant" href="{{ return }}">[{% trans %}Return{% endtrans %}]</a> <a class="unimportant" href="javascript:window.scrollTo(0,document.body.scrollHeight);
 ">[{% trans %}Go to bottom {% endtrans %}]</a></div>
 
-	{{ config.ad.top }}
+	{% if board.uri not in config.banned_ad_boards %}
+		{% include 'ad_top.html' %}
+	{% endif %}
 
 	{% include 'post_form.html' %}
 
@@ -66,7 +68,9 @@
 
 	{{ boardlist.bottom }}
 
-	{{ config.ad.bottom }}
+	{% if board.uri not in config.banned_ad_boards %}
+		{% include 'ad_bottom.html' %}
+	{% endif %}
 
 	<footer>
 		<p class="unimportant" style="margin-top:20px;text-align:center;">- <a href="http://tinyboard.org/">Tinyboard</a> + 
