@@ -181,22 +181,21 @@ onready(function(){
 						return (i === 0) ? bytes +' '+ sizes[i] : (bytes / Math.pow(1024, i)).toFixed(2) +' ' +sizes[i];
 					};
 
-					//	in case no subject
-					if (!data.sub) data.sub = '';
-					// in case no UID
-					if (!data.id) data.id = '';
-
 					var $post = $('<div class="post reply hidden" id="reply_'+ data.no +'">')
 								.append($('<p class="intro"></p>')
-									.append('<span class="subject">'+ data.sub +'</span> ')
 									.append('<span class="name">'+ data.name +'</span> ')
-									.append('<span class="poster_id">'+ data.id +'</span>')
 									.append('<a class="post_no">No.'+ data.no +'</a>')
 								)
 								.append($('<div class="body"></div>')
 									.html(data.com)
 								)
 								.css('display', 'none');
+
+					//	other stuff
+					if ('sub' in data) $post.find('.intro').prepend('<span class="subject">'+ data.sub +'</span> ');
+					if ('trip' in data) $post.find('.name').after('<span class="trip">'+ data.trip +'</span>');
+					if ('capcode' in data) $post.find('.post_no').before('<span class="capcode">## '+ data.capcode +'</span>');
+					if ('id' in data) $post.find('.post_no').before('<span class="poster_id">'+ data.id +'</span>');
 
 					if ('filename' in data) {
 						var $files = $('<div class="files">');
