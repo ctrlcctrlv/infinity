@@ -143,6 +143,7 @@
 	$config['additional_javascript'][] = 'js/quote-selection.js';
 	$config['additional_javascript'][] = 'js/twemoji/twemoji.js';
 	$config['additional_javascript'][] = 'js/flag-previews.js';
+	$config['additional_javascript'][] = 'js/auto-scroll.js';
 
 	//$config['font_awesome_css'] = '/netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css';
 	
