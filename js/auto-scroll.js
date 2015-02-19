@@ -16,7 +16,7 @@ $('document').ready(function () {
 	});
 	if (active_page == 'thread') {
 		$('span[id="updater"]').children('a').after(' (<input class="auto-scroll" type="checkbox"></input> Scroll to New posts)');
-		$('input.auto-scroll').prop('checked', autoScroll); //remove this to set it off by default
+		$('input.auto-scroll').prop('checked', autoScroll);
 		$(document).on('new_post', function (e, post) {
 			if ($('input.auto-scroll').prop('checked')) 
 			{
