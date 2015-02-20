@@ -342,7 +342,7 @@ CREATE TABLE `tor_cookies` (
   `created` datetime NOT NULL,
   `uses` tinyint(3) unsigned DEFAULT '0',
   PRIMARY KEY (`cookie`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -354,7 +354,7 @@ CREATE TABLE `dnsbl_bypass` (
   `ip` varchar(255) NOT NULL,
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`ip`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
