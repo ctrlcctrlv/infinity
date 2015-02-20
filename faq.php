@@ -102,13 +102,13 @@ $body = <<<EOT
 <p><s>There isn't one yet and there will never be an official archive.</s></p>
 <p>Given that archives are inevitable and will be created anyway via <a href="https://archive.today">archive.today</a>, Google cache, and anyone who installs Asagi, I'm softening my stance on this. Currently, 8archive.moe provides our archive, and I may set up an official one. <strong>All archives officially partnered with us will be opt-in by our board owners, not opt-out. Archives who archive boards that have not opted in will be considered pirate archives, and legal action may be taken.</strong></p>
 
-<h2>I got an email from an @8chan.co email address, is that you?</h2>
+<h2>I got an email from an @8ch.net email address, is that you?</h2>
 <p>8chan.co uses <a href="https://cock.li">cock.li</a> to manage our domain's email. cock.li allows anyone to create an email account @8chan.co.</p>
 <p>That said, we have quite a few official 8chan.co email addresses. They are:</p>
 <ul>
-<li>admin at 8chan dot co</li>
-<li>dmca at 8chan dot co</li>
-<li>claim at 8chan dot co</li>
+<li>admin at 8ch dot net</li>
+<li>dmca at 8ch dot net</li>
+<li>claim at 8ch dot net</li>
 </ul>
 
 <h2>I would like to send you an encrypted message.</h2>
