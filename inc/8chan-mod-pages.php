@@ -49,6 +49,7 @@
 	$config['mod']['debug_antispam'] = ADMIN;
 	$config['mod']['noticeboard_post'] = ADMIN;
 	$config['mod']['modlog'] = GLOBALVOLUNTEER;
+	$config['mod']['mod_board_log'] = MOD;
 	$config['mod']['editpost'] = BOARDVOLUNTEER;
 	$config['mod']['edit_banners'] = MOD;
 	$config['mod']['edit_flags'] = MOD;

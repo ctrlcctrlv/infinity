@@ -639,7 +639,7 @@ function mod_log($page_no = 1) {
 	$query->execute() or error(db_error($query));
 	$count = $query->fetchColumn();
 	
-	mod_page(_('Moderation log'), 'mod/log.html', array('logs' => $logs, 'count' => $count));
+	mod_page(_('Board log'), 'mod/log.html', array('logs' => $logs, 'count' => $count));
 }
 
 function mod_user_log($username, $page_no = 1) {
@@ -666,7 +666,7 @@ function mod_user_log($username, $page_no = 1) {
 	$query->execute() or error(db_error($query));
 	$count = $query->fetchColumn();
 	
-	mod_page(_('Moderation log'), 'mod/log.html', array('logs' => $logs, 'count' => $count, 'username' => $username));
+	mod_page(_('Board log'), 'mod/log.html', array('logs' => $logs, 'count' => $count, 'username' => $username));
 }
 
 function mod_board_log($board, $page_no = 1) {
@@ -675,7 +675,7 @@ function mod_board_log($board, $page_no = 1) {
 	if ($page_no < 1)
 		error($config['error']['404']);
 	
-	if (!hasPermission($config['mod']['modlog']))
+	if (!hasPermission($config['mod']['mod_board_log'], $board))
 		error($config['error']['noaccess']);
 	
 	$query = prepare("SELECT `username`, `mod`, `ip`, `board`, `time`, `text` FROM ``modlogs`` LEFT JOIN ``mods`` ON `mod` = ``mods``.`id` WHERE `board` = :board ORDER BY `time` DESC LIMIT :offset, :limit");
@@ -687,13 +687,22 @@ function mod_board_log($board, $page_no = 1) {
 	
 	if (empty($logs) && $page_no > 1)
 		error($config['error']['404']);
+
+	if (!hasPermission($config['mod']['show_ip'])) {
+		// Supports ipv4 only!
+		foreach ($logs as $i => &$log) {
+			$log['text'] = preg_replace_callback('/(?:<a href="\?\/IP\/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}">)?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})(?:<\/a>)?/', function($matches) {
+				return less_ip($matches[1]);
+			}, $log['text']);
+		}
+	}
 	
 	$query = prepare("SELECT COUNT(*) FROM ``modlogs`` LEFT JOIN ``mods`` ON `mod` = ``mods``.`id` WHERE `board` = :board");
 	$query->bindValue(':board', $board);
 	$query->execute() or error(db_error($query));
 	$count = $query->fetchColumn();
 	
-	mod_page(_('Moderation log'), 'mod/log.html', array('logs' => $logs, 'count' => $count, 'board' => $board));
+	mod_page(_('Board log'), 'mod/log.html', array('logs' => $logs, 'count' => $count, 'board' => $board));
 }
 
 function mod_view_board($boardName, $page_no = 1) {

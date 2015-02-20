@@ -72,7 +72,9 @@
 			<li><a href="?/themes">{% trans 'Manage themes' %}</a></li>
 		{% endif %}
 		{% if mod|hasPermission(config.mod.modlog) %}
-			<li><a href="?/log">{% trans 'Moderation log' %}</a></li>
+			<li><a href="?/log">{% trans 'User actions log' %}</a></li>
+		{% elseif mod.boards[0] != '*' and mod.boards[0] and mod|hasPermission(config.mod.mod_board_log, mod.boards[0]) %}
+			<li><a href="?/log:b:{{ mod.boards[0] }}">{% trans 'Board log' %}</a></li>
 		{% endif %}
 		{% if mod|hasPermission(config.mod.recent) %}
 			<li><a href="?/recent/25">{% trans 'Recent posts' %}</a></li>
