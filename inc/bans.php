@@ -165,9 +165,7 @@ class Bans {
 			$query_addition .= "WHERE `board` IN (".$boards.")";
 		}
 		if ($board_access !== FALSE) {
-			if ($query_addition) {
-				$query_addition .= " AND (`public_bans` IS TRUE)";
-			} else {
+			if (!$query_addition) {
 				$query_addition .= " WHERE (`public_bans` IS TRUE)";
 			}
 		}
