@@ -165,7 +165,11 @@ class Bans {
 			$query_addition .= "WHERE `board` IN (".$boards.")";
 		}
 		if ($board_access !== FALSE) {
-			$query_addition .= "AND (`public_bans` OR `public_bans` IS NULL)";
+			if ($query_addition) {
+				$query_addition .= " AND (`public_bans` IS TRUE)";
+			} else {
+				$query_addition .= " WHERE (`public_bans` IS TRUE)";
+			}
 		}
 
 		$query = query("SELECT ``bans``.*, `username`, `type` FROM ``bans``
