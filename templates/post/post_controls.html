@@ -28,6 +28,13 @@
 	<a title="{% trans %}Make thread sticky{% endtrans %}" href="?/{{ secure_link(board.dir ~ 'sticky/' ~ post.id) }}">{{ config.mod.link_sticky }}</a>&nbsp;
 	{% endif %}
 {% endif %}
+{% if mod|hasPermission(config.mod.anchor, board.uri) %}
+	{% if post.anchor %}
+	<a title="{% trans %}Make thread unanchored{% endtrans %}" href="?/{{ secure_link(board.dir ~ 'unanchor/' ~ post.id) }}">{{ config.mod.link_deanchor }}</a>&nbsp;
+	{% else %}
+	<a title="{% trans %}Make thread anchored{% endtrans %}" href="?/{{ secure_link(board.dir ~ 'anchor/' ~ post.id) }}">{{ config.mod.link_anchor }}</a>&nbsp;
+	{% endif %}
+{% endif %}
 {% if mod|hasPermission(config.mod.bumplock, board.uri) %}
 	{% if post.sage %}
 	<a title="{% trans %}Allow thread to be bumped{% endtrans %}" href="?/{{ secure_link(board.dir ~ 'bumpunlock/' ~ post.id) }}">{{ config.mod.link_bumpunlock }}</a>&nbsp;

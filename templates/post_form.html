@@ -160,6 +160,10 @@
 					<label for="sticky">{% trans %}Sticky{% endtrans %}</label>
 					<input title="{% trans %}Sticky{% endtrans %}" type="checkbox" name="sticky" id="sticky"><br>
 				</div>{% endif %}
+				{% if not id and post.mod|hasPermission(config.mod.anchor, board.uri) %}<div class="center">
+					<label for="anchor">{% trans %}Anchor{% endtrans %}</label>
+					<input title="{% trans %}Anchor{% endtrans %}" type="checkbox" name="anchor" id="anchor"><br>
+				</div>{% endif %}
 				{% if not id and post.mod|hasPermission(config.mod.lock, board.uri) %}<div class="center">
 					<label for="lock">{% trans %}Lock{% endtrans %}</label><br>
 					<input title="{% trans %}Lock{% endtrans %}" type="checkbox" name="lock" id="lock">

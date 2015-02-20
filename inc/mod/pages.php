@@ -1149,6 +1149,29 @@ function mod_sticky($board, $unsticky, $post) {
 	header('Location: ?/' . sprintf($config['board_path'], $board) . $config['file_index'], true, $config['redirect_http']);
 }
 
+function mod_anchor($board, $unanchor, $post) {
+	global $config;
+	
+	if (!openBoard($board))
+		error($config['error']['noboard']);
+	
+	// If mod can sticky, they should be able to anchor.
+	if (!hasPermission($config['mod']['sticky'], $board))
+		error($config['error']['noaccess']);
+	
+	$query = prepare(sprintf('UPDATE ``posts_%s`` SET `anchor` = :anchor WHERE `id` = :id AND `thread` IS NULL', $board));
+	$query->bindValue(':id', $post);
+	$query->bindValue(':anchor', $unanchor ? 0 : 1);
+	$query->execute() or error(db_error($query));
+	if ($query->rowCount()) {
+		modLog(($unanchor ? 'Unanchored' : 'Anchored') . " thread #{$post}");
+		buildThread($post);
+		buildIndex();
+	}
+	
+	header('Location: ?/' . sprintf($config['board_path'], $board) . $config['file_index'], true, $config['redirect_http']);
+}
+
 function mod_bumplock($board, $unbumplock, $post) {
 	global $config;
 	

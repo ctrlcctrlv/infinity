@@ -23,7 +23,13 @@
 		{% else %}
 			<img class="icon" title="Sticky" src="{{ config.image_sticky }}" alt="Sticky" />
 		{% endif %}
-	{% endif %}
+	{% else %}{% if post.anchor %}
+		{% if config.font_awesome %}
+			<i class="fa fa-anchor"></i>
+		{% else %}
+			<img class="icon" title="anchor" src="{{ config.image_anchor }}" alt="Anchor" />
+		{% endif %}
+	{% endif %}{% endif %}
 	{% if post.locked %}
 		{% if config.font_awesome %}
 			<i class="fa fa-lock"></i>
