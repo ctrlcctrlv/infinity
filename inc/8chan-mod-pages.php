@@ -5,10 +5,33 @@
 		}
 	}
 
+	if (!class_exists('HTMLPurifier_URIFilter_NoExternalImages')) {
+	class HTMLPurifier_URIFilter_NoExternalImages extends HTMLPurifier_URIFilter {
+		public $name = 'NoExternalImages';
+		public function filter(&$uri, $c, $context) {
+			global $config;
+			$ct = $context->get('CurrentToken');
+
+			if (!$ct || $ct->name !== 'img') return true;
+
+			if (!isset($uri->host) && !isset($uri->scheme)) return true;
+
+			if (!in_array($uri->scheme . '://' . $uri->host . '/', $config['allowed_offsite_urls'])) {
+				error('No off-site links in board announcement images.');
+			}
+
+			return true;
+		}
+	}
+	}
+
 	if (!function_exists('purify')){
 		function purify($s){
-			$config = HTMLPurifier_Config::createDefault();
-			$purifier = new HTMLPurifier($config);
+			$c = HTMLPurifier_Config::createDefault();
+			$c->set('HTML.Allowed', 'a[href],p,br,li,ol,ul,strong,em,u,h2,b,i,tt,div,img[src|alt]');
+			$uri = $c->getDefinition('URI');
+			$uri->addFilter(new HTMLPurifier_URIFilter_NoExternalImages(), $c);
+			$purifier = new HTMLPurifier($c);
 			$clean_html = $purifier->purify($s);
 			return $clean_html;
 		}
@@ -79,6 +102,7 @@
 	$config['mod']['reassign_board'] = ADMIN;
 	$config['mod']['move'] = GLOBALVOLUNTEER;
 	$config['mod']['shadow_capcode'] = 'Global Volunteer';
+
 
 	$config['mod']['custom_pages']['/tags/(\%b)'] = function ($b) {
 		global $board, $config;
@@ -409,7 +433,6 @@ FLAGS;
 			error("Could not open board!");
 
 		$possible_languages = array_diff(scandir('inc/locale/'), array('..', '.', '.tx', 'README.md'));
-		$allowed_urls = array('https://i.imgur.com/', 'https://media.8ch.net/', 'https://media.8chan.co/', 'https://a.pomf.se/', 'https://fonts.googleapis.com/', 'https://fonts.gstatic.com/', 'https://jp.8ch.net/');
 
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			$title = $_POST['title'];
@@ -546,16 +569,14 @@ EOT;
 			// Clean up our CSS...no more expression() or off-site URLs.
 			$clean_css = preg_replace('/expression\s*\(/', '', $_POST['css']);
 	
-			$match_urls = '((?:(?:https?:)?\/\/|ftp:\/\/|irc:\/\/)[^\s<>()"]+?(?:\([^\s<>()"]*?\)[^\s<>()"]*?)*)((?:\s|<|>|"|\.|\]|!|\?|,|&\#44;|&quot;)*(?:[\s<>()"]|$))';
-
 			$matched = array();
 
-			preg_match_all("#$match_urls#im", $clean_css, $matched);
+			preg_match_all("#{$config['link_regex']}#im", $clean_css, $matched);
 			
 			if (isset($matched[0])) {
 				foreach ($matched[0] as $match) {
 					$match_okay = false;
-					foreach ($allowed_urls as $allowed_url) {
+					foreach ($config['allowed_offsite_urls'] as $allowed_url) {
 						if (strpos($match, $allowed_url) !== false && strpos($match, '#') === false) {
 							$match_okay = true;
 						}
@@ -633,5 +654,5 @@ EOT;
 			cache::delete('all_boards');
 		}
 
-		mod_page(_('Board configuration'), 'mod/settings.html', array('board'=>$board, 'rules'=>prettify_textarea($rules), 'css'=>prettify_textarea($css), 'token'=>make_secure_link_token('settings/'.$board['uri']), 'languages'=>$possible_languages,'allowed_urls'=>$allowed_urls));
+		mod_page(_('Board configuration'), 'mod/settings.html', array('board'=>$board, 'rules'=>prettify_textarea($rules), 'css'=>prettify_textarea($css), 'token'=>make_secure_link_token('settings/'.$board['uri']), 'languages'=>$possible_languages,'allowed_urls'=>$config['allowed_offsite_urls']));
 	};
