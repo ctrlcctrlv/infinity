@@ -1,0 +1,9 @@
+<form method="POST">
+<p>{% trans %}Your IP is listed in our DNSBL. To stop attackers, we require users who use certain IP ranges to pass a test which proves they are human every 24 hours.{% endtrans %}</p>
+
+<p>{% trans %}It is also possible that the site is currently under attack and we are requiring everyone to pass the test right now. Sorry for the inconvenience.{% endtrans %}</p>
+
+{{ ayah_html|raw }}
+
+<ul style="padding:0;text-align:center;list-style:none"><li><input type="submit" value="{% trans %}Let me post!{% endtrans %}"></li></ul>
+</form>

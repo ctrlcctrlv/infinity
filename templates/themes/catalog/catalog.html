@@ -15,7 +15,9 @@
 		<h1>{{ settings.title }} (<a href="{{link}}">/{{ board }}/</a>)</h1>
 		<div class="subtitle">{{ settings.subtitle }}</div>
 	</header>
-	{{ config.ad.top }}
+	{% if board.uri not in config.banned_ad_boards %}
+		{% include 'ad_top.html' %}
+	{% endif %}
 
         <span>{% trans 'Sort by' %}: </span>
         <select id="sort_by" style="display: inline-block">
@@ -38,6 +40,7 @@
 				data-reply="{{ post.reply_count }}"
 				 data-bump="{{ post.bump }}"
 				 data-time="{{ post.time }}"
+				 data-id="{{ post.id }}"
 			>
                                 <div class="thread grid-li grid-size-small">  
                                         <a href="{{post.link}}">  

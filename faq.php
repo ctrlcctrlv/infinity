@@ -79,8 +79,9 @@ $body = <<<EOT
 <li>__underline__ -&gt; <u>underline</u></li>
 <li>==heading== -&gt; <span class='heading'>heading</span> (must be on own line)</li>
 <li>~~strikethrough~~ -&gt; <s>strikethrough</s></li>
+<li>[aa] tags for ASCII/JIS art (escape formatting)</li>
 <li>[code] tags if enabled by board owner</li>
-<li>[tex] tags if enabled by board owner</li>
+<li>[tex] tags if enabled by board owner (currently globally disabled)</li>
 </ul>
 
 <h2>How are featured boards chosen?</h2>
@@ -110,10 +111,14 @@ $body = <<<EOT
 <li>claim at 8chan dot co</li>
 </ul>
 
+<h2>I would like to send you an encrypted message.</h2>
+<p>The current admin contact private key can always be found at <a href="https://8ch.net/pubkey.txt">https://8ch.net/pubkey.txt</a>.</p>
+<p>The current key fingerprint is <tt>6F12 EC72 A82A BCA3 5235  063A 10DD C983 901A A183</tt>.</p>
+
 <h2>How do I donate?</h2>
 <p>Donations can be sent to 1NpQaXqmCBji6gfX8UgaQEmEstvVY7U32C (Bitcoin) or LUPgSCJt3iGeJXUETVhmnbQ89Riaq1yjZm (Litecoin).</p>
 <p>I am also a big fan of Monero (XMR). You can send XMR to our <a href="http://openalias.org">OpenAlias</a> in the simplewallet client, or simply send to 49dBJhGhYFxJEfydS6hH6GRyg1W4cDgupdNVtw7j1WtcUY7xPXwNLw6fUVay644viaCcEhMFG1Z7SjjxRXEFDdNWJdvH9kS.</p>
-<p>You may also donate monthly via Patreon at <a href="http://www.patreon.com/user?u=162165">http://www.patreon.com/user?u=162165</a>.
+<p>If you would like to support development of the engine that 8chan runs on (infinity), you may also <a href="https://gratipay.com/infinitechan">donate via Gratipay</a>.</p>
 <h2>Are you really a cripple?</h2>
 <p>Yes.</p>
 

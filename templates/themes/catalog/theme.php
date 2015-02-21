@@ -59,17 +59,7 @@
 
 					if ($files[0]) {
 						if ($files[0]->file == 'deleted') {
-							if (count($files) > 1) {
-								foreach ($files as $file) {
-									if (($file == $files[0]) || ($file->file == 'deleted')) continue;
-									$post['file'] = $config['uri_thumb'] . $file->thumb;
-								}
-
-								if (empty($post['file'])) $post['file'] = $config['image_deleted'];
-							}
-							else {
-								$post['file'] = $config['image_deleted'];
-							}
+							$post['file'] = $config['image_deleted'];
 						}
 						else if($files[0]->thumb == 'spoiler') {
 							$post['file'] = '/' . $config['spoiler_image'];

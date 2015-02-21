@@ -38,7 +38,7 @@ if (isset($_POST['delete'])) {
 		}
 	}
 	
-	checkDNSBL();
+	if (checkDNSBL()) error("Tor users may not delete posts.");
 		
 	// Check if board exists
 	if (!openBoard($_POST['board']))
@@ -116,7 +116,7 @@ elseif (isset($_POST['report'])) {
 		}
 	}
 	
-	checkDNSBL();
+	if (checkDNSBL()) error("Tor users may not report posts.");
 		
 	// Check if board exists
 	if (!openBoard($_POST['board']))
@@ -329,6 +329,9 @@ elseif (isset($_POST['post'])) {
 	
 		if ($config['field_disable_email'])
 			$_POST['email'] = '';
+
+		if ($config['field_email_selectbox'] && $_POST['email'] != 'sage')
+			$_POST['email'] = '';
 	
 		if ($config['field_disable_password'])
 			$_POST['password'] = '';
@@ -394,8 +397,14 @@ elseif (isset($_POST['post'])) {
 	$post['password'] = $_POST['password'];
 	$post['has_file'] = (!isset($post['embed']) && (($post['op'] && !isset($post['no_longer_require_an_image_for_op']) && $config['force_image_op']) || !empty($_FILES['file']['name'])));
 
-	if ($post['has_file'])
-		checkDNSBL();
+	// Handle our Tor users
+	$tor = checkDNSBL();
+	if ($tor && !(isset($_SERVER['HTTP_X_TOR'], $_SERVER['REMOTE_ADDR']) && $_SERVER['REMOTE_ADDR'] == '127.0.0.2' && $_SERVER['HTTP_X_TOR'] = 'true'))
+		error('To post on 8chan over Tor, you must use the hidden service for security reasons. You can find it at <a href="http://fullchan4jtta4sx.onion">http://fullchan4jtta4sx.onion</a>.');
+	if ($tor && $post['has_file'])
+		error('Sorry. Tor users can\'t upload files.');
+	if ($tor && !$config['tor_posting'])
+		error('Sorry. The owner of this board has decided not to allow Tor posters for some reason...');
 	
 	if (!($post['has_file'] || isset($post['embed'])) || (($post['op'] && $config['force_body_op']) || (!$post['op'] && $config['force_body']))) {
 		// http://stackoverflow.com/a/4167053

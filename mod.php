@@ -29,8 +29,10 @@ $pages = array(
 	
 	'/log'					=> 'log',			// modlog
 	'/log/(\d+)'				=> 'log',			// modlog
-	'/log:([^/]+)'				=> 'user_log',			// modlog
-	'/log:([^/]+)/(\d+)'			=> 'user_log',			// modlog
+	'/log:([^/:]+)'				=> 'user_log',			// modlog
+	'/log:([^/:]+)/(\d+)'			=> 'user_log',			// modlog
+	'/log:b:([^/]+)'			=> 'board_log',			// modlog
+	'/log:b:([^/]+)/(\d+)'			=> 'board_log',			// modlog
 	'/edit_news'				=> 'secure_POST news',		// view news
 	'/edit_news/(\d+)'			=> 'secure_POST news',		// view news
 	'/edit_news/delete/(\d+)'		=> 'secure news_delete',	// delete from news

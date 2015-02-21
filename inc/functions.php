@@ -1050,19 +1050,22 @@ function deleteFile($id, $remove_entirely_if_already=true, $file=null) {
 
 // rebuild post (markup)
 function rebuildPost($id) {
-	global $board;
+	global $board, $mod;
 
-	$query = prepare(sprintf("SELECT `body_nomarkup`, `thread` FROM ``posts_%s`` WHERE `id` = :id", $board['uri']));
+	$query = prepare(sprintf("SELECT * FROM ``posts_%s`` WHERE `id` = :id", $board['uri']));
 	$query->bindValue(':id', $id, PDO::PARAM_INT);
 	$query->execute() or error(db_error($query));
 
 	if ((!$post = $query->fetch(PDO::FETCH_ASSOC)) || !$post['body_nomarkup'])
 		return false;
 
-	markup($body = &$post['body_nomarkup']);
+	markup($post['body'] = &$post['body_nomarkup']);
+	$post = (object)$post;
+	event('rebuildpost', $post);
+	$post = (array)$post;
 
 	$query = prepare(sprintf("UPDATE ``posts_%s`` SET `body` = :body WHERE `id` = :id", $board['uri']));
-	$query->bindValue(':body', $body);
+	$query->bindValue(':body', $post['body']);
 	$query->bindValue(':id', $id, PDO::PARAM_INT);
 	$query->execute() or error(db_error($query));
 
@@ -1580,20 +1583,22 @@ function buildJavascript() {
 	file_write($config['file_script'], $script);
 }
 
-function checkDNSBL() {
+function checkDNSBL($use_ip = false) {
 	global $config;
 
-
-	if (isIPv6())
-		return; // No IPv6 support yet.
-
-	if (!isset($_SERVER['REMOTE_ADDR']))
+	if (!$use_ip && !isset($_SERVER['REMOTE_ADDR']))
 		return; // Fix your web server configuration
 
-	if (in_array($_SERVER['REMOTE_ADDR'], $config['dnsbl_exceptions']))
+	$ip = ($use_ip ? $use_ip : $_SERVER['REMOTE_ADDR']);
+	if ($ip == '127.0.0.2') return true;
+
+	if (isIPv6($ip))
+		return; // No IPv6 support yet.
+
+	if (in_array($ip, $config['dnsbl_exceptions']))
 		return;
 
-	$ipaddr = ReverseIPOctets($_SERVER['REMOTE_ADDR']);
+	$ipaddr = ReverseIPOctets($ip);
 
 	foreach ($config['dnsbl'] as $blacklist) {
 		if (!is_array($blacklist))
@@ -1609,24 +1614,31 @@ function checkDNSBL() {
 
 		if (!isset($blacklist[1])) {
 			// If you're listed at all, you're blocked.
-			error(sprintf($config['error']['dnsbl'], $blacklist_name));
+			if ($use_ip) {
+				return true;
+			} else {
+				error(sprintf($config['error']['dnsbl'], $blacklist_name));
+			}
 		} elseif (is_array($blacklist[1])) {
 			foreach ($blacklist[1] as $octet) {
-				if ($ip == $octet || $ip == '127.0.0.' . $octet)
-					error(sprintf($config['error']['dnsbl'], $blacklist_name));
+				if ($ip == $octet || $ip == '127.0.0.' . $octet) {
+					return true;
+				}
 			}
 		} elseif (is_callable($blacklist[1])) {
-			if ($blacklist[1]($ip))
-				error(sprintf($config['error']['dnsbl'], $blacklist_name));
+			if ($blacklist[1]($ip)) {
+				return true;
+			}
 		} else {
-			if ($ip == $blacklist[1] || $ip == '127.0.0.' . $blacklist[1])
-				error(sprintf($config['error']['dnsbl'], $blacklist_name));
+			if ($ip == $blacklist[1] || $ip == '127.0.0.' . $blacklist[1]) {
+				return true;
+			}
 		}
 	}
 }
 
-function isIPv6() {
-	return strstr($_SERVER['REMOTE_ADDR'], ':') !== false;
+function isIPv6($ip = false) {
+	return strstr(($ip ? $ip : $_SERVER['REMOTE_ADDR']), ':') !== false;
 }
 
 function ReverseIPOctets($ip) {
@@ -1816,7 +1828,7 @@ function markup(&$body, $track_cites = false, $op = false) {
 			}
 
 			if (isset($cited_posts[$cite])) {
-				$replacement = '<a onclick="highlightReply(\''.$cite.'\');" href="' .
+				$replacement = '<a onclick="highlightReply(\''.$cite.'\', event);" href="' .
 					$config['root'] . $board['dir'] . $config['dir']['res'] .
 					($cited_posts[$cite] ? $cited_posts[$cite] : $cite) . '.html#' . $cite . '">' .
 					'&gt;&gt;' . $cite .
@@ -1915,7 +1927,7 @@ function markup(&$body, $track_cites = false, $op = false) {
 					
 					$replacement = '<a ' .
 						($_board == $board['uri'] ?
-							'onclick="highlightReply(\''.$cite.'\');" '
+							'onclick="highlightReply(\''.$cite.'\', event);" '
 						: '') . 'href="' . $link . '">' .
 						'&gt;&gt;&gt;/' . $_board . '/' . $cite .
 						'</a>';
@@ -2216,7 +2228,7 @@ function generate_tripcode($name) {
 		if (isset($config['custom_tripcode']["##{$trip}"]))
 			$trip = $config['custom_tripcode']["##{$trip}"];
 		else
-			$trip = '!!' . substr(crypt($trip, '_..A.' . substr(base64_encode(sha1($trip . $config['secure_trip_salt'], true)), 0, 4)), -10);
+			$trip = '!!' . substr(crypt($trip, str_replace('+', '.', '_..A.' . substr(base64_encode(sha1($trip . $config['secure_trip_salt'], true)), 0, 4))), -10);
 	} else {
 		if (isset($config['custom_tripcode']["#{$trip}"]))
 			$trip = $config['custom_tripcode']["#{$trip}"];

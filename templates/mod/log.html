@@ -1,6 +1,6 @@
 <table class="modlog">
 	<tr>
-		<th>{% trans 'Staff' %}</th>
+		<th>{% trans 'Username' %}</th>
 		<th>{% trans 'IP address' %}</th>
 		<th>{% trans 'Time' %}</th>
 		<th>{% trans 'Board' %}</th>
@@ -10,7 +10,11 @@
 		<tr>
 			<td class="minimal">
 				{% if log.username %}
-					<a href="?/log:{{ log.username|e }}">{{ log.username|e }}</a>
+					{% if not mod|hasPermission(config.mod.modlog) %}
+						<a href="?/new_PM/{{ log.username|e }}">{{ log.username|e }}</a>
+					{% else %}
+						<a href="?/log:{{ log.username|e }}">{{ log.username|e }}</a>
+					{% endif %}
 				{% elseif log.mod == -1 %}
 					<em>system</em>
 				{% else %}
@@ -44,7 +48,7 @@
 {% if count > logs|count %}
 	<p class="unimportant" style="text-align:center;word-wrap:break-word">
 		{% for i in range(0, (count - 1) / config.mod.modlog_page) %}
-			<a href="?/log{% if username %}:{{ username }}{% endif %}/{{ i + 1 }}">[{{ i + 1 }}]</a> 
+			<a href="?/log{% if username %}:{{ username }}{% elseif board %}:b:{{ board }}{% endif %}/{{ i + 1 }}">[{{ i + 1 }}]</a> 
 		{% endfor %}
 	</p>
 {% endif %}

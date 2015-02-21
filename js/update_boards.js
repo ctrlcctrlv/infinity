@@ -24,13 +24,11 @@ if (window.Options && Options.get_tab('general')) {
 
 function handle_boards(data) {
 	$.each(data, function(k, v) {
-		if (v.uri != 'meta' && v.uri != 'b') {
-			boards.push('<a href="/'+v.uri+(window.active_page === 'catalog' ? '/catalog.html' : '/index.html')+'" title="'+v.title+'">'+v.uri+'</a>');
-		}
+		boards.push('<a href="/'+v.uri+(window.active_page === 'catalog' ? '/catalog.html' : '/index.html')+'" title="'+v.title+'">'+v.uri+'</a>');
 	})
 
 	if (boards[0]) {
-		$('.sub[data-description="2"]').after('<span class="sub" data-description="3"> [ '+boards.slice(0,25).join(" / ")+' ] </span>');
+		$('.sub[data-description="3"]').after('<span class="sub" data-description="4"> [ '+boards.slice(0,25).join(" / ")+' ] </span>');
 	}
 }
 

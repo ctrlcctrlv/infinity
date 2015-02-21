@@ -32,7 +32,10 @@ if (preg_match('!'.$config['board_regex'].'/'.$config['dir']['res'].'\d+\.html!u
 	$return_link = '';
 }
 
+$ad = Element("ad_top.html", array());
+
 $page = <<<EOT
+		<div style="text-align:center">$ad</div>
 		<div class="ban">
 			<p style="text-align:center"><img src="/static/404/{$errorimage}" style="width:100%"></p>
 			<p style="text-align:center"><a href="/index.html">[ Home ]</a>{$return_link}</p>

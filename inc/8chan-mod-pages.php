@@ -14,6 +14,28 @@
 		}
 	}
 
+	if (!function_exists('is_billion_laughs')){
+		function is_billion_laughs($arr1, $arr2) {
+			$arr = array();
+			foreach ($arr1 as $k => $v) {
+				$arr[$v] = $arr2[$k];
+			}
+
+			for ($i = 0; $i <= sizeof($arr); $i++) {
+				$cur = array_slice($arr, $i, 1);
+				$pst = array_slice($arr, 0, $i);
+				if (!$cur) continue;
+				$kk = array_keys($cur)[0];
+				$vv = array_values($cur)[0];
+				foreach ($pst as $k => $v) {
+					if (str_replace($kk, $vv, $v) != $v)
+						return true;
+				}
+			}
+			return false;
+		}
+	}
+
 	$config['mod']['show_ip'] = GLOBALVOLUNTEER;
 	$config['mod']['show_ip_less'] = BOARDVOLUNTEER;
 	$config['mod']['manageusers'] = GLOBALVOLUNTEER;
@@ -27,6 +49,7 @@
 	$config['mod']['debug_antispam'] = ADMIN;
 	$config['mod']['noticeboard_post'] = ADMIN;
 	$config['mod']['modlog'] = GLOBALVOLUNTEER;
+	$config['mod']['mod_board_log'] = MOD;
 	$config['mod']['editpost'] = BOARDVOLUNTEER;
 	$config['mod']['edit_banners'] = MOD;
 	$config['mod']['edit_flags'] = MOD;
@@ -54,6 +77,8 @@
 	$config['mod']['view_ban_appeals'] = BOARDVOLUNTEER;
 	$config['mod']['view_ban'] = BOARDVOLUNTEER;
 	$config['mod']['reassign_board'] = ADMIN;
+	$config['mod']['move'] = GLOBALVOLUNTEER;
+	$config['mod']['shadow_capcode'] = 'Global Volunteer';
 
 	$config['mod']['custom_pages']['/tags/(\%b)'] = function ($b) {
 		global $board, $config;
@@ -408,7 +433,7 @@ FLAGS;
 			$user_flags = isset($_POST['user_flags']) ? "if (file_exists('$b/flags.php')) { include 'flags.php'; }\n" : '';
 			$captcha = isset($_POST['captcha']) ? 'true' : 'false';
 			$force_subject_op = isset($_POST['force_subject_op']) ? 'true' : 'false';
-			/*New thread captcha*/
+			$tor_posting = isset($_POST['tor_posting']) ? 'true' : 'false';
 			$new_thread_capt = isset($_POST['new_thread_capt']) ? 'true' : 'false';
 			
 
@@ -461,6 +486,9 @@ OEKAKI;
 						}
 					}
 				}
+				if (is_billion_laughs($_POST['replace'], $_POST['with'])) {
+					error(_('Wordfilters may not wordfilter previous wordfilters. For example, if a filters to bb and b filters to cc, that is not allowed.'));
+				}
 			}
 
 			if (isset($_POST['hour_max_threads']) && in_array($_POST['hour_max_threads'], ['10', '25', '50', '100'])) {
@@ -504,7 +532,7 @@ OEKAKI;
 \$config['default_stylesheet'] = array('Custom', \$config['stylesheets']['Custom']);
 \$config['captcha']['enabled'] = $captcha;
 \$config['force_subject_op'] = $force_subject_op;
-/*New thread captcha*/
+\$config['tor_posting'] = $tor_posting;
 \$config['new_thread_capt'] = $new_thread_capt;
 \$config['hour_max_threads'] = $hour_max_threads;
 $code_tags $katex $oekaki $replace $multiimage $allow_flash $allow_pdf $user_flags
@@ -518,8 +546,7 @@ EOT;
 			// Clean up our CSS...no more expression() or off-site URLs.
 			$clean_css = preg_replace('/expression\s*\(/', '', $_POST['css']);
 	
-			// URL matcher from SO: 
-			$match_urls = '(?xi)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«»“”‘’]))';
+			$match_urls = '((?:(?:https?:)?\/\/|ftp:\/\/|irc:\/\/)[^\s<>()"]+?(?:\([^\s<>()"]*?\)[^\s<>()"]*?)*)((?:\s|<|>|"|\.|\]|!|\?|,|&\#44;|&quot;)*(?:[\s<>()"]|$))';
 
 			$matched = array();
 
@@ -529,7 +556,7 @@ EOT;
 				foreach ($matched[0] as $match) {
 					$match_okay = false;
 					foreach ($allowed_urls as $allowed_url) {
-						if (strpos($match, $allowed_url) !== false) {
+						if (strpos($match, $allowed_url) !== false && strpos($match, '#') === false) {
 							$match_okay = true;
 						}
 					}
@@ -540,10 +567,9 @@ EOT;
 			}
 			
 			//Filter out imports from sites with potentially unsafe content
-			$css_no_comments = preg_replace('|\/\*.*\*\/|', '', $clean_css); //I can't figure out how to ignore comments in the match
 			$match_imports = '@import[^;]*';
 			$matched = array();
-			preg_match_all("#$match_imports#im", $css_no_comments, $matched);
+			preg_match_all("#$match_imports#im", $clean_css, $matched);
 			
 			$unsafe_import_urls = array('https://a.pomf.se/');
 			
@@ -551,7 +577,7 @@ EOT;
 				foreach ($matched[0] as $match) {
 					$match_okay = true;
 					foreach ($unsafe_import_urls as $unsafe_import_url) {
-						if (strpos($match, $unsafe_import_url) !== false) {
+						if (strpos($match, $unsafe_import_url) !== false && strpos($match, '#') === false) {
 							$match_okay = false;
 						}
 					}

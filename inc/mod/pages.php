@@ -639,7 +639,7 @@ function mod_log($page_no = 1) {
 	$query->execute() or error(db_error($query));
 	$count = $query->fetchColumn();
 	
-	mod_page(_('Moderation log'), 'mod/log.html', array('logs' => $logs, 'count' => $count));
+	mod_page(_('Board log'), 'mod/log.html', array('logs' => $logs, 'count' => $count));
 }
 
 function mod_user_log($username, $page_no = 1) {
@@ -666,7 +666,43 @@ function mod_user_log($username, $page_no = 1) {
 	$query->execute() or error(db_error($query));
 	$count = $query->fetchColumn();
 	
-	mod_page(_('Moderation log'), 'mod/log.html', array('logs' => $logs, 'count' => $count, 'username' => $username));
+	mod_page(_('Board log'), 'mod/log.html', array('logs' => $logs, 'count' => $count, 'username' => $username));
+}
+
+function mod_board_log($board, $page_no = 1) {
+	global $config;
+	
+	if ($page_no < 1)
+		error($config['error']['404']);
+	
+	if (!hasPermission($config['mod']['mod_board_log'], $board))
+		error($config['error']['noaccess']);
+	
+	$query = prepare("SELECT `username`, `mod`, `ip`, `board`, `time`, `text` FROM ``modlogs`` LEFT JOIN ``mods`` ON `mod` = ``mods``.`id` WHERE `board` = :board ORDER BY `time` DESC LIMIT :offset, :limit");
+	$query->bindValue(':board', $board);
+	$query->bindValue(':limit', $config['mod']['modlog_page'], PDO::PARAM_INT);
+	$query->bindValue(':offset', ($page_no - 1) * $config['mod']['modlog_page'], PDO::PARAM_INT);
+	$query->execute() or error(db_error($query));
+	$logs = $query->fetchAll(PDO::FETCH_ASSOC);
+	
+	if (empty($logs) && $page_no > 1)
+		error($config['error']['404']);
+
+	if (!hasPermission($config['mod']['show_ip'])) {
+		// Supports ipv4 only!
+		foreach ($logs as $i => &$log) {
+			$log['text'] = preg_replace_callback('/(?:<a href="\?\/IP\/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}">)?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})(?:<\/a>)?/', function($matches) {
+				return less_ip($matches[1]);
+			}, $log['text']);
+		}
+	}
+	
+	$query = prepare("SELECT COUNT(*) FROM ``modlogs`` LEFT JOIN ``mods`` ON `mod` = ``mods``.`id` WHERE `board` = :board");
+	$query->bindValue(':board', $board);
+	$query->execute() or error(db_error($query));
+	$count = $query->fetchColumn();
+	
+	mod_page(_('Board log'), 'mod/log.html', array('logs' => $logs, 'count' => $count, 'board' => $board));
 }
 
 function mod_view_board($boardName, $page_no = 1) {
@@ -1361,8 +1397,10 @@ function mod_move($originBoard, $postID) {
 			if ($post['has_file']) {
 				// copy image
 				foreach ($post['files'] as $i => &$file) {
-					$clone($file['file_path'], sprintf($config['board_path'], $config['dir']['img_root'] . $board['uri']) . $config['dir']['img'] . $file['file']);
-					$clone($file['thumb_path'], sprintf($config['board_path'], $config['dir']['img_root'] . $board['uri']) . $config['dir']['thumb'] . $file['thumb']);
+					if ($file['file'] !== 'deleted') 
+						$clone($file['file_path'], sprintf($config['board_path'], $config['dir']['img_root'] . $board['uri']) . $config['dir']['img'] . $file['file']);
+					if (isset($file['thumb']) && !in_array($file['thumb'], array('spoiler', 'deleted', 'file')))
+						$clone($file['thumb_path'], sprintf($config['board_path'], $config['dir']['img_root'] . $board['uri']) . $config['dir']['thumb'] . $file['thumb']);
 				}
 			}
 			// insert reply
@@ -1464,6 +1502,7 @@ function mod_ban_post($board, $delete, $post, $token = false) {
 	
 	$thread = $_post['thread'];
 	$ip = $_post['ip'];
+	$tor = checkDNSBL($ip);
 
 	if (isset($_POST['new_ban'], $_POST['reason'], $_POST['length'], $_POST['board'])) {
 		require_once 'inc/mod/ban.php';
@@ -1510,6 +1549,7 @@ function mod_ban_post($board, $delete, $post, $token = false) {
 		'hide_ip' => !hasPermission($config['mod']['show_ip'], $board),
 		'post' => $post,
 		'board' => $board,
+		'tor' => $tor,
 		'delete' => (bool)$delete,
 		'boards' => listBoards(),
 		'token' => $security_token
@@ -1837,6 +1877,9 @@ function mod_user($uid) {
 	
 	if (!hasPermission($config['mod']['editusers']) && !(hasPermission($config['mod']['change_password']) && $uid == $mod['id']))
 		error($config['error']['noaccess']);
+
+	if (in_array($mod['boards'][0], array('infinity', 'z')))
+		error('This board has password changing disabled.');
 	
 	$query = prepare('SELECT * FROM ``mods`` WHERE `id` = :id');
 	$query->bindValue(':id', $uid);

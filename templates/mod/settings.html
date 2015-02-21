@@ -45,9 +45,8 @@
 		<tr><th>{% trans %}Enable dice rolling{% endtrans %}</th><td><input type="checkbox" name="allow_roll" {% if config.allow_roll %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Don't allow users to repost images{% endtrans %}</th><td><input type="checkbox" name="image_reject_repost" {% if config.image_reject_repost %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Allow a poster to delete his own posts{% endtrans %}</th><td><input type="checkbox" name="allow_delete" {% if config.allow_delete %}checked{% endif %}></td></tr>
-		<!--Added explanation to clarify purpose of "Enable CAPTCHA" now that "Enable CAPTCHA for new thread creation only" also exists-->
+		<tr><th>{% trans %}Allow posters to post via the Tor onion router{% endtrans %}<br/><span class="unimportant">Disabling this is evil, but if you really care about "ban evasion", here you go.</span></th><td><input type="checkbox" name="tor_posting" {% if config.tor_posting %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Enable CAPTCHA{% endtrans %}<br/><span class="unimportant">Users must solve a CAPTCHA in order to post.<br> This is not ReCAPTCHA, it is custom to 8chan.</span></th><td><input type="checkbox" name="captcha" {% if config.captcha.enabled %}checked{% endif %}></td></tr>
-		<!--New thread captcha start-->
 		<tr><th>{% trans %}Enable CAPTCHA for thread creation only{% endtrans %}<br/><span class="unimportant">Users must solve a CAPTCHA in order to create new threads,<br>but do not have to solve a CAPTCHA in order to post replies.</span></th><td><input type="checkbox" name="new_thread_capt" {% if config.new_thread_capt %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Language{% endtrans %}<br/><span class="unimportant">{% trans %}To contribute translations, register at <a href="https://www.transifex.com/projects/p/tinyboard-vichan-devel/">Transifex</a>{% endtrans %}</span></th><td>
 		<select name="locale">

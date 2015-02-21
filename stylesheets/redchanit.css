@@ -1,0 +1,60 @@
+body {
+  background: #3B4357;
+  color: white;
+  font-family: verdana,arial,sans-serif;
+  font-weight: bold;
+}
+
+.desktop-style div.boardlist:not(.bottom) {
+  background-color: #7F8CA8;
+}
+
+.desktop-style .sub {
+  font-family: arial,helvetica,sans-serif;
+  font-size: 8pt;
+  font-weight: normal;
+}
+
+header div.subtitle, h1 {
+  font-family: verdana,arial,sans-serif;
+}
+
+div.banner {
+  background-color: #7F8CA8;
+}
+
+form table tr th {
+  background: #7F8CA8;
+}
+
+div.blotter {
+  color: white;
+}
+
+div.thread {
+  background: #7F8CA8;
+}
+
+div.post.reply {
+  background: #343C4E;
+  border: none;
+  display: table;
+  margin: auto;
+  width: 100%;
+}
+
+img.post-image {
+  display: inline-block;
+}
+
+p.intro span.name {
+  color: #5C5484;
+}
+
+p.intro a.email span.name {
+  color: #8080FF;
+}
+
+a {
+  color: #8020FF;
+}

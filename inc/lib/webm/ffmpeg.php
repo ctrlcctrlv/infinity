@@ -50,7 +50,7 @@ function is_valid_webm($ffprobe_out) {
     return array('code' => 2, 'msg' => $config['error']['invalidwebm']);
 
   if ($ffprobe_out['format']['duration'] > $config['webm']['max_length'])
-    return array('code' => 4, 'msg' => $config['error']['webmtoolong']);
+    return array('code' => 4, 'msg' => sprintf($config['error']['webmtoolong'], $config['webm']['max_length']));
 }
 
 function make_webm_thumbnail($filename, $thumbnail, $width, $height, $duration) {

@@ -51,7 +51,7 @@
 	require "secrets.php";
 
 	// Image shit
-	$config['thumb_method'] = 'gm';
+	$config['thumb_method'] = 'convert';
 	$config['thumb_ext'] = 'jpg';
 	$config['thumb_keep_animation_frames'] = 1;
 	$config['show_ratio'] = true;
@@ -64,7 +64,7 @@
 	$config['allowed_ext_files'][] = 'mp4';
 	$config['webm']['use_ffmpeg'] = true;
 	$config['webm']['allow_audio'] = true;
-	$config['webm']['max_length'] = 60 * 15;
+	$config['webm']['max_length'] = 60 * 30;
 
 	// Mod shit
 	$config['mod']['groups'][25] = 'GlobalVolunteer';
@@ -103,7 +103,6 @@
 	$config['additional_javascript'][] = 'js/update_boards.js';
 	$config['additional_javascript'][] = 'js/favorites.js';
 	$config['additional_javascript'][] = 'js/show-op.js';
-	$config['additional_javascript'][] = 'js/hide-threads.js';
 	$config['additional_javascript'][] = 'js/smartphone-spoiler.js';
 	$config['additional_javascript'][] = 'js/inline-expanding.js';
 	$config['additional_javascript'][] = 'js/show-backlinks.js';
@@ -143,11 +142,14 @@
 	$config['additional_javascript'][] = 'js/quote-selection.js';
 	$config['additional_javascript'][] = 'js/twemoji/twemoji.js';
 	$config['additional_javascript'][] = 'js/flag-previews.js';
+	$config['additional_javascript'][] = 'js/post-filter.js';
+	$config['additional_javascript'][] = 'js/image-hover.js';
 
 	//$config['font_awesome_css'] = '/netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css';
 	
 	$config['stylesheets']['Dark'] = 'dark.css';
 	$config['stylesheets']['Photon'] = 'photon.css';
+	$config['stylesheets']['Redchanit'] = 'redchanit.css';
 
 	$config['stylesheets_board'] = true;
 	$config['markup'][] = array("/^[ |\t]*==(.+?)==[ |\t]*$/m", "<span class=\"heading\">\$1</span>");
@@ -156,7 +158,7 @@
 	$config['markup'][] = array("/__(.+?)__/", "<u>\$1</u>");
 	$config['markup'][] = array("/###([^\s']+)###/", "<a href='/boards.html#\$1'>###\$1###</a>");
 
-	$config['boards'] = array(array('<i class="fa fa-home" title="Home"></i>' => '/', '<i class="fa fa-tags" title="Boards"></i>' => '/boards.html', '<i class="fa fa-question" title="FAQ"></i>' => '/faq.html', '<i class="fa fa-random" title="Random"></i>' => '/random.php', '<i class="fa fa-plus" title="New board"></i>' => '/create.php', '<i class="fa fa-ban" title="Public ban list"></i>' => '/bans.html', '<i class="fa fa-search" title="Search"></i>' => '/search.php', '<i class="fa fa-cog" title="Manage board"></i>' => '/mod.php', '<i class="fa fa-quote-right" title="Chat"></i>' => 'https://qchat.rizon.net/?channels=#8chan'), array('b', 'meta', 'news+'), array('<i class="fa fa-twitter" title="Twitter"></i>'=>'https://twitter.com/infinitechan'));
+	$config['boards'] = array(array('<i class="fa fa-home" title="Home"></i>' => '/', '<i class="fa fa-tags" title="Boards"></i>' => '/boards.html', '<i class="fa fa-question" title="FAQ"></i>' => '/faq.html', '<i class="fa fa-random" title="Random"></i>' => '/random.php', '<i class="fa fa-plus" title="New board"></i>' => '/create.php', '<i class="fa fa-ban" title="Public ban list"></i>' => '/bans.html', '<i class="fa fa-search" title="Search"></i>' => '/search.php', '<i class="fa fa-cog" title="Manage board"></i>' => '/mod.php', '<i class="fa fa-quote-right" title="Chat"></i>' => 'https://qchat.rizon.net/?channels=#8chan'), array('b', 'news+', 'boards'), array('operate', 'meta'), array('<i class="fa fa-twitter" title="Twitter"></i>'=>'https://twitter.com/infinitechan'));
 	//$config['boards'] = array(array('<i class="fa fa-home" title="Home"></i>' => '/', '<i class="fa fa-tags" title="Boards"></i>' => '/boards.html', '<i class="fa fa-question" title="FAQ"></i>' => '/faq.html', '<i class="fa fa-random" title="Random"></i>' => '/random.php', '<i class="fa fa-plus" title="New board"></i>' => '/create.php', '<i class="fa fa-search" title="Search"></i>' => '/search.php', '<i class="fa fa-cog" title="Manage board"></i>' => '/mod.php', '<i class="fa fa-quote-right" title="Chat"></i>' => 'https://qchat.rizon.net/?channels=#8chan'), array('b', 'meta', 'int'), array('v', 'a', 'tg', 'fit', 'pol', 'tech', 'mu', 'co', 'sp', 'boards'), array('<i class="fa fa-twitter" title="Twitter"></i>'=>'https://twitter.com/infinitechan'));
 
 	$config['footer'][] = 'All posts on 8chan are the responsibility of the individual poster and not the administration of 8chan, pursuant to 47 U.S.C. &sect; 230.';
