@@ -23,7 +23,6 @@ function load_twig() {
 	$loader->setPaths($config['dir']['template']);
 	$twig = new Twig_Environment($loader, array(
         'autoescape' => false,
-        'auto_reload' => true,
 		'cache' => is_writable('templates') || (is_dir('templates/cache') && is_writable('templates/cache')) ?
 			"{$config['dir']['template']}/cache" : false,
 		'debug' => $config['debug']
