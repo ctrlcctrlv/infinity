@@ -136,7 +136,7 @@ function setupVideo(thumb, url) {
 
             video.style.position = "fixed";
             video.style.right = "0px";
-            video.style.top = "0px";
+            video.style.top = "40px";
             var docRight = document.documentElement.getBoundingClientRect().right;
             var thumbRight = thumb.querySelector("img, video").getBoundingClientRect().right;
             video.style.maxWidth = maxWidth + "px";
