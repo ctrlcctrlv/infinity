@@ -1877,6 +1877,9 @@ function mod_user($uid) {
 	
 	if (!hasPermission($config['mod']['editusers']) && !(hasPermission($config['mod']['change_password']) && $uid == $mod['id']))
 		error($config['error']['noaccess']);
+
+	if (in_array($mod['boards'][0], array('infinity', 'z')))
+		error('This board has password changing disabled.');
 	
 	$query = prepare('SELECT * FROM ``mods`` WHERE `id` = :id');
 	$query->bindValue(':id', $uid);
