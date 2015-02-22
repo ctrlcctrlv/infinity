@@ -13,7 +13,7 @@ function setupVideo(thumb, url) {
     var videoContainer, videoHide;
     var expanded = false;
     var hovering = false;
-    var loop = true;
+    var loop = setting("videoloop");
     var loopControls = [document.createElement("span"), document.createElement("span")];
     var fileInfo = thumb.parentNode.querySelector(".fileinfo");
     var mouseDown = false;
@@ -308,7 +308,7 @@ function setupVideo(thumb, url) {
 
     loopControls[0].textContent = _("[play once]");
     loopControls[1].textContent = _("[loop]");
-    loopControls[1].style.fontWeight = "bold";
+    loopControls[(setting("videoloop") ? 1 : 0)].style.fontWeight = "bold";
     for (var i = 0; i < 2; i++) {
         setupLoopControl(i);
         loopControls[i].style.whiteSpace = "nowrap";
