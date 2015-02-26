@@ -67,6 +67,7 @@ CREATE TABLE IF NOT EXISTS `boards` (
   `subtitle` tinytext,
   `indexed` boolean default true,
   `public_bans` boolean default true,
+  `public_logs` tinyint(1) default 0,
   `8archive` boolean default false,
   `sfw` boolean default false,
   PRIMARY KEY (`uri`)

@@ -1,7 +1,6 @@
 <?php
 
 include "inc/functions.php";
-include "inc/mod/auth.php";
 include "inc/countries.php";
 
 $admin = isset($mod["type"]) && $mod["type"]<=30;

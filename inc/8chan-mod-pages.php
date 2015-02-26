@@ -528,12 +528,13 @@ OEKAKI;
 			if (!(strlen($subtitle) < 200))
 				error('Invalid subtitle');
 
-			$query = prepare('UPDATE ``boards`` SET `title` = :title, `subtitle` = :subtitle, `indexed` = :indexed, `public_bans` = :public_bans, `8archive` = :8archive WHERE `uri` = :uri');
+			$query = prepare('UPDATE ``boards`` SET `title` = :title, `subtitle` = :subtitle, `indexed` = :indexed, `public_bans` = :public_bans, `public_logs` = :public_logs, `8archive` = :8archive WHERE `uri` = :uri');
 			$query->bindValue(':title', $title);
 			$query->bindValue(':subtitle', $subtitle);
 			$query->bindValue(':uri', $b);
 			$query->bindValue(':indexed', !isset($_POST['meta_noindex']));
 			$query->bindValue(':public_bans', isset($_POST['public_bans']));
+			$query->bindValue(':public_logs', (int)$_POST['public_logs']);
 			$query->bindValue(':8archive', isset($_POST['8archive']));
 			$query->execute() or error(db_error($query));
 

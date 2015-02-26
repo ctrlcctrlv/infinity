@@ -2,7 +2,6 @@
 
 include "inc/functions.php";
 include "inc/lib/ayah/ayah.php";
-include "inc/mod/auth.php";
 $cbRecaptcha = false;
 //don't load recaptcha LIB unless its enabled!
 if ($config['cbRecaptcha']){

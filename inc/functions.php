@@ -20,6 +20,7 @@ require_once 'inc/events.php';
 require_once 'inc/api.php';
 require_once 'inc/bans.php';
 require_once 'inc/lib/gettext/gettext.inc';
+require_once 'inc/mod/auth.php';
 
 // the user is not currently logged in as a moderator
 $mod = false;
@@ -433,7 +434,8 @@ function setupBoard($array) {
 		'uri' => $array['uri'],
 		'title' => $array['title'],
 		'subtitle' => $array['subtitle'],
-		'indexed' => $array['indexed']
+		'indexed' => $array['indexed'],
+		'public_logs' => $array['public_logs']
 	);
 
 	// older versions
@@ -1152,7 +1154,7 @@ function deletePost($id, $error_if_doesnt_exist=true, $rebuild_after=true) {
 	return true;
 }
 
-function clean() {
+function clean($pid = false) {
 	global $board, $config;
 	$offset = round($config['max_pages']*$config['threads_per_page']);
 
@@ -1163,6 +1165,7 @@ function clean() {
 
 	while ($post = $query->fetch(PDO::FETCH_ASSOC)) {
 		deletePost($post['id'], false, false);
+		if ($pid) modLog("Automatically deleting thread #{$post['id']} due to new thread #{$pid}");
 	}
 
 	// Bump off threads with X replies earlier, spam prevention method
@@ -1175,6 +1178,7 @@ function clean() {
 		while ($post = $query->fetch(PDO::FETCH_ASSOC)) {
 			if ($post['reply_count'] < $config['early_404_replies']) {
 				deletePost($post['thread_id'], false, false);
+				if ($pid) modLog("Automatically deleting thread #{$post['thread_id']} due to new thread #{$pid} (early 404 is set, #{$post['thread_id']} had {$post['reply_count']} replies)");
 			}
 		}
 	}

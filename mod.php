@@ -6,7 +6,6 @@
 
 require 'inc/functions.php';
 require 'inc/mod/pages.php';
-require 'inc/mod/auth.php';
 
 check_login(true);
 

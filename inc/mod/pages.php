@@ -669,13 +669,13 @@ function mod_user_log($username, $page_no = 1) {
 	mod_page(_('Board log'), 'mod/log.html', array('logs' => $logs, 'count' => $count, 'username' => $username));
 }
 
-function mod_board_log($board, $page_no = 1) {
+function mod_board_log($board, $page_no = 1, $hide_names = false, $public = false) {
 	global $config;
 	
 	if ($page_no < 1)
 		error($config['error']['404']);
 	
-	if (!hasPermission($config['mod']['mod_board_log'], $board))
+	if (!hasPermission($config['mod']['mod_board_log'], $board) && !$public)
 		error($config['error']['noaccess']);
 	
 	$query = prepare("SELECT `username`, `mod`, `ip`, `board`, `time`, `text` FROM ``modlogs`` LEFT JOIN ``mods`` ON `mod` = ``mods``.`id` WHERE `board` = :board ORDER BY `time` DESC LIMIT :offset, :limit");
@@ -702,7 +702,7 @@ function mod_board_log($board, $page_no = 1) {
 	$query->execute() or error(db_error($query));
 	$count = $query->fetchColumn();
 	
-	mod_page(_('Board log'), 'mod/log.html', array('logs' => $logs, 'count' => $count, 'board' => $board));
+	mod_page(_('Board log'), 'mod/log.html', array('logs' => $logs, 'count' => $count, 'board' => $board, 'hide_names' => $hide_names, 'public' => $public));
 }
 
 function mod_view_board($boardName, $page_no = 1) {
