@@ -360,6 +360,7 @@ class Post {
 		if (isset($this->files) && $this->files) {
 			$this->files = is_string($this->files) ? json_decode($this->files) : $this->files;
 			// Compatibility for posts before individual file hashing
+			if ($this->files) {
 			foreach ($this->files as $i => &$file) {
 				if (empty($file)) {
 					unset($this->files[$i]);
@@ -367,6 +368,7 @@ class Post {
 				}
 				if (!isset($file->hash))
 					$file->hash = $this->filehash;
+			}
 			}
 		}
 		
