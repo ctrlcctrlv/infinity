@@ -47,7 +47,9 @@ var apply_js = function() {
 
 var update_textarea = function() {
   if (!localStorage.user_js) {
-    textarea.text("/* "+_("You can include JS files from remote servers, for example:")+" */\n" +
+    textarea.text("/* "+_("Enter here your own Javascript code...")+" */\n" +
+                  "/* "+_("Have a backup of your storage somewhere, as messing here\nmay render you this website unusable.")+" */\n" +
+                  "/* "+_("You can include JS files from remote servers, for example:")+" */\n" +
                   '/* load_js("http://example.com/script.js"); */');
   }
   else {
