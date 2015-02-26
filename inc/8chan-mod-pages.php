@@ -423,6 +423,9 @@ FLAGS;
 	$config['mod']['custom_pages']['/settings/(\%b)'] = function($b) {
 		global $config, $mod;
 
+		//if ($b === 'infinity' && $mod['type'] !== ADMIN)
+		//	error('Settings temporarily disabled for this board.');
+
 		if (!in_array($b, $mod['boards']) and $mod['boards'][0] != '*')
 			error($config['error']['noaccess']);
 
