@@ -47,7 +47,7 @@
 						{% if post.youtube %}
 							<img src="https://img.youtube.com/vi/{{ post.youtube }}/0.jpg" 
 						{% else %}
-							<img src="{{post.file}}" 
+							<img src="{{post.file}}" data-fullimage="{{post.fullimage}}"
 						{% endif %}
                                                  id="img-{{ post.id }}" data-subject="{% if post.subject %}{{ post.subject|e }}{% endif %}" data-name="{{ post.name|e }}" data-muhdifference="{{ post.muhdifference }}" class="{{post.board}} thread-image" title="{{post.bump|date('%b %d %H:%M')}}">
                                         </a>

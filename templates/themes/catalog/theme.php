@@ -66,6 +66,7 @@
 						}
 						else {
 							$post['file'] = $config['uri_thumb'] . $files[0]->thumb;
+							$post['fullimage'] = $config['uri_img']  . $files[0]->file;
 						}
 					}
 				} else {
