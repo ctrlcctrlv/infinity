@@ -19,6 +19,7 @@ $safe_config['disable_images'] = $config['disable_images'];
 $safe_config['poster_ids'] = $config['poster_ids'];
 $safe_config['show_sages'] = $config['show_sages'];
 $safe_config['auto_unicode'] = $config['auto_unicode'];
+$safe_config['strip_combining_chars'] = $config['strip_combining_chars'];
 $safe_config['allow_roll'] = $config['allow_roll'];
 $safe_config['image_reject_repost'] = $config['image_reject_repost'];
 $safe_config['early_404'] = $config['early_404'];

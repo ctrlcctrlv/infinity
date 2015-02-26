@@ -197,7 +197,7 @@ function _create_antibot($board, $thread) {
 	
 	if (!isset($purged_old_antispam)) {
 		$purged_old_antispam = true;
-		query('DELETE FROM ``antispam`` WHERE `expires` < UNIX_TIMESTAMP()') or error(db_error());
+		//query('DELETE FROM ``antispam`` WHERE `expires` < UNIX_TIMESTAMP()') or error(db_error());
 	}
 	
 	if ($thread)
@@ -276,6 +276,8 @@ function checkSpam(array $extra_salt = array()) {
 }
 
 function incrementSpamHash($hash) {
+	if ($hash === true) return;
+
 	$query = prepare('UPDATE ``antispam`` SET `passed` = `passed` + 1 WHERE `hash` = :hash');
 	$query->bindValue(':hash', $hash);
 	$query->execute() or error(db_error($query));

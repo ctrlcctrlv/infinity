@@ -1089,7 +1089,7 @@
 	$config['error']['image_hard_limit']	= _('Thread has reached its maximum image limit.');
 	$config['error']['nopost']		= _('You didn\'t make a post.');
 	$config['error']['flood']		= _('Flood detected; Post discarded.');
-	$config['error']['spam']		= _('Your request looks automated; Post discarded.');
+	$config['error']['spam']		= _('Your request looks automated; Post discarded. Try refreshing the page.');
 	$config['error']['unoriginal']		= _('Unoriginal content!');
 	$config['error']['muted']		= _('Unoriginal content! You have been muted for %d seconds.');
 	$config['error']['youaremuted']		= _('You are muted! Expires in %d seconds.');
