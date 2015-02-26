@@ -203,6 +203,8 @@ $config['mask_db_error'] = true;
 $config['ban_appeals'] = true;
 $config['show_sages'] = false;
 $config['katex'] = false;
+$config['enable_antibot'] = true;
+$config['spam']['unicode'] = false;
 // 8chan specific mod pages
 require '8chan-mod-pages.php';
 	

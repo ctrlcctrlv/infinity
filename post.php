@@ -283,11 +283,11 @@ elseif (isset($_POST['post'])) {
 			error($config['error']['noaccess']);
 	}
 	
-	/*if (!$post['mod']) {
+	if (!$post['mod']) {
 		$post['antispam_hash'] = checkSpam(array($board['uri'], isset($post['thread']) ? $post['thread'] : ($config['try_smarter'] && isset($_POST['page']) ? 0 - (int)$_POST['page'] : null)));
-		if ($post['antispam_hash'] === true)
+		if ($post['antispam_hash'] === true && $config['enable_antibot'])
 			error($config['error']['spam']);
-	}*/
+	}
 	
 	if ($config['robot_enable'] && $config['robot_mute']) {
 		checkMute();
