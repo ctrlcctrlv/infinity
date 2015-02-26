@@ -640,6 +640,16 @@ elseif (isset($_POST['post'])) {
 			} else {
 				$hash = md5_file($upload);
 			}
+
+			// filter files by MD5
+			$query = prepare('SELECT * FROM ``filters`` WHERE `type` = "md5" and `value` = :value');
+			$query->bindValue(':value', $hash);
+			$result = $query->execute() or error(db_error());
+			if ($row = $query->fetch()) {
+				$reason = utf8tohtml($row['reason']);
+				error("Sorry, cannot upload. Matched MD5 of disallowed file. Reason: {$reason}");
+			}
+
 			$file['hash'] = $hash;
 			$allhashes .= $hash;
 		}

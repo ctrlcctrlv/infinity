@@ -357,6 +357,21 @@ CREATE TABLE `dnsbl_bypass` (
   PRIMARY KEY (`ip`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `filters`
+--
+
+CREATE TABLE `filters` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` varchar(255) DEFAULT NULL,
+  `reason` text,
+  `value` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `data` (`type`,`value`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
