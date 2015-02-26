@@ -28,7 +28,7 @@
 	if (!function_exists('purify')){
 		function purify($s){
 			$c = HTMLPurifier_Config::createDefault();
-			$c->set('HTML.Allowed', 'a[href],p,br,li,ol,ul,strong,em,u,h2,b,i,tt,div,img[src|alt]');
+			$c->set('HTML.Allowed', 'a[href|title],p,br,li,ol,ul,strong,em,u,h2,b,i,tt,div,img[src|alt|title],hr');
 			$uri = $c->getDefinition('URI');
 			$uri->addFilter(new HTMLPurifier_URIFilter_NoExternalImages(), $c);
 			$purifier = new HTMLPurifier($c);
