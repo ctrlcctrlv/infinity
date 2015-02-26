@@ -144,6 +144,7 @@
 	$config['additional_javascript'][] = 'js/flag-previews.js';
 	$config['additional_javascript'][] = 'js/post-filter.js';
 	$config['additional_javascript'][] = 'js/image-hover.js';
+	$config['additional_javascript'][] = 'js/auto-scroll.js';
 
 	//$config['font_awesome_css'] = '/netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css';
 	
