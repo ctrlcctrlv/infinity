@@ -15,6 +15,7 @@ Basic requirements:
 A computer running a Unix or Unix-like OS(infinity has been specifically tested with and is known to work under Ubuntu 14.x), Apache, MySQL, and PHP
 * Make sure Apache has read/write access to the directory infinity resides in.
 * `install.php` is not maintained. Don't use it.
+* As of February 22, 2015, you need the [DirectIO module (dio.so)](http://php.net/manual/en/ref.dio.php).
 
 Step 1. Create infinity's database from the included install.sql file. Enter mysql and create an empty database named 'infinity'. Then cd into the infinity base directory and run:
 ```

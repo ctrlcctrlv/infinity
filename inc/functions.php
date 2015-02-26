@@ -549,29 +549,27 @@ function file_write($path, $data, $simple = false, $skip_purge = false) {
 		}
 	}
 
-	if (!$fp = fopen($path, $simple ? 'w' : 'c'))
+	if (!$fp = dio_open($path, O_WRONLY | O_CREAT, 0644))
 		error('Unable to open file for writing: ' . $path);
 
 	// File locking
-	if (!$simple && !flock($fp, LOCK_EX)) {
+	if (dio_fcntl($fp, F_SETLKW, array('type' => F_WRLCK)) === -1) {
 		error('Unable to lock file: ' . $path);
 	}
 
 	// Truncate file
-	if (!$simple && !ftruncate($fp, 0))
+	if (!dio_truncate($fp, 0))
 		error('Unable to truncate file: ' . $path);
 
 	// Write data
-	if (($bytes = fwrite($fp, $data)) === false)
+	if (($bytes = dio_write($fp, $data)) === false)
 		error('Unable to write to file: ' . $path);
 
 	// Unlock
-	if (!$simple)
-		flock($fp, LOCK_UN);
+	dio_fcntl($fp, F_SETLK, array('type' => F_UNLCK));
 
 	// Close
-	if (!fclose($fp))
-		error('Unable to close file: ' . $path);
+	dio_close($fp);
 
 	/**
 	 * Create gzipped file.
