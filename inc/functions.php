@@ -1911,8 +1911,11 @@ function markup(&$body, $track_cites = false, $op = false) {
 		}
 		
 		// Restore old board
-		if ($board['uri'] != $tmp_board)
+		if (!$tmp_board) {
+			unset($GLOBALS['board']);
+		} elseif ($board['uri'] != $tmp_board) {
 			openBoard($tmp_board);
+		}
 
 		foreach ($cites as $matches) {
 			$_board = $matches[2][0];
