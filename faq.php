@@ -121,7 +121,7 @@ $body = <<<EOT
 <p>If you would like to support development of the engine that 8chan runs on (infinity), you may also <a href="https://gratipay.com/infinitechan">donate via Gratipay</a>.</p>
 <h2>Are you really a cripple?</h2>
 <p>Yes.</p>
-
+<img src="/static/Mamoru.jpg" alt="Mamoru" style="width:128px">
 </div>
 
 EOT;
