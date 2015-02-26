@@ -169,8 +169,6 @@
 
 	$config['syslog'] = true;
 
-	$config['wordfilters'][] = array('\rule', ''); // 'true' means it's a regular expression
-
 	$config['hour_max_threads'] = false;
 	$config['filters'][] = array(
 		'condition' => array(
@@ -204,6 +202,7 @@ $config['cron_bans'] = true;
 $config['mask_db_error'] = true;
 $config['ban_appeals'] = true;
 $config['show_sages'] = false;
+$config['katex'] = false;
 // 8chan specific mod pages
 require '8chan-mod-pages.php';
 	
