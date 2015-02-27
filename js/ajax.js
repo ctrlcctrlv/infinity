@@ -73,6 +73,10 @@ $(window).ready(function() {
 							alert(post_response.error);
 							$(form).find('input[type="submit"]').val(submit_txt);
 							$(form).find('input[type="submit"]').removeAttr('disabled');
+
+							if (post_response.error == 'Sorry. Tor users can\'t upload files.') {
+								$(form).find('input[name="file_url"],input[type="file"]').val('').change();
+							}
 						}
 					} else if (post_response.redirect && post_response.id) {
 						if (!$(form).find('input[name="thread"]').length
