@@ -57,7 +57,6 @@
 	$config['show_ratio'] = true;
 	//$config['allow_upload_by_url'] = true;
 	$config['max_filesize'] = 1024 * 1024 * 8; // 8MB
-	$config['disable_images'] = false; 
 	$config['spoiler_images'] = true;
 	$config['image_reject_repost'] = true;
 	$config['allowed_ext_files'][] = 'webm';

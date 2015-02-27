@@ -561,6 +561,9 @@
 	// When true, users are instead presented a selectbox for email. Contains, blank, noko and sage.
 	$config['field_email_selectbox'] = &$config['field_disable_name'];
 
+	// Prevent users from uploading files.
+	$config['disable_images'] = false;
+
 	// When true, the sage won't be displayed
 	$config['hide_sage'] = false;
 
@@ -1117,7 +1120,7 @@
 	$config['error']['mime_exploit']	= _('MIME type detection XSS exploit (IE) detected; post discarded.');
 	$config['error']['invalid_embed']	= _('Couldn\'t make sense of the URL of the video you tried to embed.');
 	$config['error']['captcha']		= _('You seem to have mistyped the verification.');
-
+	$config['error']['images_disabled'] = _('Uploading files is disabled on this board.');
 
 	// Moderator errors
 	$config['error']['toomanyunban']	= _('You are only allowed to unban %s users at a time. You tried to unban %u users.');

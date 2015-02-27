@@ -406,6 +406,10 @@ elseif (isset($_POST['post'])) {
 		error('Sorry. Tor users can\'t upload files.');
 	if ($tor && !$config['tor_posting'])
 		error('Sorry. The owner of this board has decided not to allow Tor posters for some reason...');
+
+	if ($post['has_file'] && $config['disable_images']) {
+		error($config['error']['images_disabled']);
+	}
 	
 	if (!($post['has_file'] || isset($post['embed'])) || (($post['op'] && $config['force_body_op']) || (!$post['op'] && $config['force_body']))) {
 		// http://stackoverflow.com/a/4167053
