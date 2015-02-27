@@ -8,6 +8,9 @@
 $(document).on('ready', function() {
 	var flag_previews = function() {
 		if (!$('.flag_preview').length) $('[name=user_flag]').after('<img class="flag_preview">');
+		if (!$(this).val()) {
+			return $('.flag_preview').remove();
+		}
 
 		$('.flag_preview').attr('src', "/static/custom-flags/" + board_name + "/" + $(this).val() + '.png');
 	}
