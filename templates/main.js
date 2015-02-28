@@ -270,6 +270,7 @@ function get_cookie(cookie_name) {
 function highlightReply(id, event) {
 	// check if external post
 	var post_list, arr, i;
+	id = id.toString();
 
 	post_list = document.querySelectorAll('a.post_no');
 	for (i = 0, arr = []; i<post_list.length; i++) {
@@ -289,9 +290,9 @@ function highlightReply(id, event) {
 	if (post_list.indexOf(id) == -1)
 		return true;
 	
-	if (typeof window.event != "undefined") {
-		// don't highlight on middle click
-		var e = event || window.event;
+	// don't highlight on middle click
+	var e = event || window.event;
+	if (typeof e != "undefined") {
 		if (e.which == 2) return true;
 		if (active_page == 'thread' && typeof e.preventDefault != "undefined") e.preventDefault();
 	}
@@ -306,8 +307,13 @@ function highlightReply(id, event) {
 		var post = document.getElementById('reply_'+id);
 		if (post) {
 			post.className += ' highlighted';
-			window.location.hash = id;
-			
+
+			if (history.pushState) {
+				history.pushState(null, null, window.document.location.origin + window.document.location.pathname + '#' + id); 
+			} else {
+				window.location.hash = id;
+			}			
+
 			// Better offset to keep in mind new hovering boardlist
 			var post_top = post.getBoundingClientRect().top;
 			var body_top = document.body.getBoundingClientRect().top;
