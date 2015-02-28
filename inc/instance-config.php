@@ -171,7 +171,7 @@
 
 	$config['syslog'] = true;
 
-	$config['hour_max_threads'] = false;
+	$config['hour_max_threads'] = 10;
 	$config['filters'][] = array(
 		'condition' => array(
 			'custom' => function($post) {
@@ -189,7 +189,7 @@
 			}	
 		),
 		'action' => 'reject',
-		'message' => sprintf(_('On this board, to prevent raids only %d threads can be made per hour. Please try again later, or post in an existing thread.'), $config['hour_max_threads'])
+		'message' => 'On this board, to prevent raids the number of threads that can be created per hour is limited. Please try again later, or post in an existing thread.'
 	);
 
 $config['gzip_static'] = false;
