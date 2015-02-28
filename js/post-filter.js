@@ -408,13 +408,13 @@ if (active_page === 'thread' || active_page === 'index') {
 			if (!forcedAnon && hasTrip)
 				trip = $post.find('.trip').text();
 			if (hasSub)
-				subject = ' '+ $post.find('.subject').text() +' ';
+				subject = $post.find('.subject').text();
 
 			array = $post.find('.body').contents().filter(function () {if ($(this).text() !== '') return true;}).toArray();
 			array = $.map(array, function (ele) {
 				return $(ele).text();
 			});
-			comment = ' '+ array.join(' ') +' ';
+			comment = array.join(' ');
 
 
 			for (i = 0, length = list.generalFilter.length; i < length; i++) {
@@ -430,7 +430,7 @@ if (active_page === 'thread' || active_page === 'index') {
 							}
 							break;
 						case 'trip':
-							if (!forcedAnon && pattern.test(trip)) {
+							if (!forcedAnon && hasTrip && pattern.test(trip)) {
 								$post.data('hiddenByTrip', true);
 								hide(post);
 							}
@@ -463,13 +463,15 @@ if (active_page === 'thread' || active_page === 'index') {
 							}
 							break;
 						case 'sub':
-							if (hasSub && subject.indexOf(' '+ rule.value +' ') != -1) {
+							pattern = new RegExp('\\b'+ rule.value+ '\\b');
+							if (hasSub && pattern.test(subject)) {
 								$post.data('hiddenBySubject', true);
 								hide(post);
 							}
 							break;
 						case 'com':
-							if (comment.indexOf(' '+ rule.value +' ') != -1) {
+							pattern = new RegExp('\\b'+ rule.value+ '\\b');
+							if (pattern.test(comment)) {
 								$post.data('hiddenByComment', true);
 								hide(post);
 							}
@@ -592,17 +594,17 @@ if (active_page === 'thread' || active_page === 'index') {
 
 				$row = $('<tr>');
 				$row.append(
-							'<td>'+ typeName[obj.type] +'</td>',
-							'<td>'+ val +'</td>',
-							$('<td>').append(
-								$('<a>').html('X')
-									.addClass('del-btn')
-									.attr('href', '#')
-									.data('type', obj.type)
-									.data('val', obj.value)
-									.data('useRegex', obj.regex)
-							)
-						);
+					'<td>'+ typeName[obj.type] +'</td>',
+					'<td>'+ val +'</td>',
+					$('<td>').append(
+						$('<a>').html('X')
+							.addClass('del-btn')
+							.attr('href', '#')
+							.data('type', obj.type)
+							.data('val', obj.value)
+							.data('useRegex', obj.regex)
+					)
+				);
 				$ele.append($row);
 			}
 		}
@@ -753,33 +755,6 @@ if (active_page === 'thread' || active_page === 'index') {
 					lastPurge: timestamp()
 				});
 			}
-
-			/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-			 *  Migrate from previous version of post filter
-			 *  Remember to remove next time anyone touches this file
-			 */
-			(function () {
-				var list = getList();
-				if (typeof list.nameFilter != 'undefined') {
-					var filter = list.nameFilter;
-					list.generalFilter = [];
-
-					for (var i = 0; i < filter.length; i++) {
-						var obj = filter[i];
-						for (var key in obj) {
-							list.generalFilter.push({
-								type: key,
-								value: obj[key],
-								regex: false
-							});
-						}
-					}
-
-					delete list.nameFilter;
-					localStorage.postFilter = JSON.stringify(list);
-				}
-			})();
-			/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 			var pageData = {
 				boardId: board_name,  // get the id from the global variable
