@@ -3,21 +3,43 @@
 include "inc/functions.php";
 
 $body = <<<EOT
+<style>img{max-width:100%}</style>
 <div class="ban">
-<h2>What is ∞chan?</h2>
-<p>∞chan allows anyone who wants to to become the owner of their own board. They are given free reign to institute whatever rules they wish on their board, as long as they do not affect the global rules.</p>
+<h2>What is 8chan?</h2>
+<p>8ch.net is a site running 'infinity', which is an open source software that allows anyone to create and manage their own anonymous imageboard without any programming or webhosting experience for free.</p>
 
-<p>The idea of ∞chan is to minimize the trust needed in individual moderators to prevent "do it for free" moderators from accepting bribes (sexual or otherwise) to corrupt the whole site.</p>
+<h2>What is an imageboard?</h2>
+<p>An imageboard is a type of internet forum which lets users post text and images anonymously (without name) about any topic, or no topic at all. Unlike forums, imageboards do not hold old content permamently, and old threads are pruned as new ones are created.</p>
+ 
+<p>The imageboard format holds several advantages against traditional forums:</p>
+<ol>
+<li>There is no registration process, which allows for anyone to post what they like without having to jump through hoops.</li>
+<li>Users do not have names and thus feel no reason to build up an identity or reputation for themselves. Post are judged based on their content rather than who made them.</li>
+<li>sharing images and multimedia content is as easy as saving and uploading it to the site.</li>
+</ol>
 
-<p>The largest board owners are promoted to Global Volunteers. This is devised by an algorithm, but volunteers are only promoted with my express approval.</p>
+<h2>How is 8chan run?</h2>
+<p>8chan is a service that hosts a large selection of imageboards to browse. These boards are maintained by their respective board owners, who are not affiliated with the 8chan global staff.</p>
+<p>The 8chan global staff are responsible for maintaining the site as a whole and protecting it from spam and illegal content. The administration  is NOT responsible for enforcing any rules outside of the global rule. Any complaints about the content or management of a board should be addressed towards the owner of the board, unless it violates the law of the United States of America, or global policy.</p>
 
-<p>All new global volunteers are sent a message congratulating them on becoming global volunteers and explaining the position. Global volunteers simply delete CP, excessive spam and other illegal content that comes on the server and ban the posting users and their IP ranges.</p>
+<h2>How do I post a new thread?</h2>
+<p>Navigate to the board you would like to post on, fill out the post form, and click "New Thread". On many boards, you are required to upload an image, but if you do not have one you can also draw a picture by clicking "Oekaki". No boards require you to fill out a name or email address.</p>
+<img src="/static/faq/new-thread.png" alt="New thread FAQ">
 
-<p>There is a large penalty for abusing their powers to ban users for other reasons. That penalty is that I will not only remove their global volunteer position, but also commandeer their board. I will then find another suitable owner for it among the board's users and give it to them.</p>
+<h2>How do I comment on a thread?</h2>
+<p>On 8chan, threads are ordered by newest to oldest and have no "score" like on other websites. There are no upvotes or "Like" buttons. This allows even unpopular opinions to rise to the top. The replies in threads are ordered oldest to newest and similarly have no score.</p>
+<p>To reply to a thread, click [Reply] on any thread on a board's index.</p>
+<img src="/static/faq/new-reply.png" alt="New thread FAQ">
 
-<p>Thus, the only people who can delete content from 8chan are those who have a stake in the site itself because they own the boards. Thus, they are not really doing it for free - they are simply protecting their boards by protecting the site as a whole. It is in their interest to keep the site free of illegal content so that their boards stay up. If they abuse their power, the board that they worked hard to create is stripped from them.</p>
+<p>Fill out your reply. Only the "Comment" field is required for replies on all boards.</p>
+<img src="/static/faq/new-reply2.png" alt="New thread FAQ">
 
-<p>This means that there's only one person that needs to be trusted: me. If I could have found a way to remove myself from the trust model, I would have, but that is impossible given someone has to run the server.</p>
+<p>Your reply will be highlighted on the page.</p>
+<img src="/static/faq/new-reply3.png" alt="New thread FAQ">
+
+<h2>How do I reply to another poster?</h2>
+<p>Click the number of their post. A reply box will open automatically prepopulated with the post number you're replying to. Write your post under their post number. Similarly, when people reply to you, it will show (You) after the post number as a hint.</p>
+<img src="/static/faq/new-reply4.png" alt="New thread FAQ">
 
 
 <h2>Are there any global rules regarding content?</h2>
