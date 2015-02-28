@@ -112,7 +112,6 @@
 	$config['additional_javascript'][] = 'js/quick-post-controls.js';
 	$config['additional_javascript'][] = 'js/expand-too-long.js';
 	$config['additional_javascript'][] = 'js/settings.js';
-	$config['additional_javascript'][] = 'js/fix-report-delete-submit.js';
 	$config['additional_javascript'][] = 'js/hide-images.js';
 	$config['additional_javascript'][] = 'js/expand-all-images.js';
 	$config['additional_javascript'][] = 'js/local-time.js';
@@ -142,7 +141,9 @@
 	$config['additional_javascript'][] = 'js/quote-selection.js';
 	$config['additional_javascript'][] = 'js/twemoji/twemoji.js';
 	$config['additional_javascript'][] = 'js/flag-previews.js';
+	$config['additional_javascript'][] = 'js/post-menu.js';
 	$config['additional_javascript'][] = 'js/post-filter.js';
+	$config['additional_javascript'][] = 'js/fix-report-delete-submit.js';
 	$config['additional_javascript'][] = 'js/image-hover.js';
 	$config['additional_javascript'][] = 'js/auto-scroll.js';
 
