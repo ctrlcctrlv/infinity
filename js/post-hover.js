@@ -78,8 +78,8 @@ onready(function(){
 						
 					// shrink expanded images
 					newPost.find('div.file a[data-expanded="true"]').each(function() {
-						var thumb = $(this).data('src');
-						$(this).find('img.post-image').attr('src', thumb);
+						var thumb = $(this).find('img.post-image').attr('src');
+						$(this).find('img.full-image').attr('src', thumb);
 					});
 					
 					// Highlight references to the current post
@@ -181,9 +181,11 @@ onready(function(){
 						return (i === 0) ? bytes +' '+ sizes[i] : (bytes / Math.pow(1024, i)).toFixed(2) +' ' +sizes[i];
 					};
 
+					var time = (!localStorage.show_relative_time || localStorage.show_relative_time === 'false') ? dateformat(new Date(data.time)) : timeDifference(Date.now(), data.time);
 					var $post = $('<div class="post reply hidden" id="reply_'+ data.no +'">')
 								.append($('<p class="intro"></p>')
 									.append('<span class="name">'+ data.name +'</span> ')
+									.append('<time>'+ time +'</time>')
 									.append('<a class="post_no">No.'+ data.no +'</a>')
 								)
 								.append($('<div class="body"></div>')
@@ -328,6 +330,46 @@ onready(function(){
 			return deferred.promise();
 		};
 	})();
+
+	var zeropad = function(num, count) {
+		return [Math.pow(10, count - num.toString().length), num].join('').substr(1);
+	};
+
+	var dateformat = (typeof strftime === 'undefined') ? function(t) {
+		return zeropad(t.getMonth() + 1, 2) + "/" + zeropad(t.getDate(), 2) + "/" + t.getFullYear().toString().substring(2) +
+				" (" + [_("Sun"), _("Mon"), _("Tue"), _("Wed"), _("Thu"), _("Fri"), _("Sat"), _("Sun")][t.getDay()]  + ") " +
+				// time
+				zeropad(t.getHours(), 2) + ":" + zeropad(t.getMinutes(), 2) + ":" + zeropad(t.getSeconds(), 2);
+
+	} : function(t) {
+		// post_date is defined in templates/main.js
+		return strftime(window.post_date, t, datelocale);
+	};
+
+	function timeDifference(current, previous) {
+
+		var msPerMinute = 60 * 1000;
+		var msPerHour = msPerMinute * 60;
+		var msPerDay = msPerHour * 24;
+		var msPerMonth = msPerDay * 30;
+		var msPerYear = msPerDay * 365;
+
+		var elapsed = current - previous;
+
+		if (elapsed < msPerMinute) {
+			return 'Just now';
+		} else if (elapsed < msPerHour) {
+			return Math.round(elapsed/msPerMinute) + (Math.round(elapsed/msPerMinute)<=1 ? ' minute ago':' minutes ago');
+		} else if (elapsed < msPerDay ) {
+			return Math.round(elapsed/msPerHour ) + (Math.round(elapsed/msPerHour)<=1 ? ' hour ago':' hours ago');
+		} else if (elapsed < msPerMonth) {
+			return Math.round(elapsed/msPerDay) + (Math.round(elapsed/msPerDay)<=1 ? ' day ago':' days ago');
+		} else if (elapsed < msPerYear) {
+			return Math.round(elapsed/msPerMonth) + (Math.round(elapsed/msPerMonth)<=1 ? ' month ago':' months ago');
+		} else {
+			return Math.round(elapsed/msPerYear ) + (Math.round(elapsed/msPerYear)<=1 ? ' year ago':' years ago');
+		}
+	}
 	
 	$('div.body a:not([rel="nofollow"])').each(init_hover);
 	
