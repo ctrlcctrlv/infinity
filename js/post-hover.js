@@ -181,12 +181,12 @@ onready(function(){
 						return (i === 0) ? bytes +' '+ sizes[i] : (bytes / Math.pow(1024, i)).toFixed(2) +' ' +sizes[i];
 					};
 
-					var time = (!localStorage.show_relative_time || localStorage.show_relative_time === 'false') ? dateformat(new Date(data.time)) : timeDifference(Date.now(), data.time);
+					var time = (!localStorage.show_relative_time || localStorage.show_relative_time === 'false') ? dateformat(new Date(data.time*1000)) : timeDifference(Date.now(), data.time*1000);
 					var $post = $('<div class="post reply hidden" id="reply_'+ data.no +'">')
 								.append($('<p class="intro"></p>')
 									.append('<span class="name">'+ data.name +'</span> ')
-									.append('<time>'+ time +'</time>')
-									.append('<a class="post_no">No.'+ data.no +'</a>')
+									.append('<time datetime="'+ new Date(data.time*1000).toISOString() +'">'+ time +'</time>')
+									.append('<a class="post_no"> No.'+ data.no +'</a>')
 								)
 								.append($('<div class="body"></div>')
 									.html(data.com)
