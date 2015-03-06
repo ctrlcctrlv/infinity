@@ -78,8 +78,8 @@ onready(function(){
 						
 					// shrink expanded images
 					newPost.find('div.file a[data-expanded="true"]').each(function() {
-						var thumb = $(this).data('src');
-						$(this).find('img.post-image').attr('src', thumb);
+						var thumb = $(this).find('img.post-image').attr('src');
+						$(this).find('img.full-image').attr('src', thumb);
 					});
 					
 					// Highlight references to the current post
@@ -181,19 +181,23 @@ onready(function(){
 						return (i === 0) ? bytes +' '+ sizes[i] : (bytes / Math.pow(1024, i)).toFixed(2) +' ' +sizes[i];
 					};
 
-					//	in case no subject
-					if (!data.sub) data.sub = '';
-
+					var time = (!localStorage.show_relative_time || localStorage.show_relative_time === 'false') ? dateformat(new Date(data.time)) : timeDifference(Date.now(), data.time);
 					var $post = $('<div class="post reply hidden" id="reply_'+ data.no +'">')
 								.append($('<p class="intro"></p>')
-									.append('<span class="subject">'+ data.sub +'</span> ')
 									.append('<span class="name">'+ data.name +'</span> ')
+									.append('<time>'+ time +'</time>')
 									.append('<a class="post_no">No.'+ data.no +'</a>')
 								)
 								.append($('<div class="body"></div>')
 									.html(data.com)
 								)
 								.css('display', 'none');
+
+					//	other stuff
+					if ('sub' in data) $post.find('.intro').prepend('<span class="subject">'+ data.sub +'</span> ');
+					if ('trip' in data) $post.find('.name').after('<span class="trip">'+ data.trip +'</span>');
+					if ('capcode' in data) $post.find('.post_no').before('<span class="capcode">## '+ data.capcode +'</span>');
+					if ('id' in data) $post.find('.post_no').before('<span class="poster_id">'+ data.id +'</span>');
 
 					if ('filename' in data) {
 						var $files = $('<div class="files">');
@@ -208,20 +212,32 @@ onready(function(){
 
 						$.each(file_array, function () {
 							var thumb_url;
-                            var file_ext = this.ext;
+							var file_ext = this.ext;
 
 							if (this.isImage && !this.isSpoiler) {
-								// video files uses jpg for thumbnail
-								if (this.ext === '.webm' || this.ext === '.mp4' || this.ext === '.jpeg') this.ext = '.jpg';
+
+								// at some point around 28/29th of Jan, 2015; all the newly  generated thumbnails switched to using jpg
+								// this is a quick hack to ensure that external preview (mostly) works with old and new posts
+
+									// Note: please update if a more accurate timestamp is known 
+								if (data.last_modified > 1422489600) {
+									this.ext = '.jpg';
+								} else {
+									if (this.ext === '.webm' || this.ext === '.mp4' || this.ext === '.jpeg') {
+										this.ext = '.jpg';
+									}
+								}
+
 								thumb_url = '/'+ board +'/thumb/' + this.tim + this.ext;
+
 							} else {
 								thumb_url = (this.isSpoiler) ? '/static/spoiler.png' : '/static/file.png';
 							}
 
-                            // truncate long filenames
-                            if (this.filename.length > 23) {
-                                this.filename = this.filename.substr(0, 22) + '…';
-                            }
+							// truncate long filenames
+							if (this.filename.length > 23) {
+								this.filename = this.filename.substr(0, 22) + '…';
+							}
 
 							// file infos
 							var $ele = $('<div class="file">')
@@ -243,6 +259,11 @@ onready(function(){
 						});
 						
 						$post.children('p.intro').after($files);
+
+						// youtube embed
+						if ('embed' in data) {
+							$post.children('p.intro').after(data.embed);
+						}
 					}
 
 					var mythreadid = (data.resto !== 0) ? data.resto : data.no;
@@ -309,6 +330,46 @@ onready(function(){
 			return deferred.promise();
 		};
 	})();
+
+	var zeropad = function(num, count) {
+		return [Math.pow(10, count - num.toString().length), num].join('').substr(1);
+	};
+
+	var dateformat = (typeof strftime === 'undefined') ? function(t) {
+		return zeropad(t.getMonth() + 1, 2) + "/" + zeropad(t.getDate(), 2) + "/" + t.getFullYear().toString().substring(2) +
+				" (" + [_("Sun"), _("Mon"), _("Tue"), _("Wed"), _("Thu"), _("Fri"), _("Sat"), _("Sun")][t.getDay()]  + ") " +
+				// time
+				zeropad(t.getHours(), 2) + ":" + zeropad(t.getMinutes(), 2) + ":" + zeropad(t.getSeconds(), 2);
+
+	} : function(t) {
+		// post_date is defined in templates/main.js
+		return strftime(window.post_date, t, datelocale);
+	};
+
+	function timeDifference(current, previous) {
+
+		var msPerMinute = 60 * 1000;
+		var msPerHour = msPerMinute * 60;
+		var msPerDay = msPerHour * 24;
+		var msPerMonth = msPerDay * 30;
+		var msPerYear = msPerDay * 365;
+
+		var elapsed = current - previous;
+
+		if (elapsed < msPerMinute) {
+			return 'Just now';
+		} else if (elapsed < msPerHour) {
+			return Math.round(elapsed/msPerMinute) + (Math.round(elapsed/msPerMinute)<=1 ? ' minute ago':' minutes ago');
+		} else if (elapsed < msPerDay ) {
+			return Math.round(elapsed/msPerHour ) + (Math.round(elapsed/msPerHour)<=1 ? ' hour ago':' hours ago');
+		} else if (elapsed < msPerMonth) {
+			return Math.round(elapsed/msPerDay) + (Math.round(elapsed/msPerDay)<=1 ? ' day ago':' days ago');
+		} else if (elapsed < msPerYear) {
+			return Math.round(elapsed/msPerMonth) + (Math.round(elapsed/msPerMonth)<=1 ? ' month ago':' months ago');
+		} else {
+			return Math.round(elapsed/msPerYear ) + (Math.round(elapsed/msPerYear)<=1 ? ' year ago':' years ago');
+		}
+	}
 	
 	$('div.body a:not([rel="nofollow"])').each(init_hover);
 	
