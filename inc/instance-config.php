@@ -109,7 +109,6 @@
 	$config['additional_javascript'][] = 'js/webm-settings.js';
 	$config['additional_javascript'][] = 'js/expand-video.js';
 	$config['additional_javascript'][] = 'js/treeview.js';
-	$config['additional_javascript'][] = 'js/quick-post-controls.js';
 	$config['additional_javascript'][] = 'js/expand-too-long.js';
 	$config['additional_javascript'][] = 'js/settings.js';
 	$config['additional_javascript'][] = 'js/hide-images.js';
