@@ -692,7 +692,8 @@ function mod_board_log($board, $page_no = 1, $hide_names = false, $public = fals
 		// Supports ipv4 only!
 		foreach ($logs as $i => &$log) {
 			$log['text'] = preg_replace_callback('/(?:<a href="\?\/IP\/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}">)?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})(?:<\/a>)?/', function($matches) {
-				return less_ip($matches[1]);
+				global $board;
+				return less_ip($matches[1], $board['uri']);
 			}, $log['text']);
 		}
 	}
@@ -861,6 +862,9 @@ function mod_page_ip($ip) {
 function mod_page_ip_less($b, $id) {
 	global $config, $mod;
 
+	if (!openBoard($b))
+		error('No board.');
+
 	$query = prepare(sprintf('SELECT `ip` FROM ``posts_%s`` WHERE `id` = :id', $b));
 	$query->bindValue(':id', $id);
 	$query->execute() or error(db_error($query));
@@ -912,8 +916,6 @@ function mod_page_ip_less($b, $id) {
 	if ($config['mod']['dns_lookup'])
 		$args['hostname'] = rDNS($ip);
 
-	openBoard($b);
-
 	$query = prepare(sprintf('SELECT * FROM ``posts_%s`` WHERE `ip` = :ip ORDER BY `sticky` DESC, `id` DESC LIMIT :limit', $b));
 	$query->bindValue(':ip', $ip);
 	$query->bindValue(':limit', $config['mod']['ip_less_recentposts'], PDO::PARAM_INT);
@@ -956,7 +958,7 @@ function mod_page_ip_less($b, $id) {
 	
 	$args['security_token'] = make_secure_link_token('IP_less/' . $b . '/' . $id);
 	
-	mod_page(sprintf('%s: %s', _('IP'), less_ip($ip)), 'mod/view_ip_less.html', $args);
+	mod_page(sprintf('%s: %s', _('IP'), less_ip($ip, $b)), 'mod/view_ip_less.html', $args);
 }
 
 function mod_ban() {

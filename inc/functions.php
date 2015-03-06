@@ -2471,7 +2471,7 @@ function diceRoller($post) {
 	}
 }
 
-function less_ip($ip) {
+function less_ip($ip, $board = '') {
 	global $config;
 
 	$ipv6 = (strstr($ip, ':') !== false);
@@ -2496,7 +2496,7 @@ function less_ip($ip) {
 	$masked = str_replace(array(':0', '.0'), array(':x', '.x'), $final);
 
 	if ($config['hash_masked_ip']) {
-		$masked = substr(sha1(sha1($masked) . $config['secure_trip_salt']), 0, 10);
+		$masked = substr(sha1(sha1($masked . $board) . $config['secure_trip_salt']), 0, 10);
 	}
 
 	$masked .= (isset($range) ? '/'.$range : '');

@@ -166,7 +166,7 @@ class Bans {
 		}
 		if ($board_access !== FALSE) {
 			if (!$query_addition) {
-				$query_addition .= " WHERE (`public_bans` IS TRUE)";
+				$query_addition .= " WHERE (`public_bans` IS TRUE) OR ``bans``.`board` IS NULL";
 			}
 		}
 
@@ -219,7 +219,7 @@ class Bans {
 			}
 			unset($ban['type']);
 			if ($filter_ips || ($board_access !== false && !in_array($ban['board'], $board_access))) {
-				$ban['mask'] = @less_ip($ban['mask']);
+				$ban['mask'] = @less_ip($ban['mask'], $ban['board']);
 
 				$ban['masked'] = true;
 			}
@@ -260,8 +260,11 @@ class Bans {
 				return false;
 			}
 
-			if ($boards !== false && !in_array($ban['board'], $boards))
+			if ($boards !== false && !in_array($ban['board'], $boards)) 
 		                error($config['error']['noaccess']);
+
+			if ($ban['board']) 
+				openBoard($ban['board']);
 			
 			$mask = self::range_to_string(array($ban['ipstart'], $ban['ipend']));
 			

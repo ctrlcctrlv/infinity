@@ -132,6 +132,6 @@ function twig_secure_link_confirm($text, $title, $confirm_message, $href) {
 function twig_secure_link($href) {
 	return $href . '/' . make_secure_link_token($href);
 }
-function twig_less_ip($ip) {
-	return less_ip($ip);
+function twig_less_ip($ip, $board = '') {
+	return less_ip($ip, $board);
 }

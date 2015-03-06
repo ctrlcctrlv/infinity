@@ -21,7 +21,7 @@
 		{% elseif mod|hasPermission(config.mod.show_ip_less, board.uri) %}
 			<tr>
 				<th>{% trans 'IP' %}</th>
-				<td>{{ ban.mask|less_ip }}</td>
+				<td>{{ ban.mask|less_ip(ban.board) }}</td>
 			</tr>
 		{% endif %}
 		<tr>
