@@ -1049,8 +1049,9 @@
 
 	// Youtube.js embed HTML code
 	$config['youtube_js_html'] = '<div class="video-container" data-video="$1" data-params="&$2&$3">'.
+		'<span class="unimportant yt-help">YouTube embed. Click thumbnail to play.</span><br>'.
 		'<a href="$0" target="_blank" class="file">'.
-		'<img style="width:360px;height:270px;" src="//img.youtube.com/vi/$1/0.jpg" class="post-image"/>'.
+		'<img style="width:255px" src="//img.youtube.com/vi/$1/0.jpg" class="post-image"/>'.
 		'</a></div>';
 
 	// Custom embedding (YouTube, vimeo, etc.)
