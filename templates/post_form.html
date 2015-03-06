@@ -80,26 +80,20 @@
 		</tr>
 		{% endif %}
 
-		{% if config.captcha.enabled %}
+		{% if config.captcha.enabled or (config.new_thread_capt and not id) %}
 		<tr class='captcha'>
 			<th>
 				{% trans %}Verification{% endtrans %}
 			</th>
 			<td>
 				<script>load_captcha("{{ config.captcha.provider_get }}", "{{ config.captcha.extra }}");</script>
+				<noscript>You seem to have JavaScript disabled. To complete the CAPTCHA,<br><a href="{{ config.captcha.provider_get }}?mode=get&amp;extra={{ config.captcha.extra }}&amp;nojs=true" target="_blank">open this link in a new tab</a> and put the result in the boxes below:
+				<br>
+				ID: <input class="captcha_cookie" type="text" name="captcha_cookie" size="25" autocomplete="off"><br>
+				Answer: <input class="captcha_text" type="text" name="captcha_text" size="25" maxlength="6" autocomplete="off">
+				</noscript>
 			</td>
 		</tr>
-		{% elseif config.new_thread_capt %}
-			{% if not id %} 
-			<tr class='captcha'>
-                        <th>
-                                {% trans %}Verification{% endtrans %}
-                        </th>
-                        <td>
-                                <script>load_captcha("{{ config.captcha.provider_get }}", "{{ config.captcha.extra }}");</script>
-                        </td>
-                	</tr>
-			{% endif %}
 		{% endif %}
 
 		{% if config.user_flag %}
