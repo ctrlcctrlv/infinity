@@ -304,6 +304,10 @@ div.post.reply {
   max-width: 94%!important;
 }
 
+div.post.reply.has-file.body-not-empty {
+  min-width: 33%;
+}
+
 div.post_modified {
   margin-left: 1.8em;
 }
@@ -748,6 +752,9 @@ pre {
 
   .theme-catalog div.threads {
     overflow: hidden;
+  }
+  div.post .body {
+    clear: both;
   }
 }
 
