@@ -524,6 +524,28 @@ OEKAKI;
 				$hour_max_threads = 'false';
 			}
 
+			if (isset($_POST['max_pages'])) {
+				$mp = (int)$_POST['max_pages'];
+				if ($mp > 25 || $mp < 2) {
+					$max_pages = 15;
+				} else {
+					$max_pages = $mp;
+				}
+			} else {
+				$max_pages = 15;
+			}			
+
+			if (isset($_POST['reply_limit'])) {
+				$rl = (int)$_POST['reply_limit'];
+				if ($rl > 750 || $rl < 250 || $rl % 25) {
+					$reply_limit = 250;
+				} else {
+					$reply_limit = $rl;
+				}
+			} else {
+				$reply_limit = 250;
+			}
+
 			if (!(strlen($title) < 40))
 				error('Invalid title');
 			if (!(strlen($subtitle) < 200))
@@ -564,6 +586,8 @@ OEKAKI;
 \$config['tor_posting'] = $tor_posting;
 \$config['new_thread_capt'] = $new_thread_capt;
 \$config['hour_max_threads'] = $hour_max_threads;
+\$config['reply_limit'] = $reply_limit;
+\$config['max_pages'] = $max_pages;
 $code_tags $katex $oekaki $replace $multiimage $allow_flash $allow_pdf $user_flags
 if (\$config['disable_images'])
 	\$config['max_pages'] = 10000;
