@@ -198,6 +198,7 @@ onready(function(){
 					if ('trip' in data) $post.find('.name').after('<span class="trip">'+ data.trip +'</span>');
 					if ('capcode' in data) $post.find('.post_no').before('<span class="capcode">## '+ data.capcode +'</span>');
 					if ('id' in data) $post.find('.post_no').before('<span class="poster_id">'+ data.id +'</span>');
+					if ('embed' in data) $post.find('p.intro').after(data.embed);
 
 					if ('filename' in data) {
 						var $files = $('<div class="files">');
@@ -260,10 +261,6 @@ onready(function(){
 						
 						$post.children('p.intro').after($files);
 
-						// youtube embed
-						if ('embed' in data) {
-							$post.children('p.intro').after(data.embed);
-						}
 					}
 
 					var mythreadid = (data.resto !== 0) ? data.resto : data.no;
