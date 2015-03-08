@@ -53,7 +53,7 @@ $(document).ready(function(){
 			}
 		});
 		if (localStorage.auto_thread_update === 'true') {
-			$('#show-relative-time>input').prop('checked', true);
+			$('#auto-thread-update>input').prop('checked', true);
 		}
 	}
 
