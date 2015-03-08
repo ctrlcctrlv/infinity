@@ -28,16 +28,6 @@ function makeIcon(){
 }
 
 $(document).ready(function(){
-	if($('div.banner').length == 0)
-		return; // not index
-		
-	if($(".post.op").size() != 1)
-		return; //not thread page
-	
-	var countdown_interval;
-
-	// Add an update link
-	$('.boardlist.bottom').prev().after("<span id='updater'><a href='#' id='update_thread' style='padding-left:10px'>["+_("Update")+"]</a> (<input type='checkbox' id='auto_update_status'> "+_("Auto")+") <span id='update_secs'></span></span>");
 
 	// Adds Options panel item
 	if (typeof localStorage.auto_thread_update === 'undefined') {
@@ -53,9 +43,18 @@ $(document).ready(function(){
 			}
 		});
 		if (localStorage.auto_thread_update === 'true') {
-			$('#show-relative-time>input').prop('checked', true);
+			$('#auto-thread-update>input').prop('checked', true);
 		}
 	}
+
+	// not thread
+	if (active_page != 'thread')
+		return;
+
+	var countdown_interval;
+
+	// Add an update link
+	$('.boardlist.bottom').prev().after("<span id='updater'><a href='#' id='update_thread' style='padding-left:10px'>["+_("Update")+"]</a> (<input type='checkbox' id='auto_update_status'> "+_("Auto")+") <span id='update_secs'></span></span>");
 
 	// Set the updater checkbox according to user setting
 	if (localStorage.auto_thread_update === 'true') {
