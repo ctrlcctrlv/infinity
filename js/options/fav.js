@@ -1,5 +1,3 @@
-load_js("//code.jquery.com/ui/1.11.3/jquery-ui.js"); //Making the dragging much smoother
-
 //Setting variables
 var favorites = JSON.parse(localStorage.favorites);
 var tab = Options.add_tab('fav-tab','star',_("Favorites"));
