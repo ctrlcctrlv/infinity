@@ -1,7 +1,6 @@
 //Setting variables
 var favorites = JSON.parse(localStorage.favorites);
 var tab = Options.add_tab('fav-tab','star',_("Favorites"));
-var i = 0;
 var favList = [];
 var minusList = [];
 var helpMessage = "<span>Drag the boards to sort them.</span><br></br>";
@@ -9,7 +8,7 @@ var helpMessage = "<span>Drag the boards to sort them.</span><br></br>";
 //Creating functions
 function generateList(){
 	var favStor = [];
-  for(i=1; i<favorites.length+1; i++){
+  for(var i=1; i<favorites.length+1; i++){
   	favStor.push($("#sortable > div:nth-child("+i+")").html());
   }
 	return JSON.stringify(favStor);
@@ -46,14 +45,14 @@ function addBoard(){
 
 //Creating list of boards
 favList += "<div id=\"sortable\" style=\"cursor: pointer; float: left;display: inline-block\">";
-for(i=0; i<favorites.length; i++){
+for(var i=0; i<favorites.length; i++){
     favList += "<div>"+favorites[i]+"</div>";
 } 
 favList += "</div>"; 
 
 //Creating list of minus symbols to remove unwanted boards
 minusList += "<div id=\"minusList\" style=\"color: #0000FF;display: inline-block\">";
-for(i=0; i<favorites.length; i++){
+for(var i=0; i<favorites.length; i++){
     minusList += "<div onclick=\"removeBoard("+i+")\" style=\"cursor: pointer; margin-left: 5px\">-</div>";
 } 
 minusList += "</div>"; 
