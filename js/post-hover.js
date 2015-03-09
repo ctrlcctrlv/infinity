@@ -77,10 +77,8 @@ onready(function(){
 						.appendTo(link.closest('div.post'));
 						
 					// shrink expanded images
-					newPost.find('div.file a[data-expanded="true"]').each(function() {
-						var thumb = $(this).find('img.post-image').attr('src');
-						$(this).find('img.full-image').attr('src', thumb);
-					});
+					newPost.find('div.file img.post-image').css({'display': '', 'opacity': ''});
+					newPost.find('div.file img.full-image').remove();
 					
 					// Highlight references to the current post
 					if (link.hasClass('mentioned-'+id)) {
