@@ -6,9 +6,9 @@ var minusList = [];
 var helpMessage = "<span>Drag the boards to sort them.</span><br></br>";
 
 //Creating functions
-function generateList(){
+var generateList = function(){
 	var favStor = [];
-  for(var i=1; i<favorites.length+1; i++){
+	for(var i=1; i<favorites.length+1; i++){
   	favStor.push($("#sortable > div:nth-child("+i+")").html());
   }
 	return JSON.stringify(favStor);
