@@ -28,6 +28,7 @@ class Twig_NodeVisitor_Optimizer implements Twig_NodeVisitorInterface
     const OPTIMIZE_VAR_ACCESS  = 8;
 
     protected $loops = array();
+    protected $loopsTargets = array();
     protected $optimizers;
     protected $prependedNodes = array();
     protected $inABody = false;
@@ -35,11 +36,11 @@ class Twig_NodeVisitor_Optimizer implements Twig_NodeVisitorInterface
     /**
      * Constructor.
      *
-     * @param integer $optimizers The optimizer mode
+     * @param int $optimizers The optimizer mode
      */
     public function __construct($optimizers = -1)
     {
-        if (!is_int($optimizers) || $optimizers > 2) {
+        if (!is_int($optimizers) || $optimizers > (self::OPTIMIZE_FOR | self::OPTIMIZE_RAW_FILTER | self::OPTIMIZE_VAR_ACCESS)) {
             throw new InvalidArgumentException(sprintf('Optimizer mode "%s" is not valid.', $optimizers));
         }
 
@@ -55,7 +56,7 @@ class Twig_NodeVisitor_Optimizer implements Twig_NodeVisitorInterface
             $this->enterOptimizeFor($node, $env);
         }
 
-        if (!version_compare(phpversion(), '5.4.0RC1', '>=') && self::OPTIMIZE_VAR_ACCESS === (self::OPTIMIZE_VAR_ACCESS & $this->optimizers) && !$env->isStrictVariables() && !$env->hasExtension('sandbox')) {
+        if (PHP_VERSION_ID < 50400 && self::OPTIMIZE_VAR_ACCESS === (self::OPTIMIZE_VAR_ACCESS & $this->optimizers) && !$env->isStrictVariables() && !$env->hasExtension('sandbox')) {
             if ($this->inABody) {
                 if (!$node instanceof Twig_Node_Expression) {
                     if (get_class($node) !== 'Twig_Node') {
@@ -108,7 +109,7 @@ class Twig_NodeVisitor_Optimizer implements Twig_NodeVisitorInterface
         return $node;
     }
 
-    protected function optimizeVariables($node, $env)
+    protected function optimizeVariables(Twig_NodeInterface $node, Twig_Environment $env)
     {
         if ('Twig_Node_Expression_Name' === get_class($node) && $node->isSimple()) {
             $this->prependedNodes[0][] = $node->getAttribute('name');
@@ -129,7 +130,7 @@ class Twig_NodeVisitor_Optimizer implements Twig_NodeVisitorInterface
      * @param Twig_NodeInterface $node A Node
      * @param Twig_Environment   $env  The current Twig environment
      */
-    protected function optimizePrintNode($node, $env)
+    protected function optimizePrintNode(Twig_NodeInterface $node, Twig_Environment $env)
     {
         if (!$node instanceof Twig_Node_Print) {
             return $node;
@@ -153,7 +154,7 @@ class Twig_NodeVisitor_Optimizer implements Twig_NodeVisitorInterface
      * @param Twig_NodeInterface $node A Node
      * @param Twig_Environment   $env  The current Twig environment
      */
-    protected function optimizeRawFilter($node, $env)
+    protected function optimizeRawFilter(Twig_NodeInterface $node, Twig_Environment $env)
     {
         if ($node instanceof Twig_Node_Expression_Filter && 'raw' == $node->getNode('filter')->getAttribute('value')) {
             return $node->getNode('node');
@@ -168,12 +169,14 @@ class Twig_NodeVisitor_Optimizer implements Twig_NodeVisitorInterface
      * @param Twig_NodeInterface $node A Node
      * @param Twig_Environment   $env  The current Twig environment
      */
-    protected function enterOptimizeFor($node, $env)
+    protected function enterOptimizeFor(Twig_NodeInterface $node, Twig_Environment $env)
     {
         if ($node instanceof Twig_Node_For) {
             // disable the loop variable by default
             $node->setAttribute('with_loop', false);
             array_unshift($this->loops, $node);
+            array_unshift($this->loopsTargets, $node->getNode('value_target')->getAttribute('name'));
+            array_unshift($this->loopsTargets, $node->getNode('key_target')->getAttribute('name'));
         } elseif (!$this->loops) {
             // we are outside a loop
             return;
@@ -183,7 +186,13 @@ class Twig_NodeVisitor_Optimizer implements Twig_NodeVisitorInterface
 
         // the loop variable is referenced for the current loop
         elseif ($node instanceof Twig_Node_Expression_Name && 'loop' === $node->getAttribute('name')) {
+            $node->setAttribute('always_defined', true);
             $this->addLoopToCurrent();
+        }
+
+        // optimize access to loop targets
+        elseif ($node instanceof Twig_Node_Expression_Name && in_array($node->getAttribute('name'), $this->loopsTargets)) {
+            $node->setAttribute('always_defined', true);
         }
 
         // block reference
@@ -193,6 +202,16 @@ class Twig_NodeVisitor_Optimizer implements Twig_NodeVisitorInterface
 
         // include without the only attribute
         elseif ($node instanceof Twig_Node_Include && !$node->getAttribute('only')) {
+            $this->addLoopToAll();
+        }
+
+        // include function without the with_context=false parameter
+        elseif ($node instanceof Twig_Node_Expression_Function
+            && 'include' === $node->getAttribute('name')
+            && (!$node->getNode('arguments')->hasNode('with_context')
+                 || false !== $node->getNode('arguments')->getNode('with_context')->getAttribute('value')
+               )
+        ) {
             $this->addLoopToAll();
         }
 
@@ -217,10 +236,12 @@ class Twig_NodeVisitor_Optimizer implements Twig_NodeVisitorInterface
      * @param Twig_NodeInterface $node A Node
      * @param Twig_Environment   $env  The current Twig environment
      */
-    protected function leaveOptimizeFor($node, $env)
+    protected function leaveOptimizeFor(Twig_NodeInterface $node, Twig_Environment $env)
     {
         if ($node instanceof Twig_Node_For) {
             array_shift($this->loops);
+            array_shift($this->loopsTargets);
+            array_shift($this->loopsTargets);
         }
     }
 
