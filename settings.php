@@ -10,7 +10,7 @@ if (!openBoard($_GET['board'])) {
 	error('No board.');
 }
 
-header('Content-Type: text/json');
+header('Content-Type: application/json');
 $safe_config['title'] = $board['title'];
 $safe_config['subtitle'] = $board['subtitle'];
 $safe_config['indexed'] = ($board['indexed'] == "1");
