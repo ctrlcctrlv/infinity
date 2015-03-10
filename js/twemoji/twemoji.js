@@ -513,13 +513,14 @@ var twemoji = (function (
 
 }());
 
-onready(function(){
+$(document).ready(function () {
 	var twemoji_opts = {
 	    callback: function(icon, options, variant) {
 		switch ( icon ) {
 		    case 'a9':      // copyright
 		    case 'ae':      // (R)
 		    case '2122':    // TM
+                    case '25b6':    // post filter 
 			return false;
 		}
 		return ''.concat(options.base, options.size, '/', icon, options.ext);
