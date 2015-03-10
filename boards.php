@@ -12,6 +12,7 @@ $boards = listBoards();
 $all_tags = array();
 $total_posts_hour = 0;
 $total_posts = 0;
+$write_maxes = false;
 
 function to_tag($str) {
 	$str = trim($str);
@@ -20,14 +21,15 @@ function to_tag($str) {
 	return $str;
 }
 
+if (!file_exists('maxes.txt') || filemtime('maxes.txt') < (time() - (60*60))) {
+	$fp = fopen('maxes.txt', 'w+');
+	$write_maxes = true;
+}
+
 foreach ($boards as $i => $board) {
-
-	//$query = prepare(sprintf("SELECT (SELECT MAX(id) from ``posts_%s``) AS max, (SELECT MAX(id) FROM ``posts_%s`` WHERE FROM_UNIXTIME(time) < DATE_SUB(NOW(), INTERVAL 1 HOUR)) AS oldmax, (SELECT MAX(id) from ``posts_%s``) AS max_d, (SELECT MAX(id) FROM ``posts_%s`` WHERE FROM_UNIXTIME(time) < DATE_SUB(NOW(), INTERVAL 1 DAY)) AS oldmax_d, (SELECT count(id) FROM ``posts_%s``) AS count;", $board['uri'], $board['uri'], $board['uri'], $board['uri'], $board['uri']));
-
 	$query = prepare(sprintf("
-SELECT MAX(id) max, (SELECT COUNT(*) FROM ``posts_%s`` WHERE FROM_UNIXTIME(time) > DATE_SUB(NOW(), INTERVAL 1 DAY)) ppd, 
+SELECT IFNULL(MAX(id),0) max,
 (SELECT COUNT(*) FROM ``posts_%s`` WHERE FROM_UNIXTIME(time) > DATE_SUB(NOW(), INTERVAL 1 HOUR)) pph,
-(SELECT count(id) FROM ``posts_%s``) count,
 (SELECT COUNT(DISTINCT ip) FROM ``posts_%s`` WHERE FROM_UNIXTIME(time) > DATE_SUB(NOW(), INTERVAL 3 DAY)) uniq_ip
  FROM ``posts_%s``
 ", $board['uri'], $board['uri'], $board['uri'], $board['uri'], $board['uri']));
@@ -52,17 +54,19 @@ SELECT MAX(id) max, (SELECT COUNT(*) FROM ``posts_%s`` WHERE FROM_UNIXTIME(time)
 	}
 
 	$pph = $r['pph'];
-	$ppd = $r['ppd'];
 
 	$total_posts_hour += $pph;
 	$total_posts += $r['max'];
 
 	$boards[$i]['pph'] = $pph;
-	$boards[$i]['ppd'] = $ppd;
+	$boards[$i]['ppd'] = $pph*24;
 	$boards[$i]['max'] = $r['max'];
 	$boards[$i]['uniq_ip'] = $r['uniq_ip'];
 	$boards[$i]['tags'] = $tags;
+
+	if ($write_maxes) fwrite($fp, $board['uri'] . ':' . $boards[$i]['max'] . "\n");
 }
+if ($write_maxes) fclose($fp);
 
 usort($boards, 
 function ($a, $b) { 
@@ -117,14 +121,16 @@ $config['additional_javascript'] = array('js/jquery.min.js', 'js/jquery.tablesor
 $body = Element("8chan/boards-tags.html", array("config" => $config, "n_boards" => $n_boards, "t_boards" => $t_boards, "hidden_boards_total" => $hidden_boards_total, "total_posts" => $total_posts, "total_posts_hour" => $total_posts_hour, "boards" => $boards, "last_update" => date('r'), "uptime_p" => shell_exec('uptime -p'), 'tags' => $all_tags, 'top2k' => false));
 
 $html = Element("page.html", array("config" => $config, "body" => $body, "title" => "Boards on &infin;chan"));
-array_splice($boards, 2000);
-$boards = array_values($boards);
-$body = Element("8chan/boards-tags.html", array("config" => $config, "n_boards" => $n_boards, "t_boards" => $t_boards, "hidden_boards_total" => $hidden_boards_total, "total_posts" => $total_posts, "total_posts_hour" => $total_posts_hour, "boards" => $boards, "last_update" => date('r'), "uptime_p" => shell_exec('uptime -p'), 'tags' => $all_tags, 'top2k' => true));
+$boards_top2k = $boards;
+array_splice($boards_top2k, 2000);
+$boards_top2k = array_values($boards_top2k);
+$body = Element("8chan/boards-tags.html", array("config" => $config, "n_boards" => $n_boards, "t_boards" => $t_boards, "hidden_boards_total" => $hidden_boards_total, "total_posts" => $total_posts, "total_posts_hour" => $total_posts_hour, "boards" => $boards_top2k, "last_update" => date('r'), "uptime_p" => shell_exec('uptime -p'), 'tags' => $all_tags, 'top2k' => true));
 $html_top2k = Element("page.html", array("config" => $config, "body" => $body, "title" => "Boards on &infin;chan"));
 
 if ($admin) {
 	echo $html;
 } else {
+	foreach ($boards as $i => &$b) { unset($b['img']); }
 	file_write("boards.json", json_encode($boards));
 	file_write("tags.json", json_encode($all_tags));
 	foreach ($boards as $i => $b) {
