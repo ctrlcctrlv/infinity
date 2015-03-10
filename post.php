@@ -394,6 +394,15 @@ elseif (isset($_POST['post'])) {
 	$post['name'] = $_POST['name'] != '' ? $_POST['name'] : $config['anonymous'];
 	$post['subject'] = $_POST['subject'];
 	$post['email'] = str_replace(' ', '%20', htmlspecialchars($_POST['email']));
+
+	if (isset($_POST['no-bump'])) {
+		if (!empty($post['email'])) {
+			$post['email'] .= '+sage';
+		} else {
+			$post['email'] = 'sage';
+		}
+	}
+		
 	$post['body'] = $_POST['body'];
 	$post['password'] = $_POST['password'];
 	$post['has_file'] = (!isset($post['embed']) && (($post['op'] && !isset($post['no_longer_require_an_image_for_op']) && $config['force_image_op']) || !empty($_FILES['file']['name'])));
@@ -887,7 +896,7 @@ elseif (isset($_POST['post'])) {
 		query('INSERT INTO ``cites`` VALUES ' . implode(', ', $insert_rows)) or error(db_error());
 	}
 	
-	if (!$post['op'] && strtolower($post['email']) != 'sage' && !$thread['sage'] && ($config['reply_limit'] == 0 || $numposts['replies']+1 < $config['reply_limit'])) {
+	if (!$post['op'] && !isset($_POST['no-bump']) && strtolower($post['email']) != 'sage' && !$thread['sage'] && ($config['reply_limit'] == 0 || $numposts['replies']+1 < $config['reply_limit'])) {
 		bumpThread($post['thread']);
 	}
 	
