@@ -11,6 +11,9 @@ if (!openBoard($_GET['board'])) {
 }
 
 header('Content-Type: text/json');
+$safe_config['title'] = $board['title'];
+$safe_config['subtitle'] = $board['subtitle'];
+$safe_config['indexed'] = ($board['indexed'] == "1");
 $safe_config['country_flags'] = $config['country_flags'];
 $safe_config['field_disable_name'] = $config['field_disable_name'];
 $safe_config['enable_embedding'] = $config['enable_embedding'];
