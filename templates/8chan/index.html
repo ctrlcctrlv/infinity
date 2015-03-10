@@ -298,11 +298,18 @@
 					<div class="content_body">
 						<p>{% trans %}On 8chan, you can create your own imageboard for free with no experience or programming knowledge needed.{% endtrans %}</p>
 						<p style="color:red">{% trans %}Warning: Some boards on this site might contain content of an adult or offensive nature. Please cease use of this site if it is illegal for you to view such content. The boards on this site are made entirely by the users and do not represent the opinions of the administration of 8chan. In the interest of free speech, only content that directly violates the DMCA or other US laws is deleted.{% endtrans %}</p>
-						<blockquote>“Give me your tired, your poor,<br>Your huddled masses yearning to breathe free,<br>The wretched refuse of your teeming shore.<br>Send these, the homeless, tempest-tost to me,<br>I lift my lamp beside the golden door!” ~ Emma Lazarus</blockquote>
 						<div class="mobileHide">
 							<a href="create.php" class="button">{% trans %}Create&nbsp;your&nbsp;board{% endtrans %}</a>
 							<a href="boards.html" class="button">{% trans %}Browse&nbsp;existing&nbsp;boards{% endtrans %}</a>
 						</div>
+						<p><table><th><a href="/news+/">Latest headlines</a></th>
+						<tr><td>
+						<ol style="padding-left:40px">
+							{% for n in newsplus[:15] %}
+								<li><a href="/news+/res/{{ n.thread }}.html">{{ n.subject|e }}</a> (<a href="{{ n.link|e }}">link</a>)</li>
+							{% endfor %}
+						</ol>
+						</td></tr></table></p>
 						<br>
 						<!-- START RIZON PASTE / NEWS SCRIPT CODE HERE -->
 						<iframe src="https://qchat2.rizon.net/?channels=8chan&amp;uio=OT0xMTE05" height="400" width="793"></iframe>
