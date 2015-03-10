@@ -39,7 +39,7 @@
 		<tr><th>{% trans %}Archive my board on 8archive.moe{% endtrans %}<br><span class="unimportant">{% trans %}This archives your board on 8archive.moe if you opt in{% endtrans %}</span></th><td><input type="checkbox" name="8archive" {% if board['8archive'] %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}[code] tags{% endtrans %}</th><td><input type="checkbox" name="code_tags" {% if 'js/code_tags/run_prettify.js' in config.additional_javascript %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Oekaki{% endtrans %}</th><td><input type="checkbox" name="oekaki" {% if 'js/wpaint.js' in config.additional_javascript %}checked{% endif %}></td></tr>
-		<tr><th>{% trans %}Format math between [tex]{% endtrans %}</th><td><input type="checkbox" name="katex" {% if config.katex %}checked{% endif %}></td></tr>
+		<tr><th>{% trans %}Format math between $${% endtrans %}</th><td><input type="checkbox" name="katex" {% if config.katex %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Allow SWF uploading{% endtrans %}</th><td><input type="checkbox" name="allow_flash" {% if 'swf' in config.allowed_ext_files %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Allow PDF uploading{% endtrans %}</th><td><input type="checkbox" name="allow_pdf" {% if 'pdf' in config.allowed_ext_files %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Enable dice rolling{% endtrans %}</th><td><input type="checkbox" name="allow_roll" {% if config.allow_roll %}checked{% endif %}></td></tr>
