@@ -103,14 +103,14 @@ $body = <<<EOT
 <li>~~strikethrough~~ -&gt; <s>strikethrough</s></li>
 <li>[aa] tags for ASCII/JIS art (escape formatting)</li>
 <li>[code] tags if enabled by board owner</li>
-<li>[tex] tags if enabled by board owner (currently globally disabled)</li>
+<li>$$ and \( \) LaTeX tags if enabled by board owner</li>
 </ul>
 
 <h2>How are featured boards chosen?</h2>
-<p>Top twenty-five boards excluding /meta/, /b/ and /news+/.</p>
+<p>Top twenty-five boards excluding /meta/, /b/, /operate/, /boards/ and /news+/.</p>
 
-<h2>Who owns /meta/, /b/ and /news+/?</h2>
-<p>No one, so they are <em>de facto</em> property of the administration.</p>
+<h2>Who owns boards like /b/, /news+/ and /operate/?</h2>
+<p>No one, so they are <em>de facto</em> managed by the administration.</p>
 
 <h2>Why does <a href="/banned">https://8ch.net/banned</a> say that I'm banned? I can still use the boards?</h2>
 <p>8chan is centered around user created boards. That's a board with CSS that makes it look like the ban page, not an official page. You've been tricked. 8chan has no official ban check page.</p>
@@ -123,6 +123,25 @@ $body = <<<EOT
 <h2>Where's the archive?</h2>
 <p><s>There isn't one yet and there will never be an official archive.</s></p>
 <p>Given that archives are inevitable and will be created anyway via <a href="https://archive.today">archive.today</a>, Google cache, and anyone who installs Asagi, I'm softening my stance on this. Currently, 8archive.moe provides our archive, and I may set up an official one. <strong>All archives officially partnered with us will be opt-in by our board owners, not opt-out. Archives who archive boards that have not opted in will be considered pirate archives, and legal action may be taken.</strong></p>
+
+<h2>Can I have a list of all API endpoints for getting raw data from 8chan?</h2>
+<p>
+Assuming the /b/ board, they are as follows:</p>
+<ul>
+	<li><a href="https://8ch.net/b/index.rss">https://8ch.net/b/index.rss</a> - RSS formatted index so that you can watch smaller boards and get updates when they get new posts using a feed reader like Thunderbird or Feedly.</li>
+	<li><a href="https://8ch.net/b/0.json">https://8ch.net/b/0.json</a> - Index of all threads on page 0 of /b/.</li>
+	<li><a href="https://8ch.net/b/res/1.json">https://8ch.net/b/res/1.json</a> - All replies of thread 1 on /b/.</li>
+	<li><a href="https://8ch.net/b/threads.json">https://8ch.net/b/threads.json</a> - Thread index of all 15 pages of /b/.</li>
+</ul>
+
+<p>There are also endpoints for getting information about 8chan's boards:</p>
+
+<ul>
+	<li><a href="https://8ch.net/boards.json">https://8ch.net/boards.json</a> - Boards on 8chan (warning, 1MB+)</a></li>
+	<li><a href="https://8ch.net/settings.php?board=b">https://8ch.net/settings.php?board=b</a> - Board settings of /b/ (JSON format)</li>
+</ul>
+<p>Just read the data to get an idea of what is exposed and under what attribute names. It should be self explanatory.</p>
+<p><strong>Endpoints not listed here, like post.php, catalog.json or boards-top20.json are subject to change or removal at any time!</strong></p>
 
 <h2>I got an email from an @8chan.co email address, is that you?</h2>
 <p>8chan.co uses <a href="https://cock.li">cock.li</a> to manage our domain's email. cock.li allows anyone to create an email account @8chan.co.</p>
