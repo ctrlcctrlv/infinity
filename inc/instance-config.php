@@ -137,13 +137,13 @@
 	$config['additional_javascript'][] = 'js/catalog-search.js';
 	$config['additional_javascript'][] = 'js/thread-stats.js';
 	$config['additional_javascript'][] = 'js/quote-selection.js';
-	$config['additional_javascript'][] = 'js/twemoji/twemoji.js';
 	$config['additional_javascript'][] = 'js/flag-previews.js';
 	$config['additional_javascript'][] = 'js/post-menu.js';
 	$config['additional_javascript'][] = 'js/post-filter.js';
 	$config['additional_javascript'][] = 'js/fix-report-delete-submit.js';
 	$config['additional_javascript'][] = 'js/image-hover.js';
 	$config['additional_javascript'][] = 'js/auto-scroll.js';
+	$config['additional_javascript'][] = 'js/twemoji/twemoji.js';
 
 	//$config['font_awesome_css'] = '/netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css';
 	

@@ -98,9 +98,6 @@
 		#quick-reply .nonsense {\
 			display: none;\
 		}\
-		#quick-reply td.submit {\
-			width: 1%;\
-		}\
 		#quick-reply td.recaptcha {\
 			text-align: center;\
 			padding: 0 0 1px 0;\
@@ -257,7 +254,7 @@
 				}
 				
 				// Remove mod controls, because it looks shit.
-				if ($td.find('input[type="checkbox"]').length) {
+				/*if ($td.find('input[type="checkbox"]').length) {
 					var tr = this;
 					$td.find('input[type="checkbox"]').each(function() {
 						if ($(this).attr('name') == 'spoiler') {
@@ -272,7 +269,7 @@
 							$(tr).remove();
 						}
 					});
-				}
+				}*/
 				
 				$td.find('small').hide();
 			}
