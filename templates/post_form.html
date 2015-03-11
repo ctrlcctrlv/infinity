@@ -180,6 +180,7 @@
 					<label><input title="{% trans %}Raw HTML{% endtrans %}" type="checkbox" name="raw" id="raw">
 					{% trans %}Raw HTML{% endtrans %}</label>
 				</div>{% endif %}
+				{% endif %}
 			
 				{# Should always be at the end #}
 				{% if config.allow_roll %}<div class="dice-option">
@@ -188,7 +189,6 @@
 						<tr><td><input class="dx" name="dx" min="0" type="number"></td><td><input class="dy" name="dy" min="0" type="number"></td><td><input class="dz" name="dz" type="number"></td></tr>
 					</table>
 				</div>{% endif %}
-				{% endif %}
 			</td>
 		</tr>
 		{% if not config.field_disable_password or (mod and post.mod|hasPermission(config.mod.bypass_field_disable, board.uri)) %}<tr>
