@@ -8,6 +8,34 @@ body {
   padding-right: 4px;
 }
 
+#post-form-outer {
+  text-align: center;
+}
+
+#post-form-inner {
+  display: inline-block;
+}
+
+.post-table, .post-table-options, textarea {
+  width: 100%;
+}
+
+.post-table th, .post-table-options th {
+  width: 75px;
+}
+
+.post-table-options {
+  display: none;
+}
+
+.required-field-cell {
+  vertical-align: top;
+}
+
+.show-options-cell {
+  text-align: right;
+}
+
 .hidden {
   display:none;
 }
@@ -93,8 +121,8 @@ input[type="text"],input[type="password"],textarea {
   text-shadow: none;
   text-transform: none;
   word-spacing: normal;
-  max-width: 75%;
   font-size: inherit;
+  font-family: sans-serif;
 }
 
 #quick-reply input[type="text"], input[type="password"], #quick-reply textarea {
@@ -133,14 +161,14 @@ form table tr td div.center {
   margin: 2px
 }
 
-form table tr td div input {
+/*form table tr td div input {
   display: block;
   margin: 2px auto 0 auto;
 }
 
 form table tr td div label {
   font-size: 10px;
-}
+}*/
 
 .unimportant,.unimportant * {
   font-size: 10px;
@@ -263,6 +291,10 @@ p.intro a {
 .sage {
   color: red;
   font-weight: bold;
+}
+
+.required-star {
+  color: maroon;
 }
 
 div.delete {
@@ -1044,4 +1076,104 @@ div.mix {
 	width: 30px;
 	text-align: right;
 	display: inline-block;
+}
+
+.dice-option table {
+	border: 1px dotted black;
+	margin: 0;
+	border-collapse: collapse;
+}
+
+.dice-option table td {
+	text-align: center;
+	border-left: 1px dotted black;
+	padding-left: 2px;
+	padding-right: 2px;
+	padding-bottom: 2px;
+}
+
+/* Quick reply (why was most of this ever in the script?) */
+
+#quick-reply {
+	position: fixed;
+	right: 5%;
+	top: 5%;
+	float: right;
+	display: block;
+	padding: 0 0 0 0;
+	width: 300px;
+	z-index: 100;
+}
+#quick-reply #post-form-inner {
+	min-width: 300px;
+}
+#quick-reply .post-table tr td:nth-child(2) {
+	width: 33%;
+	text-align: right;
+	padding-right: 4px;
+}
+#quick-reply tr td:nth-child(2) input[type="submit"] {
+	width: 99%;
+}
+#quick-reply th, #quick-reply td {
+	margin: 0;
+	padding: 0;
+}
+#quick-reply th {
+	text-align: center;
+	padding: 2px 0;
+	border: 1px solid #222;
+}
+#quick-reply th .handle {
+	float: left;
+	width: 100%;
+	display: inline-block;
+}
+#quick-reply th .close-btn {
+	float: right;
+	padding: 0 5px;
+}
+#quick-reply input[type="text"], #quick-reply select {
+	width: 100%;
+	padding: 2px;
+	font-size: 10pt;
+	box-sizing: border-box;
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing: border-box;
+}
+#quick-reply textarea {
+	min-width: 100%;
+	box-sizing: border-box;
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing: border-box;
+	font-size: 10pt;
+	resize: both;
+}
+#quick-reply input, #quick-reply select, #quick-reply textarea {
+	margin: 0 0 1px 0;
+}
+#quick-reply input[type="file"] {
+	padding: 5px 2px;
+}
+#quick-reply .nonsense {
+	display: none;
+}
+#quick-reply td.recaptcha {
+	text-align: center;
+	padding: 0 0 1px 0;
+}
+#quick-reply td.recaptcha span {
+	display: inline-block;
+	width: 100%;
+	background: white;
+	border: 1px solid #ccc;
+	cursor: pointer;
+}
+#quick-reply td.recaptcha-response {
+	padding: 0 0 1px 0;
+}
+@media screen and (max-width: 600px) {
+	#quick-reply {
+		display: none !important;
+	}
 }
