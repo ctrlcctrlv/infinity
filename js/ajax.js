@@ -23,12 +23,12 @@ $(window).ready(function() {
 		$form.submit(function() {
 			if (do_not_ajax)
 				return true;
-			var form = this;
+			var form = $(this).find('form')[0];
 			var submit_txt = $(this).find('input[type="submit"]').val();
 			if (window.FormData === undefined)
 				return true;
 			
-			var formData = new FormData(this);
+			var formData = new FormData(form);
 			formData.append('json_response', '1');
 			formData.append('post', submit_txt);
 
@@ -46,7 +46,7 @@ $(window).ready(function() {
 			};
 
 			$.ajax({
-				url: this.action,
+				url: '/post.php',
 				type: 'POST',
 				xhr: function() {
 					var xhr = $.ajaxSettings.xhr();
@@ -137,9 +137,9 @@ $(window).ready(function() {
 			return false;
 		});
 	};
-	setup_form($('form[name="post"]'));
+	setup_form($('div#post-form-outer'));
 	$(window).on('quick-reply', function() {
-		$('form#quick-reply').off('submit');
-		setup_form($('form#quick-reply'));
+		$('div#quick-reply').off('submit');
+		setup_form($('div#quick-reply'));
 	});
 });
