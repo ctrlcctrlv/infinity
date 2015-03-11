@@ -112,7 +112,7 @@
 		#quick-reply td.recaptcha-response {\
 			padding: 0 0 1px 0;\
 		}\
-		@media screen and (max-width: 400px) {\
+		@media screen and (max-width: 600px) {\
 			#quick-reply {\
 				display: none !important;\
 			}\
@@ -366,7 +366,7 @@
 		$(window).ready(function() {
 			if (settings.get('hide_at_top', true)) {
 				$(window).scroll(function() {
-					if ($(this).width() <= 400)
+					if ($(this).width() <= 600)
 						return;
 					if ($(this).scrollTop() < $origPostForm.offset().top + $origPostForm.height() - 100)
 						$postForm.fadeOut(100);
@@ -388,7 +388,7 @@
 	};
 	
 	$(window).on('cite', function(e, id, with_link) {
-		if ($(this).width() <= 400)
+		if ($(this).width() <= 600)
 			return;
 		show_quick_reply();
 		if (with_link) {
@@ -443,7 +443,7 @@
 				$('.quick-reply-btn').hide();
 				
 				$(window).scroll(function() {
-					if ($(this).width() <= 400)
+					if ($(this).width() <= 600)
 						return;
 					if ($(this).scrollTop() < $('form[name="post"]:first').offset().top + $('form[name="post"]:first').height() - 100)
 						$('.quick-reply-btn').fadeOut(100);

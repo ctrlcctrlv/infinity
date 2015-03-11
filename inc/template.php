@@ -22,7 +22,7 @@ function load_twig() {
 	$loader = new Twig_Loader_Filesystem($config['dir']['template']);
 	$loader->setPaths($config['dir']['template']);
 	$twig = new Twig_Environment($loader, array(
-        'autoescape' => false,
+		'autoescape' => false,
 		'cache' => is_writable('templates') || (is_dir('templates/cache') && is_writable('templates/cache')) ?
 			"{$config['dir']['template']}/cache" : false,
 		'debug' => $config['debug']
