@@ -47,8 +47,6 @@
 	$config['spam']['hidden_inputs_max_pass'] = 128;
 	$config['ayah_enabled'] = true;
 	
-	// Load database credentials
-	require "secrets.php";
 
 	// Image shit
 	$config['thumb_method'] = 'convert';
@@ -144,6 +142,15 @@
 	$config['additional_javascript'][] = 'js/image-hover.js';
 	$config['additional_javascript'][] = 'js/auto-scroll.js';
 	$config['additional_javascript'][] = 'js/twemoji/twemoji.js';
+	// Oekaki (now depends on config.oekaki so can be in all scripts)
+	$config['additional_javascript'][] = 'js/jquery-ui.custom.min.js';
+	$config['additional_javascript'][] = 'js/wPaint/lib/wColorPicker.min.js';
+	$config['additional_javascript'][] = 'js/wPaint/wPaint.min.js';
+	$config['additional_javascript'][] = 'js/wPaint/plugins/main/wPaint.menu.main.min.js';
+	$config['additional_javascript'][] = 'js/wPaint/plugins/text/wPaint.menu.text.min.js';
+	$config['additional_javascript'][] = 'js/wPaint/plugins/shapes/wPaint.menu.main.shapes.min.js';
+	$config['additional_javascript'][] = 'js/wPaint/plugins/file/wPaint.menu.main.file.min.js';
+	$config['additional_javascript'][] = 'js/wpaint.js';
 
 	//$config['font_awesome_css'] = '/netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css';
 	
@@ -208,3 +215,5 @@ $config['spam']['unicode'] = false;
 // 8chan specific mod pages
 require '8chan-mod-pages.php';
 	
+// Load database credentials
+require "secrets.php";

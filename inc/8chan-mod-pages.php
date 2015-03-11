@@ -462,21 +462,8 @@ FLAGS;
 			$force_subject_op = isset($_POST['force_subject_op']) ? 'true' : 'false';
 			$tor_posting = isset($_POST['tor_posting']) ? 'true' : 'false';
 			$new_thread_capt = isset($_POST['new_thread_capt']) ? 'true' : 'false';
+			$oekaki = isset($_POST['oekaki']) ? 'true' : 'false';
 			
-
-
-$oekaki_js = <<<OEKAKI
-    \$config['additional_javascript'][] = 'js/jquery-ui.custom.min.js';
-    \$config['additional_javascript'][] = 'js/wPaint/lib/wColorPicker.min.js';
-    \$config['additional_javascript'][] = 'js/wPaint/wPaint.min.js';
-    \$config['additional_javascript'][] = 'js/wPaint/plugins/main/wPaint.menu.main.min.js';
-    \$config['additional_javascript'][] = 'js/wPaint/plugins/text/wPaint.menu.text.min.js';
-    \$config['additional_javascript'][] = 'js/wPaint/plugins/shapes/wPaint.menu.main.shapes.min.js';
-    \$config['additional_javascript'][] = 'js/wPaint/plugins/file/wPaint.menu.main.file.min.js';
-    \$config['additional_javascript'][] = 'js/wpaint.js';
-    \$config['additional_javascript'][] = 'js/upload-selection.js';
-OEKAKI;
-			$oekaki = isset($_POST['oekaki']) ? $oekaki_js : '';
 			if ($_POST['locale'] !== 'en' && in_array($_POST['locale'], $possible_languages)) {
 				$locale = "\$config['locale'] = '{$_POST['locale']}.UTF-8';";
 			} else {
@@ -563,7 +550,6 @@ OEKAKI;
 
 			$config_file = <<<EOT
 <?php
-\$config['file_script'] = '$b/main.js';
 \$config['country_flags'] = $country_flags;
 \$config['field_disable_name'] = $field_disable_name;
 \$config['enable_embedding'] = $enable_embedding;
@@ -588,7 +574,8 @@ OEKAKI;
 \$config['hour_max_threads'] = $hour_max_threads;
 \$config['reply_limit'] = $reply_limit;
 \$config['max_pages'] = $max_pages;
-$code_tags $katex $oekaki $replace $multiimage $allow_flash $allow_pdf $user_flags
+\$config['oekaki'] = $oekaki;
+$code_tags $katex $replace $multiimage $allow_flash $allow_pdf $user_flags
 if (\$config['disable_images'])
 	\$config['max_pages'] = 10000;
 
