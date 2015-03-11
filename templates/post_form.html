@@ -102,13 +102,13 @@
 		{% endif %}
 		<tr>
 			<td class="required-field-cell">
-				<span class="required-wrap">
+				<span class="required-wrap hint">
 					<span class="required-star">*</span> <span class="unimportant">{% trans %}= required field{% endtrans %}</span>
 				</span>
 			</td>
 			<td class="show-options-cell">
 				<a href="#" class="show-post-table-options">[&#9654; {% trans %}Show post options &amp; limits{% endtrans %}]</a>
-				<strong class="faq-message unimportant"><br />Confused? See the <a href="/faq.html">FAQ</a>.</strong>
+				<strong class="faq-message unimportant hint"><br />Confused? See the <a href="/faq.html">FAQ</a>.</strong>
 			</td>
 		</tr>
 		</tbody></table><table class="post-table-options"><tbody>
@@ -132,7 +132,7 @@
 				{% trans %}Embed{% endtrans %}
 			</th>
 			<td>
-				<input type="text" name="embed" value="" size="30" maxlength="120" autocomplete="off"><br> <span class="unimportant">{% trans %}(replaces files and can be used instead){% endtrans %}</span>
+				<input type="text" name="embed" value="" size="30" maxlength="120" autocomplete="off"><br> <span class="unimportant hint">{% trans %}(replaces files and can be used instead){% endtrans %}</span>
 			</td>
 		</tr>
 		{% endif %}
@@ -143,7 +143,7 @@
 				<div class="oekaki-applet"></div>
 				<a href="#" onclick="if (oekaki && !oekaki.initialized) { oekaki.init(); this.innerHTML = '{% trans %}Close oekaki applet{% endtrans %}' } else { oekaki.deinit(); this.innerHTML = '{% trans %}Show oekaki applet{% endtrans %}' }; return false;">{% trans %}Show oekaki applet{% endtrans %}</a> 
 				<br/>
-				<span class="unimportant">{% trans %}(replaces files and can be used instead){% endtrans %}</span>
+				<span class="unimportant hint">{% trans %}(replaces files and can be used instead){% endtrans %}</span>
 			</td>
 		</tr>
 		{% endif %}
@@ -154,17 +154,17 @@
 			<td>
 				<div class="no-bump-option">
 					<label><input title="No bump" id="no-bump" name="no-bump" type="checkbox">
-					{% trans %}Do not bump{% endtrans %} <span class="unimportant">{% trans %}(you can also write sage in the email field){% endtrans %}</span></label>
+					{% trans %}Do not bump{% endtrans %} <span class="unimportant hint">{% trans %}(you can also write sage in the email field){% endtrans %}</span></label>
 				</div>
 
 				{% if config.spoiler_images %}<div class="spoiler-images-option">
 					<label><input title="Spoiler images" id="spoiler" name="spoiler" type="checkbox">
-					{% trans %}Spoiler images{% endtrans %} <span class="unimportant">{% trans %}(this replaces the thumbnails of your images with question marks){% endtrans %}</label>
+					{% trans %}Spoiler images{% endtrans %} <span class="unimportant hint">{% trans %}(this replaces the thumbnails of your images with question marks){% endtrans %}</label>
 				</div>{% endif %}
 
 				{% if config.allow_no_country and config.country_flags %}<div class="no-country-option">
 					<label><input title="No country flag" id="no_country" name="no_country" type="checkbox">
-					{% trans %}Hide country{% endtrans %} <span class="unimportant">{% trans %}(this board displays your country when you post if this is unchecked){% endtrans %}</span></label>
+					{% trans %}Hide country{% endtrans %} <span class="unimportant hint">{% trans %}(this board displays your country when you post if this is unchecked){% endtrans %}</span></label>
 				</div>{% endif %}
 
 				{% if mod %}
@@ -200,7 +200,7 @@
 			</th>
 			<td>
 				<input type="password" name="password" value="" size="12" maxlength="18" autocomplete="off"> 
-				<span class="unimportant">{% trans %}(For file and post deletion.){% endtrans %}</span>
+				<span class="unimportant hint">{% trans %}(For file and post deletion.){% endtrans %}</span>
 			</td>
 		</tr>{% endif %}
 		<tr>
