@@ -46,10 +46,10 @@ oekaki.do_css = function() {
 }
 
 oekaki.init = function() {
-  var oekaki_form = '<tr id="oekaki"><th>Oekaki</th><td><div id="wpaintctr"><div id="wpaintdiv"></div></div></td></tr>';
+  var oekaki_form = '<div id="wpaintctr"><div id="wpaintdiv"></div></div>';
 
   // Add oekaki after the file input
-  $('form[name="post"]:not(#quick-reply) input[type="file"]').parent().parent().after(oekaki_form);
+  $('.oekaki-applet').html(oekaki_form);
 
   $('<link class="wpaintcss" rel="stylesheet" href="'+configRoot+'js/wPaint/wPaint.min.css" />').appendTo($("head"));
   $('<link class="wpaintcss" rel="stylesheet" href="'+configRoot+'js/wPaint/lib/wColorPicker.min.css" />').appendTo($("head"));
@@ -122,7 +122,8 @@ oekaki.load_img = function() {
 };
 
 oekaki.deinit = function() {
-  $('#oekaki, .wpaintcss').remove();
+  $('.oekaki-applet').empty();
+  $('.wpaintcss').remove();
 
   $(document).off("ajax_before_post.wpaint");
 

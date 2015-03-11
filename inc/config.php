@@ -1712,3 +1712,6 @@
 	// read.php is basically a watered down mod.php -- if coupled with caching, it improves performance and allows for easier replication
 	// across machines.
 	$config['use_read_php'] = false;
+
+	// Use oekaki?
+	$config['oekaki'] = false;

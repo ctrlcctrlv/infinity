@@ -13,6 +13,9 @@
 			var inMod = {% if mod %}true{% else %}false{% endif %};
 			var modRoot="{{ config.root }}"+(inMod ? "mod.php?/" : "");
 		</script>
+		{% if config.locale != "en" %}
+			<script type="text/javascript" src="{{ config.root }}inc/locale/{{ config.locale|split('.')[0] }}/LC_MESSAGES/javascript.js"></script>
+		{% endif %}
 		{% if not nojavascript %}
 			<script type="text/javascript" src="{{ config.url_javascript }}"></script>
 			{% if not config.additional_javascript_compile %}

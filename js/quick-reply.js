@@ -28,16 +28,6 @@
 		dummy_reply.remove();
 		
 		$('<style type="text/css" id="quick-reply-css">\
-		#quick-reply {\
-			position: fixed;\
-			right: 5%;\
-			top: 5%;\
-			float: right;\
-			display: block;\
-			padding: 0 0 0 0;\
-			width: 300px;\
-			z-index: 100;\
-		}\
 		#quick-reply table {\
 			border-collapse: collapse;\
 			background: ' + reply_background + ';\
@@ -46,76 +36,6 @@
 			border-color: ' + reply_border_color + ';\
 			margin: 0;\
 			width: 100%;\
-		}\
-		#quick-reply tr td:nth-child(2) {\
-			white-space: nowrap;\
-			text-align: right;\
-			padding-right: 4px;\
-		}\
-		#quick-reply tr td:nth-child(2) input[type="submit"] {\
-			width: 100%;\
-		}\
-		#quick-reply th, #quick-reply td {\
-			margin: 0;\
-			padding: 0;\
-		}\
-		#quick-reply th {\
-			text-align: center;\
-			padding: 2px 0;\
-			border: 1px solid #222;\
-		}\
-		#quick-reply th .handle {\
-			float: left;\
-			width: 100%;\
-			display: inline-block;\
-		}\
-		#quick-reply th .close-btn {\
-			float: right;\
-			padding: 0 5px;\
-		}\
-		#quick-reply input[type="text"], #quick-reply select {\
-			width: 100%;\
-			padding: 2px;\
-			font-size: 10pt;\
-			box-sizing: border-box;\
-			-webkit-box-sizing:border-box;\
-			-moz-box-sizing: border-box;\
-		}\
-		#quick-reply textarea {\
-			width: 100%;\
-			box-sizing: border-box;\
-			-webkit-box-sizing:border-box;\
-			-moz-box-sizing: border-box;\
-			font-size: 10pt;\
-			resize: both;\
-		}\
-		#quick-reply input, #quick-reply select, #quick-reply textarea {\
-			margin: 0 0 1px 0;\
-		}\
-		#quick-reply input[type="file"] {\
-			padding: 5px 2px;\
-		}\
-		#quick-reply .nonsense {\
-			display: none;\
-		}\
-		#quick-reply td.recaptcha {\
-			text-align: center;\
-			padding: 0 0 1px 0;\
-		}\
-		#quick-reply td.recaptcha span {\
-			display: inline-block;\
-			width: 100%;\
-			background: white;\
-			border: 1px solid #ccc;\
-			cursor: pointer;\
-		}\
-		#quick-reply td.recaptcha-response {\
-			padding: 0 0 1px 0;\
-		}\
-		@media screen and (max-width: 600px) {\
-			#quick-reply {\
-				display: none !important;\
-			}\
 		}\
 		</style>').appendTo($('head'));
 	};
@@ -128,7 +48,7 @@
 		
 		do_css();
 		
-		var $postForm = $('form[name="post"]').clone();
+		var $postForm = $('#post-form-outer').clone();
 		
 		$postForm.clone();
 		
@@ -243,34 +163,6 @@
 					$(this).remove();
 				}
 
-				// Remove oekaki if existent
-				if ($(this).is('#oekaki')) {
-					$(this).remove();
-				}
-
-				// Remove upload selection
-				if ($td.is('#upload_selection')) {
-					$(this).remove();
-				}
-				
-				// Remove mod controls, because it looks shit.
-				/*if ($td.find('input[type="checkbox"]').length) {
-					var tr = this;
-					$td.find('input[type="checkbox"]').each(function() {
-						if ($(this).attr('name') == 'spoiler') {
-							$td.find('label').remove();
-							$(this).attr('id', 'q-spoiler-image');
-							$postForm.find('input[type="file"]').parent()
-								.removeAttr('colspan')
-								.after($('<td class="spoiler"></td>').append(this, ' ', $('<label for="q-spoiler-image">').text(_('Spoiler Image'))));
-						} else if ($(this).attr('name') == 'no_country') {
-							$td.find('label,input[type="checkbox"]').remove();
-						} else {
-							$(tr).remove();
-						}
-					});
-				}*/
-				
 				$td.find('small').hide();
 			}
 		});
@@ -285,8 +177,10 @@
 	
 		$postForm.find('textarea:not([name="body"]),input[type="hidden"]:not(.captcha_cookie)').removeAttr('id').appendTo($dummyStuff);
 	
-		$postForm.find('br').remove();
-		$postForm.find('table').prepend('<tr><th colspan="2">\
+		$postForm.find('br,p.board-settings,.unimportant,#oekaki,.required-field-cell').remove();
+		$postForm.find('.show-options-cell').attr('colspan', '2');
+
+		$postForm.find('table:first').prepend('<tr><th colspan="2">\
 			<span class="handle">\
 				<a class="close-btn" href="javascript:void(0)">X</a>\
 				' + _('Quick Reply') + '\

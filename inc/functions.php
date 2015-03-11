@@ -1565,12 +1565,6 @@ function buildJavascript() {
 		'config' => $config,
 	));
 
-	// Check if we have translation for the javascripts; if yes, we add it to additional javascripts
-	list($pure_locale) = explode(".", $config['locale']);
-	if (file_exists ($jsloc = "inc/locale/$pure_locale/LC_MESSAGES/javascript.js")) {
-		$script = file_get_contents($jsloc) . "\n\n" . $script;
-	}
-
 	if ($config['additional_javascript_compile']) {
 		foreach (array_unique($config['additional_javascript']) as $file) {
 			$script .= file_get_contents($file);
