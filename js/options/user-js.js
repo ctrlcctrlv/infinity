@@ -13,8 +13,10 @@
 
 var tab = Options.add_tab("user-js", "code", _("User JS"));
 
+$("<h3 style='margin:0'>"+_("Do not paste code here unless you absolutely trust the source or have read it yourself!")+"</h3><span class='unimportant'>"+_("Untrusted code pasted here could do malicious things such as spam the site under your IP.")+"</span>").appendTo(tab.content);
+
 var textarea = $("<textarea></textarea>").css({
-  "height"     : "85%",
+  "height"     : "74%",
   "width"      : "100%",
   "font-size"  : "9pt",
   "font-family": "monospace",
@@ -47,8 +49,7 @@ var apply_js = function() {
 
 var update_textarea = function() {
   if (!localStorage.user_js) {
-    textarea.text("/* "+_("Enter here your own Javascript code...")+" */\n" +
-                  "/* "+_("Have a backup of your storage somewhere, as messing here\nmay render you this website unusable.")+" */\n" +
+    textarea.text("/* "+_("Enter your own Javascript code here...")+" */\n" +
                   "/* "+_("You can include JS files from remote servers, for example:")+" */\n" +
                   '/* load_js("http://example.com/script.js"); */');
   }
