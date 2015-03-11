@@ -52,7 +52,7 @@
 		
 		$postForm.clone();
 		
-		$dummyStuff = $('<div class="nonsense"></div>').appendTo($postForm);
+		$dummyStuff = $('<div class="nonsense"></div>').appendTo($postForm.find('form'));
 		
 		$postForm.find('table tr').each(function() {
 			var $th = $(this).children('th:first');
