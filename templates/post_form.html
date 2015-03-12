@@ -7,7 +7,7 @@
 	<input type="hidden" name="page" value="{{ current_page }}">
 {% endif %}
 {% if mod %}<input type="hidden" name="mod" value="1">{% endif %}
-	<table class="post-table">
+	<table class="post-table"><tbody>
 		{% if not config.field_disable_name or (mod and post.mod|hasPermission(config.mod.bypass_field_disable, board.uri)) %}<tr>
 			<th>
 				{% trans %}Name{% endtrans %}
@@ -111,7 +111,8 @@
 				<strong class="faq-message unimportant hint"><br />Confused? See the <a href="/faq.html">FAQ</a>.</strong>
 			</td>
 		</tr>
-		</tbody></table><table class="post-table-options"><tbody>
+	</tbody></table>
+	<table class="post-table-options"><tbody>
 
 		{% if config.user_flag %}
 			<tr>
@@ -222,7 +223,7 @@
 				</p>
 			</td>
 		</tr>
-	</table>
+	</tbody></table>
 </form>
 </div>
 </div>
