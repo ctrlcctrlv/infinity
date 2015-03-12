@@ -653,8 +653,6 @@ EOT;
 				}
 			}
 		
-			buildJavascript();
-
 			modLog('Edited board settings', $b);
 		}
 
