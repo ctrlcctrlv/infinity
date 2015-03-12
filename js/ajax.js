@@ -12,12 +12,9 @@
  *
  */
 
-$(window).ready(function() {
++function() {
 	var settings = new script_settings('ajax');
 	var do_not_ajax = false;
-
-	// Enable submit button if disabled (cache problem)
-	$('input[type="submit"]').removeAttr('disabled');
 	
 	var setup_form = function($form) {
 		$form.submit(function() {
@@ -46,7 +43,7 @@ $(window).ready(function() {
 			};
 
 			$.ajax({
-				url: '/post.php',
+				url: configRoot+'post.php',
 				type: 'POST',
 				xhr: function() {
 					var xhr = $.ajaxSettings.xhr();
@@ -137,9 +134,13 @@ $(window).ready(function() {
 			return false;
 		});
 	};
-	setup_form($('div#post-form-outer'));
 	$(window).on('quick-reply', function() {
-		$('div#quick-reply').off('submit');
+		$('div#quick-reply form').off('submit');
 		setup_form($('div#quick-reply'));
 	});
-});
+	onready(function(){
+		// Enable submit button if disabled (cache problem)
+		$('input[type="submit"]').removeAttr('disabled');
+		setup_form($('div#post-form-outer'));
+	});
+}();

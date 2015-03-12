@@ -115,7 +115,6 @@
 	$config['additional_javascript'][] = 'js/expand.js';
 	$config['additional_javascript'][] = 'js/titlebar-notifications.js';
 	$config['additional_javascript'][] = 'js/auto-reload.js';
-	$config['additional_javascript'][] = 'js/quick-reply.js';
 	$config['additional_javascript'][] = 'js/options/user-css.js';
 	$config['additional_javascript'][] = 'js/options/user-js.js';
 	$config['additional_javascript'][] = 'js/forced-anon.js';
@@ -129,6 +128,7 @@
 	$config['additional_javascript'][] = 'js/download-original.js';
 	$config['additional_javascript'][] = 'js/thread-watcher.js';
 	$config['additional_javascript'][] = 'js/ajax.js';
+	$config['additional_javascript'][] = 'js/quick-reply.js';
 	$config['additional_javascript'][] = 'js/show-own-posts.js';
 	$config['additional_javascript'][] = 'js/youtube.js';
 	$config['additional_javascript'][] = 'js/comment-toolbar.js';
@@ -213,7 +213,7 @@ $config['show_sages'] = false;
 $config['katex'] = false;
 $config['enable_antibot'] = false;
 $config['spam']['unicode'] = false;
-$config['twig_cache'] = true;
+$config['twig_cache'] = false;
 // 8chan specific mod pages
 require '8chan-mod-pages.php';
 	
