@@ -213,8 +213,10 @@ $config['show_sages'] = false;
 $config['katex'] = false;
 $config['enable_antibot'] = false;
 $config['spam']['unicode'] = false;
+$config['twig_cache'] = true;
 // 8chan specific mod pages
 require '8chan-mod-pages.php';
 	
 // Load database credentials
 require "secrets.php";
+

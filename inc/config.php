@@ -1715,3 +1715,6 @@
 
 	// Use oekaki?
 	$config['oekaki'] = false;
+
+	// Twig cache?
+	$config['twig_cache'] = false;
