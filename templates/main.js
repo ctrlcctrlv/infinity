@@ -457,16 +457,16 @@ function init() {
 	});
 
 	// just enable jquery, almost every script requires it by now. more and more main.js functions are going to start requiring it
-	$('.post-table-options').css('display', 'none');
+	$('.post-options-container').css('display', 'none');
 	window.optionsShowing = false;
 	$(document).on('click', '.show-post-table-options', function(e) {
 		if (!window.optionsShowing) { 
 			$('.show-post-table-options').html('[&#9660; '+_('Hide post options &amp; limits')+']'); 
-			$('.post-table-options').css('display', 'table');
+			$('.post-options-container').slideDown();
 			window.optionsShowing = true;
 		} else { 
 			$('.show-post-table-options').html('[&#9654; '+_('Show post options &amp; limits')+']'); 
-			$('.post-table-options').css('display', 'none');
+			$('.post-options-container').slideUp();
 			window.optionsShowing = false;
 		}; 
 	
