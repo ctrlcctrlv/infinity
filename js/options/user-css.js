@@ -27,7 +27,9 @@ var submit = $("<input type='button' value='"+_("Save custom CSS")+"'>").css({
   apply_css();
 }).appendTo(tab.content);
 
-onready(function(){
+var main = function(){
+  if (typeof styles === "undefined") return;
+
   var stylechooser = $("<select id='stylechooser'></select>").appendTo(tab.content);
   // Handle empty localStorage
   if (!localStorage.stylesheets_all_boards) localStorage.stylesheets_all_boards = "false";
@@ -78,7 +80,7 @@ onready(function(){
   });
 
   update_textarea();
-});
+}
 
 var apply_css = function() {
   var to_apply;
@@ -125,5 +127,5 @@ var update_textarea = function() {
   apply_css();
 };
 
-
+main();
 }();
