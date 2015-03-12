@@ -29,6 +29,9 @@ var submit = $("<input type='button' value='"+_("Save custom CSS")+"'>").css({
 
 onready(function(){
   var stylechooser = $("<select id='stylechooser'></select>").appendTo(tab.content);
+  // Handle empty localStorage
+  if (!localStorage.stylesheets_all_boards) localStorage.stylesheets_all_boards = "false";
+  if (!localStorage.board_stylesheets) localStorage.board_stylesheets = '{}';
 
   var fix_choice = function(){
     stylechooser.empty();
@@ -48,8 +51,6 @@ onready(function(){
 
   var allboards = $("<label><input type='checkbox' id='css-all-boards'> "+_("Style should affect all boards, not just current board")+" (/"+board_name+"/)</label>").appendTo(tab.content).find('input');
 
-  // Handle empty localStorage
-  if (!localStorage.stylesheets_all_boards) localStorage.stylesheets_all_boards = "false";
   if (localStorage.stylesheets_all_boards === "true") allboards.prop('checked', 'checked');
 
   allboards.on('change', function(e) {
@@ -106,7 +107,7 @@ var apply_css = function() {
   ls.after($("<link rel='stylesheet'/>")
     .attr("class", "user-chosen-stylesheet")
     .attr("id", "stylesheet")
-    .attr("href", configRoot+to_apply)
+    .attr("href", (configRoot !== '/' ? configRoot : '')+to_apply)
   );
   }
   return to_apply;
