@@ -154,17 +154,23 @@
 			<td>
 				<div class="no-bump-option">
 					<label><input title="No bump" id="no-bump" name="no-bump" type="checkbox">
-					{% trans %}Do not bump{% endtrans %} <span class="unimportant hint">{% trans %}(you can also write sage in the email field){% endtrans %}</span></label>
+					{% trans %}Do not bump{% endtrans %}
+					<br/>
+					<span class="unimportant hint">{% trans %}(you can also write sage in the email field){% endtrans %}</span></label>
 				</div>
 
 				{% if config.spoiler_images %}<div class="spoiler-images-option">
 					<label><input title="Spoiler images" id="spoiler" name="spoiler" type="checkbox">
-					{% trans %}Spoiler images{% endtrans %} <span class="unimportant hint">{% trans %}(this replaces the thumbnails of your images with question marks){% endtrans %}</label>
+					{% trans %}Spoiler images{% endtrans %}
+					<br/>
+					<span class="unimportant hint">{% trans %}(this replaces the thumbnails of your images with question marks){% endtrans %}</label>
 				</div>{% endif %}
 
 				{% if config.allow_no_country and config.country_flags %}<div class="no-country-option">
 					<label><input title="No country flag" id="no_country" name="no_country" type="checkbox">
-					{% trans %}Hide country{% endtrans %} <span class="unimportant hint">{% trans %}(this board displays your country when you post if this is unchecked){% endtrans %}</span></label>
+					{% trans %}Hide country{% endtrans %}
+					<br/>
+					<span class="unimportant hint">{% trans %}(this board displays your country when you post if this is unchecked){% endtrans %}</span></label>
 				</div>{% endif %}
 
 				{% if mod %}
