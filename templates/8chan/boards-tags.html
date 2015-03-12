@@ -36,14 +36,15 @@ table.modlog tr td.expand-td:hover div{
     background-image: url(/static/jbo.png);
 }
 .uri {
-overflow: hidden; width: 75px; height: 1.1em; white-space: nowrap;
+overflow: hidden; width: 75px; white-space: nowrap;
 }
 .tags {
-overflow: hidden; width: 150px; height: 1.1em; white-space: nowrap;
+overflow: hidden; width: 150px; white-space: nowrap;
 }
 .board-name {
-overflow: hidden; width: 200px; height: 1.1em; white-space: nowrap;
+overflow: hidden; width: 200px; white-space: nowrap;
 }
+tr:nth-child(even) { background-color: #D6DAF0 }
 </style>
 
 <p style='text-align:center'>{% trans %}There are currently <strong>{{n_boards}}</strong> boards + <strong>{{hidden_boards_total}}</strong> unindexed boards = <strong>{{t_boards}}</strong> total boards. Site-wide, {{total_posts_hour}} posts have been made in the last hour, with {{total_posts}} being made on all active boards since October 23, 2013.{% endtrans %}</p>
