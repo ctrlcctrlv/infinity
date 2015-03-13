@@ -8,7 +8,7 @@
  * Copyright (c) 2012 Michael Save <savetheinternet@tinyboard.org>
  * Copyright (c) 2013-2014 Marcin Łabanowski <marcin@6irc.net>
  * Copyright (c) 2013 undido <firekid109@hotmail.com>
- * Copyright (c) 2014 Fredrick Brennan <admin@8chan.co>
+ * Copyright (c) 2014-2015 Fredrick Brennan <admin@8chan.co>
  *
  * Usage:
  *   $config['additional_javascript'][] = 'js/jquery.min.js';
@@ -17,15 +17,19 @@
  *
  */
 
+function makeIcon(mode){
+	var favicon = $("link[rel='shortcut icon']");
 
-au = false;
-auto_reload_enabled = true; // for watch.js to interop
+	if (!favicon.length) {
+		var favicon = $('<link rel="shortcut icon"></link>').appendTo('head');
+	}
 
-function makeIcon(){
-	if(au) return;
-	au = true;
-	$("link[rel='icon']").attr("href", "../static/favicon_au.png");
+	$("link[rel='shortcut icon']").attr("href", configRoot+"static/favicon"+(mode?"-"+mode:"")+".ico");
 }
+
++function(){
+var notify = false;
+auto_reload_enabled = true; // for watch.js to interop
 
 $(document).ready(function(){
 
@@ -34,7 +38,12 @@ $(document).ready(function(){
 		localStorage.auto_thread_update = 'true'; //default value
 	}
 	if (window.Options && Options.get_tab('general')) {
-		Options.extend_tab('general', '<label id="auto-thread-update"><input type="checkbox">' + _('Auto update thread') + '</label>');
+		Options.extend_tab("general", "<fieldset><legend>"+_("Auto update")+"</legend>"
+		+ ('<label id="auto-thread-update"><input type="checkbox">' + _('Auto update thread') + '</label>')
+		+ ('<label id="auto_thread_desktop_notifications"><input type="checkbox">' + _('Show desktop notifications when users quote me') + '</label>')
+		+ ('<label id="auto_thread_desktop_notifications_all"><input type="checkbox">' + _('Show desktop notifications on all replies') + '</label>')
+		+ '</fieldset>');
+
 		$('#auto-thread-update>input').on('click', function() {
 			if ($('#auto-thread-update>input').is(':checked')) {
 				localStorage.auto_thread_update = 'true';
@@ -42,8 +51,34 @@ $(document).ready(function(){
 				localStorage.auto_thread_update = 'false';
 			}
 		});
+
+		$('#auto_thread_desktop_notifications>input,#auto_thread_desktop_notifications_all>input').on('click', function() {
+			if (!("Notification" in window)) return;
+	
+			var setting = $(this).parent().attr('id');
+
+			if ($(this).is(':checked')) {
+				Notification.requestPermission();
+				if (Notification.permission === "granted") {
+					localStorage[setting] = 'true';
+				}
+			} else {
+				localStorage[setting] = 'false';
+			}
+		});
+
 		if (localStorage.auto_thread_update === 'true') {
 			$('#auto-thread-update>input').prop('checked', true);
+		}
+
+		if (localStorage.auto_thread_desktop_notifications === 'true') {
+			$('#auto_thread_desktop_notifications>input').prop('checked', true);
+			notify = "mention";
+		}
+
+		if (localStorage.auto_thread_desktop_notifications_all === 'true') {
+			$('#auto_thread_desktop_notifications_all>input').prop('checked', true);
+			notify = "all";
 		}
 	}
 
@@ -84,6 +119,7 @@ $(document).ready(function(){
 				document.title = "("+new_posts+") "+title;
 			} else {
 				document.title = title;
+				makeIcon(false);
 			}
 		};
 	}
@@ -178,7 +214,11 @@ $(document).ready(function(){
 					if($('#' + id).length == 0) {
 						if (!new_posts) {
 							first_new_post = this;
-							makeIcon();
+							makeIcon('reply');
+							if (notify === "all" || (notify === "mention" && $(this).find('.own_post').length)) {
+								var body = $(this).children('.body').html().replace(/<br\s*[\/]?>/gi, "\n");
+								var n = new Notification("New reply to "+$('title').text(), {body: $('<div/>').html(body).text()});
+							}
 						}
 						$(this).insertAfter($('div.post:not(.post-hover):last').next()).after('<br class="clear">');
 						new_posts++;
@@ -264,4 +304,4 @@ $(document).ready(function(){
 		auto_update(poll_interval_delay);
 	}
 });
-
+}();
