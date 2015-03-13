@@ -214,6 +214,7 @@ $config['katex'] = false;
 $config['enable_antibot'] = false;
 $config['spam']['unicode'] = false;
 $config['twig_cache'] = false;
+$config['report_captcha'] = true;
 // 8chan specific mod pages
 require '8chan-mod-pages.php';
 	

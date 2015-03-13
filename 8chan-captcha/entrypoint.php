@@ -3,19 +3,8 @@ header('Access-Control-Allow-Origin: *');
 
 $mode = @$_GET['mode'];
 
-require_once("cool-php-captcha-0.3.1/captcha.php");
-
-function rand_string($length, $charset) {
-  $ret = "";
-  while ($length--) {
-    $ret .= mb_substr($charset, rand(0, mb_strlen($charset, 'utf-8')-1), 1, 'utf-8');
-  }
-  return $ret;
-}
-
-function cleanup ($pdo, $expires_in) {
-  $pdo->prepare("DELETE FROM `captchas` WHERE `created_at` < ?")->execute([time() - $expires_in]);
-}
+require_once("config.php");
+require_once("functions.php");
 
 switch ($mode) {
 // Request: GET entrypoint.php?mode=get&extra=1234567890
@@ -28,23 +17,9 @@ case "get":
   $extra = $_GET['extra'];
   $nojs = isset($_GET['nojs']);
 
-  require_once("config.php");
-
-  $text = rand_string($length, $extra);
-
-  //$captcha = new SimpleCaptcha($text, $width, $height, $extra);
-  $captcha = new SimpleCaptcha();
-
-  $cookie = rand_string(20, "abcdefghijklmnopqrstuvwxyz");
-
-  ob_start();
-  $captcha->CreateImage($text);
-  $image = ob_get_contents();
-  ob_end_clean();
-  $html = '<image src="data:image/png;base64,'.base64_encode($image).'">';
-
-  $query = $pdo->prepare("INSERT INTO `captchas` (`cookie`, `extra`, `text`, `created_at`) VALUES (?, ?, ?, ?)");
-  $query->execute(                               [$cookie,  $extra,  $text,  time()]);
+  $captcha = generate_captcha($extra);
+  $cookie = $captcha['cookie'];
+  $html = $captcha['html'];
 
   if ($nojs) {
 	  header("Content-type: text/html");
@@ -65,8 +40,6 @@ case "check":
    || !isset ($_GET['text'])) {
     die();
   }
-
-  require_once("config.php");
 
   cleanup($pdo, $expires_in);
 
