@@ -47,7 +47,7 @@
 		{% endif %}
 		<tr>
 			<th>
-				{% trans %}Comment <span class="required-star">*</span>{% endtrans %}
+				{% trans %}Comment{% endtrans %} <span class="required-star">*</span>
 			</th>
 			<td>
 				<textarea name="body" id="body" rows="5" cols="35"></textarea>
@@ -61,7 +61,7 @@
 		{% if config.recaptcha %}
 		<tr>
 			<th>
-				{% trans %}Verification{% endtrans %}
+				{% trans %}Verification{% endtrans %} <span class="required-star">*</span>
 			</th>
 			<td>
 				<script type="text/javascript" src="//www.google.com/recaptcha/api/challenge?k={{ config.recaptcha_public }}"></script>
@@ -72,7 +72,7 @@
 		{% if config.captcha.enabled or (config.new_thread_capt and not id) %}
 		<tr class='captcha'>
 			<th>
-				{% trans %}Verification{% endtrans %}
+				{% trans %}Verification{% endtrans %} <span class="required-star">*</span>
 			</th>
 			<td>
 				<script>load_captcha("{{ config.captcha.provider_get }}", "{{ config.captcha.extra }}");</script>

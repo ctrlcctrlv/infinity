@@ -13,17 +13,17 @@
 			var inMod = {% if mod %}true{% else %}false{% endif %};
 			var modRoot="{{ config.root }}"+(inMod ? "mod.php?/" : "");
 			var max_images={{ config.max_images }};
-		</script>
-		{% if config.locale != "en" %}
-			<script type="text/javascript" src="{{ config.root }}inc/locale/{{ config.locale|split('.')[0] }}/LC_MESSAGES/javascript.js"></script>
-		{% endif %}
-		<script type="text/javascript">{% raw %}
+			{% raw %}
 			var styles = {
 				{% endraw %}
 				{% for name, uri in config.stylesheets %}{% raw %}'{% endraw %}{{ name|addslashes }}{% raw %}' : '{% endraw %}/stylesheets/{{ uri|addslashes }}{% raw %}',
 				{% endraw %}{% endfor %}{% raw %}
 			};
-		{% endraw %}</script>
+			{% endraw %}
+		</script>
+		{% if config.locale != "en" %}
+			<script type="text/javascript" src="{{ config.root }}inc/locale/{{ config.locale|split('.')[0] }}/LC_MESSAGES/javascript.js"></script>
+		{% endif %}
 		{% if not nojavascript %}
 			<script type="text/javascript" src="{{ config.url_javascript }}"></script>
 			{% if not config.additional_javascript_compile %}
