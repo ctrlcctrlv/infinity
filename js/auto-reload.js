@@ -38,7 +38,7 @@ $(document).ready(function(){
 		localStorage.auto_thread_update = 'true'; //default value
 	}
 	if (window.Options && Options.get_tab('general')) {
-		Options.extend_tab("general", "<fieldset><legend>"+_("Auto update")+"</legend>"
+		Options.extend_tab("general", "<fieldset id='auto-update-fs'><legend>"+_("Auto update")+"</legend>"
 		+ ('<label id="auto-thread-update"><input type="checkbox">' + _('Auto update thread') + '</label>')
 		+ ('<label id="auto_thread_desktop_notifications"><input type="checkbox">' + _('Show desktop notifications when users quote me') + '</label>')
 		+ ('<label id="auto_thread_desktop_notifications_all"><input type="checkbox">' + _('Show desktop notifications on all replies') + '</label>')

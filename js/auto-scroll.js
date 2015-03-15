@@ -1,7 +1,7 @@
 $('document').ready(function () {
 	var autoScroll = localStorage['autoScroll'] ? true : false;
 	if (window.Options && Options.get_tab('general')){
-		Options.extend_tab('general','<label id=\'autoScroll\'><input type=\'checkbox\' />' + ' Scroll to new posts' + '</label>');
+		$('#auto-update-fs').append('<label id=\'autoScroll\'><input type=\'checkbox\' />' + _('Scroll to new posts') + '</label>');
 		$('#autoScroll').find('input').prop('checked', autoScroll);
 	}
 	$('#autoScroll').on('change', function() {
@@ -15,7 +15,7 @@ $('document').ready(function () {
 			$('input.auto-scroll').prop('checked', autoScroll);
 	});
 	if (active_page == 'thread') {
-		$('span[id="updater"]').children('a').after(' (<input class="auto-scroll" type="checkbox"></input> Scroll to New posts)');
+		$('span[id="updater"]').children('a').after(' (<input class="auto-scroll" type="checkbox"></input> '+_('Scroll to new posts')+')');
 		$('input.auto-scroll').prop('checked', autoScroll);
 		$(document).on('new_post', function (e, post) {
 			if ($('input.auto-scroll').prop('checked')) 
