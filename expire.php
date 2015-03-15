@@ -8,8 +8,8 @@ $protected = array('burgers', 'cow', 'wilno', 'cute', 'yoga');
 $q = query("SELECT uri FROM boards");
 $boards = $q->fetchAll(PDO::FETCH_COLUMN);
 $now = new DateTime();
-$ago = (new DateTime)->sub(new DateInterval('P7D'));
-$mod_ago = (new DateTime)->sub(new DateInterval('P14D'));
+$ago = (new DateTime)->sub(new DateInterval('P14D'));
+$mod_ago = (new DateTime)->sub(new DateInterval('P7D'));
 
 // Find out the last activity for our board
 $delete = array();
@@ -53,7 +53,7 @@ foreach($boards as $board) {
 		}
 	}
 
-	if (($last_activity_date < $ago or ($last_mod_date and $last_mod_date < $mod_ago)) and (int)$count['count'] < 30 and isset($mods[0]['id'])) {
+	if (($last_activity_date < $ago or ($last_mod_date and $last_mod_date < $mod_ago)) and (int)$count['count'] < 5 and isset($mods[0]['id'])) {
 	#if (($last_activity_date < $ago or ($last_mod_date and $last_mod_date < $mod_ago)) and isset($mods[0]['id'])) {
 		echo $board, ' ', $last_activity_date->format('Y-m-d H:i:s'), ' ', ($last_mod_date ? $last_mod_date->format('Y-m-d H:i:s') : 'false'), ' ', $count['count'], ' ', $mod, "\r\n";
 		$delete[] = array('board' => $board, 'last_activity' => $last_activity_date, 'last_mod' => $last_mod_date, 'mod' => isset($mods[0]['username']) ? $mods[0]['username'] : false, 'count' => $count['count']);
@@ -63,12 +63,11 @@ if ($argc > 1) {
 $f = fopen('rip.txt', 'a');
 fwrite($f, "--\r\n".date('c')."\r\n");
 foreach($delete as $i => $d){
-	file_get_contents('http://8ch.net/listboards.php'); //I think this is bad
 	$s = "RIP /".$d['board']."/, created by ".($d['mod']?$d['mod']:'?')." and last active on ".$d['last_activity']->format('Y-m-d H:i:s.').($d['last_mod'] ? ' Mod last active on ' . $d['last_mod']->format('Y-m-d H:i:s.') : ' Mod never active.') . " Number of posts: {$d['count']}." . "\r\n";
 	echo $s;
 	fwrite($f, $s);
 
-	openBoard($d['board']);
+	if (!openBoard($d['board'])) continue;;
 
 	$query = prepare('DELETE FROM ``boards`` WHERE `uri` = :uri');
 	$query->bindValue(':uri', $board['uri']);
@@ -129,13 +128,14 @@ foreach($delete as $i => $d){
 	}
 	
 	// Delete entire board directory
-	rrmdir($board['uri'] . '/');
+	exec('rm -rf ' . $board['uri'] . '/');
 	rrmdir('static/banners/' . $board['uri']);
+	file_unlink("stylesheets/board/{$board['uri']}.css");
 	// HAAAAAX
 	if($config['dir']['img_root'] != '')
 		rrmdir($config['dir']['img_root'] . $board['uri']);
 	
-	cache::delete('board_' . $board['uri']);
+	if ($config['cache']['enabled']) cache::delete('board_' . $board['uri']);
 	
 	_syslog(LOG_NOTICE, "Board deleted: {$board['uri']}");
 	if ($d['mod']) {

@@ -152,3 +152,7 @@ div#watchlist a:hover,a.watchThread:hover {
   max-height:160px;
   max-width:160px
 }
+
+.modlog tr:nth-child(even), .modlog th {
+	background-color: #282A2E;
+}

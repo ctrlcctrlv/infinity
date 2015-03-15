@@ -58,7 +58,11 @@ $(document).ready(function(){
 			var setting = $(this).parent().attr('id');
 
 			if ($(this).is(':checked')) {
-				Notification.requestPermission();
+				Notification.requestPermission(function(permission){
+					if (permission === "granted") {
+						localStorage[setting] = 'true';
+					}
+				});
 				if (Notification.permission === "granted") {
 					localStorage[setting] = 'true';
 				}
