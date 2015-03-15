@@ -116,6 +116,7 @@
 	$config['additional_javascript'][] = 'js/auto-reload.js';
 	$config['additional_javascript'][] = 'js/options/user-css.js';
 	$config['additional_javascript'][] = 'js/options/user-js.js';
+	$config['additional_javascript'][] = 'js/options/fav.js';
 	$config['additional_javascript'][] = 'js/forced-anon.js';
 	$config['additional_javascript'][] = 'js/toggle-locked-threads.js';
 	$config['additional_javascript'][] = 'js/toggle-images.js';
@@ -152,7 +153,7 @@
 	$config['additional_javascript'][] = 'js/wPaint/plugins/file/wPaint.menu.main.file.min.js';
 	$config['additional_javascript'][] = 'js/wpaint.js';
 	// Code tags (fix because we no longer have different scripts for each board)
-	$config['additional_javascript'][] = 'js/code_tags/run_prettify.js';
+	//$config['additional_javascript'][] = 'js/code_tags/run_prettify.js';
 
 	//$config['font_awesome_css'] = '/netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css';
 	

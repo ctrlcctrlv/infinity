@@ -1177,3 +1177,7 @@ div.mix {
 		display: none !important;
 	}
 }
+
+#youtube-size input {
+	width: 50px;
+}
