@@ -113,11 +113,10 @@
 	$config['additional_javascript'][] = 'js/local-time.js';
 	$config['additional_javascript'][] = 'js/no-animated-gif.js';
 	$config['additional_javascript'][] = 'js/expand.js';
-	$config['additional_javascript'][] = 'js/titlebar-notifications.js';
 	$config['additional_javascript'][] = 'js/auto-reload.js';
-	$config['additional_javascript'][] = 'js/quick-reply.js';
 	$config['additional_javascript'][] = 'js/options/user-css.js';
 	$config['additional_javascript'][] = 'js/options/user-js.js';
+	$config['additional_javascript'][] = 'js/options/fav.js';
 	$config['additional_javascript'][] = 'js/forced-anon.js';
 	$config['additional_javascript'][] = 'js/toggle-locked-threads.js';
 	$config['additional_javascript'][] = 'js/toggle-images.js';
@@ -129,6 +128,7 @@
 	$config['additional_javascript'][] = 'js/download-original.js';
 	$config['additional_javascript'][] = 'js/thread-watcher.js';
 	$config['additional_javascript'][] = 'js/ajax.js';
+	$config['additional_javascript'][] = 'js/quick-reply.js';
 	$config['additional_javascript'][] = 'js/show-own-posts.js';
 	$config['additional_javascript'][] = 'js/youtube.js';
 	$config['additional_javascript'][] = 'js/comment-toolbar.js';
@@ -152,6 +152,8 @@
 	$config['additional_javascript'][] = 'js/wPaint/plugins/shapes/wPaint.menu.main.shapes.min.js';
 	$config['additional_javascript'][] = 'js/wPaint/plugins/file/wPaint.menu.main.file.min.js';
 	$config['additional_javascript'][] = 'js/wpaint.js';
+	// Code tags (fix because we no longer have different scripts for each board)
+	//$config['additional_javascript'][] = 'js/code_tags/run_prettify.js';
 
 	//$config['font_awesome_css'] = '/netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css';
 	
@@ -213,7 +215,8 @@ $config['show_sages'] = false;
 $config['katex'] = false;
 $config['enable_antibot'] = false;
 $config['spam']['unicode'] = false;
-$config['twig_cache'] = true;
+$config['twig_cache'] = false;
+$config['report_captcha'] = true;
 // 8chan specific mod pages
 require '8chan-mod-pages.php';
 	

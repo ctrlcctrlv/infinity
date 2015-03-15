@@ -1,5 +1,5 @@
 		<link rel="stylesheet" media="screen" href="{{ config.url_stylesheet }}">
-		{% if config.url_favicon %}<link rel="shortcut icon" href="{{ config.url_favicon }}">{% endif %}
+		{% if config.url_favicon %}<link rel="shortcut icon" href="{{ config.root }}{{ config.url_favicon }}">{% endif %}
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
 		{% if config.meta_keywords %}<meta name="keywords" content="{{ config.meta_keywords }}">{% endif %}
@@ -13,6 +13,13 @@
 			var inMod = {% if mod %}true{% else %}false{% endif %};
 			var modRoot="{{ config.root }}"+(inMod ? "mod.php?/" : "");
 			var max_images={{ config.max_images }};
+			{% raw %}
+			var styles = {
+				{% endraw %}
+				{% for name, uri in config.stylesheets %}{% raw %}'{% endraw %}{{ name|addslashes }}{% raw %}' : '{% endraw %}/stylesheets/{{ uri|addslashes }}{% raw %}',
+				{% endraw %}{% endfor %}{% raw %}
+			};
+			{% endraw %}
 		</script>
 		{% if config.locale != "en" %}
 			<script type="text/javascript" src="{{ config.root }}inc/locale/{{ config.locale|split('.')[0] }}/LC_MESSAGES/javascript.js"></script>

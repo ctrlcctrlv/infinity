@@ -20,7 +20,7 @@ function multi_image() {
         if (!(images_len >= max_images)) {
             var new_file = '<br class="file_separator"/><input type="file" name="file'+(images_len+1)+'" id="upload_file'+(images_len+1)+'">';
 
-            $('[type=file]:last').after(new_file);
+            $('div#quick-reply [type=file]:last, div#post-form-outer [type=file]:last').after(new_file);
             if (typeof setup_form !== 'undefined') setup_form($('form[name="post"]'));
         }
     })

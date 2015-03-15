@@ -302,9 +302,14 @@
 	// Enable custom captcha provider
 	$config['captcha']['enabled'] = false;
 
-	// Custom captcha provider path
-	$config['captcha']['provider_get']   = 'http://8chan.vichan.net/captcha/entrypoint.php';
-	$config['captcha']['provider_check'] = 'http://8chan.vichan.net/captcha/entrypoint.php';
+	/* 
+	 * Custom captcha provider path (You will need to change these depending on your configuration! It cannot be
+	 * automatically determined because provider_check requires curl which needs to know the domain of your site.)
+	 * 
+	 * Specify yourimageboard.com/$config['root']/8chan-captcha/entrypoint.php for the default provider or write your own
+	 */
+	$config['captcha']['provider_get']   = 'http://localhost/infinity/8chan-captcha/entrypoint.php';
+	$config['captcha']['provider_check'] = 'http://localhost/infinity/8chan-captcha/entrypoint.php';
 
 	// Custom captcha extra field (eg. charset)
 	$config['captcha']['extra'] = 'abcdefghijklmnopqrstuvwxyz';
@@ -1225,7 +1230,7 @@
 	// $config['url_javascript'] = 'http://static.example.org/main.js';
 
 	// Website favicon.
-	// $config['url_favicon'] = '/favicon.gif';
+	$config['url_favicon'] = 'static/favicon.ico';
 	
 	// EXPERIMENTAL: Try not to build pages when we shouldn't have to.
 	$config['try_smarter'] = true;
@@ -1718,3 +1723,6 @@
 
 	// Twig cache?
 	$config['twig_cache'] = false;
+
+	// Use CAPTCHA for reports?
+	$config['report_captcha'] = false;

@@ -88,16 +88,9 @@
 
 		{% for footer in config.footer %}<p class="unimportant" style="text-align:center;">{{ footer }}</p>{% endfor %}
 	</footer>
-	<script type="text/javascript">{% raw %}
-		var styles = {
-			{% endraw %}
-			{% for name, uri in config.stylesheets %}{% raw %}'{% endraw %}{{ name|addslashes }}{% raw %}' : '{% endraw %}/stylesheets/{{ uri|addslashes }}{% raw %}',
-			{% endraw %}{% endfor %}{% raw %}
-		}; onready(init);
-	{% endraw %}</script>
 
 	<script type="text/javascript">{% raw %}
-		ready();
+		onready(init); ready();
 	{% endraw %}</script>
 </body>
 </html>
