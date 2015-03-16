@@ -3,7 +3,7 @@
 		{% if config.country_flags_condensed %}
 			 class="flag flag-{{ post.modifiers.flag }}" src="{{ config.image_blank }}"
 		{% else %}
-			 class="flag" src="{{ config.root }}{{ config.uri_flags|sprintf(post.modifiers.flag) }}"
+			 class="flag" src="{% if config.root != '/' %}{{ config.root }}{% endif %}{{ config.uri_flags|sprintf(post.modifiers.flag) }}"
 		{% endif %}
 		 style="{% if post.modifiers['flag style'] %}
 				{{ post.modifiers['flag style'] }}
