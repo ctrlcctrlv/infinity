@@ -12,7 +12,7 @@ $(document).on('ready', function() {
 			return $('.flag_preview').remove();
 		}
 
-		$('.flag_preview').attr('src', "/static/custom-flags/" + board_name + "/" + $(this).val() + '.png');
+		$('.flag_preview').attr('src', configRoot + "static/custom-flags/" + board_name + "/" + $(this).val() + '.png');
 	}
 
 	$('[name=user_flag]').on('change', flag_previews);

@@ -100,6 +100,24 @@
 			</td>
 		</tr>
 		{% endif %}
+		{% set flag_tr %}
+		{% if config.user_flag %}
+			<tr>
+				<th>{% trans %}Flag{% endtrans %} {% if config.force_flag %}<span class="required-star">*</span>{% endif %}</th>
+				<td>
+					<select name="user_flag" id="user_flag">
+						{% if not config.force_flag %}<option value="">{% trans %}None{% endtrans %}</option>{% endif %}
+						{% for flag, text in config.user_flags %}
+							<option value="{{ flag }}">{{ text }}</option>
+						{% endfor %}
+					</select>
+				</td>
+			</tr>
+		{% endif %}
+		{% endset %}
+		{% if config.force_flag %}
+			{{ flag_tr }}
+		{% endif %}
 		<tr>
 			<td class="required-field-cell">
 				<span class="required-wrap hint">
@@ -113,19 +131,10 @@
 		</tr>
 		</tbody></table><table class="post-table-options"><tbody>
 
-		{% if config.user_flag %}
-			<tr>
-				<th>{% trans %}Flag{% endtrans %}</th>
-				<td>
-					<select name="user_flag" id="user_flag">
-						<option value="">{% trans %}None{% endtrans %}</option>
-						{% for flag, text in config.user_flags %}
-							<option value="{{ flag }}">{{ text }}</option>
-						{% endfor %}
-					</select>
-				</td>
-			</tr>
+		{% if not config.force_flag %}
+			{{ flag_tr }}
 		{% endif %}
+
 		{% if config.enable_embedding %}
 		<tr id="upload_embed">
 			<th>
@@ -162,7 +171,7 @@
 					{% trans %}Spoiler images{% endtrans %} <span class="unimportant hint">{% trans %}(this replaces the thumbnails of your images with question marks){% endtrans %}</label>
 				</div>{% endif %}
 
-				{% if config.allow_no_country and config.country_flags %}<div class="no-country-option">
+				{% if config.allow_no_country and config.country_flags and not config.force_flag %}<div class="no-country-option">
 					<label><input title="No country flag" id="no_country" name="no_country" type="checkbox">
 					{% trans %}Hide country{% endtrans %} <span class="unimportant hint">{% trans %}(this board displays your country when you post if this is unchecked){% endtrans %}</span></label>
 				</div>{% endif %}

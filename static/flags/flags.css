@@ -1,257 +1,1925 @@
+/*$disable-magic-sprite-selectors: true;*/
+/* line 2232, ../../static/flag/*.png */
 .flag {
-	width: 16px;
-	height: 11px;
-	background:url(flags.png) no-repeat
+  background-image: url('flags.png');
+  background-repeat: no-repeat;
 }
 
-.flag.flag-ad {background-position: -16px 0}
-.flag.flag-ae {background-position: -32px 0}
-.flag.flag-af {background-position: -48px 0}
-.flag.flag-ag {background-position: -64px 0}
-.flag.flag-ai {background-position: -80px 0}
-.flag.flag-al {background-position: -96px 0}
-.flag.flag-am {background-position: -112px 0}
-.flag.flag-an {background-position: -128px 0}
-.flag.flag-ao {background-position: -144px 0}
-.flag.flag-ar {background-position: -160px 0}
-.flag.flag-as {background-position: -176px 0}
-.flag.flag-at {background-position: -192px 0}
-.flag.flag-au {background-position: -208px 0}
-.flag.flag-aw {background-position: -224px 0}
-.flag.flag-az {background-position: -240px 0}
-.flag.flag-ba {background-position: 0 -11px}
-.flag.flag-bb {background-position: -16px -11px}
-.flag.flag-bd {background-position: -32px -11px}
-.flag.flag-be {background-position: -48px -11px}
-.flag.flag-bf {background-position: -64px -11px}
-.flag.flag-bg {background-position: -80px -11px}
-.flag.flag-bh {background-position: -96px -11px}
-.flag.flag-bi {background-position: -112px -11px}
-.flag.flag-bj {background-position: -128px -11px}
-.flag.flag-bm {background-position: -144px -11px}
-.flag.flag-bn {background-position: -160px -11px}
-.flag.flag-bo {background-position: -176px -11px}
-.flag.flag-br {background-position: -192px -11px}
-.flag.flag-bs {background-position: -208px -11px}
-.flag.flag-bt {background-position: -224px -11px}
-.flag.flag-bv {background-position: -240px -11px}
-.flag.flag-bw {background-position: 0 -22px}
-.flag.flag-by {background-position: -16px -22px}
-.flag.flag-bz {background-position: -32px -22px}
-.flag.flag-ca {background-position: -48px -22px}
-.flag.flag-catalonia {background-position: -64px -22px}
-.flag.flag-cd {background-position: -80px -22px}
-.flag.flag-cf {background-position: -96px -22px}
-.flag.flag-cg {background-position: -112px -22px}
-.flag.flag-ch {background-position: -128px -22px}
-.flag.flag-ci {background-position: -144px -22px}
-.flag.flag-ck {background-position: -160px -22px}
-.flag.flag-cl {background-position: -176px -22px}
-.flag.flag-cm {background-position: -192px -22px}
-.flag.flag-cn {background-position: -208px -22px}
-.flag.flag-co {background-position: -224px -22px}
-.flag.flag-cr {background-position: -240px -22px}
-.flag.flag-cu {background-position: 0 -33px}
-.flag.flag-cv {background-position: -16px -33px}
-.flag.flag-cw {background-position: -32px -33px}
-.flag.flag-cy {background-position: -48px -33px}
-.flag.flag-cz {background-position: -64px -33px}
-.flag.flag-de {background-position: -80px -33px}
-.flag.flag-dj {background-position: -96px -33px}
-.flag.flag-dk {background-position: -112px -33px}
-.flag.flag-dm {background-position: -128px -33px}
-.flag.flag-do {background-position: -144px -33px}
-.flag.flag-dz {background-position: -160px -33px}
-.flag.flag-ec {background-position: -176px -33px}
-.flag.flag-ee {background-position: -192px -33px}
-.flag.flag-eg {background-position: -208px -33px}
-.flag.flag-eh {background-position: -224px -33px}
-.flag.flag-england {background-position: -240px -33px}
-.flag.flag-er {background-position: 0 -44px}
-.flag.flag-es {background-position: -16px -44px}
-.flag.flag-et {background-position: -32px -44px}
-.flag.flag-eu {background-position: -48px -44px}
-.flag.flag-fi {background-position: -64px -44px}
-.flag.flag-fj {background-position: -80px -44px}
-.flag.flag-fk {background-position: -96px -44px}
-.flag.flag-fm {background-position: -112px -44px}
-.flag.flag-fo {background-position: -128px -44px}
-.flag.flag-fr {background-position: -144px -44px}
-.flag.flag-ga {background-position: -160px -44px}
-.flag.flag-gb {background-position: -176px -44px}
-.flag.flag-gd {background-position: -192px -44px}
-.flag.flag-ge {background-position: -208px -44px}
-.flag.flag-gf {background-position: -224px -44px}
-.flag.flag-gg {background-position: -240px -44px}
-.flag.flag-gh {background-position: 0 -55px}
-.flag.flag-gi {background-position: -16px -55px}
-.flag.flag-gl {background-position: -32px -55px}
-.flag.flag-gm {background-position: -48px -55px}
-.flag.flag-gn {background-position: -64px -55px}
-.flag.flag-gp {background-position: -80px -55px}
-.flag.flag-gq {background-position: -96px -55px}
-.flag.flag-gr {background-position: -112px -55px}
-.flag.flag-gs {background-position: -128px -55px}
-.flag.flag-gt {background-position: -144px -55px}
-.flag.flag-gu {background-position: -160px -55px}
-.flag.flag-gw {background-position: -176px -55px}
-.flag.flag-gy {background-position: -192px -55px}
-.flag.flag-hk {background-position: -208px -55px}
-.flag.flag-hm {background-position: -224px -55px}
-.flag.flag-hn {background-position: -240px -55px}
-.flag.flag-hr {background-position: 0 -66px}
-.flag.flag-ht {background-position: -16px -66px}
-.flag.flag-hu {background-position: -32px -66px}
-.flag.flag-ic {background-position: -48px -66px}
-.flag.flag-id {background-position: -64px -66px}
-.flag.flag-ie {background-position: -80px -66px}
-.flag.flag-il {background-position: -96px -66px}
-.flag.flag-im {background-position: -112px -66px}
-.flag.flag-in {background-position: -128px -66px}
-.flag.flag-io {background-position: -144px -66px}
-.flag.flag-iq {background-position: -160px -66px}
-.flag.flag-ir {background-position: -176px -66px}
-.flag.flag-is {background-position: -192px -66px}
-.flag.flag-it {background-position: -208px -66px}
-.flag.flag-je {background-position: -224px -66px}
-.flag.flag-jm {background-position: -240px -66px}
-.flag.flag-jo {background-position: 0 -77px}
-.flag.flag-jp {background-position: -16px -77px}
-.flag.flag-ke {background-position: -32px -77px}
-.flag.flag-kg {background-position: -48px -77px}
-.flag.flag-kh {background-position: -64px -77px}
-.flag.flag-ki {background-position: -80px -77px}
-.flag.flag-km {background-position: -96px -77px}
-.flag.flag-kn {background-position: -112px -77px}
-.flag.flag-kp {background-position: -128px -77px}
-.flag.flag-kr {background-position: -144px -77px}
-.flag.flag-kurdistan {background-position: -160px -77px}
-.flag.flag-kw {background-position: -176px -77px}
-.flag.flag-ky {background-position: -192px -77px}
-.flag.flag-kz {background-position: -208px -77px}
-.flag.flag-la {background-position: -224px -77px}
-.flag.flag-lb {background-position: -240px -77px}
-.flag.flag-lc {background-position: 0 -88px}
-.flag.flag-li {background-position: -16px -88px}
-.flag.flag-lk {background-position: -32px -88px}
-.flag.flag-lr {background-position: -48px -88px}
-.flag.flag-ls {background-position: -64px -88px}
-.flag.flag-lt {background-position: -80px -88px}
-.flag.flag-lu {background-position: -96px -88px}
-.flag.flag-lv {background-position: -112px -88px}
-.flag.flag-ly {background-position: -128px -88px}
-.flag.flag-ma {background-position: -144px -88px}
-.flag.flag-mc {background-position: -160px -88px}
-.flag.flag-md {background-position: -176px -88px}
-.flag.flag-me {background-position: -192px -88px}
-.flag.flag-mg {background-position: -208px -88px}
-.flag.flag-mh {background-position: -224px -88px}
-.flag.flag-mk {background-position: -240px -88px}
-.flag.flag-ml {background-position: 0 -99px}
-.flag.flag-mm {background-position: -16px -99px}
-.flag.flag-mn {background-position: -32px -99px}
-.flag.flag-mo {background-position: -48px -99px}
-.flag.flag-mp {background-position: -64px -99px}
-.flag.flag-mq {background-position: -80px -99px}
-.flag.flag-mr {background-position: -96px -99px}
-.flag.flag-ms {background-position: -112px -99px}
-.flag.flag-mt {background-position: -128px -99px}
-.flag.flag-mu {background-position: -144px -99px}
-.flag.flag-mv {background-position: -160px -99px}
-.flag.flag-mw {background-position: -176px -99px}
-.flag.flag-mx {background-position: -192px -99px}
-.flag.flag-my {background-position: -208px -99px}
-.flag.flag-mz {background-position: -224px -99px}
-.flag.flag-na {background-position: -240px -99px}
-.flag.flag-nc {background-position: 0 -110px}
-.flag.flag-ne {background-position: -16px -110px}
-.flag.flag-nf {background-position: -32px -110px}
-.flag.flag-ng {background-position: -48px -110px}
-.flag.flag-ni {background-position: -64px -110px}
-.flag.flag-nl {background-position: -80px -110px}
-.flag.flag-no {background-position: -96px -110px}
-.flag.flag-np {background-position: -112px -110px}
-.flag.flag-nr {background-position: -128px -110px}
-.flag.flag-nu {background-position: -144px -110px}
-.flag.flag-nz {background-position: -160px -110px}
-.flag.flag-om {background-position: -176px -110px}
-.flag.flag-pa {background-position: -192px -110px}
-.flag.flag-pe {background-position: -208px -110px}
-.flag.flag-pf {background-position: -224px -110px}
-.flag.flag-pg {background-position: -240px -110px}
-.flag.flag-ph {background-position: 0 -121px}
-.flag.flag-pk {background-position: -16px -121px}
-.flag.flag-pl {background-position: -32px -121px}
-.flag.flag-pm {background-position: -48px -121px}
-.flag.flag-pn {background-position: -64px -121px}
-.flag.flag-pr {background-position: -80px -121px}
-.flag.flag-ps {background-position: -96px -121px}
-.flag.flag-pt {background-position: -112px -121px}
-.flag.flag-pw {background-position: -128px -121px}
-.flag.flag-py {background-position: -144px -121px}
-.flag.flag-qa {background-position: -160px -121px}
-.flag.flag-re {background-position: -176px -121px}
-.flag.flag-ro {background-position: -192px -121px}
-.flag.flag-rs {background-position: -208px -121px}
-.flag.flag-ru {background-position: -224px -121px}
-.flag.flag-rw {background-position: -240px -121px}
-.flag.flag-sa {background-position: 0 -132px}
-.flag.flag-sb {background-position: -16px -132px}
-.flag.flag-sc {background-position: -32px -132px}
-.flag.flag-scotland {background-position: -48px -132px}
-.flag.flag-sd {background-position: -64px -132px}
-.flag.flag-se {background-position: -80px -132px}
-.flag.flag-sg {background-position: -96px -132px}
-.flag.flag-sh {background-position: -112px -132px}
-.flag.flag-si {background-position: -128px -132px}
-.flag.flag-sk {background-position: -144px -132px}
-.flag.flag-sl {background-position: -160px -132px}
-.flag.flag-sm {background-position: -176px -132px}
-.flag.flag-sn {background-position: -192px -132px}
-.flag.flag-so {background-position: -208px -132px}
-.flag.flag-somaliland {background-position: -224px -132px}
-.flag.flag-sr {background-position: -240px -132px}
-.flag.flag-ss {background-position: 0 -143px}
-.flag.flag-st {background-position: -16px -143px}
-.flag.flag-sv {background-position: -32px -143px}
-.flag.flag-sx {background-position: -48px -143px}
-.flag.flag-sy {background-position: -64px -143px}
-.flag.flag-sz {background-position: -80px -143px}
-.flag.flag-tc {background-position: -96px -143px}
-.flag.flag-td {background-position: -112px -143px}
-.flag.flag-tf {background-position: -128px -143px}
-.flag.flag-tg {background-position: -144px -143px}
-.flag.flag-th {background-position: -160px -143px}
-.flag.flag-tj {background-position: -176px -143px}
-.flag.flag-tk {background-position: -192px -143px}
-.flag.flag-tl {background-position: -208px -143px}
-.flag.flag-tm {background-position: -224px -143px}
-.flag.flag-tn {background-position: -240px -143px}
-.flag.flag-to {background-position: 0 -154px}
-.flag.flag-tr {background-position: -16px -154px}
-.flag.flag-tt {background-position: -32px -154px}
-.flag.flag-tv {background-position: -48px -154px}
-.flag.flag-tw {background-position: -64px -154px}
-.flag.flag-tz {background-position: -80px -154px}
-.flag.flag-ua {background-position: -96px -154px}
-.flag.flag-ug {background-position: -112px -154px}
-.flag.flag-um {background-position: -128px -154px}
-.flag.flag-us {background-position: -144px -154px}
-.flag.flag-uy {background-position: -160px -154px}
-.flag.flag-uz {background-position: -176px -154px}
-.flag.flag-va {background-position: -192px -154px}
-.flag.flag-vc {background-position: -208px -154px}
-.flag.flag-ve {background-position: -224px -154px}
-.flag.flag-vg {background-position: -240px -154px}
-.flag.flag-vi {background-position: 0 -165px}
-.flag.flag-vn {background-position: -16px -165px}
-.flag.flag-vu {background-position: -32px -165px}
-.flag.flag-wales {background-position: -48px -165px}
-.flag.flag-wf {background-position: -64px -165px}
-.flag.flag-ws {background-position: -80px -165px}
-.flag.flag-ye {background-position: -96px -165px}
-.flag.flag-yt {background-position: -112px -165px}
-.flag.flag-za {background-position: -128px -165px}
-.flag.flag-zanzibar {background-position: -144px -165px}
-.flag.flag-zm {background-position: -160px -165px}
-.flag.flag-zw {background-position: -176px -165px}
+/* */
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-a1 {
+  background-position: 0 0;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-a2 {
+  background-position: 0 -11px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ac {
+  background-position: 0 -22px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ad {
+  background-position: 0 -33px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ae {
+  background-position: 0 -44px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-af {
+  background-position: 0 -55px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ag {
+  background-position: 0 -66px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ai {
+  background-position: 0 -77px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-al {
+  background-position: 0 -88px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-am {
+  background-position: 0 -99px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-an {
+  background-position: 0 -110px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ao {
+  background-position: 0 -121px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ap {
+  background-position: 0 -132px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-aq {
+  background-position: 0 -143px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ar {
+  background-position: 0 -154px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-as {
+  background-position: 0 -165px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-at {
+  background-position: 0 -176px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-au {
+  background-position: 0 -187px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-aw {
+  background-position: 0 -198px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ax {
+  background-position: 0 -209px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-az {
+  background-position: 0 -220px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ba {
+  background-position: 0 -231px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-bb {
+  background-position: 0 -242px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-bd {
+  background-position: 0 -253px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-be {
+  background-position: 0 -264px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-bf {
+  background-position: 0 -275px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-bg {
+  background-position: 0 -286px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-bh {
+  background-position: 0 -297px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-bi {
+  background-position: 0 -308px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-bj {
+  background-position: 0 -319px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-bl {
+  background-position: 0 -330px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-bm {
+  background-position: 0 -341px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-bn {
+  background-position: 0 -352px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-bo {
+  background-position: 0 -363px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-bq {
+  background-position: 0 -374px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-br {
+  background-position: 0 -385px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-bs {
+  background-position: 0 -396px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-bt {
+  background-position: 0 -407px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-bu {
+  background-position: 0 -418px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-bv {
+  background-position: 0 -429px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-bw {
+  background-position: 0 -440px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-by {
+  background-position: 0 -451px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-bz {
+  background-position: 0 -462px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ca {
+  background-position: 0 -473px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-cat {
+  background-position: 0 -484px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-cc {
+  background-position: 0 -495px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-cd {
+  background-position: 0 -506px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-cf {
+  background-position: 0 -517px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-cg {
+  background-position: 0 -528px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ch {
+  background-position: 0 -2959px;
+  height: 11px;
+  width: 11px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ci {
+  background-position: 0 -550px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ck {
+  background-position: 0 -561px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-cl {
+  background-position: 0 -572px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-cm {
+  background-position: 0 -583px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-cn {
+  background-position: 0 -594px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-co {
+  background-position: 0 -605px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-cp {
+  background-position: 0 -616px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-cr {
+  background-position: 0 -627px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-cs {
+  background-position: 0 -638px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-cu {
+  background-position: 0 -649px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-cv {
+  background-position: 0 -660px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-cw {
+  background-position: 0 -671px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-cx {
+  background-position: 0 -682px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-cy {
+  background-position: 0 -693px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-cz {
+  background-position: 0 -704px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-de {
+  background-position: 0 -715px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-dg {
+  background-position: 0 -726px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-dj {
+  background-position: 0 -737px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-dk {
+  background-position: 0 -748px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-dm {
+  background-position: 0 -759px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-do {
+  background-position: 0 -770px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-dz {
+  background-position: 0 -781px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ea {
+  background-position: 0 -792px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ec {
+  background-position: 0 -803px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ee {
+  background-position: 0 -814px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-eg {
+  background-position: 0 -825px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-eh {
+  background-position: 0 -836px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-er {
+  background-position: 0 -847px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-es {
+  background-position: 0 -858px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-et {
+  background-position: 0 -869px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-eu {
+  background-position: 0 -880px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-fi {
+  background-position: 0 -891px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-fj {
+  background-position: 0 -902px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-fk {
+  background-position: 0 -913px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-fm {
+  background-position: 0 -924px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-fo {
+  background-position: 0 -935px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-fr {
+  background-position: 0 -946px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-fx {
+  background-position: 0 -957px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ga {
+  background-position: 0 -968px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-gb {
+  background-position: 0 -979px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-gd {
+  background-position: 0 -990px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ge {
+  background-position: 0 -1001px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-gf {
+  background-position: 0 -1012px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-gg {
+  background-position: 0 -2981px;
+  height: 12px;
+  width: 18px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-gh {
+  background-position: 0 -1034px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-gi {
+  background-position: 0 -1045px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-gl {
+  background-position: 0 -1056px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-gm {
+  background-position: 0 -1067px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-gn {
+  background-position: 0 -1078px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-gp {
+  background-position: 0 -1089px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-gq {
+  background-position: 0 -1100px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-gr {
+  background-position: 0 -1111px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-gs {
+  background-position: 0 -1122px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-gt {
+  background-position: 0 -1133px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-gu {
+  background-position: 0 -1144px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-gw {
+  background-position: 0 -1155px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-gy {
+  background-position: 0 -1166px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-hk {
+  background-position: 0 -1177px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-hm {
+  background-position: 0 -1188px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-hn {
+  background-position: 0 -1199px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-hr {
+  background-position: 0 -1210px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ht {
+  background-position: 0 -1221px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-hu {
+  background-position: 0 -1232px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ic {
+  background-position: 0 -1243px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-id {
+  background-position: 0 -1254px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ie {
+  background-position: 0 -1265px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-il {
+  background-position: 0 -1276px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-im {
+  background-position: 0 -1287px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-in {
+  background-position: 0 -1298px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-io {
+  background-position: 0 -1309px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-iq {
+  background-position: 0 -1320px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ir {
+  background-position: 0 -1331px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-is {
+  background-position: 0 -1342px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-it {
+  background-position: 0 -1353px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-je {
+  background-position: 0 -1364px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-jm {
+  background-position: 0 -1375px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-jo {
+  background-position: 0 -1386px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-jp {
+  background-position: 0 -1397px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ke {
+  background-position: 0 -1408px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-kg {
+  background-position: 0 -1419px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-kh {
+  background-position: 0 -1430px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ki {
+  background-position: 0 -1441px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-km {
+  background-position: 0 -1452px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-kn {
+  background-position: 0 -1463px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-kp {
+  background-position: 0 -1474px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-kr {
+  background-position: 0 -1485px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-kw {
+  background-position: 0 -1496px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ky {
+  background-position: 0 -1507px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-kz {
+  background-position: 0 -1518px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-la {
+  background-position: 0 -1529px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-lb {
+  background-position: 0 -1540px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-lc {
+  background-position: 0 -1551px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-li {
+  background-position: 0 -1562px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-lk {
+  background-position: 0 -1573px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-lr {
+  background-position: 0 -1584px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ls {
+  background-position: 0 -1595px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-lt {
+  background-position: 0 -1606px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-lu {
+  background-position: 0 -1617px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-lv {
+  background-position: 0 -1628px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ly {
+  background-position: 0 -1639px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ma {
+  background-position: 0 -1650px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-mc {
+  background-position: 0 -1661px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-md {
+  background-position: 0 -1672px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-me {
+  background-position: 0 -3005px;
+  height: 12px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-mf {
+  background-position: 0 -1694px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-mg {
+  background-position: 0 -1705px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-mh {
+  background-position: 0 -1716px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-mk {
+  background-position: 0 -1727px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ml {
+  background-position: 0 -1738px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-mm {
+  background-position: 0 -1749px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-mn {
+  background-position: 0 -1760px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-mo {
+  background-position: 0 -1771px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-mp {
+  background-position: 0 -1782px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-mq {
+  background-position: 0 -1793px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-mr {
+  background-position: 0 -1804px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ms {
+  background-position: 0 -1815px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-mt {
+  background-position: 0 -1826px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-mu {
+  background-position: 0 -1837px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-mv {
+  background-position: 0 -1848px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-mw {
+  background-position: 0 -1859px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-mx {
+  background-position: 0 -1870px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-my {
+  background-position: 0 -1881px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-mz {
+  background-position: 0 -1892px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-na {
+  background-position: 0 -1903px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-nc {
+  background-position: 0 -1914px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ne {
+  background-position: 0 -1925px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-nf {
+  background-position: 0 -1936px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ng {
+  background-position: 0 -1947px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ni {
+  background-position: 0 -1958px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-nl {
+  background-position: 0 -1969px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-no {
+  background-position: 0 -1980px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-np {
+  background-position: 0 -2970px;
+  height: 11px;
+  width: 9px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-nr {
+  background-position: 0 -2002px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-nt {
+  background-position: 0 -2013px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-nu {
+  background-position: 0 -2024px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-nz {
+  background-position: 0 -2035px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-o1 {
+  background-position: 0 -2046px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-om {
+  background-position: 0 -2057px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-pa {
+  background-position: 0 -2068px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-pe {
+  background-position: 0 -2079px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-pf {
+  background-position: 0 -2090px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-pg {
+  background-position: 0 -2101px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ph {
+  background-position: 0 -2112px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-pk {
+  background-position: 0 -2123px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-pl {
+  background-position: 0 -2134px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-pm {
+  background-position: 0 -2145px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-pn {
+  background-position: 0 -2156px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-pr {
+  background-position: 0 -2167px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ps {
+  background-position: 0 -2178px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-pt {
+  background-position: 0 -2189px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-pw {
+  background-position: 0 -2200px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-py {
+  background-position: 0 -2211px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-qa {
+  background-position: 0 -2222px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-re {
+  background-position: 0 -2233px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ro {
+  background-position: 0 -2244px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-rs {
+  background-position: 0 -2255px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ru {
+  background-position: 0 -2266px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-rw {
+  background-position: 0 -2277px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-sa {
+  background-position: 0 -2288px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-sb {
+  background-position: 0 -2299px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-sc {
+  background-position: 0 -2310px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-sd {
+  background-position: 0 -2321px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-se {
+  background-position: 0 -2332px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-sf {
+  background-position: 0 -2343px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-sg {
+  background-position: 0 -2354px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-sh {
+  background-position: 0 -2365px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-si {
+  background-position: 0 -2376px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-sj {
+  background-position: 0 -2387px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-sk {
+  background-position: 0 -2398px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-sl {
+  background-position: 0 -2409px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-sm {
+  background-position: 0 -2420px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-sn {
+  background-position: 0 -2431px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-so {
+  background-position: 0 -2442px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-sr {
+  background-position: 0 -2453px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ss {
+  background-position: 0 -2464px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-st {
+  background-position: 0 -2475px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-su {
+  background-position: 0 -2486px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-sv {
+  background-position: 0 -2497px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-sx {
+  background-position: 0 -2508px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-sy {
+  background-position: 0 -2519px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-sz {
+  background-position: 0 -2530px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ta {
+  background-position: 0 -2541px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-tc {
+  background-position: 0 -2552px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-td {
+  background-position: 0 -2563px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-tf {
+  background-position: 0 -2574px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-tg {
+  background-position: 0 -2585px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-th {
+  background-position: 0 -2596px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ti {
+  background-position: 0 -2993px;
+  height: 12px;
+  width: 18px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-tj {
+  background-position: 0 -2618px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-tk {
+  background-position: 0 -2948px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-tl {
+  background-position: 0 -2640px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-tm {
+  background-position: 0 -2651px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-tn {
+  background-position: 0 -2662px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-to {
+  background-position: 0 -2673px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-tp {
+  background-position: 0 -2684px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-tr {
+  background-position: 0 -2695px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-tt {
+  background-position: 0 -2706px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-tv {
+  background-position: 0 -2717px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-tw {
+  background-position: 0 -2728px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-tz {
+  background-position: 0 -2739px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ua {
+  background-position: 0 -2750px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ug {
+  background-position: 0 -2761px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-uk {
+  background-position: 0 -2772px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-um {
+  background-position: 0 -2783px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-us {
+  background-position: 0 -2794px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-uy {
+  background-position: 0 -2805px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-uz {
+  background-position: 0 -2816px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-va {
+  background-position: 0 -2827px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-vc {
+  background-position: 0 -2838px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ve {
+  background-position: 0 -2849px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-vg {
+  background-position: 0 -2860px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-vi {
+  background-position: 0 -2871px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-vn {
+  background-position: 0 -2882px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-vu {
+  background-position: 0 -2893px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-wf {
+  background-position: 0 -2904px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ws {
+  background-position: 0 -2915px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-xx {
+  background-position: 0 -2926px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-ye {
+  background-position: 0 -2937px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-yt {
+  background-position: 0 -2629px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-yu {
+  background-position: 0 -2607px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-za {
+  background-position: 0 -1991px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-zm {
+  background-position: 0 -1683px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-zr {
+  background-position: 0 -1023px;
+  height: 11px;
+  width: 16px;
+}
+
+/* line 84, ../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/utilities/sprites/_base.scss */
+.flag-zw {
+  background-position: 0 -539px;
+  height: 11px;
+  width: 16px;
+}

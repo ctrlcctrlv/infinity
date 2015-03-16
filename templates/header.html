@@ -13,6 +13,7 @@
 			var inMod = {% if mod %}true{% else %}false{% endif %};
 			var modRoot="{{ config.root }}"+(inMod ? "mod.php?/" : "");
 			var max_images={{ config.max_images }};
+			var board_name="{{ board.uri }}";
 			{% raw %}
 			var styles = {
 				{% endraw %}

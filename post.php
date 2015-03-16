@@ -2,7 +2,6 @@
 /*
  *  Copyright (c) 2010-2014 Tinyboard Development Group
  */
- 
 require "./inc/functions.php";
 require "./inc/anti-bot.php";
 
@@ -589,7 +588,7 @@ elseif (isset($_POST['post'])) {
 		$post['body'] .= "\n<tinyboard raw html>1</tinyboard>";
 	}
 	
-	if (($config['country_flags'] && !$config['allow_no_country']) || ($config['country_flags'] && $config['allow_no_country'] && !isset($_POST['no_country']))) {
+	if (($config['country_flags'] && (!$config['allow_no_country'] || $config['force_flag'])) || ($config['country_flags'] && $config['allow_no_country'] && !isset($_POST['no_country']))) {
 		require 'inc/lib/geoip/geoip.inc';
 		$gi=geoip\geoip_open('inc/lib/geoip/GeoIPv6.dat', GEOIP_STANDARD);
 	
@@ -605,25 +604,29 @@ elseif (isset($_POST['post'])) {
 			return '::ffff:'.$part7.':'.$part8;
 		}
 	
-		if ($country_code = geoip\geoip_country_code_by_addr_v6($gi, ipv4to6($_SERVER['REMOTE_ADDR']))) {
-			if (!in_array(strtolower($country_code), array('eu', 'ap', 'o1', 'a1', 'a2')))
-				$post['body'] .= "\n<tinyboard flag>".strtolower($country_code)."</tinyboard>".
-				"\n<tinyboard flag alt>".geoip\geoip_country_name_by_addr_v6($gi, ipv4to6($_SERVER['REMOTE_ADDR']))."</tinyboard>";
-		}
+		$country_code = geoip\geoip_country_code_by_addr_v6($gi, ipv4to6($_SERVER['REMOTE_ADDR']));
+		$country_name = geoip\geoip_country_name_by_addr_v6($gi, ipv4to6($_SERVER['REMOTE_ADDR']));
+		if (!$country_code) $country_code = 'A1';
+		if (!$country_name) $country_name = 'Unknown';
+
+		$post['body'] .= "\n<tinyboard flag>".strtolower($country_code)."</tinyboard>".
+		"\n<tinyboard flag alt>$country_name</tinyboard>";
 	}
 	
-	if ($config['user_flag'] && isset($_POST['user_flag']))
-	if (!empty($_POST['user_flag']) ){
-		
-		$user_flag = $_POST['user_flag'];
-		
-		if (!isset($config['user_flags'][$user_flag]))
-			error(_('Invalid flag selection!'));
+	if ($config['user_flag'] && isset($_POST['user_flag'])) {
+		if (!empty($_POST['user_flag']) ){
+			$user_flag = $_POST['user_flag'];
+			
+			if (!isset($config['user_flags'][$user_flag]))
+				error(_('Invalid flag selection!'));
 
-		$flag_alt = isset($user_flag_alt) ? $user_flag_alt : $config['user_flags'][$user_flag];
+			$flag_alt = isset($user_flag_alt) ? $user_flag_alt : $config['user_flags'][$user_flag];
 
-		$post['body'] .= "\n<tinyboard flag>" . strtolower($user_flag) . "</tinyboard>" .
-		"\n<tinyboard flag alt>" . $flag_alt . "</tinyboard>";
+			$post['body'] .= "\n<tinyboard flag>" . strtolower($user_flag) . "</tinyboard>" .
+			"\n<tinyboard flag alt>" . $flag_alt . "</tinyboard>";
+		} else if ($config['force_flag']) {
+			error(_('You must choose a flag to post on this board!'));
+		}
 	}
 	
 	if (mysql_version() >= 50503) {
