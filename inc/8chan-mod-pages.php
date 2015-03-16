@@ -99,7 +99,7 @@
 	$config['mod']['ban_appeals'] = BOARDVOLUNTEER;
 	$config['mod']['view_ban_appeals'] = BOARDVOLUNTEER;
 	$config['mod']['view_ban'] = BOARDVOLUNTEER;
-	$config['mod']['reassign_board'] = ADMIN;
+	$config['mod']['reassign_board'] = GLOBALVOLUNTEER;
 	$config['mod']['move'] = GLOBALVOLUNTEER;
 	$config['mod']['shadow_capcode'] = 'Global Volunteer';
 
@@ -150,7 +150,7 @@
 
 		$sfw = $query->fetchColumn();
 
-		mod_page(_('Edit tags'), 'mod/tags.html', array('board'=>$board,'token'=>make_secure_link_token('reassign/'.$board['uri']), 'tags'=>$tags, 'sfw'=>$sfw));
+		mod_page(_('Edit tags'), 'mod/tags.html', array('board'=>$board,'token'=>make_secure_link_token('tags/'.$board['uri']), 'tags'=>$tags, 'sfw'=>$sfw));
 	};
 
 	$config['mod']['custom_pages']['/reassign/(\%b)'] = function($b) {
@@ -180,6 +180,8 @@
 		$query->execute();
 
 		$body = "Thanks for your interest in this board. Kindly find the username and password below. You can login at https://8ch.net/mod.php.<br>Username: {$mods[0]['username']}<br>Password: {$password}<br>Thanks for using 8chan!";
+
+		modLog("Reassigned board /$b/");
 		
 		mod_page(_('Edit reassign'), 'blank.html', array('board'=>$board,'token'=>make_secure_link_token('reassign/'.$board['uri']),'body'=>$body));
 	};
