@@ -182,7 +182,7 @@
 
 		$postForm.find('table:first').prepend('<tr><th colspan="2">\
 			<span class="handle">\
-				<a class="close-btn" href="javascript:void(0)">X</a>\
+				<a class="close-btn" href="javascript:void(0)">×</a>\
 				' + _('Quick Reply') + '\
 			</span>\
 			</th></tr>');
