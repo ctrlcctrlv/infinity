@@ -239,13 +239,13 @@ class Bans {
 	static public function seen($ban_id) {
 		global $config;
 		$query = query("UPDATE ``bans`` SET `seen` = 1 WHERE `id` = " . (int)$ban_id) or error(db_error());
-                if (!$config['cron_bans']) rebuildThemes('bans');
+                if (!$config['cron_bans']) rebuild_themes('bans');
 	}
 	
 	static public function purge() {
 		global $config;
 		$query = query("DELETE FROM ``bans`` WHERE `expires` IS NOT NULL AND `expires` < " . time() . " AND `seen` = 1") or error(db_error());
-                if (!$config['cron_bans']) rebuildThemes('bans');
+                if (!$config['cron_bans']) rebuild_themes('bans');
 	}
 	
 	static public function delete($ban_id, $modlog = false, $boards = false, $dont_rebuild = false) {
@@ -264,7 +264,7 @@ class Bans {
 		                error($config['error']['noaccess']);
 
 			if ($ban['board']) 
-				openBoard($ban['board']);
+				open_board($ban['board']);
 			
 			$mask = self::range_to_string(array($ban['ipstart'], $ban['ipend']));
 			
@@ -274,7 +274,7 @@ class Bans {
 		
 		query("DELETE FROM ``bans`` WHERE `id` = " . (int)$ban_id) or error(db_error());
 
-		if (!$dont_rebuild || !$config['cron_bans']) rebuildThemes('bans');
+		if (!$dont_rebuild || !$config['cron_bans']) rebuild_themes('bans');
 		
 		return true;
 	}
@@ -356,7 +356,7 @@ class Bans {
 				' with ' . ($reason ? 'reason: ' . utf8tohtml($reason) . '' : 'no reason'));
 		}
 
-		if (!$config['cron_bans']) rebuildThemes('bans');
+		if (!$config['cron_bans']) rebuild_themes('bans');
 
 		return $pdo->lastInsertId();
 	}

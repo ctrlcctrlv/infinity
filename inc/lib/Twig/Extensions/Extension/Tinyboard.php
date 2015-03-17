@@ -18,7 +18,7 @@ class Twig_Extensions_Extension_Tinyboard extends Twig_Extension
 			new Twig_SimpleFilter('sprintf', 'sprintf'),
 			new Twig_SimpleFilter('capcode', 'capcode'),
 			new Twig_SimpleFilter('remove_modifiers', 'remove_modifiers'),
-			new Twig_SimpleFilter('hasPermission', 'twig_hasPermission_filter'),
+			new Twig_SimpleFilter('has_permission', 'twig_has_permission_filter'),
 			new Twig_SimpleFilter('date', 'twig_date_filter'),
 			new Twig_SimpleFilter('remove_whitespace', 'twig_remove_whitespace_filter'),
 			new Twig_SimpleFilter('less_ip', 'twig_less_ip'),
@@ -79,8 +79,8 @@ function twig_date_filter($date, $format) {
 	return gmstrftime($format, $date);
 }
 
-function twig_hasPermission_filter($mod, $permission, $board = null) {
-	return hasPermission($permission, $board, $mod);
+function twig_has_permission_filter($mod, $permission, $board = null) {
+	return has_permission($permission, $board, $mod);
 }
 
 function twig_extension_filter($value, $case_insensitive = true) {

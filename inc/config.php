@@ -1665,7 +1665,7 @@
 	// Additional mod.php?/ pages. Look in inc/mod/pages.php for help.
 	// $config['mod']['custom_pages']['/something/(\d+)'] = function($id) {
 	// 	global $config;
-	// 	if (!hasPermission($config['mod']['something']))
+	// 	if (!has_permission($config['mod']['something']))
 	// 		error($config['error']['noaccess']);
 	// 	// ...
 	// };

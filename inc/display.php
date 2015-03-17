@@ -49,7 +49,7 @@ function createBoardlist($mod=false) {
 	
 	if (!isset($config['boards'])) return array('top'=>'','bottom'=>'');
 	
-	$xboards = listBoards();
+	$xboards = list_boards();
 	$boards = array();
 	foreach ($xboards as $val) {
 		$boards[$val['uri']] = $val['title'];

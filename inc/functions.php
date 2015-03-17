@@ -27,7 +27,7 @@ $mod = false;
 
 register_shutdown_function('fatal_error_handler');
 mb_internal_encoding('UTF-8');
-loadConfig();
+load_config();
 
 function init_locale($locale, $error='error') {
 	if ($locale === 'en') 
@@ -48,7 +48,7 @@ function init_locale($locale, $error='error') {
 $current_locale = 'en';
 
 
-function loadConfig() {
+function load_config() {
 	global $board, $config, $__ip, $debug, $__version, $microtime_start, $current_locale;
 
 	$error = function_exists('error') ? 'error' : 'basic_error_function_because_the_other_isnt_loaded_yet';
@@ -338,7 +338,7 @@ function create_antibot($board, $thread = null) {
 	return _create_antibot($board, $thread);
 }
 
-function rebuildThemes($action, $boardname = false) {
+function rebuild_themes($action, $boardname = false) {
 	global $config, $board, $current_locale, $error;
 
 	// Save the global variables
@@ -360,7 +360,7 @@ function rebuildThemes($action, $boardname = false) {
 	        }
 
 
-		rebuildTheme($theme['theme'], $action, $boardname);
+		rebuild_theme($theme['theme'], $action, $boardname);
 	}
 
 	// Restore them again
@@ -375,7 +375,7 @@ function rebuildThemes($action, $boardname = false) {
 }
 
 
-function loadThemeConfig($_theme) {
+function load_theme_config($_theme) {
 	global $config;
 
 	if (!file_exists($config['dir']['themes'] . '/' . $_theme . '/info.php'))
@@ -387,21 +387,21 @@ function loadThemeConfig($_theme) {
 	return $theme;
 }
 
-function rebuildTheme($theme, $action, $board = false) {
+function rebuild_theme($theme, $action, $board = false) {
 	global $config, $_theme;
 	$_theme = $theme;
 
-	$theme = loadThemeConfig($_theme);
+	$theme = load_theme_config($_theme);
 
 	if (file_exists($config['dir']['themes'] . '/' . $_theme . '/theme.php')) {
 		require_once $config['dir']['themes'] . '/' . $_theme . '/theme.php';
 
-		$theme['build_function']($action, themeSettings($_theme), $board);
+		$theme['build_function']($action, theme_settings($_theme), $board);
 	}
 }
 
 
-function themeSettings($theme) {
+function theme_settings($theme) {
 	$query = prepare("SELECT `name`, `value` FROM ``theme_settings`` WHERE `theme` = :theme AND `name` IS NOT NULL");
 	$query->bindValue(':theme', $theme);
 	$query->execute() or error(db_error($query));
@@ -427,7 +427,7 @@ function mb_substr_replace($string, $replacement, $start, $length) {
 	return mb_substr($string, 0, $start) . $replacement . mb_substr($string, $start + $length);
 }
 
-function setupBoard($array) {
+function setup_board($array) {
 	global $board, $config;
 
 	$board = array(
@@ -444,7 +444,7 @@ function setupBoard($array) {
 	$board['dir'] = sprintf($config['board_path'], $board['uri']);
 	$board['url'] = sprintf($config['board_abbreviation'], $board['uri']);
 
-	loadConfig();
+	load_config();
 
 	if (!file_exists($board['dir']))
 		@mkdir($board['dir'], 0777) or error("Couldn't create " . $board['dir'] . ". Check permissions.", true);
@@ -459,21 +459,21 @@ function setupBoard($array) {
 			or error("Couldn't create " . $board['dir'] . $config['dir']['img'] . ". Check permissions.", true);
 }
 
-function openBoard($uri) {
+function open_board($uri) {
 	global $config, $build_pages;
 
 	if ($config['try_smarter'])
 		$build_pages = array();
 
-	$board = getBoardInfo($uri);
+	$board = get_board_info($uri);
 	if ($board) {
-		setupBoard($board);
+		setup_board($board);
 		return true;
 	}
 	return false;
 }
 
-function getBoardInfo($uri) {
+function get_board_info($uri) {
 	global $config;
 
 	if ($config['cache']['enabled'] && ($board = cache::get('board_' . $uri))) {
@@ -493,8 +493,8 @@ function getBoardInfo($uri) {
 	return false;
 }
 
-function boardTitle($uri) {
-	$board = getBoardInfo($uri);
+function board_title($uri) {
+	$board = get_board_info($uri);
 	if ($board)
 		return $board['title'];
 	return false;
@@ -647,7 +647,7 @@ function file_unlink($path) {
 	return $ret;
 }
 
-function hasPermission($action = null, $board = null, $_mod = null) {
+function has_permission($action = null, $board = null, $_mod = null) {
 	global $config;
 
 	if (isset($_mod))
@@ -673,7 +673,7 @@ function hasPermission($action = null, $board = null, $_mod = null) {
 	return true;
 }
 
-function listBoards($just_uri = false, $indexed_only = false) {
+function list_boards($just_uri = false, $indexed_only = false) {
 	global $config;
 	
 	$just_uri ? $cache_name = 'all_boards_uri' : $cache_name = 'all_boards';
@@ -737,7 +737,7 @@ function ago($timestamp) {
 	}
 }
 
-function displayBan($ban) {
+function display_ban($ban) {
 	global $config, $board;
 
 	if (!$ban['seen']) {
@@ -747,7 +747,7 @@ function displayBan($ban) {
 	$ban['ip'] = $_SERVER['REMOTE_ADDR'];
 
 	if ($ban['post'] && isset($ban['post']['board'], $ban['post']['id'])) {
-		if (openBoard($ban['post']['board'])) {
+		if (open_board($ban['post']['board'])) {
 			$query = query(sprintf("SELECT `files` FROM ``posts_%s`` WHERE `id` = " .
 				(int)$ban['post']['id'], $board['uri']));
 			if ($_post = $query->fetch(PDO::FETCH_ASSOC)) {
@@ -793,7 +793,7 @@ function displayBan($ban) {
 	));
 }
 
-function checkBan($board = false) {
+function check_ban($board = false) {
 	global $config;
 
 	if (!isset($_SERVER['REMOTE_ADDR'])) {
@@ -811,7 +811,7 @@ function checkBan($board = false) {
 			Bans::delete($ban['id']);
 			if ($config['require_ban_view'] && !$ban['seen']) {
 				if (!isset($_POST['json_response'])) {
-					displayBan($ban);
+					display_ban($ban);
 				} else {
 					header('Content-Type: text/json');
 					die(json_encode(array('error' => true, 'banned' => true)));
@@ -819,7 +819,7 @@ function checkBan($board = false) {
 			}
 		} else {
 			if (!isset($_POST['json_response'])) {
-				displayBan($ban);
+				display_ban($ban);
 			} else {
 				header('Content-Type: text/json');
 				die(json_encode(array('error' => true, 'banned' => true)));
@@ -840,7 +840,7 @@ function checkBan($board = false) {
 		cache::set('purged_bans_last', time());
 }
 
-function threadLocked($id) {
+function thread_locked($id) {
 	global $board;
 
 	if (event('check-locked', $id))
@@ -858,7 +858,7 @@ function threadLocked($id) {
 	return (bool)$locked;
 }
 
-function threadSageLocked($id) {
+function thread_sage_locked($id) {
 	global $board;
 
 	if (event('check-sage-locked', $id))
@@ -876,7 +876,7 @@ function threadSageLocked($id) {
 	return (bool)$sagelocked;
 }
 
-function threadExists($id) {
+function thread_exists($id) {
 	global $board;
 
 	$query = prepare(sprintf("SELECT 1 FROM ``posts_%s`` WHERE `id` = :id AND `thread` IS NULL LIMIT 1", $board['uri']));
@@ -1134,13 +1134,13 @@ function deletePost($id, $error_if_doesnt_exist=true, $rebuild_after=true) {
 		if ($board['uri'] != $cite['board']) {
 			if (!isset($tmp_board))
 				$tmp_board = $board['uri'];
-			openBoard($cite['board']);
+			open_board($cite['board']);
 		}
 		rebuildPost($cite['post']);
 	}
 
 	if (isset($tmp_board))
-		openBoard($tmp_board);
+		open_board($tmp_board);
 
 	$query = prepare("DELETE FROM ``cites`` WHERE (`target_board` = :board AND (`target` = " . implode(' OR `target` = ', $ids) . ")) OR (`board` = :board AND (`post` = " . implode(' OR `post` = ', $ids) . "))");
 	$query->bindValue(':board', $board['uri']);
@@ -1885,7 +1885,7 @@ function markup(&$body, $track_cites = false, $op = false) {
 			$clauses = array_unique($clauses);
 			
 			if ($board['uri'] != $_board) {
-				if (!openBoard($_board))
+				if (!open_board($_board))
 					continue; // Unknown board
 			}
 			
@@ -1908,7 +1908,7 @@ function markup(&$body, $track_cites = false, $op = false) {
 		if (!$tmp_board) {
 			unset($GLOBALS['board']);
 		} elseif ($board['uri'] != $tmp_board) {
-			openBoard($tmp_board);
+			open_board($tmp_board);
 		}
 
 		foreach ($cites as $matches) {
