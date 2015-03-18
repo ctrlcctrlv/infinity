@@ -36,17 +36,19 @@ var main = function(){
   if (!localStorage.board_stylesheets) localStorage.board_stylesheets = '{}';
 
   var fix_choice = function(){
+    var chosen = false;
     stylechooser.empty();
     $.each(styles, function(k, v) {
       var ps;
       k === "Custom" ? k2 = _("Board-specific CSS") : k2 = k;
-      var option = $("<option value='"+k+"'>"+k2+"</option>").appendTo(stylechooser);
+      var option = $("<option value='"+k+"' "+(k === "Custom" ? "class='default'" : "")+">"+k2+"</option>").appendTo(stylechooser);
       if (localStorage.stylesheets_all_boards === "false") {
         var bs = JSON.parse(localStorage.board_stylesheets);
         if (bs[board_name]) ps = bs[board_name];
       }
-      if ((k === localStorage.stylesheet && localStorage.stylesheets_all_boards === "true") || (localStorage.stylesheets_all_boards === "false" && (ps && k === ps))) option.prop('selected', 'selected');
+      if ((k === localStorage.stylesheet && localStorage.stylesheets_all_boards === "true") || (localStorage.stylesheets_all_boards === "false" && (ps && k === ps))) { option.prop('selected', 'selected'); chosen = true }
     })
+    if (!chosen) stylechooser.find('.default').prop('selected', 'selected');
   };
 
   fix_choice();
