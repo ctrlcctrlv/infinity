@@ -1182,9 +1182,6 @@ div.mix {
 	width: 50px;
 }
 
-input#upload_file {
-  display: none;
-}
 /* File selector */
 .dropzone {
   color: #000;
