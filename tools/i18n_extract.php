@@ -36,7 +36,7 @@ foreach ($locales as $loc) {
 	}
 
 	// Generate tinyboard.po
-	if (file_exists($locdir."/LC_MESSAGES/tinyboard.po"))	$join = "-j";
+	if (file_exists($locdir."/LC_MESSAGES/tinyboard.po"))	$join = "-j --omit-header";
 	else							$join = "";
 	passthru("cd $locdir/LC_MESSAGES;
          xgettext -d tinyboard -L php --from-code utf-8 $join -c $(find ../../../../ -name \*.php)");
