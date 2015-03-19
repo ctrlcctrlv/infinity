@@ -53,7 +53,7 @@
 		<tr><th>{% trans %}Public action log{% endtrans %}<br><span class="unimportant">{% trans %}Displays all actions to the public{% endtrans %}</span></th><td><select name="public_logs"><option value="0" {% if board.public_logs == 0 %}selected{% endif %}>None</option><option value="1" {% if board.public_logs == 1 %}selected{% endif %}>Full log of all actions</option><option value="2" {% if board.public_logs == 2 %}selected{% endif %}>Full log of all actions, no usernames</option></td></tr>
 		<tr><th>{% trans %}Page count{% endtrans %}</th><td><select name="max_pages">{% for i in range(2, 25) %}<option value="{{ i }}" {% if config.max_pages == i %}selected{% endif %}>{{ i }}</option>{% endfor %}</select></td></tr>
 		<tr><th>{% trans %}Bump limit{% endtrans %}</th><td><select name="reply_limit">{% for i in range(250, 750, 25) %}<option value="{{ i }}" {% if config.reply_limit == i %}selected{% endif %}>{{ i }}</option>{% endfor %}</select></td></tr>
-		<tr><th>{% trans %}Language{% endtrans %}<br/><span class="unimportant">{% trans %}To contribute translations, register at <a href="https://www.transifex.com/projects/p/tinyboard-vichan-devel/">Transifex</a>{% endtrans %}</span></th><td>
+		<tr><th>{% trans %}Language{% endtrans %}<br/><span class="unimportant">{% trans %}Read this page for more information about contributing translations:<br><a href="/translation.html">Translation tutorial</a> or use <a href="https://www.transifex.com/projects/p/infinity/">Transifex</a>{% endtrans %}</span></th><td>
 		<select name="locale">
 			<option value="en" {% if "en" == config.locale %}selected{% endif %}>en</option>
 			{% for language in languages %}
