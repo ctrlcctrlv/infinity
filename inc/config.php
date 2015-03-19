@@ -1018,7 +1018,8 @@
 
 	// Width and height (and more?) of post flags. Can be overridden with the Tinyboard post modifier:
 	// <tinyboard flag style>.
-	$config['flag_style'] = 'width:16px;height:11px;';
+	// $config['flag_style'] = 'width:16px;height:11px;';
+	$config['flag_style'] = '';
 
 /*
  * ====================
