@@ -143,6 +143,13 @@ Assuming the /b/ board, they are as follows:</p>
 <p>Just read the data to get an idea of what is exposed and under what attribute names. It should be self explanatory.</p>
 <p><strong>Endpoints not listed here, like post.php, catalog.json or boards-top20.json are subject to change or removal at any time!</strong></p>
 
+<h2>I would like to contribute a translation in my language.</h2>
+
+<p>Great! See <a href="/translation.html">this page</a> for more information.</p>
+
+<h2>Are there any publicly available statistics?</h2>
+<p>Yes, take a look at <a href="http://stats.4ch.net/8chan/">http://stats.4ch.net/8chan/</a>.
+
 <h2>I got an email from an @8chan.co email address, is that you?</h2>
 <p>8chan.co uses <a href="https://cock.li">cock.li</a> to manage our domain's email. cock.li allows anyone to create an email account @8chan.co.</p>
 <p>That said, we have quite a few official 8chan.co email addresses. They are:</p>
