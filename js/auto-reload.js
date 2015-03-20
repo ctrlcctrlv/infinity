@@ -287,8 +287,6 @@ $(document).ready(function(){
 	};
 	
 	$(window).scroll(function() {
-		recheck_activated();
-		
 		// if the newest post is not visible
 		if($(this).scrollTop() + $(this).height() <
 			$('div.post:last').position().top + $('div.post:last').height()) {
