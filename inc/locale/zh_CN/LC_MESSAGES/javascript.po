@@ -1,18 +1,18 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
+# Ling Chingchong <markshi233@163.com>, 2015
 # Nicholas Chen <planetzstore@gmail.com>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: vichan\n"
+"Project-Id-Version: infinity\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-10-18 13:47+0200\n"
-"PO-Revision-Date: 2014-10-18 11:48+0000\n"
-"Last-Translator: Marcin Łabanowski <marcin@6irc.net>\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/"
-"tinyboard-vichan-devel/language/zh_CN/)\n"
+"PO-Revision-Date: 2015-03-18 04:32+0000\n"
+"Last-Translator: Ling Chingchong <markshi233@163.com>\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/infinity/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -99,7 +99,7 @@ msgstr "嵌入"
 #: ../../../../js/upload-selection.js:77
 #: ../../../../js//upload-selection.js:77
 msgid "Oekaki"
-msgstr "Oekaki"
+msgstr "描绘"
 
 #: ../../../../js/toggle-images.js:41 ../../../../js/toggle-images.js:42
 #: ../../../../js/toggle-images.js:45 ../../../../js//toggle-images.js:45
@@ -203,11 +203,11 @@ msgstr "填充"
 
 #: ../../../../js/oekaki.js:12
 msgid "Use oekaki instead of file?"
-msgstr "使用Oekaki代替文件？"
+msgstr "使用描绘代替文件？"
 
 #: ../../../../js/oekaki.js:21
 msgid "Edit in oekaki"
-msgstr "修改网上描绘"
+msgstr "编辑网上描绘"
 
 #: ../../../../js/oekaki.js:152
 msgid "Enter some text"
@@ -381,12 +381,12 @@ msgstr "读取中..."
 #: ../../../../js/download-original.js:33
 #: ../../../../js//download-original.js:33
 msgid "Save as original filename"
-msgstr ""
+msgstr "以原文件名称保存"
 
 #: ../../../../js/ajax-post-controls.js:43
 #: ../../../../js//ajax-post-controls.js:43
 msgid "Reported post(s)."
-msgstr ""
+msgstr "被举报的帖子"
 
 #: ../../../../js/ajax-post-controls.js:53
 #: ../../../../js//ajax-post-controls.js:53
@@ -396,7 +396,7 @@ msgstr "一个未知错误发生!"
 #: ../../../../js/ajax-post-controls.js:60
 #: ../../../../js//ajax-post-controls.js:60
 msgid "Something went wrong... An unknown error occured!"
-msgstr ""
+msgstr "出现问题了... 未知的错误发生了！"
 
 #: ../../../../js/ajax-post-controls.js:68
 #: ../../../../js//ajax-post-controls.js:68
@@ -406,17 +406,17 @@ msgstr "工作中..."
 #: ../../../../js/ajax.js:42 ../../../../js/ajax.js:45
 #: ../../../../js//ajax.js:42
 msgid "Posting... (#%)"
-msgstr ""
+msgstr "发布中... (#%)"
 
 #: ../../../../js/ajax.js:104 ../../../../js/ajax.js:109
 #: ../../../../js//ajax.js:110
 msgid "Posted..."
-msgstr ""
+msgstr "发布完成..."
 
 #: ../../../../js/ajax.js:106 ../../../../js/ajax.js:111
 #: ../../../../js//ajax.js:114
 msgid "An unknown error occured when posting!"
-msgstr ""
+msgstr "发布时出现未知错误！"
 
 #: ../../../../js/ajax.js:130 ../../../../js/ajax.js:135
 #: ../../../../js//ajax.js:131
@@ -431,7 +431,7 @@ msgstr "上传URL"
 #: ../../../../js/quick-reply.js:266 ../../../../js/quick-reply.js:267
 #: ../../../../js/quick-reply.js:268
 msgid "Spoiler Image"
-msgstr ""
+msgstr "隐藏图片"
 
 #: ../../../../js/quick-reply.js:277 ../../../../js/quick-reply.js:278
 #: ../../../../js/quick-reply.js:279 ../../../../js/quick-reply.js:281
@@ -472,7 +472,7 @@ msgstr "关注此主题帖"
 #: ../../../../js//watch.js:372 ../../../../js//watch.js:373
 #: ../../../../js//watch.js:381
 msgid "Unpin this board"
-msgstr ""
+msgstr "停止置顶此板块"
 
 #: ../../../../js/watch.js:260 ../../../../js/watch.js:261
 #: ../../../../js/watch.js:269 ../../../../js/watch.js:299
@@ -483,7 +483,7 @@ msgstr ""
 #: ../../../../js//watch.js:372 ../../../../js//watch.js:373
 #: ../../../../js//watch.js:381
 msgid "Pin this board"
-msgstr ""
+msgstr "置顶此板块"
 
 #: ../../../../js/watch.js:262 ../../../../js/watch.js:267
 #: ../../../../js/watch.js:268 ../../../../js/watch.js:301
@@ -509,7 +509,7 @@ msgstr "关注此版块"
 
 #: ../../../../js/wpaint.js:113 ../../../../js//wpaint.js:113
 msgid "Click on any image on this site to load it into oekaki applet"
-msgstr ""
+msgstr "点击此网站的任意图片使其加载进描绘软件"
 
 #: ../../../../js/local-time.js:29 ../../../../templates/main.js:62
 #: ../../../../templates//main.js:68
@@ -690,12 +690,12 @@ msgstr "您的浏览器不支持HTML5视频。"
 #: ../../../../js/expand-video.js:189 ../../../../js/expand-video.js:192
 #: ../../../../js/expand-video.js:193 ../../../../js//expand-video.js:193
 msgid "[play once]"
-msgstr ""
+msgstr "[播放一次]"
 
 #: ../../../../js/expand-video.js:190 ../../../../js/expand-video.js:193
 #: ../../../../js/expand-video.js:194 ../../../../js//expand-video.js:194
 msgid "[loop]"
-msgstr ""
+msgstr "[循环播放]"
 
 #: ../../../../js/webm-settings.js:42 ../../../../js/webm-settings.js:45
 #: ../../../../js//webm-settings.js:46
@@ -705,17 +705,17 @@ msgstr "WebM设置"
 #: ../../../../js/webm-settings.js:44 ../../../../js/webm-settings.js:54
 #: ../../../../js//webm-settings.js:55
 msgid "Expand videos inline"
-msgstr ""
+msgstr "将视频以内联元素展开"
 
 #: ../../../../js/webm-settings.js:45 ../../../../js/webm-settings.js:55
 #: ../../../../js//webm-settings.js:56
 msgid "Play videos on hover"
-msgstr ""
+msgstr "鼠标浮动视频后播放"
 
 #: ../../../../js/webm-settings.js:46 ../../../../js/webm-settings.js:56
 #: ../../../../js//webm-settings.js:58
 msgid "Default volume"
-msgstr ""
+msgstr "默认音量"
 
 #: ../../../../js/treeview.js:18 ../../../../js//treeview.js:68
 msgid "Tree view"
@@ -725,7 +725,7 @@ msgstr "树形"
 #: ../../../../js/expand-all-images.js:35
 #: ../../../../js//expand-all-images.js:43
 msgid "Shrink all images"
-msgstr ""
+msgstr "缩小所有图片"
 
 #: ../../../../js/no-animated-gif.js:33 ../../../../js/no-animated-gif.js:37
 #: ../../../../js/no-animated-gif.js:40 ../../../../js//no-animated-gif.js:45
@@ -739,7 +739,7 @@ msgstr "GIF动画"
 #: ../../../../js//no-animated-gif.js:57 ../../../../js//no-animated-gif.js:74
 #: ../../../../js//no-animated-gif.js:79
 msgid "Unanimate GIFs"
-msgstr ""
+msgstr "停止GIF动画"
 
 #: ../../../../js/webm-settings.js:41 ../../../../js//webm-settings.js:42
 msgid "WebM"
@@ -763,7 +763,7 @@ msgstr "有{0}个新主题帖."
 #: ../../../../js/live-index.js:83 ../../../../js//live-index.js:83
 #, python-brace-format
 msgid "There are {0} new posts in this thread."
-msgstr ""
+msgstr "此主题帖有{0}个新帖"
 
 #: ../../../../js/options.js:106 ../../../../js//options.js:106
 msgid "Options"
@@ -771,11 +771,11 @@ msgstr "选项"
 
 #: ../../../../js/options/general.js:15 ../../../../js//options/general.js:15
 msgid "General"
-msgstr ""
+msgstr "常规"
 
 #: ../../../../js/options/general.js:18 ../../../../js//options/general.js:21
 msgid "Storage: "
-msgstr ""
+msgstr "库存："
 
 #: ../../../../js/options/general.js:21 ../../../../js//options/general.js:24
 msgid "Export"
@@ -787,7 +787,7 @@ msgstr "导入"
 
 #: ../../../../js/options/general.js:28 ../../../../js//options/general.js:31
 msgid "Paste your storage data"
-msgstr ""
+msgstr "粘贴你的库存信息："
 
 #: ../../../../js/options/general.js:40 ../../../../js//options/general.js:43
 msgid "Erase"
@@ -797,7 +797,7 @@ msgstr "删除"
 msgid ""
 "Are you sure you want to erase your storage? This involves your hidden "
 "threads, watched threads, post password and many more."
-msgstr ""
+msgstr "你确定你要删除你的库存信息？这包括你隐藏的帖子，关注的帖子，发布密码与其他。"
 
 #: ../../../../js/options/user-css.js:14
 msgid "User CSS"
@@ -816,12 +816,12 @@ msgstr "在此输入您自己的CSS规则..."
 msgid ""
 "If you want to make a redistributable style, be sure to\n"
 "   have a Yotsuba B theme selected."
-msgstr ""
+msgstr "如果你想做一个可分享的风格，请记住选择Yotsuba B主题"
 
 #: ../../../../js/options/user-css.js:47
 #: ../../../../js//options/user-css.js:123
 msgid "You can include CSS files from remote servers, for example:"
-msgstr ""
+msgstr "你可以包括来自远程服务器的CSS文件，比如："
 
 #: ../../../../js/options/user-js.js:14 ../../../../js//options/user-js.js:14
 msgid "User JS"
@@ -839,11 +839,11 @@ msgstr "在此输入您自己的Javascript代码..."
 msgid ""
 "Have a backup of your storage somewhere, as messing here\n"
 "   may render you this website unusable."
-msgstr ""
+msgstr "请在别处备份你的库存信息，在这里乱改的话可能会导致此网站不可使用。"
 
 #: ../../../../js/options/user-js.js:56 ../../../../js//options/user-js.js:53
 msgid "You can include JS files from remote servers, for example:"
-msgstr ""
+msgstr "你可以包括来自远程服务器的JS文件，比如："
 
 #: ../../../../js/id_colors.js:6 ../../../../js/id_colors.js:12
 #: ../../../../js//id_colors.js:6 ../../../../js//id_colors.js:12
@@ -856,286 +856,286 @@ msgstr "更新"
 
 #: ../../../../js/mod/ban-list.js:29 ../../../../js//mod/ban-list.js:29
 msgid "IP address"
-msgstr ""
+msgstr "IP地址"
 
 #: ../../../../js/mod/ban-list.js:42 ../../../../js//mod/ban-list.js:42
 msgid "Seen"
-msgstr ""
+msgstr "看过"
 
 #: ../../../../js/mod/ban-list.js:44 ../../../../js//mod/ban-list.js:44
 msgid "Message for which user was banned is included"
-msgstr ""
+msgstr "致使用户被封禁的信息包括在内"
 
 #: ../../../../js/mod/ban-list.js:45 ../../../../js//mod/ban-list.js:45
 msgid "Message:"
-msgstr ""
+msgstr "信息："
 
 #: ../../../../js/mod/ban-list.js:53 ../../../../js//mod/ban-list.js:53
 msgid "Board"
-msgstr ""
+msgstr "板块"
 
 #: ../../../../js/mod/ban-list.js:55 ../../../../js//mod/ban-list.js:55
 msgid "all"
-msgstr ""
+msgstr "全部"
 
 #: ../../../../js/mod/ban-list.js:57 ../../../../js//mod/ban-list.js:57
 msgid "Set"
-msgstr ""
+msgstr "设定"
 
 #: ../../../../js/mod/ban-list.js:58 ../../../../js//mod/ban-list.js:58
 msgid " ago"
-msgstr ""
+msgstr "之前"
 
 #: ../../../../js/mod/ban-list.js:61 ../../../../js//mod/ban-list.js:61
 msgid "Expires"
-msgstr ""
+msgstr "过期"
 
 #: ../../../../js/mod/ban-list.js:62 ../../../../js//mod/ban-list.js:62
 msgid "never"
-msgstr ""
+msgstr "永不"
 
 #: ../../../../js/mod/ban-list.js:64 ../../../../js//mod/ban-list.js:64
 msgid "in "
-msgstr ""
+msgstr "在"
 
 #: ../../../../js/mod/ban-list.js:66 ../../../../js//mod/ban-list.js:66
 msgid "Staff"
-msgstr ""
+msgstr "管理人员"
 
 #: ../../../../js/mod/ban-list.js:73 ../../../../js//mod/ban-list.js:73
 msgid "system"
-msgstr ""
+msgstr "系统"
 
 #: ../../../../js/auto-reload.js:33 ../../../../js//auto-reload.js:96
 msgid "Auto"
-msgstr ""
+msgstr "自动"
 
 #: ../../../../js/auto-reload.js:141 ../../../../js//auto-reload.js:210
 msgid "Updating..."
-msgstr ""
+msgstr "更新中..."
 
 #: ../../../../js/auto-reload.js:183 ../../../../js//auto-reload.js:257
 #, python-brace-format
 msgid "Thread updated with {0} new post(s)"
-msgstr ""
+msgstr "主题帖以更新{0}个新帖"
 
 #: ../../../../js/auto-reload.js:185 ../../../../js//auto-reload.js:259
 msgid "No new posts found"
-msgstr ""
+msgstr "没有找到新帖"
 
 #: ../../../../js/auto-reload.js:191 ../../../../js//auto-reload.js:265
 msgid "Thread deleted or pruned"
-msgstr ""
+msgstr "主题帖已被删除或修改"
 
 #: ../../../../js/auto-reload.js:199 ../../../../js//auto-reload.js:273
 msgid "Error: "
-msgstr ""
+msgstr "错误："
 
 #: ../../../../js/auto-reload.js:201 ../../../../js//auto-reload.js:275
 msgid "Unknown error"
-msgstr ""
+msgstr "未知错误"
 
 #: ../../../../js/infinite-scroll.js:47 ../../../../js//infinite-scroll.js:47
 msgid "Page"
-msgstr ""
+msgstr "页"
 
 #: ../../../../js/infinite-scroll.js:82 ../../../../js//infinite-scroll.js:82
 msgid "All"
-msgstr ""
+msgstr "全部"
 
 #: ../../../../templates/main.js:29 ../../../../templates/main.js:47
 #: ../../../../templates//main.js:35 ../../../../templates//main.js:53
 msgid "second(s)"
-msgstr ""
+msgstr "秒"
 
 #: ../../../../templates/main.js:31 ../../../../templates/main.js:49
 #: ../../../../templates//main.js:37 ../../../../templates//main.js:55
 msgid "minute(s)"
-msgstr ""
+msgstr "分"
 
 #: ../../../../templates/main.js:33 ../../../../templates/main.js:51
 #: ../../../../templates//main.js:39 ../../../../templates//main.js:57
 msgid "hour(s)"
-msgstr ""
+msgstr "小时"
 
 #: ../../../../templates/main.js:35 ../../../../templates/main.js:53
 #: ../../../../templates//main.js:41 ../../../../templates//main.js:59
 msgid "day(s)"
-msgstr ""
+msgstr "天"
 
 #: ../../../../templates/main.js:37 ../../../../templates/main.js:55
 #: ../../../../templates//main.js:43 ../../../../templates//main.js:61
 msgid "week(s)"
-msgstr ""
+msgstr "周"
 
 #: ../../../../templates/main.js:39 ../../../../templates/main.js:57
 #: ../../../../templates//main.js:45 ../../../../templates//main.js:63
 msgid "year(s)"
-msgstr ""
+msgstr "年"
 
 #: ../../../../js//ajax.js:121
 msgid ""
 "The server took too long to submit your post. Your post was probably still "
 "submitted. If it wasn't, 8chan might be experiencing issues right now -- "
 "please try your post again later. Error information: "
-msgstr ""
+msgstr "服务器用了太长的时间发布你的帖子。你的帖子估计依旧被发布了。如果它没有的话，8chan有可能出现了一些问题-请稍后再尝试发布你的帖子。\n错误信息："
 
 #: ../../../../js//auto-reload.js:41
 msgid "Auto update"
-msgstr ""
+msgstr "自动更新"
 
 #: ../../../../js//auto-reload.js:42
 msgid "Auto update thread"
-msgstr ""
+msgstr "自动更新此主题帖"
 
 #: ../../../../js//auto-reload.js:43
 msgid "Show desktop notifications when users quote me"
-msgstr ""
+msgstr "当其他用户引用我时在桌面显示提示"
 
 #: ../../../../js//auto-reload.js:44
 msgid "Show desktop notifications on all replies"
-msgstr ""
+msgstr "在桌面显示所有回复提示"
 
 #: ../../../../js//auto-scroll.js:4 ../../../../js//auto-scroll.js:18
 msgid "Scroll to new posts"
-msgstr ""
+msgstr "跳到新帖"
 
 #: ../../../../js//captcha.js:30
 msgid "Verification"
-msgstr ""
+msgstr "证明"
 
 #: ../../../../js//comment-toolbar.js:262
 #: ../../../../js//comment-toolbar.js:268
 msgid "Enable formatting keybinds"
-msgstr ""
+msgstr "使用格式自定义键盘"
 
 #: ../../../../js//comment-toolbar.js:263
 #: ../../../../js//comment-toolbar.js:269
 msgid "Show formatting toolbar"
-msgstr ""
+msgstr "显示格式工具栏"
 
 #: ../../../../js//download-all.js:8
 msgid "Download All"
-msgstr ""
+msgstr "下载全部"
 
 #: ../../../../js//forced-anon.js:73
 msgid "Hide IDs"
-msgstr ""
+msgstr "隐藏ID"
 
 #: ../../../../js//image-hover.js:14
 msgid "Image hover"
-msgstr ""
+msgstr "图片浮动"
 
 #: ../../../../js//image-hover.js:15
 msgid "Image hover on catalog"
-msgstr ""
+msgstr "图片在目录浮动"
 
 #: ../../../../js//image-hover.js:16
 msgid "Image hover should follow cursor"
-msgstr ""
+msgstr "图片应该跟随鼠标浮动"
 
 #: ../../../../js//inline-expanding.js:193
 msgid "Number of simultaneous image downloads (0 to disable): "
-msgstr ""
+msgstr "同时下载的图片数量(0为禁用)"
 
 #: ../../../../js//katex-enable.js:15
 msgid "Error: Invalid LaTeX syntax."
-msgstr ""
+msgstr "错误：无效的LaTeX格式"
 
 #: ../../../../js//local-time.js:89
 msgid "Show relative time"
-msgstr ""
+msgstr "显示相对的时间"
 
 #: ../../../../js//options/fav.js:27
 msgid "Favorites"
-msgstr ""
+msgstr "喜欢的"
 
 #: ../../../../js//options/fav.js:42
 msgid "Drag the boards to sort them."
-msgstr ""
+msgstr "拖拽板块以整理"
 
 #: ../../../../js//options/general.js:18
 msgid "Note: Most option changes will only take effect on future page loads."
-msgstr ""
+msgstr "注意：大多数选项变化只会在页面加载后实效"
 
 #: ../../../../js//options/user-css.js:15
 msgid "Theme"
-msgstr ""
+msgstr "主题"
 
 #: ../../../../js//options/user-css.js:23
 msgid "Save custom CSS"
-msgstr ""
+msgstr "保存自定CSS"
 
 #: ../../../../js//options/user-css.js:42
 msgid "Board-specific CSS"
-msgstr ""
+msgstr "板块特殊的CSS"
 
 #: ../../../../js//options/user-css.js:54
 msgid "Style should affect all boards, not just current board"
-msgstr ""
+msgstr "风格应该影响所有板块，不只此板块"
 
 #: ../../../../js//options/user-css.js:121
 msgid ""
 "If you want to make a redistributable style, be sure to\n"
 "have a Yotsuba B theme selected."
-msgstr ""
+msgstr "如果你想做一个可分享的风格，请记住选择Yotsuba B主题"
 
 #: ../../../../js//options/user-css.js:122
 msgid "These will be applied on top of whatever theme you choose below."
-msgstr ""
+msgstr "这些将会被添加到你在下面选择的主题之上"
 
 #: ../../../../js//options/user-js.js:16
 msgid ""
 "Do not paste code here unless you absolutely trust the source or have read "
 "it yourself!"
-msgstr ""
+msgstr "不要在这里粘贴代码除非你完全信任源代码或者已经亲自读过！"
 
 #: ../../../../js//options/user-js.js:16
 msgid ""
 "Untrusted code pasted here could do malicious things such as spam the site "
 "under your IP."
-msgstr ""
+msgstr "信任度低的代码在这里被粘贴了的话可能会做不良的事情比如使用你的IP发送垃圾信息"
 
 #: ../../../../js//options/user-js.js:24
 msgid "Save custom Javascript"
-msgstr ""
+msgstr "保存自定JavaScript"
 
 #: ../../../../js//options/user-js.js:52
 msgid "Enter your own Javascript code here..."
-msgstr ""
+msgstr "在这里输入你自己的Javascript代码..."
 
 #: ../../../../js//show-own-posts.js:36 ../../../../js//show-own-posts.js:49
 msgid "(You)"
-msgstr ""
+msgstr "(你)"
 
 #: ../../../../js//treeview.js:18
 msgid "Use tree view by default"
-msgstr ""
+msgstr "默认使用tree view显示组织机构"
 
 #: ../../../../js//update_boards.js:6
 msgid "Show top boards"
-msgstr ""
+msgstr "显示前排板块"
 
 #: ../../../../js//webm-settings.js:57
 msgid "Loop videos by default"
-msgstr ""
+msgstr "默认循环播放视频"
 
 #: ../../../../js//youtube.js:28
 msgid "YouTube size"
-msgstr ""
+msgstr "Youtube大小"
 
 #: ../../../../templates//main.js:96
 msgid "OK"
-msgstr ""
+msgstr "确认"
 
 #: ../../../../templates//main.js:102
 msgid "Cancel"
-msgstr ""
+msgstr "取消"
 
 #: ../../../../templates//main.js:325
 msgid "Hide post options &amp; limits"
-msgstr ""
+msgstr "隐藏帖子选项 &amp; 限制"
 
 #: ../../../../templates//main.js:329
 msgid "Show post options &amp; limits"
-msgstr ""
+msgstr "显示帖子选项 &amp; 限制"

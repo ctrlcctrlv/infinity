@@ -1,19 +1,18 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-# limbobarrage <ijynyjdl@grr.la>, 2014
 # cicus, 2014
+# limbobarrage <ijynyjdl@grr.la>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: vichan\n"
+"Project-Id-Version: infinity\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-10-18 13:47+0200\n"
-"PO-Revision-Date: 2014-10-18 11:48+0000\n"
-"Last-Translator: Marcin Łabanowski <marcin@6irc.net>\n"
-"Language-Team: Hungarian (Hungary) (http://www.transifex.com/projects/p/"
-"tinyboard-vichan-devel/language/hu_HU/)\n"
+"PO-Revision-Date: 2015-03-17 13:10+0000\n"
+"Last-Translator: copypaste <admin@8chan.co>\n"
+"Language-Team: Hungarian (Hungary) (http://www.transifex.com/projects/p/infinity/language/hu_HU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -798,10 +797,7 @@ msgstr "Törlés"
 msgid ""
 "Are you sure you want to erase your storage? This involves your hidden "
 "threads, watched threads, post password and many more."
-msgstr ""
-"Biztos vagy benne, hogy törölni akarod a tárhelyedet? Ez magában voglalja a "
-"rejtett szálaidat, figyelt szálaidat, hozzászólási jelszavad és még számos "
-"egyebet."
+msgstr "Biztos vagy benne, hogy törölni akarod a tárhelyedet? Ez magában voglalja a rejtett szálaidat, figyelt szálaidat, hozzászólási jelszavad és még számos egyebet."
 
 #: ../../../../js/options/user-css.js:14
 msgid "User CSS"
@@ -820,15 +816,12 @@ msgstr "Add meg a saját CSS szabályaidat..."
 msgid ""
 "If you want to make a redistributable style, be sure to\n"
 "   have a Yotsuba B theme selected."
-msgstr ""
-"Ha megosztható stílust szerenél létrehozni, \n"
-"győződj meg róla, hogy a Yotsuba B téma van kiválasztva."
+msgstr "Ha megosztható stílust szerenél létrehozni, \ngyőződj meg róla, hogy a Yotsuba B téma van kiválasztva."
 
 #: ../../../../js/options/user-css.js:47
 #: ../../../../js//options/user-css.js:123
 msgid "You can include CSS files from remote servers, for example:"
-msgstr ""
-"Lehetőséged van CSS fájlt használni távoli szerverről is, a következőképpen:"
+msgstr "Lehetőséged van CSS fájlt használni távoli szerverről is, a következőképpen:"
 
 #: ../../../../js/options/user-js.js:14 ../../../../js//options/user-js.js:14
 msgid "User JS"
@@ -846,14 +839,11 @@ msgstr "Add meg a saját Javascript kódod..."
 msgid ""
 "Have a backup of your storage somewhere, as messing here\n"
 "   may render you this website unusable."
-msgstr ""
-"Legyen egy biztonsági mentésed a tárhelyedről, arra az esetre,\n"
-"ha az itteni ténykedésed okán a weboldal használhatatlanná válna."
+msgstr "Legyen egy biztonsági mentésed a tárhelyedről, arra az esetre,\nha az itteni ténykedésed okán a weboldal használhatatlanná válna."
 
 #: ../../../../js/options/user-js.js:56 ../../../../js//options/user-js.js:53
 msgid "You can include JS files from remote servers, for example:"
-msgstr ""
-"Lehetőséged van JS fájlok használatára távoli szerverről, a következőképpen:"
+msgstr "Lehetőséged van JS fájlok használatára távoli szerverről, a következőképpen:"
 
 #: ../../../../js/id_colors.js:6 ../../../../js/id_colors.js:12
 #: ../../../../js//id_colors.js:6 ../../../../js//id_colors.js:12

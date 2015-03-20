@@ -1,24 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # banginis <asesuarbanesu@gmail.com>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: vichan\n"
+"Project-Id-Version: infinity\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-10-18 13:47+0200\n"
-"PO-Revision-Date: 2014-10-18 11:48+0000\n"
-"Last-Translator: Marcin Łabanowski <marcin@6irc.net>\n"
-"Language-Team: Lithuanian (Lithuania) (http://www.transifex.com/projects/p/"
-"tinyboard-vichan-devel/language/lt_LT/)\n"
+"PO-Revision-Date: 2015-03-17 13:10+0000\n"
+"Last-Translator: copypaste <admin@8chan.co>\n"
+"Language-Team: Lithuanian (Lithuania) (http://www.transifex.com/projects/p/infinity/language/lt_LT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: lt_LT\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
-"%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: ../../../../js/style-select.js:40 ../../../../js/style-select.js:41
 #: ../../../../js//style-select.js:41
@@ -510,9 +508,7 @@ msgstr "Sekti šią lentą"
 
 #: ../../../../js/wpaint.js:113 ../../../../js//wpaint.js:113
 msgid "Click on any image on this site to load it into oekaki applet"
-msgstr ""
-"Spausk ant bet kurio šiame puslapyje esančio paveikslėlio, kad atvertum jį "
-"su oekaki programėle"
+msgstr "Spausk ant bet kurio šiame puslapyje esančio paveikslėlio, kad atvertum jį su oekaki programėle"
 
 #: ../../../../js/local-time.js:29 ../../../../templates/main.js:62
 #: ../../../../templates//main.js:68

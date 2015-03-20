@@ -1,29 +1,25 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Alex Assada <assada@mail.ua>, 2014
-# Alex Assada <assada@mail.ua>, 2014
-# cookiezeater <cookiezeater@mail.ru>, 2014
 # cookiezeater <cookiezeater@mail.ru>, 2014
 # trall1488 <tsypaaa@ya.ru>, 2014
 # Zhargal Sambuev <hello@sambuev.com>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: vichan\n"
+"Project-Id-Version: infinity\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-10-18 13:47+0200\n"
-"PO-Revision-Date: 2014-10-18 11:48+0000\n"
-"Last-Translator: Marcin Łabanowski <marcin@6irc.net>\n"
-"Language-Team: Russian (Russia) (http://www.transifex.com/projects/p/"
-"tinyboard-vichan-devel/language/ru_RU/)\n"
+"PO-Revision-Date: 2015-03-17 13:10+0000\n"
+"Last-Translator: copypaste <admin@8chan.co>\n"
+"Language-Team: Russian (Russia) (http://www.transifex.com/projects/p/infinity/language/ru_RU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ru_RU\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: ../../../../inc/functions.php:583 ../../../../inc/functions.php:600
 #: ../../../../inc/functions.php:591 ../../../../inc/functions.php:608
@@ -196,9 +192,7 @@ msgstr "Войти"
 #: ../../../../inc/display.php:262 ../../../..//inc/display.php:265
 #, php-format
 msgid "Post too long. Click <a href=\"%s\">here</a> to view the full text."
-msgstr ""
-"Пост слишком длинный. Нажмите <a href=\"%s\">вот сюда</a> чтобы просмотреть "
-"полностью."
+msgstr "Пост слишком длинный. Нажмите <a href=\"%s\">вот сюда</a> чтобы просмотреть полностью."
 
 #: ../../../../inc/display.php:368 ../../../../inc/display.php:473
 #: ../../../../inc/display.php:385 ../../../../inc/display.php:495
@@ -388,7 +382,6 @@ msgstr "Вы получили мут за неоригинальный конт�
 #. "Post").
 #. The names on the post buttons. (On most imageboards, these are both just
 #. "Post").
-#. The names on the post buttons. (On most imageboards, these are both just "Post").
 #: ../../../../inc/config.php:677 ../../../../inc/config.php:781
 #: ../../../../inc/config.php:772 ../../../../inc/config.php:774
 #: ../../../../inc/config.php:776 ../../../../inc/config.php:792
@@ -416,10 +409,7 @@ msgstr "Новый ответ"
 msgid ""
 "All trademarks, copyrights, comments, and images on this page are owned by "
 "and are the responsibility of their respective parties."
-msgstr ""
-"Все права, копирайты на этой странице принадлежат правообладателям. За любую "
-"размещенную информацию несет личную ответственность лицо, загрузившее эту "
-"информацию. Все комментарии принадлежат лицам, отправившим их."
+msgstr "Все права, копирайты на этой странице принадлежат правообладателям. За любую размещенную информацию несет личную ответственность лицо, загрузившее эту информацию. Все комментарии принадлежат лицам, отправившим их."
 
 #. * ====================
 #. *  Error messages
@@ -437,12 +427,6 @@ msgstr "Луркай еще немного, прежде чем отправля
 #. *  Error messages
 #. * ====================
 #. Error messages
-#.
-#. * ====================
-#. *  Error messages
-#. * ====================
-#.
-#. Error messages
 #: ../../../../inc/config.php:867 ../../../../inc/config.php:972
 #: ../../../../inc/config.php:963 ../../../../inc/config.php:965
 #: ../../../../inc/config.php:967 ../../../../inc/config.php:983
@@ -459,8 +443,7 @@ msgstr "Ты похож на бота."
 #: ../../../../inc/config.php:1021 ../../../../inc/config.php:1024
 #: ../../../..//inc/config.php:1090
 msgid "Your browser sent an invalid or no HTTP referer."
-msgstr ""
-"Твой браузер послал ошибочный HTTP referer. Ну или совсем его не отправил."
+msgstr "Твой браузер послал ошибочный HTTP referer. Ну или совсем его не отправил."
 
 #: ../../../../inc/config.php:869 ../../../../inc/config.php:974
 #: ../../../../inc/config.php:965 ../../../../inc/config.php:967
@@ -715,8 +698,7 @@ msgstr "Неизвестное расширение файла."
 #: ../../../../inc/config.php:1050 ../../../../inc/config.php:1053
 #: ../../../..//inc/config.php:1120
 msgid "Maximum file size: %maxsz% bytes<br>Your file's size: %filesz% bytes"
-msgstr ""
-"Максимальный размер файла: %maxsz% байт<br> А твой файл: %filesz% байт."
+msgstr "Максимальный размер файла: %maxsz% байт<br> А твой файл: %filesz% байт."
 
 #: ../../../../inc/config.php:897 ../../../../inc/config.php:1002
 #: ../../../../inc/config.php:993 ../../../../inc/config.php:995
@@ -784,7 +766,7 @@ msgstr "Не могу понять, что за ссылку вы пытаете
 msgid "You seem to have mistyped the verification."
 msgstr "Вы ошиблись при вводе капчи."
 
-#. Moderator errors
+#. Volunteer errors
 #. mod.php errors
 #: ../../../../inc/config.php:906 ../../../../inc/config.php:1011
 #: ../../../../inc/config.php:1002 ../../../../inc/config.php:1004
@@ -796,9 +778,7 @@ msgstr "Вы ошиблись при вводе капчи."
 msgid ""
 "You are only allowed to unban %s users at a time. You tried to unban %u "
 "users."
-msgstr ""
-"Вам разрешено разбанивать %s пользователей за раз. Вы попытались разбанить "
-"%u пользователей."
+msgstr "Вам разрешено разбанивать %s пользователей за раз. Вы попытались разбанить %u пользователей."
 
 #: ../../../../inc/config.php:907 ../../../../inc/config.php:1012
 #: ../../../../inc/config.php:1003 ../../../../inc/config.php:1005
@@ -825,9 +805,9 @@ msgstr "Ты не модератор..."
 #: ../../../../inc/config.php:1069 ../../../../inc/config.php:1072
 #: ../../../..//inc/config.php:1139
 msgid ""
-"Invalid username and/or password. Your user may have been deleted or changed."
-msgstr ""
-"Неправильный логин или пароль. Ваш пользователь мог быть удален или изменен."
+"Invalid username and/or password. Your user may have been deleted or "
+"changed."
+msgstr "Неправильный логин или пароль. Ваш пользователь мог быть удален или изменен."
 
 #: ../../../../inc/config.php:910 ../../../../inc/config.php:1015
 #: ../../../../inc/config.php:1006 ../../../../inc/config.php:1008
@@ -938,8 +918,6 @@ msgstr "Ошибка безопасности. Вернись назад и по
 #. Default public ban message. In public ban messages, %length% is replaced
 #. with "for x days" or
 #. "permanently" (with %LENGTH% being the uppercase equivalent).
-#. Default public ban message. In public ban messages, %length% is replaced with "for x days" or
-#. "permanently" (with %LENGTH% being the uppercase equivalent).
 #: ../../../../inc/config.php:1086 ../../../../inc/config.php:1189
 #: ../../../../inc/config.php:1180 ../../../../inc/config.php:1185
 #: ../../../../inc/config.php:1187 ../../../../inc/config.php:1203
@@ -1007,9 +985,8 @@ msgstr "Новости"
 #: ../../../../inc/mod/pages.php:671 ../../../../inc/mod/pages.php:698
 #: ../../../../templates/cache/72/7e/271125664718133518fd942f20fb724224e100f8a0d47cb0b52f895ac12f.php:300
 #: ../../../../templates/cache/73/f8/5e3142a8a6f8d7e40422ff577e83b0dedf55a7cb9bc7082839b24f653545.php:75
-#: ../../../..//templates/cache/25/ce/20297e1c09b3c82a277642530f4bd5b1f83cd763d5456c0ee2cedaff2519.php:72
-msgid "Moderation log"
-msgstr "Логи модерации"
+msgid "Volunteer log"
+msgstr ""
 
 #. line 104
 #. line 20
@@ -2217,9 +2194,7 @@ msgstr "Debug: APC"
 msgid ""
 "Your code contained PHP syntax errors. Please go back and correct them. PHP "
 "says: "
-msgstr ""
-"Your code contained PHP syntax errors. Please go back and correct them. PHP "
-"says: "
+msgstr "Your code contained PHP syntax errors. Please go back and correct them. PHP says: "
 
 #. line 2
 #. line 6
@@ -3026,10 +3001,7 @@ msgstr "Баны"
 msgid ""
 "(Search is case-insensitive and based on keywords. To match exact phrases, "
 "use \"quotes\". Use an asterisk (*) for wildcard.)"
-msgstr ""
-"(Поиск базируется на ключевых словах и учитывает заглавные и прописные "
-"буквы. Для того чтобы найти определенную фразу используйте \"кавычки\". "
-"Используйте звездочку (*) чтобы для подставки любого значения.)"
+msgstr "(Поиск базируется на ключевых словах и учитывает заглавные и прописные буквы. Для того чтобы найти определенную фразу используйте \"кавычки\". Используйте звездочку (*) чтобы для подставки любого значения.)"
 
 #: ../../../../templates/cache/ba/55/2553cc018aecf7d29a62331aec4bedc71b646817c7e4c4e7d1a885263676.php:25
 msgid "There are no active bans."
@@ -3336,9 +3308,7 @@ msgstr "и отклонен."
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:328
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:349
 msgid "You may appeal this ban again. Please enter your reasoning below."
-msgstr ""
-"Вы можете попросить разбанивать вас опять. Пожалуйста введите причину этого "
-"ниже"
+msgstr "Вы можете попросить разбанивать вас опять. Пожалуйста введите причину этого ниже"
 
 #. line 119
 #. line 127
@@ -3487,11 +3457,9 @@ msgstr "* Кликните, чтобы перейти к"
 #. line 5
 #: ../../../../templates/cache/57/a7/c0a734e494c78acfc595f033a070bdc87fdc3e6a28ad5aaa8666c7a1a966.php:39
 msgid ""
-"You are probably seeing this message because Javascript being disabled. This "
-"is a necessary security measure to prevent CSRF attacks."
-msgstr ""
-"Вы наверное видите это сообщение, потому что Javascript не активирован. Он "
-"необходим для того чтобы защититься от CSRF аттак."
+"You are probably seeing this message because Javascript being disabled. This"
+" is a necessary security measure to prevent CSRF attacks."
+msgstr "Вы наверное видите это сообщение, потому что Javascript не активирован. Он необходим для того чтобы защититься от CSRF аттак."
 
 #. line 7
 #: ../../../../templates/cache/3a/62/f804928dbcf285e3d5d8d7ae31b1e3a7c78264f270efa9650d31f69c7897.php:44
@@ -3629,9 +3597,6 @@ msgstr "Ничего"
 #. a capcode) will be made, linking to the new location for the thread. "%s"
 #. will be replaced with a
 #. standard cross-board post citation (>>>/board/xxx)
-#. When moving a thread to another board and choosing to keep a "shadow thread", an automated post (with
-#. a capcode) will be made, linking to the new location for the thread. "%s" will be replaced with a
-#. standard cross-board post citation (>>>/board/xxx)
 #: ../../../../inc/config.php:1211 ../../../../inc/config.php:1220
 #: ../../../../inc/config.php:1251 ../../../../inc/config.php:1255
 #: ../../../../inc/config.php:1258 ../../../..//inc/config.php:1334
@@ -3642,10 +3607,9 @@ msgstr "Перемещено  в %s."
 #: ../../../../templates/themes/recent/theme.php:50
 #: ../../../..//templates/themes/recent/theme.php:50
 msgid ""
-"Can't build the RecentPosts theme, because there are no boards to be fetched."
-msgstr ""
-"Не могу создать тему Недавних Сообщений, потому что нет досок для "
-"использования"
+"Can't build the RecentPosts theme, because there are no boards to be "
+"fetched."
+msgstr "Не могу создать тему Недавних Сообщений, потому что нет досок для использования"
 
 #: ../../../../inc/config.php:997 ../../../../inc/config.php:1023
 #: ../../../../inc/config.php:1026 ../../../../inc/config.php:1029
@@ -3848,7 +3812,7 @@ msgid "There are no active posts."
 msgstr ""
 
 #: ../../../../templates/cache/ba/55/2553cc018aecf7d29a62331aec4bedc71b646817c7e4c4e7d1a885263676.php:49
-msgid "Show only bans from boards I moderate"
+msgid "Show only bans from boards I volunteer on"
 msgstr ""
 
 #. line 16
@@ -4187,6 +4151,10 @@ msgstr ""
 msgid "Global rules permit this content"
 msgstr ""
 
+#: ../../../..//templates/cache/25/ce/20297e1c09b3c82a277642530f4bd5b1f83cd763d5456c0ee2cedaff2519.php:72
+msgid "Moderation log"
+msgstr "Логи модерации"
+
 #. line 124
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:334
 msgid "= required field"
@@ -4523,8 +4491,9 @@ msgstr ""
 
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:347
 msgid ""
-"To contribute translations, register at <a href=\"https://www.transifex.com/"
-"projects/p/tinyboard-vichan-devel/\">Transifex</a>"
+"To contribute translations, register at <a "
+"href=\"https://www.transifex.com/projects/p/tinyboard-vichan-"
+"devel/\">Transifex</a>"
 msgstr ""
 
 #. line 65

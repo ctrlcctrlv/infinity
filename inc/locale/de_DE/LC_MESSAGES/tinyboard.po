@@ -1,18 +1,17 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # zzrutkjf <fgnthjrj@byom.de>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: vichan\n"
+"Project-Id-Version: infinity\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-10-18 13:47+0200\n"
-"PO-Revision-Date: 2014-10-18 11:48+0000\n"
-"Last-Translator: Marcin Łabanowski <marcin@6irc.net>\n"
-"Language-Team: German (Germany) (http://www.transifex.com/projects/p/"
-"tinyboard-vichan-devel/language/de_DE/)\n"
+"PO-Revision-Date: 2015-03-17 13:11+0000\n"
+"Last-Translator: copypaste <admin@8chan.co>\n"
+"Language-Team: German (Germany) (http://www.transifex.com/projects/p/infinity/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -374,7 +373,6 @@ msgstr "Du wurdest für unorginellen Inhalt stumm gestellt"
 #. "Post").
 #. The names on the post buttons. (On most imageboards, these are both just
 #. "Post").
-#. The names on the post buttons. (On most imageboards, these are both just "Post").
 #: ../../../../inc/config.php:677 ../../../../inc/config.php:781
 #: ../../../../inc/config.php:772 ../../../../inc/config.php:774
 #: ../../../../inc/config.php:776 ../../../../inc/config.php:792
@@ -402,9 +400,7 @@ msgstr "Neue Antwort"
 msgid ""
 "All trademarks, copyrights, comments, and images on this page are owned by "
 "and are the responsibility of their respective parties."
-msgstr ""
-"Alle Warenzeichen, Urheberrechte, Kommentare und Bilder auf dieser Seite "
-"sind Eigentum und in der Verantwortung der jeweiligen Parteien."
+msgstr "Alle Warenzeichen, Urheberrechte, Kommentare und Bilder auf dieser Seite sind Eigentum und in der Verantwortung der jeweiligen Parteien."
 
 #. * ====================
 #. *  Error messages
@@ -421,12 +417,6 @@ msgstr "Lauer meer bevor du pfostierst"
 #. * ====================
 #. *  Error messages
 #. * ====================
-#. Error messages
-#.
-#. * ====================
-#. *  Error messages
-#. * ====================
-#.
 #. Error messages
 #: ../../../../inc/config.php:867 ../../../../inc/config.php:972
 #: ../../../../inc/config.php:963 ../../../../inc/config.php:965
@@ -767,7 +757,7 @@ msgstr "Es macht keinen Sinn diese Video-URL einzubetten."
 msgid "You seem to have mistyped the verification."
 msgstr "Du hast das Captcha falsch eingegeben."
 
-#. Moderator errors
+#. Volunteer errors
 #. mod.php errors
 #: ../../../../inc/config.php:906 ../../../../inc/config.php:1011
 #: ../../../../inc/config.php:1002 ../../../../inc/config.php:1004
@@ -779,9 +769,7 @@ msgstr "Du hast das Captcha falsch eingegeben."
 msgid ""
 "You are only allowed to unban %s users at a time. You tried to unban %u "
 "users."
-msgstr ""
-"Du darfst maximal %s User zur gleichen Zeit unbannen. Du wolltest %u User "
-"unbannen.."
+msgstr "Du darfst maximal %s User zur gleichen Zeit unbannen. Du wolltest %u User unbannen.."
 
 #: ../../../../inc/config.php:907 ../../../../inc/config.php:1012
 #: ../../../../inc/config.php:1003 ../../../../inc/config.php:1005
@@ -808,10 +796,9 @@ msgstr "Du bist kein Mod."
 #: ../../../../inc/config.php:1069 ../../../../inc/config.php:1072
 #: ../../../..//inc/config.php:1139
 msgid ""
-"Invalid username and/or password. Your user may have been deleted or changed."
-msgstr ""
-"Falscher Nutzername und/oder Passwort. Vielleicht hat sich ihr Benutzer "
-"geändert."
+"Invalid username and/or password. Your user may have been deleted or "
+"changed."
+msgstr "Falscher Nutzername und/oder Passwort. Vielleicht hat sich ihr Benutzer geändert."
 
 #: ../../../../inc/config.php:910 ../../../../inc/config.php:1015
 #: ../../../../inc/config.php:1006 ../../../../inc/config.php:1008
@@ -922,8 +909,6 @@ msgstr "Falsche Sicherheitszeichen! Bitte gehe zurück und probiere es erneut!"
 #. Default public ban message. In public ban messages, %length% is replaced
 #. with "for x days" or
 #. "permanently" (with %LENGTH% being the uppercase equivalent).
-#. Default public ban message. In public ban messages, %length% is replaced with "for x days" or
-#. "permanently" (with %LENGTH% being the uppercase equivalent).
 #: ../../../../inc/config.php:1086 ../../../../inc/config.php:1189
 #: ../../../../inc/config.php:1180 ../../../../inc/config.php:1185
 #: ../../../../inc/config.php:1187 ../../../../inc/config.php:1203
@@ -991,9 +976,8 @@ msgstr "Neuigkeiten"
 #: ../../../../inc/mod/pages.php:671 ../../../../inc/mod/pages.php:698
 #: ../../../../templates/cache/72/7e/271125664718133518fd942f20fb724224e100f8a0d47cb0b52f895ac12f.php:300
 #: ../../../../templates/cache/73/f8/5e3142a8a6f8d7e40422ff577e83b0dedf55a7cb9bc7082839b24f653545.php:75
-#: ../../../..//templates/cache/25/ce/20297e1c09b3c82a277642530f4bd5b1f83cd763d5456c0ee2cedaff2519.php:72
-msgid "Moderation log"
-msgstr "Mod-Log"
+msgid "Volunteer log"
+msgstr ""
 
 #. line 104
 #. line 20
@@ -1176,8 +1160,7 @@ msgstr "Themenkatalog existiert nicht!"
 #: ../../../../inc/mod/pages.php:2440 ../../../../inc/mod/pages.php:2445
 #: ../../../..//inc/mod/pages.php:3211
 msgid "Cannot open themes directory; check permissions."
-msgstr ""
-"Themenkatalog kann nicht geöffnet werden; überprüfe deine Berechtigungen."
+msgstr "Themenkatalog kann nicht geöffnet werden; überprüfe deine Berechtigungen."
 
 #: ../../../../inc/mod/pages.php:2242 ../../../../inc/mod/pages.php:2388
 #: ../../../../templates/cache/72/7e/271125664718133518fd942f20fb724224e100f8a0d47cb0b52f895ac12f.php:291
@@ -3004,9 +2987,7 @@ msgstr "Banns"
 msgid ""
 "(Search is case-insensitive and based on keywords. To match exact phrases, "
 "use \"quotes\". Use an asterisk (*) for wildcard.)"
-msgstr ""
-"(Suche beinhaltet Groß- und Kleinschreibung. Um genauere Suchergebnisse zu "
-"erhalten benutze \"Anführungszeichen\" und (*) als Platzhalter.)"
+msgstr "(Suche beinhaltet Groß- und Kleinschreibung. Um genauere Suchergebnisse zu erhalten benutze \"Anführungszeichen\" und (*) als Platzhalter.)"
 
 #: ../../../../templates/cache/ba/55/2553cc018aecf7d29a62331aec4bedc71b646817c7e4c4e7d1a885263676.php:25
 msgid "There are no active bans."
@@ -3247,9 +3228,7 @@ msgstr "Du beschwertest dich über diesen Bann am"
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:266
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:291
 msgid "and it was denied. You may not appeal this ban again."
-msgstr ""
-"und sie wurde abgelehnt. Du kannst dich nicht noch mal über diesen Bann "
-"beschweren."
+msgstr "und sie wurde abgelehnt. Du kannst dich nicht noch mal über diesen Bann beschweren."
 
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:272
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:273
@@ -3257,9 +3236,7 @@ msgstr ""
 msgid ""
 "You have submitted the maximum number of ban appeals allowed. You may not "
 "appeal this ban again."
-msgstr ""
-"Du hast die maximale Anzahl an Bannbeschwerden eingereicht. Du kannst dich "
-"nicht noch mal über diesen Bann beschweren."
+msgstr "Du hast die maximale Anzahl an Bannbeschwerden eingereicht. Du kannst dich nicht noch mal über diesen Bann beschweren."
 
 #. line 114
 #. line 121
@@ -3317,9 +3294,7 @@ msgstr "und sie wurde abgelehnt. "
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:328
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:349
 msgid "You may appeal this ban again. Please enter your reasoning below."
-msgstr ""
-"Du kannst dich noch mal über diesen Bann beschweren. Bitte nenne hier deinen "
-"Grund."
+msgstr "Du kannst dich noch mal über diesen Bann beschweren. Bitte nenne hier deinen Grund."
 
 #. line 119
 #. line 127
@@ -3333,8 +3308,7 @@ msgstr "Du hast dich zuletzt über diesen Bann beschwert am"
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:333
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:358
 msgid "You may appeal this ban. Please enter your reasoning below."
-msgstr ""
-"Du kannst dich über diesen Bann beschweren. Bitte nenne hier deinen Grund."
+msgstr "Du kannst dich über diesen Bann beschweren. Bitte nenne hier deinen Grund."
 
 #. line 4
 #. line 16
@@ -3469,8 +3443,8 @@ msgstr ""
 #. line 5
 #: ../../../../templates/cache/57/a7/c0a734e494c78acfc595f033a070bdc87fdc3e6a28ad5aaa8666c7a1a966.php:39
 msgid ""
-"You are probably seeing this message because Javascript being disabled. This "
-"is a necessary security measure to prevent CSRF attacks."
+"You are probably seeing this message because Javascript being disabled. This"
+" is a necessary security measure to prevent CSRF attacks."
 msgstr ""
 
 #. line 7
@@ -3609,9 +3583,6 @@ msgstr ""
 #. a capcode) will be made, linking to the new location for the thread. "%s"
 #. will be replaced with a
 #. standard cross-board post citation (>>>/board/xxx)
-#. When moving a thread to another board and choosing to keep a "shadow thread", an automated post (with
-#. a capcode) will be made, linking to the new location for the thread. "%s" will be replaced with a
-#. standard cross-board post citation (>>>/board/xxx)
 #: ../../../../inc/config.php:1211 ../../../../inc/config.php:1220
 #: ../../../../inc/config.php:1251 ../../../../inc/config.php:1255
 #: ../../../../inc/config.php:1258 ../../../..//inc/config.php:1334
@@ -3622,7 +3593,8 @@ msgstr ""
 #: ../../../../templates/themes/recent/theme.php:50
 #: ../../../..//templates/themes/recent/theme.php:50
 msgid ""
-"Can't build the RecentPosts theme, because there are no boards to be fetched."
+"Can't build the RecentPosts theme, because there are no boards to be "
+"fetched."
 msgstr ""
 
 #: ../../../../inc/config.php:997 ../../../../inc/config.php:1023
@@ -3826,7 +3798,7 @@ msgid "There are no active posts."
 msgstr ""
 
 #: ../../../../templates/cache/ba/55/2553cc018aecf7d29a62331aec4bedc71b646817c7e4c4e7d1a885263676.php:49
-msgid "Show only bans from boards I moderate"
+msgid "Show only bans from boards I volunteer on"
 msgstr ""
 
 #. line 16
@@ -4165,6 +4137,10 @@ msgstr ""
 msgid "Global rules permit this content"
 msgstr ""
 
+#: ../../../..//templates/cache/25/ce/20297e1c09b3c82a277642530f4bd5b1f83cd763d5456c0ee2cedaff2519.php:72
+msgid "Moderation log"
+msgstr "Mod-Log"
+
 #. line 124
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:334
 msgid "= required field"
@@ -4501,8 +4477,9 @@ msgstr ""
 
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:347
 msgid ""
-"To contribute translations, register at <a href=\"https://www.transifex.com/"
-"projects/p/tinyboard-vichan-devel/\">Transifex</a>"
+"To contribute translations, register at <a "
+"href=\"https://www.transifex.com/projects/p/tinyboard-vichan-"
+"devel/\">Transifex</a>"
 msgstr ""
 
 #. line 65

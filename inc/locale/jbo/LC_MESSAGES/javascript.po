@@ -1,18 +1,18 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
+# Lehavla <wow.jvs+ghu@gmail.com>, 2015
 # Vladislav Višnevskij Petersen <vladikpetersen@gmail.com>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: vichan\n"
+"Project-Id-Version: infinity\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-10-18 13:47+0200\n"
-"PO-Revision-Date: 2014-10-18 11:48+0000\n"
-"Last-Translator: Marcin Łabanowski <marcin@6irc.net>\n"
-"Language-Team: Lojban (http://www.transifex.com/projects/p/tinyboard-vichan-"
-"devel/language/jbo/)\n"
+"PO-Revision-Date: 2015-03-18 11:30+0000\n"
+"Last-Translator: Lehavla <wow.jvs+ghu@gmail.com>\n"
+"Language-Team: Lojban (http://www.transifex.com/projects/p/infinity/language/jbo/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -22,7 +22,7 @@ msgstr ""
 #: ../../../../js/style-select.js:40 ../../../../js/style-select.js:41
 #: ../../../../js//style-select.js:41
 msgid "Style: "
-msgstr "lo se viska:"
+msgstr "lo tasmi zo'u:"
 
 #: ../../../../js/hide-images.js:50 ../../../../js/upload-selection.js:51
 #: ../../../../js/quick-post-controls.js:30 ../../../../js/hide-images.js:51
@@ -31,17 +31,17 @@ msgstr "lo se viska:"
 #: ../../../../js//hide-images.js:51 ../../../../js//quick-post-controls.js:32
 #: ../../../../js//upload-selection.js:69
 msgid "File"
-msgstr "sfaile"
+msgstr "lo sfaile"
 
 #: ../../../../js/hide-images.js:50 ../../../../js/hide-images.js:51
 #: ../../../../js//hide-images.js:51
 msgid "hide"
-msgstr "mipri"
+msgstr "cancygau"
 
 #: ../../../../js/hide-images.js:56 ../../../../js/hide-images.js:57
 #: ../../../../js/hide-images.js:63 ../../../../js//hide-images.js:63
 msgid "show"
-msgstr "jarco"
+msgstr "tolcancygau"
 
 #: ../../../../js/toggle-locked-threads.js:39
 #: ../../../../js/toggle-locked-threads.js:54
@@ -54,7 +54,7 @@ msgstr "jarco"
 #: ../../../../js//toggle-locked-threads.js:53
 #: ../../../../js//toggle-locked-threads.js:70
 msgid "Show locked threads"
-msgstr "jarco lo stela cilta"
+msgstr "jarco tu'a lo dunja nunsnu"
 
 #: ../../../../js/toggle-locked-threads.js:39
 #: ../../../../js/toggle-locked-threads.js:54
@@ -69,13 +69,13 @@ msgstr "jarco lo stela cilta"
 #: ../../../../js//toggle-locked-threads.js:53
 #: ../../../../js//toggle-locked-threads.js:70
 msgid "Hide locked threads"
-msgstr "mipri lo stela cilta"
+msgstr "mipri tu'a lo dunja nunsnu"
 
 #: ../../../../js/upload-selection.js:32 ../../../../js/upload-selection.js:45
 #: ../../../../js/upload-selection.js:53
 #: ../../../../js//upload-selection.js:53
 msgid "URL"
-msgstr "urli"
+msgstr "lo .urli"
 
 #: ../../../../js/upload-selection.js:50 ../../../../js/upload-selection.js:60
 #: ../../../../js/upload-selection.js:68
@@ -93,13 +93,13 @@ msgstr ""
 #: ../../../../js/upload-selection.js:74
 #: ../../../../js//upload-selection.js:74
 msgid "Embed"
-msgstr "derse'a"
+msgstr "lo se nerse'a"
 
 #: ../../../../js/upload-selection.js:59 ../../../../js/upload-selection.js:69
 #: ../../../../js/upload-selection.js:77
 #: ../../../../js//upload-selection.js:77
 msgid "Oekaki"
-msgstr "zo'oi oekaki"
+msgstr "lo .o'etkaki"
 
 #: ../../../../js/toggle-images.js:41 ../../../../js/toggle-images.js:42
 #: ../../../../js/toggle-images.js:45 ../../../../js//toggle-images.js:45
@@ -125,13 +125,13 @@ msgstr "mipri lo pixra"
 #: ../../../../js/quick-post-controls.js:29
 #: ../../../../js//quick-post-controls.js:29
 msgid "Password"
-msgstr "curmi lerpoi"
+msgstr "pikta lerpoi"
 
 #: ../../../../js/quick-post-controls.js:29
 #: ../../../../js/quick-post-controls.js:31
 #: ../../../../js//quick-post-controls.js:31
 msgid "Delete file only"
-msgstr "vimcu sfaile po'o"
+msgstr "vimcu lo sfaile ku po'o"
 
 #: ../../../../js/quick-post-controls.js:31
 #: ../../../../js/quick-post-controls.js:33
@@ -155,7 +155,7 @@ msgstr "ternoi"
 #: ../../../../js/expand.js:20 ../../../../js/expand.js:22
 #: ../../../../js//expand.js:22
 msgid "Click reply to view."
-msgstr "lonu iklki lu danfu li'u cu rinka lonu jarco"
+msgstr "lonu iklki lu spuda li'u cu rinka lonu jarco"
 
 #: ../../../../js/expand.js:20 ../../../../js/expand.js:22
 #: ../../../../js/live-index.js:72 ../../../../js/live-index.js:83
@@ -171,7 +171,7 @@ msgstr "mipri lo banro danfu"
 
 #: ../../../../js/oekaki.js:10
 msgid "Brush size"
-msgstr "burcu nilbra"
+msgstr "pinsi nilbra"
 
 #: ../../../../js/oekaki.js:10
 msgid "Set text"
@@ -179,11 +179,11 @@ msgstr "snigau lo se tcidu"
 
 #: ../../../../js/oekaki.js:10
 msgid "Clear"
-msgstr ""
+msgstr "vimcu"
 
 #: ../../../../js/oekaki.js:10
 msgid "Save"
-msgstr "rejgau"
+msgstr "srogau"
 
 #: ../../../../js/oekaki.js:10
 msgid "Load"

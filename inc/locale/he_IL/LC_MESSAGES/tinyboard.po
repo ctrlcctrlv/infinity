@@ -1,18 +1,17 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # IsrChan <anon@chan.org.il>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: vichan\n"
+"Project-Id-Version: infinity\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-10-18 13:47+0200\n"
-"PO-Revision-Date: 2014-10-18 11:48+0000\n"
-"Last-Translator: Marcin Łabanowski <marcin@6irc.net>\n"
-"Language-Team: Hebrew (Israel) (http://www.transifex.com/projects/p/"
-"tinyboard-vichan-devel/language/he_IL/)\n"
+"PO-Revision-Date: 2015-03-17 13:13+0000\n"
+"Last-Translator: copypaste <admin@8chan.co>\n"
+"Language-Team: Hebrew (Israel) (http://www.transifex.com/projects/p/infinity/language/he_IL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -374,7 +373,6 @@ msgstr "You have been muted for unoriginal content."
 #. "Post").
 #. The names on the post buttons. (On most imageboards, these are both just
 #. "Post").
-#. The names on the post buttons. (On most imageboards, these are both just "Post").
 #: ../../../../inc/config.php:677 ../../../../inc/config.php:781
 #: ../../../../inc/config.php:772 ../../../../inc/config.php:774
 #: ../../../../inc/config.php:776 ../../../../inc/config.php:792
@@ -402,9 +400,7 @@ msgstr "תגובה חדשה"
 msgid ""
 "All trademarks, copyrights, comments, and images on this page are owned by "
 "and are the responsibility of their respective parties."
-msgstr ""
-"All trademarks, copyrights, comments, and images on this page are owned by "
-"and are the responsibility of their respective parties."
+msgstr "All trademarks, copyrights, comments, and images on this page are owned by and are the responsibility of their respective parties."
 
 #. * ====================
 #. *  Error messages
@@ -421,12 +417,6 @@ msgstr "Lurk some more before posting."
 #. * ====================
 #. *  Error messages
 #. * ====================
-#. Error messages
-#.
-#. * ====================
-#. *  Error messages
-#. * ====================
-#.
 #. Error messages
 #: ../../../../inc/config.php:867 ../../../../inc/config.php:972
 #: ../../../../inc/config.php:963 ../../../../inc/config.php:965
@@ -699,8 +689,7 @@ msgstr "סוג קובץ לא מזוהה"
 #: ../../../../inc/config.php:1050 ../../../../inc/config.php:1053
 #: ../../../..//inc/config.php:1120
 msgid "Maximum file size: %maxsz% bytes<br>Your file's size: %filesz% bytes"
-msgstr ""
-"גודל הקובץ המירבי הוא: %maxsz% bytes <br />גודל הקובץ שלך: %filesz% bytes"
+msgstr "גודל הקובץ המירבי הוא: %maxsz% bytes <br />גודל הקובץ שלך: %filesz% bytes"
 
 #: ../../../../inc/config.php:897 ../../../../inc/config.php:1002
 #: ../../../../inc/config.php:993 ../../../../inc/config.php:995
@@ -768,7 +757,7 @@ msgstr "URL לא תקין."
 msgid "You seem to have mistyped the verification."
 msgstr "קאפצ'ה שגויה, נסה שוב."
 
-#. Moderator errors
+#. Volunteer errors
 #. mod.php errors
 #: ../../../../inc/config.php:906 ../../../../inc/config.php:1011
 #: ../../../../inc/config.php:1002 ../../../../inc/config.php:1004
@@ -780,9 +769,7 @@ msgstr "קאפצ'ה שגויה, נסה שוב."
 msgid ""
 "You are only allowed to unban %s users at a time. You tried to unban %u "
 "users."
-msgstr ""
-"You are only allowed to unban %s users at a time. You tried to unban %u "
-"users."
+msgstr "You are only allowed to unban %s users at a time. You tried to unban %u users."
 
 #: ../../../../inc/config.php:907 ../../../../inc/config.php:1012
 #: ../../../../inc/config.php:1003 ../../../../inc/config.php:1005
@@ -809,9 +796,9 @@ msgstr "You are not a mod…"
 #: ../../../../inc/config.php:1069 ../../../../inc/config.php:1072
 #: ../../../..//inc/config.php:1139
 msgid ""
-"Invalid username and/or password. Your user may have been deleted or changed."
-msgstr ""
-"Invalid username and/or password. Your user may have been deleted or changed."
+"Invalid username and/or password. Your user may have been deleted or "
+"changed."
+msgstr "Invalid username and/or password. Your user may have been deleted or changed."
 
 #: ../../../../inc/config.php:910 ../../../../inc/config.php:1015
 #: ../../../../inc/config.php:1006 ../../../../inc/config.php:1008
@@ -922,8 +909,6 @@ msgstr "מפתח אבטחה לא תקין, חזור אחורה ונסה שוב."
 #. Default public ban message. In public ban messages, %length% is replaced
 #. with "for x days" or
 #. "permanently" (with %LENGTH% being the uppercase equivalent).
-#. Default public ban message. In public ban messages, %length% is replaced with "for x days" or
-#. "permanently" (with %LENGTH% being the uppercase equivalent).
 #: ../../../../inc/config.php:1086 ../../../../inc/config.php:1189
 #: ../../../../inc/config.php:1180 ../../../../inc/config.php:1185
 #: ../../../../inc/config.php:1187 ../../../../inc/config.php:1203
@@ -991,9 +976,8 @@ msgstr "חדשות"
 #: ../../../../inc/mod/pages.php:671 ../../../../inc/mod/pages.php:698
 #: ../../../../templates/cache/72/7e/271125664718133518fd942f20fb724224e100f8a0d47cb0b52f895ac12f.php:300
 #: ../../../../templates/cache/73/f8/5e3142a8a6f8d7e40422ff577e83b0dedf55a7cb9bc7082839b24f653545.php:75
-#: ../../../..//templates/cache/25/ce/20297e1c09b3c82a277642530f4bd5b1f83cd763d5456c0ee2cedaff2519.php:72
-msgid "Moderation log"
-msgstr "Moderation log"
+msgid "Volunteer log"
+msgstr ""
 
 #. line 104
 #. line 20
@@ -3003,9 +2987,7 @@ msgstr "Bans"
 msgid ""
 "(Search is case-insensitive and based on keywords. To match exact phrases, "
 "use \"quotes\". Use an asterisk (*) for wildcard.)"
-msgstr ""
-"(החיפוש רגיש לאותיות גדולות/קטנות ומבוסס על מילות מפתח. לחיפוש של ביטויים "
-"מדויקים השתמש במרכאות. השתמש בכוכבית (*) כווילד-קארד)"
+msgstr "(החיפוש רגיש לאותיות גדולות/קטנות ומבוסס על מילות מפתח. לחיפוש של ביטויים מדויקים השתמש במרכאות. השתמש בכוכבית (*) כווילד-קארד)"
 
 #: ../../../../templates/cache/ba/55/2553cc018aecf7d29a62331aec4bedc71b646817c7e4c4e7d1a885263676.php:25
 msgid "There are no active bans."
@@ -3447,18 +3429,7 @@ msgid ""
 "<strong>name</strong>. To apply a filter, simply add to your query, for "
 "example, <em>name:Anonymous</em> or <em>subject:\"Some Thread\"</em>. "
 "Wildcards cannot be used in filters."
-msgstr ""
-"החיפוש אינו רגיש לאותיות רישיות ומבוסס על מילות מפתח.\n"
-"לחיפוש ביטוי מדוייק השתמש ב\"מרחאות\".\n"
-"השתמש בכוכבית (*) כ-wildcard.\n"
-"באפשרותך להשתמש בפילטרים הבאים:\n"
-"<strong>id</strong>, <strong>thread</strong>, <strong>subject</strong>, "
-"<strong>name</strong>.\n"
-"להשתמש בפילטר הוסף את מילת המפתח שלך לאחר הפילטר, לדוגמא:\n"
-"<em>name:Anonymous</em>\n"
-"או\n"
-"<em>subject:\"Some Thread\"</em>.\n"
-"אין אפשרות להשתמש ב-wildcard בעת חיפוש פילטר"
+msgstr "החיפוש אינו רגיש לאותיות רישיות ומבוסס על מילות מפתח.\nלחיפוש ביטוי מדוייק השתמש ב\"מרחאות\".\nהשתמש בכוכבית (*) כ-wildcard.\nבאפשרותך להשתמש בפילטרים הבאים:\n<strong>id</strong>, <strong>thread</strong>, <strong>subject</strong>, <strong>name</strong>.\nלהשתמש בפילטר הוסף את מילת המפתח שלך לאחר הפילטר, לדוגמא:\n<em>name:Anonymous</em>\nאו\n<em>subject:\"Some Thread\"</em>.\nאין אפשרות להשתמש ב-wildcard בעת חיפוש פילטר"
 
 #. line 2
 #: ../../../../templates/cache/57/a7/c0a734e494c78acfc595f033a070bdc87fdc3e6a28ad5aaa8666c7a1a966.php:25
@@ -3472,8 +3443,8 @@ msgstr "לחץ להמשיך ל"
 #. line 5
 #: ../../../../templates/cache/57/a7/c0a734e494c78acfc595f033a070bdc87fdc3e6a28ad5aaa8666c7a1a966.php:39
 msgid ""
-"You are probably seeing this message because Javascript being disabled. This "
-"is a necessary security measure to prevent CSRF attacks."
+"You are probably seeing this message because Javascript being disabled. This"
+" is a necessary security measure to prevent CSRF attacks."
 msgstr ""
 
 #. line 7
@@ -3612,9 +3583,6 @@ msgstr "ריק"
 #. a capcode) will be made, linking to the new location for the thread. "%s"
 #. will be replaced with a
 #. standard cross-board post citation (>>>/board/xxx)
-#. When moving a thread to another board and choosing to keep a "shadow thread", an automated post (with
-#. a capcode) will be made, linking to the new location for the thread. "%s" will be replaced with a
-#. standard cross-board post citation (>>>/board/xxx)
 #: ../../../../inc/config.php:1211 ../../../../inc/config.php:1220
 #: ../../../../inc/config.php:1251 ../../../../inc/config.php:1255
 #: ../../../../inc/config.php:1258 ../../../..//inc/config.php:1334
@@ -3625,7 +3593,8 @@ msgstr "הועבר ל %s"
 #: ../../../../templates/themes/recent/theme.php:50
 #: ../../../..//templates/themes/recent/theme.php:50
 msgid ""
-"Can't build the RecentPosts theme, because there are no boards to be fetched."
+"Can't build the RecentPosts theme, because there are no boards to be "
+"fetched."
 msgstr ""
 
 #: ../../../../inc/config.php:997 ../../../../inc/config.php:1023
@@ -3829,7 +3798,7 @@ msgid "There are no active posts."
 msgstr ""
 
 #: ../../../../templates/cache/ba/55/2553cc018aecf7d29a62331aec4bedc71b646817c7e4c4e7d1a885263676.php:49
-msgid "Show only bans from boards I moderate"
+msgid "Show only bans from boards I volunteer on"
 msgstr ""
 
 #. line 16
@@ -4168,6 +4137,10 @@ msgstr ""
 msgid "Global rules permit this content"
 msgstr ""
 
+#: ../../../..//templates/cache/25/ce/20297e1c09b3c82a277642530f4bd5b1f83cd763d5456c0ee2cedaff2519.php:72
+msgid "Moderation log"
+msgstr "Moderation log"
+
 #. line 124
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:334
 msgid "= required field"
@@ -4504,8 +4477,9 @@ msgstr ""
 
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:347
 msgid ""
-"To contribute translations, register at <a href=\"https://www.transifex.com/"
-"projects/p/tinyboard-vichan-devel/\">Transifex</a>"
+"To contribute translations, register at <a "
+"href=\"https://www.transifex.com/projects/p/tinyboard-vichan-"
+"devel/\">Transifex</a>"
 msgstr ""
 
 #. line 65

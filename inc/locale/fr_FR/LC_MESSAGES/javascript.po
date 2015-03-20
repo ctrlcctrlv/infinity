@@ -1,19 +1,19 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # kaf <admin@cable6.net>, 2014
 # ryd <ryd@cable6.net>, 2014
+# Vaz Ok <vazok@cock.li>, 2015
 msgid ""
 msgstr ""
-"Project-Id-Version: vichan\n"
+"Project-Id-Version: infinity\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-10-18 13:47+0200\n"
-"PO-Revision-Date: 2014-10-18 11:48+0000\n"
-"Last-Translator: Marcin Łabanowski <marcin@6irc.net>\n"
-"Language-Team: French (France) (http://www.transifex.com/projects/p/"
-"tinyboard-vichan-devel/language/fr_FR/)\n"
+"PO-Revision-Date: 2015-03-19 16:36+0000\n"
+"Last-Translator: Vaz Ok <vazok@cock.li>\n"
+"Language-Team: French (France) (http://www.transifex.com/projects/p/infinity/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -55,7 +55,7 @@ msgstr "montrer"
 #: ../../../../js//toggle-locked-threads.js:53
 #: ../../../../js//toggle-locked-threads.js:70
 msgid "Show locked threads"
-msgstr "Montrer les fils vérouillés"
+msgstr "Montrer les fils verrouillés"
 
 #: ../../../../js/toggle-locked-threads.js:39
 #: ../../../../js/toggle-locked-threads.js:54
@@ -70,7 +70,7 @@ msgstr "Montrer les fils vérouillés"
 #: ../../../../js//toggle-locked-threads.js:53
 #: ../../../../js//toggle-locked-threads.js:70
 msgid "Hide locked threads"
-msgstr "Masquer les fils vérouillés"
+msgstr "Masquer les fils verrouillés"
 
 #: ../../../../js/upload-selection.js:32 ../../../../js/upload-selection.js:45
 #: ../../../../js/upload-selection.js:53
@@ -392,12 +392,12 @@ msgstr "Message(s) signalé(s)."
 #: ../../../../js/ajax-post-controls.js:53
 #: ../../../../js//ajax-post-controls.js:53
 msgid "An unknown error occured!"
-msgstr "Une erreur inconnu s'est produite."
+msgstr "Une erreur inconnue s'est produite."
 
 #: ../../../../js/ajax-post-controls.js:60
 #: ../../../../js//ajax-post-controls.js:60
 msgid "Something went wrong... An unknown error occured!"
-msgstr "Quelque chose s'est mal passé… Une erreur inconnu s'est produite."
+msgstr "Quelque chose s'est mal passé… Une erreur inconnue s'est produite."
 
 #: ../../../../js/ajax-post-controls.js:68
 #: ../../../../js//ajax-post-controls.js:68
@@ -510,9 +510,7 @@ msgstr "Surveiller cette planche"
 
 #: ../../../../js/wpaint.js:113 ../../../../js//wpaint.js:113
 msgid "Click on any image on this site to load it into oekaki applet"
-msgstr ""
-"Clique sur n'importe quel image du site pour le charger dans l'application "
-"oekaki."
+msgstr "Clique sur n'importe quel image du site pour le charger dans l'application oekaki."
 
 #: ../../../../js/local-time.js:29 ../../../../templates/main.js:62
 #: ../../../../templates//main.js:68
@@ -598,7 +596,7 @@ msgstr "Septembre"
 #: ../../../../js/local-time.js:31 ../../../../templates/main.js:64
 #: ../../../../templates//main.js:70
 msgid "October"
-msgstr "Otobre"
+msgstr "Octobre"
 
 #: ../../../../js/local-time.js:31 ../../../../templates/main.js:64
 #: ../../../../templates//main.js:70
@@ -800,9 +798,7 @@ msgstr "Effacer"
 msgid ""
 "Are you sure you want to erase your storage? This involves your hidden "
 "threads, watched threads, post password and many more."
-msgstr ""
-"Es-tu sûr de vouloir effacer ton stockage ? Ceci inclut tes fils cachés, tes "
-"fils surveillés, ton dernier mot de passe et autres."
+msgstr "Es-tu sûr de vouloir effacer ton stockage ? Ceci inclut tes fils cachés, tes fils surveillés, ton dernier mot de passe et autres."
 
 #: ../../../../js/options/user-css.js:14
 msgid "User CSS"
@@ -821,15 +817,12 @@ msgstr "Entre ici tes propres règles CSS..."
 msgid ""
 "If you want to make a redistributable style, be sure to\n"
 "   have a Yotsuba B theme selected."
-msgstr ""
-"Si tu veux créer un thème redistribuable, veille bien à \n"
-"   avoir sélectionné le thème Yotsuba B."
+msgstr "Si tu veux créer un thème redistribuable, veille bien à \n   avoir sélectionné le thème Yotsuba B."
 
 #: ../../../../js/options/user-css.js:47
 #: ../../../../js//options/user-css.js:123
 msgid "You can include CSS files from remote servers, for example:"
-msgstr ""
-"Tu peux inclure des fichiers CSS d'un serveur isolé, comme par exemple :"
+msgstr "Tu peux inclure des fichiers CSS d'un serveur isolé, comme par exemple :"
 
 #: ../../../../js/options/user-js.js:14 ../../../../js//options/user-js.js:14
 msgid "User JS"
@@ -847,47 +840,44 @@ msgstr "Entre ici ton propre code Javascript..."
 msgid ""
 "Have a backup of your storage somewhere, as messing here\n"
 "   may render you this website unusable."
-msgstr ""
-"Avoir une sauvegarde de ton stockage quelque part, comme indiqué ici\n"
-"   peut rendre ce site inutilisable pour toi."
+msgstr "Avoir une sauvegarde de ton stockage quelque part, comme indiqué ici\n   peut rendre ce site inutilisable pour toi."
 
 #: ../../../../js/options/user-js.js:56 ../../../../js//options/user-js.js:53
 msgid "You can include JS files from remote servers, for example:"
-msgstr ""
-"Tu peux inclure des fichiers JS d'un serveur isolé, comme par exemple :"
+msgstr "Tu peux inclure des fichiers JS d'un serveur isolé, comme par exemple :"
 
 #: ../../../../js/id_colors.js:6 ../../../../js/id_colors.js:12
 #: ../../../../js//id_colors.js:6 ../../../../js//id_colors.js:12
 msgid "Color IDs"
-msgstr ""
+msgstr "ID colorés"
 
 #: ../../../../js/auto-reload.js:33 ../../../../js//auto-reload.js:96
 msgid "Update"
-msgstr ""
+msgstr "Mise à jour"
 
 #: ../../../../js/mod/ban-list.js:29 ../../../../js//mod/ban-list.js:29
 msgid "IP address"
-msgstr ""
+msgstr "Adresse IP"
 
 #: ../../../../js/mod/ban-list.js:42 ../../../../js//mod/ban-list.js:42
 msgid "Seen"
-msgstr ""
+msgstr "Vu"
 
 #: ../../../../js/mod/ban-list.js:44 ../../../../js//mod/ban-list.js:44
 msgid "Message for which user was banned is included"
-msgstr ""
+msgstr "Message pour lequel l'utilisateur a été banni"
 
 #: ../../../../js/mod/ban-list.js:45 ../../../../js//mod/ban-list.js:45
 msgid "Message:"
-msgstr ""
+msgstr "Message :"
 
 #: ../../../../js/mod/ban-list.js:53 ../../../../js//mod/ban-list.js:53
 msgid "Board"
-msgstr ""
+msgstr "Planche"
 
 #: ../../../../js/mod/ban-list.js:55 ../../../../js//mod/ban-list.js:55
 msgid "all"
-msgstr ""
+msgstr "tout"
 
 #: ../../../../js/mod/ban-list.js:57 ../../../../js//mod/ban-list.js:57
 msgid "Set"
@@ -899,11 +889,11 @@ msgstr ""
 
 #: ../../../../js/mod/ban-list.js:61 ../../../../js//mod/ban-list.js:61
 msgid "Expires"
-msgstr ""
+msgstr "Expire"
 
 #: ../../../../js/mod/ban-list.js:62 ../../../../js//mod/ban-list.js:62
 msgid "never"
-msgstr ""
+msgstr "jamais"
 
 #: ../../../../js/mod/ban-list.js:64 ../../../../js//mod/ban-list.js:64
 msgid "in "
@@ -911,147 +901,147 @@ msgstr ""
 
 #: ../../../../js/mod/ban-list.js:66 ../../../../js//mod/ban-list.js:66
 msgid "Staff"
-msgstr ""
+msgstr "Équipe"
 
 #: ../../../../js/mod/ban-list.js:73 ../../../../js//mod/ban-list.js:73
 msgid "system"
-msgstr ""
+msgstr "système"
 
 #: ../../../../js/auto-reload.js:33 ../../../../js//auto-reload.js:96
 msgid "Auto"
-msgstr ""
+msgstr "Auto"
 
 #: ../../../../js/auto-reload.js:141 ../../../../js//auto-reload.js:210
 msgid "Updating..."
-msgstr ""
+msgstr "Mise à jour ..."
 
 #: ../../../../js/auto-reload.js:183 ../../../../js//auto-reload.js:257
 #, python-brace-format
 msgid "Thread updated with {0} new post(s)"
-msgstr ""
+msgstr "Fil mis à jour avec {0} nouveau(x) message(s)"
 
 #: ../../../../js/auto-reload.js:185 ../../../../js//auto-reload.js:259
 msgid "No new posts found"
-msgstr ""
+msgstr "Pas de nouveau message"
 
 #: ../../../../js/auto-reload.js:191 ../../../../js//auto-reload.js:265
 msgid "Thread deleted or pruned"
-msgstr ""
+msgstr "Fil effacé ou supprimé"
 
 #: ../../../../js/auto-reload.js:199 ../../../../js//auto-reload.js:273
 msgid "Error: "
-msgstr ""
+msgstr "Erreur :"
 
 #: ../../../../js/auto-reload.js:201 ../../../../js//auto-reload.js:275
 msgid "Unknown error"
-msgstr ""
+msgstr "Erreur inconnue :"
 
 #: ../../../../js/infinite-scroll.js:47 ../../../../js//infinite-scroll.js:47
 msgid "Page"
-msgstr ""
+msgstr "Page"
 
 #: ../../../../js/infinite-scroll.js:82 ../../../../js//infinite-scroll.js:82
 msgid "All"
-msgstr ""
+msgstr "Tout"
 
 #: ../../../../templates/main.js:29 ../../../../templates/main.js:47
 #: ../../../../templates//main.js:35 ../../../../templates//main.js:53
 msgid "second(s)"
-msgstr ""
+msgstr "seconde(s)"
 
 #: ../../../../templates/main.js:31 ../../../../templates/main.js:49
 #: ../../../../templates//main.js:37 ../../../../templates//main.js:55
 msgid "minute(s)"
-msgstr ""
+msgstr "minute(s)"
 
 #: ../../../../templates/main.js:33 ../../../../templates/main.js:51
 #: ../../../../templates//main.js:39 ../../../../templates//main.js:57
 msgid "hour(s)"
-msgstr ""
+msgstr "heure(s)"
 
 #: ../../../../templates/main.js:35 ../../../../templates/main.js:53
 #: ../../../../templates//main.js:41 ../../../../templates//main.js:59
 msgid "day(s)"
-msgstr ""
+msgstr "jour(s)"
 
 #: ../../../../templates/main.js:37 ../../../../templates/main.js:55
 #: ../../../../templates//main.js:43 ../../../../templates//main.js:61
 msgid "week(s)"
-msgstr ""
+msgstr "semaine(s)"
 
 #: ../../../../templates/main.js:39 ../../../../templates/main.js:57
 #: ../../../../templates//main.js:45 ../../../../templates//main.js:63
 msgid "year(s)"
-msgstr ""
+msgstr "an(s)"
 
 #: ../../../../js//ajax.js:121
 msgid ""
 "The server took too long to submit your post. Your post was probably still "
 "submitted. If it wasn't, 8chan might be experiencing issues right now -- "
 "please try your post again later. Error information: "
-msgstr ""
+msgstr "Le serveur a pris trop de temps pour envoyer votre message. Votre message a probablement quand même été envoyé. Si ce n'est pas le cas, il se peut 8chan rencontre un problème en ce moment même -- veuillez réessayer plus tard. Informations sur l'erreur:"
 
 #: ../../../../js//auto-reload.js:41
 msgid "Auto update"
-msgstr ""
+msgstr "Mise à jour automatique"
 
 #: ../../../../js//auto-reload.js:42
 msgid "Auto update thread"
-msgstr ""
+msgstr "Mise à jour auto du fil"
 
 #: ../../../../js//auto-reload.js:43
 msgid "Show desktop notifications when users quote me"
-msgstr ""
+msgstr "Afficher des notifications de bureau quand des utilisateurs me citent"
 
 #: ../../../../js//auto-reload.js:44
 msgid "Show desktop notifications on all replies"
-msgstr ""
+msgstr "Afficher des notifications de bureau pour toutes les réponses"
 
 #: ../../../../js//auto-scroll.js:4 ../../../../js//auto-scroll.js:18
 msgid "Scroll to new posts"
-msgstr ""
+msgstr "Défiler jusqu'aux nouveaux messages"
 
 #: ../../../../js//captcha.js:30
 msgid "Verification"
-msgstr ""
+msgstr "Vérification"
 
 #: ../../../../js//comment-toolbar.js:262
 #: ../../../../js//comment-toolbar.js:268
 msgid "Enable formatting keybinds"
-msgstr ""
+msgstr "Activer les raccourcis clavier de mise en forme"
 
 #: ../../../../js//comment-toolbar.js:263
 #: ../../../../js//comment-toolbar.js:269
 msgid "Show formatting toolbar"
-msgstr ""
+msgstr "Afficher la barre d'outils de mise en forme"
 
 #: ../../../../js//download-all.js:8
 msgid "Download All"
-msgstr ""
+msgstr "Tout télécharger"
 
 #: ../../../../js//forced-anon.js:73
 msgid "Hide IDs"
-msgstr ""
+msgstr "Masquer les ID"
 
 #: ../../../../js//image-hover.js:14
 msgid "Image hover"
-msgstr ""
+msgstr "Survol d'image"
 
 #: ../../../../js//image-hover.js:15
 msgid "Image hover on catalog"
-msgstr ""
+msgstr "Survol d'image dans le catalogue"
 
 #: ../../../../js//image-hover.js:16
 msgid "Image hover should follow cursor"
-msgstr ""
+msgstr "Le survol d'image devrait suivre le curseur"
 
 #: ../../../../js//inline-expanding.js:193
 msgid "Number of simultaneous image downloads (0 to disable): "
-msgstr ""
+msgstr "Nombre de téléchargements d'images simultanés (0 pour désactiver)"
 
 #: ../../../../js//katex-enable.js:15
 msgid "Error: Invalid LaTeX syntax."
-msgstr ""
+msgstr "Erreur: syntaxe LaTeX invalide"
 
 #: ../../../../js//local-time.js:89
 msgid "Show relative time"
@@ -1059,89 +1049,89 @@ msgstr ""
 
 #: ../../../../js//options/fav.js:27
 msgid "Favorites"
-msgstr ""
+msgstr "Favoris"
 
 #: ../../../../js//options/fav.js:42
 msgid "Drag the boards to sort them."
-msgstr ""
+msgstr "Tirez les planches pour les trier"
 
 #: ../../../../js//options/general.js:18
 msgid "Note: Most option changes will only take effect on future page loads."
-msgstr ""
+msgstr "Note: la plupart des changements d'option ne prendront effet qu'aux prochains chargements de pages"
 
 #: ../../../../js//options/user-css.js:15
 msgid "Theme"
-msgstr ""
+msgstr "Thème"
 
 #: ../../../../js//options/user-css.js:23
 msgid "Save custom CSS"
-msgstr ""
+msgstr "Sauver le CSS personnalisé"
 
 #: ../../../../js//options/user-css.js:42
 msgid "Board-specific CSS"
-msgstr ""
+msgstr "CSS spécifique à la planche"
 
 #: ../../../../js//options/user-css.js:54
 msgid "Style should affect all boards, not just current board"
-msgstr ""
+msgstr "Le style devrait affecter toutes les planches, pas seulement la planche actuelle"
 
 #: ../../../../js//options/user-css.js:121
 msgid ""
 "If you want to make a redistributable style, be sure to\n"
 "have a Yotsuba B theme selected."
-msgstr ""
+msgstr "Si tu veux créer un thème redistribuable, veille bien à \n   avoir sélectionné le thème Yotsuba B."
 
 #: ../../../../js//options/user-css.js:122
 msgid "These will be applied on top of whatever theme you choose below."
-msgstr ""
+msgstr "Ceux-ci seront superposés à n'importe quel thème choisi ci-dessous"
 
 #: ../../../../js//options/user-js.js:16
 msgid ""
 "Do not paste code here unless you absolutely trust the source or have read "
 "it yourself!"
-msgstr ""
+msgstr "Ne collez pas de code ici à moins que vous ayez une confiance absolue en son origine ou que vous l'ayez lu vous même !"
 
 #: ../../../../js//options/user-js.js:16
 msgid ""
 "Untrusted code pasted here could do malicious things such as spam the site "
 "under your IP."
-msgstr ""
+msgstr "Du code non vérifié ici collé pourrait faire des choses malveillantes, comme spammer le site sous votre IP."
 
 #: ../../../../js//options/user-js.js:24
 msgid "Save custom Javascript"
-msgstr ""
+msgstr "Sauver le Javascript personnalisé"
 
 #: ../../../../js//options/user-js.js:52
 msgid "Enter your own Javascript code here..."
-msgstr ""
+msgstr "Entrez votre propre code Javascript ici ..."
 
 #: ../../../../js//show-own-posts.js:36 ../../../../js//show-own-posts.js:49
 msgid "(You)"
-msgstr ""
+msgstr "(Vous)"
 
 #: ../../../../js//treeview.js:18
 msgid "Use tree view by default"
-msgstr ""
+msgstr "Utiliser l'arborescence par défaut"
 
 #: ../../../../js//update_boards.js:6
 msgid "Show top boards"
-msgstr ""
+msgstr "Afficher les premières planches"
 
 #: ../../../../js//webm-settings.js:57
 msgid "Loop videos by default"
-msgstr ""
+msgstr "Lire les vidéos en boucle par défaut"
 
 #: ../../../../js//youtube.js:28
 msgid "YouTube size"
-msgstr ""
+msgstr "taille YouTube"
 
 #: ../../../../templates//main.js:96
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: ../../../../templates//main.js:102
 msgid "Cancel"
-msgstr ""
+msgstr "Annuler"
 
 #: ../../../../templates//main.js:325
 msgid "Hide post options &amp; limits"

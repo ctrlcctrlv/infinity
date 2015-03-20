@@ -1,21 +1,19 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # anaodev <xmas@yopmail.com>, 2014
 # hitmonkey <sac@55ch.org>, 2014
 # Thassae Santos <thassae@hotmail.com>, 2014
-# anaodev <xmas@yopmail.com>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: vichan\n"
+"Project-Id-Version: infinity\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-10-18 13:47+0200\n"
-"PO-Revision-Date: 2014-10-18 11:48+0000\n"
-"Last-Translator: Marcin Łabanowski <marcin@6irc.net>\n"
-"Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/"
-"tinyboard-vichan-devel/language/pt_BR/)\n"
+"PO-Revision-Date: 2015-03-17 13:09+0000\n"
+"Last-Translator: copypaste <admin@8chan.co>\n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/infinity/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -512,8 +510,7 @@ msgstr "Assistir esta board"
 
 #: ../../../../js/wpaint.js:113 ../../../../js//wpaint.js:113
 msgid "Click on any image on this site to load it into oekaki applet"
-msgstr ""
-"Clique em qualquer imagem neste site para carregá-lo no miniaplicativo oekaki"
+msgstr "Clique em qualquer imagem neste site para carregá-lo no miniaplicativo oekaki"
 
 #: ../../../../js/local-time.js:29 ../../../../templates/main.js:62
 #: ../../../../templates//main.js:68
@@ -801,9 +798,7 @@ msgstr "Apagar"
 msgid ""
 "Are you sure you want to erase your storage? This involves your hidden "
 "threads, watched threads, post password and many more."
-msgstr ""
-"Tem certeza que você deseja apagar seu armazenamento? Isso envolve seus "
-"tópicos escondidos, tópicos monitorados, senhas e muito mais."
+msgstr "Tem certeza que você deseja apagar seu armazenamento? Isso envolve seus tópicos escondidos, tópicos monitorados, senhas e muito mais."
 
 #: ../../../../js/options/user-css.js:14
 msgid "User CSS"
@@ -822,9 +817,7 @@ msgstr "Coloque aqui suas próprias regras de CSS..."
 msgid ""
 "If you want to make a redistributable style, be sure to\n"
 "   have a Yotsuba B theme selected."
-msgstr ""
-"Se você quer fazer um estilo para distribuir, certifique-se\n"
-"de ter um tema Yotsuba B selecionado."
+msgstr "Se você quer fazer um estilo para distribuir, certifique-se\nde ter um tema Yotsuba B selecionado."
 
 #: ../../../../js/options/user-css.js:47
 #: ../../../../js//options/user-css.js:123
@@ -847,9 +840,7 @@ msgstr "Insira aqui o seu próprio código Javascript..."
 msgid ""
 "Have a backup of your storage somewhere, as messing here\n"
 "   may render you this website unusable."
-msgstr ""
-"Tenha um \"backup\" do seu armazenamento em algum outro lugar,\n"
-"já que bagunçar aqui pode inutilizar o website."
+msgstr "Tenha um \"backup\" do seu armazenamento em algum outro lugar,\njá que bagunçar aqui pode inutilizar o website."
 
 #: ../../../../js/options/user-js.js:56 ../../../../js//options/user-js.js:53
 msgid "You can include JS files from remote servers, for example:"

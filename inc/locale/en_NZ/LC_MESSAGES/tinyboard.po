@@ -1,18 +1,17 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Zero <mr.nobody@paradise.net.nz>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: vichan\n"
+"Project-Id-Version: infinity\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-10-18 13:47+0200\n"
-"PO-Revision-Date: 2014-10-18 11:48+0000\n"
-"Last-Translator: Marcin Łabanowski <marcin@6irc.net>\n"
-"Language-Team: English (New Zealand) (http://www.transifex.com/projects/p/"
-"tinyboard-vichan-devel/language/en_NZ/)\n"
+"PO-Revision-Date: 2015-03-17 13:11+0000\n"
+"Last-Translator: copypaste <admin@8chan.co>\n"
+"Language-Team: English (New Zealand) (http://www.transifex.com/projects/p/infinity/language/en_NZ/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -308,9 +307,7 @@ msgstr "Delete all posts by IP across all boards"
 msgid ""
 "Are you sure you want to delete all posts by this IP address, across all "
 "boards?"
-msgstr ""
-"Are you sure you want to delete all posts by this IP address, across all "
-"boards?"
+msgstr "Are you sure you want to delete all posts by this IP address, across all boards?"
 
 #: ../../../../inc/display.php:490 ../../../../inc/display.php:512
 #: ../../../../inc/display.php:515 ../../../../inc/display.php:519
@@ -376,7 +373,6 @@ msgstr "You have been muted for unoriginal content."
 #. "Post").
 #. The names on the post buttons. (On most imageboards, these are both just
 #. "Post").
-#. The names on the post buttons. (On most imageboards, these are both just "Post").
 #: ../../../../inc/config.php:677 ../../../../inc/config.php:781
 #: ../../../../inc/config.php:772 ../../../../inc/config.php:774
 #: ../../../../inc/config.php:776 ../../../../inc/config.php:792
@@ -404,9 +400,7 @@ msgstr "New Reply"
 msgid ""
 "All trademarks, copyrights, comments, and images on this page are owned by "
 "and are the responsibility of their respective parties."
-msgstr ""
-"All trademarks, copyrights, comments, and images on this page are owned by "
-"and are the responsibility of their respective parties."
+msgstr "All trademarks, copyrights, comments, and images on this page are owned by and are the responsibility of their respective parties."
 
 #. * ====================
 #. *  Error messages
@@ -423,12 +417,6 @@ msgstr "Lurk some more before posting."
 #. * ====================
 #. *  Error messages
 #. * ====================
-#. Error messages
-#.
-#. * ====================
-#. *  Error messages
-#. * ====================
-#.
 #. Error messages
 #: ../../../../inc/config.php:867 ../../../../inc/config.php:972
 #: ../../../../inc/config.php:963 ../../../../inc/config.php:965
@@ -769,7 +757,7 @@ msgstr "Couldn't make sense of the URL of the video you tried to embed."
 msgid "You seem to have mistyped the verification."
 msgstr "You seem to have mistyped the verification."
 
-#. Moderator errors
+#. Volunteer errors
 #. mod.php errors
 #: ../../../../inc/config.php:906 ../../../../inc/config.php:1011
 #: ../../../../inc/config.php:1002 ../../../../inc/config.php:1004
@@ -781,9 +769,7 @@ msgstr "You seem to have mistyped the verification."
 msgid ""
 "You are only allowed to unban %s users at a time. You tried to unban %u "
 "users."
-msgstr ""
-"You are only allowed to unban %s users at a time. You tried to unban %u "
-"users."
+msgstr "You are only allowed to unban %s users at a time. You tried to unban %u users."
 
 #: ../../../../inc/config.php:907 ../../../../inc/config.php:1012
 #: ../../../../inc/config.php:1003 ../../../../inc/config.php:1005
@@ -810,9 +796,9 @@ msgstr "You are not a mod…"
 #: ../../../../inc/config.php:1069 ../../../../inc/config.php:1072
 #: ../../../..//inc/config.php:1139
 msgid ""
-"Invalid username and/or password. Your user may have been deleted or changed."
-msgstr ""
-"Invalid username and/or password. Your user may have been deleted or changed."
+"Invalid username and/or password. Your user may have been deleted or "
+"changed."
+msgstr "Invalid username and/or password. Your user may have been deleted or changed."
 
 #: ../../../../inc/config.php:910 ../../../../inc/config.php:1015
 #: ../../../../inc/config.php:1006 ../../../../inc/config.php:1008
@@ -923,8 +909,6 @@ msgstr "Invalid security token! Please go back and try again."
 #. Default public ban message. In public ban messages, %length% is replaced
 #. with "for x days" or
 #. "permanently" (with %LENGTH% being the uppercase equivalent).
-#. Default public ban message. In public ban messages, %length% is replaced with "for x days" or
-#. "permanently" (with %LENGTH% being the uppercase equivalent).
 #: ../../../../inc/config.php:1086 ../../../../inc/config.php:1189
 #: ../../../../inc/config.php:1180 ../../../../inc/config.php:1185
 #: ../../../../inc/config.php:1187 ../../../../inc/config.php:1203
@@ -992,9 +976,8 @@ msgstr "News"
 #: ../../../../inc/mod/pages.php:671 ../../../../inc/mod/pages.php:698
 #: ../../../../templates/cache/72/7e/271125664718133518fd942f20fb724224e100f8a0d47cb0b52f895ac12f.php:300
 #: ../../../../templates/cache/73/f8/5e3142a8a6f8d7e40422ff577e83b0dedf55a7cb9bc7082839b24f653545.php:75
-#: ../../../..//templates/cache/25/ce/20297e1c09b3c82a277642530f4bd5b1f83cd763d5456c0ee2cedaff2519.php:72
-msgid "Moderation log"
-msgstr "Moderation log"
+msgid "Volunteer log"
+msgstr ""
 
 #. line 104
 #. line 20
@@ -2197,9 +2180,7 @@ msgstr "Debug: APC"
 msgid ""
 "Your code contained PHP syntax errors. Please go back and correct them. PHP "
 "says: "
-msgstr ""
-"Your code contained PHP syntax errors. Please go back and correct them. PHP "
-"says: "
+msgstr "Your code contained PHP syntax errors. Please go back and correct them. PHP says: "
 
 #. line 2
 #. line 6
@@ -3006,9 +2987,7 @@ msgstr "Bans"
 msgid ""
 "(Search is case-insensitive and based on keywords. To match exact phrases, "
 "use \"quotes\". Use an asterisk (*) for wildcard.)"
-msgstr ""
-"(Search is case-insensitive and based on keywords. To match exact phrases, "
-"use \"quotes\". Use an asterisk (*) for wildcard.)"
+msgstr "(Search is case-insensitive and based on keywords. To match exact phrases, use \"quotes\". Use an asterisk (*) for wildcard.)"
 
 #: ../../../../templates/cache/ba/55/2553cc018aecf7d29a62331aec4bedc71b646817c7e4c4e7d1a885263676.php:25
 msgid "There are no active bans."
@@ -3257,9 +3236,7 @@ msgstr "and it was denied. You may not appeal this ban again."
 msgid ""
 "You have submitted the maximum number of ban appeals allowed. You may not "
 "appeal this ban again."
-msgstr ""
-"You have submitted the maximum number of ban appeals allowed. You may not "
-"appeal this ban again."
+msgstr "You have submitted the maximum number of ban appeals allowed. You may not appeal this ban again."
 
 #. line 114
 #. line 121
@@ -3452,14 +3429,7 @@ msgid ""
 "<strong>name</strong>. To apply a filter, simply add to your query, for "
 "example, <em>name:Anonymous</em> or <em>subject:\"Some Thread\"</em>. "
 "Wildcards cannot be used in filters."
-msgstr ""
-"Search is case-insensitive and based on keywords. To match exact phrases, "
-"use \"quotes\". Use an asterisk (*) for wildcard.</p><p style=\"font-"
-"size:8pt;margin:5px\">You may apply the following filters to your searches: "
-"<strong>id</strong>, <strong>thread</strong>, <strong>subject</strong>, and "
-"<strong>name</strong>. To apply a filter, simply add to your query, for "
-"example, <em>name:Anonymous</em> or <em>subject:\"Some Thread\"</em>. "
-"Wildcards cannot be used in filters."
+msgstr "Search is case-insensitive and based on keywords. To match exact phrases, use \"quotes\". Use an asterisk (*) for wildcard.</p><p style=\"font-size:8pt;margin:5px\">You may apply the following filters to your searches: <strong>id</strong>, <strong>thread</strong>, <strong>subject</strong>, and <strong>name</strong>. To apply a filter, simply add to your query, for example, <em>name:Anonymous</em> or <em>subject:\"Some Thread\"</em>. Wildcards cannot be used in filters."
 
 #. line 2
 #: ../../../../templates/cache/57/a7/c0a734e494c78acfc595f033a070bdc87fdc3e6a28ad5aaa8666c7a1a966.php:25
@@ -3473,11 +3443,9 @@ msgstr "Click to proceed to"
 #. line 5
 #: ../../../../templates/cache/57/a7/c0a734e494c78acfc595f033a070bdc87fdc3e6a28ad5aaa8666c7a1a966.php:39
 msgid ""
-"You are probably seeing this message because Javascript being disabled. This "
-"is a necessary security measure to prevent CSRF attacks."
-msgstr ""
-"You are probably seeing this message because JavaScript is disabled. This is "
-"a necessary security measure to prevent CSRF attacks."
+"You are probably seeing this message because Javascript being disabled. This"
+" is a necessary security measure to prevent CSRF attacks."
+msgstr "You are probably seeing this message because JavaScript is disabled. This is a necessary security measure to prevent CSRF attacks."
 
 #. line 7
 #: ../../../../templates/cache/3a/62/f804928dbcf285e3d5d8d7ae31b1e3a7c78264f270efa9650d31f69c7897.php:44
@@ -3615,9 +3583,6 @@ msgstr "None"
 #. a capcode) will be made, linking to the new location for the thread. "%s"
 #. will be replaced with a
 #. standard cross-board post citation (>>>/board/xxx)
-#. When moving a thread to another board and choosing to keep a "shadow thread", an automated post (with
-#. a capcode) will be made, linking to the new location for the thread. "%s" will be replaced with a
-#. standard cross-board post citation (>>>/board/xxx)
 #: ../../../../inc/config.php:1211 ../../../../inc/config.php:1220
 #: ../../../../inc/config.php:1251 ../../../../inc/config.php:1255
 #: ../../../../inc/config.php:1258 ../../../..//inc/config.php:1334
@@ -3628,9 +3593,9 @@ msgstr "Moved to %s."
 #: ../../../../templates/themes/recent/theme.php:50
 #: ../../../..//templates/themes/recent/theme.php:50
 msgid ""
-"Can't build the RecentPosts theme, because there are no boards to be fetched."
-msgstr ""
-"Can't build the RecentPosts theme, because there are no boards to be fetched."
+"Can't build the RecentPosts theme, because there are no boards to be "
+"fetched."
+msgstr "Can't build the RecentPosts theme, because there are no boards to be fetched."
 
 #: ../../../../inc/config.php:997 ../../../../inc/config.php:1023
 #: ../../../../inc/config.php:1026 ../../../../inc/config.php:1029
@@ -3800,8 +3765,7 @@ msgstr "Invalid WebM uploaded."
 #: ../../../../inc/config.php:1058 ../../../..//inc/config.php:1125
 msgid ""
 "The uploaded webm contains an audio or another type of additional stream."
-msgstr ""
-"The uploaded WebM contains an audio or another type of additional stream."
+msgstr "The uploaded WebM contains an audio or another type of additional stream."
 
 #: ../../../../inc/config.php:1052 ../../../../inc/config.php:1056
 #: ../../../../inc/config.php:1059
@@ -3834,7 +3798,7 @@ msgid "There are no active posts."
 msgstr ""
 
 #: ../../../../templates/cache/ba/55/2553cc018aecf7d29a62331aec4bedc71b646817c7e4c4e7d1a885263676.php:49
-msgid "Show only bans from boards I moderate"
+msgid "Show only bans from boards I volunteer on"
 msgstr ""
 
 #. line 16
@@ -4173,6 +4137,10 @@ msgstr ""
 msgid "Global rules permit this content"
 msgstr ""
 
+#: ../../../..//templates/cache/25/ce/20297e1c09b3c82a277642530f4bd5b1f83cd763d5456c0ee2cedaff2519.php:72
+msgid "Moderation log"
+msgstr "Moderation log"
+
 #. line 124
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:334
 msgid "= required field"
@@ -4509,8 +4477,9 @@ msgstr ""
 
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:347
 msgid ""
-"To contribute translations, register at <a href=\"https://www.transifex.com/"
-"projects/p/tinyboard-vichan-devel/\">Transifex</a>"
+"To contribute translations, register at <a "
+"href=\"https://www.transifex.com/projects/p/tinyboard-vichan-"
+"devel/\">Transifex</a>"
 msgstr ""
 
 #. line 65

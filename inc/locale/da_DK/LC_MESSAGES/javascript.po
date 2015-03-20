@@ -1,19 +1,18 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # sildeperker <nicholas.adam.wood@gmail.com>, 2014
 # Vladislav Višnevskij Petersen <vladikpetersen@gmail.com>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: vichan\n"
+"Project-Id-Version: infinity\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-10-18 13:47+0200\n"
-"PO-Revision-Date: 2014-10-18 11:48+0000\n"
-"Last-Translator: Marcin Łabanowski <marcin@6irc.net>\n"
-"Language-Team: Danish (Denmark) (http://www.transifex.com/projects/p/"
-"tinyboard-vichan-devel/language/da_DK/)\n"
+"PO-Revision-Date: 2015-03-17 13:10+0000\n"
+"Last-Translator: copypaste <admin@8chan.co>\n"
+"Language-Team: Danish (Denmark) (http://www.transifex.com/projects/p/infinity/language/da_DK/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -798,9 +797,7 @@ msgstr "Udvisk"
 msgid ""
 "Are you sure you want to erase your storage? This involves your hidden "
 "threads, watched threads, post password and many more."
-msgstr ""
-"Er du sikker på at du vil udviske din oplagring? Dette omfatter dine skjulte "
-"tråde, fulgte tråde, indlægskodeord og meget mere."
+msgstr "Er du sikker på at du vil udviske din oplagring? Dette omfatter dine skjulte tråde, fulgte tråde, indlægskodeord og meget mere."
 
 #: ../../../../js/options/user-css.js:14
 msgid "User CSS"
@@ -819,9 +816,7 @@ msgstr "Skriv dine egne CSS-regler hér..."
 msgid ""
 "If you want to make a redistributable style, be sure to\n"
 "   have a Yotsuba B theme selected."
-msgstr ""
-"Hvis du ønsker at lave en videredistribuerbar stil, vær\n"
-"sikker på at have et Yotsuba B-tema valgt."
+msgstr "Hvis du ønsker at lave en videredistribuerbar stil, vær\nsikker på at have et Yotsuba B-tema valgt."
 
 #: ../../../../js/options/user-css.js:47
 #: ../../../../js//options/user-css.js:123
@@ -844,9 +839,7 @@ msgstr "Skriv din egen Javascript-kode hér..."
 msgid ""
 "Have a backup of your storage somewhere, as messing here\n"
 "   may render you this website unusable."
-msgstr ""
-"Hav en backup af dit oplargring et sted, da at rode hér kan\n"
-"gøre den her webside uanvendelig for dig."
+msgstr "Hav en backup af dit oplargring et sted, da at rode hér kan\ngøre den her webside uanvendelig for dig."
 
 #: ../../../../js/options/user-js.js:56 ../../../../js//options/user-js.js:53
 msgid "You can include JS files from remote servers, for example:"

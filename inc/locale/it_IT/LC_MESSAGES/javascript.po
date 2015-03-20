@@ -1,19 +1,18 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # JavaFag <lucamaker@gmail.com>, 2014
 # Lazy <jh.hueller@gmail.com>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: vichan\n"
+"Project-Id-Version: infinity\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-10-18 13:47+0200\n"
-"PO-Revision-Date: 2014-10-18 11:48+0000\n"
-"Last-Translator: Marcin Łabanowski <marcin@6irc.net>\n"
-"Language-Team: Italian (Italy) (http://www.transifex.com/projects/p/"
-"tinyboard-vichan-devel/language/it_IT/)\n"
+"PO-Revision-Date: 2015-03-17 13:09+0000\n"
+"Last-Translator: copypaste <admin@8chan.co>\n"
+"Language-Team: Italian (Italy) (http://www.transifex.com/projects/p/infinity/language/it_IT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -798,9 +797,7 @@ msgstr "Cancella"
 msgid ""
 "Are you sure you want to erase your storage? This involves your hidden "
 "threads, watched threads, post password and many more."
-msgstr ""
-"Sicuro di voler eliminare il tuo archivio? Questo include i Thread nascosti, "
-"i Thread seguiti, le password dei post e molto altro."
+msgstr "Sicuro di voler eliminare il tuo archivio? Questo include i Thread nascosti, i Thread seguiti, le password dei post e molto altro."
 
 #: ../../../../js/options/user-css.js:14
 msgid "User CSS"
@@ -819,9 +816,7 @@ msgstr "Inserisci qui le tue regole CSS qui"
 msgid ""
 "If you want to make a redistributable style, be sure to\n"
 "   have a Yotsuba B theme selected."
-msgstr ""
-"Se vuoi creare uno stile ridistribuibile, \n"
-"seleziona un tema Yotsuba B"
+msgstr "Se vuoi creare uno stile ridistribuibile, \nseleziona un tema Yotsuba B"
 
 #: ../../../../js/options/user-css.js:47
 #: ../../../../js//options/user-css.js:123
@@ -844,9 +839,7 @@ msgstr "Inserisci il codice Javascript qui"
 msgid ""
 "Have a backup of your storage somewhere, as messing here\n"
 "   may render you this website unusable."
-msgstr ""
-"Fai un backup del tuo archivio, perchè smanettare\n"
-"qui potrebbe renderti il sito inutilizzabile"
+msgstr "Fai un backup del tuo archivio, perchè smanettare\nqui potrebbe renderti il sito inutilizzabile"
 
 #: ../../../../js/options/user-js.js:56 ../../../../js//options/user-js.js:53
 msgid "You can include JS files from remote servers, for example:"

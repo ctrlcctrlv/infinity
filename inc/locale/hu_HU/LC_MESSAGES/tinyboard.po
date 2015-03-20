@@ -1,19 +1,18 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-# limbobarrage <ijynyjdl@grr.la>, 2014
 # cicus, 2014
+# limbobarrage <ijynyjdl@grr.la>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: vichan\n"
+"Project-Id-Version: infinity\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-10-18 13:47+0200\n"
-"PO-Revision-Date: 2014-10-18 11:48+0000\n"
-"Last-Translator: Marcin Łabanowski <marcin@6irc.net>\n"
-"Language-Team: Hungarian (Hungary) (http://www.transifex.com/projects/p/"
-"tinyboard-vichan-devel/language/hu_HU/)\n"
+"PO-Revision-Date: 2015-03-17 13:13+0000\n"
+"Last-Translator: copypaste <admin@8chan.co>\n"
+"Language-Team: Hungarian (Hungary) (http://www.transifex.com/projects/p/infinity/language/hu_HU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -185,9 +184,7 @@ msgstr "Bejelentkezés"
 #: ../../../../inc/display.php:262 ../../../..//inc/display.php:265
 #, php-format
 msgid "Post too long. Click <a href=\"%s\">here</a> to view the full text."
-msgstr ""
-"A hozzászólás túl hosszú. Kattints <a href=\"%s\">ide</a> hogy lásd a teljes "
-"szöveget."
+msgstr "A hozzászólás túl hosszú. Kattints <a href=\"%s\">ide</a> hogy lásd a teljes szöveget."
 
 #: ../../../../inc/display.php:368 ../../../../inc/display.php:473
 #: ../../../../inc/display.php:385 ../../../../inc/display.php:495
@@ -295,9 +292,7 @@ msgstr "Összes üzenet törlése erről az IP-ről"
 #: ../../../../templates/cache/59/eb/57ea544c6cb07c523441e4872c03216560589e8425c0df3a895c17253c4c.php:44
 #: ../../../..//templates/cache/32/56/2f0f3c8b5fda2a269f57b553b9db686212ecf685202bccc86840fe002cc6.php:49
 msgid "Are you sure you want to delete all posts by this IP address?"
-msgstr ""
-"Biztos, hogy törölni akarod az erről az IP címről érkezett összes "
-"hozzászólást?"
+msgstr "Biztos, hogy törölni akarod az erről az IP címről érkezett összes hozzászólást?"
 
 #: ../../../../inc/display.php:469 ../../../../inc/display.php:491
 #: ../../../../inc/display.php:494 ../../../../inc/display.php:498
@@ -313,9 +308,7 @@ msgstr "Összes hozzászólás törlése erről az IP-ről minden táblán"
 msgid ""
 "Are you sure you want to delete all posts by this IP address, across all "
 "boards?"
-msgstr ""
-"Biztos, hogy törölni akarod az összes hozzászólást erről az IP-ről minden "
-"táblán?"
+msgstr "Biztos, hogy törölni akarod az összes hozzászólást erről az IP-ről minden táblán?"
 
 #: ../../../../inc/display.php:490 ../../../../inc/display.php:512
 #: ../../../../inc/display.php:515 ../../../../inc/display.php:519
@@ -381,7 +374,6 @@ msgstr "Némítva lettél nem eredeti tartalom miatt."
 #. "Post").
 #. The names on the post buttons. (On most imageboards, these are both just
 #. "Post").
-#. The names on the post buttons. (On most imageboards, these are both just "Post").
 #: ../../../../inc/config.php:677 ../../../../inc/config.php:781
 #: ../../../../inc/config.php:772 ../../../../inc/config.php:774
 #: ../../../../inc/config.php:776 ../../../../inc/config.php:792
@@ -409,9 +401,7 @@ msgstr "Új Hozzászólás"
 msgid ""
 "All trademarks, copyrights, comments, and images on this page are owned by "
 "and are the responsibility of their respective parties."
-msgstr ""
-"Minden védjegy, védett tartalom, hozzászólás és kép ezen az oldalon az azt "
-"megillető és érte felelő jogos tulajdonosáé."
+msgstr "Minden védjegy, védett tartalom, hozzászólás és kép ezen az oldalon az azt megillető és érte felelő jogos tulajdonosáé."
 
 #. * ====================
 #. *  Error messages
@@ -428,12 +418,6 @@ msgstr "Leselkedj többet mielőtt beleszólsz."
 #. * ====================
 #. *  Error messages
 #. * ====================
-#. Error messages
-#.
-#. * ====================
-#. *  Error messages
-#. * ====================
-#.
 #. Error messages
 #: ../../../../inc/config.php:867 ../../../../inc/config.php:972
 #: ../../../../inc/config.php:963 ../../../../inc/config.php:965
@@ -774,7 +758,7 @@ msgstr "A videó URL-je amelyet beilleszteni próbáltál, nem értelmezhető."
 msgid "You seem to have mistyped the verification."
 msgstr "Úgy látszik elírtad az ellenőrzést."
 
-#. Moderator errors
+#. Volunteer errors
 #. mod.php errors
 #: ../../../../inc/config.php:906 ../../../../inc/config.php:1011
 #: ../../../../inc/config.php:1002 ../../../../inc/config.php:1004
@@ -786,9 +770,7 @@ msgstr "Úgy látszik elírtad az ellenőrzést."
 msgid ""
 "You are only allowed to unban %s users at a time. You tried to unban %u "
 "users."
-msgstr ""
-"Csak %s felhasználó kitiltását vonhatod vissza egyszerre. Te %u felhasználó "
-"kitiltását próbáltad visszavonni."
+msgstr "Csak %s felhasználó kitiltását vonhatod vissza egyszerre. Te %u felhasználó kitiltását próbáltad visszavonni."
 
 #: ../../../../inc/config.php:907 ../../../../inc/config.php:1012
 #: ../../../../inc/config.php:1003 ../../../../inc/config.php:1005
@@ -815,10 +797,9 @@ msgstr "Nem vagy moderátor..."
 #: ../../../../inc/config.php:1069 ../../../../inc/config.php:1072
 #: ../../../..//inc/config.php:1139
 msgid ""
-"Invalid username and/or password. Your user may have been deleted or changed."
-msgstr ""
-"Érvénytelen felhasználónév és/vagy jelszó. A fiókod talán törölve lett vagy "
-"megváltoztatva."
+"Invalid username and/or password. Your user may have been deleted or "
+"changed."
+msgstr "Érvénytelen felhasználónév és/vagy jelszó. A fiókod talán törölve lett vagy megváltoztatva."
 
 #: ../../../../inc/config.php:910 ../../../../inc/config.php:1015
 #: ../../../../inc/config.php:1006 ../../../../inc/config.php:1008
@@ -929,8 +910,6 @@ msgstr "Érvénytelen biztonsági azonosító! Lépj vissza és próbáld újra.
 #. Default public ban message. In public ban messages, %length% is replaced
 #. with "for x days" or
 #. "permanently" (with %LENGTH% being the uppercase equivalent).
-#. Default public ban message. In public ban messages, %length% is replaced with "for x days" or
-#. "permanently" (with %LENGTH% being the uppercase equivalent).
 #: ../../../../inc/config.php:1086 ../../../../inc/config.php:1189
 #: ../../../../inc/config.php:1180 ../../../../inc/config.php:1185
 #: ../../../../inc/config.php:1187 ../../../../inc/config.php:1203
@@ -998,9 +977,8 @@ msgstr "Hírek"
 #: ../../../../inc/mod/pages.php:671 ../../../../inc/mod/pages.php:698
 #: ../../../../templates/cache/72/7e/271125664718133518fd942f20fb724224e100f8a0d47cb0b52f895ac12f.php:300
 #: ../../../../templates/cache/73/f8/5e3142a8a6f8d7e40422ff577e83b0dedf55a7cb9bc7082839b24f653545.php:75
-#: ../../../..//templates/cache/25/ce/20297e1c09b3c82a277642530f4bd5b1f83cd763d5456c0ee2cedaff2519.php:72
-msgid "Moderation log"
-msgstr "Moderációs napló"
+msgid "Volunteer log"
+msgstr ""
 
 #. line 104
 #. line 20
@@ -2203,9 +2181,7 @@ msgstr "Hibakeresés: APC"
 msgid ""
 "Your code contained PHP syntax errors. Please go back and correct them. PHP "
 "says: "
-msgstr ""
-"A PHP kódod szabálytalan részeket tartalmazott. Lépj vissza és javítsd ki "
-"őket. PHP varázsló mondja:"
+msgstr "A PHP kódod szabálytalan részeket tartalmazott. Lépj vissza és javítsd ki őket. PHP varázsló mondja:"
 
 #. line 2
 #. line 6
@@ -3012,10 +2988,7 @@ msgstr "Kitiltások"
 msgid ""
 "(Search is case-insensitive and based on keywords. To match exact phrases, "
 "use \"quotes\". Use an asterisk (*) for wildcard.)"
-msgstr ""
-"(A keresés figyelmen kívül hagyja az ékezeteket és kulcsszavakon alapul. "
-"Pontos kifejezésekhez használj \"idézőjeleket\". Ismeretlen részekhez pedig "
-"(*) csillagot.)"
+msgstr "(A keresés figyelmen kívül hagyja az ékezeteket és kulcsszavakon alapul. Pontos kifejezésekhez használj \"idézőjeleket\". Ismeretlen részekhez pedig (*) csillagot.)"
 
 #: ../../../../templates/cache/ba/55/2553cc018aecf7d29a62331aec4bedc71b646817c7e4c4e7d1a885263676.php:25
 msgid "There are no active bans."
@@ -3264,9 +3237,7 @@ msgstr "és el lett utasítva. Nem fellebbezhetsz többet a kitiltás ellen."
 msgid ""
 "You have submitted the maximum number of ban appeals allowed. You may not "
 "appeal this ban again."
-msgstr ""
-"A maximálisan engedélyett számú fellebbezést felhasználtad a kitiltás ellen. "
-"Többet nem fellebehetsz ellene."
+msgstr "A maximálisan engedélyett számú fellebbezést felhasználtad a kitiltás ellen. Többet nem fellebehetsz ellene."
 
 #. line 114
 #. line 121
@@ -3459,15 +3430,7 @@ msgid ""
 "<strong>name</strong>. To apply a filter, simply add to your query, for "
 "example, <em>name:Anonymous</em> or <em>subject:\"Some Thread\"</em>. "
 "Wildcards cannot be used in filters."
-msgstr ""
-"A keresés nem veszi figyelembe az ékezeteket és kulcsszavakon alapul. Pontos "
-"kifejezések kereséséhez használj \"idézőjeleket\", illetve csillagot (*) "
-"ismeretlen részeken.</p><p style=\"font-size:8pt;margin:5px\">A következő "
-"szűrőket használhatod a kereséshez: <strong>azonosító</strong>, "
-"<strong>szál</strong>, <strong>téma</strong>, és <strong>név</strong>. A "
-"szűrő használatához egyszerűen add hozzá azt a mezőben, például, <em>név:"
-"Anonymous</em> vagy <em>téma:\"Valamilyen szál\"</em>. Csillagok nem "
-"használhatóak a szűrőben."
+msgstr "A keresés nem veszi figyelembe az ékezeteket és kulcsszavakon alapul. Pontos kifejezések kereséséhez használj \"idézőjeleket\", illetve csillagot (*) ismeretlen részeken.</p><p style=\"font-size:8pt;margin:5px\">A következő szűrőket használhatod a kereséshez: <strong>azonosító</strong>, <strong>szál</strong>, <strong>téma</strong>, és <strong>név</strong>. A szűrő használatához egyszerűen add hozzá azt a mezőben, például, <em>név:Anonymous</em> vagy <em>téma:\"Valamilyen szál\"</em>. Csillagok nem használhatóak a szűrőben."
 
 #. line 2
 #: ../../../../templates/cache/57/a7/c0a734e494c78acfc595f033a070bdc87fdc3e6a28ad5aaa8666c7a1a966.php:25
@@ -3481,11 +3444,9 @@ msgstr "Kattints a folytatáshoz"
 #. line 5
 #: ../../../../templates/cache/57/a7/c0a734e494c78acfc595f033a070bdc87fdc3e6a28ad5aaa8666c7a1a966.php:39
 msgid ""
-"You are probably seeing this message because Javascript being disabled. This "
-"is a necessary security measure to prevent CSRF attacks."
-msgstr ""
-"Valószínűleg azért látod ezt az üzenetet mert nem engedélyezted a Javascript-"
-"et. Ez egy szükséges biztonsági intézkedés a CSRF támadások kivédésére."
+"You are probably seeing this message because Javascript being disabled. This"
+" is a necessary security measure to prevent CSRF attacks."
+msgstr "Valószínűleg azért látod ezt az üzenetet mert nem engedélyezted a Javascript-et. Ez egy szükséges biztonsági intézkedés a CSRF támadások kivédésére."
 
 #. line 7
 #: ../../../../templates/cache/3a/62/f804928dbcf285e3d5d8d7ae31b1e3a7c78264f270efa9650d31f69c7897.php:44
@@ -3623,9 +3584,6 @@ msgstr "Egyik sem"
 #. a capcode) will be made, linking to the new location for the thread. "%s"
 #. will be replaced with a
 #. standard cross-board post citation (>>>/board/xxx)
-#. When moving a thread to another board and choosing to keep a "shadow thread", an automated post (with
-#. a capcode) will be made, linking to the new location for the thread. "%s" will be replaced with a
-#. standard cross-board post citation (>>>/board/xxx)
 #: ../../../../inc/config.php:1211 ../../../../inc/config.php:1220
 #: ../../../../inc/config.php:1251 ../../../../inc/config.php:1255
 #: ../../../../inc/config.php:1258 ../../../..//inc/config.php:1334
@@ -3636,10 +3594,9 @@ msgstr "Áthelyezve ide: %s."
 #: ../../../../templates/themes/recent/theme.php:50
 #: ../../../..//templates/themes/recent/theme.php:50
 msgid ""
-"Can't build the RecentPosts theme, because there are no boards to be fetched."
-msgstr ""
-"Nem sikerült a RecentPosts téma létrehozása, mert nem találhatók "
-"feldolgozásra váró táblák."
+"Can't build the RecentPosts theme, because there are no boards to be "
+"fetched."
+msgstr "Nem sikerült a RecentPosts téma létrehozása, mert nem találhatók feldolgozásra váró táblák."
 
 #: ../../../../inc/config.php:997 ../../../../inc/config.php:1023
 #: ../../../../inc/config.php:1026 ../../../../inc/config.php:1029
@@ -3842,7 +3799,7 @@ msgid "There are no active posts."
 msgstr ""
 
 #: ../../../../templates/cache/ba/55/2553cc018aecf7d29a62331aec4bedc71b646817c7e4c4e7d1a885263676.php:49
-msgid "Show only bans from boards I moderate"
+msgid "Show only bans from boards I volunteer on"
 msgstr ""
 
 #. line 16
@@ -4181,6 +4138,10 @@ msgstr ""
 msgid "Global rules permit this content"
 msgstr ""
 
+#: ../../../..//templates/cache/25/ce/20297e1c09b3c82a277642530f4bd5b1f83cd763d5456c0ee2cedaff2519.php:72
+msgid "Moderation log"
+msgstr "Moderációs napló"
+
 #. line 124
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:334
 msgid "= required field"
@@ -4517,8 +4478,9 @@ msgstr ""
 
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:347
 msgid ""
-"To contribute translations, register at <a href=\"https://www.transifex.com/"
-"projects/p/tinyboard-vichan-devel/\">Transifex</a>"
+"To contribute translations, register at <a "
+"href=\"https://www.transifex.com/projects/p/tinyboard-vichan-"
+"devel/\">Transifex</a>"
 msgstr ""
 
 #. line 65

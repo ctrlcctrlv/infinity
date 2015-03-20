@@ -1,18 +1,17 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Joel C <theholymart1@gmail.com>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: vichan\n"
+"Project-Id-Version: infinity\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-10-18 13:47+0200\n"
-"PO-Revision-Date: 2014-10-18 11:48+0000\n"
-"Last-Translator: Marcin Łabanowski <marcin@6irc.net>\n"
-"Language-Team: Catalan (http://www.transifex.com/projects/p/tinyboard-vichan-"
-"devel/language/ca/)\n"
+"PO-Revision-Date: 2015-03-17 13:09+0000\n"
+"Last-Translator: copypaste <admin@8chan.co>\n"
+"Language-Team: Catalan (http://www.transifex.com/projects/p/infinity/language/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -509,9 +508,7 @@ msgstr "mirar aquesta board"
 
 #: ../../../../js/wpaint.js:113 ../../../../js//wpaint.js:113
 msgid "Click on any image on this site to load it into oekaki applet"
-msgstr ""
-"Fes clic a qualsevol imatge d'aquesta pàgina per a carregar-la a l'applet "
-"oekaki"
+msgstr "Fes clic a qualsevol imatge d'aquesta pàgina per a carregar-la a l'applet oekaki"
 
 #: ../../../../js/local-time.js:29 ../../../../templates/main.js:62
 #: ../../../../templates//main.js:68
@@ -799,9 +796,7 @@ msgstr "Borrar"
 msgid ""
 "Are you sure you want to erase your storage? This involves your hidden "
 "threads, watched threads, post password and many more."
-msgstr ""
-"Estas segur que vols borrar la teva informació? Això inclou els teus threads "
-"amagats, els threads que miraves la contrasenya dels posts i molt més."
+msgstr "Estas segur que vols borrar la teva informació? Això inclou els teus threads amagats, els threads que miraves la contrasenya dels posts i molt més."
 
 #: ../../../../js/options/user-css.js:14
 msgid "User CSS"
@@ -820,9 +815,7 @@ msgstr "Escriu aquí les teves propies normes de CSS"
 msgid ""
 "If you want to make a redistributable style, be sure to\n"
 "   have a Yotsuba B theme selected."
-msgstr ""
-"Si vols crear un estil redistribuïble, estigues segur de\n"
-"   tenir un tema de Yotsuba B seleccionat."
+msgstr "Si vols crear un estil redistribuïble, estigues segur de\n   tenir un tema de Yotsuba B seleccionat."
 
 #: ../../../../js/options/user-css.js:47
 #: ../../../../js//options/user-css.js:123
@@ -845,9 +838,7 @@ msgstr "Escriu aqui el teu propi codi de Javascript"
 msgid ""
 "Have a backup of your storage somewhere, as messing here\n"
 "   may render you this website unusable."
-msgstr ""
-"Tingues una còpia de seguretat de les teves dades a algun lloc, ja que al "
-"fer coses aquí   pots fer que la pàgina es torni inutilitzable."
+msgstr "Tingues una còpia de seguretat de les teves dades a algun lloc, ja que al fer coses aquí   pots fer que la pàgina es torni inutilitzable."
 
 #: ../../../../js/options/user-js.js:56 ../../../../js//options/user-js.js:53
 msgid "You can include JS files from remote servers, for example:"

@@ -1,17 +1,17 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
+# Lehavla <wow.jvs+ghu@gmail.com>, 2015
 msgid ""
 msgstr ""
-"Project-Id-Version: vichan\n"
+"Project-Id-Version: infinity\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-10-18 13:47+0200\n"
-"PO-Revision-Date: 2014-10-18 11:48+0000\n"
-"Last-Translator: Marcin Łabanowski <marcin@6irc.net>\n"
-"Language-Team: Lojban (http://www.transifex.com/projects/p/tinyboard-vichan-"
-"devel/language/jbo/)\n"
+"PO-Revision-Date: 2015-03-18 11:54+0000\n"
+"Last-Translator: Lehavla <wow.jvs+ghu@gmail.com>\n"
+"Language-Team: Lojban (http://www.transifex.com/projects/p/infinity/language/jbo/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -183,7 +183,7 @@ msgstr ""
 #: ../../../../inc/display.php:262 ../../../..//inc/display.php:265
 #, php-format
 msgid "Post too long. Click <a href=\"%s\">here</a> to view the full text."
-msgstr ""
+msgstr "lo selmri cu bradu'e .i <a href=\"%s\">tolcancygau lo mulno selsku</a>"
 
 #: ../../../../inc/display.php:368 ../../../../inc/display.php:473
 #: ../../../../inc/display.php:385 ../../../../inc/display.php:495
@@ -192,7 +192,7 @@ msgstr ""
 #: ../../../../templates/cache/59/eb/57ea544c6cb07c523441e4872c03216560589e8425c0df3a895c17253c4c.php:60
 #: ../../../..//templates/cache/32/56/2f0f3c8b5fda2a269f57b553b9db686212ecf685202bccc86840fe002cc6.php:65
 msgid "Ban"
-msgstr ""
+msgstr ".e'arnainde"
 
 #: ../../../../inc/display.php:372 ../../../../inc/display.php:477
 #: ../../../../inc/display.php:389 ../../../../inc/display.php:499
@@ -201,7 +201,7 @@ msgstr ""
 #: ../../../../templates/cache/59/eb/57ea544c6cb07c523441e4872c03216560589e8425c0df3a895c17253c4c.php:74
 #: ../../../..//templates/cache/32/56/2f0f3c8b5fda2a269f57b553b9db686212ecf685202bccc86840fe002cc6.php:79
 msgid "Ban & Delete"
-msgstr ""
+msgstr ".e'arnainde gi'e vimcu"
 
 #. line 4
 #: ../../../../inc/display.php:376 ../../../../inc/display.php:481
@@ -211,7 +211,7 @@ msgstr ""
 #: ../../../../templates/cache/b9/2b/ba2b45df5e1d76f6cdfb98a47468df19a1ffc1c2af2dc1792eb75eeb0791.php:29
 #: ../../../..//templates/cache/2d/b1/97370111ec8d923be14d9c2c3b8c9ddfbc01416fb3cadb98650562a54fdd.php:26
 msgid "Delete file"
-msgstr ""
+msgstr "vimcu lo sfaile"
 
 #: ../../../../inc/display.php:376 ../../../../inc/display.php:481
 #: ../../../../inc/display.php:393 ../../../../inc/display.php:503
@@ -220,14 +220,14 @@ msgstr ""
 #: ../../../../templates/cache/b9/2b/ba2b45df5e1d76f6cdfb98a47468df19a1ffc1c2af2dc1792eb75eeb0791.php:29
 #: ../../../..//templates/cache/2d/b1/97370111ec8d923be14d9c2c3b8c9ddfbc01416fb3cadb98650562a54fdd.php:26
 msgid "Are you sure you want to delete this file?"
-msgstr ""
+msgstr ".au ja'ai pei vimcu lo bi'u nai sfaile"
 
 #: ../../../../inc/display.php:380 ../../../../inc/display.php:485
 #: ../../../../inc/display.php:397 ../../../../inc/display.php:507
 #: ../../../../inc/display.php:400 ../../../../inc/display.php:510
 #: ../../../../inc/display.php:404 ../../../../inc/display.php:514
 msgid "Spoiler File"
-msgstr ""
+msgstr "gau spoilere fa lo sfaile"
 
 #: ../../../../inc/display.php:380 ../../../../inc/display.php:485
 #: ../../../../inc/display.php:397 ../../../../inc/display.php:507
@@ -236,14 +236,14 @@ msgstr ""
 #: ../../../../templates/cache/b9/2b/ba2b45df5e1d76f6cdfb98a47468df19a1ffc1c2af2dc1792eb75eeb0791.php:36
 #: ../../../..//templates/cache/2d/b1/97370111ec8d923be14d9c2c3b8c9ddfbc01416fb3cadb98650562a54fdd.php:33
 msgid "Are you sure you want to spoiler this file?"
-msgstr ""
+msgstr ".au ja'ai pei gau spoilere fa lo bi'u nai sfaile"
 
 #: ../../../../inc/display.php:384 ../../../../inc/display.php:401
 #: ../../../../inc/display.php:404 ../../../../inc/display.php:408
 #: ../../../../templates/cache/59/eb/57ea544c6cb07c523441e4872c03216560589e8425c0df3a895c17253c4c.php:193
 #: ../../../..//templates/cache/32/56/2f0f3c8b5fda2a269f57b553b9db686212ecf685202bccc86840fe002cc6.php:198
 msgid "Move reply to another board"
-msgstr ""
+msgstr "setca lo se spusku lo drata poi snustu"
 
 #: ../../../../inc/display.php:388 ../../../../inc/display.php:512
 #: ../../../../inc/mod/pages.php:1425 ../../../../inc/mod/pages.php:1494
@@ -256,7 +256,7 @@ msgstr ""
 #: ../../../../inc/mod/pages.php:1511 ../../../..//inc/mod/pages.php:1667
 #: ../../../..//templates/cache/32/56/2f0f3c8b5fda2a269f57b553b9db686212ecf685202bccc86840fe002cc6.php:213
 msgid "Edit post"
-msgstr ""
+msgstr "stika lo selmri"
 
 #. line 5
 #. line 6
@@ -270,28 +270,28 @@ msgstr ""
 #: ../../../..//templates/cache/32/56/2f0f3c8b5fda2a269f57b553b9db686212ecf685202bccc86840fe002cc6.php:41
 #: ../../../..//templates/cache/47/e3/18c93ab0fe6247ec483a4ff4d5fc128fc6c9690fb728011c6928ea19cfc2.php:35
 msgid "Delete"
-msgstr ""
+msgstr "vimcu"
 
 #: ../../../../inc/display.php:461 ../../../../inc/display.php:483
 #: ../../../../inc/display.php:486 ../../../../inc/display.php:490
 #: ../../../../templates/cache/59/eb/57ea544c6cb07c523441e4872c03216560589e8425c0df3a895c17253c4c.php:36
 #: ../../../..//templates/cache/32/56/2f0f3c8b5fda2a269f57b553b9db686212ecf685202bccc86840fe002cc6.php:41
 msgid "Are you sure you want to delete this?"
-msgstr ""
+msgstr ".au ja'ai pei vimcu lo bi'u nai selmri"
 
 #: ../../../../inc/display.php:465 ../../../../inc/display.php:487
 #: ../../../../inc/display.php:490 ../../../../inc/display.php:494
 #: ../../../../templates/cache/59/eb/57ea544c6cb07c523441e4872c03216560589e8425c0df3a895c17253c4c.php:44
 #: ../../../..//templates/cache/32/56/2f0f3c8b5fda2a269f57b553b9db686212ecf685202bccc86840fe002cc6.php:49
 msgid "Delete all posts by IP"
-msgstr ""
+msgstr "vimcu ro lo selmri pe lo judri"
 
 #: ../../../../inc/display.php:465 ../../../../inc/display.php:487
 #: ../../../../inc/display.php:490 ../../../../inc/display.php:494
 #: ../../../../templates/cache/59/eb/57ea544c6cb07c523441e4872c03216560589e8425c0df3a895c17253c4c.php:44
 #: ../../../..//templates/cache/32/56/2f0f3c8b5fda2a269f57b553b9db686212ecf685202bccc86840fe002cc6.php:49
 msgid "Are you sure you want to delete all posts by this IP address?"
-msgstr ""
+msgstr "vimcu ro lo se mrilu be lo bi'u nai pa se judri"
 
 #: ../../../../inc/display.php:469 ../../../../inc/display.php:491
 #: ../../../../inc/display.php:494 ../../../../inc/display.php:498
@@ -314,49 +314,49 @@ msgstr ""
 #: ../../../../templates/cache/59/eb/57ea544c6cb07c523441e4872c03216560589e8425c0df3a895c17253c4c.php:96
 #: ../../../..//templates/cache/32/56/2f0f3c8b5fda2a269f57b553b9db686212ecf685202bccc86840fe002cc6.php:101
 msgid "Make thread not sticky"
-msgstr ""
+msgstr "zvanalstogau lo nunsnu"
 
 #: ../../../../inc/display.php:492 ../../../../inc/display.php:514
 #: ../../../../inc/display.php:517 ../../../../inc/display.php:521
 #: ../../../../templates/cache/59/eb/57ea544c6cb07c523441e4872c03216560589e8425c0df3a895c17253c4c.php:106
 #: ../../../..//templates/cache/32/56/2f0f3c8b5fda2a269f57b553b9db686212ecf685202bccc86840fe002cc6.php:111
 msgid "Make thread sticky"
-msgstr ""
+msgstr "zvastogau lo nunsnu"
 
 #: ../../../../inc/display.php:496 ../../../../inc/display.php:518
 #: ../../../../inc/display.php:521 ../../../../inc/display.php:525
 #: ../../../../templates/cache/59/eb/57ea544c6cb07c523441e4872c03216560589e8425c0df3a895c17253c4c.php:122
 #: ../../../..//templates/cache/32/56/2f0f3c8b5fda2a269f57b553b9db686212ecf685202bccc86840fe002cc6.php:127
 msgid "Allow thread to be bumped"
-msgstr ""
+msgstr "curmi lo nu lo nunsnu cu galze'a"
 
 #: ../../../../inc/display.php:498 ../../../../inc/display.php:520
 #: ../../../../inc/display.php:523 ../../../../inc/display.php:527
 #: ../../../../templates/cache/59/eb/57ea544c6cb07c523441e4872c03216560589e8425c0df3a895c17253c4c.php:132
 #: ../../../..//templates/cache/32/56/2f0f3c8b5fda2a269f57b553b9db686212ecf685202bccc86840fe002cc6.php:137
 msgid "Prevent thread from being bumped"
-msgstr ""
+msgstr "tolcru lo nu lo nunsnu cu galze'a"
 
 #: ../../../../inc/display.php:503 ../../../../inc/display.php:525
 #: ../../../../inc/display.php:528 ../../../../inc/display.php:532
 #: ../../../../templates/cache/59/eb/57ea544c6cb07c523441e4872c03216560589e8425c0df3a895c17253c4c.php:148
 #: ../../../..//templates/cache/32/56/2f0f3c8b5fda2a269f57b553b9db686212ecf685202bccc86840fe002cc6.php:153
 msgid "Unlock thread"
-msgstr ""
+msgstr "toldujgau lo nunsnu"
 
 #: ../../../../inc/display.php:505 ../../../../inc/display.php:527
 #: ../../../../inc/display.php:530 ../../../../inc/display.php:534
 #: ../../../../templates/cache/59/eb/57ea544c6cb07c523441e4872c03216560589e8425c0df3a895c17253c4c.php:158
 #: ../../../..//templates/cache/32/56/2f0f3c8b5fda2a269f57b553b9db686212ecf685202bccc86840fe002cc6.php:163
 msgid "Lock thread"
-msgstr ""
+msgstr "dujgau lo nunsnu"
 
 #: ../../../../inc/display.php:508 ../../../../inc/display.php:530
 #: ../../../../inc/display.php:533 ../../../../inc/display.php:537
 #: ../../../../templates/cache/59/eb/57ea544c6cb07c523441e4872c03216560589e8425c0df3a895c17253c4c.php:181
 #: ../../../..//templates/cache/32/56/2f0f3c8b5fda2a269f57b553b9db686212ecf685202bccc86840fe002cc6.php:186
 msgid "Move thread to another board"
-msgstr ""
+msgstr "setca lo nunsnu lo drata poi snustu"
 
 #. How long before Tinyboard forgets about a mute?
 #. 2 weeks
@@ -367,13 +367,12 @@ msgstr ""
 #: ../../../../inc/config.php:476 ../../../../inc/config.php:479
 #: ../../../../inc/config.php:482 ../../../..//inc/config.php:520
 msgid "You have been muted for unoriginal content."
-msgstr ""
+msgstr "ri'a tu'a lo slabu dukse poi selsku cu jai tolcru fai lo ka mrilu"
 
 #. The names on the post buttons. (On most imageboards, these are both just
 #. "Post").
 #. The names on the post buttons. (On most imageboards, these are both just
 #. "Post").
-#. The names on the post buttons. (On most imageboards, these are both just "Post").
 #: ../../../../inc/config.php:677 ../../../../inc/config.php:781
 #: ../../../../inc/config.php:772 ../../../../inc/config.php:774
 #: ../../../../inc/config.php:776 ../../../../inc/config.php:792
@@ -381,7 +380,7 @@ msgstr ""
 #: ../../../../inc/config.php:832 ../../../../inc/config.php:835
 #: ../../../..//inc/config.php:913
 msgid "New Topic"
-msgstr ""
+msgstr "zbasu tu'a lo nunsnu"
 
 #: ../../../../inc/config.php:678 ../../../../inc/config.php:782
 #: ../../../../inc/config.php:773 ../../../../inc/config.php:775
@@ -390,7 +389,7 @@ msgstr ""
 #: ../../../../inc/config.php:833 ../../../../inc/config.php:836
 #: ../../../..//inc/config.php:914
 msgid "New Reply"
-msgstr ""
+msgstr "spuda"
 
 #. Additional lines added to the footer of all pages.
 #: ../../../../inc/config.php:689 ../../../../inc/config.php:793
@@ -409,7 +408,7 @@ msgstr ""
 #. Error messages
 #: ../../../../inc/config.php:866
 msgid "Lurk some more before posting."
-msgstr ""
+msgstr "ko pu lo nu mrilu cu ze'a nalsti lo ka lurki"
 
 #. * ====================
 #. *  Error messages
@@ -418,12 +417,6 @@ msgstr ""
 #. * ====================
 #. *  Error messages
 #. * ====================
-#. Error messages
-#.
-#. * ====================
-#. *  Error messages
-#. * ====================
-#.
 #. Error messages
 #: ../../../../inc/config.php:867 ../../../../inc/config.php:972
 #: ../../../../inc/config.php:963 ../../../../inc/config.php:965
@@ -432,7 +425,7 @@ msgstr ""
 #: ../../../../inc/config.php:1020 ../../../../inc/config.php:1023
 #: ../../../..//inc/config.php:1089
 msgid "You look like a bot."
-msgstr ""
+msgstr "do simlu lo ka zmiku"
 
 #: ../../../../inc/config.php:868 ../../../../inc/config.php:973
 #: ../../../../inc/config.php:964 ../../../../inc/config.php:966
@@ -441,7 +434,7 @@ msgstr ""
 #: ../../../../inc/config.php:1021 ../../../../inc/config.php:1024
 #: ../../../..//inc/config.php:1090
 msgid "Your browser sent an invalid or no HTTP referer."
-msgstr ""
+msgstr "lo do brauzero cu benji no da .a su'o naldra vu'o poi xextutupu ke krasi tcita"
 
 #: ../../../../inc/config.php:869 ../../../../inc/config.php:974
 #: ../../../../inc/config.php:965 ../../../../inc/config.php:967
@@ -451,7 +444,7 @@ msgstr ""
 #: ../../../..//inc/config.php:1091
 #, php-format
 msgid "The %s field was too long."
-msgstr ""
+msgstr "la'oi %s noi se pruce zo'u lerfu du'e mei"
 
 #: ../../../../inc/config.php:870 ../../../../inc/config.php:975
 #: ../../../../inc/config.php:966 ../../../../inc/config.php:968
@@ -460,7 +453,7 @@ msgstr ""
 #: ../../../../inc/config.php:1023 ../../../../inc/config.php:1026
 #: ../../../..//inc/config.php:1092
 msgid "The body was too long."
-msgstr ""
+msgstr "lo ralju selsku zo'u lerfu du'e mei"
 
 #: ../../../../inc/config.php:871 ../../../../inc/config.php:976
 #: ../../../../inc/config.php:967 ../../../../inc/config.php:969
@@ -469,7 +462,7 @@ msgstr ""
 #: ../../../../inc/config.php:1024 ../../../../inc/config.php:1027
 #: ../../../..//inc/config.php:1093
 msgid "The body was too short or empty."
-msgstr ""
+msgstr "lo ralju selsku zo'u lerfu mo'a mei"
 
 #: ../../../../inc/config.php:872 ../../../../inc/config.php:977
 #: ../../../../inc/config.php:968 ../../../../inc/config.php:970
@@ -478,7 +471,7 @@ msgstr ""
 #: ../../../../inc/config.php:1025 ../../../../inc/config.php:1028
 #: ../../../..//inc/config.php:1094
 msgid "You must upload an image."
-msgstr ""
+msgstr ".ei kibdu'a su'o pixra"
 
 #: ../../../../inc/config.php:873 ../../../../inc/config.php:978
 #: ../../../../inc/config.php:969 ../../../../inc/config.php:971
@@ -487,7 +480,7 @@ msgstr ""
 #: ../../../../inc/config.php:1027 ../../../../inc/config.php:1030
 #: ../../../..//inc/config.php:1096
 msgid "The server failed to handle your upload."
-msgstr ""
+msgstr "lo samse'u cu fliba tu'a lo se kibdu'a be do"
 
 #: ../../../../inc/config.php:874 ../../../../inc/config.php:979
 #: ../../../../inc/config.php:970 ../../../../inc/config.php:972
@@ -496,7 +489,7 @@ msgstr ""
 #: ../../../../inc/config.php:1028 ../../../../inc/config.php:1031
 #: ../../../..//inc/config.php:1097
 msgid "Unsupported image format."
-msgstr ""
+msgstr "lo pixra formata na jai se curmi"
 
 #: ../../../../inc/config.php:875 ../../../../inc/config.php:980
 #: ../../../../inc/config.php:971 ../../../../inc/config.php:973
@@ -764,7 +757,7 @@ msgstr ""
 msgid "You seem to have mistyped the verification."
 msgstr ""
 
-#. Moderator errors
+#. Volunteer errors
 #. mod.php errors
 #: ../../../../inc/config.php:906 ../../../../inc/config.php:1011
 #: ../../../../inc/config.php:1002 ../../../../inc/config.php:1004
@@ -803,7 +796,8 @@ msgstr ""
 #: ../../../../inc/config.php:1069 ../../../../inc/config.php:1072
 #: ../../../..//inc/config.php:1139
 msgid ""
-"Invalid username and/or password. Your user may have been deleted or changed."
+"Invalid username and/or password. Your user may have been deleted or "
+"changed."
 msgstr ""
 
 #: ../../../../inc/config.php:910 ../../../../inc/config.php:1015
@@ -915,8 +909,6 @@ msgstr ""
 #. Default public ban message. In public ban messages, %length% is replaced
 #. with "for x days" or
 #. "permanently" (with %LENGTH% being the uppercase equivalent).
-#. Default public ban message. In public ban messages, %length% is replaced with "for x days" or
-#. "permanently" (with %LENGTH% being the uppercase equivalent).
 #: ../../../../inc/config.php:1086 ../../../../inc/config.php:1189
 #: ../../../../inc/config.php:1180 ../../../../inc/config.php:1185
 #: ../../../../inc/config.php:1187 ../../../../inc/config.php:1203
@@ -984,8 +976,7 @@ msgstr ""
 #: ../../../../inc/mod/pages.php:671 ../../../../inc/mod/pages.php:698
 #: ../../../../templates/cache/72/7e/271125664718133518fd942f20fb724224e100f8a0d47cb0b52f895ac12f.php:300
 #: ../../../../templates/cache/73/f8/5e3142a8a6f8d7e40422ff577e83b0dedf55a7cb9bc7082839b24f653545.php:75
-#: ../../../..//templates/cache/25/ce/20297e1c09b3c82a277642530f4bd5b1f83cd763d5456c0ee2cedaff2519.php:72
-msgid "Moderation log"
+msgid "Volunteer log"
 msgstr ""
 
 #. line 104
@@ -3452,8 +3443,8 @@ msgstr ""
 #. line 5
 #: ../../../../templates/cache/57/a7/c0a734e494c78acfc595f033a070bdc87fdc3e6a28ad5aaa8666c7a1a966.php:39
 msgid ""
-"You are probably seeing this message because Javascript being disabled. This "
-"is a necessary security measure to prevent CSRF attacks."
+"You are probably seeing this message because Javascript being disabled. This"
+" is a necessary security measure to prevent CSRF attacks."
 msgstr ""
 
 #. line 7
@@ -3592,9 +3583,6 @@ msgstr ""
 #. a capcode) will be made, linking to the new location for the thread. "%s"
 #. will be replaced with a
 #. standard cross-board post citation (>>>/board/xxx)
-#. When moving a thread to another board and choosing to keep a "shadow thread", an automated post (with
-#. a capcode) will be made, linking to the new location for the thread. "%s" will be replaced with a
-#. standard cross-board post citation (>>>/board/xxx)
 #: ../../../../inc/config.php:1211 ../../../../inc/config.php:1220
 #: ../../../../inc/config.php:1251 ../../../../inc/config.php:1255
 #: ../../../../inc/config.php:1258 ../../../..//inc/config.php:1334
@@ -3605,7 +3593,8 @@ msgstr ""
 #: ../../../../templates/themes/recent/theme.php:50
 #: ../../../..//templates/themes/recent/theme.php:50
 msgid ""
-"Can't build the RecentPosts theme, because there are no boards to be fetched."
+"Can't build the RecentPosts theme, because there are no boards to be "
+"fetched."
 msgstr ""
 
 #: ../../../../inc/config.php:997 ../../../../inc/config.php:1023
@@ -3809,7 +3798,7 @@ msgid "There are no active posts."
 msgstr ""
 
 #: ../../../../templates/cache/ba/55/2553cc018aecf7d29a62331aec4bedc71b646817c7e4c4e7d1a885263676.php:49
-msgid "Show only bans from boards I moderate"
+msgid "Show only bans from boards I volunteer on"
 msgstr ""
 
 #. line 16
@@ -4148,6 +4137,10 @@ msgstr ""
 msgid "Global rules permit this content"
 msgstr ""
 
+#: ../../../..//templates/cache/25/ce/20297e1c09b3c82a277642530f4bd5b1f83cd763d5456c0ee2cedaff2519.php:72
+msgid "Moderation log"
+msgstr ""
+
 #. line 124
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:334
 msgid "= required field"
@@ -4484,8 +4477,9 @@ msgstr ""
 
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:347
 msgid ""
-"To contribute translations, register at <a href=\"https://www.transifex.com/"
-"projects/p/tinyboard-vichan-devel/\">Transifex</a>"
+"To contribute translations, register at <a "
+"href=\"https://www.transifex.com/projects/p/tinyboard-vichan-"
+"devel/\">Transifex</a>"
 msgstr ""
 
 #. line 65

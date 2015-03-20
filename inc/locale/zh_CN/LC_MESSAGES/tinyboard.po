@@ -1,18 +1,18 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
+# Ling Chingchong <markshi233@163.com>, 2015
 # Nicholas Chen <planetzstore@gmail.com>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: vichan\n"
+"Project-Id-Version: infinity\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-10-18 13:47+0200\n"
-"PO-Revision-Date: 2014-10-18 11:48+0000\n"
-"Last-Translator: Marcin Łabanowski <marcin@6irc.net>\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/"
-"tinyboard-vichan-devel/language/zh_CN/)\n"
+"PO-Revision-Date: 2015-03-18 07:44+0000\n"
+"Last-Translator: Ling Chingchong <markshi233@163.com>\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/infinity/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -368,7 +368,6 @@ msgstr "您被禁止在非原创内容中发言。"
 #. "Post").
 #. The names on the post buttons. (On most imageboards, these are both just
 #. "Post").
-#. The names on the post buttons. (On most imageboards, these are both just "Post").
 #: ../../../../inc/config.php:677 ../../../../inc/config.php:781
 #: ../../../../inc/config.php:772 ../../../../inc/config.php:774
 #: ../../../../inc/config.php:776 ../../../../inc/config.php:792
@@ -396,7 +395,7 @@ msgstr "新回复"
 msgid ""
 "All trademarks, copyrights, comments, and images on this page are owned by "
 "and are the responsibility of their respective parties."
-msgstr ""
+msgstr "所有在此页面的商标，版权，帖子，与图片均被它们相应的各方所属与承担。"
 
 #. * ====================
 #. *  Error messages
@@ -413,12 +412,6 @@ msgstr "在发帖前潜一下水"
 #. * ====================
 #. *  Error messages
 #. * ====================
-#. Error messages
-#.
-#. * ====================
-#. *  Error messages
-#. * ====================
-#.
 #. Error messages
 #: ../../../../inc/config.php:867 ../../../../inc/config.php:972
 #: ../../../../inc/config.php:963 ../../../../inc/config.php:965
@@ -527,7 +520,7 @@ msgstr "主题帖被锁. 您目前不能回复."
 #: ../../../../inc/config.php:1032 ../../../../inc/config.php:1035
 #: ../../../..//inc/config.php:1101
 msgid "Thread has reached its maximum reply limit."
-msgstr ""
+msgstr "主题帖已经达到了最多回复限制。"
 
 #: ../../../../inc/config.php:879 ../../../../inc/config.php:984
 #: ../../../../inc/config.php:975 ../../../../inc/config.php:977
@@ -536,7 +529,7 @@ msgstr ""
 #: ../../../../inc/config.php:1033 ../../../../inc/config.php:1036
 #: ../../../..//inc/config.php:1102
 msgid "Thread has reached its maximum image limit."
-msgstr ""
+msgstr "主题帖已经达到了最多图片限制。"
 
 #: ../../../../inc/config.php:880 ../../../../inc/config.php:985
 #: ../../../../inc/config.php:976 ../../../../inc/config.php:978
@@ -581,7 +574,7 @@ msgstr "非原创内容！"
 #: ../../../..//inc/config.php:1107
 #, php-format
 msgid "Unoriginal content! You have been muted for %d seconds."
-msgstr ""
+msgstr "非原创内容！你应经被禁言%d秒"
 
 #: ../../../../inc/config.php:885 ../../../../inc/config.php:990
 #: ../../../../inc/config.php:981 ../../../../inc/config.php:983
@@ -591,7 +584,7 @@ msgstr ""
 #: ../../../..//inc/config.php:1108
 #, php-format
 msgid "You are muted! Expires in %d seconds."
-msgstr ""
+msgstr "你已被禁言！%d秒后解除。"
 
 #: ../../../../inc/config.php:886 ../../../../inc/config.php:991
 #: ../../../../inc/config.php:982 ../../../../inc/config.php:984
@@ -619,7 +612,7 @@ msgstr "太多链接;检查到灌水帖。"
 #: ../../../../inc/config.php:1042 ../../../../inc/config.php:1045
 #: ../../../..//inc/config.php:1112
 msgid "Too many cites; post discarded."
-msgstr ""
+msgstr "太多引用；帖子废除。"
 
 #: ../../../../inc/config.php:889 ../../../../inc/config.php:994
 #: ../../../../inc/config.php:985 ../../../../inc/config.php:987
@@ -628,7 +621,7 @@ msgstr ""
 #: ../../../../inc/config.php:1043 ../../../../inc/config.php:1046
 #: ../../../..//inc/config.php:1113
 msgid "Too many cross-board links; post discarded."
-msgstr ""
+msgstr "太多夸板块链接；帖子废除。"
 
 #: ../../../../inc/config.php:890 ../../../../inc/config.php:995
 #: ../../../../inc/config.php:986 ../../../../inc/config.php:988
@@ -691,7 +684,7 @@ msgstr "未知的文件后缀名。"
 #: ../../../../inc/config.php:1050 ../../../../inc/config.php:1053
 #: ../../../..//inc/config.php:1120
 msgid "Maximum file size: %maxsz% bytes<br>Your file's size: %filesz% bytes"
-msgstr ""
+msgstr "最大图片大小：%maxsz% bytes<br>你的文件大小: %filesz% bytes"
 
 #: ../../../../inc/config.php:897 ../../../../inc/config.php:1002
 #: ../../../../inc/config.php:993 ../../../../inc/config.php:995
@@ -710,7 +703,7 @@ msgstr "文件太大。"
 #: ../../../..//inc/config.php:1127
 #, php-format
 msgid "That file <a href=\"%s\">already exists</a>!"
-msgstr ""
+msgstr "该文件 <a href=\"%s\">a已存在</a>!"
 
 #: ../../../../inc/config.php:899 ../../../../inc/config.php:1004
 #: ../../../../inc/config.php:995 ../../../../inc/config.php:997
@@ -720,7 +713,7 @@ msgstr ""
 #: ../../../..//inc/config.php:1128
 #, php-format
 msgid "That file <a href=\"%s\">already exists</a> in this thread!"
-msgstr ""
+msgstr "该文件 <a href=\"%s\">a已在此主题帖存在</a>!"
 
 #: ../../../../inc/config.php:900 ../../../../inc/config.php:1005
 #: ../../../../inc/config.php:996 ../../../../inc/config.php:998
@@ -730,7 +723,7 @@ msgstr ""
 #: ../../../..//inc/config.php:1129
 #, php-format
 msgid "You'll have to wait another %s before deleting that."
-msgstr ""
+msgstr "你必须再等待%s秒才能够删除该文件。"
 
 #: ../../../../inc/config.php:901 ../../../../inc/config.php:1006
 #: ../../../../inc/config.php:997 ../../../../inc/config.php:999
@@ -739,7 +732,7 @@ msgstr ""
 #: ../../../../inc/config.php:1060 ../../../../inc/config.php:1063
 #: ../../../..//inc/config.php:1130
 msgid "MIME type detection XSS exploit (IE) detected; post discarded."
-msgstr ""
+msgstr "检测到MIME type detection XSS exploit (IE)；帖子废除"
 
 #: ../../../../inc/config.php:902 ../../../../inc/config.php:1007
 #: ../../../../inc/config.php:998 ../../../../inc/config.php:1000
@@ -748,7 +741,7 @@ msgstr ""
 #: ../../../../inc/config.php:1061 ../../../../inc/config.php:1064
 #: ../../../..//inc/config.php:1131
 msgid "Couldn't make sense of the URL of the video you tried to embed."
-msgstr ""
+msgstr "无法识别你试图嵌入的视频的URL"
 
 #: ../../../../inc/config.php:903 ../../../../inc/config.php:1008
 #: ../../../../inc/config.php:999 ../../../../inc/config.php:1001
@@ -757,9 +750,9 @@ msgstr ""
 #: ../../../../inc/config.php:1062 ../../../../inc/config.php:1065
 #: ../../../..//inc/config.php:1132
 msgid "You seem to have mistyped the verification."
-msgstr ""
+msgstr "你貌似输错验证码。"
 
-#. Moderator errors
+#. Volunteer errors
 #. mod.php errors
 #: ../../../../inc/config.php:906 ../../../../inc/config.php:1011
 #: ../../../../inc/config.php:1002 ../../../../inc/config.php:1004
@@ -771,7 +764,7 @@ msgstr ""
 msgid ""
 "You are only allowed to unban %s users at a time. You tried to unban %u "
 "users."
-msgstr ""
+msgstr "你只被允许一下解禁%s个用户。你试图解禁了%u个用户。"
 
 #: ../../../../inc/config.php:907 ../../../../inc/config.php:1012
 #: ../../../../inc/config.php:1003 ../../../../inc/config.php:1005
@@ -798,8 +791,9 @@ msgstr "您不是版主..."
 #: ../../../../inc/config.php:1069 ../../../../inc/config.php:1072
 #: ../../../..//inc/config.php:1139
 msgid ""
-"Invalid username and/or password. Your user may have been deleted or changed."
-msgstr ""
+"Invalid username and/or password. Your user may have been deleted or "
+"changed."
+msgstr "无效的用户名/密码。你的账号有可能已被删除或修改。"
 
 #: ../../../../inc/config.php:910 ../../../../inc/config.php:1015
 #: ../../../../inc/config.php:1006 ../../../../inc/config.php:1008
@@ -808,7 +802,7 @@ msgstr ""
 #: ../../../../inc/config.php:1070 ../../../../inc/config.php:1073
 #: ../../../..//inc/config.php:1140
 msgid "Invalid/malformed cookies."
-msgstr ""
+msgstr "无效或异变的Cookies"
 
 #: ../../../../inc/config.php:911 ../../../../inc/config.php:1016
 #: ../../../../inc/config.php:1007 ../../../../inc/config.php:1009
@@ -817,7 +811,7 @@ msgstr ""
 #: ../../../../inc/config.php:1071 ../../../../inc/config.php:1074
 #: ../../../..//inc/config.php:1141
 msgid "Your browser didn't submit an input when it should have."
-msgstr ""
+msgstr "你的浏览器没有在发送应该发送的输入数据。"
 
 #: ../../../../inc/config.php:912 ../../../../inc/config.php:1017
 #: ../../../../inc/config.php:1008 ../../../../inc/config.php:1010
@@ -856,7 +850,7 @@ msgstr "已经有一个%s版块."
 #: ../../../../inc/config.php:1075 ../../../../inc/config.php:1078
 #: ../../../..//inc/config.php:1145
 msgid "You don't have permission to do that."
-msgstr ""
+msgstr "你没有该权限。"
 
 #: ../../../../inc/config.php:916 ../../../../inc/config.php:1021
 #: ../../../../inc/config.php:1012 ../../../../inc/config.php:1014
@@ -884,7 +878,7 @@ msgstr "找不到页面."
 #: ../../../..//inc/config.php:1148
 #, php-format
 msgid "That mod <a href=\"?/users/%d\">already exists</a>!"
-msgstr ""
+msgstr "那个管理员<a href=\"?/users/%d\">已经存在</a>!"
 
 #: ../../../../inc/config.php:919 ../../../../inc/config.php:1024
 #: ../../../../inc/config.php:1015 ../../../../inc/config.php:1017
@@ -902,15 +896,13 @@ msgstr "主题不存在!"
 #: ../../../../inc/config.php:1080 ../../../../inc/config.php:1083
 #: ../../../..//inc/config.php:1150
 msgid "Invalid security token! Please go back and try again."
-msgstr ""
+msgstr "无效的security token！请返回重试。"
 
 #. Default public ban message. In public ban messages, %length% is replaced
 #. with "for x days" or
 #. "permanently" (with %LENGTH% being the uppercase equivalent).
 #. Default public ban message. In public ban messages, %length% is replaced
 #. with "for x days" or
-#. "permanently" (with %LENGTH% being the uppercase equivalent).
-#. Default public ban message. In public ban messages, %length% is replaced with "for x days" or
 #. "permanently" (with %LENGTH% being the uppercase equivalent).
 #: ../../../../inc/config.php:1086 ../../../../inc/config.php:1189
 #: ../../../../inc/config.php:1180 ../../../../inc/config.php:1185
@@ -919,7 +911,7 @@ msgstr ""
 #: ../../../../inc/config.php:1247 ../../../../inc/config.php:1250
 #: ../../../..//inc/config.php:1326
 msgid "USER WAS BANNED FOR THIS POST"
-msgstr ""
+msgstr "用户因该帖子已被封禁"
 
 #: ../../../../inc/mod/pages.php:66 ../../../../inc/mod/pages.php:64
 #: ../../../..//inc/mod/pages.php:64
@@ -937,7 +929,7 @@ msgstr ""
 #: ../../../../inc/mod/pages.php:267 ../../../../inc/mod/pages.php:265
 #: ../../../..//inc/mod/pages.php:223
 msgid "There are no boards to search!"
-msgstr ""
+msgstr "没有可搜索的板块！"
 
 #. $results now contains the search results
 #: ../../../../inc/mod/pages.php:335 ../../../../inc/mod/pages.php:334
@@ -979,9 +971,8 @@ msgstr "新闻"
 #: ../../../../inc/mod/pages.php:671 ../../../../inc/mod/pages.php:698
 #: ../../../../templates/cache/72/7e/271125664718133518fd942f20fb724224e100f8a0d47cb0b52f895ac12f.php:300
 #: ../../../../templates/cache/73/f8/5e3142a8a6f8d7e40422ff577e83b0dedf55a7cb9bc7082839b24f653545.php:75
-#: ../../../..//templates/cache/25/ce/20297e1c09b3c82a277642530f4bd5b1f83cd763d5456c0ee2cedaff2519.php:72
-msgid "Moderation log"
-msgstr ""
+msgid "Volunteer log"
+msgstr "志愿者记录"
 
 #. line 104
 #. line 20
@@ -1062,14 +1053,14 @@ msgstr "移动回复"
 #: ../../../../inc/mod/pages.php:1196 ../../../../inc/mod/pages.php:1201
 #: ../../../..//inc/mod/pages.php:1305
 msgid "Target and source board are the same."
-msgstr ""
+msgstr "目标与源板块一样。"
 
 #: ../../../../inc/mod/pages.php:1296 ../../../../inc/mod/pages.php:1357
 #: ../../../../inc/mod/pages.php:1371 ../../../../inc/mod/pages.php:1372
 #: ../../../../inc/mod/pages.php:1369 ../../../../inc/mod/pages.php:1374
 #: ../../../..//inc/mod/pages.php:1480
 msgid "Impossible to move thread; there is only one board."
-msgstr ""
+msgstr "无法移动此主题帖；只有一个板块。"
 
 #. line 39
 #: ../../../../inc/mod/pages.php:1300 ../../../../inc/mod/pages.php:1361
@@ -1140,7 +1131,7 @@ msgstr "重建立"
 #: ../../../../inc/mod/pages.php:2200
 #: ../../../..//templates/cache/c6/d5/bd6f8bef96293d542a01f1ff4272bd7540201fd9d2fb42761155aa62c7d4.php:151
 msgid "Report queue"
-msgstr ""
+msgstr "举报队列"
 
 #: ../../../../inc/mod/pages.php:2111 ../../../../inc/mod/pages.php:2210
 #: ../../../../inc/mod/pages.php:2256 ../../../../inc/mod/pages.php:2350
@@ -1164,7 +1155,7 @@ msgstr "主题路径不存在!"
 #: ../../../../inc/mod/pages.php:2440 ../../../../inc/mod/pages.php:2445
 #: ../../../..//inc/mod/pages.php:3211
 msgid "Cannot open themes directory; check permissions."
-msgstr ""
+msgstr "无法打开主题目录；请检查权限"
 
 #: ../../../../inc/mod/pages.php:2242 ../../../../inc/mod/pages.php:2388
 #: ../../../../templates/cache/72/7e/271125664718133518fd942f20fb724224e100f8a0d47cb0b52f895ac12f.php:291
@@ -1181,7 +1172,7 @@ msgstr "管理主题"
 #: ../../../..//inc/mod/pages.php:3295
 #, php-format
 msgid "Installed theme: %s"
-msgstr ""
+msgstr "安装主题：%s"
 
 #: ../../../../inc/mod/pages.php:2318 ../../../../inc/mod/pages.php:2464
 #: ../../../../inc/mod/pages.php:2542 ../../../../inc/mod/pages.php:2536
@@ -1189,7 +1180,7 @@ msgstr ""
 #: ../../../..//inc/mod/pages.php:3306
 #, php-format
 msgid "Configuring theme: %s"
-msgstr ""
+msgstr "配置主题：%s"
 
 #: ../../../../inc/mod/pages.php:2346 ../../../../inc/mod/pages.php:2493
 #: ../../../../inc/mod/pages.php:2571 ../../../../inc/mod/pages.php:2565
@@ -1197,28 +1188,28 @@ msgstr ""
 #: ../../../..//inc/mod/pages.php:3335
 #, php-format
 msgid "Rebuilt theme: %s"
-msgstr ""
+msgstr "重造主题：%s"
 
 #: ../../../../inc/mod/pages.php:2385 ../../../../inc/mod/pages.php:2532
 #: ../../../../inc/mod/pages.php:2610 ../../../../inc/mod/pages.php:2604
 #: ../../../../inc/mod/pages.php:2603 ../../../../inc/mod/pages.php:2608
 #: ../../../..//inc/mod/pages.php:3377
 msgid "Debug: Anti-spam"
-msgstr ""
+msgstr "排除错误：防止垃圾信息"
 
 #: ../../../../inc/mod/pages.php:2409 ../../../../inc/mod/pages.php:2566
 #: ../../../../inc/mod/pages.php:2644 ../../../../inc/mod/pages.php:2638
 #: ../../../../inc/mod/pages.php:2637 ../../../../inc/mod/pages.php:2642
 #: ../../../..//inc/mod/pages.php:3414
 msgid "Debug: Recent posts"
-msgstr ""
+msgstr "排除错误：最近的帖子"
 
 #: ../../../../inc/mod/pages.php:2433 ../../../../inc/mod/pages.php:2590
 #: ../../../../inc/mod/pages.php:2668 ../../../../inc/mod/pages.php:2662
 #: ../../../../inc/mod/pages.php:2661 ../../../../inc/mod/pages.php:2666
 #: ../../../..//inc/mod/pages.php:3438
 msgid "Debug: SQL"
-msgstr ""
+msgstr "排除错误：SQL"
 
 #. Print error
 #: ../../../../inc/database.php:72 ../../../../inc/database.php:94
@@ -1488,7 +1479,7 @@ msgstr "返回"
 #: ../../../../templates/cache/f3/ad/68dee281a64ebad9a5c774b53279.php:61
 #: ../../../../templates/cache/d2/14/70c07e4c5f648cfa0d0663a1f18973ff6f6946363b45332b2627a0fcf273.php:64
 msgid "(No news to show.)"
-msgstr ""
+msgstr "(无可显示的消息)"
 
 #: ../../../../templates/cache/f3/ad/68dee281a64ebad9a5c774b53279.php:85
 #: ../../../../templates/cache/72/7e/271125664718133518fd942f20fb724224e100f8a0d47cb0b52f895ac12f.php:146
@@ -1511,7 +1502,7 @@ msgstr "没有主题"
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:124
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:132
 msgid "by"
-msgstr ""
+msgstr "由"
 
 #. line 50
 #: ../../../../templates/cache/f3/ad/68dee281a64ebad9a5c774b53279.php:95
@@ -1528,7 +1519,7 @@ msgstr "在"
 #: ../../../../templates/cache/41/57/9143de5f74d921965e5ff24e0f1ce44a18317fd4937f5d8d65f56337acf3.php:88
 msgid "1 reply"
 msgid_plural "%count% replies"
-msgstr[0] ""
+msgstr[0] "%count% 条回复"
 
 #: ../../../../templates/cache/d8/f2/7780eb1adcdbda7e332659e3fb4f.php:102
 #: ../../../../templates/cache/b5/eb/fd7d06d38210e123d492fb7f2a1891578af746ef421003f1b55da157122f.php:105
@@ -1592,7 +1583,7 @@ msgstr "查看全部"
 #: ../../../..//templates/cache/5c/3f/99bb8a822c163843f332c65cadf345ed757184aa260dcc02e10b23297214.php:264
 msgid "Last 1 Post"
 msgid_plural "Last %count% Posts"
-msgstr[0] ""
+msgstr[0] "最后的%count% 帖子"
 
 #: ../../../../templates/cache/d8/f2/7780eb1adcdbda7e332659e3fb4f.php:598
 #: ../../../../templates/cache/b5/eb/fd7d06d38210e123d492fb7f2a1891578af746ef421003f1b55da157122f.php:563
@@ -1635,7 +1626,7 @@ msgstr "和"
 #: ../../../..//templates/cache/5c/3f/99bb8a822c163843f332c65cadf345ed757184aa260dcc02e10b23297214.php:320
 msgid "1 image reply"
 msgid_plural "%count% image replies"
-msgstr[0] ""
+msgstr[0] "%count% 条图片回复"
 
 #: ../../../../templates/cache/d8/f2/7780eb1adcdbda7e332659e3fb4f.php:621
 #: ../../../../templates/cache/b5/eb/fd7d06d38210e123d492fb7f2a1891578af746ef421003f1b55da157122f.php:586
@@ -1793,17 +1784,17 @@ msgstr "评论"
 #: ../../../../templates/cache/39/42/cbc36382096edfa72a8bc26e4514.php:97
 #: ../../../../templates/cache/d1/2d/e4ea563232b42da227befa9cf03fef935e472b1268221e2399d8d6af1cd5.php:100
 msgid "Currently editing raw HTML."
-msgstr ""
+msgstr "正在编辑raw HTML"
 
 #: ../../../../templates/cache/39/42/cbc36382096edfa72a8bc26e4514.php:105
 #: ../../../../templates/cache/d1/2d/e4ea563232b42da227befa9cf03fef935e472b1268221e2399d8d6af1cd5.php:108
 msgid "Edit markup instead?"
-msgstr ""
+msgstr "换成编辑标记语言？"
 
 #: ../../../../templates/cache/39/42/cbc36382096edfa72a8bc26e4514.php:115
 #: ../../../../templates/cache/d1/2d/e4ea563232b42da227befa9cf03fef935e472b1268221e2399d8d6af1cd5.php:118
 msgid "Edit raw HTML instead?"
-msgstr ""
+msgstr "换成编辑raw HTML？"
 
 #. line 73
 #. line 86
@@ -1830,7 +1821,7 @@ msgstr "验证"
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:353
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:258
 msgid "Or URL"
-msgstr ""
+msgstr "或者URL"
 
 #. line 100
 #. line 113
@@ -1854,7 +1845,7 @@ msgstr "嵌入"
 #: ../../../../templates/cache/cf/63/151e140d85df674832f4ede3f3e7811b97d4efa91cac6086ca7e8ce65d25.php:342
 #: ../../../../templates/cache/cf/63/151e140d85df674832f4ede3f3e7811b97d4efa91cac6086ca7e8ce65d25.php:353
 msgid "Flags"
-msgstr ""
+msgstr "旗子"
 
 #. line 116
 #. line 117
@@ -2022,7 +2013,7 @@ msgstr "锁"
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:493
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:497
 msgid "Raw HTML"
-msgstr ""
+msgstr "Raw HTML"
 
 #. line 137
 #. line 136
@@ -2037,7 +2028,7 @@ msgstr ""
 #: ../../../../templates/cache/cf/63/151e140d85df674832f4ede3f3e7811b97d4efa91cac6086ca7e8ce65d25.php:426
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:526
 msgid "(For file deletion.)"
-msgstr ""
+msgstr "(用于删除文件)"
 
 #: ../../../../search.php:5 ../../../..//search.php:5
 msgid "Post search is disabled"
@@ -2047,18 +2038,18 @@ msgstr "帖子搜索被禁止"
 #: ../../../../search.php:29 ../../../../search.php:35
 #: ../../../..//search.php:29 ../../../..//search.php:35
 msgid "Wait a while before searching again, please."
-msgstr ""
+msgstr "请稍后在尝试重新搜索。"
 
 #: ../../../../search.php:131 ../../../../search.php:135
 msgid "Query too broad."
-msgstr ""
+msgstr "Query条件太广。"
 
 #: ../../../../search.php:152 ../../../../search.php:156
 #: ../../../..//search.php:145
 #, php-format
 msgid "%d result in"
 msgid_plural "%d results in"
-msgstr[0] ""
+msgstr[0] "%d条结果"
 
 #: ../../../../search.php:163 ../../../../search.php:167
 #: ../../../..//search.php:156
@@ -2142,7 +2133,7 @@ msgstr "搜索"
 #: ../../../../inc/mod/pages.php:939 ../../../../inc/mod/pages.php:936
 #: ../../../../inc/mod/pages.php:941 ../../../..//inc/mod/pages.php:1050
 msgid "Ban appeal not found!"
-msgstr ""
+msgstr "未找到解禁申请！"
 
 #: ../../../../inc/mod/pages.php:989
 #: ../../../../templates/cache/72/7e/271125664718133518fd942f20fb724224e100f8a0d47cb0b52f895ac12f.php:265
@@ -2151,7 +2142,7 @@ msgstr ""
 #: ../../../..//inc/mod/pages.php:1101
 #: ../../../..//templates/cache/c6/d5/bd6f8bef96293d542a01f1ff4272bd7540201fd9d2fb42761155aa62c7d4.php:196
 msgid "Ban appeals"
-msgstr ""
+msgstr "解禁申请"
 
 #: ../../../../inc/mod/pages.php:1833 ../../../../inc/mod/pages.php:1849
 #: ../../../../inc/mod/pages.php:1850 ../../../../inc/mod/pages.php:1854
@@ -2163,13 +2154,13 @@ msgstr "新用户"
 #: ../../../../inc/mod/pages.php:1905 ../../../../inc/mod/pages.php:1909
 #: ../../../..//inc/mod/pages.php:2132
 msgid "Impossible to promote/demote user."
-msgstr ""
+msgstr "无法升值/降职该用户"
 
 #: ../../../../inc/mod/pages.php:2612 ../../../../inc/mod/pages.php:2690
 #: ../../../../inc/mod/pages.php:2684 ../../../../inc/mod/pages.php:2683
 #: ../../../../inc/mod/pages.php:2688 ../../../..//inc/mod/pages.php:3460
 msgid "Debug: APC"
-msgstr ""
+msgstr "排除错误：APC"
 
 #: ../../../../inc/config.php:1026 ../../../../inc/config.php:1017
 #: ../../../../inc/config.php:1019 ../../../../inc/config.php:1021
@@ -2179,7 +2170,7 @@ msgstr ""
 msgid ""
 "Your code contained PHP syntax errors. Please go back and correct them. PHP "
 "says: "
-msgstr ""
+msgstr "你的代码存在PHP的Syntax Errors。 请返回并修复问题。PHP显示："
 
 #. line 2
 #. line 6
@@ -2228,7 +2219,7 @@ msgstr "消息"
 #: ../../../../templates/cache/72/7e/271125664718133518fd942f20fb724224e100f8a0d47cb0b52f895ac12f.php:188
 #: ../../../..//templates/cache/c6/d5/bd6f8bef96293d542a01f1ff4272bd7540201fd9d2fb42761155aa62c7d4.php:103
 msgid "View all noticeboard entries"
-msgstr ""
+msgstr "显示所有布告栏记录"
 
 #. line 76
 #. line 47
@@ -2246,7 +2237,7 @@ msgstr "修改密码"
 #: ../../../../templates/cache/72/7e/271125664718133518fd942f20fb724224e100f8a0d47cb0b52f895ac12f.php:327
 #: ../../../..//templates/cache/c6/d5/bd6f8bef96293d542a01f1ff4272bd7540201fd9d2fb42761155aa62c7d4.php:268
 msgid "Configuration"
-msgstr ""
+msgstr "设置"
 
 #. line 127
 #. line 130
@@ -2273,7 +2264,7 @@ msgstr "调试"
 #: ../../../../templates/cache/72/7e/271125664718133518fd942f20fb724224e100f8a0d47cb0b52f895ac12f.php:405
 #: ../../../..//templates/cache/c6/d5/bd6f8bef96293d542a01f1ff4272bd7540201fd9d2fb42761155aa62c7d4.php:457
 msgid "Anti-spam"
-msgstr ""
+msgstr "防止垃圾信息"
 
 #. line 142
 #. line 145
@@ -2324,7 +2315,7 @@ msgstr "新帖"
 #: ../../../../templates/cache/39/f9/8228f77b382baf1d61c1215dc0f0236e4cdf8cc5e938259785cf3e67d1ca.php:55
 #: ../../../../templates/cache/1a/7f/6eb467b2d978da59cfea2fe64f8898a5fb769be35fbb2ec50691da9a3d52.php:83
 msgid "Body"
-msgstr ""
+msgstr "文体"
 
 #. line 21
 #: ../../../../templates/cache/39/f9/8228f77b382baf1d61c1215dc0f0236e4cdf8cc5e938259785cf3e67d1ca.php:63
@@ -2354,7 +2345,7 @@ msgstr "被删除?"
 #. line 33
 #: ../../../../templates/cache/1a/7f/6eb467b2d978da59cfea2fe64f8898a5fb769be35fbb2ec50691da9a3d52.php:91
 msgid "Post news entry"
-msgstr ""
+msgstr "发布新闻记录"
 
 #. line 24
 #. line 63
@@ -2489,7 +2480,7 @@ msgstr "员工"
 #: ../../../../templates/cache/b1/4c/16a427b0d49ecf353c259d9fb606841783484eca9d790e766fdf0e3e9754.php:197
 #: ../../../../templates/cache/6a/a4/b13523024ba2660a4f8f05e0c909c55477f675db9a2620075762ac245c91.php:63
 msgid "Note"
-msgstr ""
+msgstr "笔记"
 
 #. line 26
 #. line 22
@@ -2526,7 +2517,7 @@ msgstr "移除"
 #. line 76
 #: ../../../../templates/cache/b1/4c/16a427b0d49ecf353c259d9fb606841783484eca9d790e766fdf0e3e9754.php:208
 msgid "New note"
-msgstr ""
+msgstr "新笔记"
 
 #. line 94
 #. line 7
@@ -2767,7 +2758,7 @@ msgstr "过期"
 #: ../../../../templates/cache/6a/a4/b13523024ba2660a4f8f05e0c909c55477f675db9a2620075762ac245c91.php:267
 #: ../../../..//templates/cache/7d/ab/0e1916681825cf148a9f1a4d6fb5a756e3c8bbc2f7bb83c3306f31e0af39.php:167
 msgid "never"
-msgstr ""
+msgstr "永不"
 
 #. line 142
 #. line 14
@@ -2808,7 +2799,7 @@ msgstr ""
 #: ../../../../templates/cache/03/13/62c259daae13f7b39b689162b7cd380b2673bee7e05b90f0d34b69a01190.php:159
 #: ../../../../templates/cache/6a/a4/b13523024ba2660a4f8f05e0c909c55477f675db9a2620075762ac245c91.php:161
 msgid "Seen"
-msgstr ""
+msgstr "已见"
 
 #: ../../../../templates/cache/b1/4c/16a427b0d49ecf353c259d9fb606841783484eca9d790e766fdf0e3e9754.php:375
 #: ../../../../templates/cache/ba/55/2553cc018aecf7d29a62331aec4bedc71b646817c7e4c4e7d1a885263676.php:201
@@ -2905,7 +2896,7 @@ msgstr "动作"
 
 #: ../../../../templates/cache/88/92/8e730a689121629afa3d2c0f374e1f246baa76e7cf0f3ec680f51805eccd.php:73
 msgid "(or subnet)"
-msgstr ""
+msgstr "(或者子网)"
 
 #: ../../../../templates/cache/88/92/8e730a689121629afa3d2c0f374e1f246baa76e7cf0f3ec680f51805eccd.php:88
 msgid "hidden"
@@ -2926,7 +2917,7 @@ msgstr "消息"
 #. line 46
 #: ../../../../templates/cache/88/92/8e730a689121629afa3d2c0f374e1f246baa76e7cf0f3ec680f51805eccd.php:133
 msgid "public; attached to post"
-msgstr ""
+msgstr "公共；附加到了帖子"
 
 #. line 58
 #: ../../../../templates/cache/88/92/8e730a689121629afa3d2c0f374e1f246baa76e7cf0f3ec680f51805eccd.php:150
@@ -2936,7 +2927,7 @@ msgstr "长度"
 #. line 88
 #: ../../../../templates/cache/88/92/8e730a689121629afa3d2c0f374e1f246baa76e7cf0f3ec680f51805eccd.php:212
 msgid "New Ban"
-msgstr ""
+msgstr "新的封禁"
 
 #. line 2
 #. line 5
@@ -2973,12 +2964,12 @@ msgstr "帖子"
 #: ../../../../templates/cache/73/f8/5e3142a8a6f8d7e40422ff577e83b0dedf55a7cb9bc7082839b24f653545.php:49
 #: ../../../..//templates/cache/25/ce/20297e1c09b3c82a277642530f4bd5b1f83cd763d5456c0ee2cedaff2519.php:46
 msgid "IP address notes"
-msgstr ""
+msgstr "IP地址记录"
 
 #: ../../../../templates/cache/73/f8/5e3142a8a6f8d7e40422ff577e83b0dedf55a7cb9bc7082839b24f653545.php:62
 #: ../../../..//templates/cache/25/ce/20297e1c09b3c82a277642530f4bd5b1f83cd763d5456c0ee2cedaff2519.php:59
 msgid "Bans"
-msgstr ""
+msgstr "封禁"
 
 #. line 18
 #: ../../../../templates/cache/73/f8/5e3142a8a6f8d7e40422ff577e83b0dedf55a7cb9bc7082839b24f653545.php:88
@@ -2986,11 +2977,11 @@ msgstr ""
 msgid ""
 "(Search is case-insensitive and based on keywords. To match exact phrases, "
 "use \"quotes\". Use an asterisk (*) for wildcard.)"
-msgstr ""
+msgstr "(搜索为case-insensitive并基于关键词。如果想对应一样的词句的话，请使用“引号”。用(*)使用通配符。)"
 
 #: ../../../../templates/cache/ba/55/2553cc018aecf7d29a62331aec4bedc71b646817c7e4c4e7d1a885263676.php:25
 msgid "There are no active bans."
-msgstr ""
+msgstr "没有正在施行的封禁"
 
 #. line 8
 #. line 47
@@ -3003,7 +2994,7 @@ msgstr ""
 #: ../../../../templates/cache/ba/55/2553cc018aecf7d29a62331aec4bedc71b646817c7e4c4e7d1a885263676.php:39
 #: ../../../../templates/cache/6a/a4/b13523024ba2660a4f8f05e0c909c55477f675db9a2620075762ac245c91.php:137
 msgid "IP address/mask"
-msgstr ""
+msgstr "IP地址/掩码"
 
 #. line 12
 #. line 51
@@ -3023,7 +3014,7 @@ msgstr "为期"
 #: ../../../../templates/cache/ba/55/2553cc018aecf7d29a62331aec4bedc71b646817c7e4c4e7d1a885263676.php:68
 #: ../../../..//templates/cache/44/d4/c8d0e3adf751c9939e73c9e9ba05367a342a3f474cfaee542593467cf382.php:56
 msgid "Unban selected"
-msgstr ""
+msgstr "解禁已选择的"
 
 #. line 6
 #. line 4
@@ -3057,12 +3048,12 @@ msgstr "继续"
 #. line 80
 #: ../../../../templates/cache/03/13/62c259daae13f7b39b689162b7cd380b2673bee7e05b90f0d34b69a01190.php:210
 msgid "Appeal time"
-msgstr ""
+msgstr "申请时间"
 
 #. line 84
 #: ../../../../templates/cache/03/13/62c259daae13f7b39b689162b7cd380b2673bee7e05b90f0d34b69a01190.php:220
 msgid "Appeal reason"
-msgstr ""
+msgstr "申请原因"
 
 #: ../../../../templates/cache/7d/63/b6fd83bf4ed7f6031a2b3373b997d2d40617bf98899fe672a0aae48520c5.php:31
 #: ../../../..//templates/cache/4f/fd/d0583dd37af8bff9379f67f169f3208c4b5707da461ca2b15eb06c4b2755.php:31
@@ -3073,35 +3064,35 @@ msgstr "没有报告。"
 #: ../../../../post.php:894 ../../../../post.php:896
 #: ../../../..//post.php:1011
 msgid "That ban doesn't exist or is not for you."
-msgstr ""
+msgstr "解禁不存在或者与你没关系。"
 
 #: ../../../../post.php:806 ../../../../post.php:815 ../../../../post.php:829
 #: ../../../../post.php:898 ../../../../post.php:900
 #: ../../../..//post.php:1015
 msgid "You cannot appeal a ban of this length."
-msgstr ""
+msgstr "你无法申请解禁这么长的解禁。"
 
 #: ../../../../post.php:813 ../../../../post.php:822 ../../../../post.php:836
 #: ../../../../post.php:905 ../../../../post.php:907
 #: ../../../..//post.php:1022
 msgid "You cannot appeal this ban again."
-msgstr ""
+msgstr "你无法再次申请解禁。"
 
 #: ../../../../post.php:818 ../../../../post.php:827 ../../../../post.php:841
 #: ../../../../post.php:910 ../../../../post.php:912
 #: ../../../..//post.php:1027
 msgid "There is already a pending appeal for this ban."
-msgstr ""
+msgstr "已经发送了一个未审批的解禁申请。"
 
 #: ../../../../inc/image.php:24 ../../../../inc/image.php:62
 #: ../../../..//inc/image.php:24 ../../../..//inc/image.php:62
 msgid "Unsupported file format: "
-msgstr ""
+msgstr "不支持的文件格式。"
 
 #: ../../../../inc/image.php:282 ../../../../inc/image.php:288
 #: ../../../..//inc/image.php:282 ../../../..//inc/image.php:288
 msgid "Failed to redraw image!"
-msgstr ""
+msgstr "重新绘画图片失败！"
 
 #: ../../../../inc/image.php:324 ../../../../inc/image.php:343
 #: ../../../../inc/image.php:368 ../../../../inc/image.php:342
@@ -3109,7 +3100,7 @@ msgstr ""
 #: ../../../..//inc/image.php:324 ../../../..//inc/image.php:343
 #: ../../../..//inc/image.php:372
 msgid "Failed to resize image!"
-msgstr ""
+msgstr "重新匹配图片大小失败！"
 
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:35
 msgid "You were banned! ;_;"
@@ -3121,24 +3112,24 @@ msgstr "您被封锁了! ;_;"
 
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:52
 msgid "You were banned from"
-msgstr ""
+msgstr "你在这个地方被封禁："
 
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:58
 msgid "You have been banned from"
-msgstr ""
+msgstr "你曾被这个地方封禁："
 
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:82
 msgid "for the following reason:"
-msgstr ""
+msgstr "因为以下原因："
 
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:88
 msgid "for an unspecified reason."
-msgstr ""
+msgstr "因为一个未知的原因。"
 
 #. line 32
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:110
 msgid "Your ban was filed on"
-msgstr ""
+msgstr "你的封禁施行的时间为"
 
 #. line 51
 #. line 59
@@ -3147,7 +3138,7 @@ msgstr ""
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:148
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:181
 msgid "has since expired. Refresh the page to continue."
-msgstr ""
+msgstr "已经过期。请刷新页面继续。"
 
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:129
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:154
@@ -3157,7 +3148,7 @@ msgstr "过期"
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:133
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:158
 msgid "from now, which is on"
-msgstr ""
+msgstr "从现在，日期为"
 
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:183
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:208
@@ -3176,7 +3167,7 @@ msgstr "您的IP地址是"
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:215
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:240
 msgid "You were banned for the following post on"
-msgstr ""
+msgstr "你因为此帖子被封禁，该帖子被发布在"
 
 #. line 95
 #. line 103
@@ -3184,13 +3175,13 @@ msgstr ""
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:240
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:265
 msgid "You submitted an appeal for this ban on"
-msgstr ""
+msgstr "你发送解禁申请的时间为"
 
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:245
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:246
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:271
 msgid "It is still pending"
-msgstr ""
+msgstr "申请仍在审批中"
 
 #. line 101
 #. line 112
@@ -3219,7 +3210,7 @@ msgstr ""
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:283
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:315
 msgid "You appealed this ban on"
-msgstr ""
+msgstr "你申请解禁的时间为"
 
 #. line 103
 #. line 111
@@ -3227,7 +3218,7 @@ msgstr ""
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:266
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:291
 msgid "and it was denied. You may not appeal this ban again."
-msgstr ""
+msgstr "但是申请被拒绝了。你不能够再次申请解除该封禁。"
 
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:272
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:273
@@ -3235,7 +3226,7 @@ msgstr ""
 msgid ""
 "You have submitted the maximum number of ban appeals allowed. You may not "
 "appeal this ban again."
-msgstr ""
+msgstr "你发送的解禁申请已经超过了允许限制。你不能够再次申请解除此封禁。"
 
 #. line 114
 #. line 121
@@ -3264,7 +3255,7 @@ msgstr ""
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:323
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:344
 msgid "and it was denied."
-msgstr ""
+msgstr "但是申请被拒绝了。"
 
 #. line 116
 #. line 123
@@ -3293,7 +3284,7 @@ msgstr ""
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:328
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:349
 msgid "You may appeal this ban again. Please enter your reasoning below."
-msgstr ""
+msgstr "你可以再次申请解禁。请在下面输入你的想法。"
 
 #. line 119
 #. line 127
@@ -3301,13 +3292,13 @@ msgstr ""
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:311
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:336
 msgid "You last appealed this ban on"
-msgstr ""
+msgstr "你上次申请解禁的时间为"
 
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:332
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:333
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:358
 msgid "You may appeal this ban. Please enter your reasoning below."
-msgstr ""
+msgstr "你可以申请解除此封禁。请在下面输入你的想法。"
 
 #. line 4
 #. line 16
@@ -3350,12 +3341,12 @@ msgstr "类型"
 #: ../../../../templates/cache/fc/8d/2b5f6c25d93a9966c429a79ee7ebdd921957079dab214aebbc665d67b9f4.php:45
 #: ../../../..//templates/cache/7d/ab/0e1916681825cf148a9f1a4d6fb5a756e3c8bbc2f7bb83c3306f31e0af39.php:42
 msgid "Last action"
-msgstr ""
+msgstr "上一次操作"
 
 #: ../../../../templates/cache/fc/8d/2b5f6c25d93a9966c429a79ee7ebdd921957079dab214aebbc665d67b9f4.php:80
 #: ../../../..//templates/cache/7d/ab/0e1916681825cf148a9f1a4d6fb5a756e3c8bbc2f7bb83c3306f31e0af39.php:91
 msgid "Unknown"
-msgstr ""
+msgstr "未知"
 
 #: ../../../../templates/cache/fc/8d/2b5f6c25d93a9966c429a79ee7ebdd921957079dab214aebbc665d67b9f4.php:94
 #: ../../../..//templates/cache/7d/ab/0e1916681825cf148a9f1a4d6fb5a756e3c8bbc2f7bb83c3306f31e0af39.php:105
@@ -3375,17 +3366,17 @@ msgstr "降级"
 #: ../../../../templates/cache/fc/8d/2b5f6c25d93a9966c429a79ee7ebdd921957079dab214aebbc665d67b9f4.php:191
 #: ../../../..//templates/cache/7d/ab/0e1916681825cf148a9f1a4d6fb5a756e3c8bbc2f7bb83c3306f31e0af39.php:203
 msgid "Are you sure you want to demote yourself?"
-msgstr ""
+msgstr "你确定要降职自己吗？"
 
 #: ../../../../templates/cache/fc/8d/2b5f6c25d93a9966c429a79ee7ebdd921957079dab214aebbc665d67b9f4.php:204
 #: ../../../..//templates/cache/7d/ab/0e1916681825cf148a9f1a4d6fb5a756e3c8bbc2f7bb83c3306f31e0af39.php:216
 msgid "log"
-msgstr ""
+msgstr "记录日记"
 
 #: ../../../../templates/cache/fc/8d/2b5f6c25d93a9966c429a79ee7ebdd921957079dab214aebbc665d67b9f4.php:226
 #: ../../../..//templates/cache/7d/ab/0e1916681825cf148a9f1a4d6fb5a756e3c8bbc2f7bb83c3306f31e0af39.php:238
 msgid "PM"
-msgstr ""
+msgstr "PM"
 
 #. line 6
 #: ../../../../templates/cache/32/3a/d7e02cef5846ec4f1f423bb0ad2d3c307845d29f70da3f8a90a41f873e7d.php:36
@@ -3395,12 +3386,12 @@ msgstr "主题ID"
 #. line 14
 #: ../../../../templates/cache/32/3a/d7e02cef5846ec4f1f423bb0ad2d3c307845d29f70da3f8a90a41f873e7d.php:51
 msgid "Leave shadow thread"
-msgstr ""
+msgstr "保留shadow帖子"
 
 #. line 18
 #: ../../../../templates/cache/32/3a/d7e02cef5846ec4f1f423bb0ad2d3c307845d29f70da3f8a90a41f873e7d.php:58
 msgid "locks thread; replies to it with a link."
-msgstr ""
+msgstr "锁定帖子；使用链接来回复"
 
 #. line 22
 #. line 13
@@ -3411,12 +3402,12 @@ msgstr ""
 #: ../../../../templates/cache/32/3a/d7e02cef5846ec4f1f423bb0ad2d3c307845d29f70da3f8a90a41f873e7d.php:65
 #: ../../../../templates/cache/56/25/ac2c51fa6b3e26f9f9ed7dda5224acfbec96881d648c8ded10c5eef2c3e5.php:50
 msgid "Target board"
-msgstr ""
+msgstr "目标板块"
 
 #. line 8
 #: ../../../../templates/cache/cb/8b/63013711213735996df92becb7bd43d753c51314cfe5433c562706333eb0.php:40
 msgid "Select board"
-msgstr ""
+msgstr "选择板块"
 
 #. line 17
 #: ../../../../templates/cache/cb/8b/63013711213735996df92becb7bd43d753c51314cfe5433c562706333eb0.php:73
@@ -3428,23 +3419,23 @@ msgid ""
 "<strong>name</strong>. To apply a filter, simply add to your query, for "
 "example, <em>name:Anonymous</em> or <em>subject:\"Some Thread\"</em>. "
 "Wildcards cannot be used in filters."
-msgstr ""
+msgstr "搜索为case-insensitive并基于关键词。如果想对应一样的词句的话，请使用“引号”。用(*)使用通配符。.</p><p style=\"font-size:8pt;margin:5px\">你可以把这些过滤选项添加到你的搜索里: <strong>id</strong>, <strong>thread</strong>, <strong>subject</strong>, and <strong>name</strong>. 将过滤选项写入搜索条件内即可，比如, <em>name:Anonymous</em> or <em>subject:\"Some Thread\"</em>. 通配符不可在过滤条件内使用。"
 
 #. line 2
 #: ../../../../templates/cache/57/a7/c0a734e494c78acfc595f033a070bdc87fdc3e6a28ad5aaa8666c7a1a966.php:25
 msgid "Are you sure you want to do that?"
-msgstr ""
+msgstr "你确定你要这么做吗？"
 
 #: ../../../../templates/cache/57/a7/c0a734e494c78acfc595f033a070bdc87fdc3e6a28ad5aaa8666c7a1a966.php:31
 msgid "Click to proceed to"
-msgstr ""
+msgstr "点击以继续到"
 
 #. line 5
 #: ../../../../templates/cache/57/a7/c0a734e494c78acfc595f033a070bdc87fdc3e6a28ad5aaa8666c7a1a966.php:39
 msgid ""
-"You are probably seeing this message because Javascript being disabled. This "
-"is a necessary security measure to prevent CSRF attacks."
-msgstr ""
+"You are probably seeing this message because Javascript being disabled. This"
+" is a necessary security measure to prevent CSRF attacks."
+msgstr "你看到这的原因估计是因为Javascript被禁用了。这是一个为了防止CSRF攻击的必要安全措施。"
 
 #. line 7
 #: ../../../../templates/cache/3a/62/f804928dbcf285e3d5d8d7ae31b1e3a7c78264f270efa9650d31f69c7897.php:44
@@ -3456,48 +3447,48 @@ msgstr "报告日期"
 #: ../../../../templates/cache/3a/62/f804928dbcf285e3d5d8d7ae31b1e3a7c78264f270efa9650d31f69c7897.php:54
 #: ../../../..//templates/cache/52/16/e535d72469ec27ddfc5db7e37245cdb0c2d3c0fc1c15fd6be1e32a5ba90c.php:54
 msgid "Reported by"
-msgstr ""
+msgstr "举报人为"
 
 #. line 23
 #: ../../../../templates/cache/3a/62/f804928dbcf285e3d5d8d7ae31b1e3a7c78264f270efa9650d31f69c7897.php:73
 #: ../../../..//templates/cache/52/16/e535d72469ec27ddfc5db7e37245cdb0c2d3c0fc1c15fd6be1e32a5ba90c.php:80
 msgid "Discard abuse report"
-msgstr ""
+msgstr "废除滥用报告"
 
 #. line 29
 #: ../../../../templates/cache/3a/62/f804928dbcf285e3d5d8d7ae31b1e3a7c78264f270efa9650d31f69c7897.php:93
 #: ../../../..//templates/cache/52/16/e535d72469ec27ddfc5db7e37245cdb0c2d3c0fc1c15fd6be1e32a5ba90c.php:98
 msgid "Discard all abuse reports by this IP address"
-msgstr ""
+msgstr "废除此IP地址的所有滥用报告"
 
 #. line 4
 #: ../../../../templates/cache/f9/e9/d592e3c89e2f76520cf989aa8359d3d143d8fa4996ff1d97b3be51f87a05.php:27
 msgid "From"
-msgstr ""
+msgstr "从"
 
 #. line 34
 #: ../../../../templates/cache/f9/e9/d592e3c89e2f76520cf989aa8359d3d143d8fa4996ff1d97b3be51f87a05.php:105
 msgid "Delete forever"
-msgstr ""
+msgstr "永久删除"
 
 #. line 39
 #: ../../../../templates/cache/f9/e9/d592e3c89e2f76520cf989aa8359d3d143d8fa4996ff1d97b3be51f87a05.php:119
 msgid "Reply with quote"
-msgstr ""
+msgstr "用引用回复"
 
 #. line 18
 #: ../../../../templates/cache/1f/f5/c63468797b4f93a8005563716a720117a6d51a804f2124a4c5158ca78525.php:62
 msgid "Send message"
-msgstr ""
+msgstr "发送信息"
 
 #: ../../../../templates/cache/ae/30/5b1888bb2e8ab6981af945fea88c1ecb021b0dfa8a068ee7adeb9dd3ee7d.php:25
 msgid "There are no themes available."
-msgstr ""
+msgstr "没有可使用的主题"
 
 #. line 11
 #: ../../../../templates/cache/ae/30/5b1888bb2e8ab6981af945fea88c1ecb021b0dfa8a068ee7adeb9dd3ee7d.php:50
 msgid "Version"
-msgstr ""
+msgstr "版本"
 
 #. line 15
 #: ../../../../templates/cache/ae/30/5b1888bb2e8ab6981af945fea88c1ecb021b0dfa8a068ee7adeb9dd3ee7d.php:60
@@ -3528,7 +3519,7 @@ msgstr "解除安装"
 
 #: ../../../../templates/cache/37/ea/10898251a344348e062662ce7a7b7f6c8dae001e2c860ce58ea35cedd935.php:72
 msgid "new; optional"
-msgstr ""
+msgstr "新；可选"
 
 #. line 32
 #: ../../../../templates/cache/37/ea/10898251a344348e062662ce7a7b7f6c8dae001e2c860ce58ea35cedd935.php:98
@@ -3556,7 +3547,7 @@ msgstr "删除用户"
 
 #: ../../../../templates/cache/37/ea/10898251a344348e062662ce7a7b7f6c8dae001e2c860ce58ea35cedd935.php:331
 msgid "View more logs for this user."
-msgstr ""
+msgstr "显示该用户的更多记录"
 
 #. line 84
 #. line 101
@@ -3566,7 +3557,7 @@ msgstr ""
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:293
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:279
 msgid "Flag"
-msgstr ""
+msgstr "标记"
 
 #. line 87
 #. line 104
@@ -3575,40 +3566,38 @@ msgstr ""
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:301
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:291
 msgid "None"
-msgstr ""
+msgstr "无"
 
 #. When moving a thread to another board and choosing to keep a "shadow
 #. thread", an automated post (with
 #. a capcode) will be made, linking to the new location for the thread. "%s"
 #. will be replaced with a
 #. standard cross-board post citation (>>>/board/xxx)
-#. When moving a thread to another board and choosing to keep a "shadow thread", an automated post (with
-#. a capcode) will be made, linking to the new location for the thread. "%s" will be replaced with a
-#. standard cross-board post citation (>>>/board/xxx)
 #: ../../../../inc/config.php:1211 ../../../../inc/config.php:1220
 #: ../../../../inc/config.php:1251 ../../../../inc/config.php:1255
 #: ../../../../inc/config.php:1258 ../../../..//inc/config.php:1334
 #, php-format
 msgid "Moved to %s."
-msgstr ""
+msgstr "搬移至%s。"
 
 #: ../../../../templates/themes/recent/theme.php:50
 #: ../../../..//templates/themes/recent/theme.php:50
 msgid ""
-"Can't build the RecentPosts theme, because there are no boards to be fetched."
-msgstr ""
+"Can't build the RecentPosts theme, because there are no boards to be "
+"fetched."
+msgstr "无法制造RecentPosts主题，因为没有可读取的板块"
 
 #: ../../../../inc/config.php:997 ../../../../inc/config.php:1023
 #: ../../../../inc/config.php:1026 ../../../../inc/config.php:1029
 #: ../../../..//inc/config.php:1095
 msgid "You have attempted to upload too many images!"
-msgstr ""
+msgstr "你试图了上传太多的图片！"
 
 #. line 7
 #: ../../../../templates/cache/b9/2b/ba2b45df5e1d76f6cdfb98a47468df19a1ffc1c2af2dc1792eb75eeb0791.php:36
 #: ../../../..//templates/cache/2d/b1/97370111ec8d923be14d9c2c3b8c9ddfbc01416fb3cadb98650562a54fdd.php:33
 msgid "Spoiler file"
-msgstr ""
+msgstr "隐藏文件"
 
 #. line 26
 #. line 35
@@ -3625,7 +3614,7 @@ msgstr ""
 #: ../../../../templates/cache/41/57/9143de5f74d921965e5ff24e0f1ce44a18317fd4937f5d8d65f56337acf3.php:67
 #: ../../../../templates/cache/41/57/9143de5f74d921965e5ff24e0f1ce44a18317fd4937f5d8d65f56337acf3.php:90
 msgid "Bump order"
-msgstr ""
+msgstr "顶贴顺序"
 
 #. line 27
 #. line 36
@@ -3723,38 +3712,38 @@ msgstr "帖子ID"
 #. line 29
 #: ../../../../templates/cache/56/25/ac2c51fa6b3e26f9f9ed7dda5224acfbec96881d648c8ded10c5eef2c3e5.php:96
 msgid "Target thread"
-msgstr ""
+msgstr "目标主题帖"
 
 #: ../../../../post.php:48
 msgid "Post deletion is not allowed!"
-msgstr ""
+msgstr "不允许删除帖子！"
 
 #: ../../../../post.php:385 ../../../..//post.php:484
 msgid "Unrecognized file size determination method."
-msgstr ""
+msgstr "无法辨认的文件大小测定方法。"
 
 #: ../../../../post.php:519 ../../../..//post.php:621
 msgid "Invalid flag selection!"
-msgstr ""
+msgstr "无效的旗子选择！"
 
 #: ../../../../post.php:631 ../../../../post.php:633 ../../../..//post.php:745
 msgid "exiftool failed!"
-msgstr ""
+msgstr "exifttool失败了！"
 
 #: ../../../../post.php:641 ../../../../post.php:643 ../../../..//post.php:755
 msgid "Could not auto-orient image!"
-msgstr ""
+msgstr "无法自动标定图片！"
 
 #: ../../../../post.php:695 ../../../../post.php:697 ../../../..//post.php:809
 msgid "Could not strip EXIF metadata!"
-msgstr ""
+msgstr "无法卸去EXIF的元数据！"
 
 #: ../../../../inc/config.php:1049 ../../../../inc/config.php:1052
 #: ../../../../inc/config.php:1053 ../../../../inc/config.php:1055
 #: ../../../../inc/config.php:1056 ../../../..//inc/config.php:1122
 #: ../../../..//inc/config.php:1123
 msgid "There was a problem processing your webm."
-msgstr ""
+msgstr "处理你的webm时出现了问题。"
 
 #. Is this error used anywhere ?
 #: ../../../../inc/config.php:1050 ../../../../inc/config.php:1054
@@ -3766,12 +3755,12 @@ msgstr "无效的webm上传"
 #: ../../../../inc/config.php:1058 ../../../..//inc/config.php:1125
 msgid ""
 "The uploaded webm contains an audio or another type of additional stream."
-msgstr ""
+msgstr "上传的webm包括声音轨道或者其他种类的其他字节序列"
 
 #: ../../../../inc/config.php:1052 ../../../../inc/config.php:1056
 #: ../../../../inc/config.php:1059
 msgid "The uploaded webm is longer than "
-msgstr ""
+msgstr "上传的webm长于"
 
 #. line 48
 #. line 65
@@ -3782,7 +3771,7 @@ msgstr "返回顶部"
 
 #: ../../../../templates/cache/cf/63/151e140d85df674832f4ede3f3e7811b97d4efa91cac6086ca7e8ce65d25.php:80
 msgid "Don't show my flag"
-msgstr ""
+msgstr "不显示我的国旗"
 
 #. line 36
 #: ../../../../templates/cache/41/57/9143de5f74d921965e5ff24e0f1ce44a18317fd4937f5d8d65f56337acf3.php:113
@@ -3796,119 +3785,119 @@ msgstr "(无评论)"
 
 #: ../../../../templates/cache/3a/fa/a15b273b182a2c833d42475af728873be4a7cb0481854a52be6ed9380ea2.php:30
 msgid "There are no active posts."
-msgstr ""
+msgstr "没有活跃的帖子。"
 
 #: ../../../../templates/cache/ba/55/2553cc018aecf7d29a62331aec4bedc71b646817c7e4c4e7d1a885263676.php:49
-msgid "Show only bans from boards I moderate"
-msgstr ""
+msgid "Show only bans from boards I volunteer on"
+msgstr "只显示我志愿管理的板块的封禁信息"
 
 #. line 16
 #: ../../../../templates/cache/ba/55/2553cc018aecf7d29a62331aec4bedc71b646817c7e4c4e7d1a885263676.php:55
 #: ../../../..//templates/cache/44/d4/c8d0e3adf751c9939e73c9e9ba05367a342a3f474cfaee542593467cf382.php:43
 msgid "Show only active bans"
-msgstr ""
+msgstr "只显示有效的封禁"
 
 #: ../../../..//claim.php:61
 msgid "Claim"
-msgstr ""
+msgstr "夺取"
 
 #: ../../../..//claim.php:61
 msgid "Take deserted boards back from their owners"
-msgstr ""
+msgstr "将无人的板块从主人拿回来"
 
 #: ../../../..//create.php:20
 msgid "Game"
-msgstr ""
+msgstr "游戏"
 
 #: ../../../..//create.php:34
 msgid "Create your board"
-msgstr ""
+msgstr "创造你的板块"
 
 #: ../../../..//create.php:34
 msgid "before someone else does"
-msgstr ""
+msgstr "在别人之前"
 
 #: ../../../..//create.php:61
 msgid "You failed the game"
-msgstr ""
+msgstr "你玩游戏失败了"
 
 #: ../../../..//create.php:63
 msgid "You failed to enter the reCaptcha correctly"
-msgstr ""
+msgstr "你输入了错误的reCaptcha验证码"
 
 #: ../../../..//create.php:65
 msgid "Invalid URI"
-msgstr ""
+msgstr "无效的URL"
 
 #: ../../../..//create.php:67
 msgid "Invalid title"
-msgstr ""
+msgstr "无效的标题"
 
 #: ../../../..//create.php:69
 msgid "Invalid subtitle"
-msgstr ""
+msgstr "无效的副标题"
 
 #: ../../../..//create.php:71 ../../../..//inc/8chan-mod-pages.php:211
 msgid "Invalid username"
-msgstr ""
+msgstr "无效的用户名"
 
 #: ../../../..//create.php:75
 msgid "Board already exists!"
-msgstr ""
+msgstr "板块已存在！"
 
 #: ../../../..//create.php:93
 msgid "The username you've tried to enter already exists!"
-msgstr ""
+msgstr "你试图输入的用户名称已经存在！"
 
 #: ../../../..//create.php:134
 msgid "Success"
-msgstr ""
+msgstr "成功"
 
 #: ../../../..//create.php:134
 msgid "This was a triumph"
-msgstr ""
+msgstr "妥妥的"
 
 #: ../../../..//dnsbls_bypass.php:19
 msgid "Bypass DNSBL"
-msgstr ""
+msgstr "忽略DNSBL"
 
 #: ../../../..//dnsbls_bypass.php:19
 msgid "Post even if blocked"
-msgstr ""
+msgstr "即使封禁了继续发帖，哼"
 
 #: ../../../..//dnsbls_bypass.php:41
 msgid "Success!"
-msgstr ""
+msgstr "成功！"
 
 #: ../../../..//dnsbls_bypass.php:41
 msgid "You may now go back and make your post."
-msgstr ""
+msgstr "你现在可以回去发帖了。"
 
 #: ../../../..//dnsbls_bypass.php:43
 msgid "You failed the CAPTCHA"
-msgstr ""
+msgstr "你输入CAPTCHA验证码失败了"
 
 #: ../../../..//dnsbls_bypass.php:43
 msgid ""
 ". <a href=\"https://8ch.net/dnsbls_bypass.php\">Try again.</a> If it's not "
 "working, email admin@8chan.co for support."
-msgstr ""
+msgstr ". <a href=\"https://8ch.net/dnsbls_bypass.php\">请重新尝试.</a>如果不好使的话，请给admin@8chan.co发电子邮件。"
 
 #: ../../../..//inc/8chan-mod-pages.php:118
 msgid "Too many tags."
-msgstr ""
+msgstr "太多的标签。"
 
 #: ../../../..//inc/8chan-mod-pages.php:153
 msgid "Edit tags"
-msgstr ""
+msgstr "编辑标签"
 
 #: ../../../..//inc/8chan-mod-pages.php:186
 msgid "Edit reassign"
-msgstr ""
+msgstr "编辑重新分配"
 
 #: ../../../..//inc/8chan-mod-pages.php:214
 msgid "Too many board volunteers!"
-msgstr ""
+msgstr "太多的板块志愿者！"
 
 #: ../../../..//inc/8chan-mod-pages.php:219
 msgid ""
@@ -4136,6 +4125,10 @@ msgstr ""
 
 #: ../../../..//templates/cache/b7/fa/7447787b14d16dd6dce8f636ada2dbc24066478fc0ab8622ae653f7f1cd9.php:45
 msgid "Global rules permit this content"
+msgstr ""
+
+#: ../../../..//templates/cache/25/ce/20297e1c09b3c82a277642530f4bd5b1f83cd763d5456c0ee2cedaff2519.php:72
+msgid "Moderation log"
 msgstr ""
 
 #. line 124
@@ -4474,8 +4467,9 @@ msgstr ""
 
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:347
 msgid ""
-"To contribute translations, register at <a href=\"https://www.transifex.com/"
-"projects/p/tinyboard-vichan-devel/\">Transifex</a>"
+"To contribute translations, register at <a "
+"href=\"https://www.transifex.com/projects/p/tinyboard-vichan-"
+"devel/\">Transifex</a>"
 msgstr ""
 
 #. line 65
