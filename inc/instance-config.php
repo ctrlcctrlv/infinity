@@ -142,7 +142,7 @@
 	$config['additional_javascript'][] = 'js/image-hover.js';
 	$config['additional_javascript'][] = 'js/auto-scroll.js';
 	$config['additional_javascript'][] = 'js/twemoji/twemoji.js';
-	$config['additional_javascript'][] = 'js/multi-image.js';
+	$config['additional_javascript'][] = 'js/file-selector.js';
 	// Oekaki (now depends on config.oekaki so can be in all scripts)
 	$config['additional_javascript'][] = 'js/jquery-ui.custom.min.js';
 	$config['additional_javascript'][] = 'js/wPaint/lib/wColorPicker.min.js';
