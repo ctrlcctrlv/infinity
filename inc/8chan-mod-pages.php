@@ -541,7 +541,7 @@ FLAGS;
 			if (!(strlen($subtitle) < 200))
 				error('Invalid subtitle');
 
-			$query = prepare('UPDATE ``boards`` SET `title` = :title, `subtitle` = :subtitle, `indexed` = :indexed, `public_bans` = :public_bans, `public_logs` = :public_logs, `8archive` = :8archive WHERE `uri` = :uri');
+			$query = prepare('UPDATE ``boards`` SET `title` = :title, `subtitle` = :subtitle, `indexed` = :indexed, `public_bans` = :public_bans, `public_logs` = :public_logs, `8archive` = :8archive, `sfw` = :sfw WHERE `uri` = :uri');
 			$query->bindValue(':title', $title);
 			$query->bindValue(':subtitle', $subtitle);
 			$query->bindValue(':uri', $b);
@@ -549,6 +549,7 @@ FLAGS;
 			$query->bindValue(':public_bans', isset($_POST['public_bans']));
 			$query->bindValue(':public_logs', (int)$_POST['public_logs']);
 			$query->bindValue(':8archive', isset($_POST['8archive']));
+			$query->bindValue(':sfw', isset($_POST['meta_sfw']));
 			$query->execute() or error(db_error($query));
 
 			$config_file = <<<EOT
