@@ -14,6 +14,7 @@ header('Content-Type: application/json');
 $safe_config['title'] = $board['title'];
 $safe_config['subtitle'] = $board['subtitle'];
 $safe_config['indexed'] = ($board['indexed'] == "1");
+$safe_config['sfw'] = $board['sfw'];
 $safe_config['country_flags'] = $config['country_flags'];
 $safe_config['field_disable_name'] = $config['field_disable_name'];
 $safe_config['enable_embedding'] = $config['enable_embedding'];
@@ -46,6 +47,5 @@ $safe_config['latex'] = $config['katex'];
 $safe_config['code_tags'] = in_array('js/code_tags/run_prettify.js', $config['additional_javascript']);
 $safe_config['max_pages'] = $config['max_pages'];
 $safe_config['reply_limit'] = $config['reply_limit'];
-
 
 echo json_encode($safe_config);
