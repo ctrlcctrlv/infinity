@@ -6,6 +6,9 @@
 
 defined('TINYBOARD') or exit;
 
+//dont ask. auth was giving me a lot of stupid shit with already defined functions
+if(!function_exists("mkhash") && !function_exists("generate_salt") && !function_exists("login") && !function_exists("setCookies") && !function_exists("destroyCookies") && !function_exists("modLog") && !function_exists("create_pm_header") && !function_exists("make_secure_link_token") && !function_exists("check_login")){
+
 // create a hash/salt pair for validate logins
 function mkhash($username, $password, $salt = false) {
 	global $config;
@@ -176,4 +179,5 @@ function check_login($prompt = false) {
 		$_GET = strip_array($_GET);
 		$_POST = strip_array($_POST);
 	}
+}
 }
