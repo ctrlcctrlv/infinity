@@ -1,3 +1,4 @@
 [submodule "js/wPaint"]
 	path = js/wPaint
-	url = https://github.com/vichan-devel/wPaint.git
+	url = https://github.com/ctrlcctrlv/wPaint.git
+	branch = master
