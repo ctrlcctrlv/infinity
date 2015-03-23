@@ -2364,19 +2364,8 @@ function shell_exec_error($command, $suppress_stdout = false) {
 	global $config, $debug;
 	
 	if( $config['debug'] ) {
-		$which = microtime(true);
-	}
-	
-	// Determine if $command is a valid command. If we don't, the following is considered valid output.
-	// '$command' is not recognized as an internal or external command, operable program or batch file.
-	if( empty( shell_exec("which $command") ) ) {
-		return false;
-	}
-	
-	if( $config['debug'] ) {
 		$start = microtime(true);
 	}
-	
 	
 	$return = trim(shell_exec('PATH="' . escapeshellcmd($config['shell_path']) . ':$PATH";' .
 		$command . ' 2>&1 ' . ($suppress_stdout ? '> /dev/null ' : '') . '&& echo "TB_SUCCESS"'));
@@ -2388,7 +2377,7 @@ function shell_exec_error($command, $suppress_stdout = false) {
 		
 		$debug['exec'][] = array(
 			'command'  => $command,
-			'time'     => '~' . round($time * 1000, 2) . 'ms + ~' . round($time_which * 1000, 2) . 'ms',
+			'time' => '~' . round($time * 1000, 2) . 'ms',
 			'response' => $return ? $return : null
 		);
 		$debug['time']['exec'] += $time;
