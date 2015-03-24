@@ -1643,15 +1643,22 @@ function ReverseIPOctets($ip) {
 
 function wordfilters(&$body) {
 	global $config;
+	$firstLetter = substr($body, 0, 1);
+	$toReplace = $filter[1]; //Should never happen, but just in case
+	
+	if(preg_match('#^[A-Z]+$#', $firstLetter))
+		$toReplace = ucfirst($filter[1]);
+	else
+		$toReplace = lcfirst($filter[1]);
 
 	foreach ($config['wordfilters'] as $filter) {
 		if (isset($filter[2]) && $filter[2]) {
 			if (is_callable($filter[1]))
-				$body = preg_replace_callback($filter[0], $filter[1], $body);
+				$body = preg_replace_callback($filter[0], $toReplace, $body);
 			else
-				$body = preg_replace($filter[0], $filter[1], $body);
+				$body = preg_replace($filter[0], $toReplace, $body);
 		} else {
-			$body = str_ireplace($filter[0], $filter[1], $body);
+			$body = str_ireplace($filter[0], $toReplace, $body);
 		}
 	}
 }
