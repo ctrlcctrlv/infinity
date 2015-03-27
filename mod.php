@@ -136,6 +136,8 @@ foreach ($pages as $key => $callback) {
 }
 $pages = $new_pages;
 
+$parse_start_time = microtime(true);
+
 foreach ($pages as $uri => $handler) {
 	if (preg_match($uri, $query, $matches)) {
 		$matches = array_slice($matches, 1);
