@@ -17,6 +17,17 @@
  *
  */
 
+// From http://stackoverflow.com/a/14035162
+$.fn.scrollStopped = function(callback) {		   
+	$(this).scroll(function(){
+		var self = this, $this = $(self);
+		if ($this.data('scrollTimeout')) {
+		  clearTimeout($this.data('scrollTimeout'));
+		}
+		$this.data('scrollTimeout', setTimeout(callback,250,self));
+	});
+};
+
 function makeIcon(mode){
 	var favicon = $("link[rel='shortcut icon']");
 
@@ -168,10 +179,11 @@ $(document).ready(function(){
 		}
 	}
 
-	var recheck_activated = function() {
-		if (new_posts && window_active &&
+	var recheck_activated = function(end_of_page) {
+		if (typeof end_of_page == "undefined") var end_of_page = false;
+		if (end_of_page || (new_posts && window_active &&
 			$(window).scrollTop() + $(window).height() >=
-			$('div.boardlist.bottom').position().top) {
+			$('div.boardlist.bottom').position().top)) {
 
 			new_posts = 0;
 		}
@@ -286,18 +298,18 @@ $(document).ready(function(){
 		return false;
 	};
 	
-	$(window).scroll(function() {
+	$(window).scrollStopped(function() {
 		// if the newest post is not visible
 		if($(this).scrollTop() + $(this).height() <
 			$('div.post:last').position().top + $('div.post:last').height()) {
 			end_of_page = false;
-			return;
 		} else {
 			if($("#auto_update_status").is(':checked') && timeDiff(poll_interval_mindelay)) {
 				poll(manualUpdate = true);
 			}
 			end_of_page = true;
 		}
+		recheck_activated(end_of_page);
 	});
 
 	$('#update_thread').on('click', function() { poll(manualUpdate = true); return false; });
