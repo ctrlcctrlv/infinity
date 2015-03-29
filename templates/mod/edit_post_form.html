@@ -45,11 +45,13 @@
 		</tr>
 	</table>
 	<p style="text-align:center">
-		{% if raw and mod|hasPermission(config.mod.rawhtml) %}
-			{% trans %}Currently editing raw HTML.{% endtrans %} 
-			<a href="?/{{ board }}/edit/{{ post.id }}">{% trans %}Edit markup instead?{% endtrans %}</a>
-		{% else %}
-			<a href="?/{{ board }}/edit_raw/{{ post.id }}">{% trans %}Edit raw HTML instead?{% endtrans %}</a>
+		{% if mod|hasPermission(config.mod.rawhtml) %}
+			{% if raw %}
+				{% trans %}Currently editing raw HTML.{% endtrans %} 
+				<a href="?/{{ board }}/edit/{{ post.id }}">{% trans %}Edit markup instead?{% endtrans %}</a>
+			{% else %}
+				<a href="?/{{ board }}/edit_raw/{{ post.id }}">{% trans %}Edit raw HTML instead?{% endtrans %}</a>
+			{% endif %}
 		{% endif %}
 	</p>
 </form>
