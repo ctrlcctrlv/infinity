@@ -20,6 +20,7 @@ require_once 'inc/events.php';
 require_once 'inc/api.php';
 require_once 'inc/bans.php';
 require_once 'inc/lib/gettext/gettext.inc';
+require_once 'inc/lib/parsedown/Parsedown.php'; // todo: option for parsedown instead of Tinyboard/STI markup
 require_once 'inc/mod/auth.php';
 
 // the user is not currently logged in as a moderator
@@ -2488,4 +2489,46 @@ function less_hostmask($hostmask) {
 	$parts[1] = 'x';
 
 	return implode('.', $parts);
+}
+
+function prettify_textarea($s){
+	return str_replace("\t", '&#09;', str_replace("\n", '&#13;&#10;', htmlentities($s)));
+}
+
+class HTMLPurifier_URIFilter_NoExternalImages extends HTMLPurifier_URIFilter {
+	public $name = 'NoExternalImages';
+	public function filter(&$uri, $c, $context) {
+		global $config;
+		$ct = $context->get('CurrentToken');
+
+		if (!$ct || $ct->name !== 'img') return true;
+
+		if (!isset($uri->host) && !isset($uri->scheme)) return true;
+
+		if (!in_array($uri->scheme . '://' . $uri->host . '/', $config['allowed_offsite_urls'])) {
+			error('No off-site links in board announcement images.');
+		}
+
+		return true;
+	}
+}
+
+function purify_html($s) {
+	global $config;
+
+	$c = HTMLPurifier_Config::createDefault();
+	$c->set('HTML.Allowed', $config['allowed_html']);
+	$uri = $c->getDefinition('URI');
+	$uri->addFilter(new HTMLPurifier_URIFilter_NoExternalImages(), $c);
+	$purifier = new HTMLPurifier($c);
+	$clean_html = $purifier->purify($s);
+	return $clean_html;
+}
+
+function markdown($s) {
+	$pd = new Parsedown();
+	$pd->setMarkupEscaped(true);
+	$pd->setimagesEnabled(false);
+
+	return $pd->text($s);
 }

@@ -1,42 +1,4 @@
 <?php
-	if (!function_exists('prettify_textarea')){
-		function prettify_textarea($s){
-			return str_replace("\t", '&#09;', str_replace("\n", '&#13;&#10;', htmlentities($s)));
-		}
-	}
-
-	if (!class_exists('HTMLPurifier_URIFilter_NoExternalImages')) {
-	class HTMLPurifier_URIFilter_NoExternalImages extends HTMLPurifier_URIFilter {
-		public $name = 'NoExternalImages';
-		public function filter(&$uri, $c, $context) {
-			global $config;
-			$ct = $context->get('CurrentToken');
-
-			if (!$ct || $ct->name !== 'img') return true;
-
-			if (!isset($uri->host) && !isset($uri->scheme)) return true;
-
-			if (!in_array($uri->scheme . '://' . $uri->host . '/', $config['allowed_offsite_urls'])) {
-				error('No off-site links in board announcement images.');
-			}
-
-			return true;
-		}
-	}
-	}
-
-	if (!function_exists('purify')){
-		function purify($s){
-			$c = HTMLPurifier_Config::createDefault();
-			$c->set('HTML.Allowed', 'a[href|title],p,br,li,ol,ul,strong,em,u,h2,b,i,tt,div,img[src|alt|title],hr');
-			$uri = $c->getDefinition('URI');
-			$uri->addFilter(new HTMLPurifier_URIFilter_NoExternalImages(), $c);
-			$purifier = new HTMLPurifier($c);
-			$clean_html = $purifier->purify($s);
-			return $clean_html;
-		}
-	}
-
 	if (!function_exists('is_billion_laughs')){
 		function is_billion_laughs($arr1, $arr2) {
 			$arr = array();
@@ -482,7 +444,7 @@ FLAGS;
 			} 
 
 			$anonymous = base64_encode($_POST['anonymous']);
-			$blotter = base64_encode(purify(html_entity_decode($_POST['blotter'])));
+			$blotter = base64_encode(purify_html(html_entity_decode($_POST['blotter'])));
 			$add_to_config = @file_get_contents($b.'/extra_config.php');
 			$replace = '';
 
@@ -633,8 +595,6 @@ EOT;
 			file_write('8archive.json', json_encode($query->fetchAll(PDO::FETCH_ASSOC)));
 			file_write($b.'/config.php', $config_file);
 			file_write('stylesheets/board/'.$b.'.css', $clean_css);
-			file_write($b.'/rules.html', Element('page.html', array('title'=>'Rules', 'subtitle'=>'', 'config'=>$config, 'body'=>'<div class="ban">'.purify($_POST['rules']).'</div>')));
-			file_write($b.'/rules.txt', $_POST['rules']);
 
 			$_config = $config;
 			unset($config['wordfilters']);
@@ -665,7 +625,6 @@ EOT;
 		$query->execute() or error(db_error($query));
 		$board = $query->fetchAll()[0];
  
-		$rules = @file_get_contents($board['uri'] . '/rules.txt');
 		$css = @file_get_contents('stylesheets/board/' . $board['uri'] . '.css');
 	
 		if ($config['cache']['enabled']) {
@@ -673,5 +632,5 @@ EOT;
 			cache::delete('all_boards');
 		}
 
-		mod_page(_('Board configuration'), 'mod/settings.html', array('board'=>$board, 'rules'=>prettify_textarea($rules), 'css'=>prettify_textarea($css), 'token'=>make_secure_link_token('settings/'.$board['uri']), 'languages'=>$possible_languages,'allowed_urls'=>$config['allowed_offsite_urls']));
+		mod_page(_('Board configuration'), 'mod/settings.html', array('board'=>$board, 'css'=>prettify_textarea($css), 'token'=>make_secure_link_token('settings/'.$board['uri']), 'languages'=>$possible_languages,'allowed_urls'=>$config['allowed_offsite_urls']));
 	};
