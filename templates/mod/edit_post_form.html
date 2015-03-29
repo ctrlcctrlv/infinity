@@ -45,7 +45,7 @@
 		</tr>
 	</table>
 	<p style="text-align:center">
-		{% if raw %}
+		{% if raw and mod|hasPermission(config.mod.rawhtml) %}
 			{% trans %}Currently editing raw HTML.{% endtrans %} 
 			<a href="?/{{ board }}/edit/{{ post.id }}">{% trans %}Edit markup instead?{% endtrans %}</a>
 		{% else %}
