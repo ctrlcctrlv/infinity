@@ -9,6 +9,8 @@ Most things (other than installation) that apply to upstream vichan also apply t
 
 If you are not interested in letting your users make their own boards, install vichan instead of infinity.
 
+**Much like Arch Linux, infinity should be considered ``rolling release''. Unlike upstream vichan, we have no install.php. Database schema and templates are changed often and it is on you to read the Git log before updating!**
+
 Installation
 ------------
 Basic requirements:
@@ -48,6 +50,17 @@ Step 4. Infinity can function in a *very* barebones fashion after the first two 
 apt-get install graphicsmagick gifsicle php5-fpm mysql-client php5-mysql php5-cli php-pear php5-apcu php5-dev; add-apt-repository ppa:jon-severinsson/ffmpeg; add-apt-repository ppa:nginx/stable; apt-get update; apt-get install nginx ffmpeg; pear install Net_DNS2; pecl install "channel://pecl.php.net/dio-0.0.7"
 ```
 
-Step 5. The current captcha provider listed inc/config.php is dead. You may want to work around this. 
+Page Generation
+------------
+A lot of the static pages (claim.html, boards.html, index.html) need to be regenerated every so often. You can do this with a crontab.
+
+```cron
+*/10 * * * * cd /srv/http; /usr/bin/php /srv/http/boards.php
+*/5 * * * * cd /srv/http; /usr/bin/php /srv/http/claim.php > /srv/http/claim.html
+*/20 * * * * cd /srv/http; /usr/bin/php -r 'include "inc/functions.php"; rebuildThemes("bans");'
+*/5 * * * * cd /srv/http; /usr/bin/php /srv/http/index.php
+```
+
+Also, main.js is empty by default. Run tools/rebuild.php to create it every time you update one of the JS files.
 
 Have fun!
