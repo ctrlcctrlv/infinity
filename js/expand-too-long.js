@@ -28,7 +28,6 @@ $(function() {
 					body.html(content);
 
 					var post = $(body).parents('.post');
-					$(document).trigger('new_post', post);
 				}
 			});
 		});
