@@ -100,9 +100,9 @@ function mod_dashboard() {
 			cache::set('pm_unreadcount_' . $mod['id'], $args['unread_pms']);
 	}
 	
-	$query = prepare('SELECT COUNT(*) AS `total_reports` FROM ``reports``' . (($mod["type"] == MOD || $mod["type"] == BOARDVOLUNTEER) ? " WHERE board = :board" : "")); 
+	$query = prepare('SELECT COUNT(*) AS `total_reports` FROM ``reports``' . (($mod["type"] < GLOBALVOLUNTEER) ? " WHERE board = :board" : "")); 
 
-	if ($mod['type'] == MOD || $mod["type"] == BOARDVOLUNTEER) {
+	if ($mod['type'] < GLOBALVOLUNTEER) {
 		$query->bindValue(':board', $mod['boards'][0]);
 	} else {
 		$query = prepare('SELECT (SELECT COUNT(id) FROM reports WHERE global = 0) AS total_reports, (SELECT COUNT(id) FROM reports WHERE global = 1) AS global_reports');
@@ -1068,7 +1068,7 @@ function mod_ban_appeals() {
 		return;
 	}
 
-	$local = ($mod['type'] == MOD || $mod["type"] == BOARDVOLUNTEER);
+	$local = ($mod['type'] < GLOBALVOLUNTEER);
 	
 	$query = prepare("SELECT *, ``ban_appeals``.`id` AS `id` FROM ``ban_appeals``
 		LEFT JOIN ``bans`` ON `ban_id` = ``bans``.`id`
@@ -2348,12 +2348,13 @@ function mod_reports() {
 	// Parse arguments.
 	$urlArgs = func_get_args();
 	$global  = in_array( "global", $urlArgs );
+	$json  = in_array( "json", $urlArgs );
 	
 	if( !hasPermission($config['mod']['reports']) ) {
 		error($config['error']['noaccess']);
 	}
 	
-	if( ($mod['type'] == MOD || $mod["type"] == BOARDVOLUNTEER) and $global) {
+	if( ($mod['type'] < GLOBALVOLUNTEER) and $global) {
 		error($config['error']['noaccess']);
 	}
 	
@@ -2361,10 +2362,10 @@ function mod_reports() {
 	$report_scope = $global ? "global" : "local";
 	
 	// Get REPORTS.
-	$query = prepare("SELECT * FROM ``reports`` WHERE " . (($mod["type"] == MOD || $mod["type"] == BOARDVOLUNTEER) ? "board = :board AND" : "") . " ``".($global ? "global" : "local")."`` = TRUE  LIMIT :limit");
+	$query = prepare("SELECT * FROM ``reports`` WHERE " . (($mod["type"] < GLOBALVOLUNTEER) ? "board = :board AND" : "") . " ``".($global ? "global" : "local")."`` = TRUE  LIMIT :limit");
 	
 	// Limit reports by board if the moderator is local.
-	if( $mod['type'] == MOD || $mod["type"] == BOARDVOLUNTEER ) {
+	if( $mod['type'] < GLOBALVOLUNTEER ) {
 		$query->bindValue(':board', $mod['boards'][0]);
 	}
 	
@@ -2434,7 +2435,7 @@ function mod_reports() {
 		
 		// Only continue if we have something to do.
 		// If there are no valid reports left, we're done.
-		if( $reportCount > 0 ) {
+		if( $reportCount > 0 && !$json ) {
 			
 			// Sort this report index by number of reports, desc.
 			usort( $report_index, function( $a, $b ) {
@@ -2563,6 +2564,14 @@ function mod_reports() {
 				$reportHTML .= $content_html;
 			}
 		}
+
+		if ( $reportCount > 0 && $json ) {
+			array_walk($reports, function(&$v, $k, $global) {
+				if (isset($v['ip']) && !$global) {
+					$v['ip'] = less_ip($v['ip'], ($v['board']?$v['board']:''));
+				}
+			}, $global);
+		}
 	}
 	
 	$pageArgs = array(
@@ -2571,7 +2580,12 @@ function mod_reports() {
 		'global'  => $global,
 	);
 	
-	mod_page( sprintf('%s (%d)', _( ( $global ? 'Global report queue' : 'Report queue' ) ), $reportCount), 'mod/reports.html', $pageArgs );
+	if ($json) {
+		header('Content-Type: application/json');
+		echo json_encode($reports);
+	} else {
+		mod_page( sprintf('%s (%d)', _( ( $global ? 'Global report queue' : 'Report queue' ) ), $reportCount), 'mod/reports.html', $pageArgs );
+	}
 }
 
 function mod_report_dismiss() {
@@ -2582,7 +2596,7 @@ function mod_report_dismiss() {
 	$global    = in_array( "global", $arguments );
 	$content   = in_array( "content", $arguments );
 	
-	if( ($mod['type'] == MOD || $mod["type"] == BOARDVOLUNTEER) and $global ) {
+	if( ($mod['type'] < GLOBALVOLUNTEER ) and $global ) {
 		error($config['error']['noaccess']);
 	}
 	
@@ -2704,7 +2718,7 @@ function mod_report_dismiss() {
 function mod_report_demote() {
 	global $config, $mod;
 	
-	if( $mod['type'] == MOD || $mod["type"] == BOARDVOLUNTEER ) {
+	if( $mod['type'] < GLOBALVOLUNTEER ) {
 		error($config['error']['noaccess']);
 	}
 	

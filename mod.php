@@ -56,7 +56,7 @@ $pages = array(
 	// Important to note that (?:global) will make no argument.
 	// (global)? will make argument 0 either "global" or "".
 	'/reports(?:/)?'                                                          => 'reports',               // report queue
-	'/reports/(global)?(?:/)?'                                                => 'reports',               // global report queue
+	'/reports/(global)?(?:/)?(json)?'                                         => 'reports',               // global report queue
 	'/reports/(global)?(?:/)?(content)/(\%b)/(\d+)(?:/)?'                     => 'reports',               // specific reported content (also historic)
 	'/reports/(global)?(?:/)?(content)/(\%b)/(\d+)/dismiss(?:/)?'             => 'secure report_dismiss', // dismiss all reports on content
 	'/reports/(global)?(?:/)?(content)/(\%b)/(\d+)/demote(?:/)?'              => 'secure report_demote',  // demote all reports on content
