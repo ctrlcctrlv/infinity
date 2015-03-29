@@ -144,7 +144,7 @@ $(document).on('click', '.dropzone .remove-btn', function (e) {
 $(document).on('keypress click', '.dropzone, .dropzone .file-hint', function (e) {
 	e.stopPropagation();
 
-	// accept mosue click or Enter
+	// accept mouse click or Enter
 	if (e.which != 1 && e.which != 13)
 		return;
 
