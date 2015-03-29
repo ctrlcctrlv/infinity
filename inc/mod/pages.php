@@ -3407,7 +3407,7 @@ function mod_edit_page($id) {
 	
 		switch ($method) {
 			case 'markdown': 
-				$write = markdown($content);
+				$write = purify_html(markdown($content));
 				break;
 			case 'html':
 				if (hasPermission($config['mod']['rawhtml'])) {
