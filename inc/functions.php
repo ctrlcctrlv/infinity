@@ -2373,7 +2373,6 @@ function shell_exec_error($command, $suppress_stdout = false) {
 	$return = preg_replace('/TB_SUCCESS$/', '', $return);
 	
 	if( $config['debug'] ) {
-		$time_which = $start - $which;
 		$time       = microtime(true) - $start;
 		
 		$debug['exec'][] = array(
