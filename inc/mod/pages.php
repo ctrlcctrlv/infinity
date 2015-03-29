@@ -3353,14 +3353,18 @@ function delete_page_base($page = '', $board = false) {
 	if ($board !== FALSE && !openBoard($board))
 		error($config['error']['noboard']);
 
-	if ($board) {
-		$query = prepare('DELETE FROM ``pages`` WHERE `board` = :board AND `name` = :name');
-		$query->bindValue(':board', ($board ? $board : NULL));
-	} else {
-		$query = prepare('DELETE FROM ``pages`` WHERE `board` IS NULL AND `name` = :name');
+	if (preg_match('/^[a-z0-9]{1,255}$/', $page) && !preg_match('/^(index|catalog|index\+50)|(\d+)$/', $page)) {
+		if ($board) {
+			$query = prepare('DELETE FROM ``pages`` WHERE `board` = :board AND `name` = :name');
+			$query->bindValue(':board', ($board ? $board : NULL));
+		} else {
+			$query = prepare('DELETE FROM ``pages`` WHERE `board` IS NULL AND `name` = :name');
+		}
+		$query->bindValue(':name', $page);
+		$query->execute() or error(db_error($query));
+
+		@file_unlink(($board ? ($board . '/') : '') . $page . '.html');
 	}
-	$query->bindValue(':name', $page);
-	$query->execute() or error(db_error($query));
 
 	header('Location: ?/edit_pages' . ($board ? ('/' . $board) : ''), true, $config['redirect_http']);
 }
@@ -3474,6 +3478,9 @@ function mod_pages($board = false) {
 
 		if (!preg_match('/^[a-z0-9]{1,255}$/', $_POST['page']))
 			error(_('Page names must be < 255 chars and may only contain lowercase letters A-Z and digits 1-9.'));
+
+		if (preg_match('/^(index|catalog|index\+50)|(\d+)$/', $_POST['page']))
+			error(_('Nope.'));
 
 		foreach ($pages as $i => $p) {
 			if ($_POST['page'] === $p['name'])
