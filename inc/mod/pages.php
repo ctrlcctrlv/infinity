@@ -2566,11 +2566,25 @@ function mod_reports() {
 		}
 
 		if ( $reportCount > 0 && $json ) {
-			array_walk($reports, function(&$v, $k, $global) {
+			array_walk($reports, function(&$v, $k, $ud) {
+				$global = $ud['global'];
+				$report_posts = $ud['report_posts'];
+
+				$board = ($v['board'] ? $v['board'] : NULL);
+
 				if (isset($v['ip']) && !$global) {
-					$v['ip'] = less_ip($v['ip'], ($v['board']?$v['board']:''));
+					$v['ip'] = less_ip($v['ip'], ($board?$board:''));
 				}
-			}, $global);
+
+				if (isset($report_posts[ $v['board'] ][ $v['post'] ])) {
+					$post_content = $report_posts[ $v['board'] ][ $v['post'] ];
+					unset($post_content['password']);
+					if (!$global) {
+						$post_content['ip'] = less_ip($post_content['ip'], ($board?$board:''));
+					}
+					$v['post_content'] = $post_content;
+				}
+			}, array('global' => $global, 'report_posts' => $report_posts));
 		}
 	}
 	
