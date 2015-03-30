@@ -168,6 +168,11 @@ function highlightReply(id, event) {
 	}
 	if (id) {
 		var post = document.getElementById('reply_'+id);
+		// No reply? Try OP.
+		if (!post) {
+			var post = document.getElementById('op_'+id);
+		}
+
 		if (post) {
 			post.className += ' highlighted';
 
