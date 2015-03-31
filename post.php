@@ -93,20 +93,23 @@ if (isset($_POST['delete'])) {
 	
 	buildIndex();
 
-
-	rebuildThemes('post-delete', $board['uri']);
-	
 	$is_mod = isset($_POST['mod']) && $_POST['mod'];
 	$root = $is_mod ? $config['root'] . $config['file_mod'] . '?/' : $config['root'];
-	
+
 	if (!isset($_POST['json_response'])) {
 		header('Location: ' . $root . $board['dir'] . $config['file_index'], true, $config['redirect_http']);
 	} else {
 		header('Content-Type: text/json');
 		echo json_encode(array('success' => true));
 	}
-}
-elseif (isset($_POST['report'])) {
+
+        // We are already done, let's continue our heavy-lifting work in the background (if we run off FastCGI)
+        if (function_exists('fastcgi_finish_request'))
+                @fastcgi_finish_request();
+
+	rebuildThemes('post-delete', $board['uri']);
+
+} elseif (isset($_POST['report'])) {
 	if (!isset($_POST['board'], $_POST['reason']))
 		error($config['error']['bot']);
 	
@@ -921,20 +924,6 @@ elseif (isset($_POST['post'])) {
 		bumpThread($post['thread']);
 	}
 	
-	$pid = $post['op'] ? $id : $post['thread'];
-
-	buildThread($pid);
-
-	if ($config['try_smarter'] && $post['op'])
-		$build_pages = range(1, $config['max_pages']);
-	
-	if ($post['op'])
-		clean($pid);
-	
-	event('post-after', $post);
-	
-	buildIndex();
-	
 	if (isset($_SERVER['HTTP_REFERER'])) {
 		// Tell Javascript that we posted successfully
 		if (isset($_COOKIE[$config['cookies']['js']]))
@@ -970,6 +959,8 @@ elseif (isset($_POST['post'])) {
 		$redirect = $root . $board['dir'] . $config['file_index'];
 		
 	}
+
+	buildThread($post['op'] ? $id : $post['thread']);
 	
 	if ($config['syslog'])
 		_syslog(LOG_INFO, 'New post: /' . $board['dir'] . $config['dir']['res'] .
@@ -977,11 +968,6 @@ elseif (isset($_POST['post'])) {
 	
 	if (!$post['mod']) header('X-Associated-Content: "' . $redirect . '"');
 
-	if ($post['op'])
-		rebuildThemes('post-thread', $board['uri']);
-	else
-		rebuildThemes('post', $board['uri']);
-	
 	if (!isset($_POST['json_response'])) {
 		header('Location: ' . $redirect, true, $config['redirect_http']);
 	} else {
@@ -992,8 +978,27 @@ elseif (isset($_POST['post'])) {
 			'id' => $id
 		));
 	}
-}
-elseif (isset($_POST['appeal'])) {
+	
+	if ($config['try_smarter'] && $post['op'])
+		$build_pages = range(1, $config['max_pages']);
+	
+	if ($post['op'])
+		clean();
+	
+	event('post-after', $post);
+	
+	buildIndex();
+
+	// We are already done, let's continue our heavy-lifting work in the background (if we run off FastCGI)
+	if (function_exists('fastcgi_finish_request'))
+		@fastcgi_finish_request();
+
+	if ($post['op'])
+		rebuildThemes('post-thread', $board['uri']);
+	else
+		rebuildThemes('post', $board['uri']);
+	
+} elseif (isset($_POST['appeal'])) {
 	if (!isset($_POST['ban_id']))
 		error($config['error']['bot']);
 	
