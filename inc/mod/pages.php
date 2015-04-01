@@ -2629,7 +2629,6 @@ function mod_report_dismiss() {
 			$query->bindValue(':post', $post);
 			$query->execute() or error(db_error($query));
 			if( count( $reports = $query->fetchAll(PDO::FETCH_ASSOC) ) > 0 ) {
-				
 				$report_ids = array();
 				foreach( $reports as $report ) {
 					$report_ids[ $report['id'] ] = $report['id'];
@@ -2645,7 +2644,11 @@ function mod_report_dismiss() {
 				$query = prepare("UPDATE ``reports`` SET {$scope} WHERE `id` IN (".implode(',', array_map('intval', $report_ids)).")");
 				$query->execute() or error(db_error($query));
 				
-				modLog("Promoted " . count($report_ids) . " local report(s) for post #{$post}", $board);
+				// Cleanup - Remove reports that have been completely dismissed.
+				$query = prepare("DELETE FROM `reports` WHERE `local` = FALSE AND `global` = FALSE");
+				$query->execute() or error(db_error($query));
+
+				modLog("Dismissed " . count($report_ids) . " local report(s) for post #{$post}", $board);
 			}
 			else {
 				error($config['error']['404']);
