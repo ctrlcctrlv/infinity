@@ -5,13 +5,14 @@
 # Translators:
 # cicus, 2014
 # limbobarrage <ijynyjdl@grr.la>, 2014
+# cicus, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: infinity\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-10-18 13:47+0200\n"
-"PO-Revision-Date: 2015-03-17 13:10+0000\n"
-"Last-Translator: copypaste <admin@8chan.co>\n"
+"PO-Revision-Date: 2015-03-26 11:51+0000\n"
+"Last-Translator: cicus\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/projects/p/infinity/language/hu_HU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -81,7 +82,7 @@ msgstr "URL"
 #: ../../../../js/upload-selection.js:68
 #: ../../../../js//upload-selection.js:68
 msgid "Select"
-msgstr "Kiválaszt"
+msgstr "Válassz"
 
 #: ../../../../js/upload-selection.js:53 ../../../../js/upload-selection.js:63
 #: ../../../../js/upload-selection.js:71
@@ -93,7 +94,7 @@ msgstr "Külső link"
 #: ../../../../js/upload-selection.js:74
 #: ../../../../js//upload-selection.js:74
 msgid "Embed"
-msgstr "Beágyaz"
+msgstr "Beágyazás"
 
 #: ../../../../js/upload-selection.js:59 ../../../../js/upload-selection.js:69
 #: ../../../../js/upload-selection.js:77
@@ -167,7 +168,7 @@ msgstr "Összes hozzászólás megjelenítése"
 #: ../../../../js/expand.js:44 ../../../../js/expand.js:46
 #: ../../../../js/expand.js:50 ../../../../js//expand.js:50
 msgid "Hide expanded replies"
-msgstr "Hozzászólások elrejtése"
+msgstr "Kibontott hozzászólások elrejtése"
 
 #: ../../../../js/oekaki.js:10
 msgid "Brush size"
@@ -199,7 +200,7 @@ msgstr "Színt kiválaszt"
 
 #: ../../../../js/oekaki.js:11
 msgid "Fill"
-msgstr "KItölt"
+msgstr "Kitölt"
 
 #: ../../../../js/oekaki.js:12
 msgid "Use oekaki instead of file?"
@@ -207,7 +208,7 @@ msgstr "Szeretnéd a rajzodat használni fájl helyett?"
 
 #: ../../../../js/oekaki.js:21
 msgid "Edit in oekaki"
-msgstr "A rajzod szerkesztése"
+msgstr "Szerkesztés saját rajzként"
 
 #: ../../../../js/oekaki.js:152
 msgid "Enter some text"
@@ -234,7 +235,7 @@ msgstr "Erőltetett anonimitás"
 #: ../../../../js/forced-anon.js:73 ../../../../js/forced-anon.js:81
 #: ../../../../js//forced-anon.js:80 ../../../../js//forced-anon.js:97
 msgid "enabled"
-msgstr "engedélyezett"
+msgstr "engedélyezve"
 
 #: ../../../../js/forced-anon.js:59 ../../../../js/forced-anon.js:69
 #: ../../../../js/forced-anon.js:60 ../../../../js/forced-anon.js:70
@@ -242,7 +243,7 @@ msgstr "engedélyezett"
 #: ../../../../js/forced-anon.js:73 ../../../../js/forced-anon.js:85
 #: ../../../../js//forced-anon.js:80 ../../../../js//forced-anon.js:101
 msgid "disabled"
-msgstr "tiltott"
+msgstr "tiltva"
 
 #: ../../../../js/local-time.js:40 ../../../../js/local-time.js:41
 #: ../../../../js/local-time.js:30 ../../../../templates/main.js:63
@@ -426,7 +427,7 @@ msgstr "Küldés..."
 #: ../../../../js/quick-reply.js:223 ../../../../js/quick-reply.js:224
 #: ../../../../js/quick-reply.js:225 ../../../../js//quick-reply.js:142
 msgid "Upload URL"
-msgstr "URL Feltöltése"
+msgstr "URL Feltöltés"
 
 #: ../../../../js/quick-reply.js:266 ../../../../js/quick-reply.js:267
 #: ../../../../js/quick-reply.js:268
@@ -725,7 +726,7 @@ msgstr "Fa nézet"
 #: ../../../../js/expand-all-images.js:35
 #: ../../../../js//expand-all-images.js:43
 msgid "Shrink all images"
-msgstr "Összes kép eredeti méretűre"
+msgstr "Összes kép előnézeti méretűre"
 
 #: ../../../../js/no-animated-gif.js:33 ../../../../js/no-animated-gif.js:37
 #: ../../../../js/no-animated-gif.js:40 ../../../../js//no-animated-gif.js:45
@@ -797,7 +798,7 @@ msgstr "Törlés"
 msgid ""
 "Are you sure you want to erase your storage? This involves your hidden "
 "threads, watched threads, post password and many more."
-msgstr "Biztos vagy benne, hogy törölni akarod a tárhelyedet? Ez magában voglalja a rejtett szálaidat, figyelt szálaidat, hozzászólási jelszavad és még számos egyebet."
+msgstr "Biztos vagy benne, hogy törölni akarod a tárhelyedet? Ez magába foglalja a rejtett szálaidat, figyelt szálaidat, hozzászólási jelszavad és még számos egyebet."
 
 #: ../../../../js/options/user-css.js:14
 msgid "User CSS"
@@ -816,7 +817,7 @@ msgstr "Add meg a saját CSS szabályaidat..."
 msgid ""
 "If you want to make a redistributable style, be sure to\n"
 "   have a Yotsuba B theme selected."
-msgstr "Ha megosztható stílust szerenél létrehozni, \ngyőződj meg róla, hogy a Yotsuba B téma van kiválasztva."
+msgstr "Ha terjeszthető stílust szerenél létrehozni, \ngyőződj meg róla, hogy a Yotsuba B téma van kiválasztva."
 
 #: ../../../../js/options/user-css.js:47
 #: ../../../../js//options/user-css.js:123
@@ -856,286 +857,286 @@ msgstr "Frissít"
 
 #: ../../../../js/mod/ban-list.js:29 ../../../../js//mod/ban-list.js:29
 msgid "IP address"
-msgstr ""
+msgstr "IP cím"
 
 #: ../../../../js/mod/ban-list.js:42 ../../../../js//mod/ban-list.js:42
 msgid "Seen"
-msgstr ""
+msgstr "Látta"
 
 #: ../../../../js/mod/ban-list.js:44 ../../../../js//mod/ban-list.js:44
 msgid "Message for which user was banned is included"
-msgstr ""
+msgstr "Bannolt felhasználó üzenete hozzááadva"
 
 #: ../../../../js/mod/ban-list.js:45 ../../../../js//mod/ban-list.js:45
 msgid "Message:"
-msgstr ""
+msgstr "Üzenet:"
 
 #: ../../../../js/mod/ban-list.js:53 ../../../../js//mod/ban-list.js:53
 msgid "Board"
-msgstr ""
+msgstr "Tábla"
 
 #: ../../../../js/mod/ban-list.js:55 ../../../../js//mod/ban-list.js:55
 msgid "all"
-msgstr ""
+msgstr "mind"
 
 #: ../../../../js/mod/ban-list.js:57 ../../../../js//mod/ban-list.js:57
 msgid "Set"
-msgstr ""
+msgstr "Létrehozva"
 
 #: ../../../../js/mod/ban-list.js:58 ../../../../js//mod/ban-list.js:58
 msgid " ago"
-msgstr ""
+msgstr "ezelőtt"
 
 #: ../../../../js/mod/ban-list.js:61 ../../../../js//mod/ban-list.js:61
 msgid "Expires"
-msgstr ""
+msgstr "Lejár"
 
 #: ../../../../js/mod/ban-list.js:62 ../../../../js//mod/ban-list.js:62
 msgid "never"
-msgstr ""
+msgstr "soha"
 
 #: ../../../../js/mod/ban-list.js:64 ../../../../js//mod/ban-list.js:64
 msgid "in "
-msgstr ""
+msgstr "ekkor"
 
 #: ../../../../js/mod/ban-list.js:66 ../../../../js//mod/ban-list.js:66
 msgid "Staff"
-msgstr ""
+msgstr "Vezetőség"
 
 #: ../../../../js/mod/ban-list.js:73 ../../../../js//mod/ban-list.js:73
 msgid "system"
-msgstr ""
+msgstr "rendszer"
 
 #: ../../../../js/auto-reload.js:33 ../../../../js//auto-reload.js:96
 msgid "Auto"
-msgstr ""
+msgstr "Automatikus"
 
 #: ../../../../js/auto-reload.js:141 ../../../../js//auto-reload.js:210
 msgid "Updating..."
-msgstr ""
+msgstr "Frissítés..."
 
 #: ../../../../js/auto-reload.js:183 ../../../../js//auto-reload.js:257
 #, python-brace-format
 msgid "Thread updated with {0} new post(s)"
-msgstr ""
+msgstr "Szál frissült {0} hozzászólással"
 
 #: ../../../../js/auto-reload.js:185 ../../../../js//auto-reload.js:259
 msgid "No new posts found"
-msgstr ""
+msgstr "Nincs új hozzászólás"
 
 #: ../../../../js/auto-reload.js:191 ../../../../js//auto-reload.js:265
 msgid "Thread deleted or pruned"
-msgstr ""
+msgstr "Szál eltávolítva"
 
 #: ../../../../js/auto-reload.js:199 ../../../../js//auto-reload.js:273
 msgid "Error: "
-msgstr ""
+msgstr "Hiba:"
 
 #: ../../../../js/auto-reload.js:201 ../../../../js//auto-reload.js:275
 msgid "Unknown error"
-msgstr ""
+msgstr "Ismeretlen hiba"
 
 #: ../../../../js/infinite-scroll.js:47 ../../../../js//infinite-scroll.js:47
 msgid "Page"
-msgstr ""
+msgstr "Oldal"
 
 #: ../../../../js/infinite-scroll.js:82 ../../../../js//infinite-scroll.js:82
 msgid "All"
-msgstr ""
+msgstr "Összes"
 
 #: ../../../../templates/main.js:29 ../../../../templates/main.js:47
 #: ../../../../templates//main.js:35 ../../../../templates//main.js:53
 msgid "second(s)"
-msgstr ""
+msgstr "másodperc"
 
 #: ../../../../templates/main.js:31 ../../../../templates/main.js:49
 #: ../../../../templates//main.js:37 ../../../../templates//main.js:55
 msgid "minute(s)"
-msgstr ""
+msgstr "perc"
 
 #: ../../../../templates/main.js:33 ../../../../templates/main.js:51
 #: ../../../../templates//main.js:39 ../../../../templates//main.js:57
 msgid "hour(s)"
-msgstr ""
+msgstr "óra"
 
 #: ../../../../templates/main.js:35 ../../../../templates/main.js:53
 #: ../../../../templates//main.js:41 ../../../../templates//main.js:59
 msgid "day(s)"
-msgstr ""
+msgstr "nap"
 
 #: ../../../../templates/main.js:37 ../../../../templates/main.js:55
 #: ../../../../templates//main.js:43 ../../../../templates//main.js:61
 msgid "week(s)"
-msgstr ""
+msgstr "hét"
 
 #: ../../../../templates/main.js:39 ../../../../templates/main.js:57
 #: ../../../../templates//main.js:45 ../../../../templates//main.js:63
 msgid "year(s)"
-msgstr ""
+msgstr "év"
 
 #: ../../../../js//ajax.js:121
 msgid ""
 "The server took too long to submit your post. Your post was probably still "
 "submitted. If it wasn't, 8chan might be experiencing issues right now -- "
 "please try your post again later. Error information: "
-msgstr ""
+msgstr "A szervernek túl hosszú időbe telt feldolgozni a hozzászólásod. Habár meglehet, hogy sikerült. Ha mégsem, akkor valószínű, hogy jelenleg valami probléma áll fenn a 8chan rendszerében. Próbáld meg később újra elküldeni. Hiba információ:"
 
 #: ../../../../js//auto-reload.js:41
 msgid "Auto update"
-msgstr ""
+msgstr "Automatikus frissítés"
 
 #: ../../../../js//auto-reload.js:42
 msgid "Auto update thread"
-msgstr ""
+msgstr "Szál automatikus frissítése"
 
 #: ../../../../js//auto-reload.js:43
 msgid "Show desktop notifications when users quote me"
-msgstr ""
+msgstr "Asztali értesítés, ha valaki idéz engem"
 
 #: ../../../../js//auto-reload.js:44
 msgid "Show desktop notifications on all replies"
-msgstr ""
+msgstr "Asztali értesítés minden válasz esetén"
 
 #: ../../../../js//auto-scroll.js:4 ../../../../js//auto-scroll.js:18
 msgid "Scroll to new posts"
-msgstr ""
+msgstr "Görgess az új hozzászólásokhoz"
 
 #: ../../../../js//captcha.js:30
 msgid "Verification"
-msgstr ""
+msgstr "Igazolás"
 
 #: ../../../../js//comment-toolbar.js:262
 #: ../../../../js//comment-toolbar.js:268
 msgid "Enable formatting keybinds"
-msgstr ""
+msgstr "Tetszőleges billentyűkombinációk engedélyezése"
 
 #: ../../../../js//comment-toolbar.js:263
 #: ../../../../js//comment-toolbar.js:269
 msgid "Show formatting toolbar"
-msgstr ""
+msgstr "Mutasd a formázási eszköztárat"
 
 #: ../../../../js//download-all.js:8
 msgid "Download All"
-msgstr ""
+msgstr "Összes letöltése"
 
 #: ../../../../js//forced-anon.js:73
 msgid "Hide IDs"
-msgstr ""
+msgstr "Rejtse el az ID-ket"
 
 #: ../../../../js//image-hover.js:14
 msgid "Image hover"
-msgstr ""
+msgstr "Lebegő kép"
 
 #: ../../../../js//image-hover.js:15
 msgid "Image hover on catalog"
-msgstr ""
+msgstr "Lebegő kép katalógusnál"
 
 #: ../../../../js//image-hover.js:16
 msgid "Image hover should follow cursor"
-msgstr ""
+msgstr "Lebegő kép kövesse a kurzort"
 
 #: ../../../../js//inline-expanding.js:193
 msgid "Number of simultaneous image downloads (0 to disable): "
-msgstr ""
+msgstr "Több kép együttes letöltése (0 a letiltáshoz)"
 
 #: ../../../../js//katex-enable.js:15
 msgid "Error: Invalid LaTeX syntax."
-msgstr ""
+msgstr "Hiba: Érvénytelen LaTeX szintaxis."
 
 #: ../../../../js//local-time.js:89
 msgid "Show relative time"
-msgstr ""
+msgstr "Mutasd a relatív időt"
 
 #: ../../../../js//options/fav.js:27
 msgid "Favorites"
-msgstr ""
+msgstr "Kedvencek"
 
 #: ../../../../js//options/fav.js:42
 msgid "Drag the boards to sort them."
-msgstr ""
+msgstr "Húzd a megfelelő helyre a táblákat a rendezéshez."
 
 #: ../../../../js//options/general.js:18
 msgid "Note: Most option changes will only take effect on future page loads."
-msgstr ""
+msgstr "Figyelem: A legtöbb beállítás módosítás csak a lap frissítése után fog működni."
 
 #: ../../../../js//options/user-css.js:15
 msgid "Theme"
-msgstr ""
+msgstr "Téma"
 
 #: ../../../../js//options/user-css.js:23
 msgid "Save custom CSS"
-msgstr ""
+msgstr "Tetszőleges CSS mentése"
 
 #: ../../../../js//options/user-css.js:42
 msgid "Board-specific CSS"
-msgstr ""
+msgstr "Tábla specifikus CSS"
 
 #: ../../../../js//options/user-css.js:54
 msgid "Style should affect all boards, not just current board"
-msgstr ""
+msgstr "Alkalmazza a stílust az összes táblán, ne csak a jelenlegin"
 
 #: ../../../../js//options/user-css.js:121
 msgid ""
 "If you want to make a redistributable style, be sure to\n"
 "have a Yotsuba B theme selected."
-msgstr ""
+msgstr "Ha terjeszthető stílust szeretnél létrehozni, győződj meg róla,\nhogy a Yotsuba B téma van kiválasztva."
 
 #: ../../../../js//options/user-css.js:122
 msgid "These will be applied on top of whatever theme you choose below."
-msgstr ""
+msgstr "Mindenképpen alkalmazva lesz, függetlenül attól, hogy milyen témát választottál."
 
 #: ../../../../js//options/user-js.js:16
 msgid ""
 "Do not paste code here unless you absolutely trust the source or have read "
 "it yourself!"
-msgstr ""
+msgstr "Ne illessz be ide kódot, csak ha teljes mértékben megbízol a forrásában vagy magad is átnézted!"
 
 #: ../../../../js//options/user-js.js:16
 msgid ""
 "Untrusted code pasted here could do malicious things such as spam the site "
 "under your IP."
-msgstr ""
+msgstr "A megbízhatatlan kód rosszindulatú lehet, például telespammelheti az oldalt az IP címedet felhasználva."
 
 #: ../../../../js//options/user-js.js:24
 msgid "Save custom Javascript"
-msgstr ""
+msgstr "Tetszőleges Javascript mentése"
 
 #: ../../../../js//options/user-js.js:52
 msgid "Enter your own Javascript code here..."
-msgstr ""
+msgstr "Hozd létre a saját Javascript kódod"
 
 #: ../../../../js//show-own-posts.js:36 ../../../../js//show-own-posts.js:49
 msgid "(You)"
-msgstr ""
+msgstr "(identikus szodomita)"
 
 #: ../../../../js//treeview.js:18
 msgid "Use tree view by default"
-msgstr ""
+msgstr "Fa nézet használata alapértelmezettként"
 
 #: ../../../../js//update_boards.js:6
 msgid "Show top boards"
-msgstr ""
+msgstr "Mutasd a top táblákat"
 
 #: ../../../../js//webm-settings.js:57
 msgid "Loop videos by default"
-msgstr ""
+msgstr "Videók ismétlése alapértelmezetten"
 
 #: ../../../../js//youtube.js:28
 msgid "YouTube size"
-msgstr ""
+msgstr "YouTube mérete"
 
 #: ../../../../templates//main.js:96
 msgid "OK"
-msgstr ""
+msgstr "Rendben"
 
 #: ../../../../templates//main.js:102
 msgid "Cancel"
-msgstr ""
+msgstr "Mégse"
 
 #: ../../../../templates//main.js:325
 msgid "Hide post options &amp; limits"
-msgstr ""
+msgstr "További lehetőségek elrejtése"
 
 #: ../../../../templates//main.js:329
 msgid "Show post options &amp; limits"
-msgstr ""
+msgstr "További lehetőségek"

@@ -5,13 +5,14 @@
 # Translators:
 # cicus, 2014
 # limbobarrage <ijynyjdl@grr.la>, 2014
+# cicus, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: infinity\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-10-18 13:47+0200\n"
-"PO-Revision-Date: 2015-03-17 13:13+0000\n"
-"Last-Translator: copypaste <admin@8chan.co>\n"
+"PO-Revision-Date: 2015-03-26 11:53+0000\n"
+"Last-Translator: cicus\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/projects/p/infinity/language/hu_HU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -193,7 +194,7 @@ msgstr "A hozzászólás túl hosszú. Kattints <a href=\"%s\">ide</a> hogy lás
 #: ../../../../templates/cache/59/eb/57ea544c6cb07c523441e4872c03216560589e8425c0df3a895c17253c4c.php:60
 #: ../../../..//templates/cache/32/56/2f0f3c8b5fda2a269f57b553b9db686212ecf685202bccc86840fe002cc6.php:65
 msgid "Ban"
-msgstr "Ban"
+msgstr "Bannol"
 
 #: ../../../../inc/display.php:372 ../../../../inc/display.php:477
 #: ../../../../inc/display.php:389 ../../../../inc/display.php:499
@@ -202,7 +203,7 @@ msgstr "Ban"
 #: ../../../../templates/cache/59/eb/57ea544c6cb07c523441e4872c03216560589e8425c0df3a895c17253c4c.php:74
 #: ../../../..//templates/cache/32/56/2f0f3c8b5fda2a269f57b553b9db686212ecf685202bccc86840fe002cc6.php:79
 msgid "Ban & Delete"
-msgstr "Ban & Töröl"
+msgstr "Bannol & Töröl"
 
 #. line 4
 #: ../../../../inc/display.php:376 ../../../../inc/display.php:481
@@ -315,7 +316,7 @@ msgstr "Biztos, hogy törölni akarod az összes hozzászólást erről az IP-r�
 #: ../../../../templates/cache/59/eb/57ea544c6cb07c523441e4872c03216560589e8425c0df3a895c17253c4c.php:96
 #: ../../../..//templates/cache/32/56/2f0f3c8b5fda2a269f57b553b9db686212ecf685202bccc86840fe002cc6.php:101
 msgid "Make thread not sticky"
-msgstr "Nem ragacsolt szál indítása"
+msgstr "Eltávolítás a ragacsból"
 
 #: ../../../../inc/display.php:492 ../../../../inc/display.php:514
 #: ../../../../inc/display.php:517 ../../../../inc/display.php:521
@@ -390,7 +391,7 @@ msgstr "Új Szál"
 #: ../../../../inc/config.php:833 ../../../../inc/config.php:836
 #: ../../../..//inc/config.php:914
 msgid "New Reply"
-msgstr "Új Hozzászólás"
+msgstr "Hozzászólás"
 
 #. Additional lines added to the footer of all pages.
 #: ../../../../inc/config.php:689 ../../../../inc/config.php:793
@@ -609,7 +610,7 @@ msgstr "Az IP címed listázva van itt: %s."
 #: ../../../../inc/config.php:1041 ../../../../inc/config.php:1044
 #: ../../../..//inc/config.php:1110
 msgid "Too many links; flood detected."
-msgstr "Túl sok hivatkozás; flood érzékelve."
+msgstr "Túl sok hivatkozás. Flood érzékelve."
 
 #: ../../../../inc/config.php:888 ../../../../inc/config.php:993
 #: ../../../../inc/config.php:984 ../../../../inc/config.php:986
@@ -618,7 +619,7 @@ msgstr "Túl sok hivatkozás; flood érzékelve."
 #: ../../../../inc/config.php:1042 ../../../../inc/config.php:1045
 #: ../../../..//inc/config.php:1112
 msgid "Too many cites; post discarded."
-msgstr "Túl sok idézés; üzenet elvetve."
+msgstr "Túl sok idézés. Üzenet elvetve."
 
 #: ../../../../inc/config.php:889 ../../../../inc/config.php:994
 #: ../../../../inc/config.php:985 ../../../../inc/config.php:987
@@ -627,7 +628,7 @@ msgstr "Túl sok idézés; üzenet elvetve."
 #: ../../../../inc/config.php:1043 ../../../../inc/config.php:1046
 #: ../../../..//inc/config.php:1113
 msgid "Too many cross-board links; post discarded."
-msgstr "Túl sok tábla keresztlinkelés; üzenet elvetve."
+msgstr "Túl sok tábla keresztlinkelés. Üzenet elvetve."
 
 #: ../../../../inc/config.php:890 ../../../../inc/config.php:995
 #: ../../../../inc/config.php:986 ../../../../inc/config.php:988
@@ -738,7 +739,7 @@ msgstr "Várnod kell %s másodpercet mielőtt törlöd."
 #: ../../../../inc/config.php:1060 ../../../../inc/config.php:1063
 #: ../../../..//inc/config.php:1130
 msgid "MIME type detection XSS exploit (IE) detected; post discarded."
-msgstr "MIME típus találat XSS exploit (IE) érzékelve; üzenet elvetve."
+msgstr "MIME típus találat XSS exploit (IE) érzékelve. Üzenet elvetve."
 
 #: ../../../../inc/config.php:902 ../../../../inc/config.php:1007
 #: ../../../../inc/config.php:998 ../../../../inc/config.php:1000
@@ -747,7 +748,7 @@ msgstr "MIME típus találat XSS exploit (IE) érzékelve; üzenet elvetve."
 #: ../../../../inc/config.php:1061 ../../../../inc/config.php:1064
 #: ../../../..//inc/config.php:1131
 msgid "Couldn't make sense of the URL of the video you tried to embed."
-msgstr "A videó URL-je amelyet beilleszteni próbáltál, nem értelmezhető."
+msgstr "A beilleszteni próbált videó URL-je nem értelmezhető."
 
 #: ../../../../inc/config.php:903 ../../../../inc/config.php:1008
 #: ../../../../inc/config.php:999 ../../../../inc/config.php:1001
@@ -799,7 +800,7 @@ msgstr "Nem vagy moderátor..."
 msgid ""
 "Invalid username and/or password. Your user may have been deleted or "
 "changed."
-msgstr "Érvénytelen felhasználónév és/vagy jelszó. A fiókod talán törölve lett vagy megváltoztatva."
+msgstr "Érvénytelen felhasználónév és/vagy jelszó. A fiókod talán törölve lett vagy meg lett változtatva."
 
 #: ../../../../inc/config.php:910 ../../../../inc/config.php:1015
 #: ../../../../inc/config.php:1006 ../../../../inc/config.php:1008
@@ -827,7 +828,7 @@ msgstr "A böngésződ nem küldött bemenetet amikor kellett volna."
 #: ../../../..//inc/config.php:1142
 #, php-format
 msgid "The %s field is required."
-msgstr "A %s mező szükséges."
+msgstr "A %s mező kitöltése szükséges."
 
 #: ../../../../inc/config.php:913 ../../../../inc/config.php:1018
 #: ../../../../inc/config.php:1009 ../../../../inc/config.php:1011
@@ -865,7 +866,7 @@ msgstr "Ehhez a funkcióhoz nincs jogosultságod."
 #: ../../../../inc/config.php:1076 ../../../../inc/config.php:1079
 #: ../../../..//inc/config.php:1146
 msgid "That post doesn't exist…"
-msgstr "A hozzászólás nem létezik."
+msgstr "A hozzászólás nem létezik..."
 
 #: ../../../../inc/config.php:917 ../../../../inc/config.php:1022
 #: ../../../../inc/config.php:1013 ../../../../inc/config.php:1015
@@ -978,7 +979,7 @@ msgstr "Hírek"
 #: ../../../../templates/cache/72/7e/271125664718133518fd942f20fb724224e100f8a0d47cb0b52f895ac12f.php:300
 #: ../../../../templates/cache/73/f8/5e3142a8a6f8d7e40422ff577e83b0dedf55a7cb9bc7082839b24f653545.php:75
 msgid "Volunteer log"
-msgstr ""
+msgstr "Önkéntes logja"
 
 #. line 104
 #. line 20
@@ -1186,7 +1187,7 @@ msgstr "Telepített téma: %s"
 #: ../../../..//inc/mod/pages.php:3306
 #, php-format
 msgid "Configuring theme: %s"
-msgstr "Konfiguráló téma: %s"
+msgstr "Téma: %s szerkesztése"
 
 #: ../../../../inc/mod/pages.php:2346 ../../../../inc/mod/pages.php:2493
 #: ../../../../inc/mod/pages.php:2571 ../../../../inc/mod/pages.php:2565
@@ -1225,7 +1226,7 @@ msgstr "Adatbázis hiba:"
 
 #: ../../../../banned.php:4
 msgid "Banned?"
-msgstr "Kitiltva?"
+msgstr "Ki vagyok tiltva?"
 
 #: ../../../../banned.php:5
 msgid "You are not banned."
@@ -1508,7 +1509,7 @@ msgstr "nincs téma"
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:124
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:132
 msgid "by"
-msgstr "-tól"
+msgstr "ettől"
 
 #. line 50
 #: ../../../../templates/cache/f3/ad/68dee281a64ebad9a5c774b53279.php:95
@@ -1516,7 +1517,7 @@ msgstr "-tól"
 #: ../../../../templates/cache/1a/7f/6eb467b2d978da59cfea2fe64f8898a5fb769be35fbb2ec50691da9a3d52.php:157
 #: ../../../../templates/cache/d2/14/70c07e4c5f648cfa0d0663a1f18973ff6f6946363b45332b2627a0fcf273.php:98
 msgid "at"
-msgstr "itt:"
+msgstr "eddig"
 
 #. line 28
 #. line 26
@@ -1844,7 +1845,7 @@ msgstr "Vagy URL"
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:375
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:367
 msgid "Embed"
-msgstr "Beágyaz"
+msgstr "Beágyazás"
 
 #. line 112
 #. line 111
@@ -1855,7 +1856,7 @@ msgstr "Beágyaz"
 #: ../../../../templates/cache/cf/63/151e140d85df674832f4ede3f3e7811b97d4efa91cac6086ca7e8ce65d25.php:342
 #: ../../../../templates/cache/cf/63/151e140d85df674832f4ede3f3e7811b97d4efa91cac6086ca7e8ce65d25.php:353
 msgid "Flags"
-msgstr "Jelölések"
+msgstr "Jelzők"
 
 #. line 116
 #. line 117
@@ -2048,11 +2049,11 @@ msgstr "Üzenetek közötti keresés kikapcsolva"
 #: ../../../../search.php:29 ../../../../search.php:35
 #: ../../../..//search.php:29 ../../../..//search.php:35
 msgid "Wait a while before searching again, please."
-msgstr "Légy szíves várj egy kicsit mielőtt újra használnád a keresőt."
+msgstr "Várj egy keveset mielőtt újra használnád a keresőt."
 
 #: ../../../../search.php:131 ../../../../search.php:135
 msgid "Query too broad."
-msgstr "A bevitt adat túl széles."
+msgstr "A lekérdezés túl széles."
 
 #: ../../../../search.php:152 ../../../../search.php:156
 #: ../../../..//search.php:145
@@ -2065,7 +2066,7 @@ msgstr[1] "%d találat itt:"
 #: ../../../../search.php:163 ../../../../search.php:167
 #: ../../../..//search.php:156
 msgid "No results."
-msgstr "Nincs megjelenítendő eredmény."
+msgstr "Nincs megjeleníthető eredmény."
 
 #. line 115
 #. line 16
@@ -2144,7 +2145,7 @@ msgstr "Keres"
 #: ../../../../inc/mod/pages.php:939 ../../../../inc/mod/pages.php:936
 #: ../../../../inc/mod/pages.php:941 ../../../..//inc/mod/pages.php:1050
 msgid "Ban appeal not found!"
-msgstr "Kitiltási fellebbezés nem található!"
+msgstr "Fellebbezés a kitiltás ellen nem található!"
 
 #: ../../../../inc/mod/pages.php:989
 #: ../../../../templates/cache/72/7e/271125664718133518fd942f20fb724224e100f8a0d47cb0b52f895ac12f.php:265
@@ -2153,7 +2154,7 @@ msgstr "Kitiltási fellebbezés nem található!"
 #: ../../../..//inc/mod/pages.php:1101
 #: ../../../..//templates/cache/c6/d5/bd6f8bef96293d542a01f1ff4272bd7540201fd9d2fb42761155aa62c7d4.php:196
 msgid "Ban appeals"
-msgstr "Kitiltási fellebbezések"
+msgstr "Fellebbezések kitiltások ellen"
 
 #: ../../../../inc/mod/pages.php:1833 ../../../../inc/mod/pages.php:1849
 #: ../../../../inc/mod/pages.php:1850 ../../../../inc/mod/pages.php:1854
@@ -2289,13 +2290,13 @@ msgstr "Spamvédelem"
 #: ../../../..//templates/cache/c6/d5/bd6f8bef96293d542a01f1ff4272bd7540201fd9d2fb42761155aa62c7d4.php:250
 #: ../../../..//templates/cache/c6/d5/bd6f8bef96293d542a01f1ff4272bd7540201fd9d2fb42761155aa62c7d4.php:461
 msgid "Recent posts"
-msgstr "Legutóbbi üzenetek"
+msgstr "Legutóbbi hozzászólások"
 
 #: ../../../../templates/cache/72/7e/271125664718133518fd942f20fb724224e100f8a0d47cb0b52f895ac12f.php:407
 #: ../../../../templates/cache/72/7e/271125664718133518fd942f20fb724224e100f8a0d47cb0b52f895ac12f.php:416
 #: ../../../..//templates/cache/c6/d5/bd6f8bef96293d542a01f1ff4272bd7540201fd9d2fb42761155aa62c7d4.php:468
 msgid "SQL"
-msgstr "Strukturált Lekérdezőnyelv"
+msgstr "SQL"
 
 #. line 164
 #. line 167
@@ -2316,7 +2317,7 @@ msgstr "Kijelentkezés"
 #: ../../../../templates/cache/39/f9/8228f77b382baf1d61c1215dc0f0236e4cdf8cc5e938259785cf3e67d1ca.php:27
 #: ../../../../templates/cache/1a/7f/6eb467b2d978da59cfea2fe64f8898a5fb769be35fbb2ec50691da9a3d52.php:27
 msgid "New post"
-msgstr "Új üzenet"
+msgstr "Új hozzászólás"
 
 #. line 16
 #. line 28
@@ -2456,7 +2457,7 @@ msgstr "Küldd a hírek bejegyzésbe"
 #: ../../../../templates/cache/6a/a4/b13523024ba2660a4f8f05e0c909c55477f675db9a2620075762ac245c91.php:165
 #: ../../../../templates/cache/6a/a4/b13523024ba2660a4f8f05e0c909c55477f675db9a2620075762ac245c91.php:371
 msgid "Staff"
-msgstr "Személyzet"
+msgstr "Vezetőség"
 
 #. line 25
 #. line 68
@@ -2719,7 +2720,7 @@ msgstr "minden tábla"
 #: ../../../../templates/cache/03/13/62c259daae13f7b39b689162b7cd380b2673bee7e05b90f0d34b69a01190.php:125
 #: ../../../../templates/cache/6a/a4/b13523024ba2660a4f8f05e0c909c55477f675db9a2620075762ac245c91.php:149
 msgid "Set"
-msgstr "Beállít"
+msgstr "Beállítva"
 
 #. line 132
 #. line 13
@@ -3025,7 +3026,7 @@ msgstr "Időtartam"
 #: ../../../../templates/cache/ba/55/2553cc018aecf7d29a62331aec4bedc71b646817c7e4c4e7d1a885263676.php:68
 #: ../../../..//templates/cache/44/d4/c8d0e3adf751c9939e73c9e9ba05367a342a3f474cfaee542593467cf382.php:56
 msgid "Unban selected"
-msgstr "Kiválasztottak kitiltását felold"
+msgstr "Kiválasztottak kitiltásának feloldása"
 
 #. line 6
 #. line 4
@@ -3115,7 +3116,7 @@ msgstr "Hiba a kép átméretezése közben!"
 
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:35
 msgid "You were banned! ;_;"
-msgstr "Ki lettél tiltva! ;__;"
+msgstr "Ki voltál tiltva! ;__;"
 
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:41
 msgid "You are banned! ;_;"
@@ -3123,7 +3124,7 @@ msgstr "Ki vagy tiltva! ;__;"
 
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:52
 msgid "You were banned from"
-msgstr "Ki lettél tiltva innen: "
+msgstr "Ki voltál tiltva innen: "
 
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:58
 msgid "You have been banned from"
@@ -3452,7 +3453,7 @@ msgstr "Valószínűleg azért látod ezt az üzenetet mert nem engedélyezted a
 #: ../../../../templates/cache/3a/62/f804928dbcf285e3d5d8d7ae31b1e3a7c78264f270efa9650d31f69c7897.php:44
 #: ../../../..//templates/cache/52/16/e535d72469ec27ddfc5db7e37245cdb0c2d3c0fc1c15fd6be1e32a5ba90c.php:39
 msgid "Report date"
-msgstr "Jelentési dátum"
+msgstr "Jelentés dátuma"
 
 #. line 13
 #: ../../../../templates/cache/3a/62/f804928dbcf285e3d5d8d7ae31b1e3a7c78264f270efa9650d31f69c7897.php:54
@@ -3464,18 +3465,18 @@ msgstr "Jelentette"
 #: ../../../../templates/cache/3a/62/f804928dbcf285e3d5d8d7ae31b1e3a7c78264f270efa9650d31f69c7897.php:73
 #: ../../../..//templates/cache/52/16/e535d72469ec27ddfc5db7e37245cdb0c2d3c0fc1c15fd6be1e32a5ba90c.php:80
 msgid "Discard abuse report"
-msgstr "Visszaélési jelentés elvetése"
+msgstr "Jelentés elvetése"
 
 #. line 29
 #: ../../../../templates/cache/3a/62/f804928dbcf285e3d5d8d7ae31b1e3a7c78264f270efa9650d31f69c7897.php:93
 #: ../../../..//templates/cache/52/16/e535d72469ec27ddfc5db7e37245cdb0c2d3c0fc1c15fd6be1e32a5ba90c.php:98
 msgid "Discard all abuse reports by this IP address"
-msgstr "IP összes visszaélési jelentésének elvetése"
+msgstr "IP összes jelentésének elvetése"
 
 #. line 4
 #: ../../../../templates/cache/f9/e9/d592e3c89e2f76520cf989aa8359d3d143d8fa4996ff1d97b3be51f87a05.php:27
 msgid "From"
-msgstr "Innen"
+msgstr "Ettől"
 
 #. line 34
 #: ../../../../templates/cache/f9/e9/d592e3c89e2f76520cf989aa8359d3d143d8fa4996ff1d97b3be51f87a05.php:105
@@ -3514,7 +3515,7 @@ msgstr "Előnézeti kép"
 #. line 27
 #: ../../../../templates/cache/ae/30/5b1888bb2e8ab6981af945fea88c1ecb021b0dfa8a068ee7adeb9dd3ee7d.php:93
 msgid "Use theme"
-msgstr "Témát használ"
+msgstr "Használd ezt a témát"
 
 #: ../../../../templates/cache/ae/30/5b1888bb2e8ab6981af945fea88c1ecb021b0dfa8a068ee7adeb9dd3ee7d.php:100
 msgid "Reconfigure"
@@ -3544,21 +3545,21 @@ msgstr "Minden tábla"
 
 #: ../../../../templates/cache/37/ea/10898251a344348e062662ce7a7b7f6c8dae001e2c860ce58ea35cedd935.php:223
 msgid "Create user"
-msgstr "Felhasználót létrehoz"
+msgstr "Felhasználó létrehozása"
 
 #. line 103
 #: ../../../../templates/cache/37/ea/10898251a344348e062662ce7a7b7f6c8dae001e2c860ce58ea35cedd935.php:229
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:561
 msgid "Save changes"
-msgstr "Változásokat elment"
+msgstr "Változások elmentése"
 
 #: ../../../../templates/cache/37/ea/10898251a344348e062662ce7a7b7f6c8dae001e2c860ce58ea35cedd935.php:236
 msgid "Delete user"
-msgstr "Felhasználót töröl"
+msgstr "Felhasználó törlése"
 
 #: ../../../../templates/cache/37/ea/10898251a344348e062662ce7a7b7f6c8dae001e2c860ce58ea35cedd935.php:331
 msgid "View more logs for this user."
-msgstr "Több naplóbejegyzés mutatása ettől a felhasználótól."
+msgstr "További naplóbejegyzések a felhasználóról."
 
 #. line 84
 #. line 101
@@ -3568,7 +3569,7 @@ msgstr "Több naplóbejegyzés mutatása ettől a felhasználótól."
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:293
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:279
 msgid "Flag"
-msgstr "Megjelöl"
+msgstr "Jelző"
 
 #. line 87
 #. line 104
@@ -3651,7 +3652,7 @@ msgstr "Utolsó hozzászólás"
 #: ../../../../templates/cache/41/57/9143de5f74d921965e5ff24e0f1ce44a18317fd4937f5d8d65f56337acf3.php:71
 #: ../../../../templates/cache/41/57/9143de5f74d921965e5ff24e0f1ce44a18317fd4937f5d8d65f56337acf3.php:94
 msgid "Creation date"
-msgstr "Készítés dátuma"
+msgstr "Létrehozás dátuma"
 
 #. line 29
 #. line 38
@@ -3735,11 +3736,11 @@ msgstr "Ismeretlen fájl méret meghatározás."
 
 #: ../../../../post.php:519 ../../../..//post.php:621
 msgid "Invalid flag selection!"
-msgstr "Érvénytelen flag lett kiválasztva!"
+msgstr "Érvénytelen jelző lett kiválasztva!"
 
 #: ../../../../post.php:631 ../../../../post.php:633 ../../../..//post.php:745
 msgid "exiftool failed!"
-msgstr "exiftool failed!"
+msgstr "exif alkalamzás hiba!"
 
 #: ../../../../post.php:641 ../../../../post.php:643 ../../../..//post.php:755
 msgid "Could not auto-orient image!"
@@ -3766,7 +3767,7 @@ msgstr "Érvénytelen webm lett felöltve."
 #: ../../../../inc/config.php:1058 ../../../..//inc/config.php:1125
 msgid ""
 "The uploaded webm contains an audio or another type of additional stream."
-msgstr "A feltöltött webm audio vagy egyéb további folyamot tartlmaz."
+msgstr "A feltöltött webm hangot vagy további egyéb folyamot tartalmaz."
 
 #: ../../../../inc/config.php:1052 ../../../../inc/config.php:1056
 #: ../../../../inc/config.php:1059
@@ -3782,7 +3783,7 @@ msgstr "Ugrás felülre"
 
 #: ../../../../templates/cache/cf/63/151e140d85df674832f4ede3f3e7811b97d4efa91cac6086ca7e8ce65d25.php:80
 msgid "Don't show my flag"
-msgstr "Ne mutasd a zászlómat"
+msgstr "Ne mutasd a jelzőmet"
 
 #. line 36
 #: ../../../../templates/cache/41/57/9143de5f74d921965e5ff24e0f1ce44a18317fd4937f5d8d65f56337acf3.php:113
@@ -3796,278 +3797,278 @@ msgstr "(nincs hozzászólás)"
 
 #: ../../../../templates/cache/3a/fa/a15b273b182a2c833d42475af728873be4a7cb0481854a52be6ed9380ea2.php:30
 msgid "There are no active posts."
-msgstr ""
+msgstr "Nincsenek aktív hozzászólások."
 
 #: ../../../../templates/cache/ba/55/2553cc018aecf7d29a62331aec4bedc71b646817c7e4c4e7d1a885263676.php:49
 msgid "Show only bans from boards I volunteer on"
-msgstr ""
+msgstr "Csak azoknak a tábláknak a kitiltásait mutassa, amelyeket kezelhetek"
 
 #. line 16
 #: ../../../../templates/cache/ba/55/2553cc018aecf7d29a62331aec4bedc71b646817c7e4c4e7d1a885263676.php:55
 #: ../../../..//templates/cache/44/d4/c8d0e3adf751c9939e73c9e9ba05367a342a3f474cfaee542593467cf382.php:43
 msgid "Show only active bans"
-msgstr ""
+msgstr "Csak az érvényben lévő kitiltásokat mutassa"
 
 #: ../../../..//claim.php:61
 msgid "Claim"
-msgstr ""
+msgstr "Igényel"
 
 #: ../../../..//claim.php:61
 msgid "Take deserted boards back from their owners"
-msgstr ""
+msgstr "Vedd vissza a kihalt táblákat a tulajdonosuktól"
 
 #: ../../../..//create.php:20
 msgid "Game"
-msgstr ""
+msgstr "Játék"
 
 #: ../../../..//create.php:34
 msgid "Create your board"
-msgstr ""
+msgstr "Hozd létre a táblád"
 
 #: ../../../..//create.php:34
 msgid "before someone else does"
-msgstr ""
+msgstr "mielőtt más megteszi"
 
 #: ../../../..//create.php:61
 msgid "You failed the game"
-msgstr ""
+msgstr "Vesztettél"
 
 #: ../../../..//create.php:63
 msgid "You failed to enter the reCaptcha correctly"
-msgstr ""
+msgstr "Tévesen adtad meg a reCaptcha kódot"
 
 #: ../../../..//create.php:65
 msgid "Invalid URI"
-msgstr ""
+msgstr "Érvénytelen URI"
 
 #: ../../../..//create.php:67
 msgid "Invalid title"
-msgstr ""
+msgstr "Érvénytelen cím"
 
 #: ../../../..//create.php:69
 msgid "Invalid subtitle"
-msgstr ""
+msgstr "Érvénytelen alcím"
 
 #: ../../../..//create.php:71 ../../../..//inc/8chan-mod-pages.php:211
 msgid "Invalid username"
-msgstr ""
+msgstr "Érvénytelen felhasználói név"
 
 #: ../../../..//create.php:75
 msgid "Board already exists!"
-msgstr ""
+msgstr "A tábla már létezik!"
 
 #: ../../../..//create.php:93
 msgid "The username you've tried to enter already exists!"
-msgstr ""
+msgstr "Ez a felhasználónév már foglalt!"
 
 #: ../../../..//create.php:134
 msgid "Success"
-msgstr ""
+msgstr "Sikerült"
 
 #: ../../../..//create.php:134
 msgid "This was a triumph"
-msgstr ""
+msgstr "Ez felér egy győzelemmel"
 
 #: ../../../..//dnsbls_bypass.php:19
 msgid "Bypass DNSBL"
-msgstr ""
+msgstr "DNSBL megkerülése"
 
 #: ../../../..//dnsbls_bypass.php:19
 msgid "Post even if blocked"
-msgstr ""
+msgstr "­"
 
 #: ../../../..//dnsbls_bypass.php:41
 msgid "Success!"
-msgstr ""
+msgstr "Sikerült!"
 
 #: ../../../..//dnsbls_bypass.php:41
 msgid "You may now go back and make your post."
-msgstr ""
+msgstr "Most már visszatérhetsz és hozzászólhatsz."
 
 #: ../../../..//dnsbls_bypass.php:43
 msgid "You failed the CAPTCHA"
-msgstr ""
+msgstr "Téves CAPTCHA"
 
 #: ../../../..//dnsbls_bypass.php:43
 msgid ""
 ". <a href=\"https://8ch.net/dnsbls_bypass.php\">Try again.</a> If it's not "
 "working, email admin@8chan.co for support."
-msgstr ""
+msgstr ". <a href=\"https://8ch.net/dnsbls_bypass.php\">Próbáld újra!</a> Ha nem sikerül, akkor írj  az admin@8chan.co címre!"
 
 #: ../../../..//inc/8chan-mod-pages.php:118
 msgid "Too many tags."
-msgstr ""
+msgstr "Túl sok címke."
 
 #: ../../../..//inc/8chan-mod-pages.php:153
 msgid "Edit tags"
-msgstr ""
+msgstr "Címkék szerkesztése"
 
 #: ../../../..//inc/8chan-mod-pages.php:186
 msgid "Edit reassign"
-msgstr ""
+msgstr "Áthelyezés szerkesztése"
 
 #: ../../../..//inc/8chan-mod-pages.php:214
 msgid "Too many board volunteers!"
-msgstr ""
+msgstr "Túl sok önkéntes!"
 
 #: ../../../..//inc/8chan-mod-pages.php:219
 msgid ""
 "Refusing to create a volunteer with the same username as an existing one."
-msgstr ""
+msgstr "Nem vehetsz fel önkéntest ugyanolyan névvel, amely már létezik."
 
 #: ../../../..//inc/8chan-mod-pages.php:248
 msgid "Volunteer does not exist!"
-msgstr ""
+msgstr "Nincs ilyen nevű önkéntes!"
 
 #: ../../../..//inc/8chan-mod-pages.php:266
 msgid "Edit volunteers"
-msgstr ""
+msgstr "Önkéntesek szerkesztése"
 
 #: ../../../..//inc/8chan-mod-pages.php:290
 msgid "You must enter a flag description!"
-msgstr ""
+msgstr "Meg kell adnod egy leírást a jelzőhöz!"
 
 #: ../../../..//inc/8chan-mod-pages.php:293
 msgid "Flag description too long!"
-msgstr ""
+msgstr "Jelző leírása túl hosszú!"
 
 #: ../../../..//inc/8chan-mod-pages.php:305
 msgid "Flags must be in PNG format."
-msgstr ""
+msgstr "A jelzőnek PNG formátumúnak kell lennie!"
 
 #: ../../../..//inc/8chan-mod-pages.php:309
 msgid "File too large!"
-msgstr ""
+msgstr "Túl nagy fájl!"
 
 #: ../../../..//inc/8chan-mod-pages.php:317
 msgid "Image wrong size!"
-msgstr ""
+msgstr "Rossz képméret!"
 
 #: ../../../..//inc/8chan-mod-pages.php:320
 msgid "Too many flags."
-msgstr ""
+msgstr "Túl sok jelző."
 
 #: ../../../..//inc/8chan-mod-pages.php:359
 msgid "Edit flags"
-msgstr ""
+msgstr "Jelzők szerkesztése"
 
 #: ../../../..//inc/8chan-mod-pages.php:421
 msgid "Edit banners"
-msgstr ""
+msgstr "Bannerek szerkesztése"
 
 #: ../../../..//inc/8chan-mod-pages.php:491
 msgid "Sorry, max 200 wordfilters allowed."
-msgstr ""
+msgstr "Bocs, de maximum csak 200 szószűrő engedélyezett."
 
 #: ../../../..//inc/8chan-mod-pages.php:499
 #, php-format
 msgid "Sorry, %s is too long. Max replacement is 255 characters"
-msgstr ""
+msgstr "Bocs, de ez: %s túl hosszú. Maximum 255 karakter lehet a csere hossza."
 
 #: ../../../..//inc/8chan-mod-pages.php:507
 msgid ""
 "Wordfilters may not wordfilter previous wordfilters. For example, if a "
 "filters to bb and b filters to cc, that is not allowed."
-msgstr ""
+msgstr "A szószűrők nem ágyazhatók egymásba. Például ha a-t cserélsz bb-re és b-t cserélnél cc-re, akkor az nem megengedett."
 
 #: ../../../..//inc/8chan-mod-pages.php:606
 #, php-format
 msgid "Off-site link \"%s\" is not allowed in the board stylesheet"
-msgstr ""
+msgstr "A külső link \"%s\" nem engedélyezett a stíluslapon."
 
 #: ../../../..//inc/8chan-mod-pages.php:627
 #, php-format
 msgid "Potentially unsafe import \"%s\" is not allowed in the board stylesheet"
-msgstr ""
+msgstr "Feltételezhetően veszélyes importálás \"%s\" nem engedélyezett a stíluslapon."
 
 #: ../../../..//inc/8chan-mod-pages.php:676
 msgid "Board configuration"
-msgstr ""
+msgstr "Tábla szerkesztése"
 
 #: ../../../..//inc/config.php:1105
 msgid ""
 "Your request looks automated; Post discarded. Try refreshing the page. If "
 "that doesn't work, please post the board, thread and browser this error "
 "occurred on on /operate/."
-msgstr ""
+msgstr "A kérésed automatizáltnak tűnik; Hozzászólás elvetve. Próbáld meg frissíteni az oldalt. Ha ez nem működik, akkor jelentsd a hibát a tábla, szál és böngésző megadásával itt: /operate/"
 
 #: ../../../..//inc/config.php:1111
 #, php-format
 msgid "OPs are required to have at least %d links on this board."
-msgstr ""
+msgstr "OPnak minimum %d linket meg kell adnia ezen a táblán."
 
 #: ../../../..//inc/config.php:1126
 #, php-format
 msgid "The uploaded webm is longer than %d seconds."
-msgstr ""
+msgstr "A feltöltött webm hosszabb mint %d másodperc."
 
 #: ../../../..//inc/config.php:1133
 msgid "Uploading files is disabled on this board."
-msgstr ""
+msgstr "Fájl feltöltés nem engedélyezett ezen a táblán."
 
 #: ../../../..//inc/database.php:95
 msgid "Could not connect to the database. Please try again later."
-msgstr ""
+msgstr "Az adatbázis nem elérhető. Próbáld meg később!"
 
 #: ../../../..//inc/database.php:159
 msgid ""
 "The database returned an error while processing your request. Please try "
 "again later."
-msgstr ""
+msgstr "Az adatbázis hibaüzenettel tért vissza a kérésed feldolgozása során. Próbálkozz később!"
 
 #: ../../../..//inc/mod/pages.php:642 ../../../..//inc/mod/pages.php:669
 #: ../../../..//inc/mod/pages.php:706
 #: ../../../..//templates/cache/c6/d5/bd6f8bef96293d542a01f1ff4272bd7540201fd9d2fb42761155aa62c7d4.php:241
 msgid "Board log"
-msgstr ""
+msgstr "Tábla napló"
 
 #: ../../../..//inc/mod/pages.php:877
 msgid "Could not find that post."
-msgstr ""
+msgstr "Nem található a hozzászólás."
 
 #: ../../../..//inc/mod/pages.php:2516
 #, php-format
 msgid ""
 "<a href=\"%s\" title=\"View content\" target=\"_new\">&gt;&gt;&gt;/%s/</a> "
 "%s reported %d time(s)."
-msgstr ""
+msgstr "<a href=\"%s\" title=\"View content\" target=\"_new\">&gt;&gt;&gt;/%s/</a> %s jelentve %d alkalommal."
 
 #: ../../../..//inc/mod/pages.php:2519
 msgid "reply"
-msgstr ""
+msgstr "válasz"
 
 #: ../../../..//post.php:51
 msgid "Users are not allowed to delete their own posts on this board."
-msgstr ""
+msgstr "A felhasználók nem törölhetik a hozzászólásaikat ezen a táblán."
 
 #: ../../../..//post.php:202
 msgid "Close window"
-msgstr ""
+msgstr "Ablak bezárása"
 
 #: ../../../..//post.php:202
 msgid "Report submitted!"
-msgstr ""
+msgstr "Jelentés elküldve!"
 
 #: ../../../..//post.php:451
 msgid ""
 "It is required to enter a subject when starting a new thread on this board."
-msgstr ""
+msgstr "A Téma mező kitöltése szükséges új szál létrehozásához ezen a táblán."
 
 #: ../../../..//post.php:628
 msgid "You must choose a flag to post on this board!"
-msgstr ""
+msgstr "Jelző választása kötelező ezen a táblán!"
 
 #: ../../../..//report.php:9
 msgid "Bad request."
-msgstr ""
+msgstr "Hibás kérelem."
 
 #: ../../../..//templates/cache/32/56/2f0f3c8b5fda2a269f57b553b9db686212ecf685202bccc86840fe002cc6.php:33
 msgid "Spoiler All"
-msgstr ""
+msgstr "Mind Spoiler"
 
 #: ../../../..//templates/cache/32/56/2f0f3c8b5fda2a269f57b553b9db686212ecf685202bccc86840fe002cc6.php:33
 msgid "Are you sure you want to spoiler all images on this post?"
-msgstr ""
+msgstr "Biztos vagy benne, hogy a hozzászólás minden képét spoilerezni szeretnéd?"
 
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:68
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:93
@@ -4076,509 +4077,509 @@ msgstr ""
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:339
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:379
 msgid "(optional)"
-msgstr ""
+msgstr "(nem kötelező)"
 
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:383
 msgid "(or file)"
-msgstr ""
+msgstr "(vagy fájl)"
 
 #. line 143
 #. line 161
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:402
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:412
 msgid "Options"
-msgstr ""
+msgstr "Lehetőségek"
 
 #. line 147
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:409
 msgid "No bump"
-msgstr ""
+msgstr "Ne bumpold"
 
 #. line 152
 #. line 171
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:420
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:433
 msgid "Spoiler images"
-msgstr ""
+msgstr "Kép spoilerezése"
 
 #. line 157
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:433
 msgid "No country flag"
-msgstr ""
+msgstr "Ne legyen országzászló"
 
 #. line 162
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:446
 msgid "Dice"
-msgstr ""
+msgstr "Kocka"
 
 #: ../../../..//templates/cache/40/d7/8979a721d47d6dc0074e99fa533df009682d0efe593ed080d93054c3c1a1.php:150
 #: ../../../..//templates/cache/99/20/1287c13fc1fc4c09d45bc069818039e64d4278df360670cb98d50bb03e83.php:272
 msgid "Catalog"
-msgstr ""
+msgstr "Katalógus"
 
 #. line 12
 #: ../../../..//templates/cache/47/e3/18c93ab0fe6247ec483a4ff4d5fc128fc6c9690fb728011c6928ea19cfc2.php:49
 msgid "Global"
-msgstr ""
+msgstr "Globális"
 
 #. line 46
 #: ../../../..//templates/cache/99/20/1287c13fc1fc4c09d45bc069818039e64d4278df360670cb98d50bb03e83.php:204
 msgid "Go to bottom"
-msgstr ""
+msgstr "Ugrás alulra"
 
 #: ../../../..//templates/cache/b7/fa/7447787b14d16dd6dce8f636ada2dbc24066478fc0ab8622ae653f7f1cd9.php:25
 msgid "Post last edited at"
-msgstr ""
+msgstr "Hozzászólás utóljára szerkesztve:"
 
 #: ../../../..//templates/cache/b7/fa/7447787b14d16dd6dce8f636ada2dbc24066478fc0ab8622ae653f7f1cd9.php:36
 msgid "Board rules permit this content"
-msgstr ""
+msgstr "A tábla szabályai engedélyezik ezt a tartalmat"
 
 #: ../../../..//templates/cache/b7/fa/7447787b14d16dd6dce8f636ada2dbc24066478fc0ab8622ae653f7f1cd9.php:45
 msgid "Global rules permit this content"
-msgstr ""
+msgstr "A globális szabályok engedélyezik ezt a tartalmat"
 
 #: ../../../..//templates/cache/25/ce/20297e1c09b3c82a277642530f4bd5b1f83cd763d5456c0ee2cedaff2519.php:72
 msgid "Moderation log"
-msgstr "Moderációs napló"
+msgstr "Moderálási napló"
 
 #. line 124
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:334
 msgid "= required field"
-msgstr ""
+msgstr "= kötelező mező"
 
 #. line 128
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:341
 msgid "Show post options &amp; limits"
-msgstr ""
+msgstr "További lehetőségek mutatása"
 
 #. line 144
 #. line 155
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:373
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:401
 msgid "(replaces files and can be used instead)"
-msgstr ""
+msgstr "(fájl feltöltés helyett használható)"
 
 #. line 150
 #. line 42
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:386
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:195
 msgid "Oekaki"
-msgstr ""
+msgstr "Saját rajz"
 
 #. line 153
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:392
 msgid "Close oekaki applet"
-msgstr ""
+msgstr "Saját rajz alkalmazás bezárása"
 
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:394
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:396
 msgid "Show oekaki applet"
-msgstr ""
+msgstr "Saját rajz alkalmazás betöltése"
 
 #. line 166
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:420
 msgid "Do not bump"
-msgstr ""
+msgstr "Ne bumpold"
 
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:422
 msgid "(you can also write sage in the email field)"
-msgstr ""
+msgstr "(Email mezőbe írt sage kifejezéssel azonos)"
 
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:435
 msgid "(this replaces the thumbnails of your images with question marks)"
-msgstr ""
+msgstr "(kérdőjellel helyettesíti a képeid előnézetét)"
 
 #. line 176
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:448
 msgid "Hide country"
-msgstr ""
+msgstr "Ország elrejtése"
 
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:450
 msgid "(this board displays your country when you post if this is unchecked)"
-msgstr ""
+msgstr "(ez a tábla mutatja az országodat, ha ezt nem jelölöd be)"
 
 #. line 197
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:514
 msgid "dice"
-msgstr ""
+msgstr "kocka"
 
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:516
 msgid "sides"
-msgstr ""
+msgstr "oldal"
 
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:518
 msgid "modifier"
-msgstr ""
+msgstr "módosító"
 
 #. line 212
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:544
 msgid "(For file and post deletion.)"
-msgstr ""
+msgstr "(Fájl és hozzászólás törléséhez.)"
 
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:558
 msgid "Allowed file types:"
-msgstr ""
+msgstr "Engedélyezett fájltípusok:"
 
 #. line 220
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:568
 msgid "Max filesize is"
-msgstr ""
+msgstr "Maximális fájlméret:"
 
 #. line 221
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:574
 msgid "Max image dimensions are"
-msgstr ""
+msgstr "Maximális képméret:"
 
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:586
 msgid "You may upload %max_images% per post."
-msgstr ""
+msgstr "Hozzászólásonként  %max_images% képet tölthetsz fel."
 
 #. line 12
 #: ../../../..//templates/cache/42/1f/5fa20f14b978b35dcbbfd8664e4fe966777ad87a75110db74ecffa567a30.php:41
 msgid "Discard all abuse reports on this content"
-msgstr ""
+msgstr "Vesd el az ehhez a tartalomhoz kapcsolódó összes jelentést "
 
 #: ../../../..//templates/cache/42/1f/5fa20f14b978b35dcbbfd8664e4fe966777ad87a75110db74ecffa567a30.php:63
 msgid "Demote global abuse reports to local reports"
-msgstr ""
+msgstr "Sorold vissza a globális jelentéseket helyi szintre"
 
 #: ../../../..//templates/cache/42/1f/5fa20f14b978b35dcbbfd8664e4fe966777ad87a75110db74ecffa567a30.php:74
 #: ../../../..//templates/cache/52/16/e535d72469ec27ddfc5db7e37245cdb0c2d3c0fc1c15fd6be1e32a5ba90c.php:119
 msgid "Content is permitted by board rules"
-msgstr ""
+msgstr "A tartalom megfelel a tábla szabályainak"
 
 #: ../../../..//templates/cache/42/1f/5fa20f14b978b35dcbbfd8664e4fe966777ad87a75110db74ecffa567a30.php:80
 msgid "Reports have all been dismissed locally"
-msgstr ""
+msgstr "Az összes jelentés el lett vetve helyi szinten"
 
 #: ../../../..//templates/cache/42/1f/5fa20f14b978b35dcbbfd8664e4fe966777ad87a75110db74ecffa567a30.php:97
 msgid "Promote all local abuse reports to global reports"
-msgstr ""
+msgstr "Továbbítsd az összes helyi jelentést globális szintre"
 
 #: ../../../..//templates/cache/42/1f/5fa20f14b978b35dcbbfd8664e4fe966777ad87a75110db74ecffa567a30.php:108
 #: ../../../..//templates/cache/52/16/e535d72469ec27ddfc5db7e37245cdb0c2d3c0fc1c15fd6be1e32a5ba90c.php:152
 msgid "Content is permitted by global rules"
-msgstr ""
+msgstr "A tartalom megfelel a globális szabályoknak"
 
 #: ../../../..//templates/cache/42/1f/5fa20f14b978b35dcbbfd8664e4fe966777ad87a75110db74ecffa567a30.php:114
 msgid "Reports are already global reports"
-msgstr ""
+msgstr "A jelentések már globális szintűek"
 
 #. line 46
 #: ../../../..//templates/cache/42/1f/5fa20f14b978b35dcbbfd8664e4fe966777ad87a75110db74ecffa567a30.php:140
 msgid "Ignore and dismiss local abuse reports on this post for this board"
-msgstr ""
+msgstr "Hagyd figyelmen kívül vagy vesd el az erre a posztra vonatkozó összes helyi jelentést ezen a táblán"
 
 #. line 51
 #: ../../../..//templates/cache/42/1f/5fa20f14b978b35dcbbfd8664e4fe966777ad87a75110db74ecffa567a30.php:158
 msgid "Ignore and demote global abuse reports on this post"
-msgstr ""
+msgstr "Hagyd figyelmen kívül vagy vesd el az erre a posztra vonatkozó összes globális jelentést "
 
 #. line 55
 #: ../../../..//templates/cache/42/1f/5fa20f14b978b35dcbbfd8664e4fe966777ad87a75110db74ecffa567a30.php:172
 msgid "Ignore and dismiss local AND global abuse reports on this post"
-msgstr ""
+msgstr "Hagyd figyelmen kívül vagy vesd el az erre a posztra vonatkozó összes helyi ÉS globális jelentést"
 
 #: ../../../..//templates/cache/52/16/e535d72469ec27ddfc5db7e37245cdb0c2d3c0fc1c15fd6be1e32a5ba90c.php:30
 msgid "No reason given."
-msgstr ""
+msgstr "Nincs indok."
 
 #: ../../../..//templates/cache/52/16/e535d72469ec27ddfc5db7e37245cdb0c2d3c0fc1c15fd6be1e32a5ba90c.php:126
 msgid "Demote global abuse report to a local report"
-msgstr ""
+msgstr "Sorold vissza a globális jelentést helyi szintre"
 
 #: ../../../..//templates/cache/52/16/e535d72469ec27ddfc5db7e37245cdb0c2d3c0fc1c15fd6be1e32a5ba90c.php:136
 msgid "Report has already been dismissed locally"
-msgstr ""
+msgstr "A jelentés már el lett vetve helyi szinten"
 
 #: ../../../..//templates/cache/52/16/e535d72469ec27ddfc5db7e37245cdb0c2d3c0fc1c15fd6be1e32a5ba90c.php:159
 msgid "Report is already a global report"
-msgstr ""
+msgstr "A jelentés már globális szinten van"
 
 #: ../../../..//templates/cache/52/16/e535d72469ec27ddfc5db7e37245cdb0c2d3c0fc1c15fd6be1e32a5ba90c.php:165
 msgid "Promote local abuse report to a global report"
-msgstr ""
+msgstr "Továbbítsd a helyi jelentést globális szintre"
 
 #. line 7
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:33
 msgid "URI"
-msgstr ""
+msgstr "URI"
 
 #. line 13
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:45
 msgid "Title"
-msgstr ""
+msgstr "Cím"
 
 #. line 19
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:57
 msgid "Subtitle"
-msgstr ""
+msgstr "Alcím"
 
 #. line 27
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:71
 msgid "Country flags"
-msgstr ""
+msgstr "Országzászlók"
 
 #. line 28
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:79
 msgid "/pol/-style user flags"
-msgstr ""
+msgstr "jelzők mint /pol/-on"
 
 #. line 29
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:87
 msgid "Forced anonymous"
-msgstr ""
+msgstr "Erőltetett anonimitás"
 
 #. line 30
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:95
 msgid "YouTube/Voocaroo embedding"
-msgstr ""
+msgstr "YouTube/Voocaroo beágyazás"
 
 #. line 31
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:103
 msgid "Require image for OP"
-msgstr ""
+msgstr "Legyen szükség képre új szál nyitásához"
 
 #. line 32
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:111
 msgid "Require subject for OP"
-msgstr ""
+msgstr "Legyen szükség Témára új szál nyitásához"
 
 #. line 33
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:119
 msgid "Require user/country flag for all posts"
-msgstr ""
+msgstr "Jelző/országzászló megkövetelése hozzászóláshoz"
 
 #. line 34
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:127
 msgid "Disable images"
-msgstr ""
+msgstr "Képek letiltása"
 
 #. line 35
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:135
 msgid "Poster ID's"
-msgstr ""
+msgstr "Felhasználói azonosítók"
 
 #. line 36
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:143
 msgid "Display SAGE! after saged posts"
-msgstr ""
+msgstr "Legyen SAGE! felirat zsályázott hozzászólásnál"
 
 #. line 37
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:151
 msgid "Automatically convert ... to …"
-msgstr ""
+msgstr "Automatikusan alakítsa át: ... ezzé: …"
 
 #. line 38
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:159
 msgid "Disallow combining characters (\"Zalgo\", Vietnamese text)"
-msgstr ""
+msgstr "Karakterek összekapcsolásának tiltása (\"Zalgo\", Vietnámi szöveg)"
 
 #. line 39
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:167
 msgid "No index"
-msgstr ""
+msgstr "Ne indexelje"
 
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:169
 msgid "Hide from boards index<br/>and do not index in search engines"
-msgstr ""
+msgstr "Rejtse el a táblák közül<br/>és zárja ki a keresőmotorokat"
 
 #. line 40
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:177
 msgid "Archive my board on 8archive.moe"
-msgstr ""
+msgstr "Archiváld a táblám itt: 8archive.moe"
 
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:179
 msgid "This archives your board on 8archive.moe if you opt in"
-msgstr ""
+msgstr "Archiválja a táblád a 8archive.moe címen, ha szeretnéd"
 
 #. line 41
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:187
 msgid "[code] tags"
-msgstr ""
+msgstr "[code] tagek"
 
 #. line 43
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:203
 msgid "Format math between $$"
-msgstr ""
+msgstr "Matematikai (LaTex) formulák $$ között"
 
 #. line 44
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:211
 msgid "Allow SWF uploading"
-msgstr ""
+msgstr "SWF feltöltés engedélyezése"
 
 #. line 45
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:219
 msgid "Allow PDF uploading"
-msgstr ""
+msgstr "PDF feltöltés engedélyezése"
 
 #. line 46
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:227
 msgid "Enable dice rolling"
-msgstr ""
+msgstr "Kockavetés engedélyezése"
 
 #. line 47
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:235
 msgid "Don't allow users to repost images"
-msgstr ""
+msgstr "A hozzászólók nem tölthetik fel többször ugyanazt a képet"
 
 #. line 48
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:243
 msgid "Allow a poster to delete his own posts"
-msgstr ""
+msgstr "A hozzászóló törölheti a saját hozzászólását"
 
 #. line 49
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:251
 msgid "Allow posters to post via the Tor onion router"
-msgstr ""
+msgstr "A hozzászólások engedélyezettek a Tor hálózaton keresztül"
 
 #. line 50
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:259
 msgid "Enable CAPTCHA"
-msgstr ""
+msgstr "CAPTCHA "
 
 #. line 51
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:267
 msgid "Enable CAPTCHA for thread creation only"
-msgstr ""
+msgstr "CAPTCHA csak szál létrehozásához"
 
 #. line 52
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:275
 msgid "Public bans"
-msgstr ""
+msgstr "Nyilvános kitiltások"
 
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:277
 msgid "Displays your bans for the public"
-msgstr ""
+msgstr "Nyilvánossá teszi a kitiltásaidat"
 
 #. line 53
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:285
 msgid "Public action log"
-msgstr ""
+msgstr "Nyilvános tevékenységnapló"
 
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:287
 msgid "Displays all actions to the public"
-msgstr ""
+msgstr "Minden tevékenységed nyilvános lesz"
 
 #. line 54
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:303
 msgid "Page count"
-msgstr ""
+msgstr "Oldalak száma"
 
 #. line 55
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:324
 msgid "Bump limit"
-msgstr ""
+msgstr "Autozsálya"
 
 #. line 56
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:345
 msgid "Language"
-msgstr ""
+msgstr "Nyelv"
 
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:347
 msgid ""
 "To contribute translations, register at <a "
 "href=\"https://www.transifex.com/projects/p/tinyboard-vichan-"
 "devel/\">Transifex</a>"
-msgstr ""
+msgstr "Ha részt szeretnél venni a fordításban, regisztrálj a <a href=\"https://www.transifex.com/projects/p/tinyboard-vichan-devel/\">Transifex</a>en"
 
 #. line 65
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:384
 msgid "Max images per post"
-msgstr ""
+msgstr "Képek száma hozzászólásonként, maximum"
 
 #. line 69
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:408
 msgid "Spam settings"
-msgstr ""
+msgstr "Spam beállítások"
 
 #. line 70
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:412
 msgid "Early 404"
-msgstr ""
+msgstr "Korai 404"
 
 #. line 71
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:420
 msgid "Max threads per hour board-wide"
-msgstr ""
+msgstr "Óránként maximum ennyi szál nyitható"
 
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:446
 msgid "Edit board banners"
-msgstr ""
+msgstr "Bannerek szerkesztése"
 
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:452
 msgid "Edit board flags"
-msgstr ""
+msgstr "Tábla jelzőinek szerkesztése"
 
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:458
 msgid "Edit board volunteers"
-msgstr ""
+msgstr "Önkéntesek szerkesztése"
 
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:464
 msgid "Edit board tags"
-msgstr ""
+msgstr "Címkék szerkesztése"
 
 #. line 81
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:470
 msgid "Default poster name"
-msgstr ""
+msgstr "Hozzászólók alapértelmezett neve"
 
 #. line 82
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:476
 msgid "Board announcement"
-msgstr ""
+msgstr "Hirdetmény"
 
 #. line 83
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:482
 msgid "Rules"
-msgstr ""
+msgstr "Szabályok"
 
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:484
 msgid "Allowed tags:"
-msgstr ""
+msgstr "Engedélyezett html tagek:"
 
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:486
 msgid "Rules will appear at:"
-msgstr ""
+msgstr "A szabályok megtalálhatók itt:"
 
 #. line 84
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:496
 msgid "Stylesheet"
-msgstr ""
+msgstr "Stíluslap"
 
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:498
 msgid "note: does not validate CSS"
-msgstr ""
+msgstr "figyelem: nem validálja a CCS-t"
 
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:500
 msgid "Allowed URLs:"
-msgstr ""
+msgstr "Engedélyezett URLek:"
 
 #. line 88
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:511
 msgid "Wordfilters"
-msgstr ""
+msgstr "Szószűrők"
 
 #. line 89
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:515
 msgid "Replace"
-msgstr ""
+msgstr "Mit"
 
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:517
 msgid "With"
-msgstr ""
+msgstr "Mire"
 
 #. line 102
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:557
 msgid "Add another wordfilter"
-msgstr ""
+msgstr "További szószűrő"
 
 #: ../../../..//templates/cache/c6/d5/bd6f8bef96293d542a01f1ff4272bd7540201fd9d2fb42761155aa62c7d4.php:232
 msgid "User actions log"
-msgstr ""
+msgstr "Felhasználói tevékenységnapló"
 
 #: ../../../..//templates/cache/c6/d5/bd6f8bef96293d542a01f1ff4272bd7540201fd9d2fb42761155aa62c7d4.php:363
 #: ../../../..//templates/cache/c6/d5/bd6f8bef96293d542a01f1ff4272bd7540201fd9d2fb42761155aa62c7d4.php:380
 msgid "settings"
-msgstr ""
+msgstr "beállítások"
