@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # cicus, 2014
 # limbobarrage <ijynyjdl@grr.la>, 2014
@@ -11,10 +11,9 @@ msgstr ""
 "Project-Id-Version: infinity\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-10-18 13:47+0200\n"
-"PO-Revision-Date: 2015-03-26 11:51+0000\n"
-"Last-Translator: cicus\n"
-"Language-Team: Hungarian (Hungary) (http://www.transifex.com/projects/p/"
-"infinity/language/hu_HU/)\n"
+"PO-Revision-Date: 2015-04-01 23:22+0000\n"
+"Last-Translator: copypaste <admin@8chan.co>\n"
+"Language-Team: Hungarian (Hungary) (http://www.transifex.com/projects/p/infinity/language/hu_HU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -834,10 +833,7 @@ msgstr "Törlés"
 msgid ""
 "Are you sure you want to erase your storage? This involves your hidden "
 "threads, watched threads, post password and many more."
-msgstr ""
-"Biztos vagy benne, hogy törölni akarod a tárhelyedet? Ez magába foglalja a "
-"rejtett szálaidat, figyelt szálaidat, hozzászólási jelszavad és még számos "
-"egyebet."
+msgstr "Biztos vagy benne, hogy törölni akarod a tárhelyedet? Ez magába foglalja a rejtett szálaidat, figyelt szálaidat, hozzászólási jelszavad és még számos egyebet."
 
 #: ../../../../js/options/user-css.js:14
 msgid "User CSS"
@@ -857,16 +853,13 @@ msgstr "Add meg a saját CSS szabályaidat..."
 msgid ""
 "If you want to make a redistributable style, be sure to\n"
 "   have a Yotsuba B theme selected."
-msgstr ""
-"Ha terjeszthető stílust szerenél létrehozni, \n"
-"győződj meg róla, hogy a Yotsuba B téma van kiválasztva."
+msgstr "Ha terjeszthető stílust szerenél létrehozni, \ngyőződj meg róla, hogy a Yotsuba B téma van kiválasztva."
 
 #: ../../../../js/options/user-css.js:47
 #: ../../../../js//options/user-css.js:123
 #: ../../../../js/options/user-css.js:125
 msgid "You can include CSS files from remote servers, for example:"
-msgstr ""
-"Lehetőséged van CSS fájlt használni távoli szerverről is, a következőképpen:"
+msgstr "Lehetőséged van CSS fájlt használni távoli szerverről is, a következőképpen:"
 
 #: ../../../../js/options/user-js.js:14 ../../../../js//options/user-js.js:14
 msgid "User JS"
@@ -884,15 +877,12 @@ msgstr "Add meg a saját Javascript kódod..."
 msgid ""
 "Have a backup of your storage somewhere, as messing here\n"
 "   may render you this website unusable."
-msgstr ""
-"Legyen egy biztonsági mentésed a tárhelyedről, arra az esetre,\n"
-"ha az itteni ténykedésed okán a weboldal használhatatlanná válna."
+msgstr "Legyen egy biztonsági mentésed a tárhelyedről, arra az esetre,\nha az itteni ténykedésed okán a weboldal használhatatlanná válna."
 
 #: ../../../../js/options/user-js.js:56 ../../../../js//options/user-js.js:53
 #: ../../../../js/options/user-js.js:53
 msgid "You can include JS files from remote servers, for example:"
-msgstr ""
-"Lehetőséged van JS fájlok használatára távoli szerverről, a következőképpen:"
+msgstr "Lehetőséged van JS fájlok használatára távoli szerverről, a következőképpen:"
 
 #: ../../../../js/id_colors.js:6 ../../../../js/id_colors.js:12
 #: ../../../../js//id_colors.js:6 ../../../../js//id_colors.js:12
@@ -1041,11 +1031,7 @@ msgid ""
 "The server took too long to submit your post. Your post was probably still "
 "submitted. If it wasn't, 8chan might be experiencing issues right now -- "
 "please try your post again later. Error information: "
-msgstr ""
-"A szervernek túl hosszú időbe telt feldolgozni a hozzászólásod. Habár "
-"meglehet, hogy sikerült. Ha mégsem, akkor valószínű, hogy jelenleg valami "
-"probléma áll fenn a 8chan rendszerében. Próbáld meg később újra elküldeni. "
-"Hiba információ:"
+msgstr "A szervernek túl hosszú időbe telt feldolgozni a hozzászólásod. Habár meglehet, hogy sikerült. Ha mégsem, akkor valószínű, hogy jelenleg valami probléma áll fenn a 8chan rendszerében. Próbáld meg később újra elküldeni. Hiba információ:"
 
 #: ../../../../js//auto-reload.js:41 ../../../../js/auto-reload.js:52
 msgid "Auto update"
@@ -1127,9 +1113,7 @@ msgstr "Húzd a megfelelő helyre a táblákat a rendezéshez."
 
 #: ../../../../js//options/general.js:18 ../../../../js/options/general.js:18
 msgid "Note: Most option changes will only take effect on future page loads."
-msgstr ""
-"Figyelem: A legtöbb beállítás módosítás csak a lap frissítése után fog "
-"működni."
+msgstr "Figyelem: A legtöbb beállítás módosítás csak a lap frissítése után fog működni."
 
 #: ../../../../js//options/user-css.js:15
 #: ../../../../js/options/user-css.js:15
@@ -1156,32 +1140,24 @@ msgstr "Alkalmazza a stílust az összes táblán, ne csak a jelenlegin"
 msgid ""
 "If you want to make a redistributable style, be sure to\n"
 "have a Yotsuba B theme selected."
-msgstr ""
-"Ha terjeszthető stílust szeretnél létrehozni, győződj meg róla,\n"
-"hogy a Yotsuba B téma van kiválasztva."
+msgstr "Ha terjeszthető stílust szeretnél létrehozni, győződj meg róla,\nhogy a Yotsuba B téma van kiválasztva."
 
 #: ../../../../js//options/user-css.js:122
 #: ../../../../js/options/user-css.js:124
 msgid "These will be applied on top of whatever theme you choose below."
-msgstr ""
-"Mindenképpen alkalmazva lesz, függetlenül attól, hogy milyen témát "
-"választottál."
+msgstr "Mindenképpen alkalmazva lesz, függetlenül attól, hogy milyen témát választottál."
 
 #: ../../../../js//options/user-js.js:16 ../../../../js/options/user-js.js:16
 msgid ""
 "Do not paste code here unless you absolutely trust the source or have read "
 "it yourself!"
-msgstr ""
-"Ne illessz be ide kódot, csak ha teljes mértékben megbízol a forrásában vagy "
-"magad is átnézted!"
+msgstr "Ne illessz be ide kódot, csak ha teljes mértékben megbízol a forrásában vagy magad is átnézted!"
 
 #: ../../../../js//options/user-js.js:16 ../../../../js/options/user-js.js:16
 msgid ""
 "Untrusted code pasted here could do malicious things such as spam the site "
 "under your IP."
-msgstr ""
-"A megbízhatatlan kód rosszindulatú lehet, például telespammelheti az oldalt "
-"az IP címedet felhasználva."
+msgstr "A megbízhatatlan kód rosszindulatú lehet, például telespammelheti az oldalt az IP címedet felhasználva."
 
 #: ../../../../js//options/user-js.js:24 ../../../../js/options/user-js.js:24
 msgid "Save custom Javascript"

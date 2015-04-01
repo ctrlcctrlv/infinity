@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Zero <mr.nobody@paradise.net.nz>, 2014
 msgid ""
@@ -9,10 +9,9 @@ msgstr ""
 "Project-Id-Version: infinity\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-10-18 13:47+0200\n"
-"PO-Revision-Date: 2015-03-17 13:11+0000\n"
+"PO-Revision-Date: 2015-04-01 23:22+0000\n"
 "Last-Translator: copypaste <admin@8chan.co>\n"
-"Language-Team: English (New Zealand) (http://www.transifex.com/projects/p/"
-"infinity/language/en_NZ/)\n"
+"Language-Team: English (New Zealand) (http://www.transifex.com/projects/p/infinity/language/en_NZ/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -336,9 +335,7 @@ msgstr "Delete all posts by IP across all boards"
 msgid ""
 "Are you sure you want to delete all posts by this IP address, across all "
 "boards?"
-msgstr ""
-"Are you sure you want to delete all posts by this IP address, across all "
-"boards?"
+msgstr "Are you sure you want to delete all posts by this IP address, across all boards?"
 
 #: ../../../../inc/display.php:490 ../../../../inc/display.php:512
 #: ../../../../inc/display.php:515 ../../../../inc/display.php:519
@@ -439,9 +436,7 @@ msgstr "New Reply"
 msgid ""
 "All trademarks, copyrights, comments, and images on this page are owned by "
 "and are the responsibility of their respective parties."
-msgstr ""
-"All trademarks, copyrights, comments, and images on this page are owned by "
-"and are the responsibility of their respective parties."
+msgstr "All trademarks, copyrights, comments, and images on this page are owned by and are the responsibility of their respective parties."
 
 #. * ====================
 #. *  Error messages
@@ -810,9 +805,7 @@ msgstr "You seem to have mistyped the verification."
 msgid ""
 "You are only allowed to unban %s users at a time. You tried to unban %u "
 "users."
-msgstr ""
-"You are only allowed to unban %s users at a time. You tried to unban %u "
-"users."
+msgstr "You are only allowed to unban %s users at a time. You tried to unban %u users."
 
 #: ../../../../inc/config.php:907 ../../../../inc/config.php:1012
 #: ../../../../inc/config.php:1003 ../../../../inc/config.php:1005
@@ -839,9 +832,9 @@ msgstr "You are not a mod…"
 #: ../../../../inc/config.php:1069 ../../../../inc/config.php:1072
 #: ../../../..//inc/config.php:1139 ../../../../inc/config.php:1140
 msgid ""
-"Invalid username and/or password. Your user may have been deleted or changed."
-msgstr ""
-"Invalid username and/or password. Your user may have been deleted or changed."
+"Invalid username and/or password. Your user may have been deleted or "
+"changed."
+msgstr "Invalid username and/or password. Your user may have been deleted or changed."
 
 #: ../../../../inc/config.php:910 ../../../../inc/config.php:1015
 #: ../../../../inc/config.php:1006 ../../../../inc/config.php:1008
@@ -2292,9 +2285,7 @@ msgstr "Debug: APC"
 msgid ""
 "Your code contained PHP syntax errors. Please go back and correct them. PHP "
 "says: "
-msgstr ""
-"Your code contained PHP syntax errors. Please go back and correct them. PHP "
-"says: "
+msgstr "Your code contained PHP syntax errors. Please go back and correct them. PHP says: "
 
 #. line 2
 #. line 6
@@ -3147,9 +3138,7 @@ msgstr "Bans"
 msgid ""
 "(Search is case-insensitive and based on keywords. To match exact phrases, "
 "use \"quotes\". Use an asterisk (*) for wildcard.)"
-msgstr ""
-"(Search is case-insensitive and based on keywords. To match exact phrases, "
-"use \"quotes\". Use an asterisk (*) for wildcard.)"
+msgstr "(Search is case-insensitive and based on keywords. To match exact phrases, use \"quotes\". Use an asterisk (*) for wildcard.)"
 
 #: ../../../../templates/cache/ba/55/2553cc018aecf7d29a62331aec4bedc71b646817c7e4c4e7d1a885263676.php:25
 msgid "There are no active bans."
@@ -3404,9 +3393,7 @@ msgstr "and it was denied. You may not appeal this ban again."
 msgid ""
 "You have submitted the maximum number of ban appeals allowed. You may not "
 "appeal this ban again."
-msgstr ""
-"You have submitted the maximum number of ban appeals allowed. You may not "
-"appeal this ban again."
+msgstr "You have submitted the maximum number of ban appeals allowed. You may not appeal this ban again."
 
 #. line 114
 #. line 121
@@ -3610,14 +3597,7 @@ msgid ""
 "<strong>name</strong>. To apply a filter, simply add to your query, for "
 "example, <em>name:Anonymous</em> or <em>subject:\"Some Thread\"</em>. "
 "Wildcards cannot be used in filters."
-msgstr ""
-"Search is case-insensitive and based on keywords. To match exact phrases, "
-"use \"quotes\". Use an asterisk (*) for wildcard.</p><p style=\"font-"
-"size:8pt;margin:5px\">You may apply the following filters to your searches: "
-"<strong>id</strong>, <strong>thread</strong>, <strong>subject</strong>, and "
-"<strong>name</strong>. To apply a filter, simply add to your query, for "
-"example, <em>name:Anonymous</em> or <em>subject:\"Some Thread\"</em>. "
-"Wildcards cannot be used in filters."
+msgstr "Search is case-insensitive and based on keywords. To match exact phrases, use \"quotes\". Use an asterisk (*) for wildcard.</p><p style=\"font-size:8pt;margin:5px\">You may apply the following filters to your searches: <strong>id</strong>, <strong>thread</strong>, <strong>subject</strong>, and <strong>name</strong>. To apply a filter, simply add to your query, for example, <em>name:Anonymous</em> or <em>subject:\"Some Thread\"</em>. Wildcards cannot be used in filters."
 
 #. line 2
 #: ../../../../templates/cache/57/a7/c0a734e494c78acfc595f033a070bdc87fdc3e6a28ad5aaa8666c7a1a966.php:25
@@ -3631,11 +3611,9 @@ msgstr "Click to proceed to"
 #. line 5
 #: ../../../../templates/cache/57/a7/c0a734e494c78acfc595f033a070bdc87fdc3e6a28ad5aaa8666c7a1a966.php:39
 msgid ""
-"You are probably seeing this message because Javascript being disabled. This "
-"is a necessary security measure to prevent CSRF attacks."
-msgstr ""
-"You are probably seeing this message because JavaScript is disabled. This is "
-"a necessary security measure to prevent CSRF attacks."
+"You are probably seeing this message because Javascript being disabled. This"
+" is a necessary security measure to prevent CSRF attacks."
+msgstr "You are probably seeing this message because JavaScript is disabled. This is a necessary security measure to prevent CSRF attacks."
 
 #. line 7
 #: ../../../../templates/cache/3a/62/f804928dbcf285e3d5d8d7ae31b1e3a7c78264f270efa9650d31f69c7897.php:44
@@ -3796,9 +3774,9 @@ msgstr "Moved to %s."
 #: ../../../../templates/themes/recent/theme.php:50
 #: ../../../..//templates/themes/recent/theme.php:50
 msgid ""
-"Can't build the RecentPosts theme, because there are no boards to be fetched."
-msgstr ""
-"Can't build the RecentPosts theme, because there are no boards to be fetched."
+"Can't build the RecentPosts theme, because there are no boards to be "
+"fetched."
+msgstr "Can't build the RecentPosts theme, because there are no boards to be fetched."
 
 #: ../../../../inc/config.php:997 ../../../../inc/config.php:1023
 #: ../../../../inc/config.php:1026 ../../../../inc/config.php:1029
@@ -3975,8 +3953,7 @@ msgstr "Invalid WebM uploaded."
 #: ../../../../inc/config.php:1126
 msgid ""
 "The uploaded webm contains an audio or another type of additional stream."
-msgstr ""
-"The uploaded WebM contains an audio or another type of additional stream."
+msgstr "The uploaded WebM contains an audio or another type of additional stream."
 
 #: ../../../../inc/config.php:1052 ../../../../inc/config.php:1056
 #: ../../../../inc/config.php:1059
@@ -4784,8 +4761,9 @@ msgstr ""
 
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:347
 msgid ""
-"To contribute translations, register at <a href=\"https://www.transifex.com/"
-"projects/p/tinyboard-vichan-devel/\">Transifex</a>"
+"To contribute translations, register at <a "
+"href=\"https://www.transifex.com/projects/p/tinyboard-vichan-"
+"devel/\">Transifex</a>"
 msgstr ""
 
 #. line 65
@@ -4923,8 +4901,8 @@ msgstr ""
 #: ../../../../templates/cache/e6/b0/35e368580dcc89b914ecbee239e0749e2426bcabb2ee16de3d5a32caa266.php:347
 msgid ""
 "Read this page for more information about contributing translations:<br><a "
-"href=\"/translation.html\">Translation tutorial</a> or use <a href=\"https://"
-"www.transifex.com/projects/p/infinity/\">Transifex</a>"
+"href=\"/translation.html\">Translation tutorial</a> or use <a "
+"href=\"https://www.transifex.com/projects/p/infinity/\">Transifex</a>"
 msgstr ""
 
 #: ../../../../templates/cache/e6/b0/35e368580dcc89b914ecbee239e0749e2426bcabb2ee16de3d5a32caa266.php:470

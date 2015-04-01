@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Alrahambra <inactive+Alrahambra@transifex.com>, 2014
 msgid ""
@@ -9,10 +9,9 @@ msgstr ""
 "Project-Id-Version: infinity\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-10-18 13:47+0200\n"
-"PO-Revision-Date: 2015-03-17 13:11+0000\n"
+"PO-Revision-Date: 2015-04-01 23:22+0000\n"
 "Last-Translator: copypaste <admin@8chan.co>\n"
-"Language-Team: Finnish (Finland) (http://www.transifex.com/projects/p/"
-"infinity/language/fi_FI/)\n"
+"Language-Team: Finnish (Finland) (http://www.transifex.com/projects/p/infinity/language/fi_FI/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -195,9 +194,7 @@ msgstr "Kirjaudu sisään"
 #: ../../../../inc/display.php:265
 #, php-format
 msgid "Post too long. Click <a href=\"%s\">here</a> to view the full text."
-msgstr ""
-"Postaus on liian pitkä. Paina <a href=\"%s\">tästä</a> näyttääksesi koko "
-"tekstin."
+msgstr "Postaus on liian pitkä. Paina <a href=\"%s\">tästä</a> näyttääksesi koko tekstin."
 
 #: ../../../../inc/display.php:368 ../../../../inc/display.php:473
 #: ../../../../inc/display.php:385 ../../../../inc/display.php:495
@@ -320,8 +317,7 @@ msgstr "Poista viestit IP:n perusteella"
 #: ../../../..//templates/cache/32/56/2f0f3c8b5fda2a269f57b553b9db686212ecf685202bccc86840fe002cc6.php:49
 #: ../../../../templates/cache/93/74/96285495dcf7b97c629b351412786f661ca765fc898486361680018d1d6e.php:49
 msgid "Are you sure you want to delete all posts by this IP address?"
-msgstr ""
-"Haluatko varmasti poistaa kaikki postaukset tämän IP osoitteen perusteella?"
+msgstr "Haluatko varmasti poistaa kaikki postaukset tämän IP osoitteen perusteella?"
 
 #: ../../../../inc/display.php:469 ../../../../inc/display.php:491
 #: ../../../../inc/display.php:494 ../../../../inc/display.php:498
@@ -339,9 +335,7 @@ msgstr "Poista kaikki viestit lautojen välillä IP osoitteen perusteella"
 msgid ""
 "Are you sure you want to delete all posts by this IP address, across all "
 "boards?"
-msgstr ""
-"Haluatko varmasti poistaa kaikki postaukset tämän IP:n perusteella kaikilla "
-"laudoilla?"
+msgstr "Haluatko varmasti poistaa kaikki postaukset tämän IP:n perusteella kaikilla laudoilla?"
 
 #: ../../../../inc/display.php:490 ../../../../inc/display.php:512
 #: ../../../../inc/display.php:515 ../../../../inc/display.php:519
@@ -442,9 +436,7 @@ msgstr "Uusi aihe"
 msgid ""
 "All trademarks, copyrights, comments, and images on this page are owned by "
 "and are the responsibility of their respective parties."
-msgstr ""
-"Kaikki tavaramerkit, tekijäinoikeudet ja kuvat tällä sivulla kuuluvat niiden "
-"oikeille omistajilleen."
+msgstr "Kaikki tavaramerkit, tekijäinoikeudet ja kuvat tällä sivulla kuuluvat niiden oikeille omistajilleen."
 
 #. * ====================
 #. *  Error messages
@@ -733,8 +725,7 @@ msgstr "Tuntematon tiedostotyyppi."
 #: ../../../../inc/config.php:1050 ../../../../inc/config.php:1053
 #: ../../../..//inc/config.php:1120 ../../../../inc/config.php:1121
 msgid "Maximum file size: %maxsz% bytes<br>Your file's size: %filesz% bytes"
-msgstr ""
-"Maksimi tiedoston koko: %maxsz% bittiä<br>Tiedostosi koko: %filesz% bittiä"
+msgstr "Maksimi tiedoston koko: %maxsz% bittiä<br>Tiedostosi koko: %filesz% bittiä"
 
 #: ../../../../inc/config.php:897 ../../../../inc/config.php:1002
 #: ../../../../inc/config.php:993 ../../../../inc/config.php:995
@@ -814,9 +805,7 @@ msgstr "Et kirjoittanut oikein varmistusta."
 msgid ""
 "You are only allowed to unban %s users at a time. You tried to unban %u "
 "users."
-msgstr ""
-"Voit poistaa bannit enintään %s käyttäjältä kerralla. Yritit poistaa bannit "
-"%u käyttäjältä."
+msgstr "Voit poistaa bannit enintään %s käyttäjältä kerralla. Yritit poistaa bannit %u käyttäjältä."
 
 #: ../../../../inc/config.php:907 ../../../../inc/config.php:1012
 #: ../../../../inc/config.php:1003 ../../../../inc/config.php:1005
@@ -843,9 +832,9 @@ msgstr "Et ole modi..."
 #: ../../../../inc/config.php:1069 ../../../../inc/config.php:1072
 #: ../../../..//inc/config.php:1139 ../../../../inc/config.php:1140
 msgid ""
-"Invalid username and/or password. Your user may have been deleted or changed."
-msgstr ""
-"Väärä käyttäjänimi ja/tai salasana. Käyttäjä on saatettu poistaa tai vaihtaa."
+"Invalid username and/or password. Your user may have been deleted or "
+"changed."
+msgstr "Väärä käyttäjänimi ja/tai salasana. Käyttäjä on saatettu poistaa tai vaihtaa."
 
 #: ../../../../inc/config.php:910 ../../../../inc/config.php:1015
 #: ../../../../inc/config.php:1006 ../../../../inc/config.php:1008
@@ -2296,8 +2285,7 @@ msgstr "Debug: APC"
 msgid ""
 "Your code contained PHP syntax errors. Please go back and correct them. PHP "
 "says: "
-msgstr ""
-"Koodisi sisältää PHP syntaksivirheita. Mene takaisin ja korjaa. PHP sanoo:"
+msgstr "Koodisi sisältää PHP syntaksivirheita. Mene takaisin ja korjaa. PHP sanoo:"
 
 #. line 2
 #. line 6
@@ -3150,9 +3138,7 @@ msgstr "Bannit"
 msgid ""
 "(Search is case-insensitive and based on keywords. To match exact phrases, "
 "use \"quotes\". Use an asterisk (*) for wildcard.)"
-msgstr ""
-"(Haku on riippuvainen kirjainkoosta ja hakusanoista. Hakeaksesi täsmällisiä "
-"sanoja, käytä \"lainausmerkkejä.\" Käytä asteriskiä (*) laajentaaksesi hakua."
+msgstr "(Haku on riippuvainen kirjainkoosta ja hakusanoista. Hakeaksesi täsmällisiä sanoja, käytä \"lainausmerkkejä.\" Käytä asteriskiä (*) laajentaaksesi hakua."
 
 #: ../../../../templates/cache/ba/55/2553cc018aecf7d29a62331aec4bedc71b646817c7e4c4e7d1a885263676.php:25
 msgid "There are no active bans."
@@ -3407,8 +3393,7 @@ msgstr "ja se hylättiin. Et voi valittaa uudelleen."
 msgid ""
 "You have submitted the maximum number of ban appeals allowed. You may not "
 "appeal this ban again."
-msgstr ""
-"Olet lähettänyt maksimimäärän bannivalituksia ja et voi valittaa enempää."
+msgstr "Olet lähettänyt maksimimäärän bannivalituksia ja et voi valittaa enempää."
 
 #. line 114
 #. line 121
@@ -3466,8 +3451,7 @@ msgstr "ja se hylättiin"
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:328
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:349
 msgid "You may appeal this ban again. Please enter your reasoning below."
-msgstr ""
-"Et voi valittaa tästä bannista uudelleen ehkä. Anna valituksesti tähän."
+msgstr "Et voi valittaa tästä bannista uudelleen ehkä. Anna valituksesti tähän."
 
 #. line 119
 #. line 127
@@ -3613,14 +3597,7 @@ msgid ""
 "<strong>name</strong>. To apply a filter, simply add to your query, for "
 "example, <em>name:Anonymous</em> or <em>subject:\"Some Thread\"</em>. "
 "Wildcards cannot be used in filters."
-msgstr ""
-"Haku perustuu hakusanoihin. Täsmällisiin hakuihin käytä \"lainausmerkkejä. "
-"Käytä asteriskiä (*) laajentaaksesi hakua.</p><p style=\"font-size:8pt;"
-"margin:5px\">Saat käyttää seuraavia  suotimia haussa: <strong>id</strong>, "
-"<strong>lanka</strong>, <strong>aihe</strong>, ja <strong>nimi</strong>. "
-"käyttääksesi filtteriä, laita sellainen hakuusi mukaan, esim <em>name:"
-"Anonymous</em> or <em>Aihe:\"Lanka\"</em>. Asteriskiä ei voi käyttää "
-"filttereiden kanssa."
+msgstr "Haku perustuu hakusanoihin. Täsmällisiin hakuihin käytä \"lainausmerkkejä. Käytä asteriskiä (*) laajentaaksesi hakua.</p><p style=\"font-size:8pt;margin:5px\">Saat käyttää seuraavia  suotimia haussa: <strong>id</strong>, <strong>lanka</strong>, <strong>aihe</strong>, ja <strong>nimi</strong>. käyttääksesi filtteriä, laita sellainen hakuusi mukaan, esim <em>name:Anonymous</em> or <em>Aihe:\"Lanka\"</em>. Asteriskiä ei voi käyttää filttereiden kanssa."
 
 #. line 2
 #: ../../../../templates/cache/57/a7/c0a734e494c78acfc595f033a070bdc87fdc3e6a28ad5aaa8666c7a1a966.php:25
@@ -3634,11 +3611,9 @@ msgstr "Paina jatkaaksesi"
 #. line 5
 #: ../../../../templates/cache/57/a7/c0a734e494c78acfc595f033a070bdc87fdc3e6a28ad5aaa8666c7a1a966.php:39
 msgid ""
-"You are probably seeing this message because Javascript being disabled. This "
-"is a necessary security measure to prevent CSRF attacks."
-msgstr ""
-"Näet tämän viestin todennäköisesti, koska Javascript on otettu pois "
-"käytöstä. Tämä on tehty CSRF-hyökkäysten estämiseksi."
+"You are probably seeing this message because Javascript being disabled. This"
+" is a necessary security measure to prevent CSRF attacks."
+msgstr "Näet tämän viestin todennäköisesti, koska Javascript on otettu pois käytöstä. Tämä on tehty CSRF-hyökkäysten estämiseksi."
 
 #. line 7
 #: ../../../../templates/cache/3a/62/f804928dbcf285e3d5d8d7ae31b1e3a7c78264f270efa9650d31f69c7897.php:44
@@ -3799,7 +3774,8 @@ msgstr "Siirrettiin tänne %s"
 #: ../../../../templates/themes/recent/theme.php:50
 #: ../../../..//templates/themes/recent/theme.php:50
 msgid ""
-"Can't build the RecentPosts theme, because there are no boards to be fetched."
+"Can't build the RecentPosts theme, because there are no boards to be "
+"fetched."
 msgstr "Ei voida luoda RecentPosts-teemaa, koska lautoja ei voitu hakea."
 
 #: ../../../../inc/config.php:997 ../../../../inc/config.php:1023
@@ -4785,8 +4761,9 @@ msgstr ""
 
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:347
 msgid ""
-"To contribute translations, register at <a href=\"https://www.transifex.com/"
-"projects/p/tinyboard-vichan-devel/\">Transifex</a>"
+"To contribute translations, register at <a "
+"href=\"https://www.transifex.com/projects/p/tinyboard-vichan-"
+"devel/\">Transifex</a>"
 msgstr ""
 
 #. line 65
@@ -4924,8 +4901,8 @@ msgstr ""
 #: ../../../../templates/cache/e6/b0/35e368580dcc89b914ecbee239e0749e2426bcabb2ee16de3d5a32caa266.php:347
 msgid ""
 "Read this page for more information about contributing translations:<br><a "
-"href=\"/translation.html\">Translation tutorial</a> or use <a href=\"https://"
-"www.transifex.com/projects/p/infinity/\">Transifex</a>"
+"href=\"/translation.html\">Translation tutorial</a> or use <a "
+"href=\"https://www.transifex.com/projects/p/infinity/\">Transifex</a>"
 msgstr ""
 
 #: ../../../../templates/cache/e6/b0/35e368580dcc89b914ecbee239e0749e2426bcabb2ee16de3d5a32caa266.php:470

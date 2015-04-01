@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # banginis <asesuarbanesu@gmail.com>, 2014
 msgid ""
@@ -9,16 +9,14 @@ msgstr ""
 "Project-Id-Version: infinity\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-10-18 13:47+0200\n"
-"PO-Revision-Date: 2015-03-17 13:13+0000\n"
+"PO-Revision-Date: 2015-04-01 23:22+0000\n"
 "Last-Translator: copypaste <admin@8chan.co>\n"
-"Language-Team: Lithuanian (Lithuania) (http://www.transifex.com/projects/p/"
-"infinity/language/lt_LT/)\n"
+"Language-Team: Lithuanian (Lithuania) (http://www.transifex.com/projects/p/infinity/language/lt_LT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: lt_LT\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
-"%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: ../../../../inc/functions.php:583 ../../../../inc/functions.php:600
 #: ../../../../inc/functions.php:591 ../../../../inc/functions.php:608
@@ -202,9 +200,7 @@ msgstr "Prisijungimas"
 #: ../../../../inc/display.php:265
 #, php-format
 msgid "Post too long. Click <a href=\"%s\">here</a> to view the full text."
-msgstr ""
-"Įrašas per ilgas. Norėdamas pamatyti visą tekstą, spausk <a href=\"%s\">čia</"
-"a>."
+msgstr "Įrašas per ilgas. Norėdamas pamatyti visą tekstą, spausk <a href=\"%s\">čia</a>."
 
 #: ../../../../inc/display.php:368 ../../../../inc/display.php:473
 #: ../../../../inc/display.php:385 ../../../../inc/display.php:495
@@ -446,10 +442,7 @@ msgstr "Atsakyti"
 msgid ""
 "All trademarks, copyrights, comments, and images on this page are owned by "
 "and are the responsibility of their respective parties."
-msgstr ""
-"Visi prekių ženklai, autorių teisės, komentarai ir paveiksliukai esantys "
-"šiame puslapyje priklauso jų tikriesiems savininkams, už juos atsakingi juos "
-"paskelbę asmenys."
+msgstr "Visi prekių ženklai, autorių teisės, komentarai ir paveiksliukai esantys šiame puslapyje priklauso jų tikriesiems savininkams, už juos atsakingi juos paskelbę asmenys."
 
 #. * ====================
 #. *  Error messages
@@ -738,8 +731,7 @@ msgstr "Nežinoma failo plėtinys."
 #: ../../../../inc/config.php:1050 ../../../../inc/config.php:1053
 #: ../../../..//inc/config.php:1120 ../../../../inc/config.php:1121
 msgid "Maximum file size: %maxsz% bytes<br>Your file's size: %filesz% bytes"
-msgstr ""
-"Maksimalus failo didys: %maxsz% baitai<br>Tavo failo didys: %filesz% baitai"
+msgstr "Maksimalus failo didys: %maxsz% baitai<br>Tavo failo didys: %filesz% baitai"
 
 #: ../../../../inc/config.php:897 ../../../../inc/config.php:1002
 #: ../../../../inc/config.php:993 ../../../../inc/config.php:995
@@ -819,9 +811,7 @@ msgstr "Atrodo tu įvedei neteisingą patvirtinimą."
 msgid ""
 "You are only allowed to unban %s users at a time. You tried to unban %u "
 "users."
-msgstr ""
-"Vienu metu galima atblokuoti iki %s vartotojų. Tu bandei atblokuoti %u "
-"vartotojų."
+msgstr "Vienu metu galima atblokuoti iki %s vartotojų. Tu bandei atblokuoti %u vartotojų."
 
 #: ../../../../inc/config.php:907 ../../../../inc/config.php:1012
 #: ../../../../inc/config.php:1003 ../../../../inc/config.php:1005
@@ -848,10 +838,9 @@ msgstr "Tu nesi moderatorius..."
 #: ../../../../inc/config.php:1069 ../../../../inc/config.php:1072
 #: ../../../..//inc/config.php:1139 ../../../../inc/config.php:1140
 msgid ""
-"Invalid username and/or password. Your user may have been deleted or changed."
-msgstr ""
-"Neteisingas slapyvardis ir/ar slaptažodis. Tavo vartotojas buvo ištrintas ar "
-"pakeistas."
+"Invalid username and/or password. Your user may have been deleted or "
+"changed."
+msgstr "Neteisingas slapyvardis ir/ar slaptažodis. Tavo vartotojas buvo ištrintas ar pakeistas."
 
 #: ../../../../inc/config.php:910 ../../../../inc/config.php:1015
 #: ../../../../inc/config.php:1006 ../../../../inc/config.php:1008
@@ -3160,10 +3149,7 @@ msgstr "Užblokuotųjų sąrašas"
 msgid ""
 "(Search is case-insensitive and based on keywords. To match exact phrases, "
 "use \"quotes\". Use an asterisk (*) for wildcard.)"
-msgstr ""
-"(Paieška yra pagrįsta raktažodžiais ir jai nesvarbu ar naudojamos didžiosios "
-"ar mažosios raidės. Norėdamas rasti tikslią frazę, apskliausk ją \"tokiomis "
-"kabutėmis\". Nenuspėjamumo faktoriui naudok žvaigždutę (*).)"
+msgstr "(Paieška yra pagrįsta raktažodžiais ir jai nesvarbu ar naudojamos didžiosios ar mažosios raidės. Norėdamas rasti tikslią frazę, apskliausk ją \"tokiomis kabutėmis\". Nenuspėjamumo faktoriui naudok žvaigždutę (*).)"
 
 #: ../../../../templates/cache/ba/55/2553cc018aecf7d29a62331aec4bedc71b646817c7e4c4e7d1a885263676.php:25
 msgid "There are no active bans."
@@ -3418,8 +3404,7 @@ msgstr "ir ji buvo atmesta. Daugiau apeliuoti šio blokavimo nebegali."
 msgid ""
 "You have submitted the maximum number of ban appeals allowed. You may not "
 "appeal this ban again."
-msgstr ""
-"Pateikei didžiausią leidžiamą apeliacijų skaičių. Daugiau jų teikti nebegali."
+msgstr "Pateikei didžiausią leidžiamą apeliacijų skaičių. Daugiau jų teikti nebegali."
 
 #. line 114
 #. line 121
@@ -3477,9 +3462,7 @@ msgstr "ir ji buvo atmesta."
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:328
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:349
 msgid "You may appeal this ban again. Please enter your reasoning below."
-msgstr ""
-"Gali dar kartą pateikti apeliaciją dėl šio užblokavimo. Viską išdėstyk "
-"žemiau esančiame laukelyje."
+msgstr "Gali dar kartą pateikti apeliaciją dėl šio užblokavimo. Viską išdėstyk žemiau esančiame laukelyje."
 
 #. line 119
 #. line 127
@@ -3493,9 +3476,7 @@ msgstr "Paskutinį kartą teikei apeliaciją"
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:333
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:358
 msgid "You may appeal this ban. Please enter your reasoning below."
-msgstr ""
-"Gali pateikti apeliaciją dėl užblokavimo. Viską išdėstyk žemiau esančiame "
-"laukelyje."
+msgstr "Gali pateikti apeliaciją dėl užblokavimo. Viską išdėstyk žemiau esančiame laukelyje."
 
 #. line 4
 #. line 16
@@ -3627,15 +3608,7 @@ msgid ""
 "<strong>name</strong>. To apply a filter, simply add to your query, for "
 "example, <em>name:Anonymous</em> or <em>subject:\"Some Thread\"</em>. "
 "Wildcards cannot be used in filters."
-msgstr ""
-"Paieška yra pagrįsta raktažodžiais ir jai nesvarbu ar naudojamos didžiosios "
-"ar mažosios raidės. Norėdamas rasti tikslią frazę, apskliausk ją \"tokiomis "
-"kabutėmis\". Nenuspėjamumo faktoriui naudok žvaigždutę (*).</p><p style="
-"\"font-size:8pt;margin:5px\">Paieškai galima pritaikyti tokius filtrus: "
-"<strong>id</strong>, <strong>thread</strong>, <strong>subject</strong>, ir "
-"<strong>name</strong>. Kad filtruotum tiesiog pridėk į savo užklausą tarkim "
-"„<em>name:Anonimas</em>“ arba „<em>subject:\"Kokia tais tema\"</em>“. "
-"Nenuspėjamumo faktoriaus filtruose naudoti negalima."
+msgstr "Paieška yra pagrįsta raktažodžiais ir jai nesvarbu ar naudojamos didžiosios ar mažosios raidės. Norėdamas rasti tikslią frazę, apskliausk ją \"tokiomis kabutėmis\". Nenuspėjamumo faktoriui naudok žvaigždutę (*).</p><p style=\"font-size:8pt;margin:5px\">Paieškai galima pritaikyti tokius filtrus: <strong>id</strong>, <strong>thread</strong>, <strong>subject</strong>, ir <strong>name</strong>. Kad filtruotum tiesiog pridėk į savo užklausą tarkim „<em>name:Anonimas</em>“ arba „<em>subject:\"Kokia tais tema\"</em>“. Nenuspėjamumo faktoriaus filtruose naudoti negalima."
 
 #. line 2
 #: ../../../../templates/cache/57/a7/c0a734e494c78acfc595f033a070bdc87fdc3e6a28ad5aaa8666c7a1a966.php:25
@@ -3649,11 +3622,9 @@ msgstr "Tęsti"
 #. line 5
 #: ../../../../templates/cache/57/a7/c0a734e494c78acfc595f033a070bdc87fdc3e6a28ad5aaa8666c7a1a966.php:39
 msgid ""
-"You are probably seeing this message because Javascript being disabled. This "
-"is a necessary security measure to prevent CSRF attacks."
-msgstr ""
-"Šią žinutę matai tikriausiai dėl to jog Javascript išjungtas. Tai būtina "
-"saugumo procedūra apsisaugojimui nuo CSRF atakų."
+"You are probably seeing this message because Javascript being disabled. This"
+" is a necessary security measure to prevent CSRF attacks."
+msgstr "Šią žinutę matai tikriausiai dėl to jog Javascript išjungtas. Tai būtina saugumo procedūra apsisaugojimui nuo CSRF atakų."
 
 #. line 7
 #: ../../../../templates/cache/3a/62/f804928dbcf285e3d5d8d7ae31b1e3a7c78264f270efa9650d31f69c7897.php:44
@@ -3814,7 +3785,8 @@ msgstr "Perkelta į %s."
 #: ../../../../templates/themes/recent/theme.php:50
 #: ../../../..//templates/themes/recent/theme.php:50
 msgid ""
-"Can't build the RecentPosts theme, because there are no boards to be fetched."
+"Can't build the RecentPosts theme, because there are no boards to be "
+"fetched."
 msgstr "Negalima sukurti RecentPosts išvaizdos temos, nes nėra lentų."
 
 #: ../../../../inc/config.php:997 ../../../../inc/config.php:1023
@@ -4800,8 +4772,9 @@ msgstr ""
 
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:347
 msgid ""
-"To contribute translations, register at <a href=\"https://www.transifex.com/"
-"projects/p/tinyboard-vichan-devel/\">Transifex</a>"
+"To contribute translations, register at <a "
+"href=\"https://www.transifex.com/projects/p/tinyboard-vichan-"
+"devel/\">Transifex</a>"
 msgstr ""
 
 #. line 65
@@ -4939,8 +4912,8 @@ msgstr ""
 #: ../../../../templates/cache/e6/b0/35e368580dcc89b914ecbee239e0749e2426bcabb2ee16de3d5a32caa266.php:347
 msgid ""
 "Read this page for more information about contributing translations:<br><a "
-"href=\"/translation.html\">Translation tutorial</a> or use <a href=\"https://"
-"www.transifex.com/projects/p/infinity/\">Transifex</a>"
+"href=\"/translation.html\">Translation tutorial</a> or use <a "
+"href=\"https://www.transifex.com/projects/p/infinity/\">Transifex</a>"
 msgstr ""
 
 #: ../../../../templates/cache/e6/b0/35e368580dcc89b914ecbee239e0749e2426bcabb2ee16de3d5a32caa266.php:470

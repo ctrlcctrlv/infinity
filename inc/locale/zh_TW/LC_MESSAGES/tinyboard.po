@@ -1,18 +1,17 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # kennyl <me@kennyforge.com>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: vichan\n"
+"Project-Id-Version: infinity\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-10-18 13:47+0200\n"
-"PO-Revision-Date: 2014-10-18 11:48+0000\n"
-"Last-Translator: Marcin Łabanowski <marcin@6irc.net>\n"
-"Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/"
-"tinyboard-vichan-devel/language/zh_TW/)\n"
+"PO-Revision-Date: 2015-04-01 23:22+0000\n"
+"Last-Translator: copypaste <admin@8chan.co>\n"
+"Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/infinity/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -404,7 +403,6 @@ msgstr "您已因抄襲而被消音。"
 #. "Post").
 #. The names on the post buttons. (On most imageboards, these are both just
 #. "Post").
-#. The names on the post buttons. (On most imageboards, these are both just "Post").
 #: ../../../../inc/config.php:677 ../../../../inc/config.php:781
 #: ../../../../inc/config.php:772 ../../../../inc/config.php:774
 #: ../../../../inc/config.php:776 ../../../../inc/config.php:792
@@ -449,12 +447,6 @@ msgstr "先多潛潛水，再來貼文吧！"
 #. * ====================
 #. *  Error messages
 #. * ====================
-#. Error messages
-#.
-#. * ====================
-#. *  Error messages
-#. * ====================
-#.
 #. Error messages
 #: ../../../../inc/config.php:867 ../../../../inc/config.php:972
 #: ../../../../inc/config.php:963 ../../../../inc/config.php:965
@@ -795,7 +787,7 @@ msgstr "無法理解您試圖嵌入的影片 URL."
 msgid "You seem to have mistyped the verification."
 msgstr "您似乎打錯驗證碼了。"
 
-#. Moderator errors
+#. Volunteer errors
 #. mod.php errors
 #: ../../../../inc/config.php:906 ../../../../inc/config.php:1011
 #: ../../../../inc/config.php:1002 ../../../../inc/config.php:1004
@@ -834,7 +826,8 @@ msgstr "您不是版務…"
 #: ../../../../inc/config.php:1069 ../../../../inc/config.php:1072
 #: ../../../..//inc/config.php:1139 ../../../../inc/config.php:1140
 msgid ""
-"Invalid username and/or password. Your user may have been deleted or changed."
+"Invalid username and/or password. Your user may have been deleted or "
+"changed."
 msgstr "無效的用戶名或密碼。您的帳號可能已刪除或變更。"
 
 #: ../../../../inc/config.php:910 ../../../../inc/config.php:1015
@@ -946,8 +939,6 @@ msgstr "無效的安全 token！請回去重試。"
 #. Default public ban message. In public ban messages, %length% is replaced
 #. with "for x days" or
 #. "permanently" (with %LENGTH% being the uppercase equivalent).
-#. Default public ban message. In public ban messages, %length% is replaced with "for x days" or
-#. "permanently" (with %LENGTH% being the uppercase equivalent).
 #: ../../../../inc/config.php:1086 ../../../../inc/config.php:1189
 #: ../../../../inc/config.php:1180 ../../../../inc/config.php:1185
 #: ../../../../inc/config.php:1187 ../../../../inc/config.php:1203
@@ -1019,10 +1010,8 @@ msgstr "新聞"
 #: ../../../../inc/mod/pages.php:671 ../../../../inc/mod/pages.php:698
 #: ../../../../templates/cache/72/7e/271125664718133518fd942f20fb724224e100f8a0d47cb0b52f895ac12f.php:300
 #: ../../../../templates/cache/73/f8/5e3142a8a6f8d7e40422ff577e83b0dedf55a7cb9bc7082839b24f653545.php:75
-#: ../../../..//templates/cache/25/ce/20297e1c09b3c82a277642530f4bd5b1f83cd763d5456c0ee2cedaff2519.php:72
-#: ../../../../templates/cache/89/7f/5256b31c84c3f09b61f2268dd157d5949c1be339b808050bcae3dc0c195a.php:72
-msgid "Moderation log"
-msgstr "仲裁記錄"
+msgid "Volunteer log"
+msgstr ""
 
 #. line 104
 #. line 20
@@ -3138,9 +3127,7 @@ msgstr "封禁"
 msgid ""
 "(Search is case-insensitive and based on keywords. To match exact phrases, "
 "use \"quotes\". Use an asterisk (*) for wildcard.)"
-msgstr ""
-"（搜尋是大小寫不分且基於關鍵字。要搜尋確切字詞，請用 \"引號\"。用 (*) 作為通"
-"配符。）"
+msgstr "（搜尋是大小寫不分且基於關鍵字。要搜尋確切字詞，請用 \"引號\"。用 (*) 作為通配符。）"
 
 #: ../../../../templates/cache/ba/55/2553cc018aecf7d29a62331aec4bedc71b646817c7e4c4e7d1a885263676.php:25
 msgid "There are no active bans."
@@ -3599,13 +3586,7 @@ msgid ""
 "<strong>name</strong>. To apply a filter, simply add to your query, for "
 "example, <em>name:Anonymous</em> or <em>subject:\"Some Thread\"</em>. "
 "Wildcards cannot be used in filters."
-msgstr ""
-"搜尋是大小寫不分且基於關鍵字。要搜尋確切字詞，請用 \"引號\"。用 (*) 作為通配"
-"符。</p><p style=\"font-size:8pt;margin:5px\">您可以在您的搜尋中套用以下過濾"
-"器：<strong>id</strong>, <strong>thread</strong>, <strong>subject</strong>, "
-"以及 <strong>name</strong>. 要套用過濾器，直接加入您的搜尋字串中，像是 "
-"<em>name:Anonymous</em> 或 <em>subject:\"某討論串\"</em>。過濾器中不能使用通"
-"配符。"
+msgstr "搜尋是大小寫不分且基於關鍵字。要搜尋確切字詞，請用 \"引號\"。用 (*) 作為通配符。</p><p style=\"font-size:8pt;margin:5px\">您可以在您的搜尋中套用以下過濾器：<strong>id</strong>, <strong>thread</strong>, <strong>subject</strong>, 以及 <strong>name</strong>. 要套用過濾器，直接加入您的搜尋字串中，像是 <em>name:Anonymous</em> 或 <em>subject:\"某討論串\"</em>。過濾器中不能使用通配符。"
 
 #. line 2
 #: ../../../../templates/cache/57/a7/c0a734e494c78acfc595f033a070bdc87fdc3e6a28ad5aaa8666c7a1a966.php:25
@@ -3619,10 +3600,9 @@ msgstr "點選以繼續"
 #. line 5
 #: ../../../../templates/cache/57/a7/c0a734e494c78acfc595f033a070bdc87fdc3e6a28ad5aaa8666c7a1a966.php:39
 msgid ""
-"You are probably seeing this message because Javascript being disabled. This "
-"is a necessary security measure to prevent CSRF attacks."
-msgstr ""
-"您可能是因為停用 JavaScript 才看見這個訊息。這是預防 CRSF 攻擊的必要措施。"
+"You are probably seeing this message because Javascript being disabled. This"
+" is a necessary security measure to prevent CSRF attacks."
+msgstr "您可能是因為停用 JavaScript 才看見這個訊息。這是預防 CRSF 攻擊的必要措施。"
 
 #. line 7
 #: ../../../../templates/cache/3a/62/f804928dbcf285e3d5d8d7ae31b1e3a7c78264f270efa9650d31f69c7897.php:44
@@ -3772,9 +3752,6 @@ msgstr "沒有"
 #. a capcode) will be made, linking to the new location for the thread. "%s"
 #. will be replaced with a
 #. standard cross-board post citation (>>>/board/xxx)
-#. When moving a thread to another board and choosing to keep a "shadow thread", an automated post (with
-#. a capcode) will be made, linking to the new location for the thread. "%s" will be replaced with a
-#. standard cross-board post citation (>>>/board/xxx)
 #: ../../../../inc/config.php:1211 ../../../../inc/config.php:1220
 #: ../../../../inc/config.php:1251 ../../../../inc/config.php:1255
 #: ../../../../inc/config.php:1258 ../../../..//inc/config.php:1334
@@ -3786,7 +3763,8 @@ msgstr "移動到 %s"
 #: ../../../../templates/themes/recent/theme.php:50
 #: ../../../..//templates/themes/recent/theme.php:50
 msgid ""
-"Can't build the RecentPosts theme, because there are no boards to be fetched."
+"Can't build the RecentPosts theme, because there are no boards to be "
+"fetched."
 msgstr "無法建造 RecentPosts 佈景，因為沒有可取用的版。"
 
 #: ../../../../inc/config.php:997 ../../../../inc/config.php:1023
@@ -3998,7 +3976,7 @@ msgid "There are no active posts."
 msgstr ""
 
 #: ../../../../templates/cache/ba/55/2553cc018aecf7d29a62331aec4bedc71b646817c7e4c4e7d1a885263676.php:49
-msgid "Show only bans from boards I moderate"
+msgid "Show only bans from boards I volunteer on"
 msgstr ""
 
 #. line 16
@@ -4370,6 +4348,11 @@ msgstr ""
 #: ../../../../templates/cache/f7/81/530d879d2b39e285b276477062202e730129ab004ef607b77577f18bca73.php:48
 msgid "Global rules permit this content"
 msgstr ""
+
+#: ../../../..//templates/cache/25/ce/20297e1c09b3c82a277642530f4bd5b1f83cd763d5456c0ee2cedaff2519.php:72
+#: ../../../../templates/cache/89/7f/5256b31c84c3f09b61f2268dd157d5949c1be339b808050bcae3dc0c195a.php:72
+msgid "Moderation log"
+msgstr "仲裁記錄"
 
 #. line 124
 #: ../../../..//templates/cache/3b/33/faca36680d94bce76fa9da16bba66849e27e5f75741b703386880227c0bb.php:334
@@ -4767,8 +4750,9 @@ msgstr ""
 
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:347
 msgid ""
-"To contribute translations, register at <a href=\"https://www.transifex.com/"
-"projects/p/tinyboard-vichan-devel/\">Transifex</a>"
+"To contribute translations, register at <a "
+"href=\"https://www.transifex.com/projects/p/tinyboard-vichan-"
+"devel/\">Transifex</a>"
 msgstr ""
 
 #. line 65
@@ -4906,8 +4890,8 @@ msgstr ""
 #: ../../../../templates/cache/e6/b0/35e368580dcc89b914ecbee239e0749e2426bcabb2ee16de3d5a32caa266.php:347
 msgid ""
 "Read this page for more information about contributing translations:<br><a "
-"href=\"/translation.html\">Translation tutorial</a> or use <a href=\"https://"
-"www.transifex.com/projects/p/infinity/\">Transifex</a>"
+"href=\"/translation.html\">Translation tutorial</a> or use <a "
+"href=\"https://www.transifex.com/projects/p/infinity/\">Transifex</a>"
 msgstr ""
 
 #: ../../../../templates/cache/e6/b0/35e368580dcc89b914ecbee239e0749e2426bcabb2ee16de3d5a32caa266.php:470

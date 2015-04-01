@@ -1,18 +1,19 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
+# Sch <deadleaves@live.de>, 2015
+# Somanyanons <somanyanons@8chan.co>, 2015
 # zzrutkjf <fgnthjrj@byom.de>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: infinity\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-10-18 13:47+0200\n"
-"PO-Revision-Date: 2015-03-17 13:09+0000\n"
+"PO-Revision-Date: 2015-04-01 23:22+0000\n"
 "Last-Translator: copypaste <admin@8chan.co>\n"
-"Language-Team: German (Germany) (http://www.transifex.com/projects/p/"
-"infinity/language/de_DE/)\n"
+"Language-Team: German (Germany) (http://www.transifex.com/projects/p/infinity/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -158,19 +159,19 @@ msgstr "Melden"
 #: ../../../../js/expand.js:20 ../../../../js/expand.js:22
 #: ../../../../js//expand.js:22
 msgid "Click reply to view."
-msgstr "Klicke 'antworten' um den Faden anzusehen"
+msgstr "Klicke 'Antworten' zum anzeigen."
 
 #: ../../../../js/expand.js:20 ../../../../js/expand.js:22
 #: ../../../../js/live-index.js:72 ../../../../js/live-index.js:83
 #: ../../../../js//expand.js:22 ../../../../js//live-index.js:72
 #: ../../../../js//live-index.js:83
 msgid "Click to expand"
-msgstr "Klicken zum auspacken"
+msgstr "Klicken zum Vergrößern"
 
 #: ../../../../js/expand.js:44 ../../../../js/expand.js:46
 #: ../../../../js/expand.js:50 ../../../../js//expand.js:50
 msgid "Hide expanded replies"
-msgstr "Ausgepackte Fäden ausblenden"
+msgstr "Erweiterte Antworten ausblenden"
 
 #: ../../../../js/oekaki.js:10
 msgid "Brush size"
@@ -210,11 +211,11 @@ msgstr "Füllen"
 
 #: ../../../../js/oekaki.js:12
 msgid "Use oekaki instead of file?"
-msgstr ""
+msgstr "Oekaki statt Datei benutzen?"
 
 #: ../../../../js/oekaki.js:21
 msgid "Edit in oekaki"
-msgstr ""
+msgstr "Im Oekaki bearbeiten"
 
 #: ../../../../js/oekaki.js:152
 msgid "Enter some text"
@@ -334,7 +335,7 @@ msgstr "Schnelllantwort"
 #: ../../../../js/quick-reply-old.js:35
 #, python-brace-format
 msgid "Posting mode: Replying to <small>&gt;&gt;{0}</small>"
-msgstr ""
+msgstr "Post-Modus: <small>&gt;&gt;{0}</small> antworten"
 
 #: ../../../../js/quick-reply.js:33 ../../../../js/quick-reply-old.js:33
 #: ../../../../js/quick-reply-old.js:35
@@ -411,12 +412,12 @@ msgstr "Gemeldete Posts"
 #: ../../../../js/ajax-post-controls.js:53
 #: ../../../../js//ajax-post-controls.js:53
 msgid "An unknown error occured!"
-msgstr "Ein unbekannter Fehler ist aufgetretten"
+msgstr "Ein unbekannter Fehler ist aufgetreten!"
 
 #: ../../../../js/ajax-post-controls.js:60
 #: ../../../../js//ajax-post-controls.js:60
 msgid "Something went wrong... An unknown error occured!"
-msgstr "Irgendwas stimmt nicht... Ein unbekannter Fehler ist aufgetretten "
+msgstr "Irgendwas stimmt nicht... Ein unbekannter Fehler ist aufgetreten!"
 
 #: ../../../../js/ajax-post-controls.js:68
 #: ../../../../js//ajax-post-controls.js:68
@@ -436,7 +437,7 @@ msgstr "Gepostet..."
 #: ../../../../js/ajax.js:106 ../../../../js/ajax.js:111
 #: ../../../../js//ajax.js:114 ../../../../js/ajax.js:114
 msgid "An unknown error occured when posting!"
-msgstr "Beim posten ist ein unbekannter Fehler aufgetretten!"
+msgstr "Beim Posten ist ein unbekannter Fehler aufgetreten!"
 
 #: ../../../../js/ajax.js:130 ../../../../js/ajax.js:135
 #: ../../../../js//ajax.js:131 ../../../../js/ajax.js:131
@@ -476,7 +477,7 @@ msgstr "Schnellantwort"
 #: ../../../../js/watch.js:361 ../../../../js/watch.js:362
 #: ../../../../js//watch.js:361 ../../../../js//watch.js:362
 msgid "Stop watching this thread"
-msgstr "Faden nicht länger verfolgen"
+msgstr "Faden nicht länger beobachten"
 
 #: ../../../../js/watch.js:249 ../../../../js/watch.js:250
 #: ../../../../js/watch.js:288 ../../../../js/watch.js:289
@@ -484,7 +485,7 @@ msgstr "Faden nicht länger verfolgen"
 #: ../../../../js/watch.js:361 ../../../../js/watch.js:362
 #: ../../../../js//watch.js:361 ../../../../js//watch.js:362
 msgid "Watch this thread"
-msgstr "Faden verfolgen"
+msgstr "Faden beobachten"
 
 #: ../../../../js/watch.js:260 ../../../../js/watch.js:261
 #: ../../../../js/watch.js:269 ../../../../js/watch.js:299
@@ -517,7 +518,7 @@ msgstr "Brett anpinnen"
 #: ../../../../js//watch.js:374 ../../../../js//watch.js:379
 #: ../../../../js//watch.js:380
 msgid "Stop watching this board"
-msgstr "Brett nicht mehr verfolgen"
+msgstr "Brett nicht mehr beobachten"
 
 #: ../../../../js/watch.js:262 ../../../../js/watch.js:267
 #: ../../../../js/watch.js:268 ../../../../js/watch.js:301
@@ -528,11 +529,11 @@ msgstr "Brett nicht mehr verfolgen"
 #: ../../../../js//watch.js:374 ../../../../js//watch.js:379
 #: ../../../../js//watch.js:380
 msgid "Watch this board"
-msgstr "Brett verfolgen"
+msgstr "Brett beobachten"
 
 #: ../../../../js/wpaint.js:113 ../../../../js//wpaint.js:113
 msgid "Click on any image on this site to load it into oekaki applet"
-msgstr ""
+msgstr "Klicke auf ein Bild auf dieser Seite, um es in die Oekaki-Anwendung zu laden"
 
 #: ../../../../js/local-time.js:29 ../../../../templates/main.js:62
 #: ../../../../templates//main.js:68 ../../../../templates/main.js:68
@@ -729,7 +730,7 @@ msgstr "WebM Einstellungen"
 #: ../../../../js/webm-settings.js:44 ../../../../js/webm-settings.js:54
 #: ../../../../js//webm-settings.js:55 ../../../../js/webm-settings.js:55
 msgid "Expand videos inline"
-msgstr ""
+msgstr "Öffne Videos inline"
 
 #: ../../../../js/webm-settings.js:45 ../../../../js/webm-settings.js:55
 #: ../../../../js//webm-settings.js:56 ../../../../js/webm-settings.js:56
@@ -751,13 +752,13 @@ msgstr ""
 #: ../../../../js//expand-all-images.js:43
 #: ../../../../js/expand-all-images.js:43
 msgid "Shrink all images"
-msgstr ""
+msgstr "Alle Bilder verkleinern"
 
 #: ../../../../js/no-animated-gif.js:33 ../../../../js/no-animated-gif.js:37
 #: ../../../../js/no-animated-gif.js:40 ../../../../js//no-animated-gif.js:45
 #: ../../../../js/no-animated-gif.js:45
 msgid "Animate GIFs"
-msgstr ""
+msgstr "GIFs animieren"
 
 #: ../../../../js/no-animated-gif.js:42 ../../../../js/no-animated-gif.js:48
 #: ../../../../js/no-animated-gif.js:47 ../../../../js/no-animated-gif.js:57
@@ -767,55 +768,55 @@ msgstr ""
 #: ../../../../js//no-animated-gif.js:79 ../../../../js/no-animated-gif.js:74
 #: ../../../../js/no-animated-gif.js:79
 msgid "Unanimate GIFs"
-msgstr ""
+msgstr "GIFs nicht animieren"
 
 #: ../../../../js/webm-settings.js:41 ../../../../js//webm-settings.js:42
 #: ../../../../js/webm-settings.js:42
 msgid "WebM"
-msgstr ""
+msgstr "WebM"
 
 #: ../../../../js/live-index.js:25 ../../../../js/live-index.js:84
 #: ../../../../js//live-index.js:25 ../../../../js//live-index.js:84
 msgid "No new posts."
-msgstr ""
+msgstr "Keine neuen Posts."
 
 #: ../../../../js/live-index.js:30 ../../../../js/live-index.js:73
 #: ../../../../js//live-index.js:30 ../../../../js//live-index.js:73
 msgid "No new threads."
-msgstr ""
+msgstr "Keine neuen Fäden."
 
 #: ../../../../js/live-index.js:72 ../../../../js//live-index.js:72
 #, python-brace-format
 msgid "There are {0} new threads."
-msgstr ""
+msgstr "Es gibt {0} neue Fäden."
 
 #: ../../../../js/live-index.js:83 ../../../../js//live-index.js:83
 #, python-brace-format
 msgid "There are {0} new posts in this thread."
-msgstr ""
+msgstr "Es gibt {0} neue Posts in diesem Faden."
 
 #: ../../../../js/options.js:106 ../../../../js//options.js:106
 msgid "Options"
-msgstr ""
+msgstr "Optionen"
 
 #: ../../../../js/options/general.js:15 ../../../../js//options/general.js:15
 msgid "General"
-msgstr ""
+msgstr "Allgemein"
 
 #: ../../../../js/options/general.js:18 ../../../../js//options/general.js:21
 #: ../../../../js/options/general.js:21
 msgid "Storage: "
-msgstr ""
+msgstr "Einstellungen:"
 
 #: ../../../../js/options/general.js:21 ../../../../js//options/general.js:24
 #: ../../../../js/options/general.js:24
 msgid "Export"
-msgstr ""
+msgstr "Exportieren"
 
 #: ../../../../js/options/general.js:27 ../../../../js//options/general.js:30
 #: ../../../../js/options/general.js:30
 msgid "Import"
-msgstr ""
+msgstr "Importieren"
 
 #: ../../../../js/options/general.js:28 ../../../../js//options/general.js:31
 #: ../../../../js/options/general.js:31
@@ -825,28 +826,28 @@ msgstr ""
 #: ../../../../js/options/general.js:40 ../../../../js//options/general.js:43
 #: ../../../../js/options/general.js:43
 msgid "Erase"
-msgstr ""
+msgstr "Löschen"
 
 #: ../../../../js/options/general.js:41 ../../../../js//options/general.js:44
 #: ../../../../js/options/general.js:44
 msgid ""
 "Are you sure you want to erase your storage? This involves your hidden "
 "threads, watched threads, post password and many more."
-msgstr ""
+msgstr "Bist du sicher das du deine gespeicherten Daten löschen möchtest? Dies löscht deine ausgeblendeten Fäden, deine beobachteten Fäden, sowie Passwörter und vieles mehr"
 
 #: ../../../../js/options/user-css.js:14
 msgid "User CSS"
-msgstr ""
+msgstr "Benutzer CSS"
 
 #: ../../../../js/options/user-css.js:23
 msgid "Update custom CSS"
-msgstr ""
+msgstr "Aktualisiere Benutzer-CSS"
 
 #: ../../../../js/options/user-css.js:45
 #: ../../../../js//options/user-css.js:120
 #: ../../../../js/options/user-css.js:122
 msgid "Enter here your own CSS rules..."
-msgstr ""
+msgstr "Gebe hier dein eigenes CSS ein..."
 
 #: ../../../../js/options/user-css.js:46
 msgid ""
@@ -862,15 +863,15 @@ msgstr ""
 
 #: ../../../../js/options/user-js.js:14 ../../../../js//options/user-js.js:14
 msgid "User JS"
-msgstr ""
+msgstr "Benutzer JS"
 
 #: ../../../../js/options/user-js.js:23
 msgid "Update custom Javascript"
-msgstr ""
+msgstr "Aktualisiere Benutzer-Javascript"
 
 #: ../../../../js/options/user-js.js:54
 msgid "Enter here your own Javascript code..."
-msgstr ""
+msgstr "Gebe hier deinen eigenen Javascript-Code ein..."
 
 #: ../../../../js/options/user-js.js:55
 msgid ""
@@ -886,20 +887,20 @@ msgstr ""
 #: ../../../../js/id_colors.js:6 ../../../../js/id_colors.js:12
 #: ../../../../js//id_colors.js:6 ../../../../js//id_colors.js:12
 msgid "Color IDs"
-msgstr ""
+msgstr "Farbige IDs"
 
 #: ../../../../js/auto-reload.js:33 ../../../../js//auto-reload.js:96
 #: ../../../../js/auto-reload.js:107
 msgid "Update"
-msgstr ""
+msgstr "Update"
 
 #: ../../../../js/mod/ban-list.js:29 ../../../../js//mod/ban-list.js:29
 msgid "IP address"
-msgstr ""
+msgstr "IP-Adresse"
 
 #: ../../../../js/mod/ban-list.js:42 ../../../../js//mod/ban-list.js:42
 msgid "Seen"
-msgstr ""
+msgstr "Gesehen"
 
 #: ../../../../js/mod/ban-list.js:44 ../../../../js//mod/ban-list.js:44
 msgid "Message for which user was banned is included"
@@ -907,11 +908,11 @@ msgstr ""
 
 #: ../../../../js/mod/ban-list.js:45 ../../../../js//mod/ban-list.js:45
 msgid "Message:"
-msgstr ""
+msgstr "Nachricht:"
 
 #: ../../../../js/mod/ban-list.js:53 ../../../../js//mod/ban-list.js:53
 msgid "Board"
-msgstr ""
+msgstr "Brett"
 
 #: ../../../../js/mod/ban-list.js:55 ../../../../js//mod/ban-list.js:55
 msgid "all"
@@ -948,23 +949,23 @@ msgstr ""
 #: ../../../../js/auto-reload.js:33 ../../../../js//auto-reload.js:96
 #: ../../../../js/auto-reload.js:107
 msgid "Auto"
-msgstr ""
+msgstr "Automatisch"
 
 #: ../../../../js/auto-reload.js:141 ../../../../js//auto-reload.js:210
 #: ../../../../js/auto-reload.js:222
 msgid "Updating..."
-msgstr ""
+msgstr "Aktualisiert..."
 
 #: ../../../../js/auto-reload.js:183 ../../../../js//auto-reload.js:257
 #: ../../../../js/auto-reload.js:269
 #, python-brace-format
 msgid "Thread updated with {0} new post(s)"
-msgstr ""
+msgstr "Faden wurde aktualisiert mit {0} neuen Post(s)"
 
 #: ../../../../js/auto-reload.js:185 ../../../../js//auto-reload.js:259
 #: ../../../../js/auto-reload.js:271
 msgid "No new posts found"
-msgstr ""
+msgstr "Keine neuen Posts gefunden"
 
 #: ../../../../js/auto-reload.js:191 ../../../../js//auto-reload.js:265
 #: ../../../../js/auto-reload.js:277
@@ -974,56 +975,56 @@ msgstr ""
 #: ../../../../js/auto-reload.js:199 ../../../../js//auto-reload.js:273
 #: ../../../../js/auto-reload.js:285
 msgid "Error: "
-msgstr ""
+msgstr "Fehler:"
 
 #: ../../../../js/auto-reload.js:201 ../../../../js//auto-reload.js:275
 #: ../../../../js/auto-reload.js:287
 msgid "Unknown error"
-msgstr ""
+msgstr "Unbekannter Fehler"
 
 #: ../../../../js/infinite-scroll.js:47 ../../../../js//infinite-scroll.js:47
 msgid "Page"
-msgstr ""
+msgstr "Seite"
 
 #: ../../../../js/infinite-scroll.js:82 ../../../../js//infinite-scroll.js:82
 msgid "All"
-msgstr ""
+msgstr "Alles"
 
 #: ../../../../templates/main.js:29 ../../../../templates/main.js:47
 #: ../../../../templates//main.js:35 ../../../../templates//main.js:53
 #: ../../../../templates/main.js:35 ../../../../templates/main.js:53
 msgid "second(s)"
-msgstr ""
+msgstr "Sekunde(n)"
 
 #: ../../../../templates/main.js:31 ../../../../templates/main.js:49
 #: ../../../../templates//main.js:37 ../../../../templates//main.js:55
 #: ../../../../templates/main.js:37 ../../../../templates/main.js:55
 msgid "minute(s)"
-msgstr ""
+msgstr "Minute(n)"
 
 #: ../../../../templates/main.js:33 ../../../../templates/main.js:51
 #: ../../../../templates//main.js:39 ../../../../templates//main.js:57
 #: ../../../../templates/main.js:39 ../../../../templates/main.js:57
 msgid "hour(s)"
-msgstr ""
+msgstr "Stunde(n)"
 
 #: ../../../../templates/main.js:35 ../../../../templates/main.js:53
 #: ../../../../templates//main.js:41 ../../../../templates//main.js:59
 #: ../../../../templates/main.js:41 ../../../../templates/main.js:59
 msgid "day(s)"
-msgstr ""
+msgstr "Tag(e)"
 
 #: ../../../../templates/main.js:37 ../../../../templates/main.js:55
 #: ../../../../templates//main.js:43 ../../../../templates//main.js:61
 #: ../../../../templates/main.js:43 ../../../../templates/main.js:61
 msgid "week(s)"
-msgstr ""
+msgstr "Woche(n)"
 
 #: ../../../../templates/main.js:39 ../../../../templates/main.js:57
 #: ../../../../templates//main.js:45 ../../../../templates//main.js:63
 #: ../../../../templates/main.js:45 ../../../../templates/main.js:63
 msgid "year(s)"
-msgstr ""
+msgstr "Jahr(e)"
 
 #: ../../../../js//ajax.js:121 ../../../../js/ajax.js:121
 msgid ""
@@ -1034,11 +1035,11 @@ msgstr ""
 
 #: ../../../../js//auto-reload.js:41 ../../../../js/auto-reload.js:52
 msgid "Auto update"
-msgstr ""
+msgstr "Automatische Aktualisierung"
 
 #: ../../../../js//auto-reload.js:42 ../../../../js/auto-reload.js:53
 msgid "Auto update thread"
-msgstr ""
+msgstr "Aktualisiere Faden automatisch"
 
 #: ../../../../js//auto-reload.js:43 ../../../../js/auto-reload.js:54
 msgid "Show desktop notifications when users quote me"
@@ -1071,7 +1072,7 @@ msgstr ""
 
 #: ../../../../js//download-all.js:8 ../../../../js/download-all.js:8
 msgid "Download All"
-msgstr ""
+msgstr "Alles herunterladen"
 
 #: ../../../../js//forced-anon.js:73 ../../../../js/forced-anon.js:73
 msgid "Hide IDs"
@@ -1104,7 +1105,7 @@ msgstr ""
 
 #: ../../../../js//options/fav.js:27 ../../../../js/options/fav.js:27
 msgid "Favorites"
-msgstr ""
+msgstr "Favoriten"
 
 #: ../../../../js//options/fav.js:42 ../../../../js/options/fav.js:42
 msgid "Drag the boards to sort them."
@@ -1122,7 +1123,7 @@ msgstr ""
 #: ../../../../js//options/user-css.js:23
 #: ../../../../js/options/user-css.js:23
 msgid "Save custom CSS"
-msgstr ""
+msgstr "Aktualisiere Benutzer-CSS"
 
 #: ../../../../js//options/user-css.js:42
 #: ../../../../js/options/user-css.js:43
@@ -1160,16 +1161,16 @@ msgstr ""
 
 #: ../../../../js//options/user-js.js:24 ../../../../js/options/user-js.js:24
 msgid "Save custom Javascript"
-msgstr ""
+msgstr "Aktualisiere Benutzer-Javascript"
 
 #: ../../../../js//options/user-js.js:52 ../../../../js/options/user-js.js:52
 msgid "Enter your own Javascript code here..."
-msgstr ""
+msgstr "Gebe hier deinen eigenen Javascript-Code ein..."
 
 #: ../../../../js//show-own-posts.js:36 ../../../../js//show-own-posts.js:49
 #: ../../../../js/show-own-posts.js:36 ../../../../js/show-own-posts.js:49
 msgid "(You)"
-msgstr ""
+msgstr "(Du)"
 
 #: ../../../../js//treeview.js:18 ../../../../js/treeview.js:18
 msgid "Use tree view by default"
@@ -1185,23 +1186,23 @@ msgstr ""
 
 #: ../../../../js//youtube.js:28 ../../../../js/youtube.js:28
 msgid "YouTube size"
-msgstr ""
+msgstr "Youtube größe"
 
 #: ../../../../templates//main.js:96 ../../../../templates/main.js:96
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: ../../../../templates//main.js:102 ../../../../templates/main.js:102
 msgid "Cancel"
-msgstr ""
+msgstr "Abbrechen"
 
 #: ../../../../templates//main.js:325 ../../../../templates/main.js:330
 msgid "Hide post options &amp; limits"
-msgstr ""
+msgstr "Postoptionen &amp; -einschränkungen ausblenden"
 
 #: ../../../../templates//main.js:329 ../../../../templates/main.js:334
 msgid "Show post options &amp; limits"
-msgstr ""
+msgstr "Zeige Postoptionen & -einschränkungen"
 
 #: ../../../../js/fix-report-delete-submit.js:15
 msgid "Delete post"

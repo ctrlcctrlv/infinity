@@ -1,19 +1,19 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # DutchBlue <dutchblue@airmail.cc>, 2014
 # Kanker Kanker <brent-13@live.nl>, 2014
+# Yves <gubruikertje@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: infinity\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-10-18 13:47+0200\n"
-"PO-Revision-Date: 2015-03-17 13:11+0000\n"
+"PO-Revision-Date: 2015-04-01 23:22+0000\n"
 "Last-Translator: copypaste <admin@8chan.co>\n"
-"Language-Team: Dutch (Netherlands) (http://www.transifex.com/projects/p/"
-"infinity/language/nl_NL/)\n"
+"Language-Team: Dutch (Netherlands) (http://www.transifex.com/projects/p/infinity/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -133,7 +133,7 @@ msgstr[1] "jaren"
 #: ../../../../inc/functions.php:755 ../../../../inc/functions.php:774
 #: ../../../..//inc/functions.php:781 ../../../../inc/functions.php:782
 msgid "Banned!"
-msgstr "Banned!"
+msgstr "Geband!"
 
 #. There is no previous page.
 #: ../../../../inc/functions.php:1125 ../../../../inc/functions.php:1139
@@ -196,7 +196,7 @@ msgstr "Inloggen"
 #: ../../../../inc/display.php:265
 #, php-format
 msgid "Post too long. Click <a href=\"%s\">here</a> to view the full text."
-msgstr ""
+msgstr "Bericht te lang. Klik <a href=\"%s\">hier</a> om de volledige tekst te zien."
 
 #: ../../../../inc/display.php:368 ../../../../inc/display.php:473
 #: ../../../../inc/display.php:385 ../../../../inc/display.php:495
@@ -244,7 +244,7 @@ msgstr "Weet je zeker dat je dit bestand wilt verwijderen?"
 #: ../../../../inc/display.php:400 ../../../../inc/display.php:510
 #: ../../../../inc/display.php:404 ../../../../inc/display.php:514
 msgid "Spoiler File"
-msgstr "Spoiler plaatje"
+msgstr "Verborgen Bestand"
 
 #: ../../../../inc/display.php:380 ../../../../inc/display.php:485
 #: ../../../../inc/display.php:397 ../../../../inc/display.php:507
@@ -254,7 +254,7 @@ msgstr "Spoiler plaatje"
 #: ../../../..//templates/cache/2d/b1/97370111ec8d923be14d9c2c3b8c9ddfbc01416fb3cadb98650562a54fdd.php:33
 #: ../../../../templates/cache/e7/16/3273819f85fac8117375be098e91c14a95f2940621859caf5a753d64818b.php:33
 msgid "Are you sure you want to spoiler this file?"
-msgstr "Weet je zeker dat je dit plaatje wilt spoileren?"
+msgstr "Weet je zeker dat je dit plaatje wilt verbergen?"
 
 #: ../../../../inc/display.php:384 ../../../../inc/display.php:401
 #: ../../../../inc/display.php:404 ../../../../inc/display.php:408
@@ -262,7 +262,7 @@ msgstr "Weet je zeker dat je dit plaatje wilt spoileren?"
 #: ../../../..//templates/cache/32/56/2f0f3c8b5fda2a269f57b553b9db686212ecf685202bccc86840fe002cc6.php:198
 #: ../../../../templates/cache/93/74/96285495dcf7b97c629b351412786f661ca765fc898486361680018d1d6e.php:195
 msgid "Move reply to another board"
-msgstr "Verplaats reactie naar ander bord"
+msgstr "Verplaats reactie naar een ander bord"
 
 #: ../../../../inc/display.php:388 ../../../../inc/display.php:512
 #: ../../../../inc/mod/pages.php:1425 ../../../../inc/mod/pages.php:1494
@@ -337,9 +337,7 @@ msgstr "Verwijder alle posts van dit IP op alle borden"
 msgid ""
 "Are you sure you want to delete all posts by this IP address, across all "
 "boards?"
-msgstr ""
-"Weet je zeker dat je alle posts van dit IP adres wilt verwijderen op alle "
-"bords?"
+msgstr "Weet je zeker dat je alle posts van dit IP adres wilt verwijderen op alle bords?"
 
 #: ../../../../inc/display.php:490 ../../../../inc/display.php:512
 #: ../../../../inc/display.php:515 ../../../../inc/display.php:519
@@ -347,7 +345,7 @@ msgstr ""
 #: ../../../..//templates/cache/32/56/2f0f3c8b5fda2a269f57b553b9db686212ecf685202bccc86840fe002cc6.php:101
 #: ../../../../templates/cache/93/74/96285495dcf7b97c629b351412786f661ca765fc898486361680018d1d6e.php:101
 msgid "Make thread not sticky"
-msgstr "Maak van draad geen sticky meer"
+msgstr "Maak de draad geen sticky meer"
 
 #: ../../../../inc/display.php:492 ../../../../inc/display.php:514
 #: ../../../../inc/display.php:517 ../../../../inc/display.php:521
@@ -355,7 +353,7 @@ msgstr "Maak van draad geen sticky meer"
 #: ../../../..//templates/cache/32/56/2f0f3c8b5fda2a269f57b553b9db686212ecf685202bccc86840fe002cc6.php:111
 #: ../../../../templates/cache/93/74/96285495dcf7b97c629b351412786f661ca765fc898486361680018d1d6e.php:111
 msgid "Make thread sticky"
-msgstr "Maak van draad een sticky"
+msgstr "Maak de draad een sticky"
 
 #: ../../../../inc/display.php:496 ../../../../inc/display.php:518
 #: ../../../../inc/display.php:521 ../../../../inc/display.php:525
@@ -371,7 +369,7 @@ msgstr "Bumpen van draad toestaan"
 #: ../../../..//templates/cache/32/56/2f0f3c8b5fda2a269f57b553b9db686212ecf685202bccc86840fe002cc6.php:137
 #: ../../../../templates/cache/93/74/96285495dcf7b97c629b351412786f661ca765fc898486361680018d1d6e.php:137
 msgid "Prevent thread from being bumped"
-msgstr "Voorkom draad van bumpen"
+msgstr "Voorkom het bumpen van draad"
 
 #: ../../../../inc/display.php:503 ../../../../inc/display.php:525
 #: ../../../../inc/display.php:528 ../../../../inc/display.php:532
@@ -407,7 +405,7 @@ msgstr "Verplaats draad naar ander bord"
 #: ../../../../inc/config.php:482 ../../../..//inc/config.php:520
 #: ../../../../inc/config.php:520
 msgid "You have been muted for unoriginal content."
-msgstr "Je bent gemuted voor onorgineel content."
+msgstr "Je bent gemute wegens onorginele inhoud."
 
 #. The names on the post buttons. (On most imageboards, these are both just
 #. "Post").
@@ -440,7 +438,7 @@ msgstr "Nieuwe reactie"
 msgid ""
 "All trademarks, copyrights, comments, and images on this page are owned by "
 "and are the responsibility of their respective parties."
-msgstr ""
+msgstr "Alle handelsmerken, auteursrechten, berichten en afbeeldingen op deze pagina zijn het bezit en de verantwoordelijkheid van hun respectievelijke eigenaren."
 
 #. * ====================
 #. *  Error messages
@@ -448,7 +446,7 @@ msgstr ""
 #. Error messages
 #: ../../../../inc/config.php:866
 msgid "Lurk some more before posting."
-msgstr ""
+msgstr "Lurk wat meer voordat je post."
 
 #. * ====================
 #. *  Error messages
@@ -474,7 +472,7 @@ msgstr "Je lijkt op een bot."
 #: ../../../../inc/config.php:1021 ../../../../inc/config.php:1024
 #: ../../../..//inc/config.php:1090 ../../../../inc/config.php:1091
 msgid "Your browser sent an invalid or no HTTP referer."
-msgstr ""
+msgstr "Je browser verstuurde een ongeldige of geen HTTP referer."
 
 #: ../../../../inc/config.php:869 ../../../../inc/config.php:974
 #: ../../../../inc/config.php:965 ../../../../inc/config.php:967
@@ -484,7 +482,7 @@ msgstr ""
 #: ../../../..//inc/config.php:1091 ../../../../inc/config.php:1092
 #, php-format
 msgid "The %s field was too long."
-msgstr ""
+msgstr "Het %s veld was te lang."
 
 #: ../../../../inc/config.php:870 ../../../../inc/config.php:975
 #: ../../../../inc/config.php:966 ../../../../inc/config.php:968
@@ -511,7 +509,7 @@ msgstr ""
 #: ../../../../inc/config.php:1025 ../../../../inc/config.php:1028
 #: ../../../..//inc/config.php:1094 ../../../../inc/config.php:1095
 msgid "You must upload an image."
-msgstr ""
+msgstr "Je moet een afbeelding uploaden."
 
 #: ../../../../inc/config.php:873 ../../../../inc/config.php:978
 #: ../../../../inc/config.php:969 ../../../../inc/config.php:971
@@ -520,7 +518,7 @@ msgstr ""
 #: ../../../../inc/config.php:1027 ../../../../inc/config.php:1030
 #: ../../../..//inc/config.php:1096 ../../../../inc/config.php:1097
 msgid "The server failed to handle your upload."
-msgstr ""
+msgstr "De server heeft je upload niet verwerkt."
 
 #: ../../../../inc/config.php:874 ../../../../inc/config.php:979
 #: ../../../../inc/config.php:970 ../../../../inc/config.php:972
@@ -547,7 +545,7 @@ msgstr ""
 #: ../../../../inc/config.php:1030 ../../../../inc/config.php:1033
 #: ../../../..//inc/config.php:1099 ../../../../inc/config.php:1100
 msgid "Thread specified does not exist."
-msgstr ""
+msgstr "De draad bestaat niet."
 
 #: ../../../../inc/config.php:877 ../../../../inc/config.php:982
 #: ../../../../inc/config.php:973 ../../../../inc/config.php:975
@@ -556,7 +554,7 @@ msgstr ""
 #: ../../../../inc/config.php:1031 ../../../../inc/config.php:1034
 #: ../../../..//inc/config.php:1100 ../../../../inc/config.php:1101
 msgid "Thread locked. You may not reply at this time."
-msgstr ""
+msgstr "Draad gesloten. Je mag nu niet meer reageren."
 
 #: ../../../../inc/config.php:878 ../../../../inc/config.php:983
 #: ../../../../inc/config.php:974 ../../../../inc/config.php:976
@@ -565,7 +563,7 @@ msgstr ""
 #: ../../../../inc/config.php:1032 ../../../../inc/config.php:1035
 #: ../../../..//inc/config.php:1101 ../../../../inc/config.php:1102
 msgid "Thread has reached its maximum reply limit."
-msgstr ""
+msgstr "De draad heeft zijn berichtenlimiet berijkt."
 
 #: ../../../../inc/config.php:879 ../../../../inc/config.php:984
 #: ../../../../inc/config.php:975 ../../../../inc/config.php:977
@@ -574,7 +572,7 @@ msgstr ""
 #: ../../../../inc/config.php:1033 ../../../../inc/config.php:1036
 #: ../../../..//inc/config.php:1102 ../../../../inc/config.php:1103
 msgid "Thread has reached its maximum image limit."
-msgstr ""
+msgstr "De draad heeft zijn afbeeldingslimiet berijkt."
 
 #: ../../../../inc/config.php:880 ../../../../inc/config.php:985
 #: ../../../../inc/config.php:976 ../../../../inc/config.php:978
@@ -583,7 +581,7 @@ msgstr ""
 #: ../../../../inc/config.php:1034 ../../../../inc/config.php:1037
 #: ../../../..//inc/config.php:1103 ../../../../inc/config.php:1104
 msgid "You didn't make a post."
-msgstr ""
+msgstr "Je hebt geen bericht geschreven."
 
 #: ../../../../inc/config.php:881 ../../../../inc/config.php:986
 #: ../../../../inc/config.php:977 ../../../../inc/config.php:979
@@ -609,7 +607,7 @@ msgstr ""
 #: ../../../../inc/config.php:1037 ../../../../inc/config.php:1040
 #: ../../../..//inc/config.php:1106 ../../../../inc/config.php:1107
 msgid "Unoriginal content!"
-msgstr ""
+msgstr "Onorginele inhoud!"
 
 #: ../../../../inc/config.php:884 ../../../../inc/config.php:989
 #: ../../../../inc/config.php:980 ../../../../inc/config.php:982
@@ -619,7 +617,7 @@ msgstr ""
 #: ../../../..//inc/config.php:1107 ../../../../inc/config.php:1108
 #, php-format
 msgid "Unoriginal content! You have been muted for %d seconds."
-msgstr ""
+msgstr "Onorginele inhoud! Je bent voor %d seconden gemute."
 
 #: ../../../../inc/config.php:885 ../../../../inc/config.php:990
 #: ../../../../inc/config.php:981 ../../../../inc/config.php:983
@@ -629,7 +627,7 @@ msgstr ""
 #: ../../../..//inc/config.php:1108 ../../../../inc/config.php:1109
 #, php-format
 msgid "You are muted! Expires in %d seconds."
-msgstr ""
+msgstr "Je bent gemute! Verloopt over %d seconden."
 
 #: ../../../../inc/config.php:886 ../../../../inc/config.php:991
 #: ../../../../inc/config.php:982 ../../../../inc/config.php:984
@@ -639,7 +637,7 @@ msgstr ""
 #: ../../../..//inc/config.php:1109 ../../../../inc/config.php:1110
 #, php-format
 msgid "Your IP address is listed in %s."
-msgstr ""
+msgstr "Je IP-adres is geregisteerd in %s"
 
 #: ../../../../inc/config.php:887 ../../../../inc/config.php:992
 #: ../../../../inc/config.php:983 ../../../../inc/config.php:985
@@ -836,7 +834,8 @@ msgstr ""
 #: ../../../../inc/config.php:1069 ../../../../inc/config.php:1072
 #: ../../../..//inc/config.php:1139 ../../../../inc/config.php:1140
 msgid ""
-"Invalid username and/or password. Your user may have been deleted or changed."
+"Invalid username and/or password. Your user may have been deleted or "
+"changed."
 msgstr ""
 
 #: ../../../../inc/config.php:910 ../../../../inc/config.php:1015
@@ -3614,8 +3613,8 @@ msgstr ""
 #. line 5
 #: ../../../../templates/cache/57/a7/c0a734e494c78acfc595f033a070bdc87fdc3e6a28ad5aaa8666c7a1a966.php:39
 msgid ""
-"You are probably seeing this message because Javascript being disabled. This "
-"is a necessary security measure to prevent CSRF attacks."
+"You are probably seeing this message because Javascript being disabled. This"
+" is a necessary security measure to prevent CSRF attacks."
 msgstr ""
 
 #. line 7
@@ -3777,7 +3776,8 @@ msgstr ""
 #: ../../../../templates/themes/recent/theme.php:50
 #: ../../../..//templates/themes/recent/theme.php:50
 msgid ""
-"Can't build the RecentPosts theme, because there are no boards to be fetched."
+"Can't build the RecentPosts theme, because there are no boards to be "
+"fetched."
 msgstr ""
 
 #: ../../../../inc/config.php:997 ../../../../inc/config.php:1023
@@ -4763,8 +4763,9 @@ msgstr ""
 
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:347
 msgid ""
-"To contribute translations, register at <a href=\"https://www.transifex.com/"
-"projects/p/tinyboard-vichan-devel/\">Transifex</a>"
+"To contribute translations, register at <a "
+"href=\"https://www.transifex.com/projects/p/tinyboard-vichan-"
+"devel/\">Transifex</a>"
 msgstr ""
 
 #. line 65
@@ -4902,8 +4903,8 @@ msgstr ""
 #: ../../../../templates/cache/e6/b0/35e368580dcc89b914ecbee239e0749e2426bcabb2ee16de3d5a32caa266.php:347
 msgid ""
 "Read this page for more information about contributing translations:<br><a "
-"href=\"/translation.html\">Translation tutorial</a> or use <a href=\"https://"
-"www.transifex.com/projects/p/infinity/\">Transifex</a>"
+"href=\"/translation.html\">Translation tutorial</a> or use <a "
+"href=\"https://www.transifex.com/projects/p/infinity/\">Transifex</a>"
 msgstr ""
 
 #: ../../../../templates/cache/e6/b0/35e368580dcc89b914ecbee239e0749e2426bcabb2ee16de3d5a32caa266.php:470

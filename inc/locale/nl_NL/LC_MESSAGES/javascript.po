@@ -1,18 +1,18 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Kanker Kanker <brent-13@live.nl>, 2014
+# Yves <gubruikertje@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: infinity\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-10-18 13:47+0200\n"
-"PO-Revision-Date: 2015-03-17 13:09+0000\n"
+"PO-Revision-Date: 2015-04-01 23:22+0000\n"
 "Last-Translator: copypaste <admin@8chan.co>\n"
-"Language-Team: Dutch (Netherlands) (http://www.transifex.com/projects/p/"
-"infinity/language/nl_NL/)\n"
+"Language-Team: Dutch (Netherlands) (http://www.transifex.com/projects/p/infinity/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -244,7 +244,7 @@ msgstr "Geforceerde anonimiteit "
 #: ../../../../js//forced-anon.js:80 ../../../../js//forced-anon.js:97
 #: ../../../../js/forced-anon.js:80 ../../../../js/forced-anon.js:97
 msgid "enabled"
-msgstr ""
+msgstr "Aan"
 
 #: ../../../../js/forced-anon.js:59 ../../../../js/forced-anon.js:69
 #: ../../../../js/forced-anon.js:60 ../../../../js/forced-anon.js:70
@@ -253,7 +253,7 @@ msgstr ""
 #: ../../../../js//forced-anon.js:80 ../../../../js//forced-anon.js:101
 #: ../../../../js/forced-anon.js:80 ../../../../js/forced-anon.js:101
 msgid "disabled"
-msgstr ""
+msgstr "UIt"
 
 #: ../../../../js/local-time.js:40 ../../../../js/local-time.js:41
 #: ../../../../js/local-time.js:30 ../../../../templates/main.js:63
@@ -261,7 +261,7 @@ msgstr ""
 #: ../../../../templates//main.js:69 ../../../../js/post-hover.js:335
 #: ../../../../js/local-time.js:32 ../../../../templates/main.js:69
 msgid "Sun"
-msgstr "Zondag"
+msgstr "Zo."
 
 #: ../../../../js/local-time.js:40 ../../../../js/local-time.js:41
 #: ../../../../js/local-time.js:30 ../../../../templates/main.js:63
@@ -269,7 +269,7 @@ msgstr "Zondag"
 #: ../../../../templates//main.js:69 ../../../../js/post-hover.js:335
 #: ../../../../js/local-time.js:32 ../../../../templates/main.js:69
 msgid "Mon"
-msgstr "Maandag"
+msgstr "Ma."
 
 #: ../../../../js/local-time.js:40 ../../../../js/local-time.js:41
 #: ../../../../js/local-time.js:30 ../../../../templates/main.js:63
@@ -277,7 +277,7 @@ msgstr "Maandag"
 #: ../../../../templates//main.js:69 ../../../../js/post-hover.js:335
 #: ../../../../js/local-time.js:32 ../../../../templates/main.js:69
 msgid "Tue"
-msgstr "Dinsdag"
+msgstr "Di."
 
 #: ../../../../js/local-time.js:40 ../../../../js/local-time.js:41
 #: ../../../../js/local-time.js:30 ../../../../templates/main.js:63
@@ -285,7 +285,7 @@ msgstr "Dinsdag"
 #: ../../../../templates//main.js:69 ../../../../js/post-hover.js:335
 #: ../../../../js/local-time.js:32 ../../../../templates/main.js:69
 msgid "Wed"
-msgstr "Woensdag"
+msgstr "Wo."
 
 #: ../../../../js/local-time.js:40 ../../../../js/local-time.js:41
 #: ../../../../js/local-time.js:30 ../../../../templates/main.js:63
@@ -293,7 +293,7 @@ msgstr "Woensdag"
 #: ../../../../templates//main.js:69 ../../../../js/post-hover.js:335
 #: ../../../../js/local-time.js:32 ../../../../templates/main.js:69
 msgid "Thu"
-msgstr "Donderdag"
+msgstr "Do."
 
 #: ../../../../js/local-time.js:40 ../../../../js/local-time.js:41
 #: ../../../../js/local-time.js:30 ../../../../templates/main.js:63
@@ -301,7 +301,7 @@ msgstr "Donderdag"
 #: ../../../../templates//main.js:69 ../../../../js/post-hover.js:335
 #: ../../../../js/local-time.js:32 ../../../../templates/main.js:69
 msgid "Fri"
-msgstr "Vrijdag"
+msgstr "Vr."
 
 #: ../../../../js/local-time.js:40 ../../../../js/local-time.js:41
 #: ../../../../js/local-time.js:30 ../../../../templates/main.js:63
@@ -309,7 +309,7 @@ msgstr "Vrijdag"
 #: ../../../../templates//main.js:69 ../../../../js/post-hover.js:335
 #: ../../../../js/local-time.js:32 ../../../../templates/main.js:69
 msgid "Sat"
-msgstr "Zaterdag"
+msgstr "Za."
 
 #: ../../../../js/catalog-link.js:21 ../../../../js/catalog-link.js:32
 #: ../../../../js/catalog-link.js:40 ../../../../js/catalog-link.js:33
@@ -334,7 +334,7 @@ msgstr "Snelle reactie"
 #: ../../../../js/quick-reply-old.js:35
 #, python-brace-format
 msgid "Posting mode: Replying to <small>&gt;&gt;{0}</small>"
-msgstr ""
+msgstr "Bericht modus: Reageren op <small>&gt;&gt;{0}</small>"
 
 #: ../../../../js/quick-reply.js:33 ../../../../js/quick-reply-old.js:33
 #: ../../../../js/quick-reply-old.js:35
@@ -411,17 +411,17 @@ msgstr "Gerapporteerde post(s)"
 #: ../../../../js/ajax-post-controls.js:53
 #: ../../../../js//ajax-post-controls.js:53
 msgid "An unknown error occured!"
-msgstr "Er was een error!"
+msgstr "Een onbekende error heeft plaatsgevonden. "
 
 #: ../../../../js/ajax-post-controls.js:60
 #: ../../../../js//ajax-post-controls.js:60
 msgid "Something went wrong... An unknown error occured!"
-msgstr "Er is iets fout gegaan..."
+msgstr "Er is iets fout gegaan... Een onbekende error heeft plaatsgevonden. "
 
 #: ../../../../js/ajax-post-controls.js:68
 #: ../../../../js//ajax-post-controls.js:68
 msgid "Working..."
-msgstr ""
+msgstr "Werkt..."
 
 #: ../../../../js/ajax.js:42 ../../../../js/ajax.js:45
 #: ../../../../js//ajax.js:42
@@ -495,7 +495,7 @@ msgstr "Bekijk deze draad"
 #: ../../../../js//watch.js:372 ../../../../js//watch.js:373
 #: ../../../../js//watch.js:381
 msgid "Unpin this board"
-msgstr ""
+msgstr "Unpin dit bord"
 
 #: ../../../../js/watch.js:260 ../../../../js/watch.js:261
 #: ../../../../js/watch.js:269 ../../../../js/watch.js:299
@@ -506,7 +506,7 @@ msgstr ""
 #: ../../../../js//watch.js:372 ../../../../js//watch.js:373
 #: ../../../../js//watch.js:381
 msgid "Pin this board"
-msgstr "Pin dit board"
+msgstr "Pin dit bord"
 
 #: ../../../../js/watch.js:262 ../../../../js/watch.js:267
 #: ../../../../js/watch.js:268 ../../../../js/watch.js:301
@@ -532,7 +532,7 @@ msgstr "Bekijk dit bord"
 
 #: ../../../../js/wpaint.js:113 ../../../../js//wpaint.js:113
 msgid "Click on any image on this site to load it into oekaki applet"
-msgstr ""
+msgstr "Kilk op een afbeelding op deze site om het te laden in oekaki applet"
 
 #: ../../../../js/local-time.js:29 ../../../../templates/main.js:62
 #: ../../../../templates//main.js:68 ../../../../templates/main.js:68
@@ -729,12 +729,12 @@ msgstr "Webm instellingen"
 #: ../../../../js/webm-settings.js:44 ../../../../js/webm-settings.js:54
 #: ../../../../js//webm-settings.js:55 ../../../../js/webm-settings.js:55
 msgid "Expand videos inline"
-msgstr ""
+msgstr "Video's inline uitbreiden"
 
 #: ../../../../js/webm-settings.js:45 ../../../../js/webm-settings.js:55
 #: ../../../../js//webm-settings.js:56 ../../../../js/webm-settings.js:56
 msgid "Play videos on hover"
-msgstr ""
+msgstr "Video's afspelen bij aanraking"
 
 #: ../../../../js/webm-settings.js:46 ../../../../js/webm-settings.js:56
 #: ../../../../js//webm-settings.js:58 ../../../../js/webm-settings.js:58
@@ -800,7 +800,7 @@ msgstr "Opties"
 
 #: ../../../../js/options/general.js:15 ../../../../js//options/general.js:15
 msgid "General"
-msgstr ""
+msgstr "Algemeen"
 
 #: ../../../../js/options/general.js:18 ../../../../js//options/general.js:21
 #: ../../../../js/options/general.js:21
@@ -820,7 +820,7 @@ msgstr "Importeren"
 #: ../../../../js/options/general.js:28 ../../../../js//options/general.js:31
 #: ../../../../js/options/general.js:31
 msgid "Paste your storage data"
-msgstr ""
+msgstr "Plak jouw opslag data"
 
 #: ../../../../js/options/general.js:40 ../../../../js//options/general.js:43
 #: ../../../../js/options/general.js:43
@@ -832,7 +832,7 @@ msgstr "Wissen"
 msgid ""
 "Are you sure you want to erase your storage? This involves your hidden "
 "threads, watched threads, post password and many more."
-msgstr ""
+msgstr "Weet je zeker dat je je oplag wil verwijderen? Dit heeft betrekking op je verborgen draden, bekeken draden, post wachtwoord en nog veel meer."
 
 #: ../../../../js/options/user-css.js:14
 msgid "User CSS"
@@ -840,25 +840,25 @@ msgstr "Gebruiker CSS"
 
 #: ../../../../js/options/user-css.js:23
 msgid "Update custom CSS"
-msgstr ""
+msgstr "Werk aangepaste CSS bij"
 
 #: ../../../../js/options/user-css.js:45
 #: ../../../../js//options/user-css.js:120
 #: ../../../../js/options/user-css.js:122
 msgid "Enter here your own CSS rules..."
-msgstr ""
+msgstr "Vul hier je eigen CSS regels in..."
 
 #: ../../../../js/options/user-css.js:46
 msgid ""
 "If you want to make a redistributable style, be sure to\n"
 "   have a Yotsuba B theme selected."
-msgstr ""
+msgstr "Als je een distribueerbare stijl wil maken, zorg er dan voor dat je een Yostuba B thema hebt geselecteerd."
 
 #: ../../../../js/options/user-css.js:47
 #: ../../../../js//options/user-css.js:123
 #: ../../../../js/options/user-css.js:125
 msgid "You can include CSS files from remote servers, for example:"
-msgstr ""
+msgstr "Je kan CSS bestanden van een remote server bijvoegen, bijvoorbeeld:"
 
 #: ../../../../js/options/user-js.js:14 ../../../../js//options/user-js.js:14
 msgid "User JS"
@@ -866,7 +866,7 @@ msgstr "Gebruiker JS"
 
 #: ../../../../js/options/user-js.js:23
 msgid "Update custom Javascript"
-msgstr ""
+msgstr "Werk aangepaste Javascript bij"
 
 #: ../../../../js/options/user-js.js:54
 msgid "Enter here your own Javascript code..."
@@ -876,7 +876,7 @@ msgstr "Vul hier je eigen Javascript code in..."
 msgid ""
 "Have a backup of your storage somewhere, as messing here\n"
 "   may render you this website unusable."
-msgstr ""
+msgstr "Zorg dat je een backup van je opslag hebt, want als je hier dingen verandert kan de website onbruikbaar voor je maken."
 
 #: ../../../../js/options/user-js.js:56 ../../../../js//options/user-js.js:53
 #: ../../../../js/options/user-js.js:53
@@ -886,7 +886,7 @@ msgstr ""
 #: ../../../../js/id_colors.js:6 ../../../../js/id_colors.js:12
 #: ../../../../js//id_colors.js:6 ../../../../js//id_colors.js:12
 msgid "Color IDs"
-msgstr ""
+msgstr "Kleuren ID's"
 
 #: ../../../../js/auto-reload.js:33 ../../../../js//auto-reload.js:96
 #: ../../../../js/auto-reload.js:107
@@ -895,27 +895,27 @@ msgstr ""
 
 #: ../../../../js/mod/ban-list.js:29 ../../../../js//mod/ban-list.js:29
 msgid "IP address"
-msgstr ""
+msgstr "IP-adres"
 
 #: ../../../../js/mod/ban-list.js:42 ../../../../js//mod/ban-list.js:42
 msgid "Seen"
-msgstr ""
+msgstr "Gelezen"
 
 #: ../../../../js/mod/ban-list.js:44 ../../../../js//mod/ban-list.js:44
 msgid "Message for which user was banned is included"
-msgstr ""
+msgstr "Bericht waarvoor de gebruiker is gebanned is bijgevoegd"
 
 #: ../../../../js/mod/ban-list.js:45 ../../../../js//mod/ban-list.js:45
 msgid "Message:"
-msgstr ""
+msgstr "Bericht:"
 
 #: ../../../../js/mod/ban-list.js:53 ../../../../js//mod/ban-list.js:53
 msgid "Board"
-msgstr ""
+msgstr "Bord"
 
 #: ../../../../js/mod/ban-list.js:55 ../../../../js//mod/ban-list.js:55
 msgid "all"
-msgstr ""
+msgstr "alles"
 
 #: ../../../../js/mod/ban-list.js:57 ../../../../js//mod/ban-list.js:57
 msgid "Set"
@@ -923,139 +923,139 @@ msgstr ""
 
 #: ../../../../js/mod/ban-list.js:58 ../../../../js//mod/ban-list.js:58
 msgid " ago"
-msgstr ""
+msgstr "geleden"
 
 #: ../../../../js/mod/ban-list.js:61 ../../../../js//mod/ban-list.js:61
 msgid "Expires"
-msgstr ""
+msgstr "Vervalt"
 
 #: ../../../../js/mod/ban-list.js:62 ../../../../js//mod/ban-list.js:62
 msgid "never"
-msgstr ""
+msgstr "nooit"
 
 #: ../../../../js/mod/ban-list.js:64 ../../../../js//mod/ban-list.js:64
 msgid "in "
-msgstr ""
+msgstr "in"
 
 #: ../../../../js/mod/ban-list.js:66 ../../../../js//mod/ban-list.js:66
 msgid "Staff"
-msgstr ""
+msgstr "Personeel"
 
 #: ../../../../js/mod/ban-list.js:73 ../../../../js//mod/ban-list.js:73
 msgid "system"
-msgstr ""
+msgstr "systeem"
 
 #: ../../../../js/auto-reload.js:33 ../../../../js//auto-reload.js:96
 #: ../../../../js/auto-reload.js:107
 msgid "Auto"
-msgstr ""
+msgstr "Automatisch"
 
 #: ../../../../js/auto-reload.js:141 ../../../../js//auto-reload.js:210
 #: ../../../../js/auto-reload.js:222
 msgid "Updating..."
-msgstr ""
+msgstr "Updaten..."
 
 #: ../../../../js/auto-reload.js:183 ../../../../js//auto-reload.js:257
 #: ../../../../js/auto-reload.js:269
 #, python-brace-format
 msgid "Thread updated with {0} new post(s)"
-msgstr ""
+msgstr "Draag bijgewerkt met {0} nieuwe berichten"
 
 #: ../../../../js/auto-reload.js:185 ../../../../js//auto-reload.js:259
 #: ../../../../js/auto-reload.js:271
 msgid "No new posts found"
-msgstr ""
+msgstr "Geen nieuwe berichten"
 
 #: ../../../../js/auto-reload.js:191 ../../../../js//auto-reload.js:265
 #: ../../../../js/auto-reload.js:277
 msgid "Thread deleted or pruned"
-msgstr ""
+msgstr "Draad verwijderd"
 
 #: ../../../../js/auto-reload.js:199 ../../../../js//auto-reload.js:273
 #: ../../../../js/auto-reload.js:285
 msgid "Error: "
-msgstr ""
+msgstr "Error:"
 
 #: ../../../../js/auto-reload.js:201 ../../../../js//auto-reload.js:275
 #: ../../../../js/auto-reload.js:287
 msgid "Unknown error"
-msgstr ""
+msgstr "Onbekende error"
 
 #: ../../../../js/infinite-scroll.js:47 ../../../../js//infinite-scroll.js:47
 msgid "Page"
-msgstr ""
+msgstr "Pagina"
 
 #: ../../../../js/infinite-scroll.js:82 ../../../../js//infinite-scroll.js:82
 msgid "All"
-msgstr ""
+msgstr "Alle"
 
 #: ../../../../templates/main.js:29 ../../../../templates/main.js:47
 #: ../../../../templates//main.js:35 ../../../../templates//main.js:53
 #: ../../../../templates/main.js:35 ../../../../templates/main.js:53
 msgid "second(s)"
-msgstr ""
+msgstr "seconden"
 
 #: ../../../../templates/main.js:31 ../../../../templates/main.js:49
 #: ../../../../templates//main.js:37 ../../../../templates//main.js:55
 #: ../../../../templates/main.js:37 ../../../../templates/main.js:55
 msgid "minute(s)"
-msgstr ""
+msgstr "Minuten"
 
 #: ../../../../templates/main.js:33 ../../../../templates/main.js:51
 #: ../../../../templates//main.js:39 ../../../../templates//main.js:57
 #: ../../../../templates/main.js:39 ../../../../templates/main.js:57
 msgid "hour(s)"
-msgstr ""
+msgstr "uren"
 
 #: ../../../../templates/main.js:35 ../../../../templates/main.js:53
 #: ../../../../templates//main.js:41 ../../../../templates//main.js:59
 #: ../../../../templates/main.js:41 ../../../../templates/main.js:59
 msgid "day(s)"
-msgstr ""
+msgstr "dagen"
 
 #: ../../../../templates/main.js:37 ../../../../templates/main.js:55
 #: ../../../../templates//main.js:43 ../../../../templates//main.js:61
 #: ../../../../templates/main.js:43 ../../../../templates/main.js:61
 msgid "week(s)"
-msgstr ""
+msgstr "weken"
 
 #: ../../../../templates/main.js:39 ../../../../templates/main.js:57
 #: ../../../../templates//main.js:45 ../../../../templates//main.js:63
 #: ../../../../templates/main.js:45 ../../../../templates/main.js:63
 msgid "year(s)"
-msgstr ""
+msgstr "jaren"
 
 #: ../../../../js//ajax.js:121 ../../../../js/ajax.js:121
 msgid ""
 "The server took too long to submit your post. Your post was probably still "
 "submitted. If it wasn't, 8chan might be experiencing issues right now -- "
 "please try your post again later. Error information: "
-msgstr ""
+msgstr "De server deed er te lang over om je bericht te plaatsen. Je bericht was waarschijnlijk wel gepost. Als dat niet zo is, zou 8chan problemen kunnen hebben -- probeer het later opnieuw. Error informatie:"
 
 #: ../../../../js//auto-reload.js:41 ../../../../js/auto-reload.js:52
 msgid "Auto update"
-msgstr ""
+msgstr "Automatisch updaten"
 
 #: ../../../../js//auto-reload.js:42 ../../../../js/auto-reload.js:53
 msgid "Auto update thread"
-msgstr ""
+msgstr "Automatisch de draad updaten"
 
 #: ../../../../js//auto-reload.js:43 ../../../../js/auto-reload.js:54
 msgid "Show desktop notifications when users quote me"
-msgstr ""
+msgstr "Geef een bureaublad melding als gebruikers me citeren"
 
 #: ../../../../js//auto-reload.js:44 ../../../../js/auto-reload.js:55
 msgid "Show desktop notifications on all replies"
-msgstr ""
+msgstr "Geef een bureaublad melding bij alle berichten"
 
 #: ../../../../js//auto-scroll.js:4 ../../../../js//auto-scroll.js:18
 #: ../../../../js/auto-scroll.js:4 ../../../../js/auto-scroll.js:18
 msgid "Scroll to new posts"
-msgstr ""
+msgstr "Ga naar het nieuwe bericht"
 
 #: ../../../../js//captcha.js:30 ../../../../js/captcha.js:30
 msgid "Verification"
-msgstr ""
+msgstr "Verificatie"
 
 #: ../../../../js//comment-toolbar.js:262
 #: ../../../../js//comment-toolbar.js:268
@@ -1071,11 +1071,11 @@ msgstr ""
 
 #: ../../../../js//download-all.js:8 ../../../../js/download-all.js:8
 msgid "Download All"
-msgstr ""
+msgstr "Alles downloaden"
 
 #: ../../../../js//forced-anon.js:73 ../../../../js/forced-anon.js:73
 msgid "Hide IDs"
-msgstr ""
+msgstr "Verberg ID's"
 
 #: ../../../../js//image-hover.js:14 ../../../../js/image-hover.js:14
 msgid "Image hover"
@@ -1104,11 +1104,11 @@ msgstr ""
 
 #: ../../../../js//options/fav.js:27 ../../../../js/options/fav.js:27
 msgid "Favorites"
-msgstr ""
+msgstr "Favorieten"
 
 #: ../../../../js//options/fav.js:42 ../../../../js/options/fav.js:42
 msgid "Drag the boards to sort them."
-msgstr ""
+msgstr "Sleep de borden om ze te sorteren."
 
 #: ../../../../js//options/general.js:18 ../../../../js/options/general.js:18
 msgid "Note: Most option changes will only take effect on future page loads."
@@ -1117,59 +1117,59 @@ msgstr ""
 #: ../../../../js//options/user-css.js:15
 #: ../../../../js/options/user-css.js:15
 msgid "Theme"
-msgstr ""
+msgstr "Thema"
 
 #: ../../../../js//options/user-css.js:23
 #: ../../../../js/options/user-css.js:23
 msgid "Save custom CSS"
-msgstr ""
+msgstr "Aangepaste CSS opslaan"
 
 #: ../../../../js//options/user-css.js:42
 #: ../../../../js/options/user-css.js:43
 msgid "Board-specific CSS"
-msgstr ""
+msgstr "Bord-specifieke CSS"
 
 #: ../../../../js//options/user-css.js:54
 #: ../../../../js/options/user-css.js:56
 msgid "Style should affect all boards, not just current board"
-msgstr ""
+msgstr "Stijl moet van toepassing zijn op alle borden, niet alleen het huidige"
 
 #: ../../../../js//options/user-css.js:121
 #: ../../../../js/options/user-css.js:123
 msgid ""
 "If you want to make a redistributable style, be sure to\n"
 "have a Yotsuba B theme selected."
-msgstr ""
+msgstr "Als je een distribueerbare stijl wil maken, zorg er dan voor dat je een Yostuba B thema hebt geselecteerd."
 
 #: ../../../../js//options/user-css.js:122
 #: ../../../../js/options/user-css.js:124
 msgid "These will be applied on top of whatever theme you choose below."
-msgstr ""
+msgstr "Dezen worden toegepasten bovenop het thema dat je hier onder kiest"
 
 #: ../../../../js//options/user-js.js:16 ../../../../js/options/user-js.js:16
 msgid ""
 "Do not paste code here unless you absolutely trust the source or have read "
 "it yourself!"
-msgstr ""
+msgstr "Plak hier geen code tenzij je het helemaal vertrouwt of het zelf hebt gelezen!"
 
 #: ../../../../js//options/user-js.js:16 ../../../../js/options/user-js.js:16
 msgid ""
 "Untrusted code pasted here could do malicious things such as spam the site "
 "under your IP."
-msgstr ""
+msgstr "Onbetrouwbare code die je hier plakt kan nare dingen doen zoals de site spammen onder jouw IP-adres."
 
 #: ../../../../js//options/user-js.js:24 ../../../../js/options/user-js.js:24
 msgid "Save custom Javascript"
-msgstr ""
+msgstr "Aangepaste Javascript opslaan"
 
 #: ../../../../js//options/user-js.js:52 ../../../../js/options/user-js.js:52
 msgid "Enter your own Javascript code here..."
-msgstr ""
+msgstr "Vul hier je eigen Javascript code in..."
 
 #: ../../../../js//show-own-posts.js:36 ../../../../js//show-own-posts.js:49
 #: ../../../../js/show-own-posts.js:36 ../../../../js/show-own-posts.js:49
 msgid "(You)"
-msgstr ""
+msgstr "(Jij)"
 
 #: ../../../../js//treeview.js:18 ../../../../js/treeview.js:18
 msgid "Use tree view by default"
@@ -1181,27 +1181,27 @@ msgstr ""
 
 #: ../../../../js//webm-settings.js:57 ../../../../js/webm-settings.js:57
 msgid "Loop videos by default"
-msgstr ""
+msgstr "Video's standaard afspelen in loop"
 
 #: ../../../../js//youtube.js:28 ../../../../js/youtube.js:28
 msgid "YouTube size"
-msgstr ""
+msgstr "Youtube grootte"
 
 #: ../../../../templates//main.js:96 ../../../../templates/main.js:96
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: ../../../../templates//main.js:102 ../../../../templates/main.js:102
 msgid "Cancel"
-msgstr ""
+msgstr "Annuleren"
 
 #: ../../../../templates//main.js:325 ../../../../templates/main.js:330
 msgid "Hide post options &amp; limits"
-msgstr ""
+msgstr "Verberg berichtopties &amp; -limieten"
 
 #: ../../../../templates//main.js:329 ../../../../templates/main.js:334
 msgid "Show post options &amp; limits"
-msgstr ""
+msgstr "Toon berichtopties &amp; -limieten"
 
 #: ../../../../js/fix-report-delete-submit.js:15
 msgid "Delete post"

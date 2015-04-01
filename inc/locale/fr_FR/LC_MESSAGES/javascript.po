@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # kaf <admin@cable6.net>, 2014
 # ryd <ryd@cable6.net>, 2014
@@ -11,10 +11,9 @@ msgstr ""
 "Project-Id-Version: infinity\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-10-18 13:47+0200\n"
-"PO-Revision-Date: 2015-03-19 16:36+0000\n"
-"Last-Translator: Vaz Ok <vazok@cock.li>\n"
-"Language-Team: French (France) (http://www.transifex.com/projects/p/infinity/"
-"language/fr_FR/)\n"
+"PO-Revision-Date: 2015-04-01 23:22+0000\n"
+"Last-Translator: copypaste <admin@8chan.co>\n"
+"Language-Team: French (France) (http://www.transifex.com/projects/p/infinity/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -534,9 +533,7 @@ msgstr "Surveiller cette planche"
 
 #: ../../../../js/wpaint.js:113 ../../../../js//wpaint.js:113
 msgid "Click on any image on this site to load it into oekaki applet"
-msgstr ""
-"Clique sur n'importe quel image du site pour le charger dans l'application "
-"oekaki."
+msgstr "Clique sur n'importe quel image du site pour le charger dans l'application oekaki."
 
 #: ../../../../js/local-time.js:29 ../../../../templates/main.js:62
 #: ../../../../templates//main.js:68 ../../../../templates/main.js:68
@@ -836,9 +833,7 @@ msgstr "Effacer"
 msgid ""
 "Are you sure you want to erase your storage? This involves your hidden "
 "threads, watched threads, post password and many more."
-msgstr ""
-"Es-tu sûr de vouloir effacer ton stockage ? Ceci inclut tes fils cachés, tes "
-"fils surveillés, ton dernier mot de passe et autres."
+msgstr "Es-tu sûr de vouloir effacer ton stockage ? Ceci inclut tes fils cachés, tes fils surveillés, ton dernier mot de passe et autres."
 
 #: ../../../../js/options/user-css.js:14
 msgid "User CSS"
@@ -858,16 +853,13 @@ msgstr "Entre ici tes propres règles CSS..."
 msgid ""
 "If you want to make a redistributable style, be sure to\n"
 "   have a Yotsuba B theme selected."
-msgstr ""
-"Si tu veux créer un thème redistribuable, veille bien à \n"
-"   avoir sélectionné le thème Yotsuba B."
+msgstr "Si tu veux créer un thème redistribuable, veille bien à \n   avoir sélectionné le thème Yotsuba B."
 
 #: ../../../../js/options/user-css.js:47
 #: ../../../../js//options/user-css.js:123
 #: ../../../../js/options/user-css.js:125
 msgid "You can include CSS files from remote servers, for example:"
-msgstr ""
-"Tu peux inclure des fichiers CSS d'un serveur isolé, comme par exemple :"
+msgstr "Tu peux inclure des fichiers CSS d'un serveur isolé, comme par exemple :"
 
 #: ../../../../js/options/user-js.js:14 ../../../../js//options/user-js.js:14
 msgid "User JS"
@@ -885,15 +877,12 @@ msgstr "Entre ici ton propre code Javascript..."
 msgid ""
 "Have a backup of your storage somewhere, as messing here\n"
 "   may render you this website unusable."
-msgstr ""
-"Avoir une sauvegarde de ton stockage quelque part, comme indiqué ici\n"
-"   peut rendre ce site inutilisable pour toi."
+msgstr "Avoir une sauvegarde de ton stockage quelque part, comme indiqué ici\n   peut rendre ce site inutilisable pour toi."
 
 #: ../../../../js/options/user-js.js:56 ../../../../js//options/user-js.js:53
 #: ../../../../js/options/user-js.js:53
 msgid "You can include JS files from remote servers, for example:"
-msgstr ""
-"Tu peux inclure des fichiers JS d'un serveur isolé, comme par exemple :"
+msgstr "Tu peux inclure des fichiers JS d'un serveur isolé, comme par exemple :"
 
 #: ../../../../js/id_colors.js:6 ../../../../js/id_colors.js:12
 #: ../../../../js//id_colors.js:6 ../../../../js//id_colors.js:12
@@ -1042,11 +1031,7 @@ msgid ""
 "The server took too long to submit your post. Your post was probably still "
 "submitted. If it wasn't, 8chan might be experiencing issues right now -- "
 "please try your post again later. Error information: "
-msgstr ""
-"Le serveur a pris trop de temps pour envoyer votre message. Votre message a "
-"probablement quand même été envoyé. Si ce n'est pas le cas, il se peut 8chan "
-"rencontre un problème en ce moment même -- veuillez réessayer plus tard. "
-"Informations sur l'erreur:"
+msgstr "Le serveur a pris trop de temps pour envoyer votre message. Votre message a probablement quand même été envoyé. Si ce n'est pas le cas, il se peut 8chan rencontre un problème en ce moment même -- veuillez réessayer plus tard. Informations sur l'erreur:"
 
 #: ../../../../js//auto-reload.js:41 ../../../../js/auto-reload.js:52
 msgid "Auto update"
@@ -1128,9 +1113,7 @@ msgstr "Tirez les planches pour les trier"
 
 #: ../../../../js//options/general.js:18 ../../../../js/options/general.js:18
 msgid "Note: Most option changes will only take effect on future page loads."
-msgstr ""
-"Note: la plupart des changements d'option ne prendront effet qu'aux "
-"prochains chargements de pages"
+msgstr "Note: la plupart des changements d'option ne prendront effet qu'aux prochains chargements de pages"
 
 #: ../../../../js//options/user-css.js:15
 #: ../../../../js/options/user-css.js:15
@@ -1150,18 +1133,14 @@ msgstr "CSS spécifique à la planche"
 #: ../../../../js//options/user-css.js:54
 #: ../../../../js/options/user-css.js:56
 msgid "Style should affect all boards, not just current board"
-msgstr ""
-"Le style devrait affecter toutes les planches, pas seulement la planche "
-"actuelle"
+msgstr "Le style devrait affecter toutes les planches, pas seulement la planche actuelle"
 
 #: ../../../../js//options/user-css.js:121
 #: ../../../../js/options/user-css.js:123
 msgid ""
 "If you want to make a redistributable style, be sure to\n"
 "have a Yotsuba B theme selected."
-msgstr ""
-"Si tu veux créer un thème redistribuable, veille bien à \n"
-"   avoir sélectionné le thème Yotsuba B."
+msgstr "Si tu veux créer un thème redistribuable, veille bien à \n   avoir sélectionné le thème Yotsuba B."
 
 #: ../../../../js//options/user-css.js:122
 #: ../../../../js/options/user-css.js:124
@@ -1172,17 +1151,13 @@ msgstr "Ceux-ci seront superposés à n'importe quel thème choisi ci-dessous"
 msgid ""
 "Do not paste code here unless you absolutely trust the source or have read "
 "it yourself!"
-msgstr ""
-"Ne collez pas de code ici à moins que vous ayez une confiance absolue en son "
-"origine ou que vous l'ayez lu vous même !"
+msgstr "Ne collez pas de code ici à moins que vous ayez une confiance absolue en son origine ou que vous l'ayez lu vous même !"
 
 #: ../../../../js//options/user-js.js:16 ../../../../js/options/user-js.js:16
 msgid ""
 "Untrusted code pasted here could do malicious things such as spam the site "
 "under your IP."
-msgstr ""
-"Du code non vérifié ici collé pourrait faire des choses malveillantes, comme "
-"spammer le site sous votre IP."
+msgstr "Du code non vérifié ici collé pourrait faire des choses malveillantes, comme spammer le site sous votre IP."
 
 #: ../../../../js//options/user-js.js:24 ../../../../js/options/user-js.js:24
 msgid "Save custom Javascript"

@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # IsrChan <anon@chan.org.il>, 2014
 msgid ""
@@ -9,10 +9,9 @@ msgstr ""
 "Project-Id-Version: infinity\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-10-18 13:47+0200\n"
-"PO-Revision-Date: 2015-03-17 13:13+0000\n"
+"PO-Revision-Date: 2015-04-01 23:22+0000\n"
 "Last-Translator: copypaste <admin@8chan.co>\n"
-"Language-Team: Hebrew (Israel) (http://www.transifex.com/projects/p/infinity/"
-"language/he_IL/)\n"
+"Language-Team: Hebrew (Israel) (http://www.transifex.com/projects/p/infinity/language/he_IL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -437,9 +436,7 @@ msgstr "תגובה חדשה"
 msgid ""
 "All trademarks, copyrights, comments, and images on this page are owned by "
 "and are the responsibility of their respective parties."
-msgstr ""
-"All trademarks, copyrights, comments, and images on this page are owned by "
-"and are the responsibility of their respective parties."
+msgstr "All trademarks, copyrights, comments, and images on this page are owned by and are the responsibility of their respective parties."
 
 #. * ====================
 #. *  Error messages
@@ -728,8 +725,7 @@ msgstr "סוג קובץ לא מזוהה"
 #: ../../../../inc/config.php:1050 ../../../../inc/config.php:1053
 #: ../../../..//inc/config.php:1120 ../../../../inc/config.php:1121
 msgid "Maximum file size: %maxsz% bytes<br>Your file's size: %filesz% bytes"
-msgstr ""
-"גודל הקובץ המירבי הוא: %maxsz% bytes <br />גודל הקובץ שלך: %filesz% bytes"
+msgstr "גודל הקובץ המירבי הוא: %maxsz% bytes <br />גודל הקובץ שלך: %filesz% bytes"
 
 #: ../../../../inc/config.php:897 ../../../../inc/config.php:1002
 #: ../../../../inc/config.php:993 ../../../../inc/config.php:995
@@ -809,9 +805,7 @@ msgstr "קאפצ'ה שגויה, נסה שוב."
 msgid ""
 "You are only allowed to unban %s users at a time. You tried to unban %u "
 "users."
-msgstr ""
-"You are only allowed to unban %s users at a time. You tried to unban %u "
-"users."
+msgstr "You are only allowed to unban %s users at a time. You tried to unban %u users."
 
 #: ../../../../inc/config.php:907 ../../../../inc/config.php:1012
 #: ../../../../inc/config.php:1003 ../../../../inc/config.php:1005
@@ -838,9 +832,9 @@ msgstr "You are not a mod…"
 #: ../../../../inc/config.php:1069 ../../../../inc/config.php:1072
 #: ../../../..//inc/config.php:1139 ../../../../inc/config.php:1140
 msgid ""
-"Invalid username and/or password. Your user may have been deleted or changed."
-msgstr ""
-"Invalid username and/or password. Your user may have been deleted or changed."
+"Invalid username and/or password. Your user may have been deleted or "
+"changed."
+msgstr "Invalid username and/or password. Your user may have been deleted or changed."
 
 #: ../../../../inc/config.php:910 ../../../../inc/config.php:1015
 #: ../../../../inc/config.php:1006 ../../../../inc/config.php:1008
@@ -3144,9 +3138,7 @@ msgstr "Bans"
 msgid ""
 "(Search is case-insensitive and based on keywords. To match exact phrases, "
 "use \"quotes\". Use an asterisk (*) for wildcard.)"
-msgstr ""
-"(החיפוש רגיש לאותיות גדולות/קטנות ומבוסס על מילות מפתח. לחיפוש של ביטויים "
-"מדויקים השתמש במרכאות. השתמש בכוכבית (*) כווילד-קארד)"
+msgstr "(החיפוש רגיש לאותיות גדולות/קטנות ומבוסס על מילות מפתח. לחיפוש של ביטויים מדויקים השתמש במרכאות. השתמש בכוכבית (*) כווילד-קארד)"
 
 #: ../../../../templates/cache/ba/55/2553cc018aecf7d29a62331aec4bedc71b646817c7e4c4e7d1a885263676.php:25
 msgid "There are no active bans."
@@ -3605,18 +3597,7 @@ msgid ""
 "<strong>name</strong>. To apply a filter, simply add to your query, for "
 "example, <em>name:Anonymous</em> or <em>subject:\"Some Thread\"</em>. "
 "Wildcards cannot be used in filters."
-msgstr ""
-"החיפוש אינו רגיש לאותיות רישיות ומבוסס על מילות מפתח.\n"
-"לחיפוש ביטוי מדוייק השתמש ב\"מרחאות\".\n"
-"השתמש בכוכבית (*) כ-wildcard.\n"
-"באפשרותך להשתמש בפילטרים הבאים:\n"
-"<strong>id</strong>, <strong>thread</strong>, <strong>subject</strong>, "
-"<strong>name</strong>.\n"
-"להשתמש בפילטר הוסף את מילת המפתח שלך לאחר הפילטר, לדוגמא:\n"
-"<em>name:Anonymous</em>\n"
-"או\n"
-"<em>subject:\"Some Thread\"</em>.\n"
-"אין אפשרות להשתמש ב-wildcard בעת חיפוש פילטר"
+msgstr "החיפוש אינו רגיש לאותיות רישיות ומבוסס על מילות מפתח.\nלחיפוש ביטוי מדוייק השתמש ב\"מרחאות\".\nהשתמש בכוכבית (*) כ-wildcard.\nבאפשרותך להשתמש בפילטרים הבאים:\n<strong>id</strong>, <strong>thread</strong>, <strong>subject</strong>, <strong>name</strong>.\nלהשתמש בפילטר הוסף את מילת המפתח שלך לאחר הפילטר, לדוגמא:\n<em>name:Anonymous</em>\nאו\n<em>subject:\"Some Thread\"</em>.\nאין אפשרות להשתמש ב-wildcard בעת חיפוש פילטר"
 
 #. line 2
 #: ../../../../templates/cache/57/a7/c0a734e494c78acfc595f033a070bdc87fdc3e6a28ad5aaa8666c7a1a966.php:25
@@ -3630,8 +3611,8 @@ msgstr "לחץ להמשיך ל"
 #. line 5
 #: ../../../../templates/cache/57/a7/c0a734e494c78acfc595f033a070bdc87fdc3e6a28ad5aaa8666c7a1a966.php:39
 msgid ""
-"You are probably seeing this message because Javascript being disabled. This "
-"is a necessary security measure to prevent CSRF attacks."
+"You are probably seeing this message because Javascript being disabled. This"
+" is a necessary security measure to prevent CSRF attacks."
 msgstr ""
 
 #. line 7
@@ -3793,7 +3774,8 @@ msgstr "הועבר ל %s"
 #: ../../../../templates/themes/recent/theme.php:50
 #: ../../../..//templates/themes/recent/theme.php:50
 msgid ""
-"Can't build the RecentPosts theme, because there are no boards to be fetched."
+"Can't build the RecentPosts theme, because there are no boards to be "
+"fetched."
 msgstr ""
 
 #: ../../../../inc/config.php:997 ../../../../inc/config.php:1023
@@ -4779,8 +4761,9 @@ msgstr ""
 
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:347
 msgid ""
-"To contribute translations, register at <a href=\"https://www.transifex.com/"
-"projects/p/tinyboard-vichan-devel/\">Transifex</a>"
+"To contribute translations, register at <a "
+"href=\"https://www.transifex.com/projects/p/tinyboard-vichan-"
+"devel/\">Transifex</a>"
 msgstr ""
 
 #. line 65
@@ -4918,8 +4901,8 @@ msgstr ""
 #: ../../../../templates/cache/e6/b0/35e368580dcc89b914ecbee239e0749e2426bcabb2ee16de3d5a32caa266.php:347
 msgid ""
 "Read this page for more information about contributing translations:<br><a "
-"href=\"/translation.html\">Translation tutorial</a> or use <a href=\"https://"
-"www.transifex.com/projects/p/infinity/\">Transifex</a>"
+"href=\"/translation.html\">Translation tutorial</a> or use <a "
+"href=\"https://www.transifex.com/projects/p/infinity/\">Transifex</a>"
 msgstr ""
 
 #: ../../../../templates/cache/e6/b0/35e368580dcc89b914ecbee239e0749e2426bcabb2ee16de3d5a32caa266.php:470

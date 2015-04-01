@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # copypaste <admin@8chan.co>, 2014
 # MartenŜadoko <martin.bodin@inria.fr>, 2014
@@ -12,10 +12,9 @@ msgstr ""
 "Project-Id-Version: infinity\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-10-18 13:47+0200\n"
-"PO-Revision-Date: 2015-03-17 13:10+0000\n"
+"PO-Revision-Date: 2015-04-01 23:22+0000\n"
 "Last-Translator: copypaste <admin@8chan.co>\n"
-"Language-Team: Esperanto (http://www.transifex.com/projects/p/infinity/"
-"language/eo/)\n"
+"Language-Team: Esperanto (http://www.transifex.com/projects/p/infinity/language/eo/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -198,9 +197,7 @@ msgstr "Ensaluti"
 #: ../../../../inc/display.php:265
 #, php-format
 msgid "Post too long. Click <a href=\"%s\">here</a> to view the full text."
-msgstr ""
-"Afiŝo tro longas. Alklaku <a href=\"%s\">ĉi tie</a> por vidigi la tutan "
-"tekston."
+msgstr "Afiŝo tro longas. Alklaku <a href=\"%s\">ĉi tie</a> por vidigi la tutan tekston."
 
 #: ../../../../inc/display.php:368 ../../../../inc/display.php:473
 #: ../../../../inc/display.php:385 ../../../../inc/display.php:495
@@ -341,9 +338,7 @@ msgstr "Forviŝi ĉiujn afiŝojn per IP trans ĉiuj tabuloj"
 msgid ""
 "Are you sure you want to delete all posts by this IP address, across all "
 "boards?"
-msgstr ""
-"Ĉu vi certas ke vi volas forviŝi ĉiujn afiŝojn de ĉi tiu IP adreso, trans "
-"ĉiuj tabuloj?"
+msgstr "Ĉu vi certas ke vi volas forviŝi ĉiujn afiŝojn de ĉi tiu IP adreso, trans ĉiuj tabuloj?"
 
 #: ../../../../inc/display.php:490 ../../../../inc/display.php:512
 #: ../../../../inc/display.php:515 ../../../../inc/display.php:519
@@ -444,9 +439,7 @@ msgstr "Nova Respondo"
 msgid ""
 "All trademarks, copyrights, comments, and images on this page are owned by "
 "and are the responsibility of their respective parties."
-msgstr ""
-"Ĉiuj registritaj markoj, kopirajtoj, komentoj, kaj bildoj en ĉi tiu paĝo "
-"alpartenas al, kaj estas la respondeco de siaj respektivaj partioj. "
+msgstr "Ĉiuj registritaj markoj, kopirajtoj, komentoj, kaj bildoj en ĉi tiu paĝo alpartenas al, kaj estas la respondeco de siaj respektivaj partioj. "
 
 #. * ====================
 #. *  Error messages
@@ -735,9 +728,7 @@ msgstr "Nekonata dosiertipo."
 #: ../../../../inc/config.php:1050 ../../../../inc/config.php:1053
 #: ../../../..//inc/config.php:1120 ../../../../inc/config.php:1121
 msgid "Maximum file size: %maxsz% bytes<br>Your file's size: %filesz% bytes"
-msgstr ""
-"Maksimuma dosiera grandeco: %maxsz% bitokoj<br>Via dosiera grandeco: %filesz"
-"% bitokoj"
+msgstr "Maksimuma dosiera grandeco: %maxsz% bitokoj<br>Via dosiera grandeco: %filesz% bitokoj"
 
 #: ../../../../inc/config.php:897 ../../../../inc/config.php:1002
 #: ../../../../inc/config.php:993 ../../../../inc/config.php:995
@@ -817,9 +808,7 @@ msgstr "Vi ŝajne mistajpis la kontrolilon."
 msgid ""
 "You are only allowed to unban %s users at a time. You tried to unban %u "
 "users."
-msgstr ""
-"Vi nur eblas repermesi %s uzantojn samtempe. Vi provis repermesi %u "
-"uzantojn. "
+msgstr "Vi nur eblas repermesi %s uzantojn samtempe. Vi provis repermesi %u uzantojn. "
 
 #: ../../../../inc/config.php:907 ../../../../inc/config.php:1012
 #: ../../../../inc/config.php:1003 ../../../../inc/config.php:1005
@@ -846,9 +835,9 @@ msgstr "Vi ne estas estrarano..."
 #: ../../../../inc/config.php:1069 ../../../../inc/config.php:1072
 #: ../../../..//inc/config.php:1139 ../../../../inc/config.php:1140
 msgid ""
-"Invalid username and/or password. Your user may have been deleted or changed."
-msgstr ""
-"Malvalida salutnomo kaj/aŭ pasvorto. Via uzanto eble forviŝiĝis aŭ ŝanĝis."
+"Invalid username and/or password. Your user may have been deleted or "
+"changed."
+msgstr "Malvalida salutnomo kaj/aŭ pasvorto. Via uzanto eble forviŝiĝis aŭ ŝanĝis."
 
 #: ../../../../inc/config.php:910 ../../../../inc/config.php:1015
 #: ../../../../inc/config.php:1006 ../../../../inc/config.php:1008
@@ -2299,9 +2288,7 @@ msgstr "Debug: APC"
 msgid ""
 "Your code contained PHP syntax errors. Please go back and correct them. PHP "
 "says: "
-msgstr ""
-"Via kodo enhavis PHP sintaksajn erarojn. Bonvolu reiri kaj kontroli ilin. "
-"PHP diras:"
+msgstr "Via kodo enhavis PHP sintaksajn erarojn. Bonvolu reiri kaj kontroli ilin. PHP diras:"
 
 #. line 2
 #. line 6
@@ -3154,9 +3141,7 @@ msgstr "Malpermesoj"
 msgid ""
 "(Search is case-insensitive and based on keywords. To match exact phrases, "
 "use \"quotes\". Use an asterisk (*) for wildcard.)"
-msgstr ""
-"(Serĉo estas uskleca-indiferenta kajbazita je ŝlosilvortoj. Por kongrui "
-"frazojn, uzu \"citaĵmarkojn\". Uzu steleton (*) por wildcard.)"
+msgstr "(Serĉo estas uskleca-indiferenta kajbazita je ŝlosilvortoj. Por kongrui frazojn, uzu \"citaĵmarkojn\". Uzu steleton (*) por wildcard.)"
 
 #: ../../../../templates/cache/ba/55/2553cc018aecf7d29a62331aec4bedc71b646817c7e4c4e7d1a885263676.php:25
 msgid "There are no active bans."
@@ -3403,8 +3388,7 @@ msgstr "Vi apelaciis ĉi tiun malpermeson je"
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:266
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:291
 msgid "and it was denied. You may not appeal this ban again."
-msgstr ""
-"kaj ĝi estas forneiita.. Vi ne povas apelacii ĉi tiun malpermeson denove."
+msgstr "kaj ĝi estas forneiita.. Vi ne povas apelacii ĉi tiun malpermeson denove."
 
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:272
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:273
@@ -3412,9 +3396,7 @@ msgstr ""
 msgid ""
 "You have submitted the maximum number of ban appeals allowed. You may not "
 "appeal this ban again."
-msgstr ""
-"Vi sendis la maksimuman kiomon de apelacioj akcepteblaj. Vi ne povas "
-"apelacii ĉi tiun malpermeson denove."
+msgstr "Vi sendis la maksimuman kiomon de apelacioj akcepteblaj. Vi ne povas apelacii ĉi tiun malpermeson denove."
 
 #. line 114
 #. line 121
@@ -3472,9 +3454,7 @@ msgstr "kaj malakceptiĝis."
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:328
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:349
 msgid "You may appeal this ban again. Please enter your reasoning below."
-msgstr ""
-"Vi povas apelacii ĉi tiun malpermeson denove. Bonvolu enskribi viajn kialojn "
-"suben."
+msgstr "Vi povas apelacii ĉi tiun malpermeson denove. Bonvolu enskribi viajn kialojn suben."
 
 #. line 119
 #. line 127
@@ -3488,8 +3468,7 @@ msgstr "Vi laste apelaciis ĉi tiun malpermeson je"
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:333
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:358
 msgid "You may appeal this ban. Please enter your reasoning below."
-msgstr ""
-"Vi povas apelacii ĉi tiun malpermeson. Bonvolu enskribi viajn kialojn suben."
+msgstr "Vi povas apelacii ĉi tiun malpermeson. Bonvolu enskribi viajn kialojn suben."
 
 #. line 4
 #. line 16
@@ -3621,14 +3600,7 @@ msgid ""
 "<strong>name</strong>. To apply a filter, simply add to your query, for "
 "example, <em>name:Anonymous</em> or <em>subject:\"Some Thread\"</em>. "
 "Wildcards cannot be used in filters."
-msgstr ""
-"Serĉo estas uskleco-indiferenta kaj bazita je ŝlosilvortoj. Por kongrui "
-"precizajn frazojn, uzu \"citaĵmarkojn\". Uzu steleton (*) por wildcard. </"
-"p><p style=\"font-size:8pt;margin:5px\">Vi povas uzi la sekvantajn "
-"filtrilojn al viaj serĉoj: <strong>id</strong> (id), <strong>thread</strong> "
-"(fadeno), <strong>subject</strong> (temo), and <strong>name</strong> (nomo). "
-"Por uzi filtrilon, simple aldonu al via serĉo, ekzemple, <em>name:Anonymous</"
-"em> aŭ <em>subject:\"ia fadeno\"</em>. Wildcards ne uzeblas kun filtriloj."
+msgstr "Serĉo estas uskleco-indiferenta kaj bazita je ŝlosilvortoj. Por kongrui precizajn frazojn, uzu \"citaĵmarkojn\". Uzu steleton (*) por wildcard. </p><p style=\"font-size:8pt;margin:5px\">Vi povas uzi la sekvantajn filtrilojn al viaj serĉoj: <strong>id</strong> (id), <strong>thread</strong> (fadeno), <strong>subject</strong> (temo), and <strong>name</strong> (nomo). Por uzi filtrilon, simple aldonu al via serĉo, ekzemple, <em>name:Anonymous</em> aŭ <em>subject:\"ia fadeno\"</em>. Wildcards ne uzeblas kun filtriloj."
 
 #. line 2
 #: ../../../../templates/cache/57/a7/c0a734e494c78acfc595f033a070bdc87fdc3e6a28ad5aaa8666c7a1a966.php:25
@@ -3642,11 +3614,9 @@ msgstr "Klaku por iri al"
 #. line 5
 #: ../../../../templates/cache/57/a7/c0a734e494c78acfc595f033a070bdc87fdc3e6a28ad5aaa8666c7a1a966.php:39
 msgid ""
-"You are probably seeing this message because Javascript being disabled. This "
-"is a necessary security measure to prevent CSRF attacks."
-msgstr ""
-"Vi probable vidas ĉi tiun mesaĝon ĉar Ĝajavaskripto estas malŝaltita.  "
-"Nepras por sekurigi kontraŭ CSRF atakoj."
+"You are probably seeing this message because Javascript being disabled. This"
+" is a necessary security measure to prevent CSRF attacks."
+msgstr "Vi probable vidas ĉi tiun mesaĝon ĉar Ĝajavaskripto estas malŝaltita.  Nepras por sekurigi kontraŭ CSRF atakoj."
 
 #. line 7
 #: ../../../../templates/cache/3a/62/f804928dbcf285e3d5d8d7ae31b1e3a7c78264f270efa9650d31f69c7897.php:44
@@ -3807,7 +3777,8 @@ msgstr "Translokita al %s."
 #: ../../../../templates/themes/recent/theme.php:50
 #: ../../../..//templates/themes/recent/theme.php:50
 msgid ""
-"Can't build the RecentPosts theme, because there are no boards to be fetched."
+"Can't build the RecentPosts theme, because there are no boards to be "
+"fetched."
 msgstr "Maleblas konstrui la RecentPosts temo, ĉar ne estas tabuloj por trovi."
 
 #: ../../../../inc/config.php:997 ../../../../inc/config.php:1023
@@ -4793,8 +4764,9 @@ msgstr ""
 
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:347
 msgid ""
-"To contribute translations, register at <a href=\"https://www.transifex.com/"
-"projects/p/tinyboard-vichan-devel/\">Transifex</a>"
+"To contribute translations, register at <a "
+"href=\"https://www.transifex.com/projects/p/tinyboard-vichan-"
+"devel/\">Transifex</a>"
 msgstr ""
 
 #. line 65
@@ -4932,8 +4904,8 @@ msgstr ""
 #: ../../../../templates/cache/e6/b0/35e368580dcc89b914ecbee239e0749e2426bcabb2ee16de3d5a32caa266.php:347
 msgid ""
 "Read this page for more information about contributing translations:<br><a "
-"href=\"/translation.html\">Translation tutorial</a> or use <a href=\"https://"
-"www.transifex.com/projects/p/infinity/\">Transifex</a>"
+"href=\"/translation.html\">Translation tutorial</a> or use <a "
+"href=\"https://www.transifex.com/projects/p/infinity/\">Transifex</a>"
 msgstr ""
 
 #: ../../../../templates/cache/e6/b0/35e368580dcc89b914ecbee239e0749e2426bcabb2ee16de3d5a32caa266.php:470

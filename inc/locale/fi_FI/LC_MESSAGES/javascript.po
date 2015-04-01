@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Alrahambra <inactive+Alrahambra@transifex.com>, 2014
 msgid ""
@@ -9,10 +9,9 @@ msgstr ""
 "Project-Id-Version: infinity\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-10-18 13:47+0200\n"
-"PO-Revision-Date: 2015-03-17 13:09+0000\n"
+"PO-Revision-Date: 2015-04-01 23:22+0000\n"
 "Last-Translator: copypaste <admin@8chan.co>\n"
-"Language-Team: Finnish (Finland) (http://www.transifex.com/projects/p/"
-"infinity/language/fi_FI/)\n"
+"Language-Team: Finnish (Finland) (http://www.transifex.com/projects/p/infinity/language/fi_FI/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -532,8 +531,7 @@ msgstr "Seuraa tätä lautaa"
 
 #: ../../../../js/wpaint.js:113 ../../../../js//wpaint.js:113
 msgid "Click on any image on this site to load it into oekaki applet"
-msgstr ""
-"Paina mitä tahansa kuvaa tällä sivulla ladataksesi sen oekaki ohjelmaan"
+msgstr "Paina mitä tahansa kuvaa tällä sivulla ladataksesi sen oekaki ohjelmaan"
 
 #: ../../../../js/local-time.js:29 ../../../../templates/main.js:62
 #: ../../../../templates//main.js:68 ../../../../templates/main.js:68
@@ -685,9 +683,7 @@ msgstr "Marras"
 #: ../../../../js/local-time.js:32 ../../../../templates/main.js:65
 #: ../../../../templates//main.js:71 ../../../../templates/main.js:71
 msgid "Dec"
-msgstr ""
-"Joulu\n"
-"Joulu"
+msgstr "Joulu\nJoulu"
 
 #: ../../../../js/local-time.js:33 ../../../../templates/main.js:66
 #: ../../../../templates//main.js:72 ../../../../templates/main.js:72

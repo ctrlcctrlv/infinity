@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Ling Chingchong <markshi233@163.com>, 2015
 # Nicholas Chen <planetzstore@gmail.com>, 2014
@@ -10,10 +10,9 @@ msgstr ""
 "Project-Id-Version: infinity\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-10-18 13:47+0200\n"
-"PO-Revision-Date: 2015-03-18 04:32+0000\n"
-"Last-Translator: Ling Chingchong <markshi233@163.com>\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/infinity/"
-"language/zh_CN/)\n"
+"PO-Revision-Date: 2015-04-01 23:22+0000\n"
+"Last-Translator: copypaste <admin@8chan.co>\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/infinity/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -833,8 +832,7 @@ msgstr "删除"
 msgid ""
 "Are you sure you want to erase your storage? This involves your hidden "
 "threads, watched threads, post password and many more."
-msgstr ""
-"你确定你要删除你的库存信息？这包括你隐藏的帖子，关注的帖子，发布密码与其他。"
+msgstr "你确定你要删除你的库存信息？这包括你隐藏的帖子，关注的帖子，发布密码与其他。"
 
 #: ../../../../js/options/user-css.js:14
 msgid "User CSS"
@@ -1032,10 +1030,7 @@ msgid ""
 "The server took too long to submit your post. Your post was probably still "
 "submitted. If it wasn't, 8chan might be experiencing issues right now -- "
 "please try your post again later. Error information: "
-msgstr ""
-"服务器用了太长的时间发布你的帖子。你的帖子估计依旧被发布了。如果它没有的话，"
-"8chan有可能出现了一些问题-请稍后再尝试发布你的帖子。\n"
-"错误信息："
+msgstr "服务器用了太长的时间发布你的帖子。你的帖子估计依旧被发布了。如果它没有的话，8chan有可能出现了一些问题-请稍后再尝试发布你的帖子。\n错误信息："
 
 #: ../../../../js//auto-reload.js:41 ../../../../js/auto-reload.js:52
 msgid "Auto update"
@@ -1161,8 +1156,7 @@ msgstr "不要在这里粘贴代码除非你完全信任源代码或者已经亲
 msgid ""
 "Untrusted code pasted here could do malicious things such as spam the site "
 "under your IP."
-msgstr ""
-"信任度低的代码在这里被粘贴了的话可能会做不良的事情比如使用你的IP发送垃圾信息"
+msgstr "信任度低的代码在这里被粘贴了的话可能会做不良的事情比如使用你的IP发送垃圾信息"
 
 #: ../../../../js//options/user-js.js:24 ../../../../js/options/user-js.js:24
 msgid "Save custom Javascript"

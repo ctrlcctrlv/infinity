@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # anaodev <xmas@yopmail.com>, 2014
 # hitmonkey <sac@55ch.org>, 2014
@@ -11,10 +11,9 @@ msgstr ""
 "Project-Id-Version: infinity\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-10-18 13:47+0200\n"
-"PO-Revision-Date: 2015-03-17 13:12+0000\n"
+"PO-Revision-Date: 2015-04-01 23:22+0000\n"
 "Last-Translator: copypaste <admin@8chan.co>\n"
-"Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/"
-"infinity/language/pt_BR/)\n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/infinity/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -197,9 +196,7 @@ msgstr "Login"
 #: ../../../../inc/display.php:265
 #, php-format
 msgid "Post too long. Click <a href=\"%s\">here</a> to view the full text."
-msgstr ""
-"Mensagem muito longa. Clique <a href=\"%s\">aqui</a> para ver o texto "
-"completo."
+msgstr "Mensagem muito longa. Clique <a href=\"%s\">aqui</a> para ver o texto completo."
 
 #: ../../../../inc/display.php:368 ../../../../inc/display.php:473
 #: ../../../../inc/display.php:385 ../../../../inc/display.php:495
@@ -340,8 +337,7 @@ msgstr "Deletar todos os posts deste IP em todas as boards"
 msgid ""
 "Are you sure you want to delete all posts by this IP address, across all "
 "boards?"
-msgstr ""
-"Tem certeza que quer deletar todos os posts deste IP em todas as boards?"
+msgstr "Tem certeza que quer deletar todos os posts deste IP em todas as boards?"
 
 #: ../../../../inc/display.php:490 ../../../../inc/display.php:512
 #: ../../../../inc/display.php:515 ../../../../inc/display.php:519
@@ -442,9 +438,7 @@ msgstr "Responder"
 msgid ""
 "All trademarks, copyrights, comments, and images on this page are owned by "
 "and are the responsibility of their respective parties."
-msgstr ""
-"Todas as marcas, registros de copyright, comentários e imagens nesta pagina "
-"pertencem e são responsabilidade de seus respectivos donos."
+msgstr "Todas as marcas, registros de copyright, comentários e imagens nesta pagina pertencem e são responsabilidade de seus respectivos donos."
 
 #. * ====================
 #. *  Error messages
@@ -478,8 +472,7 @@ msgstr "Você não parece humano."
 #: ../../../../inc/config.php:1021 ../../../../inc/config.php:1024
 #: ../../../..//inc/config.php:1090 ../../../../inc/config.php:1091
 msgid "Your browser sent an invalid or no HTTP referer."
-msgstr ""
-"Seu browser enviou um referial HTTP inválido ou não enviou o referencial."
+msgstr "Seu browser enviou um referial HTTP inválido ou não enviou o referencial."
 
 #: ../../../../inc/config.php:869 ../../../../inc/config.php:974
 #: ../../../../inc/config.php:965 ../../../../inc/config.php:967
@@ -734,9 +727,7 @@ msgstr "Extenção de arquivo desconhecida."
 #: ../../../../inc/config.php:1050 ../../../../inc/config.php:1053
 #: ../../../..//inc/config.php:1120 ../../../../inc/config.php:1121
 msgid "Maximum file size: %maxsz% bytes<br>Your file's size: %filesz% bytes"
-msgstr ""
-"Tamanho maximo de arquivos: %maxsz% bytes<br>O tamanho do seu arquivo: "
-"%filesz% bytes"
+msgstr "Tamanho maximo de arquivos: %maxsz% bytes<br>O tamanho do seu arquivo: %filesz% bytes"
 
 #: ../../../../inc/config.php:897 ../../../../inc/config.php:1002
 #: ../../../../inc/config.php:993 ../../../../inc/config.php:995
@@ -816,9 +807,7 @@ msgstr "Você errou o codigo de verificação."
 msgid ""
 "You are only allowed to unban %s users at a time. You tried to unban %u "
 "users."
-msgstr ""
-"Você só tem permissão para retirar o ban de %s usuários por vez, e você "
-"tentou retirar o ban de %u usuários."
+msgstr "Você só tem permissão para retirar o ban de %s usuários por vez, e você tentou retirar o ban de %u usuários."
 
 #: ../../../../inc/config.php:907 ../../../../inc/config.php:1012
 #: ../../../../inc/config.php:1003 ../../../../inc/config.php:1005
@@ -845,9 +834,9 @@ msgstr "Você não é mod…"
 #: ../../../../inc/config.php:1069 ../../../../inc/config.php:1072
 #: ../../../..//inc/config.php:1139 ../../../../inc/config.php:1140
 msgid ""
-"Invalid username and/or password. Your user may have been deleted or changed."
-msgstr ""
-"Login e/ou senha inválido(s). Seu login deve ter sido mudado ou removido."
+"Invalid username and/or password. Your user may have been deleted or "
+"changed."
+msgstr "Login e/ou senha inválido(s). Seu login deve ter sido mudado ou removido."
 
 #: ../../../../inc/config.php:910 ../../../../inc/config.php:1015
 #: ../../../../inc/config.php:1006 ../../../../inc/config.php:1008
@@ -2298,9 +2287,7 @@ msgstr "Debug: APC"
 msgid ""
 "Your code contained PHP syntax errors. Please go back and correct them. PHP "
 "says: "
-msgstr ""
-"Seu código contém erros de sintaxe PHP. Por favor volte e corrija-os. PHP "
-"diz:"
+msgstr "Seu código contém erros de sintaxe PHP. Por favor volte e corrija-os. PHP diz:"
 
 #. line 2
 #. line 6
@@ -3153,10 +3140,7 @@ msgstr "Expulsões"
 msgid ""
 "(Search is case-insensitive and based on keywords. To match exact phrases, "
 "use \"quotes\". Use an asterisk (*) for wildcard.)"
-msgstr ""
-"(A pesquisa não diferencia maiúsculas de minusculas, é baseado em palavras "
-"chave. Use \"aspas\" para procurar frases exatas e Use asterisco (*) como "
-"coringa.)"
+msgstr "(A pesquisa não diferencia maiúsculas de minusculas, é baseado em palavras chave. Use \"aspas\" para procurar frases exatas e Use asterisco (*) como coringa.)"
 
 #: ../../../../templates/cache/ba/55/2553cc018aecf7d29a62331aec4bedc71b646817c7e4c4e7d1a885263676.php:25
 msgid "There are no active bans."
@@ -3411,8 +3395,7 @@ msgstr "e foi rejeitado. Você não pode apelar esta expulsão novamente."
 msgid ""
 "You have submitted the maximum number of ban appeals allowed. You may not "
 "appeal this ban again."
-msgstr ""
-"Você excedeu o limite de apelos. Você não pode apelar por este ban novamente."
+msgstr "Você excedeu o limite de apelos. Você não pode apelar por este ban novamente."
 
 #. line 114
 #. line 121
@@ -3470,9 +3453,7 @@ msgstr "e foi negado."
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:328
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:349
 msgid "You may appeal this ban again. Please enter your reasoning below."
-msgstr ""
-"Você ainda pode apelar por esta banimento. Digite abaixo suas razões para "
-"recorrer."
+msgstr "Você ainda pode apelar por esta banimento. Digite abaixo suas razões para recorrer."
 
 #. line 119
 #. line 127
@@ -3618,15 +3599,7 @@ msgid ""
 "<strong>name</strong>. To apply a filter, simply add to your query, for "
 "example, <em>name:Anonymous</em> or <em>subject:\"Some Thread\"</em>. "
 "Wildcards cannot be used in filters."
-msgstr ""
-"A pesquisa diferencia maiúsculas de minúsculas e com base palavras-chave. "
-"Para buscar as frases exatas, use \"aspas\". Use um asterisco (*) para "
-"curinga </ p> <p style=\"font-size:8pt;margin:5px\"> Você pode aplicar as "
-"seguintes filtros para suas pesquisas:. ID <strong> </ strong>, <strong > "
-"linha </ strong>, <strong> sujeito </ strong>, e <strong> nome </ strong>. "
-"Para aplicar um filtro, basta adicionar a sua consulta, por exemplo, <em> "
-"nome: Anônimo </ em> ou assunto <em>: \"Algum Tópico\" </ em>. Caracteres "
-"especiais não podem ser utilizados em filtros."
+msgstr "A pesquisa diferencia maiúsculas de minúsculas e com base palavras-chave. Para buscar as frases exatas, use \"aspas\". Use um asterisco (*) para curinga </ p> <p style=\"font-size:8pt;margin:5px\"> Você pode aplicar as seguintes filtros para suas pesquisas:. ID <strong> </ strong>, <strong > linha </ strong>, <strong> sujeito </ strong>, e <strong> nome </ strong>. Para aplicar um filtro, basta adicionar a sua consulta, por exemplo, <em> nome: Anônimo </ em> ou assunto <em>: \"Algum Tópico\" </ em>. Caracteres especiais não podem ser utilizados em filtros."
 
 #. line 2
 #: ../../../../templates/cache/57/a7/c0a734e494c78acfc595f033a070bdc87fdc3e6a28ad5aaa8666c7a1a966.php:25
@@ -3640,12 +3613,9 @@ msgstr "Clique para prosseguir à"
 #. line 5
 #: ../../../../templates/cache/57/a7/c0a734e494c78acfc595f033a070bdc87fdc3e6a28ad5aaa8666c7a1a966.php:39
 msgid ""
-"You are probably seeing this message because Javascript being disabled. This "
-"is a necessary security measure to prevent CSRF attacks."
-msgstr ""
-"Você provavelmente está vendo esta mensagem porque seu Javascript está "
-"desativado. Esta é uma medida de segurança necessária para evitar ataques "
-"CSRF."
+"You are probably seeing this message because Javascript being disabled. This"
+" is a necessary security measure to prevent CSRF attacks."
+msgstr "Você provavelmente está vendo esta mensagem porque seu Javascript está desativado. Esta é uma medida de segurança necessária para evitar ataques CSRF."
 
 #. line 7
 #: ../../../../templates/cache/3a/62/f804928dbcf285e3d5d8d7ae31b1e3a7c78264f270efa9650d31f69c7897.php:44
@@ -3806,10 +3776,9 @@ msgstr "Movido para %s."
 #: ../../../../templates/themes/recent/theme.php:50
 #: ../../../..//templates/themes/recent/theme.php:50
 msgid ""
-"Can't build the RecentPosts theme, because there are no boards to be fetched."
-msgstr ""
-"Não posso construir o tema RecentPosts porque não há board algum para ser "
-"utilizado."
+"Can't build the RecentPosts theme, because there are no boards to be "
+"fetched."
+msgstr "Não posso construir o tema RecentPosts porque não há board algum para ser utilizado."
 
 #: ../../../../inc/config.php:997 ../../../../inc/config.php:1023
 #: ../../../../inc/config.php:1026 ../../../../inc/config.php:1029
@@ -4794,8 +4763,9 @@ msgstr ""
 
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:347
 msgid ""
-"To contribute translations, register at <a href=\"https://www.transifex.com/"
-"projects/p/tinyboard-vichan-devel/\">Transifex</a>"
+"To contribute translations, register at <a "
+"href=\"https://www.transifex.com/projects/p/tinyboard-vichan-"
+"devel/\">Transifex</a>"
 msgstr ""
 
 #. line 65
@@ -4933,8 +4903,8 @@ msgstr ""
 #: ../../../../templates/cache/e6/b0/35e368580dcc89b914ecbee239e0749e2426bcabb2ee16de3d5a32caa266.php:347
 msgid ""
 "Read this page for more information about contributing translations:<br><a "
-"href=\"/translation.html\">Translation tutorial</a> or use <a href=\"https://"
-"www.transifex.com/projects/p/infinity/\">Transifex</a>"
+"href=\"/translation.html\">Translation tutorial</a> or use <a "
+"href=\"https://www.transifex.com/projects/p/infinity/\">Transifex</a>"
 msgstr ""
 
 #: ../../../../templates/cache/e6/b0/35e368580dcc89b914ecbee239e0749e2426bcabb2ee16de3d5a32caa266.php:470

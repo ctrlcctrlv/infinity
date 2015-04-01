@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Adverso <fugido@gmail.com>, 2014
 # copypaste <admin@8chan.co>, 2014
@@ -11,10 +11,9 @@ msgstr ""
 "Project-Id-Version: infinity\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-10-18 13:47+0200\n"
-"PO-Revision-Date: 2015-03-17 13:12+0000\n"
+"PO-Revision-Date: 2015-04-01 23:22+0000\n"
 "Last-Translator: copypaste <admin@8chan.co>\n"
-"Language-Team: Spanish (Spain) (http://www.transifex.com/projects/p/infinity/"
-"language/es_ES/)\n"
+"Language-Team: Spanish (Spain) (http://www.transifex.com/projects/p/infinity/language/es_ES/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -197,9 +196,7 @@ msgstr "Iniciar sesión"
 #: ../../../../inc/display.php:265
 #, php-format
 msgid "Post too long. Click <a href=\"%s\">here</a> to view the full text."
-msgstr ""
-"El post es muy largo. Click <a href=\"%s\">aquí</a> para ver el texto "
-"completo."
+msgstr "El post es muy largo. Click <a href=\"%s\">aquí</a> para ver el texto completo."
 
 #: ../../../../inc/display.php:368 ../../../../inc/display.php:473
 #: ../../../../inc/display.php:385 ../../../../inc/display.php:495
@@ -340,9 +337,7 @@ msgstr "Eliminar todos los posts por IP en todos los tablones"
 msgid ""
 "Are you sure you want to delete all posts by this IP address, across all "
 "boards?"
-msgstr ""
-"¿Estás seguro que quieres eliminar todos los posts de esta dirección IP, en "
-"todos los foros?"
+msgstr "¿Estás seguro que quieres eliminar todos los posts de esta dirección IP, en todos los foros?"
 
 #: ../../../../inc/display.php:490 ../../../../inc/display.php:512
 #: ../../../../inc/display.php:515 ../../../../inc/display.php:519
@@ -443,10 +438,7 @@ msgstr "Nueva Respuesta"
 msgid ""
 "All trademarks, copyrights, comments, and images on this page are owned by "
 "and are the responsibility of their respective parties."
-msgstr ""
-"Todas las marcas registradas, derechos de autor, comentarios y imágenes de "
-"esta página son propiedad de y son responsabilidad de sus respectivos "
-"propietarios."
+msgstr "Todas las marcas registradas, derechos de autor, comentarios y imágenes de esta página son propiedad de y son responsabilidad de sus respectivos propietarios."
 
 #. * ====================
 #. *  Error messages
@@ -735,8 +727,7 @@ msgstr "Extensión del archivo desconocida."
 #: ../../../../inc/config.php:1050 ../../../../inc/config.php:1053
 #: ../../../..//inc/config.php:1120 ../../../../inc/config.php:1121
 msgid "Maximum file size: %maxsz% bytes<br>Your file's size: %filesz% bytes"
-msgstr ""
-"Peso máximo del archivo: %maxsz% bytes<br>Tu archivo pesa %filesz% bytes"
+msgstr "Peso máximo del archivo: %maxsz% bytes<br>Tu archivo pesa %filesz% bytes"
 
 #: ../../../../inc/config.php:897 ../../../../inc/config.php:1002
 #: ../../../../inc/config.php:993 ../../../../inc/config.php:995
@@ -816,9 +807,7 @@ msgstr "Parece que escribiste mal la verificación."
 msgid ""
 "You are only allowed to unban %s users at a time. You tried to unban %u "
 "users."
-msgstr ""
-"Sólo estás permitido desbanear %s usuarios a la vez. Has intentado desbanear "
-"%u usuarios."
+msgstr "Sólo estás permitido desbanear %s usuarios a la vez. Has intentado desbanear %u usuarios."
 
 #: ../../../../inc/config.php:907 ../../../../inc/config.php:1012
 #: ../../../../inc/config.php:1003 ../../../../inc/config.php:1005
@@ -845,10 +834,9 @@ msgstr "No eres un mod..."
 #: ../../../../inc/config.php:1069 ../../../../inc/config.php:1072
 #: ../../../..//inc/config.php:1139 ../../../../inc/config.php:1140
 msgid ""
-"Invalid username and/or password. Your user may have been deleted or changed."
-msgstr ""
-"Nombre de usuario y/o contraseña no válida. Puede que tu usuario fue "
-"eliminado o modificado."
+"Invalid username and/or password. Your user may have been deleted or "
+"changed."
+msgstr "Nombre de usuario y/o contraseña no válida. Puede que tu usuario fue eliminado o modificado."
 
 #: ../../../../inc/config.php:910 ../../../../inc/config.php:1015
 #: ../../../../inc/config.php:1006 ../../../../inc/config.php:1008
@@ -951,8 +939,7 @@ msgstr "Ese hilo no existe!"
 #: ../../../../inc/config.php:1080 ../../../../inc/config.php:1083
 #: ../../../..//inc/config.php:1150 ../../../../inc/config.php:1151
 msgid "Invalid security token! Please go back and try again."
-msgstr ""
-"Token de seguridad no válido! Por favor, vuelve atrás e inténtalo de nuevo."
+msgstr "Token de seguridad no válido! Por favor, vuelve atrás e inténtalo de nuevo."
 
 #. Default public ban message. In public ban messages, %length% is replaced
 #. with "for x days" or
@@ -2300,9 +2287,7 @@ msgstr "Depurar: APC"
 msgid ""
 "Your code contained PHP syntax errors. Please go back and correct them. PHP "
 "says: "
-msgstr ""
-"Tu código contiene errores de sintaxis PHP. Por favor, vuelve atrás y "
-"corrigelo. PHP dice: "
+msgstr "Tu código contiene errores de sintaxis PHP. Por favor, vuelve atrás y corrigelo. PHP dice: "
 
 #. line 2
 #. line 6
@@ -3155,9 +3140,7 @@ msgstr "Bans"
 msgid ""
 "(Search is case-insensitive and based on keywords. To match exact phrases, "
 "use \"quotes\". Use an asterisk (*) for wildcard.)"
-msgstr ""
-"(Buscar entre minúsculas-mayúsculas y en base a tags. Para encontrar la "
-"frase exacta, usa \"citas\". Usa un asterisco (*) para comodín."
+msgstr "(Buscar entre minúsculas-mayúsculas y en base a tags. Para encontrar la frase exacta, usa \"citas\". Usa un asterisco (*) para comodín."
 
 #: ../../../../templates/cache/ba/55/2553cc018aecf7d29a62331aec4bedc71b646817c7e4c4e7d1a885263676.php:25
 msgid "There are no active bans."
@@ -3412,9 +3395,7 @@ msgstr "y fue rechazado. No puede volver a apelar este ban."
 msgid ""
 "You have submitted the maximum number of ban appeals allowed. You may not "
 "appeal this ban again."
-msgstr ""
-"Has alcanzado el número máximo de apelaciones permitido. Ya no puedes apelar "
-"más este ban. "
+msgstr "Has alcanzado el número máximo de apelaciones permitido. Ya no puedes apelar más este ban. "
 
 #. line 114
 #. line 121
@@ -3472,8 +3453,7 @@ msgstr "y fue rechazado."
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:328
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:349
 msgid "You may appeal this ban again. Please enter your reasoning below."
-msgstr ""
-"Ya puedes apelar este ban otra vez. Por favor, introduce abajo el porqué."
+msgstr "Ya puedes apelar este ban otra vez. Por favor, introduce abajo el porqué."
 
 #. line 119
 #. line 127
@@ -3619,14 +3599,7 @@ msgid ""
 "<strong>name</strong>. To apply a filter, simply add to your query, for "
 "example, <em>name:Anonymous</em> or <em>subject:\"Some Thread\"</em>. "
 "Wildcards cannot be used in filters."
-msgstr ""
-"Buscar en minúsculas-mayúsculas y en base a tags. Para encontrar la frase "
-"exacta, usa \"citas\". Usa un asterisco (*) para comodín.</p><p style=\"font-"
-"size:8pt;margin:5px\">Puedes aplicar los siguientes filtros en tus "
-"búsquedas: <strong>id</strong>, <strong>hilo</strong>, <strong>tema</"
-"strong>, and <strong>nombre</strong>. Para aplicar un filtro, simplemente "
-"añade a tu query, por ejemplo, <em>Nombre:Anónimo</em> o <em>Tema:"
-"\"Cualquier tema\"</em>. Los comodines no se usa en filtros."
+msgstr "Buscar en minúsculas-mayúsculas y en base a tags. Para encontrar la frase exacta, usa \"citas\". Usa un asterisco (*) para comodín.</p><p style=\"font-size:8pt;margin:5px\">Puedes aplicar los siguientes filtros en tus búsquedas: <strong>id</strong>, <strong>hilo</strong>, <strong>tema</strong>, and <strong>nombre</strong>. Para aplicar un filtro, simplemente añade a tu query, por ejemplo, <em>Nombre:Anónimo</em> o <em>Tema:\"Cualquier tema\"</em>. Los comodines no se usa en filtros."
 
 #. line 2
 #: ../../../../templates/cache/57/a7/c0a734e494c78acfc595f033a070bdc87fdc3e6a28ad5aaa8666c7a1a966.php:25
@@ -3640,12 +3613,9 @@ msgstr "Click para prodecer a"
 #. line 5
 #: ../../../../templates/cache/57/a7/c0a734e494c78acfc595f033a070bdc87fdc3e6a28ad5aaa8666c7a1a966.php:39
 msgid ""
-"You are probably seeing this message because Javascript being disabled. This "
-"is a necessary security measure to prevent CSRF attacks."
-msgstr ""
-"Probablemente que estás viendo este mensaje porque el Javascript está "
-"desactivado. Esto es una medida de seguridad necesaria para prevenir ataques "
-"CSRF."
+"You are probably seeing this message because Javascript being disabled. This"
+" is a necessary security measure to prevent CSRF attacks."
+msgstr "Probablemente que estás viendo este mensaje porque el Javascript está desactivado. Esto es una medida de seguridad necesaria para prevenir ataques CSRF."
 
 #. line 7
 #: ../../../../templates/cache/3a/62/f804928dbcf285e3d5d8d7ae31b1e3a7c78264f270efa9650d31f69c7897.php:44
@@ -3806,10 +3776,9 @@ msgstr "Movido a %s."
 #: ../../../../templates/themes/recent/theme.php:50
 #: ../../../..//templates/themes/recent/theme.php:50
 msgid ""
-"Can't build the RecentPosts theme, because there are no boards to be fetched."
-msgstr ""
-"No se puede generar el tema de RecentPosts; no hay ningún tablón para "
-"generar."
+"Can't build the RecentPosts theme, because there are no boards to be "
+"fetched."
+msgstr "No se puede generar el tema de RecentPosts; no hay ningún tablón para generar."
 
 #: ../../../../inc/config.php:997 ../../../../inc/config.php:1023
 #: ../../../../inc/config.php:1026 ../../../../inc/config.php:1029
@@ -4794,8 +4763,9 @@ msgstr ""
 
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:347
 msgid ""
-"To contribute translations, register at <a href=\"https://www.transifex.com/"
-"projects/p/tinyboard-vichan-devel/\">Transifex</a>"
+"To contribute translations, register at <a "
+"href=\"https://www.transifex.com/projects/p/tinyboard-vichan-"
+"devel/\">Transifex</a>"
 msgstr ""
 
 #. line 65
@@ -4933,8 +4903,8 @@ msgstr ""
 #: ../../../../templates/cache/e6/b0/35e368580dcc89b914ecbee239e0749e2426bcabb2ee16de3d5a32caa266.php:347
 msgid ""
 "Read this page for more information about contributing translations:<br><a "
-"href=\"/translation.html\">Translation tutorial</a> or use <a href=\"https://"
-"www.transifex.com/projects/p/infinity/\">Transifex</a>"
+"href=\"/translation.html\">Translation tutorial</a> or use <a "
+"href=\"https://www.transifex.com/projects/p/infinity/\">Transifex</a>"
 msgstr ""
 
 #: ../../../../templates/cache/e6/b0/35e368580dcc89b914ecbee239e0749e2426bcabb2ee16de3d5a32caa266.php:470

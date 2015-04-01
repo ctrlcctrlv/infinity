@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Joel C <theholymart1@gmail.com>, 2014
 msgid ""
@@ -9,10 +9,9 @@ msgstr ""
 "Project-Id-Version: infinity\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-10-18 13:47+0200\n"
-"PO-Revision-Date: 2015-03-17 13:11+0000\n"
+"PO-Revision-Date: 2015-04-01 23:22+0000\n"
 "Last-Translator: copypaste <admin@8chan.co>\n"
-"Language-Team: Catalan (http://www.transifex.com/projects/p/infinity/"
-"language/ca/)\n"
+"Language-Team: Catalan (http://www.transifex.com/projects/p/infinity/language/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -195,8 +194,7 @@ msgstr "Entrar"
 #: ../../../../inc/display.php:265
 #, php-format
 msgid "Post too long. Click <a href=\"%s\">here</a> to view the full text."
-msgstr ""
-"Post massa llarg. Clica <a href=\"%s\">here</a> per veure el text sencer."
+msgstr "Post massa llarg. Clica <a href=\"%s\">here</a> per veure el text sencer."
 
 #: ../../../../inc/display.php:368 ../../../../inc/display.php:473
 #: ../../../../inc/display.php:385 ../../../../inc/display.php:495
@@ -337,9 +335,7 @@ msgstr "Eliminar tots els posts amb aquesta adreça IP a totes les boards"
 msgid ""
 "Are you sure you want to delete all posts by this IP address, across all "
 "boards?"
-msgstr ""
-"Estàs segur que vols eliminar tots els posts amb aquesta adreça IP, a totes "
-"les boards?"
+msgstr "Estàs segur que vols eliminar tots els posts amb aquesta adreça IP, a totes les boards?"
 
 #: ../../../../inc/display.php:490 ../../../../inc/display.php:512
 #: ../../../../inc/display.php:515 ../../../../inc/display.php:519
@@ -440,10 +436,7 @@ msgstr "Respondre"
 msgid ""
 "All trademarks, copyrights, comments, and images on this page are owned by "
 "and are the responsibility of their respective parties."
-msgstr ""
-"Totes les marques registrades, drets de còpia, comentaris i imatges en "
-"aquesta pàgina pertanyen i són responsabilitat de cadascuna de les "
-"respectives empreses"
+msgstr "Totes les marques registrades, drets de còpia, comentaris i imatges en aquesta pàgina pertanyen i són responsabilitat de cadascuna de les respectives empreses"
 
 #. * ====================
 #. *  Error messages
@@ -732,9 +725,7 @@ msgstr "Extensió de fitxer desconeguda."
 #: ../../../../inc/config.php:1050 ../../../../inc/config.php:1053
 #: ../../../..//inc/config.php:1120 ../../../../inc/config.php:1121
 msgid "Maximum file size: %maxsz% bytes<br>Your file's size: %filesz% bytes"
-msgstr ""
-"Tamany de fitxer màxim: %maxsz% bytes<br>Tamany del teu fitxer: %filesz% "
-"bytes"
+msgstr "Tamany de fitxer màxim: %maxsz% bytes<br>Tamany del teu fitxer: %filesz% bytes"
 
 #: ../../../../inc/config.php:897 ../../../../inc/config.php:1002
 #: ../../../../inc/config.php:993 ../../../../inc/config.php:995
@@ -791,8 +782,7 @@ msgstr "MIME type detection XSS exploit (IE) detected; post descartat."
 #: ../../../../inc/config.php:1061 ../../../../inc/config.php:1064
 #: ../../../..//inc/config.php:1131 ../../../../inc/config.php:1132
 msgid "Couldn't make sense of the URL of the video you tried to embed."
-msgstr ""
-"No s'ha pogut donar sentit a la URL del vídeo que has intentat integrar."
+msgstr "No s'ha pogut donar sentit a la URL del vídeo que has intentat integrar."
 
 #: ../../../../inc/config.php:903 ../../../../inc/config.php:1008
 #: ../../../../inc/config.php:999 ../../../../inc/config.php:1001
@@ -815,9 +805,7 @@ msgstr "Sembles haver escrit malament la verificació."
 msgid ""
 "You are only allowed to unban %s users at a time. You tried to unban %u "
 "users."
-msgstr ""
-"Només estàs permès de desbanejar %s usuaris alhora. Has intentat desbanejar "
-"%u usuaris."
+msgstr "Només estàs permès de desbanejar %s usuaris alhora. Has intentat desbanejar %u usuaris."
 
 #: ../../../../inc/config.php:907 ../../../../inc/config.php:1012
 #: ../../../../inc/config.php:1003 ../../../../inc/config.php:1005
@@ -844,10 +832,9 @@ msgstr "No ets un mod..."
 #: ../../../../inc/config.php:1069 ../../../../inc/config.php:1072
 #: ../../../..//inc/config.php:1139 ../../../../inc/config.php:1140
 msgid ""
-"Invalid username and/or password. Your user may have been deleted or changed."
-msgstr ""
-"Nom d'usuari i/o contrasenya invàlids. El teu usuari ha pogut ser eliminat o "
-"canviat."
+"Invalid username and/or password. Your user may have been deleted or "
+"changed."
+msgstr "Nom d'usuari i/o contrasenya invàlids. El teu usuari ha pogut ser eliminat o canviat."
 
 #: ../../../../inc/config.php:910 ../../../../inc/config.php:1015
 #: ../../../../inc/config.php:1006 ../../../../inc/config.php:1008
@@ -2298,9 +2285,7 @@ msgstr "Debug: APC"
 msgid ""
 "Your code contained PHP syntax errors. Please go back and correct them. PHP "
 "says: "
-msgstr ""
-"El teu codi contenir errors de sintàxi de PHP. Torna enrere i corregeix-los. "
-"El PHP diu: "
+msgstr "El teu codi contenir errors de sintàxi de PHP. Torna enrere i corregeix-los. El PHP diu: "
 
 #. line 2
 #. line 6
@@ -3153,10 +3138,7 @@ msgstr "Bans"
 msgid ""
 "(Search is case-insensitive and based on keywords. To match exact phrases, "
 "use \"quotes\". Use an asterisk (*) for wildcard.)"
-msgstr ""
-"(Els resultats de la cerca canvien si escrius en majúscules o minuscules. "
-"Per a fer coincidir frases exactes utilitza \"comes\". Usa un asterisc (*) "
-"per excloïr.)"
+msgstr "(Els resultats de la cerca canvien si escrius en majúscules o minuscules. Per a fer coincidir frases exactes utilitza \"comes\". Usa un asterisc (*) per excloïr.)"
 
 #: ../../../../templates/cache/ba/55/2553cc018aecf7d29a62331aec4bedc71b646817c7e4c4e7d1a885263676.php:25
 msgid "There are no active bans."
@@ -3411,9 +3393,7 @@ msgstr "i ha sigut denegat. No podràs apel·lar aquest ban una altra vegada."
 msgid ""
 "You have submitted the maximum number of ban appeals allowed. You may not "
 "appeal this ban again."
-msgstr ""
-"Has entrar el màxim nombre d'apel·lacions de ban. No hauries d'apel·lar "
-"aquest ban cap altra vegada."
+msgstr "Has entrar el màxim nombre d'apel·lacions de ban. No hauries d'apel·lar aquest ban cap altra vegada."
 
 #. line 114
 #. line 121
@@ -3471,8 +3451,7 @@ msgstr "i ha sigut denegat."
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:328
 #: ../../../../templates/cache/b7/ae/f9663c9ca58d1e218de29e04d0fa229f6263f4e68b613ce608bc023897a2.php:349
 msgid "You may appeal this ban again. Please enter your reasoning below."
-msgstr ""
-"Pots apel·lar aquest ban una altra vegada. Si us plau escriu una raó a sota."
+msgstr "Pots apel·lar aquest ban una altra vegada. Si us plau escriu una raó a sota."
 
 #. line 119
 #. line 127
@@ -3632,11 +3611,9 @@ msgstr "Clica endavant per a"
 #. line 5
 #: ../../../../templates/cache/57/a7/c0a734e494c78acfc595f033a070bdc87fdc3e6a28ad5aaa8666c7a1a966.php:39
 msgid ""
-"You are probably seeing this message because Javascript being disabled. This "
-"is a necessary security measure to prevent CSRF attacks."
-msgstr ""
-"Probablement estàs veient aquest missatge perque Javascript està desactivat. "
-"Aquesta és una mesura de seguretat necessària per a preveure atacs CSRF."
+"You are probably seeing this message because Javascript being disabled. This"
+" is a necessary security measure to prevent CSRF attacks."
+msgstr "Probablement estàs veient aquest missatge perque Javascript està desactivat. Aquesta és una mesura de seguretat necessària per a preveure atacs CSRF."
 
 #. line 7
 #: ../../../../templates/cache/3a/62/f804928dbcf285e3d5d8d7ae31b1e3a7c78264f270efa9650d31f69c7897.php:44
@@ -3797,10 +3774,9 @@ msgstr "Mogut a %s."
 #: ../../../../templates/themes/recent/theme.php:50
 #: ../../../..//templates/themes/recent/theme.php:50
 msgid ""
-"Can't build the RecentPosts theme, because there are no boards to be fetched."
-msgstr ""
-"No es pot construir el tema RecentPosts, perquè no hi ha boards per a ser "
-"recollides."
+"Can't build the RecentPosts theme, because there are no boards to be "
+"fetched."
+msgstr "No es pot construir el tema RecentPosts, perquè no hi ha boards per a ser recollides."
 
 #: ../../../../inc/config.php:997 ../../../../inc/config.php:1023
 #: ../../../../inc/config.php:1026 ../../../../inc/config.php:1029
@@ -4785,8 +4761,9 @@ msgstr ""
 
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:347
 msgid ""
-"To contribute translations, register at <a href=\"https://www.transifex.com/"
-"projects/p/tinyboard-vichan-devel/\">Transifex</a>"
+"To contribute translations, register at <a "
+"href=\"https://www.transifex.com/projects/p/tinyboard-vichan-"
+"devel/\">Transifex</a>"
 msgstr ""
 
 #. line 65
@@ -4924,8 +4901,8 @@ msgstr ""
 #: ../../../../templates/cache/e6/b0/35e368580dcc89b914ecbee239e0749e2426bcabb2ee16de3d5a32caa266.php:347
 msgid ""
 "Read this page for more information about contributing translations:<br><a "
-"href=\"/translation.html\">Translation tutorial</a> or use <a href=\"https://"
-"www.transifex.com/projects/p/infinity/\">Transifex</a>"
+"href=\"/translation.html\">Translation tutorial</a> or use <a "
+"href=\"https://www.transifex.com/projects/p/infinity/\">Transifex</a>"
 msgstr ""
 
 #: ../../../../templates/cache/e6/b0/35e368580dcc89b914ecbee239e0749e2426bcabb2ee16de3d5a32caa266.php:470

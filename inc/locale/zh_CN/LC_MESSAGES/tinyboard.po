@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # Ling Chingchong <markshi233@163.com>, 2015
 # Nicholas Chen <planetzstore@gmail.com>, 2014
@@ -10,10 +10,9 @@ msgstr ""
 "Project-Id-Version: infinity\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-10-18 13:47+0200\n"
-"PO-Revision-Date: 2015-03-18 07:44+0000\n"
-"Last-Translator: Ling Chingchong <markshi233@163.com>\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/infinity/"
-"language/zh_CN/)\n"
+"PO-Revision-Date: 2015-04-01 23:22+0000\n"
+"Last-Translator: copypaste <admin@8chan.co>\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/infinity/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -828,7 +827,8 @@ msgstr "您不是版主..."
 #: ../../../../inc/config.php:1069 ../../../../inc/config.php:1072
 #: ../../../..//inc/config.php:1139 ../../../../inc/config.php:1140
 msgid ""
-"Invalid username and/or password. Your user may have been deleted or changed."
+"Invalid username and/or password. Your user may have been deleted or "
+"changed."
 msgstr "无效的用户名/密码。你的账号有可能已被删除或修改。"
 
 #: ../../../../inc/config.php:910 ../../../../inc/config.php:1015
@@ -3128,9 +3128,7 @@ msgstr "封禁"
 msgid ""
 "(Search is case-insensitive and based on keywords. To match exact phrases, "
 "use \"quotes\". Use an asterisk (*) for wildcard.)"
-msgstr ""
-"(搜索为case-insensitive并基于关键词。如果想对应一样的词句的话，请使用“引号”。"
-"用(*)使用通配符。)"
+msgstr "(搜索为case-insensitive并基于关键词。如果想对应一样的词句的话，请使用“引号”。用(*)使用通配符。)"
 
 #: ../../../../templates/cache/ba/55/2553cc018aecf7d29a62331aec4bedc71b646817c7e4c4e7d1a885263676.php:25
 msgid "There are no active bans."
@@ -3589,13 +3587,7 @@ msgid ""
 "<strong>name</strong>. To apply a filter, simply add to your query, for "
 "example, <em>name:Anonymous</em> or <em>subject:\"Some Thread\"</em>. "
 "Wildcards cannot be used in filters."
-msgstr ""
-"搜索为case-insensitive并基于关键词。如果想对应一样的词句的话，请使用“引号”。"
-"用(*)使用通配符。.</p><p style=\"font-size:8pt;margin:5px\">你可以把这些过滤"
-"选项添加到你的搜索里: <strong>id</strong>, <strong>thread</strong>, "
-"<strong>subject</strong>, and <strong>name</strong>. 将过滤选项写入搜索条件内"
-"即可，比如, <em>name:Anonymous</em> or <em>subject:\"Some Thread\"</em>. 通配"
-"符不可在过滤条件内使用。"
+msgstr "搜索为case-insensitive并基于关键词。如果想对应一样的词句的话，请使用“引号”。用(*)使用通配符。.</p><p style=\"font-size:8pt;margin:5px\">你可以把这些过滤选项添加到你的搜索里: <strong>id</strong>, <strong>thread</strong>, <strong>subject</strong>, and <strong>name</strong>. 将过滤选项写入搜索条件内即可，比如, <em>name:Anonymous</em> or <em>subject:\"Some Thread\"</em>. 通配符不可在过滤条件内使用。"
 
 #. line 2
 #: ../../../../templates/cache/57/a7/c0a734e494c78acfc595f033a070bdc87fdc3e6a28ad5aaa8666c7a1a966.php:25
@@ -3609,11 +3601,9 @@ msgstr "点击以继续到"
 #. line 5
 #: ../../../../templates/cache/57/a7/c0a734e494c78acfc595f033a070bdc87fdc3e6a28ad5aaa8666c7a1a966.php:39
 msgid ""
-"You are probably seeing this message because Javascript being disabled. This "
-"is a necessary security measure to prevent CSRF attacks."
-msgstr ""
-"你看到这的原因估计是因为Javascript被禁用了。这是一个为了防止CSRF攻击的必要安"
-"全措施。"
+"You are probably seeing this message because Javascript being disabled. This"
+" is a necessary security measure to prevent CSRF attacks."
+msgstr "你看到这的原因估计是因为Javascript被禁用了。这是一个为了防止CSRF攻击的必要安全措施。"
 
 #. line 7
 #: ../../../../templates/cache/3a/62/f804928dbcf285e3d5d8d7ae31b1e3a7c78264f270efa9650d31f69c7897.php:44
@@ -3774,7 +3764,8 @@ msgstr "搬移至%s。"
 #: ../../../../templates/themes/recent/theme.php:50
 #: ../../../..//templates/themes/recent/theme.php:50
 msgid ""
-"Can't build the RecentPosts theme, because there are no boards to be fetched."
+"Can't build the RecentPosts theme, because there are no boards to be "
+"fetched."
 msgstr "无法制造RecentPosts主题，因为没有可读取的板块"
 
 #: ../../../../inc/config.php:997 ../../../../inc/config.php:1023
@@ -4080,9 +4071,7 @@ msgstr "你输入CAPTCHA验证码失败了"
 msgid ""
 ". <a href=\"https://8ch.net/dnsbls_bypass.php\">Try again.</a> If it's not "
 "working, email admin@8chan.co for support."
-msgstr ""
-". <a href=\"https://8ch.net/dnsbls_bypass.php\">请重新尝试.</a>如果不好使的"
-"话，请给admin@8chan.co发电子邮件。"
+msgstr ". <a href=\"https://8ch.net/dnsbls_bypass.php\">请重新尝试.</a>如果不好使的话，请给admin@8chan.co发电子邮件。"
 
 #: ../../../..//inc/8chan-mod-pages.php:118
 #: ../../../../inc/8chan-mod-pages.php:81
@@ -4224,7 +4213,7 @@ msgstr ""
 msgid ""
 "The database returned an error while processing your request. Please try "
 "again later."
-msgstr ""
+msgstr "数据库处理你的要求时出现了错误。请稍后再尝试。"
 
 #: ../../../..//inc/mod/pages.php:642 ../../../..//inc/mod/pages.php:669
 #: ../../../..//inc/mod/pages.php:706
@@ -4233,7 +4222,7 @@ msgstr ""
 #: ../../../../inc/mod/pages.php:642 ../../../../inc/mod/pages.php:669
 #: ../../../../inc/mod/pages.php:706
 msgid "Board log"
-msgstr ""
+msgstr "板块记录"
 
 #: ../../../..//inc/mod/pages.php:877 ../../../../inc/mod/pages.php:877
 msgid "Could not find that post."
@@ -4762,8 +4751,9 @@ msgstr ""
 
 #: ../../../..//templates/cache/7d/3b/70b1365f24d967e647b97daaf7a6a943bf6c9631f838fe06cdbd9c60da8d.php:347
 msgid ""
-"To contribute translations, register at <a href=\"https://www.transifex.com/"
-"projects/p/tinyboard-vichan-devel/\">Transifex</a>"
+"To contribute translations, register at <a "
+"href=\"https://www.transifex.com/projects/p/tinyboard-vichan-"
+"devel/\">Transifex</a>"
 msgstr ""
 
 #. line 65
@@ -4901,8 +4891,8 @@ msgstr ""
 #: ../../../../templates/cache/e6/b0/35e368580dcc89b914ecbee239e0749e2426bcabb2ee16de3d5a32caa266.php:347
 msgid ""
 "Read this page for more information about contributing translations:<br><a "
-"href=\"/translation.html\">Translation tutorial</a> or use <a href=\"https://"
-"www.transifex.com/projects/p/infinity/\">Transifex</a>"
+"href=\"/translation.html\">Translation tutorial</a> or use <a "
+"href=\"https://www.transifex.com/projects/p/infinity/\">Transifex</a>"
 msgstr ""
 
 #: ../../../../templates/cache/e6/b0/35e368580dcc89b914ecbee239e0749e2426bcabb2ee16de3d5a32caa266.php:470
