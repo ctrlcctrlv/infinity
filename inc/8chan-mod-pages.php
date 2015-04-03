@@ -49,6 +49,7 @@
 	$config['mod']['unban'] = BOARDVOLUNTEER;
 	$config['mod']['deletebyip'] = BOARDVOLUNTEER;
 	$config['mod']['sticky'] = BOARDVOLUNTEER;
+	$config['mod']['cycle'] = BOARDVOLUNTEER;
 	$config['mod']['lock'] = BOARDVOLUNTEER;
 	$config['mod']['postinlocked'] = BOARDVOLUNTEER;
 	$config['mod']['bumplock'] = BOARDVOLUNTEER;
@@ -246,22 +247,30 @@
 		if (!is_dir($dir)){
 			mkdir($dir, 0777, true);
 		}
-	
-		if (isset($_FILES['file'])){
-			if (!isset($_POST['description']) and $_POST['description'])
+
+		function handle_file($id = false, $description, $b, $dir) {
+			global $config;
+
+			if (!isset($description) and $description)
 				error(_('You must enter a flag description!'));
 
-			if (strlen($_POST['description']) > 255)
+			if (strlen($description) > 255)
 				error(_('Flag description too long!'));
 	
-			$upload = $_FILES['file']['tmp_name'];
+			if ($id) {
+				$f = 'flag-'.$id;
+			} else { 
+				$f = 'file';
+				$id = time() . substr(microtime(), 2, 3);
+			}
+
+			$upload = $_FILES[$f]['tmp_name'];
 			$banners = array_diff(scandir($dir), array('..', '.'));
 
 			if (!is_readable($upload))
 				error($config['error']['nomove']);
 
-			$id = time() . substr(microtime(), 2, 3);
-			$extension = strtolower(mb_substr($_FILES['file']['name'], mb_strrpos($_FILES['file']['name'], '.') + 1));
+			$extension = strtolower(mb_substr($_FILES[$f]['name'], mb_strrpos($_FILES[$f]['name'], '.') + 1));
 
 			if ($extension != 'png') {
 				error(_('Flags must be in PNG format.'));
@@ -283,8 +292,45 @@
 			}
 
 			copy($upload, "$dir/$id.$extension");
-			$config['user_flags'][$id] = utf8tohtml($_POST['description']);
+			purge("$dir/$id.$extension");
+			$config['user_flags'][$id] = utf8tohtml($description);
+			file_write($b.'/flags.ser', serialize($config['user_flags']));
+		}
+	
+		// Handle a new flag, if any.
+		if (isset($_FILES['file'])){
+			handle_file(false, $_POST['description'], $b, $dir);
+		}
 
+		// Handle edits to existing flags.
+		foreach ($_FILES as $k => $a) {
+			if (empty($_FILES[$k]['tmp_name'])) continue;
+
+			if (preg_match('/^flag-(\d+)$/', $k, $matches)) {
+				$id = (int)$matches[1];
+				if (!isset($_POST['description-'.$id])) continue;
+
+				if (isset($config['user_flags'][$id])) {
+					handle_file($id, $_POST['description-'.$id], $b, $dir);
+				}
+			}
+		}
+
+		// Description just changed, flag not edited.
+		foreach ($_POST as $k => $v) {
+			if (!preg_match('/^description-(\d+)$/', $k, $matches)) continue;
+			$id = (int)$matches[1];
+			if (!isset($_POST['description-'.$id])) continue;
+
+			$description = $_POST['description-'.$id];
+
+			if (strlen($description) > 255)
+				error(_('Flag description too long!'));
+			$config['user_flags'][$id] = utf8tohtml($description);
+			file_write($b.'/flags.ser', serialize($config['user_flags']));
+		}
+
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$flags = <<<FLAGS
 <?php
 \$config['country_flags'] = false;
@@ -296,9 +342,8 @@
 FLAGS;
 
 			file_write($b.'/flags.php', $flags);
-			file_write($b.'/flags.ser', serialize($config['user_flags']));
-
 		}
+
 
 		if (isset($_POST['delete'])){
 			foreach ($_POST['delete'] as $i => $d){

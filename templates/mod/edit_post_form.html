@@ -1,3 +1,5 @@
+<div style="text-align: center">
+<style>.post {text-align:left}</style>
 <form action="" method="post">
 	<input type="hidden" name="token" value="{{ token }}">
 	
@@ -15,7 +17,7 @@
 				{% trans %}Tripcode{% endtrans %}
 			</th>
 			<td>
-				Remove? <input type="checkbox" name="remove_trip" value="{{ post.trip }}">
+				{% trans %}Remove tripcode?{% endtrans %} <input type="checkbox" name="remove_trip" value="{{ post.trip }}">
 			</td>
 		</tr>
 		<tr>
@@ -43,7 +45,28 @@
 				<textarea name="body" id="body" rows="8" cols="35">{% if raw %}{{ post.body }}{% else %}{{ post.body_nomarkup }}{% endif %}</textarea>
 			</td>
 		</tr>
+		{# <tr> <!-- The file handling code is quite complicated and I'm not about to start maintaining it in two places. It needs to be made into a set of reusable functions or something. If you want to do so uncomment this. Pull requests that copy the code from post.php to inc/mod/pages.php without creating functions to be used in both won't be accepted. -->
+			<th>
+				{% trans %}Files{% endtrans %}<br/>
+				<p class="unimportant">{% trans %}Note: Changing files<br/>deletes all previous ones.{% endtrans %}</p>
+			</th>
+			<td>
+				{% for i in range(0, config.max_images - 1) %}
+				<input type="file" name="file" id="upload_file"><br/>
+				{% endfor %}
+			</td>
+		</tr> #}
+		<tr id="upload_embed">
+			<th>
+				{% trans %}Embed{% endtrans %}
+			</th>
+			<td>
+				<input type="text" name="embed" value="{{ post.embed|e }}" size="30" maxlength="120" autocomplete="off">
+			</td>
+		</tr>
 	</table>
+	<h2>{% trans %}Existing post{% endtrans %}</h2>
+	{{ preview }}
 	<p style="text-align:center">
 		{% if mod|hasPermission(config.mod.rawhtml) %}
 			{% if raw %}
@@ -55,3 +78,4 @@
 		{% endif %}
 	</p>
 </form>
+</div>

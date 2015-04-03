@@ -14,18 +14,19 @@
 <hr>
 
 <h2>{% trans %}Flags already in use{% endtrans %}</h2>
-<form action="{{ action }}" method="post">
+<form action="{{ action }}" method="post" enctype="multipart/form-data">
 <input type="hidden" name="token" value="{{ token }}">
 <table>
 <tbody>
+<th>D</th><th>{% trans %}Flag image{% endtrans %}</th><th>{% trans %}Flag description{% endtrans %}</th>
 {% for flag, description in config.user_flags %}
 	<tr>
-	<td><input name="delete[]" type="checkbox" value="{{flag}}"></td><td><img src="static/custom-flags/{{board.uri}}/{{flag}}.png"></td><td>{{description}}</td>
+	<td><input name="delete[]" type="checkbox" value="{{flag}}"></td><td><img src="static/custom-flags/{{board.uri}}/{{flag}}.png"> <input type="file" name="flag-{{ flag }}"></td><td><input type="text" name="description-{{flag}}" value="{{ description|addslashes }}"></td>
 	</tr>
 {% endfor %}
 </tbody>
 </table>
-<p><input type="submit" value="Delete selected"></p>
+<p><input type="submit" value="{% trans 'Update flags' %}"></p>
 </form>
 <form action="{{ action }}" method="post">
 <input type="hidden" name="token" value="{{ token }}">
