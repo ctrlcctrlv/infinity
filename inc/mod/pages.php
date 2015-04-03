@@ -3467,6 +3467,8 @@ function mod_edit_page($id) {
 		$body = "<div class='ban'>$write</div>";
 		$html = Element('page.html', array('config' => $config, 'body' => $body, 'title' => utf8tohtml($page['title'])));
 		file_write($fn, $html);
+
+		modLog("Edited page {$page['name']} <span class='unimportant'>(#{$page['id']})</span>");
 	}
 
 	if (!isset($content)) {
