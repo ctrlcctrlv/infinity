@@ -504,6 +504,8 @@ function boardTitle($uri) {
 function purge($uri) {
 	global $config, $debug;
 
+	if (!isset($config['purge'])) return;
+
 	// Fix for Unicode
 	$uri = rawurlencode($uri); 
 
