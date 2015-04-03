@@ -39,10 +39,10 @@ foreach ($locales as $loc) {
 	if (file_exists($locdir."/LC_MESSAGES/tinyboard.po"))	$join = "-j --omit-header";
 	else							$join = "";
 	passthru("cd $locdir/LC_MESSAGES;
-         xgettext -d tinyboard -L php --from-code utf-8 $join -c $(find ../../../../ -name \*.php)");
+         xgettext -d tinyboard -L php --from-code utf-8 $join $(find ../../../../ -name \*.php)");
 
 	// Generate javascript.po
 	passthru("cd $locdir/LC_MESSAGES;".
-         "xgettext -d javascript -L Python --force-po --from-code utf-8 $join -c ".
+         "xgettext -d javascript -L Python --force-po --from-code utf-8 $join ".
 	 "$(find ../../../../js/ ../../../../templates/ -not -path \*node_modules\* -name \*.js)");
 }
