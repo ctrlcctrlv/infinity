@@ -913,7 +913,7 @@ function insertFloodPost(array $post) {
 
 function post(array $post) {
 	global $pdo, $board;
-	$query = prepare(sprintf("INSERT INTO ``posts_%s`` VALUES ( NULL, :thread, :subject, :email, :name, :trip, :capcode, :body, :body_nomarkup, :time, :time, :files, :num_files, :filehash, :password, :ip, :sticky, :locked, 0, :embed, NULL)", $board['uri']));
+	$query = prepare(sprintf("INSERT INTO ``posts_%s`` VALUES ( NULL, :thread, :subject, :email, :name, :trip, :capcode, :body, :body_nomarkup, :time, :time, :files, :num_files, :filehash, :password, :ip, :sticky, :locked, :cycle, 0, :embed, NULL)", $board['uri']));
 
 	// Basic stuff
 	if (!empty($post['subject'])) {
@@ -951,6 +951,12 @@ function post(array $post) {
 		$query->bindValue(':locked', true, PDO::PARAM_INT);
 	} else {
 		$query->bindValue(':locked', false, PDO::PARAM_INT);
+	}
+
+	if ($post['op'] && $post['mod'] && isset($post['cycle']) && $post['cycle']) {
+		$query->bindValue(':cycle', true, PDO::PARAM_INT);
+	} else {
+		$query->bindValue(':cycle', false, PDO::PARAM_INT);
 	}
 
 	if ($post['mod'] && isset($post['capcode']) && $post['capcode']) {

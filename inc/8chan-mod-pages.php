@@ -49,6 +49,7 @@
 	$config['mod']['unban'] = BOARDVOLUNTEER;
 	$config['mod']['deletebyip'] = BOARDVOLUNTEER;
 	$config['mod']['sticky'] = BOARDVOLUNTEER;
+	$config['mod']['cycle'] = BOARDVOLUNTEER;
 	$config['mod']['lock'] = BOARDVOLUNTEER;
 	$config['mod']['postinlocked'] = BOARDVOLUNTEER;
 	$config['mod']['bumplock'] = BOARDVOLUNTEER;
