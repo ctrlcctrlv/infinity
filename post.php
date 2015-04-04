@@ -579,7 +579,7 @@ elseif (isset($_POST['post'])) {
 	if (!$mod && mb_strlen($post['body']) > $config['max_body'])
 		error($config['error']['toolong_body']);
 	if (mb_strlen($post['body']) < $config['min_body'] && $post['op'])
-		error(_(sprintf('OP must be at least %d chars on this board.', $config['min_body'])));
+		error(sprintf(_('OP must be at least %d chars on this board.'), $config['min_body']));
 	if (mb_strlen($post['password']) > 20)
 		error(sprintf($config['error']['toolong'], 'password'));
 		
