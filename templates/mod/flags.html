@@ -19,6 +19,7 @@
 <table>
 <tbody>
 <th>D</th><th>{% trans %}Flag image{% endtrans %}</th><th>{% trans %}Flag description{% endtrans %}</th>
+<p class="unimportant"><em>{% trans %}Flags are likely heavily cached by your browser and the website. Please give them time to update if you change one!{% endtrans %}</em></p>
 {% for flag, description in config.user_flags %}
 	<tr>
 	<td><input name="delete[]" type="checkbox" value="{{flag}}"></td><td><img src="static/custom-flags/{{board.uri}}/{{flag}}.png"> <input type="file" name="flag-{{ flag }}"></td><td><input type="text" name="description-{{flag}}" value="{{ description|addslashes }}"></td>
