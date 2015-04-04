@@ -584,6 +584,14 @@ elseif (isset($_POST['post'])) {
 		error(sprintf($config['error']['toolong'], 'password'));
 		
 	wordfilters($post['body']);
+
+	if ($config['max_newlines'] > 0) {
+		preg_match_all("/\n/", $post['body'], $nlmatches);
+	
+		if (isset($nlmatches[0]) && sizeof($nlmatches[0]) > $config['max_newlines'])
+			error(sprintf(_('Your post contains too many lines. This board only allows %d maximum.'), $config['max_newlines']));
+	}
+	
 	
 	$post['body'] = escape_markup_modifiers($post['body']);
 	

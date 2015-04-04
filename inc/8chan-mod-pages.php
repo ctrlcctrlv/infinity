@@ -544,6 +544,17 @@ FLAGS;
 				$reply_limit = 250;
 			}
 
+			if (isset($_POST['max_newlines'])) {
+				$mn = (int)$_POST['max_newlines'];
+				if ($mn < 20 || $mn > 300) {
+					$max_newlines = 0;
+				} else {
+					$max_newlines = $mn;
+				}
+			} else {
+				$max_newlines = $mn;
+			}
+
 			if (!(strlen($title) < 40))
 				error('Invalid title');
 			if (!(strlen($subtitle) < 200))
@@ -587,6 +598,7 @@ FLAGS;
 \$config['hour_max_threads'] = $hour_max_threads;
 \$config['reply_limit'] = $reply_limit;
 \$config['max_pages'] = $max_pages;
+\$config['max_newlines'] = $max_newlines;
 \$config['oekaki'] = $oekaki;
 $code_tags $katex $replace $multiimage $allow_flash $allow_pdf $user_flags
 if (\$config['disable_images'])
