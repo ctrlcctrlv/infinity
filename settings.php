@@ -25,6 +25,7 @@ $safe_config['auto_unicode'] = $config['auto_unicode'];
 $safe_config['strip_combining_chars'] = $config['strip_combining_chars'];
 $safe_config['allow_roll'] = $config['allow_roll'];
 $safe_config['image_reject_repost'] = $config['image_reject_repost'];
+$safe_config['image_reject_repost_in_thread'] = $config['image_reject_repost_in_thread'];
 $safe_config['early_404'] = $config['early_404'];
 $safe_config['allow_delete'] = $config['allow_delete'];
 $safe_config['anonymous'] = $config['anonymous'];
@@ -45,6 +46,7 @@ $safe_config['wordfilters'] = $config['wordfilters'];
 $safe_config['latex'] = $config['katex'];
 $safe_config['code_tags'] = in_array('js/code_tags/run_prettify.js', $config['additional_javascript']);
 $safe_config['max_pages'] = $config['max_pages'];
+$safe_config['max_newlines'] = $config['max_newlines'];
 $safe_config['reply_limit'] = $config['reply_limit'];
 
 
