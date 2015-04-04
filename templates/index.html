@@ -37,6 +37,10 @@
 
 	{% include 'attention_bar.html' %}
 
+	{% if config.announcement %}
+		{{ config.announcement }}
+	{% endif %}
+
 	{% if board.uri not in config.banned_ad_boards %}
 		{% include 'ad_top.html' %}
 	{% endif %}
