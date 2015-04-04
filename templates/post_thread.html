@@ -40,9 +40,9 @@
 	{% endif %}
 	{% if post.cycle %}
 		{% if config.font_awesome %}
-			<i class="fa fa-refresh" title="Cyclical"></i>
+			<i class="fa fa-refresh" title="Cyclical ({{ config.cycle_limit }})"></i>
 		{% else %}
-			<img class="icon" title="Cyclical" src="{{ config.image_sticky }}" alt="Cyclical" />
+			<img class="icon" title="Cyclical ({{ config.cycle_limit }})" src="{{ config.image_sticky }}" alt="Cyclical" />
 		{% endif %}
 	{% endif %}
 	{% if index %}
