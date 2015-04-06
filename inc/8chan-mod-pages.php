@@ -641,17 +641,6 @@ EOT;
 			eval(str_replace('flags.php', "$b/flags.php", preg_replace('/^\<\?php$/m', '', $config_file)));
 			// czaks: maybe reconsider using it, now that config is cached?
 
-			// Clean the cache
-			if ($config['cache']['enabled']) {
-				cache::delete('board_' . $board['uri']);
-				cache::delete('all_boards');
-
-				cache::delete('config_' . $board['uri']);
-				cache::delete('events_' . $board['uri']);
-
-				unlink('tmp/cache/locale_' . $board['uri']);
-			}
-
 			// be smarter about rebuilds...only some changes really require us to rebuild all threads
 			if ($_config['captcha']['enabled'] != $config['captcha']['enabled']
 			 || $_config['new_thread_capt'] != $config['new_thread_capt'] /*New thread captcha - if toggling "enable captcha" requires this, toggling new thread capt does too, I guess.*/
@@ -673,6 +662,16 @@ EOT;
 		$query->bindValue(':board', $b);
 		$query->execute() or error(db_error($query));
 		$board = $query->fetchAll()[0];
+
+		// Clean the cache
+		if ($config['cache']['enabled']) {
+			cache::delete('board_' . $board['uri']);
+			cache::delete('all_boards');
+
+			cache::delete('config_' . $board['uri']);
+			cache::delete('events_' . $board['uri']);
+			unlink('tmp/cache/locale_' . $board['uri']);
+		}
  
 		$css = @file_get_contents('stylesheets/board/' . $board['uri'] . '.css');
 	
