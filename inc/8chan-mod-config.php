@@ -44,8 +44,7 @@
 	$config['mod']['move'] = GLOBALVOLUNTEER;
 	$config['mod']['shadow_capcode'] = 'Global Volunteer';
 
-
-	// Mod pages code now resides in 8chan-mod-pages-functions.php file
+	// Mod pages assignment
 	$config['mod']['custom_pages']['/tags/(\%b)'] = '8_tags';
 	$config['mod']['custom_pages']['/reassign/(\%b)'] = '8_reassign';
 	$config['mod']['custom_pages']['/volunteers/(\%b)'] = '8_volunteers';
