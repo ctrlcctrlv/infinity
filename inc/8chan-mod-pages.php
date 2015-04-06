@@ -661,6 +661,18 @@ EOT;
 			// Faster than openBoard and bypasses cache...we're trusting the PHP output
 			// to be safe enough to run with every request, we can eval it here.
 			eval(str_replace('flags.php', "$b/flags.php", preg_replace('/^\<\?php$/m', '', $config_file)));
+			// czaks: maybe reconsider using it, now that config is cached?
+
+			// Clean the cache
+			if ($config['cache']['enabled']) {
+				cache::delete('board_' . $board['uri']);
+				cache::delete('all_boards');
+
+				cache::delete('config_' . $board['uri']);
+				cache::delete('events_' . $board['uri']);
+
+				unlink('tmp/cache/locale_' . $board['uri']);
+			}
 
 			// be smarter about rebuilds...only some changes really require us to rebuild all threads
 			if ($_config['captcha']['enabled'] != $config['captcha']['enabled']
@@ -686,10 +698,5 @@ EOT;
  
 		$css = @file_get_contents('stylesheets/board/' . $board['uri'] . '.css');
 	
-		if ($config['cache']['enabled']) {
-			cache::delete('board_' . $board['uri']);
-			cache::delete('all_boards');
-		}
-
 		mod_page(_('Board configuration'), 'mod/settings.html', array('board'=>$board, 'css'=>prettify_textarea($css), 'token'=>make_secure_link_token('settings/'.$board['uri']), 'languages'=>$possible_languages,'allowed_urls'=>$config['allowed_offsite_urls']));
 	};
