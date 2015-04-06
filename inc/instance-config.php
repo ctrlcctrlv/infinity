@@ -7,8 +7,6 @@
 *
 *  You can copy values from config.php (defaults) and paste them here.
 */
-	require_once "instance-functions.php";
-
 	// Note - you may want to change some of these in secrets.php instead of here
 	// See the secrets.example.php file
 	$config['db']['server'] = 'localhost';
@@ -202,6 +200,9 @@ $config['report_captcha'] = true;
 
 // 8chan specific mod pages
 require '8chan-mod-config.php';
+
+// Load instance functions later on
+require_once 'instance-functions.php';
 	
 // Load database credentials
 require "secrets.php";
