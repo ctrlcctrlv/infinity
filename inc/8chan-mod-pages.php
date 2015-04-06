@@ -70,10 +70,10 @@
 	$config['mod']['custom_pages']['/tags/(\%b)'] = function ($b) {
 		global $board, $config;
 
-		if (!openBoard($b))
+		if (!open_board($b))
 			error("Could not open board!");
 
-		if (!hasPermission($config['mod']['edit_tags'], $b))
+		if (!has_permission($config['mod']['edit_tags'], $b))
 			error($config['error']['noaccess']);
 
 		if (isset($_POST['tags'])) {
@@ -119,10 +119,10 @@
 	$config['mod']['custom_pages']['/reassign/(\%b)'] = function($b) {
 		global $board, $config;
 
-		if (!openBoard($b))
+		if (!open_board($b))
 			error("Could not open board!");
 
-		if (!hasPermission($config['mod']['reassign_board'], $b))
+		if (!has_permission($config['mod']['reassign_board'], $b))
 			error($config['error']['noaccess']);
 
 		$query = query("SELECT id, username FROM mods WHERE boards = '$b' AND type = 20");
@@ -151,10 +151,10 @@
 
 	$config['mod']['custom_pages']['/volunteers/(\%b)'] = function($b) {
 		global $board, $config, $pdo;
-		if (!hasPermission($config['mod']['edit_volunteers'], $b))
+		if (!has_permission($config['mod']['edit_volunteers'], $b))
 			error($config['error']['noaccess']);
 
-		if (!openBoard($b))
+		if (!open_board($b))
 			error("Could not open board!");
 
 		if (isset($_POST['username'], $_POST['password'])) {
@@ -233,10 +233,10 @@
 	$config['mod']['custom_pages']['/flags/(\%b)'] = function($b) {
 		global $config, $mod, $board;
 		require_once 'inc/image.php';
-		if (!hasPermission($config['mod']['edit_flags'], $b))
+		if (!has_permission($config['mod']['edit_flags'], $b))
 			error($config['error']['noaccess']);
 
-		if (!openBoard($b))
+		if (!open_board($b))
 			error("Could not open board!");
 
 		if (file_exists("$b/flags.ser"))
@@ -370,10 +370,10 @@ FLAGS;
 		global $config, $mod, $board;
 		require_once 'inc/image.php';
 
-		if (!hasPermission($config['mod']['edit_banners'], $b))
+		if (!has_permission($config['mod']['edit_banners'], $b))
 			error($config['error']['noaccess']);
 	
-		if (!openBoard($b))
+		if (!open_board($b))
 			error("Could not open board!");
 
 		$dir = 'static/banners/'.$b;
@@ -438,10 +438,10 @@ FLAGS;
 		if (!in_array($b, $mod['boards']) and $mod['boards'][0] != '*')
 			error($config['error']['noaccess']);
 
-		if (!hasPermission($config['mod']['edit_settings'], $b))
+		if (!has_permission($config['mod']['edit_settings'], $b))
 			error($config['error']['noaccess']);
 	
-		if (!openBoard($b))
+		if (!open_board($b))
 			error("Could not open board!");
 
 		$possible_languages = array_diff(scandir('inc/locale/'), array('..', '.', '.tx', 'README.md'));
@@ -658,7 +658,7 @@ EOT;
 			$_config = $config;
 			unset($config['wordfilters']);
 
-			// Faster than openBoard and bypasses cache...we're trusting the PHP output
+			// Faster than open_board and bypasses cache...we're trusting the PHP output
 			// to be safe enough to run with every request, we can eval it here.
 			eval(str_replace('flags.php', "$b/flags.php", preg_replace('/^\<\?php$/m', '', $config_file)));
 

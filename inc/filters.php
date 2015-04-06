@@ -160,7 +160,7 @@ class Filter {
 					if (isset($this->message))
 						error($message);
 					
-					checkBan($board['uri']);
+					check_ban($board['uri']);
 					exit;
 				}
 				

@@ -76,9 +76,9 @@ function mod_dashboard() {
 	
 	$args = array();
 	
-	$args['boards'] = listBoards();
+	$args['boards'] = list_boards();
 	
-	if (hasPermission($config['mod']['noticeboard'])) {
+	if (has_permission($config['mod']['noticeboard'])) {
 		if (!$config['cache']['enabled'] || !$args['noticeboard'] = cache::get('noticeboard_preview')) {
 			$query = prepare("SELECT ``noticeboard``.*, `username` FROM ``noticeboard`` LEFT JOIN ``mods`` ON ``mods``.`id` = `mod` ORDER BY `id` DESC LIMIT :limit");
 			$query->bindValue(':limit', $config['mod']['noticeboard_dashboard'], PDO::PARAM_INT);
@@ -123,7 +123,7 @@ function mod_dashboard() {
 function mod_search_redirect() {
 	global $config;
 	
-	if (!hasPermission($config['mod']['search']))
+	if (!has_permission($config['mod']['search']))
 		error($config['error']['noaccess']);
 	
 	if (isset($_POST['query'], $_POST['type']) && in_array($_POST['type'], array('posts', 'IP_notes', 'bans', 'log'))) {
@@ -146,7 +146,7 @@ function mod_search_redirect() {
 function mod_search($type, $search_query_escaped, $page_no = 1) {
 	global $pdo, $config;
 	
-	if (!hasPermission($config['mod']['search']))
+	if (!has_permission($config['mod']['search']))
 		error($config['error']['noaccess']);
 	
 	// Unescape query
@@ -218,13 +218,13 @@ function mod_search($type, $search_query_escaped, $page_no = 1) {
 	
 	if ($type == 'posts') {
 		$query = '';
-		$boards = listBoards();
+		$boards = list_boards();
 		if (empty($boards))
 			error(_('There are no boards to search!'));
 			
 		foreach ($boards as $board) {
-			openBoard($board['uri']);
-			if (!hasPermission($config['mod']['search_posts'], $board['uri']))
+			open_board($board['uri']);
+			if (!has_permission($config['mod']['search_posts'], $board['uri']))
 				continue;
 			
 			if (!empty($query))
@@ -242,21 +242,21 @@ function mod_search($type, $search_query_escaped, $page_no = 1) {
 	if ($type == 'IP_notes') {
 		$query = 'SELECT * FROM ``ip_notes`` LEFT JOIN ``mods`` ON `mod` = ``mods``.`id` WHERE ' . $sql_like . ' ORDER BY `time` DESC';
 		$sql_table = 'ip_notes';
-		if (!hasPermission($config['mod']['view_notes']) || !hasPermission($config['mod']['show_ip']))
+		if (!has_permission($config['mod']['view_notes']) || !has_permission($config['mod']['show_ip']))
 			error($config['error']['noaccess']);
 	}
 	
 	if ($type == 'bans') {
 		$query = 'SELECT ``bans``.*, `username` FROM ``bans`` LEFT JOIN ``mods`` ON `creator` = ``mods``.`id` WHERE ' . $sql_like . ' ORDER BY (`expires` IS NOT NULL AND `expires` < UNIX_TIMESTAMP()), `created` DESC';
 		$sql_table = 'bans';
-		if (!hasPermission($config['mod']['view_banlist']))
+		if (!has_permission($config['mod']['view_banlist']))
 			error($config['error']['noaccess']);
 	}
 	
 	if ($type == 'log') {
 		$query = 'SELECT `username`, `mod`, `ip`, `board`, `time`, `text` FROM ``modlogs`` LEFT JOIN ``mods`` ON `mod` = ``mods``.`id` WHERE ' . $sql_like . ' ORDER BY `time` DESC';
 		$sql_table = 'modlogs';
-		if (!hasPermission($config['mod']['modlog']))
+		if (!has_permission($config['mod']['modlog']))
 			error($config['error']['noaccess']);
 	}
 		
@@ -301,15 +301,15 @@ function mod_search($type, $search_query_escaped, $page_no = 1) {
 function mod_edit_board($boardName) {
 	global $board, $config;
 	
-	if (!openBoard($boardName))
+	if (!open_board($boardName))
 		error($config['error']['noboard']);
 	
-	if (!hasPermission($config['mod']['manageboards'], $board['uri']))
+	if (!has_permission($config['mod']['manageboards'], $board['uri']))
 			error($config['error']['noaccess']);
 	
 	if (isset($_POST['title'], $_POST['subtitle'])) {
 		if (isset($_POST['delete'])) {
-			if (!hasPermission($config['mod']['manageboards'], $board['uri']))
+			if (!has_permission($config['mod']['manageboards'], $board['uri']))
 				error($config['error']['deleteboard']);
 			
 			$query = prepare('DELETE FROM ``boards`` WHERE `uri` = :uri');
@@ -344,7 +344,7 @@ function mod_edit_board($boardName) {
 				if ($board['uri'] != $cite['board']) {
 					if (!isset($tmp_board))
 						$tmp_board = $board;
-					openBoard($cite['board']);
+					open_board($cite['board']);
 					rebuildPost($cite['post']);
 				}
 			}
@@ -394,7 +394,7 @@ function mod_edit_board($boardName) {
 			cache::delete('all_boards_uri');
 		}
 		
-		rebuildThemes('boards');
+		rebuild_themes('boards');
 		
 		header('Location: ?/', true, $config['redirect_http']);
 	} else {
@@ -408,7 +408,7 @@ function mod_edit_board($boardName) {
 function mod_new_board() {
 	global $config, $board;
 	
-	if (!hasPermission($config['mod']['newboard']))
+	if (!has_permission($config['mod']['newboard']))
 		error($config['error']['noaccess']);
 	
 	if (isset($_POST['uri'], $_POST['title'], $_POST['subtitle'])) {
@@ -438,7 +438,7 @@ function mod_new_board() {
 			exit;
 		}
 		
-		if (openBoard($_POST['uri'])) {
+		if (open_board($_POST['uri'])) {
 			error(sprintf($config['error']['boardexists'], $board['url']));
 		}
 		foreach ($config['banned_boards'] as $i => $w) {
@@ -458,7 +458,7 @@ function mod_new_board() {
 		
 		modLog('Created a new board: ' . sprintf($config['board_abbreviation'], $_POST['uri']));
 		
-		if (!openBoard($_POST['uri']))
+		if (!open_board($_POST['uri']))
 			error(_("Couldn't open board after creation."));
 		
 		$query = Element('posts.sql', array('board' => $board['uri']));
@@ -474,7 +474,7 @@ function mod_new_board() {
 		// Build the board
 		buildIndex();
 		
-		rebuildThemes('boards');
+		rebuild_themes('boards');
 		
 		header('Location: ?/' . $board['uri'] . '/' . $config['file_index'], true, $config['redirect_http']);
 	}
@@ -488,11 +488,11 @@ function mod_noticeboard($page_no = 1) {
 	if ($page_no < 1)
 		error($config['error']['404']);
 	
-	if (!hasPermission($config['mod']['noticeboard']))
+	if (!has_permission($config['mod']['noticeboard']))
 		error($config['error']['noaccess']);
 	
 	if (isset($_POST['subject'], $_POST['body'])) {
-		if (!hasPermission($config['mod']['noticeboard_post']))
+		if (!has_permission($config['mod']['noticeboard_post']))
 			error($config['error']['noaccess']);
 		
 		$_POST['body'] = escape_markup_modifiers($_POST['body']);
@@ -540,7 +540,7 @@ function mod_noticeboard($page_no = 1) {
 function mod_noticeboard_delete($id) {
 	global $config;
 	
-	if (!hasPermission($config['mod']['noticeboard_delete']))
+	if (!has_permission($config['mod']['noticeboard_delete']))
 			error($config['error']['noaccess']);
 	
 	$query = prepare('DELETE FROM ``noticeboard`` WHERE `id` = :id');
@@ -562,14 +562,14 @@ function mod_news($page_no = 1) {
 		error($config['error']['404']);
 	
 	if (isset($_POST['subject'], $_POST['body'])) {
-		if (!hasPermission($config['mod']['news']))
+		if (!has_permission($config['mod']['news']))
 			error($config['error']['noaccess']);
 		
 		$_POST['body'] = escape_markup_modifiers($_POST['body']);
 		markup($_POST['body']);
 		
 		$query = prepare('INSERT INTO ``news`` VALUES (NULL, :name, :time, :subject, :body)');
-		$query->bindValue(':name', isset($_POST['name']) && hasPermission($config['mod']['news_custom']) ? $_POST['name'] : $mod['username']);
+		$query->bindValue(':name', isset($_POST['name']) && has_permission($config['mod']['news_custom']) ? $_POST['name'] : $mod['username']);
 		$query->bindvalue(':time', time());
 		$query->bindValue(':subject', $_POST['subject']);
 		$query->bindValue(':body', $_POST['body']);
@@ -577,7 +577,7 @@ function mod_news($page_no = 1) {
 		
 		modLog('Posted a news entry');
 		
-		rebuildThemes('news');
+		rebuild_themes('news');
 		
 		header('Location: ?/edit_news#' . $pdo->lastInsertId(), true, $config['redirect_http']);
 	}
@@ -605,7 +605,7 @@ function mod_news($page_no = 1) {
 function mod_news_delete($id) {
 	global $config;
 	
-	if (!hasPermission($config['mod']['news_delete']))
+	if (!has_permission($config['mod']['news_delete']))
 			error($config['error']['noaccess']);
 	
 	$query = prepare('DELETE FROM ``news`` WHERE `id` = :id');
@@ -623,7 +623,7 @@ function mod_log($page_no = 1) {
 	if ($page_no < 1)
 		error($config['error']['404']);
 	
-	if (!hasPermission($config['mod']['modlog']))
+	if (!has_permission($config['mod']['modlog']))
 		error($config['error']['noaccess']);
 	
 	$query = prepare("SELECT `username`, `mod`, `ip`, `board`, `time`, `text` FROM ``modlogs`` LEFT JOIN ``mods`` ON `mod` = ``mods``.`id` ORDER BY `time` DESC LIMIT :offset, :limit");
@@ -648,7 +648,7 @@ function mod_user_log($username, $page_no = 1) {
 	if ($page_no < 1)
 		error($config['error']['404']);
 	
-	if (!hasPermission($config['mod']['modlog']))
+	if (!has_permission($config['mod']['modlog']))
 		error($config['error']['noaccess']);
 	
 	$query = prepare("SELECT `username`, `mod`, `ip`, `board`, `time`, `text` FROM ``modlogs`` LEFT JOIN ``mods`` ON `mod` = ``mods``.`id` WHERE `username` = :username ORDER BY `time` DESC LIMIT :offset, :limit");
@@ -675,7 +675,7 @@ function mod_board_log($board, $page_no = 1, $hide_names = false, $public = fals
 	if ($page_no < 1)
 		error($config['error']['404']);
 	
-	if (!hasPermission($config['mod']['mod_board_log'], $board) && !$public)
+	if (!has_permission($config['mod']['mod_board_log'], $board) && !$public)
 		error($config['error']['noaccess']);
 	
 	$query = prepare("SELECT `username`, `mod`, `ip`, `board`, `time`, `text` FROM ``modlogs`` LEFT JOIN ``mods`` ON `mod` = ``mods``.`id` WHERE `board` = :board ORDER BY `time` DESC LIMIT :offset, :limit");
@@ -688,7 +688,7 @@ function mod_board_log($board, $page_no = 1, $hide_names = false, $public = fals
 	if (empty($logs) && $page_no > 1)
 		error($config['error']['404']);
 
-	if (!hasPermission($config['mod']['show_ip'])) {
+	if (!has_permission($config['mod']['show_ip'])) {
 		// Supports ipv4 only!
 		foreach ($logs as $i => &$log) {
 			$log['text'] = preg_replace_callback('/(?:<a href="\?\/IP\/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}">)?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})(?:<\/a>)?/', function($matches) {
@@ -709,7 +709,7 @@ function mod_board_log($board, $page_no = 1, $hide_names = false, $public = fals
 function mod_view_board($boardName, $page_no = 1) {
 	global $config, $mod;
 	
-	if (!openBoard($boardName))
+	if (!open_board($boardName))
 		error($config['error']['noboard']);
 	
 	if (!$page = index($page_no, $mod)) {
@@ -728,7 +728,7 @@ function mod_view_board($boardName, $page_no = 1) {
 function mod_view_thread($boardName, $thread) {
 	global $config, $mod;
 	
-	if (!openBoard($boardName))
+	if (!open_board($boardName))
 		error($config['error']['noboard']);
 	
 	$page = buildThread($thread, true, $mod);
@@ -738,7 +738,7 @@ function mod_view_thread($boardName, $thread) {
 function mod_view_thread50($boardName, $thread) {
 	global $config, $mod;
 	
-	if (!openBoard($boardName))
+	if (!open_board($boardName))
 		error($config['error']['noboard']);
 	
 	$page = buildThread50($thread, true, $mod);
@@ -748,7 +748,7 @@ function mod_view_thread50($boardName, $thread) {
 function mod_ip_remove_note($ip, $id) {
 	global $config, $mod;
 	
-	if (!hasPermission($config['mod']['remove_notes']))
+	if (!has_permission($config['mod']['remove_notes']))
 			error($config['error']['noaccess']);
 	
 	if (filter_var($ip, FILTER_VALIDATE_IP) === false)
@@ -767,14 +767,14 @@ function mod_ip_remove_note($ip, $id) {
 function mod_page_ip($ip) {
 	global $config, $mod;
 
-	if (!hasPermission($config['mod']['show_ip']))
+	if (!has_permission($config['mod']['show_ip']))
 		error($config['error']['noaccess']);
 	
 	if (filter_var($ip, FILTER_VALIDATE_IP) === false)
 		error("Invalid IP address.");
 	
 	if (isset($_POST['ban_id'], $_POST['unban'])) {
-		if (!hasPermission($config['mod']['unban']))
+		if (!has_permission($config['mod']['unban']))
 			error($config['error']['noaccess']);
 		
 		Bans::delete($_POST['ban_id'], true, $mod['boards']);
@@ -784,7 +784,7 @@ function mod_page_ip($ip) {
 	}
 	
 	if (isset($_POST['note'])) {
-		if (!hasPermission($config['mod']['create_notes']))
+		if (!has_permission($config['mod']['create_notes']))
 			error($config['error']['noaccess']);
 		
 		$_POST['note'] = escape_markup_modifiers($_POST['note']);
@@ -808,10 +808,10 @@ function mod_page_ip($ip) {
 	
 	if ($config['mod']['dns_lookup'])
 		$args['hostname'] = rDNS($ip);
-	$boards = listBoards();
+	$boards = list_boards();
 	foreach ($boards as $board) {
-		openBoard($board['uri']);
-		if (!hasPermission($config['mod']['show_ip'], $board['uri']))
+		open_board($board['uri']);
+		if (!has_permission($config['mod']['show_ip'], $board['uri']))
 			continue;
 		$query = prepare(sprintf('SELECT * FROM ``posts_%s`` WHERE `ip` = :ip ORDER BY `sticky` DESC, `id` DESC LIMIT :limit', $board['uri']));
 		$query->bindValue(':ip', $ip);
@@ -834,18 +834,18 @@ function mod_page_ip($ip) {
 	$args['boards'] = $boards;
 	$args['token'] = make_secure_link_token('ban');
 	
-	if (hasPermission($config['mod']['view_ban'])) {
+	if (has_permission($config['mod']['view_ban'])) {
 		$args['bans'] = Bans::find($ip, false, true);
 	}
 	
-	if (hasPermission($config['mod']['view_notes'])) {
+	if (has_permission($config['mod']['view_notes'])) {
 		$query = prepare("SELECT ``ip_notes``.*, `username` FROM ``ip_notes`` LEFT JOIN ``mods`` ON `mod` = ``mods``.`id` WHERE `ip` = :ip ORDER BY `time` DESC");
 		$query->bindValue(':ip', $ip);
 		$query->execute() or error(db_error($query));
 		$args['notes'] = $query->fetchAll(PDO::FETCH_ASSOC);
 	}
 	
-	if (hasPermission($config['mod']['modlog_ip'])) {
+	if (has_permission($config['mod']['modlog_ip'])) {
 		$query = prepare("SELECT `username`, `mod`, `ip`, `board`, `time`, `text` FROM ``modlogs`` LEFT JOIN ``mods`` ON `mod` = ``mods``.`id` WHERE `text` LIKE :search ORDER BY `time` DESC LIMIT 50");
 		$query->bindValue(':search', '%' . $ip . '%');
 		$query->execute() or error(db_error($query));
@@ -862,7 +862,7 @@ function mod_page_ip($ip) {
 function mod_page_ip_less($b, $id) {
 	global $config, $mod;
 
-	if (!openBoard($b))
+	if (!open_board($b))
 		error('No board.');
 
 	$query = prepare(sprintf('SELECT `ip` FROM ``posts_%s`` WHERE `id` = :id', $b));
@@ -881,7 +881,7 @@ function mod_page_ip_less($b, $id) {
 		error("Invalid IP address.");
 	
 	if (isset($_POST['ban_id'], $_POST['unban'])) {
-		if (!hasPermission($config['mod']['unban']))
+		if (!has_permission($config['mod']['unban']))
 			error($config['error']['noaccess']);
 
 		Bans::delete($_POST['ban_id'], true);
@@ -891,7 +891,7 @@ function mod_page_ip_less($b, $id) {
 	}
 	
 	if (isset($_POST['note'])) {
-		if (!hasPermission($config['mod']['create_notes']))
+		if (!has_permission($config['mod']['create_notes']))
 			error($config['error']['noaccess']);
 		
 		$_POST['note'] = escape_markup_modifiers($_POST['note']);
@@ -933,21 +933,21 @@ function mod_page_ip_less($b, $id) {
 		$args['posts'][$b]['posts'][] = $po->build(true);
 	}
 	
-	$args['boards'] = listBoards();
+	$args['boards'] = list_boards();
 	$args['token'] = make_secure_link_token('ban');
 	
-	if (hasPermission($config['mod']['view_ban'])) {
+	if (has_permission($config['mod']['view_ban'])) {
 		$args['bans'] = Bans::find($ip, false, true);
 	}
 	
-	if (hasPermission($config['mod']['view_notes'])) {
+	if (has_permission($config['mod']['view_notes'])) {
 		$query = prepare("SELECT ``ip_notes``.*, `username` FROM ``ip_notes`` LEFT JOIN ``mods`` ON `mod` = ``mods``.`id` WHERE `ip` = :ip ORDER BY `time` DESC");
 		$query->bindValue(':ip', $ip);
 		$query->execute() or error(db_error($query));
 		$args['notes'] = $query->fetchAll(PDO::FETCH_ASSOC);
 	}
 	
-	if (hasPermission($config['mod']['modlog_ip'])) {
+	if (has_permission($config['mod']['modlog_ip'])) {
 		$query = prepare("SELECT `username`, `mod`, `ip`, `board`, `time`, `text` FROM ``modlogs`` LEFT JOIN ``mods`` ON `mod` = ``mods``.`id` WHERE `text` LIKE :search ORDER BY `time` DESC LIMIT 50");
 		$query->bindValue(':search', '%' . $ip . '%');
 		$query->execute() or error(db_error($query));
@@ -964,7 +964,7 @@ function mod_page_ip_less($b, $id) {
 function mod_ban() {
 	global $config, $mod;
 
-	if (!hasPermission($config['mod']['ban']))
+	if (!has_permission($config['mod']['ban']))
 		error($config['error']['noaccess']);
 
 	if (!isset($_POST['ip'], $_POST['reason'], $_POST['length'], $_POST['board'])) {
@@ -986,11 +986,11 @@ function mod_bans() {
 	global $config;
 	global $mod;
 	
-	if (!hasPermission($config['mod']['view_banlist']))
+	if (!has_permission($config['mod']['view_banlist']))
 		error($config['error']['noaccess']);
 	
 	if (isset($_POST['unban'])) {
-		if (!hasPermission($config['mod']['unban']))
+		if (!has_permission($config['mod']['unban']))
 			error($config['error']['noaccess']);
 		
 		$unban = array();
@@ -1004,7 +1004,7 @@ function mod_bans() {
 		foreach ($unban as $id) {
 			Bans::delete($id, true, $mod['boards'], true);
 		}
-                rebuildThemes('bans');
+                rebuild_themes('bans');
 		header('Location: ?/bans', true, $config['redirect_http']);
 		return;
 	}
@@ -1020,19 +1020,19 @@ function mod_bans() {
 function mod_bans_json() {
         global $config, $mod;
 
-        if (!hasPermission($config['mod']['ban']))
+        if (!has_permission($config['mod']['ban']))
                 error($config['error']['noaccess']);
 
 	// Compress the json for faster loads
 	if (isset($_SERVER['HTTP_ACCEPT_ENCODING']) && substr_count($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip')) ob_start("ob_gzhandler");
 
-	Bans::stream_json(false, !hasPermission($config['mod']['show_ip']), !hasPermission($config['mod']['view_banstaff']), $mod['boards']);
+	Bans::stream_json(false, !has_permission($config['mod']['show_ip']), !has_permission($config['mod']['view_banstaff']), $mod['boards']);
 }
 
 function mod_ban_appeals() {
 	global $config, $board, $mod;
 	
-	if (!hasPermission($config['mod']['view_ban_appeals']))
+	if (!has_permission($config['mod']['view_ban_appeals']))
 		error($config['error']['noaccess']);
 	
 	// Remove stale ban appeals
@@ -1040,7 +1040,7 @@ function mod_ban_appeals() {
 		or error(db_error());
 	
 	if (isset($_POST['appeal_id']) && (isset($_POST['unban']) || isset($_POST['deny']))) {
-		if (!hasPermission($config['mod']['ban_appeals']))
+		if (!has_permission($config['mod']['ban_appeals']))
 			error($config['error']['noaccess']);
 		
 		$query = query("SELECT *, ``ban_appeals``.`id` AS `id` FROM ``ban_appeals``
@@ -1086,7 +1086,7 @@ function mod_ban_appeals() {
 		$ban['mask'] = Bans::range_to_string(array($ban['ipstart'], $ban['ipend']));
 		
 		if ($ban['post'] && isset($ban['post']['board'], $ban['post']['id'])) {
-			openBoard($ban['post']['board']);
+			open_board($ban['post']['board']);
 
 			if ($ban['post']['thread']) {
 				$po = new Post($ban['post']);
@@ -1107,10 +1107,10 @@ function mod_ban_appeals() {
 function mod_lock($board, $unlock, $post) {
 	global $config;
 	
-	if (!openBoard($board))
+	if (!open_board($board))
 		error($config['error']['noboard']);
 	
-	if (!hasPermission($config['mod']['lock'], $board))
+	if (!has_permission($config['mod']['lock'], $board))
 		error($config['error']['noaccess']);
 	
 	$query = prepare(sprintf('UPDATE ``posts_%s`` SET `locked` = :locked WHERE `id` = :id AND `thread` IS NULL', $board));
@@ -1141,10 +1141,10 @@ function mod_lock($board, $unlock, $post) {
 function mod_sticky($board, $unsticky, $post) {
 	global $config;
 	
-	if (!openBoard($board))
+	if (!open_board($board))
 		error($config['error']['noboard']);
 	
-	if (!hasPermission($config['mod']['sticky'], $board))
+	if (!has_permission($config['mod']['sticky'], $board))
 		error($config['error']['noaccess']);
 	
 	$query = prepare(sprintf('UPDATE ``posts_%s`` SET `sticky` = :sticky WHERE `id` = :id AND `thread` IS NULL', $board));
@@ -1185,10 +1185,10 @@ function mod_cycle($board, $uncycle, $post) {
 function mod_bumplock($board, $unbumplock, $post) {
 	global $config;
 	
-	if (!openBoard($board))
+	if (!open_board($board))
 		error($config['error']['noboard']);
 	
-	if (!hasPermission($config['mod']['bumplock'], $board))
+	if (!has_permission($config['mod']['bumplock'], $board))
 		error($config['error']['noaccess']);
 	
 	$query = prepare(sprintf('UPDATE ``posts_%s`` SET `sage` = :bumplock WHERE `id` = :id AND `thread` IS NULL', $board));
@@ -1207,10 +1207,10 @@ function mod_bumplock($board, $unbumplock, $post) {
 function mod_move_reply($originBoard, $postID) { 
 	global $board, $config, $mod;
 
-	if (!openBoard($originBoard))
+	if (!open_board($originBoard))
 		error($config['error']['noboard']);
 	
-	if (!hasPermission($config['mod']['move'], $originBoard))
+	if (!has_permission($config['mod']['move'], $originBoard))
 		error($config['error']['noaccess']);
 
 	$query = prepare(sprintf('SELECT * FROM ``posts_%s`` WHERE `id` = :id', $originBoard));
@@ -1247,7 +1247,7 @@ function mod_move_reply($originBoard, $postID) {
 		// allow thread to keep its same traits (stickied, locked, etc.)
 		$post['mod'] = true;
 		
-		if (!openBoard($targetBoard))
+		if (!open_board($targetBoard))
 			error($config['error']['noboard']);
 		
 		// create the new post 
@@ -1269,19 +1269,19 @@ function mod_move_reply($originBoard, $postID) {
 		buildThread($newID);
 		
 		// trigger themes
-		rebuildThemes('post', $targetBoard);
+		rebuild_themes('post', $targetBoard);
 		// mod log
 		modLog("Moved post #${postID} to " . sprintf($config['board_abbreviation'], $targetBoard) . " (#${newID})", $originBoard);
 		
 		// return to original board
-		openBoard($originBoard);
+		open_board($originBoard);
 
 		// delete original post
 		deletePost($postID);
 		buildIndex();
 
 		// open target board for redirect
-		openBoard($targetBoard);
+		open_board($targetBoard);
 
 		// Find new thread on our target board
 		$query = prepare(sprintf('SELECT thread FROM ``posts_%s`` WHERE `id` = :id', $targetBoard));
@@ -1294,7 +1294,7 @@ function mod_move_reply($originBoard, $postID) {
 	}
 
 	else {
-		$boards = listBoards();
+		$boards = list_boards();
 		
 		$security_token = make_secure_link_token($originBoard . '/move_reply/' . $postID);
 		
@@ -1307,10 +1307,10 @@ function mod_move_reply($originBoard, $postID) {
 function mod_move($originBoard, $postID) {
 	global $board, $config, $mod, $pdo;
 	
-	if (!openBoard($originBoard))
+	if (!open_board($originBoard))
 		error($config['error']['noboard']);
 	
-	if (!hasPermission($config['mod']['move'], $originBoard))
+	if (!has_permission($config['mod']['move'], $originBoard))
 		error($config['error']['noaccess']);
 	
 	$query = prepare(sprintf('SELECT * FROM ``posts_%s`` WHERE `id` = :id AND `thread` IS NULL', $originBoard));
@@ -1348,7 +1348,7 @@ function mod_move($originBoard, $postID) {
 		// allow thread to keep its same traits (stickied, locked, etc.)
 		$post['mod'] = true;
 		
-		if (!openBoard($targetBoard))
+		if (!open_board($targetBoard))
 			error($config['error']['noboard']);
 		
 		// create the new thread
@@ -1365,7 +1365,7 @@ function mod_move($originBoard, $postID) {
 		}
 		
 		// go back to the original board to fetch replies
-		openBoard($originBoard);
+		open_board($originBoard);
 		
 		$query = prepare(sprintf('SELECT * FROM ``posts_%s`` WHERE `thread` = :id ORDER BY `id`', $originBoard));
 		$query->bindValue(':id', $postID, PDO::PARAM_INT);
@@ -1393,7 +1393,7 @@ function mod_move($originBoard, $postID) {
 		
 		$newIDs = array($postID => $newID);
 		
-		openBoard($targetBoard);
+		open_board($targetBoard);
 		
 		foreach ($replies as &$post) {
 			$query = prepare('SELECT `target` FROM ``cites`` WHERE `target_board` = :board AND `board` = :board AND `post` = :post');
@@ -1451,10 +1451,10 @@ function mod_move($originBoard, $postID) {
 		buildIndex();
 		
 		// trigger themes
-		rebuildThemes('post', $targetBoard);
+		rebuild_themes('post', $targetBoard);
 		
 		// return to original board
-		openBoard($originBoard);
+		open_board($originBoard);
 		
 		if ($shadow) {
 			// lock old thread
@@ -1492,12 +1492,12 @@ function mod_move($originBoard, $postID) {
 			deletePost($postID);
 			buildIndex();
 			
-			openBoard($targetBoard);
+			open_board($targetBoard);
 			header('Location: ?/' . sprintf($config['board_path'], $board['uri']) . $config['dir']['res'] . sprintf($config['file_page'], $newID), true, $config['redirect_http']);
 		}
 	}
 	
-	$boards = listBoards();
+	$boards = list_boards();
 	if (count($boards) <= 1)
 		error(_('Impossible to move thread; there is only one board.'));
 	
@@ -1509,10 +1509,10 @@ function mod_move($originBoard, $postID) {
 function mod_ban_post($board, $delete, $post, $token = false) {
 	global $config, $mod;
 	
-	if (!openBoard($board))
+	if (!open_board($board))
 		error($config['error']['noboard']);
 	
-	if (!hasPermission($config['mod']['delete'], $board))
+	if (!has_permission($config['mod']['delete'], $board))
 		error($config['error']['noaccess']);
 
 	$security_token = make_secure_link_token($board . '/ban/' . $post);
@@ -1562,7 +1562,7 @@ function mod_ban_post($board, $delete, $post, $token = false) {
 			// Rebuild board
 			buildIndex();
 			// Rebuild themes
-			rebuildThemes('post-delete', $board);
+			rebuild_themes('post-delete', $board);
 		}
 		
 		header('Location: ?/' . sprintf($config['board_path'], $board) . $config['file_index'], true, $config['redirect_http']);
@@ -1570,12 +1570,12 @@ function mod_ban_post($board, $delete, $post, $token = false) {
 	
 	$args = array(
 		'ip' => $ip,
-		'hide_ip' => !hasPermission($config['mod']['show_ip'], $board),
+		'hide_ip' => !has_permission($config['mod']['show_ip'], $board),
 		'post' => $post,
 		'board' => $board,
 		'tor' => $tor,
 		'delete' => (bool)$delete,
-		'boards' => listBoards(),
+		'boards' => list_boards(),
 		'token' => $security_token
 	);
 	
@@ -1585,13 +1585,13 @@ function mod_ban_post($board, $delete, $post, $token = false) {
 function mod_edit_post($board, $edit_raw_html, $postID) {
 	global $config, $mod;
 
-	if (!openBoard($board))
+	if (!open_board($board))
 		error($config['error']['noboard']);
 
-	if (!hasPermission($config['mod']['editpost'], $board))
+	if (!has_permission($config['mod']['editpost'], $board))
 		error($config['error']['noaccess']);
 	
-	if ($edit_raw_html && !hasPermission($config['mod']['rawhtml'], $board))
+	if ($edit_raw_html && !has_permission($config['mod']['rawhtml'], $board))
 		error($config['error']['noaccess']);
 
 	$security_token = make_secure_link_token($board . '/edit' . ($edit_raw_html ? '_raw' : '') . '/' . $postID);
@@ -1680,7 +1680,7 @@ function mod_edit_post($board, $edit_raw_html, $postID) {
 		
 		buildIndex();
 		
-		rebuildThemes('post', $board);
+		rebuild_themes('post', $board);
 		
 		header('Location: ?/' . sprintf($config['board_path'], $board) . $config['dir']['res'] . sprintf($config['file_page'], $post['thread'] ? $post['thread'] : $postID) . '#' . $postID, true, $config['redirect_http']);
 	} else {
@@ -1708,10 +1708,10 @@ function mod_edit_post($board, $edit_raw_html, $postID) {
 function mod_delete($board, $post) {
 	global $config, $mod;
 	
-	if (!openBoard($board))
+	if (!open_board($board))
 		error($config['error']['noboard']);
 	
-	if (!hasPermission($config['mod']['delete'], $board))
+	if (!has_permission($config['mod']['delete'], $board))
 		error($config['error']['noaccess']);
 	
 	// Delete post
@@ -1721,7 +1721,7 @@ function mod_delete($board, $post) {
 	// Rebuild board
 	buildIndex();
 	// Rebuild themes
-	rebuildThemes('post-delete', $board);
+	rebuild_themes('post-delete', $board);
 	// Redirect
 	header('Location: ?/' . sprintf($config['board_path'], $board) . $config['file_index'], true, $config['redirect_http']);
 }
@@ -1729,10 +1729,10 @@ function mod_delete($board, $post) {
 function mod_deletefile($board, $post, $file) {
 	global $config, $mod;
 	
-	if (!openBoard($board))
+	if (!open_board($board))
 		error($config['error']['noboard']);
 	
-	if (!hasPermission($config['mod']['deletefile'], $board))
+	if (!has_permission($config['mod']['deletefile'], $board))
 		error($config['error']['noaccess']);
 	
 	// Delete file
@@ -1743,7 +1743,7 @@ function mod_deletefile($board, $post, $file) {
 	// Rebuild board
 	buildIndex();
 	// Rebuild themes
-	rebuildThemes('post-delete', $board);
+	rebuild_themes('post-delete', $board);
 	
 	// Redirect
 	header('Location: ?/' . sprintf($config['board_path'], $board) . $config['file_index'], true, $config['redirect_http']);
@@ -1752,10 +1752,10 @@ function mod_deletefile($board, $post, $file) {
 function mod_spoiler_image($board, $post, $file) {
 	global $config, $mod;
 	   
-	if (!openBoard($board))
+	if (!open_board($board))
 		error($config['error']['noboard']);
 	   
-	if (!hasPermission($config['mod']['spoilerimage'], $board))
+	if (!has_permission($config['mod']['spoilerimage'], $board))
 		error($config['error']['noaccess']);
 
 	// Delete file thumbnail
@@ -1787,7 +1787,7 @@ function mod_spoiler_image($board, $post, $file) {
 	buildIndex();
 
 	// Rebuild themes
-	rebuildThemes('post-delete', $board);
+	rebuild_themes('post-delete', $board);
 	   
 	// Redirect
 	header('Location: ?/' . sprintf($config['board_path'], $board) . $config['file_index'], true, $config['redirect_http']);
@@ -1796,10 +1796,10 @@ function mod_spoiler_image($board, $post, $file) {
 function mod_spoiler_images($board, $post) {
 	global $config, $mod;
 	   
-	if (!openBoard($board))
+	if (!open_board($board))
 		error($config['error']['noboard']);
 	   
-	if (!hasPermission($config['mod']['spoilerimage'], $board))
+	if (!has_permission($config['mod']['spoilerimage'], $board))
 		error($config['error']['noaccess']);
 
 	// Delete file thumbnails
@@ -1832,7 +1832,7 @@ function mod_spoiler_images($board, $post) {
 	buildIndex();
 
 	// Rebuild themes
-	rebuildThemes('post-delete', $board);
+	rebuild_themes('post-delete', $board);
 	   
 	// Redirect
 	header('Location: ?/' . sprintf($config['board_path'], $board) . $config['file_index'], true, $config['redirect_http']);
@@ -1843,13 +1843,13 @@ function mod_deletebyip($boardName, $post, $global = false) {
 	
 	$global = (bool)$global;
 	
-	if (!openBoard($boardName))
+	if (!open_board($boardName))
 		error($config['error']['noboard']);
 	
-	if (!$global && !hasPermission($config['mod']['deletebyip'], $boardName))
+	if (!$global && !has_permission($config['mod']['deletebyip'], $boardName))
 		error($config['error']['noaccess']);
 	
-	if ($global && !hasPermission($config['mod']['deletebyip_global'], $boardName))
+	if ($global && !has_permission($config['mod']['deletebyip_global'], $boardName))
 		error($config['error']['noaccess']);
 	
 	// Find IP address
@@ -1859,7 +1859,7 @@ function mod_deletebyip($boardName, $post, $global = false) {
 	if (!$ip = $query->fetchColumn())
 		error($config['error']['invalidpost']);
 	
-	$boards = $global ? listBoards() : array(array('uri' => $boardName));
+	$boards = $global ? list_boards() : array(array('uri' => $boardName));
 	
 	$query = '';
 	foreach ($boards as $_board) {
@@ -1879,11 +1879,11 @@ function mod_deletebyip($boardName, $post, $global = false) {
 	$threads_to_rebuild = array();
 	$threads_deleted = array();
 	while ($post = $query->fetch(PDO::FETCH_ASSOC)) {
-		openBoard($post['board']);
+		open_board($post['board']);
 		
 		deletePost($post['id'], false, false);
 
-		rebuildThemes('post-delete', $board['uri']);
+		rebuild_themes('post-delete', $board['uri']);
 
 		if ($post['thread'])
 			$threads_to_rebuild[$post['board']][$post['thread']] = true;
@@ -1892,7 +1892,7 @@ function mod_deletebyip($boardName, $post, $global = false) {
 	}
 	
 	foreach ($threads_to_rebuild as $_board => $_threads) {
-		openBoard($_board);
+		open_board($_board);
 		foreach ($_threads as $_thread => $_dummy) {
 			if ($_dummy && !isset($threads_deleted[$_board][$_thread]))
 				buildThread($_thread);
@@ -1914,7 +1914,7 @@ function mod_deletebyip($boardName, $post, $global = false) {
 function mod_user($uid) {
 	global $config, $mod;
 	
-	if (!hasPermission($config['mod']['editusers']) && !(hasPermission($config['mod']['change_password']) && $uid == $mod['id']))
+	if (!has_permission($config['mod']['editusers']) && !(has_permission($config['mod']['change_password']) && $uid == $mod['id']))
 		error($config['error']['noaccess']);
 
 	if (in_array($mod['boards'][0], array('infinity', 'z')))
@@ -1926,11 +1926,11 @@ function mod_user($uid) {
 	if (!$user = $query->fetch(PDO::FETCH_ASSOC))
 		error($config['error']['404']);
 	
-	if (hasPermission($config['mod']['editusers']) && isset($_POST['username'], $_POST['password'])) {
+	if (has_permission($config['mod']['editusers']) && isset($_POST['username'], $_POST['password'])) {
 		if (isset($_POST['allboards'])) {
 			$boards = array('*');
 		} else {
-			$_boards = listBoards();
+			$_boards = list_boards();
 			foreach ($_boards as &$board) {
 				$board = $board['uri'];
 			}
@@ -1943,7 +1943,7 @@ function mod_user($uid) {
 		}
 		
 		if (isset($_POST['delete'])) {
-			if (!hasPermission($config['mod']['deleteusers']))
+			if (!has_permission($config['mod']['deleteusers']))
 				error($config['error']['noaccess']);
 			
 			$query = prepare('DELETE FROM ``mods`` WHERE `id` = :id');
@@ -1989,7 +1989,7 @@ function mod_user($uid) {
 			}
 		}
 		
-		if (hasPermission($config['mod']['manageusers']))
+		if (has_permission($config['mod']['manageusers']))
 			header('Location: ?/users', true, $config['redirect_http']);
 		else
 			header('Location: ?/', true, $config['redirect_http']);
@@ -1997,7 +1997,7 @@ function mod_user($uid) {
 		return;
 	}
 	
-	if (hasPermission($config['mod']['change_password']) && $uid == $mod['id'] && isset($_POST['password'])) {
+	if (has_permission($config['mod']['change_password']) && $uid == $mod['id'] && isset($_POST['password'])) {
 		if ($_POST['password'] != '') {
 			$salt = generate_salt();
 			$password = hash('sha256', $salt . sha1($_POST['password']));
@@ -2014,7 +2014,7 @@ function mod_user($uid) {
 			setCookies();
 		}
 		
-		if (hasPermission($config['mod']['manageusers']))
+		if (has_permission($config['mod']['manageusers']))
 			header('Location: ?/users', true, $config['redirect_http']);
 		else
 			header('Location: ?/', true, $config['redirect_http']);
@@ -2022,7 +2022,7 @@ function mod_user($uid) {
 		return;
 	}
 	
-	if (hasPermission($config['mod']['modlog'])) {
+	if (has_permission($config['mod']['modlog'])) {
 		$query = prepare('SELECT * FROM ``modlogs`` WHERE `mod` = :id ORDER BY `time` DESC LIMIT 5');
 		$query->bindValue(':id', $uid);
 		$query->execute() or error(db_error($query));
@@ -2032,7 +2032,7 @@ function mod_user($uid) {
 	}
 	
 	if ($mod['type'] >= ADMIN){
-	$boards = listBoards();
+	$boards = list_boards();
 	} else {
 	$boards2 = explode(',', $user['boards']);
 	
@@ -2057,7 +2057,7 @@ function mod_user($uid) {
 function mod_user_new() {
 	global $pdo, $config;
 	
-	if (!hasPermission($config['mod']['createusers']))
+	if (!has_permission($config['mod']['createusers']))
 		error($config['error']['noaccess']);
 	
 	if (isset($_POST['username'], $_POST['password'], $_POST['type'])) {
@@ -2069,7 +2069,7 @@ function mod_user_new() {
 		if (isset($_POST['allboards'])) {
 			$boards = array('*');
 		} else {
-			$_boards = listBoards();
+			$_boards = list_boards();
 			foreach ($_boards as &$board) {
 				$board = $board['uri'];
 			}
@@ -2104,14 +2104,14 @@ function mod_user_new() {
 		return;
 	}
 		
-	mod_page(_('New user'), 'mod/user.html', array('new' => true, 'boards' => listBoards(), 'token' => make_secure_link_token('users/new')));
+	mod_page(_('New user'), 'mod/user.html', array('new' => true, 'boards' => list_boards(), 'token' => make_secure_link_token('users/new')));
 }
 
 
 function mod_users() {
 	global $config;
 	
-	if (!hasPermission($config['mod']['manageusers']))
+	if (!has_permission($config['mod']['manageusers']))
 		error($config['error']['noaccess']);
 	
 	$query = query("SELECT ``m``.`id`, ``m``.`username`, ``m``.`boards`, ``m``.`type`, 
@@ -2139,7 +2139,7 @@ function mod_users() {
 function mod_user_promote($uid, $action) {
 	global $config;
 	
-	if (!hasPermission($config['mod']['promoteusers']))
+	if (!has_permission($config['mod']['promoteusers']))
 		error($config['error']['noaccess']);
 	
 	$query = prepare("SELECT `type`, `username` FROM ``mods`` WHERE `id` = :id");
@@ -2182,14 +2182,14 @@ function mod_user_promote($uid, $action) {
 function mod_pm($id, $reply = false) {
 	global $mod, $config;
 	
-	if ($reply && !hasPermission($config['mod']['create_pm']))
+	if ($reply && !has_permission($config['mod']['create_pm']))
 		error($config['error']['noaccess']);
 	
 	$query = prepare("SELECT ``mods``.`username`, `mods_to`.`username` AS `to_username`, ``pms``.* FROM ``pms`` LEFT JOIN ``mods`` ON ``mods``.`id` = `sender` LEFT JOIN ``mods`` AS `mods_to` ON `mods_to`.`id` = `to` WHERE ``pms``.`id` = :id");
 	$query->bindValue(':id', $id);
 	$query->execute() or error(db_error($query));
 	
-	if ((!$pm = $query->fetch(PDO::FETCH_ASSOC)) || ($pm['to'] != $mod['id'] && !hasPermission($config['mod']['master_pm'])))
+	if ((!$pm = $query->fetch(PDO::FETCH_ASSOC)) || ($pm['to'] != $mod['id'] && !has_permission($config['mod']['master_pm'])))
 		error($config['error']['404']);
 	
 	if (isset($_POST['delete'])) {
@@ -2261,7 +2261,7 @@ function mod_inbox() {
 function mod_new_pm($username) {
 	global $config, $mod;
 	
-	if (!hasPermission($config['mod']['create_pm']))
+	if (!has_permission($config['mod']['create_pm']))
 		error($config['error']['noaccess']);
 	
 	$query = prepare("SELECT `id` FROM ``mods`` WHERE `username` = :username");
@@ -2309,14 +2309,14 @@ function mod_new_pm($username) {
 function mod_rebuild() {
 	global $config, $twig;
 	
-	if (!hasPermission($config['mod']['rebuild']))
+	if (!has_permission($config['mod']['rebuild']))
 		error($config['error']['noaccess']);
 	
 	if (isset($_POST['rebuild'])) {
 		@set_time_limit($config['mod']['rebuild_timelimit']);
 				
 		$log = array();
-		$boards = listBoards();
+		$boards = list_boards();
 		$rebuilt_scripts = array();
 		
 		if (isset($_POST['rebuild_cache'])) {
@@ -2332,7 +2332,7 @@ function mod_rebuild() {
 		
 		if (isset($_POST['rebuild_themes'])) {
 			$log[] = 'Regenerating theme files';
-			rebuildThemes('all');
+			rebuild_themes('all');
 		}
 		
 		if (isset($_POST['rebuild_javascript'])) {
@@ -2345,7 +2345,7 @@ function mod_rebuild() {
 			if (!(isset($_POST['boards_all']) || isset($_POST['board_' . $board['uri']])))
 				continue;
 			
-			openBoard($board['uri']);
+			open_board($board['uri']);
 			$config['try_smarter'] = false;
 			
 			if (isset($_POST['rebuild_index'])) {
@@ -2373,7 +2373,7 @@ function mod_rebuild() {
 	}
 	
 	mod_page(_('Rebuild'), 'mod/rebuild.html', array(
-		'boards' => listBoards(),
+		'boards' => list_boards(),
 		'token' => make_secure_link_token('rebuild')
 	));
 }
@@ -2387,7 +2387,7 @@ function mod_reports() {
 	$global  = in_array( "global", $urlArgs );
 	$json  = in_array( "json", $urlArgs );
 	
-	if( !hasPermission($config['mod']['reports']) ) {
+	if( !has_permission($config['mod']['reports']) ) {
 		error($config['error']['noaccess']);
 	}
 	
@@ -2495,7 +2495,7 @@ function mod_reports() {
 				$content = $report_item['content'];
 				
 				// Load board content.
-				openBoard($report_item['board_id']);
+				open_board($report_item['board_id']);
 				
 				// Load the reported content.
 				if( !$content['thread'] ) {
@@ -2655,7 +2655,7 @@ function mod_report_dismiss() {
 		$board = @$arguments[2];
 		$post  = @$arguments[3];
 		
-		if( !hasPermission($config['mod']['report_dismiss_content'], $board) ) {
+		if( !has_permission($config['mod']['report_dismiss_content'], $board) ) {
 			error($config['error']['noaccess']);
 		}
 		
@@ -2709,10 +2709,10 @@ function mod_report_dismiss() {
 				$board = $reportobj['board'];
 				$post = $reportobj['post'];
 				
-				if( !$all && !hasPermission($config['mod']['report_dismiss'], $board) ) {
+				if( !$all && !has_permission($config['mod']['report_dismiss'], $board) ) {
 					error($config['error']['noaccess']);
 				}
-				if( $all && !hasPermission($config['mod']['report_dismiss_ip'], $board) ) {
+				if( $all && !has_permission($config['mod']['report_dismiss_ip'], $board) ) {
 					error($config['error']['noaccess']);
 				}
 				
@@ -2784,7 +2784,7 @@ function mod_report_demote() {
 		$board = @$arguments[2];
 		$post  = @$arguments[3];
 		
-		if( !hasPermission($config['mod']['report_demote'], $board) ) {
+		if( !has_permission($config['mod']['report_demote'], $board) ) {
 			error($config['error']['noaccess']);
 		}
 		
@@ -2827,7 +2827,7 @@ function mod_report_demote() {
 				$board = $reportobj['board'];
 				$post = $reportobj['post'];
 				
-				if( !hasPermission($config['mod']['report_demote'], $board) ) {
+				if( !has_permission($config['mod']['report_demote'], $board) ) {
 					error($config['error']['noaccess']);
 				}
 				
@@ -2860,7 +2860,7 @@ function mod_report_promote() {
 		$board = @$arguments[2];
 		$post  = @$arguments[3];
 		
-		if( !hasPermission($config['mod']['report_promote'], $board) ) {
+		if( !has_permission($config['mod']['report_promote'], $board) ) {
 			error($config['error']['noaccess']);
 		}
 		
@@ -2901,7 +2901,7 @@ function mod_report_promote() {
 				$board = $reportobj['board'];
 				$post = $reportobj['post'];
 				
-				if( !hasPermission($config['mod']['report_promote'], $board) ) {
+				if( !has_permission($config['mod']['report_promote'], $board) ) {
 					error($config['error']['noaccess']);
 				}
 				
@@ -2926,7 +2926,7 @@ function mod_report_promote() {
 function mod_recent_posts($lim) {
 	global $config, $mod, $pdo;
 
-	if (!hasPermission($config['mod']['recent']))
+	if (!has_permission($config['mod']['recent']))
 		error($config['error']['noaccess']);
 
 	$limit = (is_numeric($lim))? $lim : 25;
@@ -2934,7 +2934,7 @@ function mod_recent_posts($lim) {
 	if ($limit > 100) $limit = 100;
 
 	$mod_boards = array();
-	$boards = listBoards();
+	$boards = list_boards();
 
 	//if not all boards
 	if ($mod['boards'][0]!='*') {
@@ -2959,7 +2959,7 @@ function mod_recent_posts($lim) {
 	$posts = $query->fetchAll(PDO::FETCH_ASSOC);
 
 	foreach ($posts as &$post) {
-		openBoard($post['board']);
+		open_board($post['board']);
 		if (!$post['thread']) {
 			// Still need to fix this:
 			$po = new Thread($post, '?/', $mod, false);
@@ -2983,14 +2983,14 @@ function mod_recent_posts($lim) {
 function mod_report_clean( $global_reports, $board, $unclean, $post, $global, $local ) {
 	global $config, $mod;
 	
-	if( !openBoard($board) ) {
+	if( !open_board($board) ) {
 		error($config['error']['noboard']);
 	}
 	
 	$query_global = "";
 	$query_global_mod = "";
 	if( $global ) {
-		if( !hasPermission($config['mod']['clean_global'], $board) ) {
+		if( !has_permission($config['mod']['clean_global'], $board) ) {
 			error($config['error']['noaccess']);
 		}
 		
@@ -3001,7 +3001,7 @@ function mod_report_clean( $global_reports, $board, $unclean, $post, $global, $l
 	$query_local = "";
 	$query_local_mod = "";
 	if( $local ) {
-		if( !hasPermission($config['mod']['clean'], $board) ) {
+		if( !has_permission($config['mod']['clean'], $board) ) {
 			error($config['error']['noaccess']);
 		}
 		
@@ -3130,10 +3130,10 @@ function mod_report_clean( $global_reports, $board, $unclean, $post, $global, $l
 function mod_config($board_config = false) {
 	global $config, $mod, $board;
 	
-	if ($board_config && !openBoard($board_config))
+	if ($board_config && !open_board($board_config))
 		error($config['error']['noboard']);
 	
-	if (!hasPermission($config['mod']['edit_config'], $board_config))
+	if (!has_permission($config['mod']['edit_config'], $board_config))
 		error($config['error']['noaccess']);
 	
 	$config_file = $board_config ? $board['dir'] . 'config.php' : 'inc/instance-config.php';
@@ -3166,7 +3166,7 @@ function mod_config($board_config = false) {
 		mod_page(_('Config editor'), 'mod/config-editor-php.html', array(
 			'php' => $instance_config,
 			'readonly' => $readonly,
-			'boards' => listBoards(),
+			'boards' => list_boards(),
 			'board' => $board_config,
 			'file' => $config_file,
 			'token' => make_secure_link_token('config' . ($board_config ? '/' . $board_config : ''))
@@ -3259,7 +3259,7 @@ function mod_config($board_config = false) {
 
 	mod_page(_('Config editor') . ($board_config ? ': ' . sprintf($config['board_abbreviation'], $board_config) : ''),
 		'mod/config-editor.html', array(
-			'boards' => listBoards(),
+			'boards' => list_boards(),
 			'board' => $board_config,
 			'conf' => $conf,
 			'file' => $config_file,
@@ -3270,7 +3270,7 @@ function mod_config($board_config = false) {
 function mod_themes_list() {
 	global $config;
 
-	if (!hasPermission($config['mod']['themes']))
+	if (!has_permission($config['mod']['themes']))
 		error($config['error']['noaccess']);
 
 	if (!is_dir($config['dir']['themes']))
@@ -3285,7 +3285,7 @@ function mod_themes_list() {
 	$themes = array();
 	while ($file = readdir($dir)) {
 		if ($file[0] != '.' && is_dir($config['dir']['themes'] . '/' . $file)) {
-			$themes[$file] = loadThemeConfig($file);
+			$themes[$file] = load_theme_config($file);
 		}
 	}
 	closedir($dir);
@@ -3304,10 +3304,10 @@ function mod_themes_list() {
 function mod_theme_configure($theme_name) {
 	global $config;
 
-	if (!hasPermission($config['mod']['themes']))
+	if (!has_permission($config['mod']['themes']))
 		error($config['error']['noaccess']);
 
-	if (!$theme = loadThemeConfig($theme_name)) {
+	if (!$theme = load_theme_config($theme_name)) {
 		error($config['error']['invalidtheme']);
 	}
 
@@ -3341,7 +3341,7 @@ function mod_theme_configure($theme_name) {
 		$result = true;
 		$message = false;
 		if (isset($theme['install_callback'])) {
-			$ret = $theme['install_callback'](themeSettings($theme_name));
+			$ret = $theme['install_callback'](theme_settings($theme_name));
 			if ($ret && !empty($ret)) {
 				if (is_array($ret) && count($ret) == 2) {
 					$result = $ret[0];
@@ -3358,7 +3358,7 @@ function mod_theme_configure($theme_name) {
 		}
 		
 		// Build themes
-		rebuildThemes('all');
+		rebuild_themes('all');
 		
 		mod_page(sprintf(_($result ? 'Installed theme: %s' : 'Installation failed: %s'), $theme['name']), 'mod/theme_installed.html', array(
 			'theme_name' => $theme_name,
@@ -3369,7 +3369,7 @@ function mod_theme_configure($theme_name) {
 		return;
 	}
 
-	$settings = themeSettings($theme_name);
+	$settings = theme_settings($theme_name);
 
 	mod_page(sprintf(_('Configuring theme: %s'), $theme['name']), 'mod/theme_config.html', array(
 		'theme_name' => $theme_name,
@@ -3382,7 +3382,7 @@ function mod_theme_configure($theme_name) {
 function mod_theme_uninstall($theme_name) {
 	global $config;
 
-	if (!hasPermission($config['mod']['themes']))
+	if (!has_permission($config['mod']['themes']))
 		error($config['error']['noaccess']);
 	
 	$query = prepare("DELETE FROM ``theme_settings`` WHERE `theme` = :theme");
@@ -3395,10 +3395,10 @@ function mod_theme_uninstall($theme_name) {
 function mod_theme_rebuild($theme_name) {
 	global $config;
 
-	if (!hasPermission($config['mod']['themes']))
+	if (!has_permission($config['mod']['themes']))
 		error($config['error']['noaccess']);
 	
-	rebuildTheme($theme_name, 'all');
+	rebuild_theme($theme_name, 'all');
 
 	mod_page(sprintf(_('Rebuilt theme: %s'), $theme_name), 'mod/theme_rebuilt.html', array(
 		'theme_name' => $theme_name,
@@ -3578,7 +3578,7 @@ function mod_pages($board = false) {
 function mod_debug_antispam() {
 	global $pdo, $config;
 
-	if (!hasPermission($config['mod']['debug_antispam']))
+	if (!has_permission($config['mod']['debug_antispam']))
 		error($config['error']['noaccess']);
 	
 	$args = array();
@@ -3618,12 +3618,12 @@ function mod_debug_antispam() {
 function mod_debug_recent_posts() {
 	global $pdo, $config;
 
-	if (!hasPermission($config['mod']['debug_recent']))
+	if (!has_permission($config['mod']['debug_recent']))
 		error($config['error']['noaccess']);
 	
 	$limit = 500;
 	
-	$boards = listBoards();
+	$boards = list_boards();
 	
 	// Manually build an SQL query
 	$query = 'SELECT * FROM (';
@@ -3655,7 +3655,7 @@ function mod_debug_recent_posts() {
 function mod_debug_sql() {
 	global $config;
 	
-	if (!hasPermission($config['mod']['debug_sql']))
+	if (!has_permission($config['mod']['debug_sql']))
 		error($config['error']['noaccess']);
 	
 	$args['security_token'] = make_secure_link_token('debug/sql');
@@ -3679,7 +3679,7 @@ function mod_debug_sql() {
 function mod_debug_apc() {
 	global $config;
 	
-	if (!hasPermission($config['mod']['debug_apc']))
+	if (!has_permission($config['mod']['debug_apc']))
 		error($config['error']['noaccess']);
 	
 	if ($config['cache']['enabled'] != 'apc')
