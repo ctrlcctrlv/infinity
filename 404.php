@@ -3,6 +3,8 @@
 require_once "inc/functions.php";
 header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found");
 
+global $config;
+
 $dir = "static/404/";
 
 if (!is_dir($dir))
