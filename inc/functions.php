@@ -19,7 +19,9 @@ require_once 'inc/database.php';
 require_once 'inc/events.php';
 require_once 'inc/api.php';
 require_once 'inc/bans.php';
-require_once 'inc/lib/gettext/gettext.inc';
+if (!extension_loaded('gettext')) {
+	require_once 'inc/lib/gettext/gettext.inc';
+}
 require_once 'inc/lib/parsedown/Parsedown.php'; // todo: option for parsedown instead of Tinyboard/STI markup
 require_once 'inc/mod/auth.php';
 
