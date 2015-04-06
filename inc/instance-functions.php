@@ -1,6 +1,6 @@
 <?php
 require_once("inc/8chan-functions.php");
-require_once("inc/8chan-mod-pages-functions.php");
+require_once("inc/8chan-mod-pages.php");
 
 function max_posts_per_hour($post) {
 	global $config, $board;

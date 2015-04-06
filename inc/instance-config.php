@@ -202,7 +202,7 @@ $config['twig_cache'] = false;
 $config['report_captcha'] = true;
 
 // 8chan specific mod pages
-require '8chan-mod-pages.php';
+require '8chan-mod-config.php';
 	
 // Load database credentials
 require "secrets.php";
