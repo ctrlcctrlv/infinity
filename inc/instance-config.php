@@ -7,7 +7,6 @@
 *
 *  You can copy values from config.php (defaults) and paste them here.
 */
-	require_once "lib/htmlpurifier-4.6.0/library/HTMLPurifier.auto.php";
 	require_once "instance-functions.php";
 
 	// Note - you may want to change some of these in secrets.php instead of here
