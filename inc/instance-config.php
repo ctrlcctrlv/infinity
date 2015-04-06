@@ -177,7 +177,7 @@
 	$config['hour_max_threads'] = 10;
 	$config['filters'][] = array(
 		'condition' => array(
-			'custom' => 'test_posts_per_hour'
+			'custom' => 'max_posts_per_hour'
 		),
 		'action' => 'reject',
 		'message' => 'On this board, to prevent raids the number of threads that can be created per hour is limited. Please try again later, or post in an existing thread.'
