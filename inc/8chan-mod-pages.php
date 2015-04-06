@@ -319,6 +319,11 @@
 \$config['user_flags'] = unserialize(file_get_contents('$b/flags.ser'));
 FLAGS;
 
+	                if ($config['cache']['enabled']) {
+	                        cache::delete('config_' . $b);
+	                        cache::delete('events_' . $b);
+			}
+
 			file_write($b.'/flags.php', $flags);
 		}
 
