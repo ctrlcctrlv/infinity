@@ -2212,10 +2212,10 @@ function buildThread($id, $return = false, $mod = false) {
 	}
 
 	if ($config['smart_build'] && !$return && !$mod) {
-		$noko50fn = $board['dir'] . $config['dir']['res'] . link_for(array('id' => $id), true);
+		$noko50fn = $board['dir'] . $config['dir']['res'] . sprintf($config['file_page50'], $id);
 		file_unlink($noko50fn);
 
-		file_unlink($board['dir'] . $config['dir']['res'] . link_for(array('id' => $id)));
+		file_unlink($board['dir'] . $config['dir']['res'] . sprintf($config['file_page'], $id));
 	} else if ($return) {
 		return $body;
 	} else {
