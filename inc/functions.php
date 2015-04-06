@@ -1049,8 +1049,9 @@ function bumpThread($id) {
 	if (event('bump', $id))
 		return true;
 
-	if ($config['try_smarter'])
-		$build_pages[] = thread_find_page($id);
+	if ($config['try_smarter']) {
+		$build_pages = array_merge(range(1, thread_find_page($id)), $build_pages);
+	}
 
 	$query = prepare(sprintf("UPDATE ``posts_%s`` SET `bump` = :time WHERE `id` = :id AND `thread` IS NULL", $board['uri']));
 	$query->bindValue(':time', time(), PDO::PARAM_INT);
@@ -2111,6 +2112,9 @@ function buildThread($id, $return = false, $mod = false) {
 		cache::delete("thread_{$board['uri']}_{$id}");
 	}
 
+	if ($config['try_smarter'] && !$mod)
+		$build_pages[] = thread_find_page($id);
+
 	if (!$config['smart_build'] || $return || $mod) {
 		$query = prepare(sprintf("SELECT * FROM ``posts_%s`` WHERE (`thread` IS NULL AND `id` = :id) OR `thread` = :id ORDER BY `thread`,`id`", $board['uri']));
 		$query->bindValue(':id', $id, PDO::PARAM_INT);
@@ -2144,9 +2148,6 @@ function buildThread($id, $return = false, $mod = false) {
 			'boardlist' => createBoardlist($mod),
 			'return' => ($mod ? '?' . $board['url'] . $config['file_index'] : $config['root'] . $board['dir'] . $config['file_index'])
 		));
-
-		if ($config['try_smarter'] && !$mod)
-			$build_pages[] = thread_find_page($id);
 
 		// json api
 		if ($config['api']['enabled']) {
