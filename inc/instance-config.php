@@ -198,6 +198,8 @@ $config['spam']['unicode'] = false;
 $config['twig_cache'] = false;
 $config['report_captcha'] = true;
 
+$config['page_404'] = 'page_404';
+
 // 8chan specific mod pages
 require '8chan-mod-config.php';
 
@@ -206,4 +208,3 @@ require_once 'instance-functions.php';
 	
 // Load database credentials
 require "secrets.php";
-

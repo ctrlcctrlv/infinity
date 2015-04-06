@@ -18,3 +18,7 @@ function max_posts_per_hour($post) {
 		return ($r['count'] > $config['hour_max_threads']);
 	}
 }
+
+function page_404() {
+	include('404.php');
+}

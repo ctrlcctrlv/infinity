@@ -147,6 +147,9 @@ function die_404() { global $config;
     header("Status: 404 Not Found");
     echo "<h1>404 Not Found</h1><p>Page doesn't exist<hr><address>vichan</address>";
   }
+  elseif (is_callable($config['page_404'])) {
+    $config['page_404']();
+  }
   else {
     header("Location: ".$config['page_404']);
   }
