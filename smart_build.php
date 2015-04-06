@@ -48,18 +48,6 @@ function sb_thread($b, $thread, $slugcheck = false) { global $config; $thread = 
     return false;
   }
 
-  if ($slugcheck && $config['slugify']) {
-    global $request;
-
-    $link = link_for(array("id" => $thread), $slugcheck === 50, array("uri" => $b));
-    $link = "/".$b."/".$config['dir']['res'].$link;
-
-    if ($link != $request) {
-      header("Location: $link", true, 301);
-      die();
-    }
-  }
-
   if ($slugcheck == 50) { // Should we really generate +50 page? Maybe there are not enough posts anyway
     global $request;
     $r = str_replace("+50", "", $request);
@@ -73,9 +61,6 @@ function sb_thread($b, $thread, $slugcheck = false) { global $config; $thread = 
   return true;
 }
 
-function sb_thread_slugcheck($b, $thread) {
-  return sb_thread($b, $thread, true);
-}
 function sb_thread_slugcheck50($b, $thread) {
   return sb_thread($b, $thread, 50);
 }
@@ -121,12 +106,8 @@ if ($config['api']['enabled']) {
   $entrypoints['/%b/catalog.json']         = 'sb_api';
 }
 
-$entrypoints['/%b/'.$config['dir']['res'].$config['file_page']]          = 'sb_thread_slugcheck';
+$entrypoints['/%b/'.$config['dir']['res'].$config['file_page']]          = 'sb_thread';
 $entrypoints['/%b/'.$config['dir']['res'].$config['file_page50']]        = 'sb_thread_slugcheck50';
-if ($config['slugify']) {
-  $entrypoints['/%b/'.$config['dir']['res'].$config['file_page_slug']]   = 'sb_thread_slugcheck';
-  $entrypoints['/%b/'.$config['dir']['res'].$config['file_page50_slug']] = 'sb_thread_slugcheck50';
-}
 if ($config['api']['enabled']) {
   $entrypoints['/%b/'.$config['dir']['res'].'%d.json']                   = 'sb_thread';
 }
