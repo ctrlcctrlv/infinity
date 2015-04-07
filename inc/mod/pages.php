@@ -2507,7 +2507,7 @@ function mod_reports() {
 				}
 				
 				// Fetch clean status.
-				$po->getClean();
+				$po->getClean(true);
 				$clean = $po->clean;
 				
 				
