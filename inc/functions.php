@@ -19,7 +19,9 @@ require_once 'inc/database.php';
 require_once 'inc/events.php';
 require_once 'inc/api.php';
 require_once 'inc/bans.php';
-require_once 'inc/lib/gettext/gettext.inc';
+if (!extension_loaded('gettext')) {
+	require_once 'inc/lib/gettext/gettext.inc';
+}
 require_once 'inc/lib/parsedown/Parsedown.php'; // todo: option for parsedown instead of Tinyboard/STI markup
 require_once 'inc/mod/auth.php';
 
@@ -50,14 +52,41 @@ $current_locale = 'en';
 
 
 function loadConfig() {
-	global $board, $config, $__ip, $debug, $__version, $microtime_start, $current_locale;
+	global $board, $config, $__ip, $debug, $__version, $microtime_start, $current_locale, $events;
 
 	$error = function_exists('error') ? 'error' : 'basic_error_function_because_the_other_isnt_loaded_yet';
 
-	reset_events();
+	$boardsuffix = isset($board['uri']) ? $board['uri'] : '';
 
 	if (!isset($_SERVER['REMOTE_ADDR']))
 		$_SERVER['REMOTE_ADDR'] = '0.0.0.0';
+
+	if (file_exists('tmp/cache/cache_config.php')) {
+		require_once('tmp/cache/cache_config.php');
+	}
+
+
+	if (isset($config['cache_config']) && 
+	    $config['cache_config'] &&
+            $config = Cache::get('config_' . $boardsuffix ) ) {
+		$events = Cache::get('events_' . $boardsuffix );
+
+		define_groups();
+
+		if (file_exists('inc/instance-functions.php')) {
+			require_once('inc/instance-functions.php');
+		}
+
+		if ($config['locale'] != $current_locale) {
+                	$current_locale = $config['locale'];
+                	init_locale($config['locale'], $error);
+        	}
+	}
+	else {
+		$config = array();
+	// We will indent that later.
+
+	reset_events();	
 
 	$arrays = array(
 		'db',
@@ -86,7 +115,6 @@ function loadConfig() {
 		'dashboard_links'
 	);
 
-	$config = array();
 	foreach ($arrays as $key) {
 		$config[$key] = array();
 	}
@@ -96,18 +124,28 @@ function loadConfig() {
 
 	// Initialize locale as early as possible
 
-	$config['locale'] = 'en';
+	// Those calls are expensive. Unfortunately, our cache system is not initialized at this point.
+	// So, we may store the locale in a tmp/ filesystem.
 
-	$configstr = file_get_contents('inc/instance-config.php');
+	if (file_exists($fn = 'tmp/cache/locale_' . $boardsuffix ) ) {
+		$config['locale'] = file_get_contents($fn);
+	}
+	else {
+		$config['locale'] = 'en';
+
+		$configstr = file_get_contents('inc/instance-config.php');
 
 		if (isset($board['dir']) && file_exists($board['dir'] . '/config.php')) {
-				$configstr .= file_get_contents($board['dir'] . '/config.php');
+			$configstr .= file_get_contents($board['dir'] . '/config.php');
 		}
-	$matches = array();
-	preg_match_all('/[^\/*#]\$config\s*\[\s*[\'"]locale[\'"]\s*\]\s*=\s*([\'"])(.*?)\1/', $configstr, $matches);
-	if ($matches && isset ($matches[2]) && $matches[2]) {
-		$matches = $matches[2];
-		$config['locale'] = $matches[count($matches)-1];
+		$matches = array();
+		preg_match_all('/[^\/*#]\$config\s*\[\s*[\'"]locale[\'"]\s*\]\s*=\s*([\'"])(.*?)\1/', $configstr, $matches);
+		if ($matches && isset ($matches[2]) && $matches[2]) {
+			$matches = $matches[2];
+			$config['locale'] = $matches[count($matches)-1];
+		}
+
+		file_put_contents($fn, $config['locale']);
 	}
 
 	if ($config['locale'] != $current_locale) {
@@ -128,17 +166,12 @@ function loadConfig() {
 		init_locale($config['locale'], $error);
 	}
 
-	if (!isset($__version))
-		$__version = file_exists('.installed') ? trim(file_get_contents('.installed')) : false;
-	$config['version'] = $__version;
-
-	date_default_timezone_set($config['timezone']);
-
 	if (!isset($config['global_message']))
 		$config['global_message'] = false;
 
 	if (!isset($config['post_url']))
 		$config['post_url'] = $config['root'] . $config['file_post'];
+
 
 	if (!isset($config['referer_match']))
 		if (isset($_SERVER['HTTP_HOST'])) {
@@ -210,17 +243,24 @@ function loadConfig() {
 	if (!isset($config['user_flags']))
 		$config['user_flags'] = array();
 
+	if (!isset($__version))
+		$__version = file_exists('.installed') ? trim(file_get_contents('.installed')) : false;
+	$config['version'] = $__version;
+
+	if ($config['allow_roll'])
+		event_handler('post', 'diceRoller');
+
+	if (is_array($config['anonymous']))
+		$config['anonymous'] = $config['anonymous'][array_rand($config['anonymous'])];
+
+
+	}
+	// Effectful config processing below:
+
+	date_default_timezone_set($config['timezone']);
+
 	if ($config['root_file']) {
 		chdir($config['root_file']);
-	}
-
-	if ($config['verbose_errors']) {
-		set_error_handler('verbose_error_handler');
-		error_reporting(E_ALL);
-		ini_set('display_errors', true);
-		ini_set('html_errors', false);
-	} else {
-		ini_set('display_errors', false);
 	}
 
 	// Keep the original address to properly comply with other board configurations
@@ -231,11 +271,21 @@ function loadConfig() {
 	if (preg_match('/^\:\:(ffff\:)?(\d+\.\d+\.\d+\.\d+)$/', $__ip, $m))
 		$_SERVER['REMOTE_ADDR'] = $m[2];
 
+	if ($config['verbose_errors']) {
+		set_error_handler('verbose_error_handler');
+		error_reporting(E_ALL);
+		ini_set('display_errors', true);
+		ini_set('html_errors', false);
+	} else {
+		ini_set('display_errors', false);
+	}
+
 	if ($config['syslog'])
 		openlog('tinyboard', LOG_ODELAY, LOG_SYSLOG); // open a connection to sysem logger
 
 	if ($config['recaptcha'])
 		require_once 'inc/lib/recaptcha/recaptchalib.php';
+	
 	if ($config['cache']['enabled'])
 		require_once 'inc/cache.php';
 
@@ -244,13 +294,22 @@ function loadConfig() {
 		event_handler('post', 'postHandler');
 	}
 
-	if (is_array($config['anonymous']))
-		$config['anonymous'] = $config['anonymous'][array_rand($config['anonymous'])];
-
-	if ($config['allow_roll'])
-		event_handler('post', 'diceRoller');
-
 	event('load-config');
+
+	if ($config['cache_config'] && !isset ($config['cache_config_loaded'])) {
+		file_put_contents('tmp/cache/cache_config.php', '<?php '.
+			'$config = array();'.
+			'$config[\'cache\'] = '.var_export($config['cache'], true).';'.
+			'$config[\'cache_config\'] = true;'.
+			'$config[\'debug\'] = '.var_export($config['debug'], true).';'.
+			'require_once(\'inc/cache.php\');'
+		);
+
+		$config['cache_config_loaded'] = true;
+
+		Cache::set('config_'.$boardsuffix, $config);
+		Cache::set('events_'.$boardsuffix, $events);
+	}
 	
 	if ($config['debug']) {
 		if (!isset($debug)) {
@@ -327,8 +386,12 @@ function verbose_error_handler($errno, $errstr, $errfile, $errline) {
 function define_groups() {
 	global $config;
 
-	foreach ($config['mod']['groups'] as $group_value => $group_name)
-		defined($group_name) or define($group_name, $group_value, true);
+	foreach ($config['mod']['groups'] as $group_value => $group_name) {
+		$group_name = strtoupper($group_name);
+		if(!defined($group_name)) {
+			define($group_name, $group_value, true);
+		}
+	}
 	
 	ksort($config['mod']['groups']);
 }
@@ -347,9 +410,22 @@ function rebuildThemes($action, $boardname = false) {
 	$_board = $board;
 
 	// List themes
-	$query = query("SELECT `theme` FROM ``theme_settings`` WHERE `name` IS NULL AND `value` IS NULL") or error(db_error());
+	if ($themes = Cache::get("themes")) {
+		// OK, we already have themes loaded
+	}
+	else {
+		$query = query("SELECT `theme` FROM ``theme_settings`` WHERE `name` IS NULL AND `value` IS NULL") or error(db_error());
 
-	while ($theme = $query->fetch(PDO::FETCH_ASSOC)) {
+		$themes = array();
+
+		while ($theme = $query->fetch(PDO::FETCH_ASSOC)) {
+			$themes[] = $theme;
+		}
+
+		Cache::set("themes", $themes);
+	}
+
+	foreach ($themes as $theme) {
 		// Restore them
 		$config = $_config;
 		$board = $_board;
@@ -403,6 +479,10 @@ function rebuildTheme($theme, $action, $board = false) {
 
 
 function themeSettings($theme) {
+	if ($settings = Cache::get("theme_settings_".$theme)) {
+		return $settings;
+	}
+
 	$query = prepare("SELECT `name`, `value` FROM ``theme_settings`` WHERE `theme` = :theme AND `name` IS NOT NULL");
 	$query->bindValue(':theme', $theme);
 	$query->execute() or error(db_error($query));
@@ -411,6 +491,8 @@ function themeSettings($theme) {
 	while ($s = $query->fetch(PDO::FETCH_ASSOC)) {
 		$settings[$s['name']] = $s['value'];
 	}
+
+	Cache::set("theme_settings_".$theme, $settings);
 
 	return $settings;
 }
@@ -469,6 +551,11 @@ function openBoard($uri) {
 	$board = getBoardInfo($uri);
 	if ($board) {
 		setupBoard($board);
+
+		if (function_exists('after_open_board')) {
+			after_open_board();
+		}
+
 		return true;
 	}
 	return false;
@@ -630,6 +717,13 @@ function file_unlink($path) {
 	}
 
 	$ret = @unlink($path);
+
+        if ($config['gzip_static']) {
+                $gzpath = "$path.gz";
+
+		@unlink($gzpath);
+	}
+
 	if (isset($config['purge']) && $path[0] != '/' && isset($_SERVER['HTTP_HOST'])) {
 		// Purge cache
 		if (basename($path) == $config['file_index']) {
@@ -1004,8 +1098,9 @@ function bumpThread($id) {
 	if (event('bump', $id))
 		return true;
 
-	if ($config['try_smarter'])
-		$build_pages[] = thread_find_page($id);
+	if ($config['try_smarter']) {
+		$build_pages = array_merge(range(1, thread_find_page($id)), $build_pages);
+	}
 
 	$query = prepare(sprintf("UPDATE ``posts_%s`` SET `bump` = :time WHERE `id` = :id AND `thread` IS NULL", $board['uri']));
 	$query->bindValue(':time', time(), PDO::PARAM_INT);
@@ -1491,56 +1586,65 @@ function checkMute() {
 	}
 }
 
-function buildIndex() {
+function buildIndex($global_api = "yes") {
 	global $board, $config, $build_pages;
 
-	$pages = getPages();
-	if (!$config['try_smarter'])
-		$antibot = create_antibot($board['uri']);
+	if (!$config['smart_build']) {
+		$pages = getPages();
+		if (!$config['try_smarter'])
+			$antibot = create_antibot($board['uri']);
 
-	if ($config['api']['enabled']) {
-		$api = new Api();
-		$catalog = array();
+		if ($config['api']['enabled']) {
+			$api = new Api();
+			$catalog = array();
+		}
 	}
 
 	for ($page = 1; $page <= $config['max_pages']; $page++) {
 		$filename = $board['dir'] . ($page == 1 ? $config['file_index'] : sprintf($config['file_page'], $page));
+		$jsonFilename = $board['dir'] . ($page - 1) . '.json'; // pages should start from 0
 
-		if (!$config['api']['enabled'] && $config['try_smarter'] && isset($build_pages) && !empty($build_pages)
-			&& !in_array($page, $build_pages) && is_file($filename))
-			continue;
-		$content = index($page);
-		if (!$content)
-			break;
-
-		// json api
-		if ($config['api']['enabled']) {
-			$threads = $content['threads'];
-			$json = json_encode($api->translatePage($threads));
-			$jsonFilename = $board['dir'] . ($page - 1) . '.json'; // pages should start from 0
-			file_write($jsonFilename, $json);
-
-			$catalog[$page-1] = $threads;
-		}
-
-		if ($config['api']['enabled'] && $config['try_smarter'] && isset($build_pages) && !empty($build_pages)
-			&& !in_array($page, $build_pages) && is_file($filename))
+		if ((!$config['api']['enabled'] || $global_api == "skip" || $config['smart_build']) && $config['try_smarter']
+			 && isset($build_pages) && !empty($build_pages) && !in_array($page, $build_pages) )
 			continue;
 
-		if ($config['try_smarter']) {
-			$antibot = create_antibot($board['uri'], 0 - $page);
-			$content['current_page'] = $page;
-		}
-		$antibot->reset();
-		$content['pages'] = $pages;
-		$content['pages'][$page-1]['selected'] = true;
-		$content['btn'] = getPageButtons($content['pages']);
-		$content['antibot'] = $antibot;
+		if (!$config['smart_build']) {
+			$content = index($page);
+			if (!$content)
+				break;
 
-		file_write($filename, Element('index.html', $content));
+			// json api
+			if ($config['api']['enabled']) {
+				$threads = $content['threads'];
+				$json = json_encode($api->translatePage($threads));
+				file_write($jsonFilename, $json);
+
+				$catalog[$page-1] = $threads;
+			}
+
+			if ($config['api']['enabled'] && $global_api != "skip" && $config['try_smarter'] && isset($build_pages)
+				&& !empty($build_pages) && !in_array($page, $build_pages) )
+				continue;
+
+			if ($config['try_smarter']) {
+				$antibot = create_antibot($board['uri'], 0 - $page);
+				$content['current_page'] = $page;
+			}
+			$antibot->reset();
+			$content['pages'] = $pages;
+			$content['pages'][$page-1]['selected'] = true;
+			$content['btn'] = getPageButtons($content['pages']);
+			$content['antibot'] = $antibot;
+
+			file_write($filename, Element('index.html', $content));
+		}
+		else {
+			file_unlink($filename);
+			file_unlink($jsonFilename);
+		}
 	}
 
-	if ($page < $config['max_pages']) {
+	if (!$config['smart_build'] && $page < $config['max_pages']) {
 		for (;$page<=$config['max_pages'];$page++) {
 			$filename = $board['dir'] . ($page==1 ? $config['file_index'] : sprintf($config['file_page'], $page));
 			file_unlink($filename);
@@ -1553,14 +1657,22 @@ function buildIndex() {
 	}
 
 	// json api catalog
-	if ($config['api']['enabled']) {
-		$json = json_encode($api->translateCatalog($catalog));
-		$jsonFilename = $board['dir'] . 'catalog.json';
-		file_write($jsonFilename, $json);
+	if ($config['api']['enabled'] && $global_api != "skip") {
+		if ($config['smart_build']) {
+			$jsonFilename = $board['dir'] . 'catalog.json';
+			file_unlink($jsonFilename);
+			$jsonFilename = $board['dir'] . 'threads.json';
+			file_unlink($jsonFilename);
+		}
+		else {
+			$json = json_encode($api->translateCatalog($catalog));
+			$jsonFilename = $board['dir'] . 'catalog.json';
+			file_write($jsonFilename, $json);
 
-		$json = json_encode($api->translateCatalog($catalog, true));
-		$jsonFilename = $board['dir'] . 'threads.json';
-		file_write($jsonFilename, $json);
+			$json = json_encode($api->translateCatalog($catalog, true));
+			$jsonFilename = $board['dir'] . 'threads.json';
+			file_write($jsonFilename, $json);
+		}
 	}
 
 	if ($config['try_smarter'])
@@ -2049,51 +2161,62 @@ function buildThread($id, $return = false, $mod = false) {
 		cache::delete("thread_{$board['uri']}_{$id}");
 	}
 
-	$query = prepare(sprintf("SELECT * FROM ``posts_%s`` WHERE (`thread` IS NULL AND `id` = :id) OR `thread` = :id ORDER BY `thread`,`id`", $board['uri']));
-	$query->bindValue(':id', $id, PDO::PARAM_INT);
-	$query->execute() or error(db_error($query));
-
-	while ($post = $query->fetch(PDO::FETCH_ASSOC)) {
-		if (!isset($thread)) {
-			$thread = new Thread($post, $mod ? '?/' : $config['root'], $mod);
-		} else {
-			$thread->add(new Post($post, $mod ? '?/' : $config['root'], $mod));
-		}
-	}
-
-	// Check if any posts were found
-	if (!isset($thread))
-		error($config['error']['nonexistant']);
-	
-	$hasnoko50 = $thread->postCount() >= $config['noko50_min'];
-	$antibot = $mod || $return ? false : create_antibot($board['uri'], $id);
-
-	$body = Element('thread.html', array(
-		'board' => $board,
-		'thread' => $thread,
-		'body' => $thread->build(),
-		'config' => $config,
-		'id' => $id,
-		'mod' => $mod,
-		'hasnoko50' => $hasnoko50,
-		'isnoko50' => false,
-		'antibot' => $antibot,
-		'boardlist' => createBoardlist($mod),
-		'return' => ($mod ? '?' . $board['url'] . $config['file_index'] : $config['root'] . $board['dir'] . $config['file_index'])
-	));
-
 	if ($config['try_smarter'] && !$mod)
 		$build_pages[] = thread_find_page($id);
 
-	// json api
-	if ($config['api']['enabled']) {
-		$api = new Api();
-		$json = json_encode($api->translateThread($thread));
+	if (!$config['smart_build'] || $return || $mod) {
+		$query = prepare(sprintf("SELECT * FROM ``posts_%s`` WHERE (`thread` IS NULL AND `id` = :id) OR `thread` = :id ORDER BY `thread`,`id`", $board['uri']));
+		$query->bindValue(':id', $id, PDO::PARAM_INT);
+		$query->execute() or error(db_error($query));
+
+		while ($post = $query->fetch(PDO::FETCH_ASSOC)) {
+			if (!isset($thread)) {
+				$thread = new Thread($post, $mod ? '?/' : $config['root'], $mod);
+			} else {
+				$thread->add(new Post($post, $mod ? '?/' : $config['root'], $mod));
+			}
+		}
+
+		// Check if any posts were found
+		if (!isset($thread))
+			error($config['error']['nonexistant']);
+	
+		$hasnoko50 = $thread->postCount() >= $config['noko50_min'];
+		$antibot = $mod || $return ? false : create_antibot($board['uri'], $id);
+
+		$body = Element('thread.html', array(
+			'board' => $board,
+			'thread' => $thread,
+			'body' => $thread->build(),
+			'config' => $config,
+			'id' => $id,
+			'mod' => $mod,
+			'hasnoko50' => $hasnoko50,
+			'isnoko50' => false,
+			'antibot' => $antibot,
+			'boardlist' => createBoardlist($mod),
+			'return' => ($mod ? '?' . $board['url'] . $config['file_index'] : $config['root'] . $board['dir'] . $config['file_index'])
+		));
+
+		// json api
+		if ($config['api']['enabled']) {
+			$api = new Api();
+			$json = json_encode($api->translateThread($thread));
+			$jsonFilename = $board['dir'] . $config['dir']['res'] . $id . '.json';
+			file_write($jsonFilename, $json);
+		}
+	}
+	else {
 		$jsonFilename = $board['dir'] . $config['dir']['res'] . $id . '.json';
-		file_write($jsonFilename, $json);
+		file_unlink($jsonFilename);
 	}
 
-	if ($return) {
+	if ($config['smart_build'] && !$return && !$mod) {
+		$noko50fn = $board['dir'] . $config['dir']['res'] . sprintf($config['file_page50'], $id);
+		file_unlink($noko50fn);
+
+		file_unlink($board['dir'] . $config['dir']['res'] . sprintf($config['file_page'], $id));
+	} else if ($return) {
 		return $body;
 	} else {
 		$noko50fn = $board['dir'] . $config['dir']['res'] . sprintf($config['file_page50'], $id);

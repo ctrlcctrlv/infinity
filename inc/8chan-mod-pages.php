@@ -1,73 +1,5 @@
 <?php
-	if (!function_exists('is_billion_laughs')){
-		function is_billion_laughs($arr1, $arr2) {
-			$arr = array();
-			foreach ($arr1 as $k => $v) {
-				$arr[$v] = $arr2[$k];
-			}
-
-			for ($i = 0; $i <= sizeof($arr); $i++) {
-				$cur = array_slice($arr, $i, 1);
-				$pst = array_slice($arr, 0, $i);
-				if (!$cur) continue;
-				$kk = array_keys($cur)[0];
-				$vv = array_values($cur)[0];
-				foreach ($pst as $k => $v) {
-					if (str_replace($kk, $vv, $v) != $v)
-						return true;
-				}
-			}
-			return false;
-		}
-	}
-
-	$config['mod']['show_ip'] = GLOBALVOLUNTEER;
-	$config['mod']['show_ip_less'] = BOARDVOLUNTEER;
-	$config['mod']['manageusers'] = GLOBALVOLUNTEER;
-	$config['mod']['noticeboard_post'] = GLOBALVOLUNTEER;
-	$config['mod']['search'] = GLOBALVOLUNTEER;
-	$config['mod']['clean_global'] = GLOBALVOLUNTEER;
-	$config['mod']['view_notes'] = DISABLED;
-	$config['mod']['create_notes'] = DISABLED;
-	$config['mod']['edit_config'] = DISABLED;
-	$config['mod']['debug_recent'] = ADMIN;
-	$config['mod']['debug_antispam'] = ADMIN;
-	$config['mod']['noticeboard_post'] = ADMIN;
-	$config['mod']['modlog'] = GLOBALVOLUNTEER;
-	$config['mod']['mod_board_log'] = MOD;
-	$config['mod']['editpost'] = BOARDVOLUNTEER;
-	$config['mod']['edit_banners'] = MOD;
-	$config['mod']['edit_flags'] = MOD;
-	$config['mod']['edit_settings'] = MOD;
-	$config['mod']['edit_volunteers'] = MOD;
-	$config['mod']['edit_tags'] = MOD;
-	$config['mod']['clean'] = BOARDVOLUNTEER;
-	// new perms
-
-	$config['mod']['ban'] = BOARDVOLUNTEER;
-	$config['mod']['bandelete'] = BOARDVOLUNTEER;
-	$config['mod']['unban'] = BOARDVOLUNTEER;
-	$config['mod']['deletebyip'] = BOARDVOLUNTEER;
-	$config['mod']['sticky'] = BOARDVOLUNTEER;
-	$config['mod']['cycle'] = BOARDVOLUNTEER;
-	$config['mod']['lock'] = BOARDVOLUNTEER;
-	$config['mod']['postinlocked'] = BOARDVOLUNTEER;
-	$config['mod']['bumplock'] = BOARDVOLUNTEER;
-	$config['mod']['view_bumplock'] = BOARDVOLUNTEER;
-	$config['mod']['bypass_field_disable'] = BOARDVOLUNTEER;
-	$config['mod']['view_banlist'] = BOARDVOLUNTEER;
-	$config['mod']['view_banstaff'] = BOARDVOLUNTEER;
-	$config['mod']['public_ban'] = BOARDVOLUNTEER;
-	$config['mod']['recent'] = BOARDVOLUNTEER;
-	$config['mod']['ban_appeals'] = BOARDVOLUNTEER;
-	$config['mod']['view_ban_appeals'] = BOARDVOLUNTEER;
-	$config['mod']['view_ban'] = BOARDVOLUNTEER;
-	$config['mod']['reassign_board'] = GLOBALVOLUNTEER;
-	$config['mod']['move'] = GLOBALVOLUNTEER;
-	$config['mod']['shadow_capcode'] = 'Global Volunteer';
-
-
-	$config['mod']['custom_pages']['/tags/(\%b)'] = function ($b) {
+	function mod_8_tags ($b) {
 		global $board, $config;
 
 		if (!openBoard($b))
@@ -114,9 +46,9 @@
 		$sfw = $query->fetchColumn();
 
 		mod_page(_('Edit tags'), 'mod/tags.html', array('board'=>$board,'token'=>make_secure_link_token('tags/'.$board['uri']), 'tags'=>$tags, 'sfw'=>$sfw));
-	};
+	}
 
-	$config['mod']['custom_pages']['/reassign/(\%b)'] = function($b) {
+	function mod_8_reassign($b) {
 		global $board, $config;
 
 		if (!openBoard($b))
@@ -147,9 +79,9 @@
 		modLog("Reassigned board /$b/");
 		
 		mod_page(_('Edit reassign'), 'blank.html', array('board'=>$board,'token'=>make_secure_link_token('reassign/'.$board['uri']),'body'=>$body));
-	};
+	}
 
-	$config['mod']['custom_pages']['/volunteers/(\%b)'] = function($b) {
+	function mod_8_volunteers($b) {
 		global $board, $config, $pdo;
 		if (!hasPermission($config['mod']['edit_volunteers'], $b))
 			error($config['error']['noaccess']);
@@ -228,9 +160,9 @@
 			
 		mod_page(_('Edit volunteers'), 'mod/volunteers.html', array('board'=>$board,'token'=>make_secure_link_token('volunteers/'.$board['uri']),'volunteers'=>$volunteers));
 	
-	};
+	}
 
-	$config['mod']['custom_pages']['/flags/(\%b)'] = function($b) {
+	function mod_8_flags($b) {
 		global $config, $mod, $board;
 		require_once 'inc/image.php';
 		if (!hasPermission($config['mod']['edit_flags'], $b))
@@ -341,6 +273,11 @@
 \$config['user_flags'] = unserialize(file_get_contents('$b/flags.ser'));
 FLAGS;
 
+	                if ($config['cache']['enabled']) {
+	                        cache::delete('config_' . $b);
+	                        cache::delete('events_' . $b);
+			}
+
 			file_write($b.'/flags.php', $flags);
 		}
 
@@ -364,9 +301,9 @@ FLAGS;
 
 		$banners = array_diff(scandir($dir), array('..', '.'));
 		mod_page(_('Edit flags'), 'mod/flags.html', array('board'=>$board,'banners'=>$banners,'token'=>make_secure_link_token('banners/'.$board['uri'])));
-	};
+	}
 
-	$config['mod']['custom_pages']['/banners/(\%b)'] = function($b) {
+	function mod_8_banners($b) {
 		global $config, $mod, $board;
 		require_once 'inc/image.php';
 
@@ -427,9 +364,9 @@ FLAGS;
 		$banners = array_diff(scandir($dir), array('..', '.'));
 		mod_page(_('Edit banners'), 'mod/banners.html', array('board'=>$board,'banners'=>$banners,'token'=>make_secure_link_token('banners/'.$board['uri'])));
 
-	};
+	}
 
-	$config['mod']['custom_pages']['/settings/(\%b)'] = function($b) {
+	function mod_8_settings($b) {
 		global $config, $mod;
 
 		//if ($b === 'infinity' && $mod['type'] !== ADMIN)
@@ -661,6 +598,7 @@ EOT;
 			// Faster than openBoard and bypasses cache...we're trusting the PHP output
 			// to be safe enough to run with every request, we can eval it here.
 			eval(str_replace('flags.php', "$b/flags.php", preg_replace('/^\<\?php$/m', '', $config_file)));
+			// czaks: maybe reconsider using it, now that config is cached?
 
 			// be smarter about rebuilds...only some changes really require us to rebuild all threads
 			if ($_config['captcha']['enabled'] != $config['captcha']['enabled']
@@ -683,13 +621,18 @@ EOT;
 		$query->bindValue(':board', $b);
 		$query->execute() or error(db_error($query));
 		$board = $query->fetchAll()[0];
- 
-		$css = @file_get_contents('stylesheets/board/' . $board['uri'] . '.css');
-	
+
+		// Clean the cache
 		if ($config['cache']['enabled']) {
 			cache::delete('board_' . $board['uri']);
 			cache::delete('all_boards');
-		}
 
+			cache::delete('config_' . $board['uri']);
+			cache::delete('events_' . $board['uri']);
+			unlink('tmp/cache/locale_' . $board['uri']);
+		}
+ 
+		$css = @file_get_contents('stylesheets/board/' . $board['uri'] . '.css');
+	
 		mod_page(_('Board configuration'), 'mod/settings.html', array('board'=>$board, 'css'=>prettify_textarea($css), 'token'=>make_secure_link_token('settings/'.$board['uri']), 'languages'=>$possible_languages,'allowed_urls'=>$config['allowed_offsite_urls']));
-	};
+	}

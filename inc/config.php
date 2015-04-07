@@ -132,6 +132,11 @@
 	// Tinyboard to use.
 	$config['cache']['redis'] = array('localhost', 6379, '', 1);
 
+	// EXPERIMENTAL: Should we cache configs? Warning: this changes board behaviour, i'd say, a lot.
+	// If you have any lambdas/includes present in your config, you should move them to instance-functions.php
+	// (this file will be explicitly loaded during cache hit, but not during cache miss).
+	$config['cache_config'] = false;
+
 /*
  * ====================
  *  Cookie settings
@@ -1239,8 +1244,19 @@
 	// Website favicon.
 	$config['url_favicon'] = 'static/favicon.ico';
 	
-	// EXPERIMENTAL: Try not to build pages when we shouldn't have to.
+	// Try not to build pages when we shouldn't have to.
 	$config['try_smarter'] = true;
+
+	// EXPERIMENTAL: Defer static HTML building to a moment, when a given file is actually accessed.
+	// Warning: This option won't run out of the box. You need to tell your webserver, that a file
+	// for serving 403 and 404 pages is /smart_build.php. Also, you need to turn off indexes.
+	$config['smart_build'] = false;
+
+	// Smart build related: when a file doesn't exist, where should we redirect?
+	$config['page_404'] = '/404.html';
+
+	// Smart build related: extra entrypoints.
+	$config['smart_build_entrypoints'] = array();
 
 /*
  * ====================

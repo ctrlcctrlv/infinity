@@ -7,9 +7,6 @@
 *
 *  You can copy values from config.php (defaults) and paste them here.
 */
-	require_once "lib/htmlpurifier-4.6.0/library/HTMLPurifier.auto.php";
-	require_once "8chan-functions.php";
-
 	// Note - you may want to change some of these in secrets.php instead of here
 	// See the secrets.example.php file
 	$config['db']['server'] = 'localhost';
@@ -177,19 +174,7 @@
 	$config['hour_max_threads'] = 10;
 	$config['filters'][] = array(
 		'condition' => array(
-			'custom' => function($post) {
-				global $config, $board;
-				if (!$config['hour_max_threads']) return false;
-
-				if ($post['op']) {
-					$query = prepare(sprintf('SELECT COUNT(*) AS `count` FROM ``posts_%s`` WHERE `thread` IS NULL AND FROM_UNIXTIME(`time`) > DATE_SUB(NOW(), INTERVAL 1 HOUR);', $board['uri']));
-					$query->bindValue(':ip', $_SERVER['REMOTE_ADDR']);
-					$query->execute() or error(db_error($query));
-					$r = $query->fetch(PDO::FETCH_ASSOC);
-
-					return ($r['count'] > $config['hour_max_threads']);
-				}
-			}	
+			'custom' => 'max_posts_per_hour'
 		),
 		'action' => 'reject',
 		'message' => 'On this board, to prevent raids the number of threads that can be created per hour is limited. Please try again later, or post in an existing thread.'
@@ -212,9 +197,14 @@ $config['enable_antibot'] = false;
 $config['spam']['unicode'] = false;
 $config['twig_cache'] = false;
 $config['report_captcha'] = true;
+
+$config['page_404'] = 'page_404';
+
 // 8chan specific mod pages
-require '8chan-mod-pages.php';
+require '8chan-mod-config.php';
+
+// Load instance functions later on
+require_once 'instance-functions.php';
 	
 // Load database credentials
 require "secrets.php";
-
