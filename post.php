@@ -235,10 +235,6 @@ elseif (isset($_POST['post'])) {
 		$post['thread'] = round($_POST['thread']);
 	} else
 		$post['op'] = true;
-	
-	// Check if board exists
-	if (!openBoard($post['board']))
-		error($config['error']['noboard']);
 
 	// Check if banned
 	checkBan($board['uri']);
