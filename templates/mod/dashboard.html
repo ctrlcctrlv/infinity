@@ -33,7 +33,6 @@
 			{% endif %}
 			<li><a href="?/noticeboard">{% trans 'View all noticeboard entries' %}</a></li>
 		{% endif %}
-		<li><a href="?/news">{% trans 'News' %}</a></li>
 		<li>
 			<a href="?/inbox">
 				{% trans 'PM inbox' %} 
@@ -54,7 +53,7 @@
 					<a href="?/reports">{% trans 'Report queue' %} ({{ reports }})</a>
 				{% if reports > 0 %}</strong>{% endif %}&nbsp;
 				{% if global_reports > 0 %}<strong>{% endif %}
-					{% if mod.type != 20 %}<a href="?/reports/global">Global reports ({{global_reports}})</a>{% endif %}
+					{% if mod.type != constant('MOD') and mod.type != constant('BOARDVOLUNTEER') %}<a href="?/reports/global">Global reports ({{global_reports}})</a>{% endif %}
 				{% if reports > 0 %}</strong>{% endif %}
 			</li>
 		{% endif %}
@@ -73,7 +72,9 @@
 			<li><a href="?/themes">{% trans 'Manage themes' %}</a></li>
 		{% endif %}
 		{% if mod|hasPermission(config.mod.modlog) %}
-			<li><a href="?/log">{% trans 'Moderation log' %}</a></li>
+			<li><a href="?/log">{% trans 'User actions log' %}</a></li>
+		{% elseif mod.boards[0] != '*' and mod.boards[0] and mod|hasPermission(config.mod.mod_board_log, mod.boards[0]) %}
+			<li><a href="?/log:b:{{ mod.boards[0] }}">{% trans 'Board log' %}</a></li>
 		{% endif %}
 		{% if mod|hasPermission(config.mod.recent) %}
 			<li><a href="?/recent/25">{% trans 'Recent posts' %}</a></li>
@@ -127,6 +128,7 @@
 				{% endif %}
 				{% if mod|hasPermission(config.mod.manageboards) %}
 					 <a href="?/edit/{{ board.uri }}"><small>[{% trans 'edit' %}]</small></a>
+					 <a href="?/settings/{{ board.uri }}"><small>[{% trans 'settings' %}]</small></a>
 				{% endif %}
 			</li>
 		{% endif %}

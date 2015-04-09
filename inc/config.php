@@ -36,11 +36,6 @@
 	// $config['global_message'] = 'This is an important announcement!';
 	$config['blotter'] = &$config['global_message'];
 
-	// Automatically check if a newer version of Tinyboard is available when an administrator logs in.
-	$config['check_updates'] = true;
-	// How often to check for updates
-	$config['check_updates_time'] = 43200; // 12 hours
-
 	// Shows some extra information at the bottom of pages. Good for development/debugging.
 	$config['debug'] = false;
 	// For development purposes. Displays (and "dies" on) all errors and warnings. Turn on with the above.
@@ -137,6 +132,11 @@
 	// Tinyboard to use.
 	$config['cache']['redis'] = array('localhost', 6379, '', 1);
 
+	// EXPERIMENTAL: Should we cache configs? Warning: this changes board behaviour, i'd say, a lot.
+	// If you have any lambdas/includes present in your config, you should move them to instance-functions.php
+	// (this file will be explicitly loaded during cache hit, but not during cache miss).
+	$config['cache_config'] = false;
+
 /*
  * ====================
  *  Cookie settings
@@ -184,7 +184,7 @@
 
 	// Prevents most Tor exit nodes from making posts. Recommended, as a lot of abuse comes from Tor because
 	// of the strong anonymity associated with it.
-	$config['dnsbl'][] = array('tor.dnsbl.sectoor.de', 1);
+	$config['dnsbl'][] = array('exitnodes.tor.dnsbl.sectoor.de', 1);
 
 	// http://www.sorbs.net/using.shtml
 	// $config['dnsbl'][] = array('dnsbl.sorbs.net', array(2, 3, 4, 5, 6, 7, 8, 9));
@@ -272,6 +272,8 @@
 		'embed',
 		'recaptcha_challenge_field',
 		'recaptcha_response_field',
+		'captcha_cookie',
+		'captcha_text',
 		'spoiler',
 		'page',
 		'file_url',
@@ -299,6 +301,24 @@
 	// Public and private key pair from https://www.google.com/recaptcha/admin/create
 	$config['recaptcha_public'] = '6LcXTcUSAAAAAKBxyFWIt2SO8jwx4W7wcSMRoN3f';
 	$config['recaptcha_private'] = '6LcXTcUSAAAAAOGVbVdhmEM1_SyRF4xTKe8jbzf_';
+
+	$config['captcha'] = array();
+
+	// Enable custom captcha provider
+	$config['captcha']['enabled'] = false;
+
+	/* 
+	 * Custom captcha provider path (You will need to change these depending on your configuration! It cannot be
+	 * automatically determined because provider_check requires curl which needs to know the domain of your site.)
+	 * 
+	 * Specify yourimageboard.com/$config['root']/8chan-captcha/entrypoint.php for the default provider or write your own
+	 */
+	$config['captcha']['provider_get']   = 'http://localhost/infinity/8chan-captcha/entrypoint.php';
+	$config['captcha']['provider_check'] = 'http://localhost/infinity/8chan-captcha/entrypoint.php';
+
+	// Custom captcha extra field (eg. charset)
+	$config['captcha']['extra'] = 'abcdefghijklmnopqrstuvwxyz';
+
 
 	/*
 	 * Custom filters detect certain posts and reject/ban accordingly. They are made up of a condition and an
@@ -435,12 +455,21 @@
  * ====================
  */
 
+	//New thread captcha
+	//Require solving a captcha to post a thread. 
+	//Default off.
+	$config['new_thread_capt'] = false;
+	
 	// Do you need a body for your reply posts?
 	$config['force_body'] = false;
+	// Do you need a user or country flag for your posts?
+	$config['force_flag'] = false;
 	// Do you need a body for new threads?
 	$config['force_body_op'] = true;
 	// Require an image for threads?
 	$config['force_image_op'] = true;
+	// Require a subject for threads?
+	$config['force_subject_op'] = false;
 
 	// Strip superfluous new lines at the end of a post.
 	$config['strip_superfluous_returns'] = true;
@@ -449,6 +478,8 @@
 
 	// Maximum post body length.
 	$config['max_body'] = 1800;
+	// Maximum number of newlines. (0 for unlimited)
+	$config['max_newlines'] = 0;
 	// Maximum number of post body lines to show on the index page.
 	$config['body_truncate'] = 15;
 	// Maximum number of characters to show on the index page.
@@ -539,12 +570,15 @@
 	// When true, there will be no subject field.
 	$config['field_disable_subject'] = false;
 	// When true, there will be no subject field for replies.
-	$config['field_disable_reply_subject'] = false;
+	$config['field_disable_reply_subject'] = &$config['field_disable_name'];
 	// When true, a blank password will be used for files (not usable for deletion).
 	$config['field_disable_password'] = false;
 
 	// When true, users are instead presented a selectbox for email. Contains, blank, noko and sage.
-	$config['field_email_selectbox'] = false;
+	$config['field_email_selectbox'] = &$config['field_disable_name'];
+
+	// Prevent users from uploading files.
+	$config['disable_images'] = false;
 
 	// When true, the sage won't be displayed
 	$config['hide_sage'] = false;
@@ -602,6 +636,17 @@
 
 	// How many ban appeals can be made for a single ban?
 	$config['ban_appeals_max'] = 1;
+	
+	// Blacklisted board names. Default values to protect existing folders in the core codebase.
+	$config['banned_boards'] = array(
+		'.git',
+		'inc',
+		'js',
+		'static',
+		'stylesheets',
+		'templates',
+		'tools'
+	);
 
 	// Show moderator name on ban page.
 	$config['show_modname'] = false;
@@ -611,6 +656,30 @@
  *  Markup settings
  * ====================
  */
+
+	// JIS ASCII art. This *must* be the first markup or it won't work.
+	$config['markup'][] = array(
+		"/\[(aa|code)\](.+?)\[\/(?:aa|code)\]/ms", 
+		function($matches) {
+			$markupchars = array('_', '\'', '~', '*', '=');
+			$replacement = $markupchars;
+			array_walk($replacement, function(&$v) {
+				$v = "&#".ord($v).";";
+			});
+
+			// These are hacky fixes for ###board-tags### and >quotes.
+			$markupchars[] = '###';
+			$replacement[] = '&#35;&#35;&#35;';
+			$markupchars[] = '&gt;';
+			$replacement[] = '&#62;';
+
+			if ($matches[1] === 'aa') {
+				return '<span class="aa">' . str_replace($markupchars, $replacement, $matches[2]) . '</span>';
+			} else {
+				return str_replace($markupchars, $replacement, $matches[0]);
+			}
+		}
+	);
 
 	// "Wiki" markup syntax ($config['wiki_markup'] in pervious versions):
 	$config['markup'][] = array("/'''(.+?)'''/", "<strong>\$1</strong>");
@@ -727,7 +796,6 @@
 	// Allowed image file extensions.
 	$config['allowed_ext'][] = 'jpg';
 	$config['allowed_ext'][] = 'jpeg';
-	$config['allowed_ext'][] = 'bmp';
 	$config['allowed_ext'][] = 'gif';
 	$config['allowed_ext'][] = 'png';
 	// $config['allowed_ext'][] = 'svg';
@@ -745,6 +813,7 @@
 	$config['file_icons']['default'] = 'file.png';
 	$config['file_icons']['zip'] = 'zip.png';
 	$config['file_icons']['webm'] = 'video.png';
+	$config['file_icons']['mp4'] = 'video.png';
 	// Example: Custom thumbnail for certain file extension.
 	// $config['file_icons']['extension'] = 'some_file.png';
 
@@ -754,6 +823,8 @@
 	$config['spoiler_image'] = 'static/spoiler.png';
 	// Location of thumbnail to use for deleted images.
 	// $config['image_deleted'] = 'static/deleted.png';
+	// Location of placeholder image for fileless posts in catalog.
+	$config['no_file_image'] = 'static/no-file.png';
 
 	// When a thumbnailed image is going to be the same (in dimension), just copy the entire file and use
 	// that as a thumbnail instead of resizing/redrawing.
@@ -858,7 +929,7 @@
 	$config['thread_subject_in_title'] = false;
 
 	// Additional lines added to the footer of all pages.
-	$config['footer'][] = _('All trademarks, copyrights, comments, and images on this page are owned by and are the responsibility of their respective parties.');
+	// $config['footer'][] = _('All trademarks, copyrights, comments, and images on this page are owned by and are the responsibility of their respective parties.');
 
 	// Characters used to generate a random password (with Javascript).
 	$config['genpassword_chars'] = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+';
@@ -954,7 +1025,8 @@
 
 	// Width and height (and more?) of post flags. Can be overridden with the Tinyboard post modifier:
 	// <tinyboard flag style>.
-	$config['flag_style'] = 'width:16px;height:11px;';
+	// $config['flag_style'] = 'width:16px;height:11px;';
+	$config['flag_style'] = '';
 
 /*
  * ====================
@@ -963,7 +1035,7 @@
  */
 
 	// Additional Javascript files to include on board index and thread pages. See js/ for available scripts.
-	$config['additional_javascript'][] = 'js/inline-expanding.js';
+	// $config['additional_javascript'][] = 'js/inline-expanding.js';
 	// $config['additional_javascript'][] = 'js/local-time.js';
 
 	// Some scripts require jQuery. Check the comments in script files to see what's needed. When enabling
@@ -995,33 +1067,20 @@
 	// Enable embedding (see below).
 	$config['enable_embedding'] = false;
 
+	// Youtube.js embed HTML code
+	$config['youtube_js_html'] = '<div class="video-container" data-video="$1" data-params="&$2&$3">'.
+		'<span class="unimportant yt-help">YouTube embed. Click thumbnail to play.</span><br>'.
+		'<a href="$0" target="_blank" class="file">'.
+		'<img style="width:255px" src="//img.youtube.com/vi/$1/0.jpg" class="post-image"/>'.
+		'</a></div>';
+
 	// Custom embedding (YouTube, vimeo, etc.)
 	// It's very important that you match the entire input (with ^ and $) or things will not work correctly.
 	$config['embedding'] = array(
 		array(
-			'/^https?:\/\/(\w+\.)?youtube\.com\/watch\?v=([a-zA-Z0-9\-_]{10,11})(&.+)?$/i',
-			'<iframe style="float: left;margin: 10px 20px;" width="%%tb_width%%" height="%%tb_height%%" frameborder="0" id="ytplayer" src="http://www.youtube.com/embed/$2"></iframe>'
+			'/^https?:\/\/(?:\w+\.)?(?:youtube\.com\/watch\?|youtu\.be\/)(?:(?:&?v=)?([a-zA-Z0-9\-_]{10,11}))$/i',
+			$config['youtube_js_html']
 		),
-		array(
-			'/^https?:\/\/(\w+\.)?vimeo\.com\/(\d{2,10})(\?.+)?$/i',
-			'<object style="float: left;margin: 10px 20px;" width="%%tb_width%%" height="%%tb_height%%"><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="movie" value="http://vimeo.com/moogaloop.swf?clip_id=$2&amp;server=vimeo.com&amp;show_title=0&amp;show_byline=0&amp;show_portrait=0&amp;color=00adef&amp;fullscreen=1&amp;autoplay=0&amp;loop=0" /><embed src="http://vimeo.com/moogaloop.swf?clip_id=$2&amp;server=vimeo.com&amp;show_title=0&amp;show_byline=0&amp;show_portrait=0&amp;color=00adef&amp;fullscreen=1&amp;autoplay=0&amp;loop=0" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" width="%%tb_width%%" height="%%tb_height%%"></object>'
-		),
-		array(
-			'/^https?:\/\/(\w+\.)?dailymotion\.com\/video\/([a-zA-Z0-9]{2,10})(_.+)?$/i',
-			'<object style="float: left;margin: 10px 20px;" width="%%tb_width%%" height="%%tb_height%%"><param name="movie" value="http://www.dailymotion.com/swf/video/$2"><param name="allowFullScreen" value="true"><param name="allowScriptAccess" value="always"><param name="wmode" value="transparent"><embed type="application/x-shockwave-flash" src="http://www.dailymotion.com/swf/video/$2" width="%%tb_width%%" height="%%tb_height%%" wmode="transparent" allowfullscreen="true" allowscriptaccess="always"></object>'
-		),
-		array(
-			'/^https?:\/\/(\w+\.)?metacafe\.com\/watch\/(\d+)\/([a-zA-Z0-9_\-.]+)\/(\?.+)?$/i',
-			'<div style="float:left;margin:10px 20px;width:%%tb_width%%px;height:%%tb_height%%px"><embed flashVars="playerVars=showStats=no|autoPlay=no" src="http://www.metacafe.com/fplayer/$2/$3.swf" width="%%tb_width%%" height="%%tb_height%%" wmode="transparent" allowFullScreen="true" allowScriptAccess="always" name="Metacafe_$2" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash"></div>'
-		),
-		array(
-			'/^https?:\/\/video\.google\.com\/videoplay\?docid=(\d+)([&#](.+)?)?$/i',
-			'<embed src="http://video.google.com/googleplayer.swf?docid=$1&hl=en&fs=true" style="width:%%tb_width%%px;height:%%tb_height%%px;float:left;margin:10px 20px" allowFullScreen="true" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>'
-		),
-		array(
-			'/^https?:\/\/(\w+\.)?vocaroo\.com\/i\/([a-zA-Z0-9]{2,15})$/i',
-			'<object style="float: left;margin: 10px 20px;" width="148" height="44"><param name="movie" value="http://vocaroo.com/player.swf?playMediaID=$2&autoplay=0"><param name="wmode" value="transparent"><embed src="http://vocaroo.com/player.swf?playMediaID=$2&autoplay=0" width="148" height="44" wmode="transparent" type="application/x-shockwave-flash"></object>'
-		)
 	);
 
 	// Embedding width and height.
@@ -1051,12 +1110,13 @@
 	$config['error']['image_hard_limit']	= _('Thread has reached its maximum image limit.');
 	$config['error']['nopost']		= _('You didn\'t make a post.');
 	$config['error']['flood']		= _('Flood detected; Post discarded.');
-	$config['error']['spam']		= _('Your request looks automated; Post discarded.');
+	$config['error']['spam']		= _('Your request looks automated; Post discarded. Try refreshing the page. If that doesn\'t work, please post the board, thread and browser this error occurred on on /operate/.');
 	$config['error']['unoriginal']		= _('Unoriginal content!');
 	$config['error']['muted']		= _('Unoriginal content! You have been muted for %d seconds.');
 	$config['error']['youaremuted']		= _('You are muted! Expires in %d seconds.');
 	$config['error']['dnsbl']		= _('Your IP address is listed in %s.');
 	$config['error']['toomanylinks']	= _('Too many links; flood detected.');
+	$config['error']['notenoughlinks']	= _('OPs are required to have at least %d links on this board.');
 	$config['error']['toomanycites']	= _('Too many cites; post discarded.');
 	$config['error']['toomanycross']	= _('Too many cross-board links; post discarded.');
 	$config['error']['nodelete']		= _('You didn\'t select anything to delete.');
@@ -1071,16 +1131,16 @@
 	$config['error']['webmerror'] 		= _('There was a problem processing your webm.');//Is this error used anywhere ?
 	$config['error']['invalidwebm'] 	= _('Invalid webm uploaded.');
 	$config['error']['webmhasaudio'] 	= _('The uploaded webm contains an audio or another type of additional stream.');
-	$config['error']['webmtoolong'] 	= _('The uploaded webm is longer than ' . $config['webm']['max_length'] . ' seconds.');
+	$config['error']['webmtoolong'] 	= _('The uploaded webm is longer than %d seconds.');
 	$config['error']['fileexists']		= _('That file <a href="%s">already exists</a>!');
 	$config['error']['fileexistsinthread']	= _('That file <a href="%s">already exists</a> in this thread!');
 	$config['error']['delete_too_soon']	= _('You\'ll have to wait another %s before deleting that.');
 	$config['error']['mime_exploit']	= _('MIME type detection XSS exploit (IE) detected; post discarded.');
 	$config['error']['invalid_embed']	= _('Couldn\'t make sense of the URL of the video you tried to embed.');
 	$config['error']['captcha']		= _('You seem to have mistyped the verification.');
+	$config['error']['images_disabled'] = _('Uploading files is disabled on this board.');
 
-
-	// Moderator errors
+	// mod.php errors
 	$config['error']['toomanyunban']	= _('You are only allowed to unban %s users at a time. You tried to unban %u users.');
 	$config['error']['invalid']		= _('Invalid username and/or password.');
 	$config['error']['notamod']		= _('You are not a mod…');
@@ -1182,10 +1242,21 @@
 	// $config['url_javascript'] = 'http://static.example.org/main.js';
 
 	// Website favicon.
-	// $config['url_favicon'] = '/favicon.gif';
+	$config['url_favicon'] = 'static/favicon.ico';
 	
-	// EXPERIMENTAL: Try not to build pages when we shouldn't have to.
+	// Try not to build pages when we shouldn't have to.
 	$config['try_smarter'] = true;
+
+	// EXPERIMENTAL: Defer static HTML building to a moment, when a given file is actually accessed.
+	// Warning: This option won't run out of the box. You need to tell your webserver, that a file
+	// for serving 403 and 404 pages is /smart_build.php. Also, you need to turn off indexes.
+	$config['smart_build'] = false;
+
+	// Smart build related: when a file doesn't exist, where should we redirect?
+	$config['page_404'] = '/404.html';
+
+	// Smart build related: extra entrypoints.
+	$config['smart_build_entrypoints'] = array();
 
 /*
  * ====================
@@ -1208,6 +1279,7 @@
 	$config['mod']['link_bandelete'] = '[B&amp;D]';
 	$config['mod']['link_deletefile'] = '[F]';
 	$config['mod']['link_spoilerimage'] = '[S]';
+	$config['mod']['link_spoilerimages'] = '[S+]';
 	$config['mod']['link_deletebyip'] = '[D+]';
 	$config['mod']['link_deletebyip_global'] = '[D++]';
 	$config['mod']['link_sticky'] = '[Sticky]';
@@ -1218,6 +1290,8 @@
 	$config['mod']['link_bumpunlock'] = '[-Sage]';
 	$config['mod']['link_editpost'] = '[Edit]';
 	$config['mod']['link_move'] = '[Move]';
+	$config['mod']['link_cycle'] = '[Cycle]';
+	$config['mod']['link_uncycle'] = '[-Cycle]';
 
 	// Moderator capcodes.
 	$config['capcode'] = ' <span class="capcode">## %s</span>';
@@ -1326,8 +1400,8 @@
 	// Capcode permissions.
 	$config['mod']['capcode'] = array(
 	//	JANITOR		=> array('Janitor'),
-		MOD		=> array('Mod'),
-		ADMIN		=> true
+		MOD				=> array('Mod'),
+		ADMIN			=> true
 	);
 
 	// Example: Allow mods to post with "## Moderator" as well
@@ -1361,6 +1435,9 @@
 	$config['mod']['deletebyip_global'] = ADMIN;
 	// Sticky a thread
 	$config['mod']['sticky'] = MOD;
+	// Cycle a thread
+	$config['mod']['cycle'] = MOD;
+	$config['cycle_limit'] = &$config['reply_limit'];
 	// Lock a thread
 	$config['mod']['lock'] = MOD;
 	// Post in a locked thread
@@ -1410,7 +1487,7 @@
 	$config['mod']['view_banlist'] = MOD;
 	// View the username of the mod who made a ban
 	$config['mod']['view_banstaff'] = MOD;
-	// If the moderator doesn't fit the $config['mod']['view_banstaff''] (previous) permission, show him just
+	// If the moderator doesn't fit the $config['mod']['view_banstaff'] (previous) permission, show him just
 	// a "?" instead. Otherwise, it will be "Mod" or "Admin".
 	$config['mod']['view_banquestionmark'] = false;
 	// Show expired bans in the ban list (they are kept in cache until the culprit returns)
@@ -1487,6 +1564,9 @@
 	$config['mod']['ban_appeals'] = MOD;
 	// View the recent posts page
 	$config['mod']['recent'] = MOD;
+	// Create pages
+	$config['mod']['edit_pages'] = MOD;
+	$config['pages_max'] = 10;
 
 	// Config editor permissions
 	$config['mod']['config'] = array();
@@ -1654,10 +1734,29 @@
 
 	// Regex for board URIs. Don't add "`" character or any Unicode that MySQL can't handle. 58 characters
 	// is the absolute maximum, because MySQL cannot handle table names greater than 64 characters.
-	$config['board_regex'] = '[0-9a-zA-Z$_\x{0080}-\x{FFFF}]{1,58}';
+	$config['board_regex'] = '[0-9a-zA-Z\+$_\x{0080}-\x{FFFF}]{1,58}';
 
-	// Youtube.js embed HTML code
-	$config['youtube_js_html'] = '<div class="video-container" data-video="$2">'.
-		'<a href="$0" target="_blank" class="file">'.
-		'<img style="width:360px;height:270px;" src="//img.youtube.com/vi/$2/0.jpg" class="post-image"/>'.
-		'</a></div>';
+	// Regex for matching links.
+	$config['link_regex'] = '((?:(?:https?:)?\/\/|ftp:\/\/|irc:\/\/)[^\s<>()"]+?(?:\([^\s<>()"]*?\)[^\s<>()"]*?)*)((?:\s|<|>|"|\.|\]|!|\?|,|&\#44;|&quot;)*(?:[\s<>()"]|$))';
+
+	// Allowed URLs in ?/settings
+	$config['allowed_offsite_urls'] = array('https://i.imgur.com/', 'https://media.8ch.net/', 'https://media.8chan.co/', 'https://a.pomf.se/', 'https://fonts.googleapis.com/', 'https://fonts.gstatic.com/');
+
+	// Use read.php?
+	// read.php is a file that dynamically displays pages to users instead of the build on demand system in use in Tinyboard since 2010.
+	//
+	// read.php is basically a watered down mod.php -- if coupled with caching, it improves performance and allows for easier replication
+	// across machines.
+	$config['use_read_php'] = false;
+
+	// Use oekaki?
+	$config['oekaki'] = false;
+
+	// Twig cache?
+	$config['twig_cache'] = false;
+
+	// Use CAPTCHA for reports?
+	$config['report_captcha'] = false;
+
+	// Allowed HTML tags in ?/edit_pages.
+	$config['allowed_html'] = 'a[href|title],p,br,li,ol,ul,strong,em,u,h2,b,i,tt,div,img[src|alt|title],hr';

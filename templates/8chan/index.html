@@ -229,14 +229,16 @@
 			<header>
 
 				<div class="col col-3 header_logo">
-					<img src="https://8chan.co/static/logo_33.svg" alt="logo" width="220" height="145" id="logo">
+					<img src="/static/logo_33.svg" alt="logo" width="220" height="145" id="logo">
 				</div>
 
 				<div class="col col-9 header_text">
-					<em>{% trans %}Welcome to ∞chan, the infinitely expanding imageboard.{% endtrans %}</em>
+					<em>{% trans %}Welcome to 8chan, the infinitely expanding imageboard.{% endtrans %}</em>
 					<br>
-					<strong>{% trans %}Featured boards:{% endtrans %}</strong>
-					<span class="sub" data-description="2"></span>
+					<span>[ <a href="/b/">/b/ - Random</a> | <a href="/news+/">/news+/ - News</a> | <a href="/boards/">/boards/ - Boards</a>]</span>
+					<br>
+					<strong>{% trans %}Top 25 boards:{% endtrans %}</strong>
+					<span class="sub" data-description="3"></span>
 					<br>
 					<strong>
 						{% trans %}Boards of the week:{% endtrans %}&nbsp;[&nbsp;
@@ -259,7 +261,7 @@
 
 					<div class="content_menu">
 						<ul class="content_menu_head">
-							<li><em><a href="https://qchat.rizon.net/?channels=#8chan" target="_blank">IRC:#8chan @ irc.rizon.net</a></em></li>
+							<li><em><a href="https://qchat2.rizon.net/?channels=8chan&amp;uio=OT0xMTE05" target="_blank">IRC:#8chan @ irc.rizon.net</a></em></li>
 							<li><a href="/faq.html">{% trans %}Frequently Asked Questions{% endtrans %}</a></li>
 							<li><a href="/random.php">{% trans %}View random board{% endtrans %}</a></li>
 							<li><a href="/mod.php" >{% trans %}Manage your board{% endtrans %}</a></li>
@@ -276,11 +278,10 @@
 								<li>{% trans %}YouTube embedding{% endtrans %}</li>
 								<li>{% trans %}Run by competent, experienced global staff{% endtrans %}</li>
 								<li>{% trans %}No technical knowledge needed{% endtrans %}</li>
-								<li>{% trans %}HTTPS by default{% endtrans %}</li>
 								<li>{% trans %}Simple global rules — the rest is up to you{% endtrans %}</li>
 								<li><a href="https://www.youtube.com/watch?v=MlnY17pgYwg">{% trans %}Featured on MSNBC!{% endtrans %}</a></li>
+								<li>Also featured on <a href="http://www.huffingtonpost.com/2014/10/15/gamergate_n_5989616.html">Huff Post Live</a>, <a href="https://www.youtube.com/watch?v=7hlRUDCj-XY">Arte (BiTS)</a>, <a href="https://www.youtube.com/watch?v=BWDF9WFtro4">David Pakman Show</a>, <a href="http://www.buzzfeed.com/josephbernstein/gamergates-headquarters-has-been-destroyed-by-trolls#.wvww0oyMk">BuzzFeed</a>, <a href="http://www.jpost.com/Diaspora/Jewish-organizations-express-worries-over-cyberattacks-385536">Jerusalem Post</a>, <a href="http://www.dailymail.co.uk/news/article-2789937/female-game-developer-forced-flee-home-twitter-user-publishes-address-threatens-rape-kill-criticised-video-game-group.html">Daily Mail</a>, Gawker (<a href="http://jezebel.com/gamergate-trolls-arent-ethics-crusaders-theyre-a-hate-1644984010">Jezebel</a>, <a href="http://kotaku.com/another-woman-in-gaming-flees-home-following-death-thre-1645280338">Kotaku</a>), Washington Post (<a href="http://www.washingtonpost.com/news/the-intersect/wp/2014/10/20/inside-gamergates-successful-attack-on-the-media/">1</a>, <a href="http://www.washingtonpost.com/news/the-intersect/wp/2015/01/13/this-is-what-happens-when-you-create-an-online-community-without-any-rules/">2</a>), <a href="http://blogs.houstonpress.com/rocks/2014/11/gamergate.php">Houston Press</a>, <a href="http://www.destructoid.com/8chan-removed-from-patreon-becomes-cat-sanctuary-285272.phtml">Destructoid</a>, <a href="http://nymag.com/daily/intelligencer/2014/10/gamergate-supporters-party-at-strip-club.html">New York Magazine</a>, Ars Technica (<a href="http://arstechnica.com/tech-policy/2015/01/8chan-tries-swatting-gamergate-critic-sends-cops-to-an-old-address/">1</a>, <a href="http://arstechnica.com/security/2015/01/8chan-related-sites-go-down-in-lizard-squad-powered-ddos/">2</a>, <a href="http://arstechnica.com/security/2015/01/8chan-domain-seized-over-allegations-of-child-abuse-content/">3</a>, <a href="http://arstechnica.com/business/2015/03/were-a-common-carrier-8chans-founder-on-the-link-between-doxing-net-freedom/">4</a>) and <a href="http://www.dailydot.com/politics/8chan-pedophiles-child-porn-gamergate/">Daily Dot</a>!</li>
 								<li><s>{% trans %}Featured on Al Jazeera America{% endtrans %}</s> ;_;</li>
-								<li><em>{% trans %}Not owned by moot{% endtrans %}</em></li>
 							</ul>
 						</div>
 						
@@ -295,16 +296,29 @@
 
 				<div class="col col-9 bodyCol">
 					<div class="content_body">
-						<p>{% trans %}On ∞chan, you can create your own imageboard for free with no experience or programming knowledge needed. As long as the admin logs in once per week and it gets one new post every 72 hours, the board will be hosted forever.{% endtrans %}</p>
-						<p style="color:red">{% trans %}Warning: Some boards on this site might contain content of an adult or offensive nature. Please cease use of this site if it is illegal for you to view such content. The boards on this site are made entirely by the users and do not represent the opinions of the administration of 8chan.co. In the interest of free speech, only content that directly violates the DMCA or other US laws is deleted.{% endtrans %}</p>
+						<p>{% trans %}On 8chan, you can create your own imageboard for free with no experience or programming knowledge needed.{% endtrans %}</p>
+						<p style="color:red">{% trans %}Warning: Some boards on this site might contain content of an adult or offensive nature. Please cease use of this site if it is illegal for you to view such content. The boards on this site are made entirely by the users and do not represent the opinions of the administration of 8chan. In the interest of free speech, only content that directly violates the DMCA or other US laws is deleted.{% endtrans %}</p>
 						<div class="mobileHide">
 							<a href="create.php" class="button">{% trans %}Create&nbsp;your&nbsp;board{% endtrans %}</a>
 							<a href="boards.html" class="button">{% trans %}Browse&nbsp;existing&nbsp;boards{% endtrans %}</a>
 						</div>
+						<p><table><th><a href="/news+/">Latest headlines</a></th>
+						<tr><td>
+						<ol style="padding-left:40px">
+							{% for n in newsplus[:15] %}
+								<li><a href="/news+/res/{{ n.thread }}.html">{{ n.subject|e }}</a> (<a href="{{ n.link|e }}">link</a>)</li>
+							{% endfor %}
+						</ol>
+						</td></tr></table></p>
 						<br>
 						<!-- START RIZON PASTE / NEWS SCRIPT CODE HERE -->
-						<iframe src="https://qchat2.rizon.net/?channels=8chan&amp;uio=OT0xMTE05"></iframe>
+						<iframe src="https://qchat2.rizon.net/?channels=8chan&amp;uio=OT0xMTE05" height="400" width="793"></iframe>
 						<!--END PASTE CODE -->
+						<!-- Start spooks.me code 
+						<div style="height:400px;width:793px;border:1px solid black" onclick="this.innerHTML='<iframe src=&quot;https://8chan.spooks.me&quot; width=&quot;793&quot; height=&quot;400&quot; style=&quot;margin-top:0px&quot;></iframe>';">
+							<h1>Click inside this box to load chat</h1>
+						</div> 
+						End spooks.me code -->
 					</div>
 				</div>
 
@@ -312,10 +326,6 @@
 
 	<div class="col col-12 footer">
 	<footer>
-		<p class="unimportant" style="margin-top:20px;text-align:center;">- <a href="http://tinyboard.org/">Tinyboard</a> + 
-			<a href='https://int.vichan.net/devel/'>vichan</a> {{ config.version }} -
-		<br><a href="http://tinyboard.org/">Tinyboard</a> Copyright &copy; 2010-2014 Tinyboard Development Group		
-		<br><a href="https://int.vichan.net/devel/">vichan</a> Copyright &copy; 2012-2014 vichan-devel</p>
 		{% for footer in config.footer %}<p class="unimportant" style="text-align:center;">{{ footer }}</p>{% endfor %}
 	</footer>
 	</div>

@@ -1,5 +1,5 @@
 		<link rel="stylesheet" media="screen" href="{{ config.url_stylesheet }}">
-		{% if config.url_favicon %}<link rel="shortcut icon" href="{{ config.url_favicon }}">{% endif %}
+		{% if config.url_favicon %}<link rel="shortcut icon" href="{{ config.root }}{{ config.url_favicon }}">{% endif %}
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
 		{% if config.meta_keywords %}<meta name="keywords" content="{{ config.meta_keywords }}">{% endif %}
@@ -8,12 +8,23 @@
 		{% if config.default_stylesheet.1 != '' and not mod %}<link rel="stylesheet" type="text/css" id="stylesheet" href="{{ config.uri_stylesheets }}{{ config.default_stylesheet.1 }}">{% endif %}
 		{% if config.font_awesome %}<link rel="stylesheet" media="screen" href="{{ config.root }}{{ config.font_awesome_css }}">{% endif %}
 		{% if config.country_flags_condensed %}<link rel="stylesheet" href="{{ config.root }}{{ config.country_flags_condensed_css }}">{% endif %}
-		{% if config.katex %}<link rel="stylesheet" type="text/css" href="/js/katex/katex.min.css">{% endif %}
 		<script type="text/javascript">
 			var configRoot="{{ config.root }}";
 			var inMod = {% if mod %}true{% else %}false{% endif %};
 			var modRoot="{{ config.root }}"+(inMod ? "mod.php?/" : "");
+			var max_images={{ config.max_images }};
+			var board_name="{{ board.uri }}";
+			{% raw %}
+			var styles = {
+				{% endraw %}
+				{% for name, uri in config.stylesheets %}{% raw %}'{% endraw %}{{ name|addslashes }}{% raw %}' : '{% endraw %}/stylesheets/{{ uri|addslashes }}{% raw %}',
+				{% endraw %}{% endfor %}{% raw %}
+			};
+			{% endraw %}
 		</script>
+		{% if config.locale != "en" %}
+			<script type="text/javascript" src="{{ config.root }}inc/locale/{{ config.locale|split('.')[0] }}/LC_MESSAGES/javascript.js"></script>
+		{% endif %}
 		{% if not nojavascript %}
 			<script type="text/javascript" src="{{ config.url_javascript }}"></script>
 			{% if not config.additional_javascript_compile %}
@@ -49,3 +60,4 @@
 				padding: 0 !important;
 			}
 		{% endraw %}</style>{% endif %}
+		{% if config.katex %}<script type="text/javascript" src="/js/mathjax/MathJax.js?config=8chanTeX"></script>{% endif %}

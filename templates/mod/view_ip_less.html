@@ -83,8 +83,7 @@
 
 {% if bans|count > 0 and mod|hasPermission(config.mod.view_ban) %}
 	<fieldset id="bans">
-		{% set bans_on_record = 'ban' ~ (bans|count != 1 ? 's' : '') ~ ' on record' %}
-		<legend>{{ bans|count }} {% trans bans_on_record %}</legend>
+		<legend>Bans</legend>
 		
 		{% for ban in bans %}
 			{% if ban.board in mod.boards or mod.boards.0 == '*' %}
@@ -103,7 +102,7 @@
 					</tr>
 					<tr>
 						<th>{% trans 'IP' %}</th>
-						<td>{{ ban.mask|less_ip }}</td>
+						<td>{{ ban.mask|less_ip(ban.board) }}</td>
 					</tr>
 					<tr>
 						<th>{% trans 'Reason' %}</th>

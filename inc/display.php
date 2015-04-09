@@ -73,6 +73,9 @@ function createBoardlist($mod=false) {
 
 function error($message, $priority = true, $debug_stuff = false) {
 	global $board, $mod, $config, $db_error;
+
+	if (isset($debug_stuff['file']))
+		$message .= " {$debug_stuff['file']}";
 	
 	if ($config['syslog'] && $priority !== false) {
 		// Use LOG_NOTICE instead of LOG_ERR or LOG_WARNING because most error message are not significant.
@@ -356,8 +359,20 @@ class Post {
 			$this->{$key} = $value;
 		}
 
-		if (isset($this->files) && $this->files)
-			$this->files = json_decode($this->files);
+		if (isset($this->files) && $this->files) {
+			$this->files = is_string($this->files) ? json_decode($this->files) : $this->files;
+			// Compatibility for posts before individual file hashing
+			if ($this->files) {
+			foreach ($this->files as $i => &$file) {
+				if (empty($file)) {
+					unset($this->files[$i]);
+					continue;
+				}
+				if (!isset($file->hash))
+					$file->hash = $this->filehash;
+			}
+			}
+		}
 		
 		$this->subject = utf8tohtml($this->subject);
 		$this->name = utf8tohtml($this->name);
@@ -403,9 +418,13 @@ class Post {
 	}
 	
 	public function getClean( ) {
-		global $board;
+		global $board, $config;
 		
 		if( !isset( $this->clean ) ) {
+			if ($config['cache']['enabled'] && $this->clean = cache::get("post_clean_{$board['uri']}_{$this->id}")) {
+				return $this->clean;
+			}
+
 			$query = prepare("SELECT * FROM `post_clean` WHERE `post_id` = :post AND `board_id` = :board");
 			$query->bindValue( ':board', $board['uri'] );
 			$query->bindValue( ':post',  $this->id );
@@ -421,6 +440,8 @@ class Post {
 					'clean_local_mod_id' => null,
 					'clean_global_mod_id' => null,
 				);
+				if ($config['cache']['enabled'])
+					cache::set("post_clean_{$board['uri']}_{$this->id}", $this->clean);
 			}
 		}
 		
@@ -439,7 +460,7 @@ class Thread extends Post {
 		}
 		
 		if (isset($this->files))
-			$this->files = json_decode($this->files);
+			$this->files = is_string($this->files) ? json_decode($this->files) : $this->files;
 		
 		$this->subject = utf8tohtml($this->subject);
 		$this->name = utf8tohtml($this->name);

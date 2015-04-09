@@ -17,6 +17,7 @@ class Twig_Extensions_Extension_Tinyboard extends Twig_Extension
 			new Twig_SimpleFilter('extension', 'twig_extension_filter'),
 			new Twig_SimpleFilter('sprintf', 'sprintf'),
 			new Twig_SimpleFilter('capcode', 'capcode'),
+			new Twig_SimpleFilter('remove_modifiers', 'remove_modifiers'),
 			new Twig_SimpleFilter('hasPermission', 'twig_hasPermission_filter'),
 			new Twig_SimpleFilter('date', 'twig_date_filter'),
 			new Twig_SimpleFilter('remove_whitespace', 'twig_remove_whitespace_filter'),
@@ -132,6 +133,6 @@ function twig_secure_link_confirm($text, $title, $confirm_message, $href) {
 function twig_secure_link($href) {
 	return $href . '/' . make_secure_link_token($href);
 }
-function twig_less_ip($ip) {
-	return less_ip($ip);
+function twig_less_ip($ip, $board = '') {
+	return less_ip($ip, $board);
 }

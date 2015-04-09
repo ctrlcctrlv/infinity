@@ -5,7 +5,7 @@
 {% if not index %}<a id="{{ post.id }}" class="post_anchor"></a>{% endif %}
 
 {% include 'post/fileinfo.html' %}
-<div class="post op" id="op_{{ post.id }}" {%if post.num_files > 1%}style='clear:both'{%endif%}><p class="intro">
+<div class="post op{% if post.files %} has-file{% endif %}{% if post.body_nomarkup %} body-not-empty{% endif %}" id="op_{{ post.id }}" {%if post.num_files > 1%}style='clear:both'{%endif%}><p class="intro">
 	<input type="checkbox" class="delete" name="delete_{{ post.id }}" id="delete_{{ post.id }}" />
 	<label for="delete_{{ post.id }}">
 		{% include 'post/subject.html' %}
@@ -19,23 +19,30 @@
 	<a class="post_no" onclick="citeReply({{ post.id }})" href="{% if isnoko50 %}{{ post.link('q', config.file_page50) }}{% else %}{{ post.link('q') }}{% endif %}">{{ post.id }}</a>
 	{% if post.sticky %}
 		{% if config.font_awesome %}
-			<i class="fa fa-thumb-tack"></i>
+			<i class="fa fa-thumb-tack" title="Sticky"></i>
 		{% else %}
 			<img class="icon" title="Sticky" src="{{ config.image_sticky }}" alt="Sticky" />
 		{% endif %}
 	{% endif %}
 	{% if post.locked %}
 		{% if config.font_awesome %}
-			<i class="fa fa-lock"></i>
+			<i class="fa fa-lock" title="Locked"></i>
 		{% else %}
 			<img class="icon" title="Locked" src="{{ config.image_locked }}" alt="Locked" />
 		{% endif %}
 	{% endif %}
 	{% if post.bumplocked and (config.mod.view_bumplock < 0 or (post.mod and post.mod|hasPermission(config.mod.view_bumplock, board.uri))) %}
 		{% if config.font_awesome %}
-			<i class="fa fa-anchor"></i>
+			<i class="fa fa-anchor" title="Bumplocked"></i>
 		{% else %}
 			<img class="icon" title="Bumplocked" src="{{ config.image_bumplocked }}" alt="Bumplocked" />
+		{% endif %}
+	{% endif %}
+	{% if post.cycle %}
+		{% if config.font_awesome %}
+			<i class="fa fa-refresh" title="Cyclical ({{ config.cycle_limit }})"></i>
+		{% else %}
+			<img class="icon" title="Cyclical ({{ config.cycle_limit }})" src="{{ config.image_sticky }}" alt="Cyclical" />
 		{% endif %}
 	{% endif %}
 	{% if index %}
@@ -85,5 +92,6 @@
 {% for post in post.posts %}
 	{% include 'post_reply.html' %}
 {% endfor %}
-<br class="clear"/>{% if hr %}<hr/>{% endif %}
+<br class="clear"/>
 </div>
+{% if hr %}<hr/>{% endif %}

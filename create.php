@@ -1,36 +1,17 @@
 <?php
 
 include "inc/functions.php";
-include "inc/lib/ayah/ayah.php";
-include "inc/mod/auth.php";
-$cbRecaptcha = false;
-//don't load recaptcha LIB unless its enabled!
-if ($config['cbRecaptcha']){
-$cbRecaptcha = true;
-include "inc/lib/recaptcha/recaptchalib.php";
-}
 
 checkBan('*');
 
-$ayah = (($config['ayah_enabled']) ? new AYAH() : false);
-
 if (!isset($_POST['uri'], $_POST['title'], $_POST['subtitle'], $_POST['username'], $_POST['password'])) {
-if (!$ayah){
-	$game_html =  '';
-} else {
-	$game_html = '<tr><th>'._('Game').'</th><td>' .  $ayah->getPublisherHTML() . '</td></tr>';
-}
-
-if (!$cbRecaptcha){
-	$recapcha_html = '';
-} else {
-	$recapcha_html = '<tr><th>reCaptcha</th><td>' .  recaptcha_get_html($config['recaptcha_public'], NULL, TRUE) . '</td></tr>';
-}
-
+include '8chan-captcha/functions.php';
 
 $password = base64_encode(openssl_random_pseudo_bytes(9));
 
-$body = Element("8chan/create.html", array("config" => $config, "password" => $password, "game_html" => $game_html, "recapcha_html" => $recapcha_html));
+$captcha = generate_captcha($config['captcha']['extra']);
+
+$body = Element("8chan/create.html", array("config" => $config, "password" => $password, "captcha" => $captcha));
 
 echo Element("page.html", array("config" => $config, "body" => $body, "title" => _("Create your board"), "subtitle" => _("before someone else does")));
 }
@@ -42,27 +23,14 @@ $subtitle = $_POST['subtitle'];
 $username = $_POST['username'];
 $password = $_POST['password'];
 
-  $resp = ($cbRecaptcha) ? recaptcha_check_answer ($config['recaptcha_private'],
-                                $_SERVER["REMOTE_ADDR"],
-                                $_POST["recaptcha_challenge_field"],
-                                $_POST["recaptcha_response_field"]):false;
+$resp = file_get_contents($config['captcha']['provider_check'] . "?" . http_build_query([
+	'mode' => 'check',
+	'text' => $_POST['captcha_text'],
+	'extra' => $config['captcha']['extra'],
+	'cookie' => $_POST['captcha_cookie']
+]));
 
-if ($resp != false){
-$passedCaptcha = $resp->is_valid;
-} else {
-$passedCaptcha = true;
-}
-
-if (!$ayah){
-$score = true;
-} else {
-$score = $ayah->scoreResult();
-}
-if (!$score)
-	error(_('You failed the game'));
-if (!$passedCaptcha)
-	error(_('You failed to enter the reCaptcha correctly'));
-if (!preg_match('/^[a-z0-9]{1,10}$/', $uri))
+if (!preg_match('/^[a-z0-9]{1,30}$/', $uri))
 	error(_('Invalid URI'));
 if (!(strlen($title) < 40))
 	error(_('Invalid title'));
@@ -70,6 +38,8 @@ if (!(strlen($subtitle) < 200))
 	error(_('Invalid subtitle'));
 if (!preg_match('/^[a-zA-Z0-9._]{1,30}$/', $username))
 	error(_('Invalid username'));
+if ($resp !== '1')
+	error($config['error']['captcha']);
 
 foreach (listBoards() as $i => $board) {
 	if ($board['uri'] == $uri)

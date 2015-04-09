@@ -35,7 +35,7 @@ tb_settings['quick-reply'] = {
 	// Show remote in quick reply
 	show_remote: false,
 	// Show embedding in quick reply
-	show_embed: false
+	show_embed: true
 };
 
 // ajax.js

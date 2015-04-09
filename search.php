@@ -130,17 +130,6 @@
 		$query->bindValue(':limit', $search_limit, PDO::PARAM_INT);
 		$query->execute() or error(db_error($query));
 		
-		if($query->rowCount() == $search_limit) {
-			_syslog(LOG_WARNING, 'Query too broad.');
-			$body .= '<p class="unimportant" style="text-align:center">('._('Query too broad.').')</p>';
-			echo Element('page.html', Array(
-				'config'=>$config,
-				'title'=>'Search',
-				'body'=>$body,
-			));
-			exit;
-		}
-
 		$temp = '';
 		while($post = $query->fetch()) {
 			if(!$post['thread']) {

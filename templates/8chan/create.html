@@ -1,13 +1,15 @@
+<p>Did you know? Many boards with popular names have been abandoned by their owners and can be claimed. See <a href="/claim.html">here</a> for a full list.</p>
 <form method="POST">
 <table class="modlog" style="width:auto">
 <tbody>
-<tr><th>URI</th><td>/<input name="uri" type="text" size="5">/ <span class="unimportant">{% trans %}(must be all lowercase or numbers and < 10 chars){% endtrans %}</td></tr>
+<tr><th>URI</th><td>/<input name="uri" type="text" size="5">/ <span class="unimportant">{% trans %}(must be all lowercase or numbers and < 30 chars){% endtrans %}</td></tr>
 <tr><th>Title</th><td><input name="title" type="text"> <span class="unimportant">{% trans %}(must be < 40 chars){% endtrans %}</td></tr>
 <tr><th>Subtitle</th><td><input name="subtitle" type="text"> <span class="unimportant">{% trans %}(must be < 200 chars){% endtrans %}</td></tr>
 <tr><th>{% trans %}Username{% endtrans %}</th><td><input name="username" type="text"> <span class="unimportant">{% trans %}(must contain only alphanumeric, periods and underscores){% endtrans %}</span></td></tr>
 <tr><th>{% trans %}Password{% endtrans %}</th><td><input name="password" type="text" value="{{ password }}" readonly> <span class="unimportant">{% trans %}(write this down){% endtrans %}</span></td></tr>
-{{ game_html }}
-{{ recapcha_html }}
+<tr><th>{% trans %}CAPTCHA{% endtrans %}</th><td>{{ captcha['html'] }}<br/>
+<input class="captcha_text" name="captcha_text" size="25" maxlength="6" autocomplete="off" type="text">
+<input class="captcha_cookie" name="captcha_cookie" type="hidden" autocomplete="off" value="{{ captcha['cookie']|e }}"><br/></td></tr>
 </tbody>
 </table>
 <ul style="padding:0;text-align:center;list-style:none"><li><input type="submit" value="{% trans %}Create board{% endtrans %}"></li></ul>

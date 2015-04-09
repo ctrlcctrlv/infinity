@@ -156,17 +156,18 @@ class Bans {
 
 	static public function stream_json($out = false, $filter_ips = false, $filter_staff = false, $board_access = false) {
 		global $config, $pdo;
-		
 
 		if ($board_access && $board_access[0] == '*') $board_access = false;
 
 		$query_addition = "";
-		if ($board_access !== FALSE) {
-			$query_addition .= "WHERE `public_bans` OR `public_bans` IS NULL";
-		}
 		if ($board_access) {
 			$boards = implode(", ", array_map(array($pdo, "quote"), $board_access));
-			$query_addition .= " OR `board` IN (".$boards.")";
+			$query_addition .= "WHERE `board` IN (".$boards.")";
+		}
+		if ($board_access !== FALSE) {
+			if (!$query_addition) {
+				$query_addition .= " WHERE (`public_bans` IS TRUE) OR ``bans``.`board` IS NULL";
+			}
 		}
 
 		$query = query("SELECT ``bans``.*, `username`, `type` FROM ``bans``
@@ -202,11 +203,14 @@ class Bans {
 					case ADMIN:
 						$ban['username'] = 'Admin';
 						break;
-					case SUPERMOD:
+					case GLOBALVOLUNTEER:
 						$ban['username'] = 'Global Volunteer';
 						break;
 					case MOD:
-                                                $ban['username'] = 'Local Volunteer';
+                                                $ban['username'] = 'Board Owner';
+						break;
+					case BOARDVOLUNTEER:
+                                                $ban['username'] = 'Board Volunteer';
 						break;
 					default:
 						$ban['username'] = '?';
@@ -215,14 +219,8 @@ class Bans {
 			}
 			unset($ban['type']);
 			if ($filter_ips || ($board_access !== false && !in_array($ban['board'], $board_access))) {
-				@list($ban['mask'], $subnet) = explode("/", $ban['mask']);
-				$ban['mask'] = preg_split("/[\.:]/", $ban['mask']);
-				$ban['mask'] = array_slice($ban['mask'], 0, 2);
-				$ban['mask'] = implode(".", $ban['mask']);
-				$ban['mask'] .= ".x.x";
-				if (isset ($subnet)) {
-					$ban['mask'] .= "/$subnet";
-				}
+				$ban['mask'] = @less_ip($ban['mask'], $ban['board']);
+
 				$ban['masked'] = true;
 			}
 
@@ -239,13 +237,15 @@ class Bans {
 	}
 	
 	static public function seen($ban_id) {
+		global $config;
 		$query = query("UPDATE ``bans`` SET `seen` = 1 WHERE `id` = " . (int)$ban_id) or error(db_error());
-                rebuildThemes('bans');
+                if (!$config['cron_bans']) rebuildThemes('bans');
 	}
 	
 	static public function purge() {
+		global $config;
 		$query = query("DELETE FROM ``bans`` WHERE `expires` IS NOT NULL AND `expires` < " . time() . " AND `seen` = 1") or error(db_error());
-		rebuildThemes('bans');
+                if (!$config['cron_bans']) rebuildThemes('bans');
 	}
 	
 	static public function delete($ban_id, $modlog = false, $boards = false, $dont_rebuild = false) {
@@ -260,8 +260,11 @@ class Bans {
 				return false;
 			}
 
-			if ($boards !== false && !in_array($ban['board'], $boards))
+			if ($boards !== false && !in_array($ban['board'], $boards)) 
 		                error($config['error']['noaccess']);
+
+			if ($ban['board']) 
+				openBoard($ban['board']);
 			
 			$mask = self::range_to_string(array($ban['ipstart'], $ban['ipend']));
 			
@@ -271,7 +274,7 @@ class Bans {
 		
 		query("DELETE FROM ``bans`` WHERE `id` = " . (int)$ban_id) or error(db_error());
 
-		if (!$dont_rebuild) rebuildThemes('bans');
+		if (!$dont_rebuild || !$config['cron_bans']) rebuildThemes('bans');
 		
 		return true;
 	}
@@ -325,6 +328,17 @@ class Bans {
 		
 		if ($post) {
 			$post['board'] = $board['uri'];
+			$match_urls = '(?xi)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«»“”‘’]))';
+
+			$matched = array();
+
+			preg_match_all("#$match_urls#im", $post['body_nomarkup'], $matched);
+
+			if (isset($matched[0]) && $matched[0]) {
+				$post['body'] = str_replace($matched[0], '###Link-Removed###', $post['body']);
+				$post['body_nomarkup'] = str_replace($matched[0], '###Link-Removed###', $post['body_nomarkup']);
+			}
+
 			$query->bindValue(':post', json_encode($post));
 		} else
 			$query->bindValue(':post', null, PDO::PARAM_NULL);
@@ -342,7 +356,7 @@ class Bans {
 				' with ' . ($reason ? 'reason: ' . utf8tohtml($reason) . '' : 'no reason'));
 		}
 
-		rebuildThemes('bans');
+		if (!$config['cron_bans']) rebuildThemes('bans');
 
 		return $pdo->lastInsertId();
 	}

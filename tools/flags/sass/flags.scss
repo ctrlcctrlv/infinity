@@ -1,0 +1,9 @@
+/*$disable-magic-sprite-selectors: true;*/
+$flags-sprite-dimensions: true;
+$flags-layout: smart;
+$flags-base-class: '.flags';
+
+@import "compass/utilities/sprites";
+@import "../../static/flags/*.png"; /* */
+
+@include all-flags-sprites;

@@ -12,23 +12,20 @@
  *
  */
 
-$(window).ready(function() {
++function() {
 	var settings = new script_settings('ajax');
 	var do_not_ajax = false;
-
-	// Enable submit button if disabled (cache problem)
-	$('input[type="submit"]').removeAttr('disabled');
 	
 	var setup_form = function($form) {
 		$form.submit(function() {
 			if (do_not_ajax)
 				return true;
-			var form = this;
+			var form = $(this).find('form')[0];
 			var submit_txt = $(this).find('input[type="submit"]').val();
 			if (window.FormData === undefined)
 				return true;
 			
-			var formData = new FormData(this);
+			var formData = new FormData(form);
 			formData.append('json_response', '1');
 			formData.append('post', submit_txt);
 
@@ -46,7 +43,7 @@ $(window).ready(function() {
 			};
 
 			$.ajax({
-				url: this.action,
+				url: configRoot+'post.php',
 				type: 'POST',
 				xhr: function() {
 					var xhr = $.ajaxSettings.xhr();
@@ -55,7 +52,7 @@ $(window).ready(function() {
 					}
 					return xhr;
 				},
-				success: function(post_response) {
+				success: function(post_response, textStatus, xhr) {
 					if (post_response.error) {
 						if (post_response.banned) {
 							// You are banned. Must post the form normally so the user can see the ban message.
@@ -73,6 +70,10 @@ $(window).ready(function() {
 							alert(post_response.error);
 							$(form).find('input[type="submit"]').val(submit_txt);
 							$(form).find('input[type="submit"]').removeAttr('disabled');
+
+							if (post_response.error == 'Sorry. Tor users can\'t upload files.') {
+								$(form).find('input[name="file_url"],input[type="file"]').val('').change();
+							}
 						}
 					} else if (post_response.redirect && post_response.id) {
 						if (!$(form).find('input[name="thread"]').length
@@ -99,7 +100,7 @@ $(window).ready(function() {
 									$(form).find('input[type="submit"]').val(submit_txt);
 									$(form).find('input[type="submit"]').removeAttr('disabled');
 									$(form).find('input[name="subject"],input[name="file_url"],\
-										textarea[name="body"],input[type="file"]').val('').change();
+										textarea[name="body"],input[type="file"],input[name="embed"]').val('').change();
 								},
 								cache: false,
 								contentType: false,
@@ -109,23 +110,17 @@ $(window).ready(function() {
 						$(form).find('input[type="submit"]').val(_('Posted...'));
 						$(document).trigger("ajax_after_post", post_response);
 					} else {
+						console.log(xhr);
 						alert(_('An unknown error occured when posting!'));
 						$(form).find('input[type="submit"]').val(submit_txt);
 						$(form).find('input[type="submit"]').removeAttr('disabled');
 					}
 				},
 				error: function(xhr, status, er) {
-					// An error occured
-					do_not_ajax = true;
-					$(form).find('input[type="submit"]').each(function() {
-						var $replacement = $('<input type="hidden">');
-						$replacement.attr('name', $(this).attr('name'));
-						$replacement.val(submit_txt);
-						$(this)
-							.after($replacement)
-							.replaceWith($('<input type="button">').val(submit_txt));
-					});
-					$(form).submit();
+					console.log(xhr);
+					alert(_('The server took too long to submit your post. Your post was probably still submitted. If it wasn\'t, 8chan might be experiencing issues right now -- please try your post again later. Error information: ') + "<div><textarea>" + JSON.stringify(xhr) + "</textarea></div>");
+					$(form).find('input[type="submit"]').val(submit_txt);
+					$(form).find('input[type="submit"]').removeAttr('disabled');
 				},
 				data: formData,
 				cache: false,
@@ -139,8 +134,13 @@ $(window).ready(function() {
 			return false;
 		});
 	};
-	setup_form($('form[name="post"]'));
 	$(window).on('quick-reply', function() {
-		setup_form($('form#quick-reply'));
+		$('div#quick-reply form').off('submit');
+		setup_form($('div#quick-reply'));
 	});
-});
+	onready(function(){
+		// Enable submit button if disabled (cache problem)
+		$('input[type="submit"]').removeAttr('disabled');
+		setup_form($('div#post-form-outer'));
+	});
+}();

@@ -12,6 +12,9 @@
 	{% if post and board %}
 		<input type="hidden" name="delete" value="{% if delete %}1{% else %}0{% endif %}">
 	{% endif %}
+	{% if tor %}
+		<p style="color:red;font-size:2em">Warning! This IP is a Tor exit node. Tor is a global network that allows for truly anonymous posting by obfuscating the user's real IP address. Please do not ban it, all bans on Tor exit nodes are globally undone every week. On 8chan, Tor users are allowed to post five times per CAPTCHA they complete, and image uploads are not allowed. <em>If the global restrictions on Tor users are not enough and you would really like to stop Tor users, there is a setting in your board options. Please think carefully before enabling it.</em></p>
+	{% endif %}
 	
 	<table>
 		
@@ -23,7 +26,7 @@
 				{% if not hide_ip %}
 					<input type="text" name="ip" id="ip" size="30" maxlength="40" value="{{ ip }}">
 				{% else %}
-					{{ ip|less_ip }}&nbsp;
+					{{ ip|less_ip(board) }}&nbsp;
 					<select name="range">
 						<option value="">no range ban</option>
 						{% for i in range(29, 12) %}

@@ -28,10 +28,10 @@ watchlist.render = function(reset) {
 	JSON.parse(localStorage.watchlist).forEach(function(e, i) {
 		//look at line 69, that's what (e) is here.
 		threads.push('<div class="watchlist-inner" id="watchlist-'+i+'">' +
-		'<span>Board: '+e[0]+'</span>&nbsp' +
-		'<span>Thread: '+'<a href="'+e[3]+'">'+e[1]+'</a></span>&nbsp' +
-		'<span>Replies: '+e[2]+'</span>&nbsp' +
-		'<a class="watchlist-remove">[Unwatch]</a>'+
+		'<span>/'+e[0]+'/ - ' +
+		'<a href="'+e[3]+'">'+e[1].replace("thread_", _("Thread #"))+'</a>' +
+		' ('+e[2]+') </span>' +
+		'<a class="watchlist-remove">X</a>'+
 	'</div>');
 	});
 	if ($('#watchlist').length) {
@@ -40,17 +40,15 @@ watchlist.render = function(reset) {
 		$('#watchlist').append(threads.join(''));
 	} else {
 		//If the watchlist has not yet been rendered, create it.
+		var menuStyle = getComputedStyle($('.boardlist')[0]);
 		$('form[name="post"]').before(
 			$('<div id="watchlist">'+
 					'<div class="watchlist-controls">'+
-						'<span><a id="clearList">[Clear List]</a></span>&nbsp'+
-						'<span><a id="clearGhosts">[Clear Ghosts]</a></span>'+
+						'<span><a id="clearList">['+_('Clear List')+']</a></span>&nbsp'+
+						'<span><a id="clearGhosts">['+_('Clear Ghosts')+']</a></span>'+
 					'</div>'+
 					threads.join('')+
-				'</div>').css({
-			background: $('.reply').css('background'),
-			borderColor : $('.reply').css('border-color')
-		}));
+				'</div>').css("background-color", menuStyle.backgroundColor).css("border", menuStyle.borderBottomWidth+" "+menuStyle.borderBottomStyle+" "+menuStyle.borderBottomColor));
 	}
 	return this;
 };
@@ -82,7 +80,7 @@ watchlist.add = function(sel) {
 			postCount = $(sel).parents('.op').siblings('.post').length+1;
 		}
 		//Grab the reply link.
-		var threadLink = $(sel).siblings('a:contains("[Reply]")').attr('href');
+		var threadLink = $(sel).siblings('a:contains("['+_('Reply')+']")').attr('href');
 		//Figure out the thread name. If anon, use the thread id.
 		if ($(sel).parent().find('.subject').length) {
 			threadName = $(sel).parent().find('.subject').text().substring(0,20);
@@ -144,16 +142,21 @@ watchlist.exists = function(sel) {
 };
 
 $(document).ready(function(){
+	if (!(active_page == 'thread' || active_page == 'index')) {
+		return;
+	}
+
 	//Append the watchlist toggle button.
-	$('.boardlist').append('<span>[ <a id="watchlist-toggle">watchlist</a> ]</span>');
+	$('.boardlist').append('<span>[ <a class="watchlist-toggle" href="#">'+_('watchlist')+'</a> ]</span>');
 	//Append a watch thread button after every OP.
-	$('.op>.intro').append('<a class="watchThread">[Watch Thread]</a>');
+	$('.op>.intro').append('<a class="watchThread" href="#">['+_('Watch Thread')+']</a>');
 
 	//Draw the watchlist, hidden.
 	watchlist.render();
 
 	//Show or hide the watchlist.
-	$('#watchlist-toggle').on('click', function(e) {
+	$('.watchlist-toggle').on('click', function(e) {
+		e.preventDefault();
 		//if ctrl+click, reset the watchlist.
 		if (e.ctrlKey) {
 			watchlist.render(true);
@@ -167,7 +170,8 @@ $(document).ready(function(){
 
 	//Trigger the watchlist add function.
 	//The selector is passed as an argument in case the page is not a thread.
-	$('.watchThread').on('click', function() {
+	$('.watchThread').on('click', function(e) {
+		e.preventDefault();
 		watchlist.add(this).render();
 	});
 

@@ -40,8 +40,25 @@ Thumbs.db
 *.orig
 *~
 
+# tmp filesystem
+/tmp/cache/*
+/tmp/locks/*
+!/tmp/cache/.gitkeep
+!/tmp/locks/.gitkeep
+
 #vichan custom
 favicon.ico
 /static/spoiler.png
 
 /inc/locale/ja_JP/*
+
+#json
+/boards.json
+/boards-top20.json
+/8archive.json
+/tags.json
+
+#board specific files
+/*/main.js
+/*/rules.txt
+/stylesheets/board/*.css

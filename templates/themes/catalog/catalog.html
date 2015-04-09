@@ -15,6 +15,9 @@
 		<h1>{{ settings.title }} (<a href="{{link}}">/{{ board }}/</a>)</h1>
 		<div class="subtitle">{{ settings.subtitle }}</div>
 	</header>
+	{% if board.uri not in config.banned_ad_boards %}
+		{% include 'ad_top.html' %}
+	{% endif %}
 
         <span>{% trans 'Sort by' %}: </span>
         <select id="sort_by" style="display: inline-block">
@@ -37,23 +40,25 @@
 				data-reply="{{ post.reply_count }}"
 				 data-bump="{{ post.bump }}"
 				 data-time="{{ post.time }}"
+				 data-id="{{ post.id }}"
+				 data-sticky="{% if post.sticky %}true{% else %}false{% endif %}"
+				 data-locked="{% if post.locked %}true{% else %}false{% endif %}"
 			>
                                 <div class="thread grid-li grid-size-small">  
                                         <a href="{{post.link}}">  
 						{% if post.youtube %}
 							<img src="https://img.youtube.com/vi/{{ post.youtube }}/0.jpg" 
 						{% else %}
-							<img src="{{post.file}}" 
+							<img src="{{post.file}}" data-fullimage="{{post.fullimage}}"
 						{% endif %}
-                                                 id="img-{{ post.id }}" data-subject="{% if post.subject %}{{ post.subject }}{% endif %}" data-name="{{ post.name }}" data-muhdifference="{{ post.muhdifference }}" data-last-reply="{% if post.last_reply %}{{ post.last_reply }}{% endif %}" data-last-subject="{% if post.last_reply_subject %}{{ post.last_reply_subject }}{% endif %}" data-last-name="{% if post.last_reply %}{{ post.last_reply_name }}{% endif %}" data-last-difference="{% if post.last_reply %}{{ post.last_reply_difference }}{% endif %}" class="{{post.board}} thread-image" title="{{post.bump|date('%b %d %H:%M')}}">
+                                                 id="img-{{ post.id }}" data-subject="{% if post.subject %}{{ post.subject|e }}{% endif %}" data-name="{{ post.name|e }}" data-muhdifference="{{ post.muhdifference }}" class="{{post.board}} thread-image" title="{{post.bump|date('%b %d %H:%M')}}">
                                         </a>
-                                        <p>
-                                                <span class="replies">
-                                                        <strong>R: {{ post.reply_count }} / I: {{ post.image_count }}</strong>
+                                                <div class="replies">
+                                                        <strong>R: {{ post.reply_count }} / I: {{ post.image_count }}{% if post.sticky %} (sticky){% endif %}</strong>
                                                         {% if post.subject %}
 								<p class="intro">
 									<span class="subject">
-										{{ post.subject }}
+										{{ post.subject|e }}
 									</span>
 								</p>
 							{% else %}
@@ -61,8 +66,7 @@
 							{% endif %}
 
 								{{ post.body }}
-                                                </span>
-                                        </p>
+                                                </div>
                                 </div>
                         </div>
                 {% endfor %}
@@ -74,7 +78,9 @@
 		<p class="unimportant" style="margin-top:20px;text-align:center;">- <a href="http://tinyboard.org/">Tinyboard</a> + 
 			<a href='https://int.vichan.net/devel/'>vichan</a> {{ config.version }} -
 		<br><a href="http://tinyboard.org/">Tinyboard</a> Copyright &copy; 2010-2014 Tinyboard Development Group    
-		<br><a href="https://int.vichan.net/devel/">vichan</a> Copyright &copy; 2012-2014 vichan-devel</p>
+		<br><a href="https://int.vichan.net/devel/">vichan</a> Copyright &copy; 2012-2014 vichan-devel
+		<br><a href="https://8ch.net/8code/">infinity</a> Copyright &copy; 2013-2015 Fredrick Brennan &amp; Infinity Development Group</p>
+		{% for footer in config.footer %}<p class="unimportant" style="text-align:center;">{{ footer }}</p>{% endfor %}
 	</footer>
 	<script type="text/javascript">{% raw %}
 		var styles = {

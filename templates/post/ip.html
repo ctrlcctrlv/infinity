@@ -1,5 +1,5 @@
 {% if post.mod and post.mod|hasPermission(config.mod.show_ip, board.uri) %}  
-	 [<a class="ip-link" style="margin:0;" href="?/IP/{{ post.ip }}">{{ post.ip }}</a>]  
+	 [<a class="ip-link" style="margin:0;" href="?/IP_less/{{ board.dir }}{{ post.id }}">{{ post.ip }}</a>]  
 {% elseif post.mod and post.mod|hasPermission(config.mod.show_ip_less, board.uri) %}
-	 [<a class="ip-link" style="margin:0;" href="?/IP_less/{{ board.dir }}{{ post.id }}">{{ post.ip|less_ip }}</a>]  
+	 [<a class="ip-link" style="margin:0;" href="?/IP_less/{{ board.dir }}{{ post.id }}">{{ post.ip|less_ip(board.uri) }}</a>]  
 {% endif %}

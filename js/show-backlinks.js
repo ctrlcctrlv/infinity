@@ -15,7 +15,7 @@
 
 onready(function(){
 	var showBackLinks = function() {
-		var reply_id = $(this).attr('id').replace(/^reply_/, '');
+		var reply_id = $(this).attr('id').replace(/^(reply|op)_/, '');
 		
 		$(this).find('div.body a:not([rel="nofollow"])').each(function() {
 			var id, post, $mentioned;
@@ -27,6 +27,9 @@ onready(function(){
 		
 			$post = $('#reply_' + id);
 			if($post.length == 0)
+				$post = $('#op_' + id);
+
+			if($post.length == 0)
 				return;
 		
 			$mentioned = $post.find('p.intro span.mentioned');
@@ -36,9 +39,10 @@ onready(function(){
 			if ($mentioned.find('a.mentioned-' + reply_id).length != 0)
 				return;
 			
-			var $link = $('<a class="mentioned-' + reply_id + '" onclick="highlightReply(\'' + reply_id + '\');" href="#' + reply_id + '">&gt;&gt;' +
+			var $link = $('<a class="mentioned-' + reply_id + '" onclick="highlightReply(\'' + reply_id + '\', event);" href="#' + reply_id + '">&gt;&gt;' +
 				reply_id + '</a>');
-			$link.appendTo($mentioned)
+			$link.appendTo($mentioned);
+			$link.after(" ");
 			
 			if (window.init_hover) {
 				$link.each(init_hover);

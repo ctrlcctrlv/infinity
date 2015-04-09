@@ -32,7 +32,9 @@ class Api {
 			'images' => 'images',
 			'sticky' => 'sticky',
 			'locked' => 'locked',
+			'cycle' => 'cyclical',
 			'bump' => 'last_modified',
+			'embed' => 'embed',
 		);
 
 		$this->threadsPageFields = array(
@@ -85,11 +87,23 @@ class Api {
 		}
 	}
 
+	private function translateFile($file, &$apiPost) {
+		$this->translateFields($this->fileFields, $file, $apiPost);
+		$apiPost['filename'] = @substr($file->name, 0, strrpos($file->name, '.'));
+		$dotPos = strrpos($file->file, '.');
+		$apiPost['ext'] = substr($file->file, $dotPos);
+		$apiPost['tim'] = substr($file->file, 0, $dotPos);
+		if (isset($file->hash))
+			$apiPost['md5'] = base64_encode(hex2bin($file->hash));
+	}
+
 	private function translatePost($post, $threadsPage = false) {
+		global $config, $board;
 		$apiPost = array();
 		$fields = $threadsPage ? $this->threadsPageFields : $this->postFields;
 		$this->translateFields($fields, $post, $apiPost);
 
+		if ($this->config['poster_ids']) $apiPost['id'] = poster_id($post->ip, $post->thread, $board['uri']);
 		if ($threadsPage) return $apiPost;
 
 		// Handle country field
@@ -105,15 +119,21 @@ class Api {
 		}
 
 		// Handle files
-		// Note: 4chan only supports one file, so only the first file is taken into account for 4chan-compatible API.
 		if (isset($post->files) && $post->files && !$threadsPage) {
 			$file = $post->files[0];
-			$this->translateFields($this->fileFields, $file, $apiPost);
-			$apiPost['filename'] = @substr($file->name, 0, strrpos($file->name, '.'));
-			$dotPos = strrpos($file->file, '.');
-			$apiPost['ext'] = substr($file->file, $dotPos);
-			$apiPost['tim'] = substr($file->file, 0, $dotPos);
-			$apiPost['md5'] = base64_encode(hex2bin($post->filehash));
+			$this->translateFile($file, $apiPost);
+			if (sizeof($post->files) > 1) {
+				$extra_files = array();
+				foreach ($post->files as $i => $f) {
+					if ($i == 0) continue;
+				
+					$extra_file = array();
+					$this->translateFile($f, $extra_file);
+
+					$extra_files[] = $extra_file;
+				}
+				$apiPost['extra_files'] = $extra_files;
+			}
 		}
 
 		return $apiPost;

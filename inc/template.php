@@ -23,12 +23,15 @@ function load_twig() {
 	$loader->setPaths($config['dir']['template']);
 	$twig = new Twig_Environment($loader, array(
 		'autoescape' => false,
-		'cache' => is_writable('templates') || (is_dir('templates/cache') && is_writable('templates/cache')) ?
+		'cache' => (is_writable('templates') || (is_dir('templates/cache') && is_writable('templates/cache'))) && $config['twig_cache'] ?
 			"{$config['dir']['template']}/cache" : false,
 		'debug' => $config['debug']
 	));
 	$twig->addExtension(new Twig_Extensions_Extension_Tinyboard());
 	$twig->addExtension(new Twig_Extensions_Extension_I18n());
+
+	$twig->addFilter(new Twig_SimpleFilter('hex2bin', 'hex2bin'));
+	$twig->addFilter(new Twig_SimpleFilter('base64_encode', 'base64_encode'));
 }
 
 function Element($templateFile, array $options) {

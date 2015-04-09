@@ -1,4 +1,10 @@
 {% raw %}
+/* 
+ * main.js - This file is compiled and contains code from the following scripts, concatenated together in order:
+ * {% endraw %}{{ config.additional_javascript|join(', ') }}{% raw %}
+ * Please see those files for licensing and authorship information.
+ * Compiled on {% endraw %}{{ time()|date("%c") }}{% raw %}
+ */
 
 /* gettext-compatible _ function, example of usage:
  *
@@ -23,224 +29,94 @@ function fmt(s,a) {
 }
 
 function until($timestamp) {
-        var $difference = $timestamp - Date.now()/1000|0, $num;
-        switch(true){
-        case ($difference < 60):
-                return "" + $difference + ' ' + _('second(s)');
-        case ($difference < 3600): //60*60 = 3600
-                return "" + ($num = Math.round($difference/(60))) + ' ' + _('minute(s)');
-        case ($difference < 86400): //60*60*24 = 86400
-                return "" + ($num = Math.round($difference/(3600))) + ' ' + _('hour(s)');
-        case ($difference < 604800): //60*60*24*7 = 604800
-                return "" + ($num = Math.round($difference/(86400))) + ' ' + _('day(s)');
-        case ($difference < 31536000): //60*60*24*365 = 31536000
-                return "" + ($num = Math.round($difference/(604800))) + ' ' + _('week(s)');
-        default:
-                return "" + ($num = Math.round($difference/(31536000))) + ' ' + _('year(s)');
-        }
+		var $difference = $timestamp - Date.now()/1000|0, $num;
+		switch(true){
+		case ($difference < 60):
+				return "" + $difference + ' ' + _('second(s)');
+		case ($difference < 3600): //60*60 = 3600
+				return "" + ($num = Math.round($difference/(60))) + ' ' + _('minute(s)');
+		case ($difference < 86400): //60*60*24 = 86400
+				return "" + ($num = Math.round($difference/(3600))) + ' ' + _('hour(s)');
+		case ($difference < 604800): //60*60*24*7 = 604800
+				return "" + ($num = Math.round($difference/(86400))) + ' ' + _('day(s)');
+		case ($difference < 31536000): //60*60*24*365 = 31536000
+				return "" + ($num = Math.round($difference/(604800))) + ' ' + _('week(s)');
+		default:
+				return "" + ($num = Math.round($difference/(31536000))) + ' ' + _('year(s)');
+		}
 }
 
 function ago($timestamp) {
-        var $difference = (Date.now()/1000|0) - $timestamp, $num;
-        switch(true){
-        case ($difference < 60) :
-                return "" + $difference + ' ' + _('second(s)');
-        case ($difference < 3600): //60*60 = 3600 
-                return "" + ($num = Math.round($difference/(60))) + ' ' + _('minute(s)');
-        case ($difference <  86400): //60*60*24 = 86400
-                return "" + ($num = Math.round($difference/(3600))) + ' ' + _('hour(s)');
-        case ($difference < 604800): //60*60*24*7 = 604800
-                return "" + ($num = Math.round($difference/(86400))) + ' ' + _('day(s)');
-        case ($difference < 31536000): //60*60*24*365 = 31536000
-                return "" + ($num = Math.round($difference/(604800))) + ' ' + _('week(s)');
-        default:
-                return "" + ($num = Math.round($difference/(31536000))) + ' ' + _('year(s)');
-        }
+		var $difference = (Date.now()/1000|0) - $timestamp, $num;
+		switch(true){
+		case ($difference < 60) :
+				return "" + $difference + ' ' + _('second(s)');
+		case ($difference < 3600): //60*60 = 3600 
+				return "" + ($num = Math.round($difference/(60))) + ' ' + _('minute(s)');
+		case ($difference <  86400): //60*60*24 = 86400
+				return "" + ($num = Math.round($difference/(3600))) + ' ' + _('hour(s)');
+		case ($difference < 604800): //60*60*24*7 = 604800
+				return "" + ($num = Math.round($difference/(86400))) + ' ' + _('day(s)');
+		case ($difference < 31536000): //60*60*24*365 = 31536000
+				return "" + ($num = Math.round($difference/(604800))) + ' ' + _('week(s)');
+		default:
+				return "" + ($num = Math.round($difference/(31536000))) + ' ' + _('year(s)');
+		}
 }
 
 var datelocale =
-        { days: [_('Sunday'), _('Monday'), _('Tuesday'), _('Wednesday'), _('Thursday'), _('Friday'), _('Saturday')]
-        , shortDays: [_("Sun"), _("Mon"), _("Tue"), _("Wed"), _("Thu"), _("Fri"), _("Sat")]
-        , months: [_('January'), _('February'), _('March'), _('April'), _('May'), _('June'), _('July'), _('August'), _('September'), _('October'), _('November'), _('December')]
-        , shortMonths: [_('Jan'), _('Feb'), _('Mar'), _('Apr'), _('May'), _('Jun'), _('Jul'), _('Aug'), _('Sep'), _('Oct'), _('Nov'), _('Dec')]
-        , AM: _('AM')
-        , PM: _('PM')
-        , am: _('am')
-        , pm: _('pm')
-        };
+		{ days: [_('Sunday'), _('Monday'), _('Tuesday'), _('Wednesday'), _('Thursday'), _('Friday'), _('Saturday')]
+		, shortDays: [_("Sun"), _("Mon"), _("Tue"), _("Wed"), _("Thu"), _("Fri"), _("Sat")]
+		, months: [_('January'), _('February'), _('March'), _('April'), _('May'), _('June'), _('July'), _('August'), _('September'), _('October'), _('November'), _('December')]
+		, shortMonths: [_('Jan'), _('Feb'), _('Mar'), _('Apr'), _('May'), _('Jun'), _('Jul'), _('Aug'), _('Sep'), _('Oct'), _('Nov'), _('Dec')]
+		, AM: _('AM')
+		, PM: _('PM')
+		, am: _('am')
+		, pm: _('pm')
+		};
 
 
-function alert(a) {
-  var handler, div;
-  var close = function() {
-    handler.fadeOut(400, function() { handler.remove(); });
-    return false;
-  };
+function alert(a, do_confirm, confirm_ok_action, confirm_cancel_action) {
+	var handler, div, bg, closebtn, okbtn;
+	var close = function() {
+		handler.fadeOut(400, function() { handler.remove(); });
+		return false;
+	};
 
-  handler = $("<div id='alert_handler'></div>").hide().appendTo('body');
+	handler = $("<div id='alert_handler'></div>").hide().appendTo('body');
 
-  $("<div id='alert_background'></div>").click(close).appendTo(handler);
+	bg = $("<div id='alert_background'></div>").appendTo(handler);
 
-  div = $("<div id='alert_div'></div>").appendTo(handler);
-  $("<a id='alert_close' href='javascript:void(0)'><i class='fa fa-times'></i></div>")
-  .click(close).appendTo(div);
+	div = $("<div id='alert_div'></div>").appendTo(handler);
+	closebtn = $("<a id='alert_close' href='javascript:void(0)'><i class='fa fa-times'></i></div>")
+		.appendTo(div);
 
-  $("<div id='alert_message'></div>").html(a).appendTo(div);
+	$("<div id='alert_message'></div>").html(a).appendTo(div);
 
-  $("<button class='button alert_button'>"+_("OK")+"</button>").click(close).appendTo(div);
+	okbtn = $("<button class='button alert_button'>"+_("OK")+"</button>").appendTo(div);
 
-  handler.fadeIn(400);
+	if (do_confirm) {
+		confirm_ok_action = (typeof confirm_ok_action !== "function") ? function(){} : confirm_ok_action;
+		confirm_cancel_action = (typeof confirm_cancel_action !== "function") ? function(){} : confirm_cancel_action;
+		okbtn.click(confirm_ok_action);
+		$("<button class='button alert_button'>"+_("Cancel")+"</button>").click(confirm_cancel_action).click(close).appendTo(div);
+		bg.click(confirm_cancel_action);
+		okbtn.click(confirm_cancel_action);
+		closebtn.click(confirm_cancel_action);
+	} 
+	
+	bg.click(close);
+	okbtn.click(close);
+	closebtn.click(close);
+
+	handler.fadeIn(400);
 }
 
 var saved = {};
 
-
-var selectedstyle = '{% endraw %}{{ config.default_stylesheet.0|addslashes }}{% raw %}';
-var board_name = false;
-
-function changeStyle(styleName, link) {
-	{% endraw %}
-	{% if config.stylesheets_board %}{% raw %}
-		if (board_name) {
-			stylesheet_choices[board_name] = styleName;
-			localStorage.board_stylesheets = JSON.stringify(stylesheet_choices);
-		}
-	{% endraw %}{% else %}
-		localStorage.stylesheet = styleName;
-	{% endif %}
-	{% raw %}
-	
-	// Find the <dom> for the stylesheet. May be nothing.
-	var domStylesheet = document.getElementById('stylesheet');
-	// Determine if this stylesheet is the default.
-	var setToDefault  = ( styles[styleName] == "" || styles[styleName] == "/stylesheets/" );
-	// Turn "Yotsuba B" to "yotsuba_b" 
-	var attributeName = styleName.replace(/[^a-z0-9_\-]/gi, '_').toLowerCase();
-	
-	if( !domStylesheet && !setToDefault ) {
-		domStylesheet = document.createElement('link');
-		domStylesheet.rel = 'stylesheet';
-		domStylesheet.type = 'text/css';
-		domStylesheet.id = 'stylesheet';
-		
-		var x = document.getElementsByTagName('head')[0];
-		x.appendChild(domStylesheet);
-	}
-	
-	if( !setToDefault ) {
-		{% endraw %}
-		var root = "{{ config.root }}";
-		{% raw %}
-		root = root.replace(/\/$/, "");
-		
-		domStylesheet.href = root + styles[styleName];
-		selectedstyle = styleName;
-		
-		if (document.getElementsByClassName('styles').length != 0) {
-			var styleLinks = document.getElementsByClassName('styles')[0].childNodes;
-			for (var i = 0; i < styleLinks.length; i++) {
-				styleLinks[i].className = '';
-			}
-		}
-		
-		if (link) {
-			link.className = 'selected';
-		}
-	}
-	else if( domStylesheet ) {
-		domStylesheet.parentNode.removeChild( domStylesheet );
-	}
-	
-	// Fix the classes on the body tag.
-	var body = document.getElementsByTagName('body')[0];
-	
-	if( body ) {
-		var bodyClasses = document.getElementsByTagName('body')[0].getAttribute('class').split(" ");
-		var bodyClassesNew = [];
-		
-		for( i = 0; i < bodyClasses.length; ++i ) {
-			var bodyClass = bodyClasses[ i ];
-			
-			// null class from a double-space.
-			if( bodyClass == "" ) {
-				continue;
-			}
-			
-			if( bodyClass.indexOf( "stylesheet-" ) == 0 ) {
-				continue;
-			}
-			
-			bodyClassesNew.push( bodyClass );
-		}
-		
-		// Add stylesheet-yotsuba_b at the end.
-		bodyClassesNew.push( "stylesheet-" + attributeName );
-		body.setAttribute( 'class', bodyClassesNew.join(" ") );
-		body.setAttribute( 'data-stylesheet', attributeName );
-	}
-	
-	if (typeof $ != 'undefined') {
-		$(window).trigger('stylesheet', styleName);
-	}
-}
-
-
-{% endraw %}
-
-function init_stylechooser() {
-	var matches = document.URL.match(/\/(\w+)\/($|{{ config.dir.res|replace({'/': '\\/'}) }}{{ config.file_page|replace({'%d': '\\d+', '.': '\\.'}) }}|{{ config.file_index|replace({'.': '\\.'}) }}|{{ config.dir.res|replace({'/': '\\/'}) }}{{ config.file_page50|replace({'+': '\\+', '%d': '\\d+', '.': '\\.'}) }}|{{ config.file_page|replace({'%d': '\\d+', '.': '\\.'}) }}|{{ config.catalog_link|replace({'.': '\\.'}) }})/);
-	var newElement = document.createElement('div');
-	newElement.className = 'styles';
-	
-	for (styleName in styles) {
-		var style = document.createElement('a');
-		style.innerHTML = '[' + styleName + ']';
-		style.onclick = function() {
-			changeStyle(this.innerHTML.substring(1, this.innerHTML.length - 1), this);
-		};
-		if (styleName == selectedstyle) {
-			style.className = 'selected';
-		}
-		style.href = 'javascript:void(0);';
-		newElement.appendChild(style);
-	}	
-	
-	document.getElementsByTagName('body')[0].insertBefore(newElement, document.getElementsByTagName('body')[0].lastChild.nextSibling);
-{% if config.stylesheets_board %}
-	{# This is such an unacceptable mess. There needs to be an easier way. #}
-	{% raw %}
-	if (matches) {
-		board_name = matches[1];
-	}
-	
-	if (!localStorage.board_stylesheets) {
-		localStorage.board_stylesheets = '{}';
-	}
-
-	window.stylesheet_choices = JSON.parse(localStorage.board_stylesheets);
-	
-	if (board_name && stylesheet_choices[board_name]) {
-		for (var styleName in styles) {
-			if (styleName == stylesheet_choices[board_name]) {
-				changeStyle(styleName);
-				break;
-			}
-		}
-	}
-	{% endraw %}
-{% else %}
-	{% raw %}
-	if (localStorage.stylesheet) {
-		for (var styleName in styles) {
-			if (styleName == localStorage.stylesheet) {
-				changeStyle(styleName);
-				break;
-			}
-		}
-	}
-	{% endraw %}
-{% endif %}
-{% raw %}
+if (typeof board_name === "undefined") {
+	var matches = document.URL.match({% endraw %}/\/([0-9a-zA-Z\+$_\u0080-\uFFFF]{1,58})\/($|{{ config.dir.res|replace({'/': '\\/'}) }}{{ config.file_page|replace({'%d': '\\d+', '.': '\\.'}) }}|{{ config.file_index|replace({'.': '\\.'}) }}|{{ config.dir.res|replace({'/': '\\/'}) }}{{ config.file_page50|replace({'+': '\\+', '%d': '\\d+', '.': '\\.'}) }}|{{ config.file_page|replace({'%d': '\\d+', '.': '\\.'}) }}|{{ config.catalog_link|replace({'.': '\\.'}) }})/{% raw %});
+	var board_name = (matches ? matches[1] : false);
 }
 
 function get_cookie(cookie_name) {
@@ -254,10 +130,34 @@ function get_cookie(cookie_name) {
 	}
 }
 
-function highlightReply(id) {
-	if (typeof window.event != "undefined" && event.which == 2) {
-		// don't highlight on middle click
+function highlightReply(id, event) {
+	// check if external post
+	var post_list, arr, i;
+	id = id.toString();
+
+	post_list = document.querySelectorAll('a.post_no');
+	for (i = 0, arr = []; i<post_list.length; i++) {
+		arr.push(post_list[i]);
+	}
+	arr = arr.filter(function (ele) {
+		if (ele.hasAttribute('id') || ((' '+ ele.parentElement.parentElement.className +' ').indexOf(' hidden ') > -1)) {
+			return false;
+		} else {
+			return true;
+		}
+	});
+	for (i = 0, post_list = []; i < arr.length; i++) {
+		post_list.push(arr[i].innerHTML);
+	}
+
+	if (post_list.indexOf(id) == -1)
 		return true;
+	
+	// don't highlight on middle click
+	var e = event || window.event;
+	if (typeof e != "undefined") {
+		if (e.which == 2) return true;
+		if (active_page == 'thread' && typeof e.preventDefault != "undefined") e.preventDefault();
 	}
 	
 	var divs = document.getElementsByTagName('div');
@@ -268,9 +168,28 @@ function highlightReply(id) {
 	}
 	if (id) {
 		var post = document.getElementById('reply_'+id);
-		if (post)
+		// No reply? Try OP.
+		if (!post) {
+			var post = document.getElementById('op_'+id);
+		}
+
+		if (post) {
 			post.className += ' highlighted';
-			window.location.hash = id;
+
+			if (history.pushState) {
+				history.pushState(null, null, window.document.location.origin + window.document.location.pathname + window.document.location.search + '#' + id); 
+			} else {
+				window.location.hash = id;
+			}			
+
+			// Better offset to keep in mind new hovering boardlist
+			var post_top = post.getBoundingClientRect().top;
+			var body_top = document.body.getBoundingClientRect().top;
+			var boardlist_height = document.getElementsByClassName('boardlist')[0].getBoundingClientRect().height;
+			var offset = (post_top - body_top) - boardlist_height;
+
+			window.scrollTo(0, offset);
+		}
 	}
 	return true;
 }
@@ -323,16 +242,23 @@ function citeReply(id, with_link) {
 		// ???
 		textarea.value += '>>' + id + '\n';
 	}
-	if (typeof $ != 'undefined') {
-		var select = document.getSelection().toString();
-		if (select) {
-			var body = $('#reply_' + id + ', #op_' + id).find('div.body');  // TODO: support for OPs
-			var index = body.text().indexOf(select.replace('\n', ''));  // for some reason this only works like this
-			if (index > -1) {
-				textarea.value += '>' + select + '\n';
-			}
-		}
 
+	// multiline quotes
+	var select = sessionStorage.quoteClipboard;
+	if (select) {
+		select = select.split('\n');
+		select.forEach(function (str) {
+			if (str !== '') {
+				str = '>' + str + '\n';
+			} else {
+				str = '\n';
+			}
+			textarea.value += str;
+		});
+		delete sessionStorage.quoteClipboard;
+	}
+
+	if (typeof $ != 'undefined') {
 		$(window).trigger('cite', [id, with_link]);
 		$(textarea).change();
 	}
@@ -391,11 +317,31 @@ var script_settings = function(script_name) {
 };
 
 function init() {
-	init_stylechooser();
+	//	store highlighted text for citeReply()
+	document.querySelector('form[name="postcontrols"]').addEventListener('mouseup', function (e) {
+		sessionStorage.quoteClipboard = window.getSelection().toString();
+	});
+
+	// just enable jquery, almost every script requires it by now. more and more main.js functions are going to start requiring it
+	$('.post-table-options').css('display', 'none');
+	window.optionsShowing = false;
+	$(document).on('click', '.show-post-table-options', function(e) {
+		if (!window.optionsShowing) { 
+			$('.show-post-table-options').html('[&#9660; '+_('Hide post options &amp; limits')+']'); 
+			$('.post-table-options').css('display', 'table');
+			window.optionsShowing = true;
+		} else { 
+			$('.show-post-table-options').html('[&#9654; '+_('Show post options &amp; limits')+']'); 
+			$('.post-table-options').css('display', 'none');
+			window.optionsShowing = false;
+		}; 
+	
+		return false;
+	});
 
 	{% endraw %}	
 	{% if config.allow_delete %}
-	if (document.forms.postcontrols) {
+	if (document.forms.postcontrols && document.forms.postcontrols.password) {
 		document.forms.postcontrols.password.value = localStorage.password;
 	}
 	{% endif %}
@@ -423,7 +369,9 @@ function ready() {
 {% endraw %}
 
 var post_date = "{{ config.post_date }}";
-var max_images = {{ config.max_images }};
+if (typeof active_page === "undefined") {
+	active_page = "page";
+}
 
 {% if config.google_analytics %}{% raw %}
 

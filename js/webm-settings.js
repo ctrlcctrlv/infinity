@@ -8,7 +8,8 @@ if (typeof _ == 'undefined') {
 var defaultSettings = {
     "videoexpand": true,
     "videohover": false,
-    "videovolume": 1.0
+    "videovolume": 1.0,
+    "videoloop": true
 };
 
 // Non-persistent settings for when localStorage is absent/disabled
@@ -53,6 +54,7 @@ settingsMenu.innerHTML = prefix
     + '<div style="'+style+'">'
     + '<label><input type="checkbox" name="videoexpand">'+_('Expand videos inline')+'</label><br>'
     + '<label><input type="checkbox" name="videohover">'+_('Play videos on hover')+'</label><br>'
+    + '<label><input type="checkbox" name="videoloop">'+_('Loop videos by default')+'</label><br>'
     + '<label><input type="range" name="videovolume" min="0" max="1" step="0.01" style="width: 4em; height: 1ex; vertical-align: middle; margin: 0px;">'+_('Default volume')+'</label><br>'
     + suffix;
 

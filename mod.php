@@ -6,20 +6,8 @@
 
 require 'inc/functions.php';
 require 'inc/mod/pages.php';
-require 'inc/mod/auth.php';
 
-if ($config['debug'])
-	$parse_start_time = microtime(true);
-
-// Fix for magic quotes
-if (get_magic_quotes_gpc()) {
-	function strip_array($var) {
-		return is_array($var) ? array_map('strip_array', $var) : stripslashes($var);
-	}
-	
-	$_GET = strip_array($_GET);
-	$_POST = strip_array($_POST);
-}
+check_login(true);
 
 $query = isset($_SERVER['QUERY_STRING']) ? rawurldecode($_SERVER['QUERY_STRING']) : '';
 
@@ -40,11 +28,18 @@ $pages = array(
 	
 	'/log'					=> 'log',			// modlog
 	'/log/(\d+)'				=> 'log',			// modlog
-	'/log:([^/]+)'				=> 'user_log',			// modlog
-	'/log:([^/]+)/(\d+)'			=> 'user_log',			// modlog
-	'/news'					=> 'secure_POST news',		// view news
-	'/news/(\d+)'				=> 'secure_POST news',		// view news
-	'/news/delete/(\d+)'			=> 'secure news_delete',	// delete from news
+	'/log:([^/:]+)'				=> 'user_log',			// modlog
+	'/log:([^/:]+)/(\d+)'			=> 'user_log',			// modlog
+	'/log:b:([^/]+)'			=> 'board_log',			// modlog
+	'/log:b:([^/]+)/(\d+)'			=> 'board_log',			// modlog
+	'/edit_news'				=> 'secure_POST news',		// view news
+	'/edit_news/(\d+)'			=> 'secure_POST news',		// view news
+	'/edit_news/delete/(\d+)'		=> 'secure news_delete',	// delete from news
+
+	'/edit_pages(?:/?(\%b)?)'		=> 'secure_POST pages',
+	'/edit_page/(\d+)'			=> 'secure_POST edit_page',
+	'/edit_pages/delete/([a-z0-9]+)'	=> 'secure delete_page',
+	'/edit_pages/delete/([a-z0-9]+)/(\%b)'	=> 'secure delete_page_board',
 	
 	'/noticeboard'				=> 'secure_POST noticeboard',	// view noticeboard
 	'/noticeboard/(\d+)'			=> 'secure_POST noticeboard',	// view noticeboard
@@ -61,7 +56,7 @@ $pages = array(
 	// Important to note that (?:global) will make no argument.
 	// (global)? will make argument 0 either "global" or "".
 	'/reports(?:/)?'                                                          => 'reports',               // report queue
-	'/reports/(global)?(?:/)?'                                                => 'reports',               // global report queue
+	'/reports/(global)?(?:/)?(json)?'                                         => 'reports',               // global report queue
 	'/reports/(global)?(?:/)?(content)/(\%b)/(\d+)(?:/)?'                     => 'reports',               // specific reported content (also historic)
 	'/reports/(global)?(?:/)?(content)/(\%b)/(\d+)/dismiss(?:/)?'             => 'secure report_dismiss', // dismiss all reports on content
 	'/reports/(global)?(?:/)?(content)/(\%b)/(\d+)/demote(?:/)?'              => 'secure report_demote',  // demote all reports on content
@@ -95,9 +90,11 @@ $pages = array(
 	'/(\%b)/delete/(\d+)'                             => 'secure delete',          // delete post
 	'/(\%b)/deletefile/(\d+)/(\d+)'                   => 'secure deletefile',      // delete file from post
 	'/(\%b+)/spoiler/(\d+)/(\d+)'                     => 'secure spoiler_image',   // spoiler file
+	'/(\%b+)/spoiler_all/(\d+)'                       => 'secure spoiler_images',   // spoiler file
 	'/(\%b)/deletebyip/(\d+)(/global)?'               => 'secure deletebyip',      // delete all posts by IP address
 	'/(\%b)/(un)?lock/(\d+)'                          => 'secure lock',            // lock thread
 	'/(\%b)/(un)?sticky/(\d+)'                        => 'secure sticky',          // sticky thread
+	'/(\%b)/(un)?cycle/(\d+)'                         => 'secure cycle',          // cycle thread
 	'/(\%b)/bump(un)?lock/(\d+)'                      => 'secure bumplock',        // "bumplock" thread
 	
 	'/themes'				=> 'themes_list',		// manage themes
@@ -144,6 +141,8 @@ foreach ($pages as $key => $callback) {
 	$new_pages[@$key[0] == '!' ? $key : '!^' . $key . '(?:&[^&=]+=[^&]*)*$!u'] = $callback;
 }
 $pages = $new_pages;
+
+$parse_start_time = microtime(true);
 
 foreach ($pages as $uri => $handler) {
 	if (preg_match($uri, $query, $matches)) {

@@ -20,11 +20,25 @@
 		if ($action == 'all') {
 			foreach ($boards as $board) {
 				$b = new Catalog();
-				$b->build($settings, $board);
+
+				if ($config['smart_build']) {
+					file_unlink($config['dir']['home'] . $board . '/catalog.html');
+				}
+				else {
+					$b->build($settings, $board);
+				}
+
+				if (php_sapi_name() === "cli") echo "Rebuilding $board catalog...\n";
 			}
 		} elseif ($action == 'post-thread' || ($settings['update_on_posts'] && $action == 'post') || ($settings['update_on_posts'] && $action == 'post-delete') && (in_array($board, $boards) | $settings['all'])) {
 			$b = new Catalog();
-			$b->build($settings, $board);
+
+			if ($config['smart_build']) {
+				file_unlink($config['dir']['home'] . $board . '/catalog.html');
+			}
+			else {
+				$b->build($settings, $board);
+			}
 		}
 	}
 	
@@ -32,8 +46,12 @@
 	class Catalog {
 		public function build($settings, $board_name) {
 			global $config, $board;
-			
-			openBoard($board_name);
+
+			if ($board['uri'] != $board_name) {			
+				if (!openBoard($board_name)) {
+					error(sprintf(_("Board %s doesn't exist"), $board_name));
+				}
+			}
 			
 			$recent_images = array();
 			$recent_posts = array();
@@ -42,7 +60,7 @@
                         $query = query(sprintf("SELECT *, `id` AS `thread_id`,
 				(SELECT COUNT(`id`) FROM ``posts_%s`` WHERE `thread` = `thread_id`) AS `reply_count`,
 				(SELECT SUM(`num_files`) FROM ``posts_%s`` WHERE `thread` = `thread_id` AND `num_files` IS NOT NULL) AS `image_count`,
-				'%s' AS `board` FROM ``posts_%s`` WHERE `thread`  IS NULL ORDER BY `bump` DESC",
+				'%s' AS `board` FROM ``posts_%s`` WHERE `thread`  IS NULL ORDER BY `sticky` DESC, `bump` DESC",
 			$board_name, $board_name, $board_name, $board_name, $board_name)) or error(db_error());
 			
 			while ($post = $query->fetch(PDO::FETCH_ASSOC)) {
@@ -58,28 +76,22 @@
 
 					if ($files[0]) {
 						if ($files[0]->file == 'deleted') {
-							if (count($files) > 1) {
-								foreach ($files as $file) {
-									if (($file == $files[0]) || ($file->file == 'deleted')) continue;
-									$post['file'] = $config['uri_thumb'] . $file->thumb;
-								}
-
-								if (empty($post['file'])) $post['file'] = $config['image_deleted'];
-							}
-							else {
-								$post['file'] = $config['image_deleted'];
-							}
+							$post['file'] = $config['image_deleted'];
 						}
 						else if($files[0]->thumb == 'spoiler') {
 							$post['file'] = '/' . $config['spoiler_image'];
 						}
 						else {
 							$post['file'] = $config['uri_thumb'] . $files[0]->thumb;
+							$post['fullimage'] = $config['uri_img']  . $files[0]->file;
 						}
 					}
+				} else {
+					$post['file'] = $config['root'] . $config['no_file_image'];
 				}
 
 				if (empty($post['image_count'])) $post['image_count'] = 0;
+				$post['pubdate'] = date('r', $post['time']);
 				$recent_posts[] = $post;
 			}
 			
@@ -99,6 +111,12 @@
 				'stats' => $stats,
 				'board' => $board_name,
 				'link' => $config['root'] . $board['dir']
+			)));
+
+			file_write($config['dir']['home'] . $board_name . '/index.rss', Element('themes/catalog/index.rss', Array(
+				'config' => $config,
+				'recent_posts' => $recent_posts,
+				'board' => $board
 			)));
 		}
 	};

@@ -1,7 +1,9 @@
 {% if config.poster_ids or (mod|hasPermission(config.mod.show_ip_less, board.uri)) %}
-	{% if post.thread %}
-		 ID: <span class="poster_id">{{ poster_id(post.ip, post.thread, board.uri) }}</span>
+	{% if post.ip == '127.0.0.2' %}
+		 <span class="poster_id" title="This user is posting via the Tor hidden service.">000000</span>
+	{% elseif post.thread %}
+		 <span class="poster_id">{{ poster_id(post.ip, post.thread, board.uri) }}</span>
 	{% else %}
-		 ID: <span class="poster_id">{{ poster_id(post.ip, post.id, board.uri) }}</span>
+		 <span class="poster_id">{{ poster_id(post.ip, post.id, board.uri) }}</span>
 	{% endif %}
 {% endif %}

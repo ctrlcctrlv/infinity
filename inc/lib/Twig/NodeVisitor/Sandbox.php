@@ -40,18 +40,18 @@ class Twig_NodeVisitor_Sandbox implements Twig_NodeVisitorInterface
             return $node;
         } elseif ($this->inAModule) {
             // look for tags
-            if ($node->getNodeTag()) {
-                $this->tags[] = $node->getNodeTag();
+            if ($node->getNodeTag() && !isset($this->tags[$node->getNodeTag()])) {
+                $this->tags[$node->getNodeTag()] = $node;
             }
 
             // look for filters
-            if ($node instanceof Twig_Node_Expression_Filter) {
-                $this->filters[] = $node->getNode('filter')->getAttribute('value');
+            if ($node instanceof Twig_Node_Expression_Filter && !isset($this->filters[$node->getNode('filter')->getAttribute('value')])) {
+                $this->filters[$node->getNode('filter')->getAttribute('value')] = $node;
             }
 
             // look for functions
-            if ($node instanceof Twig_Node_Expression_Function) {
-                $this->functions[] = $node->getAttribute('name');
+            if ($node instanceof Twig_Node_Expression_Function && !isset($this->functions[$node->getAttribute('name')])) {
+                $this->functions[$node->getAttribute('name')] = $node;
             }
 
             // wrap print to check __toString() calls
@@ -76,7 +76,7 @@ class Twig_NodeVisitor_Sandbox implements Twig_NodeVisitorInterface
         if ($node instanceof Twig_Node_Module) {
             $this->inAModule = false;
 
-            return new Twig_Node_SandboxedModule($node, array_unique($this->filters), array_unique($this->tags), array_unique($this->functions));
+            $node->setNode('display_start', new Twig_Node(array(new Twig_Node_CheckSecurity($this->filters, $this->tags, $this->functions), $node->getNode('display_start'))));
         }
 
         return $node;

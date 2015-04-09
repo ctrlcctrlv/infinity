@@ -67,6 +67,9 @@ CREATE TABLE IF NOT EXISTS `boards` (
   `subtitle` tinytext,
   `indexed` boolean default true,
   `public_bans` boolean default true,
+  `public_logs` tinyint(1) default 0,
+  `8archive` boolean default false,
+  `sfw` boolean default false,
   PRIMARY KEY (`uri`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
@@ -74,13 +77,6 @@ CREATE TABLE IF NOT EXISTS `board_create` (
   `time` text NOT NULL,
   `uri` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `boards`
---
-
-INSERT INTO `boards` VALUES
-('b', 'Random', NULL);
 
 -- --------------------------------------------------------
 
@@ -227,6 +223,7 @@ CREATE TABLE IF NOT EXISTS `reports` (
   `board` varchar(58) CHARACTER SET utf8 DEFAULT NULL,
   `post` int(11) NOT NULL,
   `reason` text NOT NULL,
+  `local` tinyint(1) NOT NULL DEFAULT '0',
   `global` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 ;
@@ -303,6 +300,94 @@ CREATE TABLE IF NOT EXISTS `ban_appeals` (
   PRIMARY KEY (`id`),
   KEY `ban_id` (`ban_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `post_clean`
+--
+
+CREATE TABLE `post_clean` (
+  `clean_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `post_id` int(11) unsigned NOT NULL,
+  `board_id` varchar(58) NOT NULL,
+  `clean_local` tinyint(1) NOT NULL DEFAULT '0',
+  `clean_local_mod_id` smallint(6) unsigned DEFAULT NULL,
+  `clean_global` tinyint(1) NOT NULL DEFAULT '0',
+  `clean_global_mod_id` smallint(6) unsigned DEFAULT NULL,
+  PRIMARY KEY (`clean_id`),
+  UNIQUE KEY `clean_id_UNIQUE` (`clean_id`)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `board_tags`
+--
+
+CREATE TABLE `board_tags` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uri` varchar(30) DEFAULT NULL,
+  `tag` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tor_cookies`
+--
+
+CREATE TABLE `tor_cookies` (
+  `cookie` varchar(255) NOT NULL,
+  `created` datetime NOT NULL,
+  `uses` tinyint(3) unsigned DEFAULT '0',
+  PRIMARY KEY (`cookie`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dnsbl_bypass`
+--
+
+CREATE TABLE `dnsbl_bypass` (
+  `ip` varchar(255) NOT NULL,
+  `created` datetime DEFAULT NULL,
+  PRIMARY KEY (`ip`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `filters`
+--
+
+CREATE TABLE `filters` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` varchar(255) DEFAULT NULL,
+  `reason` text,
+  `value` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `data` (`type`,`value`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pages`
+--
+
+CREATE TABLE `pages` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `board` varchar(255) DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `type` varchar(255) DEFAULT NULL,
+  `content` text,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `u_pages` (`name`,`board`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

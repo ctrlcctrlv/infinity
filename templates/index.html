@@ -18,7 +18,7 @@
 	{{ boardlist.top }}
 	
 	{% if pm %}<div class="top_notice">You have <a href="?/PM/{{ pm.id }}">an unread PM</a>{% if pm.waiting > 0 %}, plus {{ pm.waiting }} more waiting{% endif %}.</div><hr />{% endif %}
-	{% if config.url_banner %}<img class="board_image" src="{{ config.url_banner }}?board={{ board.uri }}" {% if config.banner_width or config.banner_height %}style="{% if config.banner_width %}width:{{ config.banner_width }}px{% endif %};{% if config.banner_width %}height:{{ config.banner_height }}px{% endif %}" {% endif %}alt="" />{% endif %}
+	{% if config.url_banner %}<img class="board_image" src="{{ config.url_banner }}?board={{ board.uri|url_encode }}" {% if config.banner_width or config.banner_height %}style="{% if config.banner_width %}width:{{ config.banner_width }}px{% endif %};{% if config.banner_width %}height:{{ config.banner_height }}px{% endif %}" {% endif %}alt="" />{% endif %}
 	
 	<header>
 		<h1>{{ board.url }} - {{ board.title|e }}</h1>
@@ -37,7 +37,13 @@
 
 	{% include 'attention_bar.html' %}
 
-	{{ config.ad.top }}
+	{% if config.announcement %}
+		{{ config.announcement }}
+	{% endif %}
+
+	{% if board.uri not in config.banned_ad_boards %}
+		{% include 'ad_top.html' %}
+	{% endif %}
 
 	{% if not no_post_form %}
 		{% include 'post_form.html' %}
@@ -74,26 +80,22 @@
 	
 	{{ boardlist.bottom }}
 
-	{{ config.ad.bottom }}
+	{% if board.uri not in config.banned_ad_boards %}
+		{% include 'ad_bottom.html' %}
+	{% endif %}
 
 	<footer>
 		<p class="unimportant" style="margin-top:20px;text-align:center;">- <a href="http://tinyboard.org/">Tinyboard</a> + 
 			<a href='https://int.vichan.net/devel/'>vichan</a> {{ config.version }} -
 		<br><a href="http://tinyboard.org/">Tinyboard</a> Copyright &copy; 2010-2014 Tinyboard Development Group
-		<br><a href="https://int.vichan.net/devel/">vichan</a> Copyright &copy; 2012-2014 vichan-devel</p>
+		<br><a href="https://int.vichan.net/devel/">vichan</a> Copyright &copy; 2012-2014 vichan-devel
+		<br><a href="https://8ch.net/8code/">infinity</a> Copyright &copy; 2013-2015 Fredrick Brennan &amp; Infinity Development Group</p>
 
 		{% for footer in config.footer %}<p class="unimportant" style="text-align:center;">{{ footer }}</p>{% endfor %}
 	</footer>
-	<script type="text/javascript">{% raw %}
-		var styles = {
-			{% endraw %}
-			{% for name, uri in config.stylesheets %}{% raw %}'{% endraw %}{{ name|addslashes }}{% raw %}' : '{% endraw %}/stylesheets/{{ uri|addslashes }}{% raw %}',
-			{% endraw %}{% endfor %}{% raw %}
-		}; onready(init);
-	{% endraw %}</script>
 
 	<script type="text/javascript">{% raw %}
-		ready();
+		onready(init); ready();
 	{% endraw %}</script>
 </body>
 </html>

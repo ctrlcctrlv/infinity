@@ -54,3 +54,23 @@ function human_time_diff( $from, $to = '' ) {
 
 	return $since;
 }
+
+function is_billion_laughs($arr1, $arr2) {
+        $arr = array();
+        foreach ($arr1 as $k => $v) {
+		$arr[$v] = $arr2[$k];
+        }
+
+        for ($i = 0; $i <= sizeof($arr); $i++) {
+		$cur = array_slice($arr, $i, 1);
+		$pst = array_slice($arr, 0, $i);
+                if (!$cur) continue;
+                $kk = array_keys($cur)[0];
+                $vv = array_values($cur)[0];
+                foreach ($pst as $k => $v) {
+                        if (str_replace($kk, $vv, $v) != $v)
+                                return true;
+                }
+        }
+        return false;
+}

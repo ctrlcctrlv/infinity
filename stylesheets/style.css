@@ -8,6 +8,38 @@ body {
   padding-right: 4px;
 }
 
+#post-form-outer {
+  text-align: center;
+}
+
+#post-form-inner {
+  display: inline-block;
+}
+
+.post-table, .post-table-options, textarea {
+  width: 100%;
+}
+
+.post-table th, .post-table-options th {
+  width: 85px;
+}
+
+.post-table-options {
+  display: none;
+}
+
+.required-field-cell {
+  vertical-align: top;
+}
+
+.show-options-cell {
+  text-align: right;
+}
+
+.hidden {
+  display:none;
+}
+
 a,a:visited {
   text-decoration: underline;
   color: #34345C;
@@ -75,10 +107,6 @@ header div.subtitle {
   font-size: 8pt;
 }
 
-form {
-  margin-bottom: 4em;
-}
-
 form table {
   margin: auto;
 }
@@ -93,11 +121,16 @@ input[type="text"],input[type="password"],textarea {
   text-shadow: none;
   text-transform: none;
   word-spacing: normal;
-  max-width: 75%;
+  font-size: inherit;
+  font-family: sans-serif;
 }
 
 #quick-reply input[type="text"], input[type="password"], #quick-reply textarea {
   max-width: 100%;
+}
+
+#upload input[type="file"] {
+  max-width: 230px;
 }
 
 form table tr td {
@@ -122,17 +155,20 @@ form table tr th {
 form table tr td div.center {
   text-align: center;
   float: left;
-  padding-left: 3px;
+  padding: 3px;
+  padding-top: 0px;
+  border: 1px dashed black;
+  margin: 2px
 }
 
-form table tr td div input {
+/*form table tr td div input {
   display: block;
   margin: 2px auto 0 auto;
 }
 
 form table tr td div label {
   font-size: 10px;
-}
+}*/
 
 .unimportant,.unimportant * {
   font-size: 10px;
@@ -190,6 +226,13 @@ img.banner,img.board_image {
   border: none;
 }
 
+.full-image {
+  float: left;
+  padding: 5px;
+  margin: 0 20px 0 0;
+  max-width: 98%;
+}
+
 div.post .post-image {
   padding: 5px;
   margin: 0 20px 0 0;
@@ -242,7 +285,16 @@ p.intro span.capcode,p.intro a.capcode,p.intro a.nametag {
 }
 
 p.intro a {
-  margin-left: 8px;
+  margin-left: 5px;
+}
+
+.sage {
+  color: red;
+  font-weight: bold;
+}
+
+.required-star {
+  color: maroon;
 }
 
 div.delete {
@@ -288,8 +340,11 @@ div.post.reply {
   max-width: 94%!important;
 }
 
+div.post.reply.has-file.body-not-empty {
+  min-width: 33%;
+}
+
 div.post_modified {
-  min-width: 47.5em;
   margin-left: 1.8em;
 }
 div.post_modified div.content-status {
@@ -303,6 +358,11 @@ div.post_modified div.content-status:first-child {
 
 div.post_modified div.content-status:first-child {
   margin-top: 1.3em;
+}
+
+a.dashed-underline {
+  text-decoration: none;
+  border-bottom: 1px dashed;
 }
 
 span.trip {
@@ -560,7 +620,7 @@ table.mod.config-editor input[type="text"] {
   width: 98%;
 }
 
-.desktop-style div.boardlist:nth-child(1) {
+.desktop-style div.boardlist:not(.bottom) {
   position: fixed;
   top: 0;
   left: 0;
@@ -731,6 +791,9 @@ pre {
   .theme-catalog div.threads {
     overflow: hidden;
   }
+  div.post .body {
+    clear: both;
+  }
 }
 
 .compact-boardlist {
@@ -802,7 +865,7 @@ pre {
   margin-top: 1em;
 }
 
-.new-threads {
+.new-threads, .board-settings {
   text-align: center;
 }
 
@@ -841,7 +904,7 @@ pre {
 
 #options_div {
   width: 600px;
-  height: 300px;
+  height: 360px;
 }
 
 #alert_div {
@@ -908,6 +971,7 @@ pre {
   right: 0px;
   text-align: left;
   font-size: 12px;
+  overflow-y: auto;
 }
 
 .options_tab h2 {
@@ -928,6 +992,10 @@ pre {
 
 .poster_id {
   cursor: pointer;
+}
+
+.poster_id::before {
+  content: " ID: ";
 }
 
 pre {
@@ -968,10 +1036,18 @@ span.pln {
 	margin-bottom: 10px;
 }
 
+#watchlist {
+	font-size: 8pt;
+	width: 15%;
+	position: fixed;
+	right: 0pt;
+	bottom: 0pt;
+	margin: 0pt;
+	padding: 0pt;
+}
+
 .watchlist-inner, .watchlist-controls {
-	margin: 0 auto;
-	margin-top: 10px;
-	margin-bottom: 10px;
+	margin: 0pt;
 	text-align: center;
 }
 
@@ -985,4 +1061,203 @@ span.pln {
 }
 div.mix {
 	display: inline-block;
+} 
+.theme-catalog div.thread:hover {
+	overflow-y: auto; width: 100%
+}
+
+/* Mona Font */
+
+.aa {
+	font-family: Mona, "MS PGothic", "ＭＳ Ｐゴシック", sans-serif;
+	display: block!important;
+	font-size: 12pt;
+}
+
+.dx,.dy,.dz {
+	width: 30px;
+	text-align: right;
+	display: inline-block;
+}
+
+.dice-option table {
+	border: 1px dotted black;
+	margin: 0;
+	border-collapse: collapse;
+}
+
+.dice-option table td {
+	text-align: center;
+	border-left: 1px dotted black;
+	padding-left: 2px;
+	padding-right: 2px;
+	padding-bottom: 2px;
+}
+
+/* Quick reply (why was most of this ever in the script?) */
+
+#quick-reply {
+	position: fixed;
+	right: 5%;
+	top: 5%;
+	float: right;
+	display: block;
+	padding: 0 0 0 0;
+	width: 300px;
+	z-index: 100;
+}
+#quick-reply #post-form-inner {
+	min-width: 300px;
+}
+#quick-reply .post-table tr td:nth-child(2) {
+	width: 33%;
+	text-align: right;
+	padding-right: 4px;
+}
+#quick-reply tr td:nth-child(2) input[type="submit"] {
+	width: 99%;
+}
+#quick-reply th, #quick-reply td {
+	margin: 0;
+	padding: 0;
+}
+#quick-reply th {
+	text-align: center;
+	padding: 2px 0;
+	border: 1px solid #222;
+}
+#quick-reply th .handle {
+	float: left;
+	width: 100%;
+	display: inline-block;
+}
+#quick-reply th .close-btn {
+	float: right;
+	padding: 0 5px;
+}
+#quick-reply input[type="text"], #quick-reply select {
+	width: 100%;
+	padding: 2px;
+	font-size: 10pt;
+	box-sizing: border-box;
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing: border-box;
+}
+#quick-reply textarea {
+	min-width: 100%;
+	box-sizing: border-box;
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing: border-box;
+	font-size: 10pt;
+	resize: both;
+}
+#quick-reply input, #quick-reply select, #quick-reply textarea {
+	margin: 0 0 1px 0;
+}
+#quick-reply input[type="file"] {
+	padding: 5px 2px;
+}
+#quick-reply .nonsense {
+	display: none;
+}
+#quick-reply td.recaptcha {
+	text-align: center;
+	padding: 0 0 1px 0;
+}
+#quick-reply td.recaptcha span {
+	display: inline-block;
+	width: 100%;
+	background: white;
+	border: 1px solid #ccc;
+	cursor: pointer;
+}
+#quick-reply td.recaptcha-response {
+	padding: 0 0 1px 0;
+}
+@media screen and (max-width: 600px) {
+	#quick-reply {
+		display: none !important;
+	}
+}
+
+#youtube-size input {
+	width: 50px;
+}
+
+/* File selector */
+.dropzone {
+  color: #000;
+  cursor: default;
+  margin: auto;
+  padding: 0px 4px;
+  text-align: center;
+  min-height: 50px;
+  max-height: 140px;
+  transition: 0.2s;
+  background-color: rgba(200, 200, 200, 0.5);
+  overflow-y: auto;
+}
+.dropzone-wrap {
+  width: 100%;
+}
+.dropzone .file-hint {
+  color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  position: relative;
+  margin-bottom: 5px;
+  padding: 10px 0px;
+  top: 5px;
+  transition: 0.2s;
+  border: 2px dashed rgba(125, 125, 125, 0.4);
+}
+.file-hint:hover, .dropzone.dragover .file-hint {
+  color: rgba(0, 0, 0, 1);
+  border-color: rgba(125, 125, 125, 0.8);
+}
+.dropzone.dragover {
+  background-color: rgba(200, 200, 200, 1);
+}
+.dropzone .file-thumbs {
+  text-align: left;
+  width: 100%;
+}
+.dropzone .tmb-container {
+  padding: 3px;
+  overflow-x: hidden;
+  white-space: nowrap;
+}
+.dropzone .file-tmb {
+  height: 40px;
+  width: 70px;
+  cursor: pointer;
+  display: inline-block;
+  text-align: center;
+  background-color: rgba(187, 187, 187, 0.5);
+  background-size: cover;
+  background-position: center;
+}
+.dropzone .file-tmb span {
+  font-weight: 600;
+  position: relative;
+  top: 13px;
+}
+.dropzone .tmb-filename {
+  display: inline-block;
+  vertical-align: bottom;
+  bottom: 12px;
+  position: relative;
+  margin-left: 5px;
+}
+.dropzone .remove-btn {
+  cursor: pointer;
+  color: rgba(125, 125, 125, 0.5);
+  display: inline-block;
+  vertical-align: bottom;
+  bottom: 10px;
+  position: relative;
+  margin-right: 5px;
+  font-size: 20px
+}
+.dropzone .remove-btn:hover {
+  color: rgba(125, 125, 125, 1);
 }
