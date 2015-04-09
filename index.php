@@ -9,3 +9,5 @@ if ($query) {
 
 $index = Element("8chan/index.html", array("config" => $config, "newsplus" => $newsplus));
 file_write('index.html', $index);
+
+echo $index;
