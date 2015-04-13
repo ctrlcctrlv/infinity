@@ -516,9 +516,9 @@ function setupBoard($array) {
 	$board = array(
 		'uri' => $array['uri'],
 		'title' => $array['title'],
-		'subtitle' => $array['subtitle'],
-		'indexed' => $array['indexed'],
-		'public_logs' => $array['public_logs']
+		'subtitle' => isset($array['subtitle']) ? $array['subtitle'] : "",
+		'indexed' => isset($array['indexed']) ? $array['indexed'] : true,
+		'public_logs' => isset($array['public_logs']) ? $array['public_logs'] : true,
 	);
 
 	// older versions
@@ -802,6 +802,84 @@ function listBoards($just_uri = false, $indexed_only = false) {
 		cache::set($cache_name, $boards);
 
 	return $boards;
+}
+
+function loadBoardConfig( $uri ) {
+	$config = array(
+		"locale" => "en_US",
+	);
+	$configPath = "/{$uri}/config.php";
+	
+	if (file_exists( $configPath ) && is_readable( $configPath )) {
+		include( $configPath );
+	}
+	
+	// **DO NOT** use $config outside of this local scope.
+	// It's used by our global config array.
+	return $config;
+}
+
+function fetchBoardActivity( $uris ) {
+	$boardActivity = array();
+	
+	/*
+	$uris = "\"" . implode( (array) $uris, "\",\"" ) . "\"";
+	
+	$tagQuery = prepare("SELECT * FROM ``board_tags`` WHERE `uri` IN ({$uris})");
+	$tagQuery->execute() or error(db_error($tagQuery));
+	$tagResult = $tagQuery->fetchAll(PDO::FETCH_ASSOC);
+	
+	if ($tagResult) {
+		foreach ($tagResult as $tagRow) {
+			$tag = $tagRow['tag'];
+			$tag = trim($tag);
+			$tag = strtolower($tag);
+			$tag = str_replace(['_', ' '], '-', $tag);
+			
+			if (!isset($boardTags[ $tagRow['uri'] ])) {
+				$boardTags[ $tagRow['uri'] ] = array();
+			}
+			
+			$boardTags[ $tagRow['uri'] ][] = htmlentities( utf8_encode( $tag ) );
+		}
+	}
+	*/
+	
+	foreach( (array) $uris as $uri ) {
+		$random = rand( -1000, 1000 );
+		if( $random < 0 ) $random = 0;
+		
+		$boardActivity['active'][ $uri ] = $random;
+		$boardActivity['average'][ $uri ] = $random * 72;
+	}
+	
+	return $boardActivity;
+}
+
+function fetchBoardTags( $uris ) {
+	$boardTags = array();
+	$uris = "\"" . implode( (array) $uris, "\",\"" ) . "\"";
+	
+	$tagQuery = prepare("SELECT * FROM ``board_tags`` WHERE `uri` IN ({$uris})");
+	$tagQuery->execute() or error(db_error($tagQuery));
+	$tagResult = $tagQuery->fetchAll(PDO::FETCH_ASSOC);
+	
+	if ($tagResult) {
+		foreach ($tagResult as $tagRow) {
+			$tag = $tagRow['tag'];
+			$tag = trim($tag);
+			$tag = strtolower($tag);
+			$tag = str_replace(['_', ' '], '-', $tag);
+			
+			if (!isset($boardTags[ $tagRow['uri'] ])) {
+				$boardTags[ $tagRow['uri'] ] = array();
+			}
+			
+			$boardTags[ $tagRow['uri'] ][] = htmlentities( utf8_encode( $tag ) );
+		}
+	}
+	
+	return $boardTags;
 }
 
 function until($timestamp) {

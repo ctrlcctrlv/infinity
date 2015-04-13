@@ -122,7 +122,7 @@ $body = Element("8chan/boards-tags.html", array("config" => $config, "n_boards" 
 
 $html = Element("page.html", array("config" => $config, "body" => $body, "title" => "Boards on &infin;chan"));
 $boards_top2k = $boards;
-array_splice($boards_top2k, 2000);
+array_splice($boards_top2k, 100);
 $boards_top2k = array_values($boards_top2k);
 $body = Element("8chan/boards-tags.html", array("config" => $config, "n_boards" => $n_boards, "t_boards" => $t_boards, "hidden_boards_total" => $hidden_boards_total, "total_posts" => $total_posts, "total_posts_hour" => $total_posts_hour, "boards" => $boards_top2k, "last_update" => date('r'), "uptime_p" => shell_exec('uptime -p'), 'tags' => $all_tags, 'top2k' => true));
 $html_top2k = Element("page.html", array("config" => $config, "body" => $body, "title" => "Boards on &infin;chan"));
@@ -133,10 +133,10 @@ if ($admin) {
 	foreach ($boards as $i => &$b) { unset($b['img']); }
 	file_write("boards.json", json_encode($boards));
 	file_write("tags.json", json_encode($all_tags));
-	foreach ($boards as $i => $b) {
+	foreach ($boards as $i => $b) {/*
 		if (in_array($b['uri'], $config['no_top_bar_boards'])) {
 			unset($boards[$i]);
-		}
+		}*/
 		unset($boards[$i]['img']);
 	}
 
@@ -147,6 +147,5 @@ if ($admin) {
 	file_write("boards-top20.json", json_encode($boards));
 	file_write("boards.html", $html_top2k);
 	file_write("boards_full.html", $html);
-	echo 'Done';
+	echo $html;
 }
-

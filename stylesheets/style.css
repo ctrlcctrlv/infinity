@@ -1,3 +1,6 @@
+/* === GENERAL TAG SETTINGS === */
+
+/* Page Layouts */
 body {
   background: #EEF2FF url('img/fade-blue.png') repeat-x 50% 0%;
   color: black;
@@ -8,6 +11,69 @@ body {
   padding-right: 4px;
 }
 
+main,
+aside,
+section {
+	display: block;
+	margin: 0 auto;
+	width: 100%;
+}
+
+main {
+	max-width: 1110px;
+}
+
+/* Tables */
+table {
+  margin: auto;
+  width: 100%;
+}
+
+table {
+	margin: auto;
+	width: 100%;
+}
+table tbody td {
+	margin: 0;
+	padding: 4px 15px 4px 4px;
+	
+	text-align: left;
+}
+table thead th {
+	border: 1px solid #000333;
+	padding: 4px 15px 5px 5px;
+	
+	background: #98E;
+	color: #000333;
+	text-align: left;
+	white-space: nowrap;
+}
+table tbody tr:nth-of-type( even ) {
+	background-color: #D6DAF0;
+}
+
+td.minimal,th.minimal {
+  width: 1%;
+  white-space: nowrap;
+}
+
+table.mod.config-editor {
+  font-size: 9pt;
+  width: 100%;
+}
+
+table.mod.config-editor td {
+  text-align: left;
+  padding: 5px;
+  border-bottom: 1px solid #98e;
+}
+
+table.mod.config-editor input[type="text"] {
+  width: 98%;
+}
+
+
+/* Uncategorized */
 #post-form-outer {
   text-align: center;
 }
@@ -538,48 +604,8 @@ hr {
   clear: left;
 }
 
-div.boardlist {
-  color: #89A;
-  font-size: 9pt;
-  margin-top: 3px;
-}
-
-div.boardlist.bottom {
-  margin-top: 20px;
-}
-
-div.boardlist a {
-  text-decoration: none;
-}
-
 div.report {
   color: #333;
-}
-
-table.modlog {
-  margin: auto;
-  width: 100%;
-}
-
-table.modlog tr td {
-  text-align: left;
-  margin: 0;
-  padding: 4px 15px 0 0;
-}
-
-table.modlog tr th {
-  text-align: left;
-  padding: 4px 15px 5px 5px;
-  white-space: nowrap;
-}
-
-table.modlog tr th {
-  background: #98E;
-}
-
-td.minimal,th.minimal {
-  width: 1%;
-  white-space: nowrap;
 }
 
 div.top_notice {
@@ -603,21 +629,6 @@ div.blotter {
   color: red;
   font-weight: bold;
   text-align: center;
-}
-
-table.mod.config-editor {
-  font-size: 9pt;
-  width: 100%;
-}
-
-table.mod.config-editor td {
-  text-align: left;
-  padding: 5px;
-  border-bottom: 1px solid #98e;
-}
-
-table.mod.config-editor input[type="text"] {
-  width: 98%;
 }
 
 .desktop-style div.boardlist:not(.bottom) {
@@ -1012,7 +1023,6 @@ span.pln {
   color:grey;
 }
 
-
 @media screen and (min-width: 768px) {
   p.intro {
     clear: none;
@@ -1023,8 +1033,67 @@ span.pln {
   }
 }
 
-/* threadwatcher */
+/* === GENERAL CLASSES === */
+.loading {
+	background: none;
+	background-color: none;
+	background-image: url('/static/infinity.gif');
+	background-position: center center;
+	background-repeat: no-repeat;
+	min-height: 76px;
+	min-width:  128px;
+}
 
+
+/* Responsive helpers */
+.col {
+	box-sizing: border-box;
+	float: left;
+}
+
+.col-12 { width: 100%; }
+.col-11 { width: 91.66666667%; }
+.col-10 { width: 83.33333333%; }
+.col-9 { width: 75%; }
+.col-8 { width: 66.66666667%; }
+.col-7 { width: 58.33333333%; }
+.col-6 { width: 50%; }
+.col-5 { width: 41.66666667%; }
+.col-4 { width: 33.33333333%; }
+.col-3 { width: 25%; }
+.col-2 { width: 16.66666667%; }
+.col-1 { width: 8.33333333%; }
+
+.left-push {
+	float: left;
+}
+.right-push {
+	float: right;
+}
+
+/* Layout design */
+.box {
+	background: #D6DAF0;
+	border: 1px solid #000333;
+	color: #000333;
+	margin: 0 0 12px 0;
+}
+.box-title {
+	background: #98E;
+	color: #000333;
+	font-size: 120%;
+	font-weight: bold;
+	padding: 4px 8px;
+}
+.box-content {
+	padding: 0 8px;
+	margin: 4px 0;
+}
+
+
+/* === SPECIFIC PAGES & FEATURES === */
+
+/* threadwatcher */
 #watchlist {
 	display: none;
 	max-height: 250px;
@@ -1067,25 +1136,25 @@ div.mix {
 }
 
 /* Mona Font */
-
 .aa {
 	font-family: Mona, "MS PGothic", "ＭＳ Ｐゴシック", sans-serif;
 	display: block!important;
 	font-size: 12pt;
 }
-
-.dx,.dy,.dz {
+.dx,
+.dy,
+.dz {
 	width: 30px;
 	text-align: right;
 	display: inline-block;
 }
 
+/* Dice */
 .dice-option table {
 	border: 1px dotted black;
 	margin: 0;
 	border-collapse: collapse;
 }
-
 .dice-option table td {
 	text-align: center;
 	border-left: 1px dotted black;
@@ -1095,7 +1164,6 @@ div.mix {
 }
 
 /* Quick reply (why was most of this ever in the script?) */
-
 #quick-reply {
 	position: fixed;
 	right: 5%;
@@ -1260,4 +1328,110 @@ div.mix {
 }
 .dropzone .remove-btn:hover {
   color: rgba(125, 125, 125, 1);
+}
+
+/* Board List */
+div.boardlist {
+	margin-top: 3px;
+	
+	color: #89A;
+	font-size: 9pt;
+}
+div.boardlist.bottom {
+	margin-top: 20px;
+}
+div.boardlist a {
+	text-decoration: none;
+}
+
+table.board-list-table {
+	display: table;
+	margin: -2px;
+	overflow: hidden;
+	table-layout: fixed;
+}
+
+table.board-list-table .board-meta {
+	padding-right: 4px;
+	width: 44px;
+}
+table.board-list-table .board-uri {
+	max-width: 196px;
+}
+table.board-list-table .board-title {
+	width: auto;
+}
+table.board-list-table .board-pph {
+	width: 55px;
+}
+table.board-list-table .board-max {
+	width: 90px;
+}
+table.board-list-table .board-unique {
+	width: 100px;
+}
+table.board-list-table .board-tags {
+	width: auto;
+}
+
+table.board-list-table div.board-cell {
+	max-width: 100%;
+	overflow: hidden;
+}
+
+aside.search-container {
+}
+aside.search-container .box {
+	margin-right: 12px;
+}
+
+.board-search {
+	padding: 0 0 8px 0;
+	margin: 8px;
+	border-bottom: 1px solid #000333;
+}
+.search-item {
+	margin: 8px 0;
+}
+.search-sfw {
+	cursor: pointer;
+	font-size: 110%;
+	line-height: 120%;
+	vertical-align: bottom;
+}
+#search-sfw-input {
+	margin: 0;
+	padding: 0;
+	transform: scale(1.20);
+}
+#search-lang-input,
+#search-tag-input {
+	box-sizing: border-box;
+	font-size: 110%;
+	line-height: 120%;
+	vertical-align: top;
+	padding: 2px 0 2px 4px;
+	max-width: 100%;
+	min-width: 100%;
+	width: 100%:
+}
+
+ul.tag-list {
+	display: block;
+	list-style: none;
+	padding: 0;
+	margin: 0 8px;
+}
+ul.tag-list::after {
+	content: ' ';
+	display: block;
+	clear: both;
+}
+li.tag-item {
+	display: inline-block;
+	float: left;
+	font-size: 100%;
+	list-style: none;
+	margin: 0;
+	padding: 0 0.6em 0 0;
 }
