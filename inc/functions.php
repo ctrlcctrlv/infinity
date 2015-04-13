@@ -786,9 +786,23 @@ function listBoards($just_uri = false, $indexed_only = false) {
 		return $boards;
 
 	if (!$just_uri) {
-		$query = query("SELECT ``boards``.`uri` uri, ``boards``.`title` title, ``boards``.`subtitle` subtitle, ``board_create``.`time` time, ``boards``.`indexed` indexed, ``boards``.`sfw` sfw FROM ``boards``" . ( $indexed_only ? " WHERE `indexed` = 1 " : "" ) . "LEFT JOIN ``board_create`` ON ``boards``.`uri` = ``board_create``.`uri` ORDER BY ``boards``.`uri`") or error(db_error());
+		$query = query(
+			"SELECT
+				``boards``.`uri` uri,
+				``boards``.`title` title,
+				``boards``.`subtitle` subtitle,
+				``board_create``.`time` time,
+				``boards``.`indexed` indexed,
+				``boards``.`sfw` sfw,
+				``boards``.`posts_total` posts_total
+			FROM ``boards``" . ( $indexed_only ? " WHERE `indexed` = 1 " : "" ) .
+			"LEFT JOIN ``board_create``
+				ON ``boards``.`uri` = ``board_create``.`uri`
+			ORDER BY ``boards``.`uri`") or error(db_error());
+		
 		$boards = $query->fetchAll(PDO::FETCH_ASSOC);
-	} else {
+	}
+	else {
 		$boards = array();
 		$query = query("SELECT `uri` FROM ``boards``" . ( $indexed_only ? " WHERE `indexed` = 1" : "" ) . " ORDER BY ``boards``.`uri`") or error(db_error());
 		while (true) {
@@ -823,45 +837,14 @@ function fetchBoardActivity( $uris ) {
 	global $config;
 	
 	$boardActivity = array();
+	//$uris          = "\"" . implode( (array) $uris, "\",\"" ) . "\"";
 	
-	$tablePrefix = "{$config['db']['prefix']}posts_";
-	$uris        = "\"{$tablePrefix}" . implode( (array) $uris, "\",\"{$tablePrefix}" ) . "\"";
-	
-	/*
-	$tagQuery = prepare("SELECT * FROM ``board_tags`` WHERE `uri` IN ({$uris})");
-	$tagQuery->execute() or error(db_error($tagQuery));
-	$tagResult = $tagQuery->fetchAll(PDO::FETCH_ASSOC);
-	
-	if ($tagResult) {
-		foreach ($tagResult as $tagRow) {
-			$tag = $tagRow['tag'];
-			$tag = trim($tag);
-			$tag = strtolower($tag);
-			$tag = str_replace(['_', ' '], '-', $tag);
-			
-			if (!isset($boardTags[ $tagRow['uri'] ])) {
-				$boardTags[ $tagRow['uri'] ] = array();
-			}
-			
-			$boardTags[ $tagRow['uri'] ][] = htmlentities( utf8_encode( $tag ) );
-		}
-	}
-	*/
-	
-	$aiQuery = prepare("SELECT `TABLE_NAME`, `AUTO_INCREMENT` FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = \"{$config['db']['database']}\" AND TABLE_NAME IN ({$uris})");
-	$aiQuery->execute() or error(db_error($aiQuery));
-	$aiResult = $aiQuery->fetchAll(PDO::FETCH_ASSOC);
-	
-	foreach ($aiResult as $aiRow) {
-		$uri   = str_replace( $tablePrefix, "", $aiRow['TABLE_NAME'] );
-		$posts = $aiRow['AUTO_INCREMENT'] - 1;
-		
-		$random = rand( -1000, 1000 );
+	foreach ($uris as $uri) {
+		$random = 0;//rand( -1000, 1000 );
 		if( $random < 0 ) $random = 0;
 		
 		$boardActivity['active'][ $uri ]  = $random;
 		$boardActivity['average'][ $uri ] = ($random * 72) / 72;
-		$boardActivity['posts'][ $uri ]   = $posts;
 	}
 	
 	return $boardActivity;

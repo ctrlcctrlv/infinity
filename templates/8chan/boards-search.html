@@ -1,40 +1,40 @@
 <main id="boardlist">
 	<section class="description box col col-12">
 		<h2 class="box-title">Global Statistics</h2>
-		<p class="box-content">{% trans %}There are currently <strong>{{boards_public}}</strong> public boards, <strong>{{boards_total}}</strong> total. Site-wide, {{posts_hour}} posts have been made in the last hour, with {{posts_total}} being made on all active boards since {{founding_date}}.{% endtrans %}</p>
+		<p class="box-content">{% trans %}There are currently <strong>{{boards_public}}</strong> public boards, <strong>{{boards_total}}</strong> total. Site-wide, <strong>{{posts_hour}}</strong> posts have been made in the last hour, with <strong>{{posts_total}}</strong> being made on all active boards since {{founding_date}}.{% endtrans %}</p>
 		{% if uptime %}<p class="box-content">{{uptime}} without interruption</p>{% endif %}
 		<p class="box-content">This page last updated {{page_updated}}.</p>
 	</section>
 	
 	<div class="board-list">
 		<aside class="search-container col col-2">
-			<form id="search-form" class="box" method="post" target="/board-search.php">
+			<form id="search-form" class="box" method="get" target="/board-search.php">
 				<h2 class="box-title">Search</h2>
 				
 				<div class="board-search box-content">
 					<label class="search-item search-sfw">
-						<input type="checkbox" id="search-sfw-input" name="sfw" checked="checked" />&nbsp;NSFW boards
+						<input type="checkbox" id="search-sfw-input" name="sfw" value="1" />&nbsp;Hide NSFW boards
 					</label>
 					
 					<div class="search-item search-title">
-						<input type="text" id="search-title-input" name="title" placeholder="Search titles..." />
+						<input type="text" id="search-title-input" name="title" name="title" value="" placeholder="Search titles..." />
 					</div>
 					
 					<div class="search-item search-lang">
 						<select id="search-lang-input" name="lang">
 							<optgroup label="Popular">
-								<option>All languages</option>
-								<option>English</option>
-								<option>Spanish</option>
+								<option value="">All languages</option>
+								<option value="en">English</option>
+								<option value="es">Spanish</option>
 							</optgroup>
 							<optgroup label="All">
-								<option>Chinese</option>
+								<option value="cn">Chinese</option>
 							</optgroup>
 						</select>
 					</div>
 					
 					<div class="search-item search-tag">
-						<input type="text" id="search-tag-input" name="tag" placeholder="Search tags..." />
+						<input type="text" id="search-tag-input" name="tags" value="" placeholder="Search tags..." />
 					</div>
 					
 					<div class="search-item search-submit">

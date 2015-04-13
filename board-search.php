@@ -23,25 +23,29 @@ $languages = array(
 
 /* Determine search parameters from $_GET */
 $search = array(
-	'lang'   => false,
-	'nsfw'   => true,
-	'tags'   => false,
-	'titles' => false,
+	'lang'  => false,
+	'nsfw'  => true,
+	'tags'  => false,
+	'title' => false,
 );
 
 // Include NSFW boards?
-if (isset( $_GET['nsfw'] )) {
-	$search['nsfw'] = (bool) $_GET['nsfw'];
+if (isset( $_GET['sfw'] ) && $_GET['sfw'] != "") {
+	$search['nsfw'] = !$_GET['sfw'];
 }
 
 // Include what language (if the language is not blank and we recognize it)?
-if (isset( $_GET['lang'] ) && isset($languages[$search['lang']])) {
+if (isset( $_GET['lang'] ) && $_GET['lang'] != "" && isset($languages[$search['lang']])) {
 	$search['lang'] = $_GET['lang'];
 }
 
 // Include what tag?
-if (isset( $_GET['tags'] )) {
+if (isset( $_GET['tags'] ) && $_GET['tags'] != "") {
 	$search['tags'] = $_GET['tags'];
+}
+// Include what in the uri / title / subtitle?
+if (isset( $_GET['title'] ) && $_GET['title'] != "") {
+	$search['title'] = $_GET['title'];
 }
 
 /* Search boards */
@@ -108,7 +112,6 @@ $response['tags'] = array();
 // We will also be weighing and building a tag list.
 foreach ($response['boards'] as $boardUri => &$board) {
 	$board['active'] = (int) $boardActivity['active'][ $boardUri ];
-	$board['posts']  = (int) $boardActivity['posts'][ $boardUri ];
 	$board['pph']    = (int) $boardActivity['average'][ $boardUri ];
 	
 	if (isset($board['tags']) && count($board['tags']) > 0) {
@@ -124,13 +127,19 @@ foreach ($response['boards'] as $boardUri => &$board) {
 }
 
 // Sort boards by their popularity, then by their total posts.
-$boardActivityValues = array();
+$boardActivityValues   = array();
+$boardTotalPostsValues = array();
 
-foreach ($response['boards'] as $boardUri => $board) {
-	$boardActivityValues[$boardUri] = "{$board['active']}.{$board['posts']}";
+foreach ($response['boards'] as $boardUri => &$board) {
+	$boardActivityValues[$boardUri]   = (int) $board['active'];
+	$boardTotalPostsValues[$boardUri] = (int) $board['posts_total']; 
 }
 
-array_multisort($boardActivityValues, SORT_DESC, $response['boards']);
+array_multisort(
+	$boardActivityValues, SORT_DESC, SORT_NUMERIC, // Sort by number of active posters
+	$boardTotalPostsValues, SORT_DESC, SORT_NUMERIC, // Then, sort by total number of posts
+	$response['boards']
+);
 
 // Get the top most popular tags.
 if (count($response['tags']) > 0) {
@@ -146,7 +155,7 @@ if (count($response['tags']) > 0) {
 /* (Please) Respond */
 if (!$Included) {
 	$json = json_encode( $response );
-
+	
 	// Error Handling
 	switch (json_last_error()) {
 		case JSON_ERROR_NONE:
@@ -171,11 +180,11 @@ if (!$Included) {
 			$jsonError = 'Unknown error';
 			break;
 	}
-
+	
 	if ($jsonError) {
 		$json = "{\"error\":\"{$jsonError}\"}";
 	}
-
+	
 	// Successful output
 	echo $json;
 }
