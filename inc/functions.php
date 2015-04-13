@@ -820,11 +820,14 @@ function loadBoardConfig( $uri ) {
 }
 
 function fetchBoardActivity( $uris ) {
+	global $config;
+	
 	$boardActivity = array();
 	
-	/*
-	$uris = "\"" . implode( (array) $uris, "\",\"" ) . "\"";
+	$tablePrefix = "{$config['db']['prefix']}posts_";
+	$uris        = "\"{$tablePrefix}" . implode( (array) $uris, "\",\"{$tablePrefix}" ) . "\"";
 	
+	/*
 	$tagQuery = prepare("SELECT * FROM ``board_tags`` WHERE `uri` IN ({$uris})");
 	$tagQuery->execute() or error(db_error($tagQuery));
 	$tagResult = $tagQuery->fetchAll(PDO::FETCH_ASSOC);
@@ -845,20 +848,30 @@ function fetchBoardActivity( $uris ) {
 	}
 	*/
 	
-	foreach( (array) $uris as $uri ) {
+	$aiQuery = prepare("SELECT `TABLE_NAME`, `AUTO_INCREMENT` FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = \"{$config['db']['database']}\" AND TABLE_NAME IN ({$uris})");
+	$aiQuery->execute() or error(db_error($aiQuery));
+	$aiResult = $aiQuery->fetchAll(PDO::FETCH_ASSOC);
+	
+	foreach ($aiResult as $aiRow) {
+		$uri   = str_replace( $tablePrefix, "", $aiRow['TABLE_NAME'] );
+		$posts = $aiRow['AUTO_INCREMENT'] - 1;
+		
 		$random = rand( -1000, 1000 );
 		if( $random < 0 ) $random = 0;
 		
-		$boardActivity['active'][ $uri ] = $random;
-		$boardActivity['average'][ $uri ] = $random * 72;
+		$boardActivity['active'][ $uri ]  = $random;
+		$boardActivity['average'][ $uri ] = ($random * 72) / 72;
+		$boardActivity['posts'][ $uri ]   = $posts;
 	}
 	
 	return $boardActivity;
 }
 
 function fetchBoardTags( $uris ) {
+	global $config;
+	
 	$boardTags = array();
-	$uris = "\"" . implode( (array) $uris, "\",\"" ) . "\"";
+	$uris = "\"{$config['db']['prefix']}" . implode( (array) $uris, "\",\"" ) . "\"";
 	
 	$tagQuery = prepare("SELECT * FROM ``board_tags`` WHERE `uri` IN ({$uris})");
 	$tagQuery->execute() or error(db_error($tagQuery));

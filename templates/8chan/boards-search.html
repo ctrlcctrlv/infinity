@@ -1,0 +1,78 @@
+<main id="boardlist">
+	<section class="description box col col-12">
+		<h2 class="box-title">Global Statistics</h2>
+		<p class="box-content">{% trans %}There are currently <strong>{{boards_public}}</strong> public boards, <strong>{{boards_total}}</strong> total. Site-wide, {{posts_hour}} posts have been made in the last hour, with {{posts_total}} being made on all active boards since {{founding_date}}.{% endtrans %}</p>
+		{% if uptime %}<p class="box-content">{{uptime}} without interruption</p>{% endif %}
+		<p class="box-content">This page last updated {{page_updated}}.</p>
+	</section>
+	
+	<div class="board-list">
+		<aside class="search-container col col-2">
+			<form id="search-form" class="box" method="post" target="/board-search.php">
+				<h2 class="box-title">Search</h2>
+				
+				<div class="board-search box-content">
+					<label class="search-item search-sfw">
+						<input type="checkbox" id="search-sfw-input" name="sfw" checked="checked" />&nbsp;NSFW boards
+					</label>
+					
+					<div class="search-item search-title">
+						<input type="text" id="search-title-input" name="title" placeholder="Search titles..." />
+					</div>
+					
+					<div class="search-item search-lang">
+						<select id="search-lang-input" name="lang">
+							<optgroup label="Popular">
+								<option>All languages</option>
+								<option>English</option>
+								<option>Spanish</option>
+							</optgroup>
+							<optgroup label="All">
+								<option>Chinese</option>
+							</optgroup>
+						</select>
+					</div>
+					
+					<div class="search-item search-tag">
+						<input type="text" id="search-tag-input" name="tag" placeholder="Search tags..." />
+					</div>
+					
+					<div class="search-item search-submit">
+						<button id="search-submit">Search</button>
+					</div>
+				</div>
+				
+				<ul class="tag-list box-content">
+					{{html_tags}}
+				</ul>
+			</form>
+		</aside>
+		
+		<section class="board-list col col-10">
+			<table class="board-list-table">
+				<colgroup>
+					<col class="board-meta" />
+					<col class="board-uri" />
+					<col class="board-title" />
+					<col class="board-pph" />
+					<col class="board-max" />
+					<col class="board-unique" />
+					<col class="board-tags" />
+				</colgroup>
+				<thead>
+					<tr>
+						<th class="board-meta" data-column="meta"></th>
+						<th class="board-uri" data-column="uri">{% trans %}Board{% endtrans %}</th>
+						<th class="board-title" data-column="title">{% trans %}Title{% endtrans %}</th>
+						<th class="board-pph" data-column="pph" title="Posts per hour">{% trans %}PPH{% endtrans %}</th>
+						<th class="board-max" data-column="max">{% trans %}Total posts{% endtrans %}</th>
+						<th class="board-unique" data-column="unique" title="Unique IPs to post in the last 72 hours">{% trans %}Active users{% endtrans %}</th>
+						<th class="board-tags" data-column="tags">{% trans %}Tags{% endtrans %}</th>
+					</tr>
+				</thead>
+				
+				<tbody class="board-list-tbody">{{html_boards}}</tbody>
+			</table>
+		</section>
+	</div>
+</main>

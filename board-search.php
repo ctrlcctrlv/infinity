@@ -1,6 +1,11 @@
 <?php
 
-include "inc/functions.php";
+// We want to return a value if we're included.
+// Otherwise, we will be printing a JSON object-array.
+$Included = defined("TINYBOARD");
+if (!$Included) {
+	include "inc/functions.php";
+}
 
 $CanViewUnindexed = isset($mod["type"]) && $mod["type"] <= GlobalVolunteer;
 
@@ -18,9 +23,10 @@ $languages = array(
 
 /* Determine search parameters from $_GET */
 $search = array(
-	'lang' => false,
-	'nsfw' => true,
-	'tags' => false,
+	'lang'   => false,
+	'nsfw'   => true,
+	'tags'   => false,
+	'titles' => false,
 );
 
 // Include NSFW boards?
@@ -96,67 +102,83 @@ foreach ($response['boards'] as $boardUri => &$board) {
 
 /* Activity Fetching */
 $boardActivity = fetchBoardActivity( array_keys( $response['boards'] ) );
+$response['tags'] = array();
 
 // Loop through each board and record activity to it.
 // We will also be weighing and building a tag list.
 foreach ($response['boards'] as $boardUri => &$board) {
 	$board['active'] = (int) $boardActivity['active'][ $boardUri ];
-	$board['pph'] = (int) $boardActivity['average'][ $boardUri ];
+	$board['posts']  = (int) $boardActivity['posts'][ $boardUri ];
+	$board['pph']    = (int) $boardActivity['average'][ $boardUri ];
 	
 	if (isset($board['tags']) && count($board['tags']) > 0) {
 		foreach ($board['tags'] as $tag) {
-			if (isset($response['tag'][$tag])) {
-				$response['tag'][$tag] += $board['active'];
+			if (isset($response['tags'][$tag])) {
+				$response['tags'][$tag] += $board['active'];
 			}
 			else {
-				$response['tag'][$tag] = $board['active'];
+				$response['tags'][$tag] = $board['active'];
 			}
 		}
 	}
 }
 
+// Sort boards by their popularity, then by their total posts.
+$boardActivityValues = array();
+
+foreach ($response['boards'] as $boardUri => $board) {
+	$boardActivityValues[$boardUri] = "{$board['active']}.{$board['posts']}";
+}
+
+array_multisort($boardActivityValues, SORT_DESC, $response['boards']);
+
 // Get the top most popular tags.
-if (count($response['tag']) > 0) {
+if (count($response['tags']) > 0) {
 	// Sort by most active tags.
-	arsort( $response['tag'] );
+	arsort( $response['tags'] );
 	// Get the first n most active tags.
-	$response['tag'] = array_splice( $response['tag'], 0, 200 );
+	$response['tags'] = array_splice( $response['tags'], 0, 200 );
 	
-	$tagLightest = end( array_keys( $response['tag'] ) );
+	// $tagLightest = end( array_keys( $response['tag'] ) );
 }
 
 
 /* (Please) Respond */
-$json = json_encode( $response );
+if (!$Included) {
+	$json = json_encode( $response );
 
-// Error Handling
-switch (json_last_error()) {
-	case JSON_ERROR_NONE:
-		$jsonError = false;
-		break;
-	case JSON_ERROR_DEPTH:
-		$jsonError = 'Maximum stack depth exceeded';
-		break;
-	case JSON_ERROR_STATE_MISMATCH:
-		$jsonError = 'Underflow or the modes mismatch';
-		break;
-	case JSON_ERROR_CTRL_CHAR:
-		$jsonError = 'Unexpected control character found';
-		break;
-	case JSON_ERROR_SYNTAX:
-		$jsonError = 'Syntax error, malformed JSON';
-		break;
-	case JSON_ERROR_UTF8:
-		$jsonError = 'Malformed UTF-8 characters, possibly incorrectly encoded';
-		break;
-	default:
-		$jsonError = 'Unknown error';
-		break;
+	// Error Handling
+	switch (json_last_error()) {
+		case JSON_ERROR_NONE:
+			$jsonError = false;
+			break;
+		case JSON_ERROR_DEPTH:
+			$jsonError = 'Maximum stack depth exceeded';
+			break;
+		case JSON_ERROR_STATE_MISMATCH:
+			$jsonError = 'Underflow or the modes mismatch';
+			break;
+		case JSON_ERROR_CTRL_CHAR:
+			$jsonError = 'Unexpected control character found';
+			break;
+		case JSON_ERROR_SYNTAX:
+			$jsonError = 'Syntax error, malformed JSON';
+			break;
+		case JSON_ERROR_UTF8:
+			$jsonError = 'Malformed UTF-8 characters, possibly incorrectly encoded';
+			break;
+		default:
+			$jsonError = 'Unknown error';
+			break;
+	}
+
+	if ($jsonError) {
+		$json = "{\"error\":\"{$jsonError}\"}";
+	}
+
+	// Successful output
+	echo $json;
 }
-
-if ($jsonError) {
-	$json = "{\"error\":\"{$jsonError}\"}";
+else {
+	return $response;
 }
-
-// Successful output
-echo $json;

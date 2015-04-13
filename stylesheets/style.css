@@ -1394,10 +1394,10 @@ aside.search-container .box {
 	margin: 8px 0;
 }
 .search-sfw {
+	display: block;
 	cursor: pointer;
 	font-size: 110%;
 	line-height: 120%;
-	vertical-align: bottom;
 }
 #search-sfw-input {
 	margin: 0;
@@ -1405,6 +1405,7 @@ aside.search-container .box {
 	transform: scale(1.20);
 }
 #search-lang-input,
+#search-title-input,
 #search-tag-input {
 	box-sizing: border-box;
 	font-size: 110%;
