@@ -59,7 +59,7 @@
 					<col class="board-unique" />
 					<col class="board-tags" />
 				</colgroup>
-				<thead>
+				<thead class="board-list-head">
 					<tr>
 						<th class="board-meta" data-column="meta"></th>
 						<th class="board-uri" data-column="uri">{% trans %}Board{% endtrans %}</th>
@@ -73,7 +73,11 @@
 				
 				<tbody class="board-list-tbody">{{html_boards}}</tbody>
 				
-				<tfoot class="board-list-loading loading"></tfoot>
+				<tfoot class="board-list-loading">
+					<tr>
+						<td colspan="7" class="loading"></td>
+					</tr>
+				</tfoot>
 			</table>
 		</section>
 	</div>

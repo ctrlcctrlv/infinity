@@ -1383,6 +1383,13 @@ table.board-list-table div.board-cell {
 	overflow: hidden;
 }
 
+tfoot.board-list-loading {
+	display: none;
+}
+tfoot.board-list-loading .loading {
+	height: 80px;
+}
+
 aside.search-container {
 }
 aside.search-container .box {

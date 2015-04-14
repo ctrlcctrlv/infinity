@@ -36,6 +36,11 @@ $posts_hour    = number_format( fetchBoardActivity(), 0 );
 $posts_total   = number_format( $boardResult['posts_total'], 0 );
 
 /* Create and distribute page */
+$config['additional_javascript'] = array(
+	'js/jquery.min.js',
+	'js/board-directory.js'
+);
+
 $boardsHTML = Element("8chan/boards-table.html", array(
 		"config"        => $config,
 		"boards"        => $boards,
@@ -65,11 +70,6 @@ $searchHTML = Element("8chan/boards-search.html", array(
 		"html_boards"   => $boardsHTML,
 		"html_tags"     => $tagsHTML
 	)
-);
-
-$config['additional_javascript'] = array(
-	'js/jquery.min.js',
-	'js/board-directory.js'
 );
 
 $pageHTML = Element("page.html", array(
