@@ -1363,15 +1363,19 @@ table.board-list-table .board-title {
 }
 table.board-list-table .board-pph {
 	width: 55px;
+	padding: 4px;
 }
 table.board-list-table .board-max {
 	width: 90px;
+	padding: 4px;
 }
 table.board-list-table .board-unique {
 	width: 100px;
+	padding: 4px;
 }
 table.board-list-table .board-tags {
 	width: auto;
+	padding: 0 15px 0 4px;
 }
 
 table.board-list-table div.board-cell {
@@ -1435,4 +1439,14 @@ li.tag-item {
 	list-style: none;
 	margin: 0;
 	padding: 0 0.6em 0 0;
+}
+a.tag-link {
+	overflow: hidden;
+	white-space: nowrap;
+}
+li.tag-item a.tag-link {
+}
+td.board-tags a.tag-link {
+	display: inline-block;
+	margin: 0 0.4em 0 0;
 }

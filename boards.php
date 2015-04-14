@@ -1,9 +1,10 @@
 <?php
 
-include "inc/functions.php"; // October 23, 2013
+include "inc/functions.php";
 include "inc/countries.php";
 
-$admin = isset($mod["type"]) && $mod["type"]<=30;
+$admin         = isset($mod["type"]) && $mod["type"]<=30;
+$founding_date = "October 23, 2013";
 
 if (php_sapi_name() == 'fpm-fcgi' && !$admin) {
 	error('Cannot be run directly.');
@@ -23,25 +24,16 @@ if (count($searchJson)) {
 	}
 }
 
-/* $query = prepare(sprintf("
-SELECT IFNULL(MAX(id),0) max,
-(SELECT COUNT(*) FROM ``posts_%s`` WHERE FROM_UNIXTIME(time) > DATE_SUB(NOW(), INTERVAL 1 HOUR)) pph,
-(SELECT COUNT(DISTINCT ip) FROM ``posts_%s`` WHERE FROM_UNIXTIME(time) > DATE_SUB(NOW(), INTERVAL 3 DAY)) uniq_ip
- FROM ``posts_%s``
-", $board['uri'], $board['uri'], $board['uri'], $board['uri'], $board['uri']));
-	$query->execute() or error(db_error($query));
-	$r = $query->fetch(PDO::FETCH_ASSOC); */
-
-$boardQuery = prepare("SELECT COUNT(1) AS 'boards_total', COUNT(indexed) AS 'boards_public' FROM ``boards``");
+$boardQuery = prepare("SELECT COUNT(1) AS 'boards_total', SUM(indexed) AS 'boards_public', SUM(posts_total) AS 'posts_total' FROM ``boards``");
 $boardQuery->execute() or error(db_error($tagQuery));
 $boardResult = $boardQuery->fetchAll(PDO::FETCH_ASSOC)[0];
 
-$boards_total  = $boardResult['boards_total'];
-$boards_public = $boardResult['boards_public'];
-$boards_hidden = $boardResult['boards_total'] - $boardResult['boards_public'];
+$boards_total  = number_format( $boardResult['boards_total'], 0 );
+$boards_public = number_format( $boardResult['boards_public'], 0 );
+$boards_hidden = number_format( $boardResult['boards_total'] - $boardResult['boards_public'], 0 );
 
-$posts_hour    = 0;
-$posts_total   = 0;
+$posts_hour    = number_format( fetchBoardActivity(), 0 );
+$posts_total   = number_format( $boardResult['posts_total'], 0 );
 
 /* Create and distribute page */
 $boardsHTML = Element("8chan/boards-table.html", array(
@@ -66,6 +58,7 @@ $searchHTML = Element("8chan/boards-search.html", array(
 		"posts_hour"    => $posts_hour,
 		"posts_total"   => $posts_total,
 		
+		"founding_date" => $founding_date,
 		"page_updated"  => date('r'),
 		"uptime"        => shell_exec('uptime -p'),
 		

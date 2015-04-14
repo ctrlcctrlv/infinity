@@ -833,18 +833,65 @@ function loadBoardConfig( $uri ) {
 	return $config;
 }
 
-function fetchBoardActivity( $uris ) {
+function fetchBoardActivity( array $uris = array(), $forTime = false, $detailed = false ) {
 	global $config;
 	
-	$boardActivity = array();
-	//$uris          = "\"" . implode( (array) $uris, "\",\"" ) . "\"";
+	// Set our search time for now if we didn't pass one.
+	if (!is_integer($forTime)) {
+		$forTime = time();
+	}
+	// Get the last hour for this timestamp.
+	$forHour = ( (int)( $forTime / 3600 ) * 3600 ) - 3600;
 	
-	foreach ($uris as $uri) {
-		$random = 0;//rand( -1000, 1000 );
-		if( $random < 0 ) $random = 0;
+	$boardActivity = array(
+		'active'  => array(),
+		'average' => array(),
+	);
+	
+	// Query for stats for these boards.
+	if (count($uris)) {
+		$uriSearch = "`stat_uri` IN (\"" . implode( (array) $uris, "\",\"" ) . "\") AND ";
+	}
+	else {
+		$uriSearch = "";
+	}
+	
+	if ($detailed === true) {
+		$bsQuery = prepare("SELECT `stat_uri`, `post_count`, `author_ip_array` FROM ``board_stats`` WHERE {$uriSearch} ( `stat_hour` <= :hour AND `stat_hour` >= :hoursago )");
+		$bsQuery->bindValue(':hour', $forHour, PDO::PARAM_INT);
+		$bsQuery->bindValue(':hoursago', $forHour - ( 3600 * 72 ), PDO::PARAM_INT);
+		$bsQuery->execute() or error(db_error($bsQuery));
+		$bsResult = $bsQuery->fetchAll(PDO::FETCH_ASSOC);
 		
-		$boardActivity['active'][ $uri ]  = $random;
-		$boardActivity['average'][ $uri ] = ($random * 72) / 72;
+		
+		// Format the results.
+		foreach ($bsResult as $bsRow) {
+			if (!isset($boardActivity['active'][$bsRow['stat_uri']])) {
+				$boardActivity['active'][$bsRow['stat_uri']] = unserialize( $bsRow['author_ip_array'] );
+				$boardActivity['average'][$bsRow['stat_uri']] = $bsRow['post_count'];
+			}
+			else {
+				$boardActivity['active'][$bsRow['stat_uri']] = array_merge( $boardActivity['active'][$bsRow['stat_uri']], unserialize( $bsRow['author_ip_array'] ) );
+				$boardActivity['average'][$bsRow['stat_uri']] = $bsRow['post_count'];
+			}
+		}
+		
+		foreach ($boardActivity['active'] as &$activity) {
+			$activity = count( array_unique( $activity ) );
+		}
+		foreach ($boardActivity['average'] as &$activity) {
+			$activity /= 72;
+		}
+	}
+	// Simple return.
+	else {
+		$bsQuery = prepare("SELECT SUM(`post_count`) AS `post_count` FROM ``board_stats`` WHERE {$uriSearch} ( `stat_hour` <= :hour AND `stat_hour` >= :hoursago )");
+		$bsQuery->bindValue(':hour', $forHour, PDO::PARAM_INT);
+		$bsQuery->bindValue(':hoursago', $forHour - ( 3600 * 72 ), PDO::PARAM_INT);
+		$bsQuery->execute() or error(db_error($bsQuery));
+		$bsResult = $bsQuery->fetchAll(PDO::FETCH_ASSOC);
+		
+		$boardActivity = $bsResult[0]['post_count'];
 	}
 	
 	return $boardActivity;
@@ -854,7 +901,7 @@ function fetchBoardTags( $uris ) {
 	global $config;
 	
 	$boardTags = array();
-	$uris = "\"{$config['db']['prefix']}" . implode( (array) $uris, "\",\"" ) . "\"";
+	$uris = "\"" . implode( (array) $uris, "\",\"" ) . "\"";
 	
 	$tagQuery = prepare("SELECT * FROM ``board_tags`` WHERE `uri` IN ({$uris})");
 	$tagQuery->execute() or error(db_error($tagQuery));
@@ -1090,70 +1137,70 @@ function insertFloodPost(array $post) {
 function post(array $post) {
 	global $pdo, $board;
 	$query = prepare(sprintf("INSERT INTO ``posts_%s`` VALUES ( NULL, :thread, :subject, :email, :name, :trip, :capcode, :body, :body_nomarkup, :time, :time, :files, :num_files, :filehash, :password, :ip, :sticky, :locked, :cycle, 0, :embed, NULL)", $board['uri']));
-
+	
 	// Basic stuff
 	if (!empty($post['subject'])) {
 		$query->bindValue(':subject', $post['subject']);
 	} else {
 		$query->bindValue(':subject', null, PDO::PARAM_NULL);
 	}
-
+	
 	if (!empty($post['email'])) {
 		$query->bindValue(':email', $post['email']);
 	} else {
 		$query->bindValue(':email', null, PDO::PARAM_NULL);
 	}
-
+	
 	if (!empty($post['trip'])) {
 		$query->bindValue(':trip', $post['trip']);
 	} else {
 		$query->bindValue(':trip', null, PDO::PARAM_NULL);
 	}
-
+	
 	$query->bindValue(':name', $post['name']);
 	$query->bindValue(':body', $post['body']);
 	$query->bindValue(':body_nomarkup', $post['body_nomarkup']);
 	$query->bindValue(':time', isset($post['time']) ? $post['time'] : time(), PDO::PARAM_INT);
-	$query->bindValue(':password', $post['password']);		
+	$query->bindValue(':password', $post['password']);
 	$query->bindValue(':ip', isset($post['ip']) ? $post['ip'] : $_SERVER['REMOTE_ADDR']);
-
+	
 	if ($post['op'] && $post['mod'] && isset($post['sticky']) && $post['sticky']) {
 		$query->bindValue(':sticky', true, PDO::PARAM_INT);
 	} else {
 		$query->bindValue(':sticky', false, PDO::PARAM_INT);
 	}
-
+	
 	if ($post['op'] && $post['mod'] && isset($post['locked']) && $post['locked']) {
 		$query->bindValue(':locked', true, PDO::PARAM_INT);
 	} else {
 		$query->bindValue(':locked', false, PDO::PARAM_INT);
 	}
-
+	
 	if ($post['op'] && $post['mod'] && isset($post['cycle']) && $post['cycle']) {
 		$query->bindValue(':cycle', true, PDO::PARAM_INT);
 	} else {
 		$query->bindValue(':cycle', false, PDO::PARAM_INT);
 	}
-
+	
 	if ($post['mod'] && isset($post['capcode']) && $post['capcode']) {
 		$query->bindValue(':capcode', $post['capcode'], PDO::PARAM_INT);
 	} else {
 		$query->bindValue(':capcode', null, PDO::PARAM_NULL);
 	}
-
+	
 	if (!empty($post['embed'])) {
 		$query->bindValue(':embed', $post['embed']);
 	} else {
 		$query->bindValue(':embed', null, PDO::PARAM_NULL);
 	}
-
+	
 	if ($post['op']) {
 		// No parent thread, image
 		$query->bindValue(':thread', null, PDO::PARAM_NULL);
 	} else {
 		$query->bindValue(':thread', $post['thread'], PDO::PARAM_INT);
 	}
-
+	
 	if ($post['has_file']) {
 		$query->bindValue(':files', json_encode($post['files']));
 		$query->bindValue(':num_files', $post['num_files']);
@@ -1163,12 +1210,12 @@ function post(array $post) {
 		$query->bindValue(':num_files', 0);
 		$query->bindValue(':filehash', null, PDO::PARAM_NULL);
 	}
-
+	
 	if (!$query->execute()) {
 		undoImage($post);
 		error(db_error($query));
 	}
-
+	
 	return $pdo->lastInsertId();
 }
 
@@ -1460,6 +1507,65 @@ function index($page, $mod=false) {
 		'boardlist' => createBoardlist($mod),
 		'threads' => $threads,
 	);
+}
+
+// Handle statistic tracking for a new post.
+function updateStatisticsForPost( $post, $new = true ) {
+	$postIp   = isset($post['ip']) ? $post['ip'] : $_SERVER['REMOTE_ADDR'];
+	$postUri  = $post['board'];
+	$postTime = (int)( $post['time'] / 3600 ) * 3600;
+	
+	$bsQuery = prepare("SELECT * FROM ``board_stats`` WHERE `stat_uri` = :uri AND `stat_hour` = :hour");
+	$bsQuery->bindValue(':uri', $postUri);
+	$bsQuery->bindValue(':hour', $postTime, PDO::PARAM_INT);
+	$bsQuery->execute() or error(db_error($bsQuery));
+	$bsResult = $bsQuery->fetchAll(PDO::FETCH_ASSOC);
+	
+	// Flesh out the new stats row.
+	$boardStats = array();
+	
+	// If we already have a row, we're going to be adding this post to it.
+	if (count($bsResult)) {
+		$boardStats = $bsResult[0];
+		$boardStats['stat_uri']          = $postUri;
+		$boardStats['stat_hour']         = $postTime;
+		$boardStats['post_id_array']     = unserialize( $boardStats['post_id_array'] );
+		$boardStats['author_ip_array']   = unserialize( $boardStats['author_ip_array'] );
+		
+		++$boardStats['post_count'];
+		$boardStats['post_id_array'][]   = (int) $post['id'];
+		$boardStats['author_ip_array'][] = less_ip( $postIp );
+		$boardStats['author_ip_array']   = array_unique( $boardStats['author_ip_array'] );
+	}
+	// If this a new row, we're building the stat to only reflect this first post.
+	else {
+		$boardStats['stat_uri']          = $postUri;
+		$boardStats['stat_hour']         = $postTime;
+		$boardStats['post_count']        = 1;
+		$boardStats['post_id_array']     = array( (int) $post['id'] );
+		$boardStats['author_ip_count']   = 1;
+		$boardStats['author_ip_array']   = array( less_ip( $postIp ) );
+	}
+	
+	// Cleanly serialize our array for insertion.
+	$boardStats['post_id_array']   = str_replace( "\"", "\\\"", serialize( $boardStats['post_id_array'] ) );
+	$boardStats['author_ip_array'] = str_replace( "\"", "\\\"", serialize( $boardStats['author_ip_array'] ) );
+	
+	
+	// Insert this data into our statistics table.
+	$statsInsert = "VALUES(\"{$boardStats['stat_uri']}\", \"{$boardStats['stat_hour']}\", \"{$boardStats['post_count']}\", \"{$boardStats['post_id_array']}\", \"{$boardStats['author_ip_count']}\", \"{$boardStats['author_ip_array']}\" )";
+	
+	$postStatQuery = prepare(
+		"REPLACE INTO ``board_stats`` (stat_uri, stat_hour, post_count, post_id_array, author_ip_count, author_ip_array) {$statsInsert}"
+	);
+	$postStatQuery->execute() or error(db_error($postStatQuery));
+	
+	// Update the posts_total tracker on the board.
+	if ($new) {
+		query("UPDATE ``boards`` SET `posts_total`=`posts_total`+1 WHERE `uri`=\"{$postUri}\"");
+	}
+	
+	return $boardStats;
 }
 
 function getPageButtons($pages, $mod=false) {

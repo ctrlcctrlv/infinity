@@ -26,6 +26,7 @@ $search = array(
 	'lang'  => false,
 	'nsfw'  => true,
 	'tags'  => false,
+	'time'  => ( (int)( time() / 3600 ) * 3600 ) - 3600,
 	'title' => false,
 );
 
@@ -43,6 +44,12 @@ if (isset( $_GET['lang'] ) && $_GET['lang'] != "" && isset($languages[$search['l
 if (isset( $_GET['tags'] ) && $_GET['tags'] != "") {
 	$search['tags'] = $_GET['tags'];
 }
+
+// What time range?
+if (isset( $_GET['time'] ) && is_numeric( $_GET['time'] ) ) {
+	$search['time'] = ( (int)( $_GET['time'] / 3600 ) * 3600 );
+}
+
 // Include what in the uri / title / subtitle?
 if (isset( $_GET['title'] ) && $_GET['title'] != "") {
 	$search['title'] = $_GET['title'];
@@ -80,6 +87,8 @@ foreach ($boards as $board) {
 	$response['boards'][ $board['uri'] ] = $board;
 }
 
+unset( $boards );
+
 
 /* Tag Fetching */
 // (We have do this even if we're not filtering by tags so that we know what each board's tags are)
@@ -103,16 +112,33 @@ foreach ($response['boards'] as $boardUri => &$board) {
 	}
 }
 
+unset( $boardTags );
+
 
 /* Activity Fetching */
-$boardActivity = fetchBoardActivity( array_keys( $response['boards'] ) );
+$boardActivity = fetchBoardActivity( array_keys( $response['boards'] ), $search['time'], true );
 $response['tags'] = array();
 
 // Loop through each board and record activity to it.
 // We will also be weighing and building a tag list.
 foreach ($response['boards'] as $boardUri => &$board) {
-	$board['active'] = (int) $boardActivity['active'][ $boardUri ];
-	$board['pph']    = (int) $boardActivity['average'][ $boardUri ];
+	$board['active'] = 0;
+	$board['pph']    = 0;
+	
+	if (isset($boardActivity['active'][ $boardUri ])) {
+		$board['active'] = (int) $boardActivity['active'][ $boardUri ];
+	}
+	if (isset($boardActivity['average'][ $boardUri ])) {
+		$precision = 4 - strlen( $boardActivity['average'][ $boardUri ] );
+		
+		if( $precision < 0 ) {
+			$precision = 0;
+		}
+		
+		$board['pph'] = round( $boardActivity['average'][ $boardUri ], 2 );
+		
+		unset( $precision );
+	}
 	
 	if (isset($board['tags']) && count($board['tags']) > 0) {
 		foreach ($board['tags'] as $tag) {
@@ -125,6 +151,8 @@ foreach ($response['boards'] as $boardUri => &$board) {
 		}
 	}
 }
+
+unset( $boardActivity );
 
 // Sort boards by their popularity, then by their total posts.
 $boardActivityValues   = array();
@@ -151,6 +179,9 @@ if (count($response['tags']) > 0) {
 	// $tagLightest = end( array_keys( $response['tag'] ) );
 }
 
+
+/* Include our interpreted search terms. */
+$response['search'] = $search;
 
 /* (Please) Respond */
 if (!$Included) {

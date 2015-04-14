@@ -79,11 +79,10 @@ foreach ($boards as $board) {
 		
 		// Add to ip array.
 		if (!isset($postDatum['author_ip_array'])) {
-			$postDatum['author_ip_array'][ less_ip( $post['ip'] ) ] = 1;
+			$postDatum['author_ip_array'] = array();
 		}
 		
-		// Count ip array.
-		$postDatum['author_ip_count'] = count( $postDatum['post_id_array'] );
+		$postDatum['author_ip_array'][ less_ip( $post['ip'] ) ] = 1;
 		
 		unset( $postHourTime );
 	}
@@ -93,7 +92,8 @@ foreach ($boards as $board) {
 		$postDatum = &$postHour[ $postHourTime ];
 		
 		// Serialize arrays for TEXT insert.
-		$postDatum['post_id_array'  ] = str_replace( "\"", "\\\"", serialize( $postDatum['post_id_array'] ) );
+		$postDatum['post_id_array']   = str_replace( "\"", "\\\"", serialize( $postDatum['post_id_array'] ) );
+		$postDatum['author_ip_count'] = count( array_keys( $postDatum['author_ip_array'] ) );
 		$postDatum['author_ip_array'] = str_replace( "\"", "\\\"", serialize( array_keys( $postDatum['author_ip_array'] ) ) );
 	}
 	
