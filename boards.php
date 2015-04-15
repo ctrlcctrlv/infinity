@@ -36,6 +36,16 @@ $boards_omitted = (int) $searchJson['omitted'];
 $posts_hour     = number_format( fetchBoardActivity(), 0 );
 $posts_total    = number_format( $boardResult['posts_total'], 0 );
 
+// This incredibly stupid looking chunk of code builds a query string using existing information.
+// It's used to make clickable tags for users without JavaScript for graceful degredation.
+// Because of how it orders tags, what you end up with is a prefix that always ends in tags=x+
+// ?tags= or ?sfw=1&tags= or ?title=foo&tags=bar+ - etc
+$tagQueryGet = $_GET;
+$tagQueryTags = isset($tagQueryGet['tags']) ? $tagQueryGet['tags'] : "";
+unset($tagQueryGet['tags']);
+$tagQueryGet['tags'] = $tagQueryTags;
+$tag_query      = "?" . http_build_query( $tagQueryGet ) . ($tagQueryTags != "" ? "+" : "");
+
 /* Create and distribute page */
 $config['additional_javascript'] = array(
 	'js/jquery.min.js',
@@ -43,19 +53,24 @@ $config['additional_javascript'] = array(
 );
 
 $boardsHTML = Element("8chan/boards-table.html", array(
-		"config"        => $config,
-		"boards"        => $boards,
+		"config"         => $config,
+		"boards"         => $boards,
+		"tag_query"      => $tag_query,
+		
 	)
 );
 
 $tagsHTML = Element("8chan/boards-tags.html", array(
-		"config"        => $config,
-		"tags"          => $tags,
+		"config"         => $config,
+		"tags"           => $tags,
+		"tag_query"      => $tag_query,
+		
 	)
 );
 
 $searchHTML = Element("8chan/boards-search.html", array(
 		"config"         => $config,
+		"search"         => $searchJson['search'],
 		
 		"boards_total"   => $boards_total,
 		"boards_public"  => $boards_public,

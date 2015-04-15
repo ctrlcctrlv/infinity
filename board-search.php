@@ -25,6 +25,7 @@ $languages = array(
 $search = array(
 	'lang'  => false,
 	'nsfw'  => true,
+	'page'  => 0,
 	'tags'  => false,
 	'time'  => ( (int)( time() / 3600 ) * 3600 ) - 3600,
 	'title' => false,
@@ -37,6 +38,15 @@ if (isset( $_GET['sfw'] ) && $_GET['sfw'] != "") {
 	$search['nsfw'] = !$_GET['sfw'];
 }
 
+// Bringing up more results
+if (isset( $_GET['page'] ) && $_GET['page'] != "") {
+	$search['page'] = (int) $_GET['page'];
+	
+	if ($search['page'] < 0) {
+		$search['page'] = 0;
+	}
+}
+
 // Include what language (if the language is not blank and we recognize it)?
 if (isset( $_GET['lang'] ) && $_GET['lang'] != "" && isset($languages[$search['lang']])) {
 	$search['lang'] = $_GET['lang'];
@@ -44,7 +54,8 @@ if (isset( $_GET['lang'] ) && $_GET['lang'] != "" && isset($languages[$search['l
 
 // Include what tag?
 if (isset( $_GET['tags'] ) && $_GET['tags'] != "") {
-	$search['tags'] = $_GET['tags'];
+	$search['tags'] = explode( " ", $_GET['tags'] );
+	$search['tags'] = array_splice( $search['tags'], 0, 5 );
 }
 
 // What time range?
@@ -71,6 +82,31 @@ foreach ($boards as $board) {
 		|| ( $search['nsfw'] !== true && $board['sfw'] != 1 )
 	) {
 		continue;
+	}
+	
+	// Are we searching by title?
+	if ($search['title'] !== false) {
+		// This checks each component of the board's identity against our search terms.
+		// The weight determines order.
+		// "left" would match /leftypol/ and /nkvd/ which has /leftypol/ in the title.
+		// /leftypol/ would always appear above it but it would match both.
+		if (strpos("/{$board['uri']}/", $search['title']) !== false) {
+			$board['weight'] = 30;
+		}
+		else if (strpos($board['title'], $search['title']) !== false) {
+			$board['weight'] = 20;
+		}
+		else if (strpos($board['subtitle'], $search['title']) !== false) {
+			$board['weight'] = 10;
+		}
+		else {
+			continue;
+		}
+		
+		unset( $boardTitleString );
+	}
+	else {
+		$board['weight'] = 0;
 	}
 	
 	// Load board config.
@@ -101,7 +137,7 @@ $boardTags = fetchBoardTags( array_keys( $response['boards'] ) );
 // Loop through each board and determine if there are tag matches.
 foreach ($response['boards'] as $boardUri => &$board) {
 	// If we are filtering by tag and there is no match, remove from the response.
-	if ( $search['tags'] !== false && ( !isset( $boardTags[ $boardUri ] ) || !in_array( $search['tags'], $boardTags[ $boardUri ] )) ) {
+	if ( $search['tags'] !== false && ( !isset( $boardTags[ $boardUri ] ) || count(array_intersect($search['tags'], $boardTags[ $boardUri ])) !== count($search['tags']) ) ) {
 		unset( $response['boards'][$boardUri] );
 	}
 	// If we aren't filtering / there is a match AND we have tags, set the tags.
@@ -145,13 +181,16 @@ foreach ($response['boards'] as $boardUri => &$board) {
 // Sort boards by their popularity, then by their total posts.
 $boardActivityValues   = array();
 $boardTotalPostsValues = array();
+$boardWeightValues     = array();
 
 foreach ($response['boards'] as $boardUri => &$board) {
 	$boardActivityValues[$boardUri]   = (int) $board['active'];
 	$boardTotalPostsValues[$boardUri] = (int) $board['posts_total']; 
+	$boardWeightValues[$boardUri]     = (int) $board['weight']; 
 }
 
 array_multisort(
+	$boardWeightValues, SORT_DESC, SORT_NUMERIC, // Sort by weight
 	$boardActivityValues, SORT_DESC, SORT_NUMERIC, // Sort by number of active posters
 	$boardTotalPostsValues, SORT_DESC, SORT_NUMERIC, // Then, sort by total number of posts
 	$response['boards']
@@ -159,8 +198,8 @@ array_multisort(
 
 $boardLimit = $search['index'] ? 50 : 100;
 
-$response['omitted'] = $search['index'] ? 0 : count( $response['boards'] ) - $boardLimit;
-$response['boards']  = array_splice( $response['boards'], 0, $boardLimit );
+$response['omitted'] = count( $response['boards'] ) - $boardLimit;
+$response['boards']  = array_splice( $response['boards'], $search['page'], $boardLimit );
 $response['order']   = array_keys( $response['boards'] );
 
 
@@ -216,8 +255,13 @@ if (count($response['tags']) > 0) {
 	}
 	
 	foreach ($tagUsage['users'] as $tagName => $tagUsers) {
-		$weightDeparture = abs( $tagUsers - $tagsAvgUsers );
-		$response['tagWeight'][$tagName] = 75 + round( 100 * ( $weightDeparture / $weightDepartureFurthest ), 0);
+		if ($weightDepartureFurthest != 0) {
+			$weightDeparture = abs( $tagUsers - $tagsAvgUsers );
+			$response['tagWeight'][$tagName] = 75 + round( 100 * ( $weightDeparture / $weightDepartureFurthest ), 0);
+		}
+		else {
+			$response['tagWeight'][$tagName] = 0;
+		}
 	}
 }
 

@@ -8,16 +8,16 @@
 	
 	<div class="board-list">
 		<aside class="search-container col col-2">
-			<form id="search-form" class="box" method="get" target="/board-search.php">
+			<form id="search-form" class="box" method="get" action="/boards.php">
 				<h2 class="box-title">Search</h2>
 				
 				<div class="board-search box-content">
 					<label class="search-item search-sfw">
-						<input type="checkbox" id="search-sfw-input" name="sfw" value="1" />&nbsp;Hide NSFW boards
+						<input type="checkbox" id="search-sfw-input" name="sfw" value="1" {% if not search.nsfw %}checked="checked"{% endif %} />&nbsp;Hide NSFW boards
 					</label>
 					
 					<div class="search-item search-title">
-						<input type="text" id="search-title-input" name="title" name="title" value="" placeholder="Search titles..." />
+						<input type="text" id="search-title-input" name="title" name="title" value="{{search.title}}" placeholder="Search titles..." />
 					</div>
 					
 					<div class="search-item search-lang">
@@ -34,7 +34,7 @@
 					</div>
 					
 					<div class="search-item search-tag">
-						<input type="text" id="search-tag-input" name="tags" value="" placeholder="Search tags..." />
+						<input type="text" id="search-tag-input" name="tags" value="{{ search.tags|join(' ') }}" placeholder="Search tags..." />
 					</div>
 					
 					<div class="search-item search-submit">

@@ -9,6 +9,6 @@
 	<td class="board-pph"><div class="board-cell">{{board['pph']}}</td>
 	<td class="board-max"><div class="board-cell">{{board['posts_total']}}</td>
 	<td class="board-unique"><div class="board-cell">{{board['active']}}</td>
-	<td class="board-tags"><div class="board-cell">{% for tag in board.tags %}<a class="tag-link" href="#">{{ tag }}</a>{% endfor %}</div></td>
+	<td class="board-tags"><div class="board-cell">{% for tag in board.tags %}<a class="tag-link" href="{{ tag_query }}{{ tag }}">{{ tag }}</a>{% endfor %}</div></td>
 </tr>
 {% endfor %}

@@ -22,6 +22,8 @@
 				'search-tag'    : "#search-tag-input",
 				'search-title'  : "#search-title-input",
 				'search-submit' : "#search-submit",
+				
+				'tag-link'      : ".tag-link"
 			},
 			
 			// HTML Templates for dynamic construction
@@ -50,6 +52,8 @@
 			}
 		},
 		
+		lastSearch : {},
+		
 		bind : {
 			form : function() {
 				var selectors = boardlist.options.selector;
@@ -71,11 +75,17 @@
 						'searchSubmit' : $searchSubmit
 					};
 				
-				
 				if ($search.length > 0) {
 					// Bind form events.
-					$search.on( 'submit', searchForms, boardlist.events.searchSubmit );
-					$searchSubmit.prop( 'disabled', false ).on( 'click', searchForms, boardlist.events.searchSubmit );
+					boardlist.$boardlist
+						// Tag click
+						.on( 'click', selectors['tag-link'], searchForms, boardlist.events.tagClick )
+						// Form Submission
+						.on( 'submit', selectors['search'], searchForms, boardlist.events.searchSubmit )
+						// Submit click
+						.on( 'click', selectors['search-submit'], searchForms, boardlist.events.searchSubmit );
+						
+					$searchSubmit.prop( 'disabled', false );
 				}
 			}
 		},
@@ -83,6 +93,7 @@
 		build  : {
 			boardlist : function(data) {
 				boardlist.build.boards(data['boards'], data['order']);
+				boardlist.build.lastSearch(data['search']);
 				boardlist.build.tags(data['tags']);
 				
 			},
@@ -101,12 +112,10 @@
 						boardlist.build.board( row, col ).appendTo( $row );
 					} );
 					
-					if( index >= 100 ) return false;
-					
 					$row.appendTo( $body );
 				} );
 			},
-			board : function( row, col ) {
+			board : function(row, col) {
 				var $col   = $(col),
 				    column = $col.attr('data-column'),
 				    value  = row[column]
@@ -150,10 +159,10 @@
 				return $cell;
 			},
 			boardcell : {
-				'meta' : function( row, value ) {
+				'meta' : function(row, value) {
 					return $( boardlist.options.template['board-datum-lang'] ).text( row['locale'] );
 				},
-				'uri'  : function( row, value ) {
+				'uri'  : function(row, value) {
 					var $link = $( boardlist.options.template['board-datum-uri'] ),
 						$sfw  = $( boardlist.options.template['board-datum-' + (row['sfw'] == 1 ? "sfw" : "nsfw")] );
 					
@@ -172,8 +181,18 @@
 				}
 			},
 			
+			lastSearch : function(search) {
+				return boardlist.lastSearch =  { 
+					'lang'  : search.lang === false ? "" : search.lang,
+					'page'  : search.page,
+					'tags'  : search.tags === false ? "" : search.tags.join(" "),
+					'time'  : search.time,
+					'title' : search.title === false ? "" : search.title,
+					'sfw'   : search.nsfw ? 0 : 1
+				};
+			},
+			
 			tags : function(data) {
-				
 			}
 		},
 		
@@ -181,30 +200,47 @@
 			searchSubmit : function(event) {
 				event.preventDefault();
 				
-				var $boardlist = event.data.boardlist,
-				    $boardbody = $( boardlist.options.selector['board-body'], $boardlist ),
-				    $boardload = $( boardlist.options.selector['board-loading'], $boardlist );
+				boardlist.submit( { 
+					'lang'  : event.data.searchLang.val(),
+					'tags'  : event.data.searchTag.val(),
+					'title' : event.data.searchTitle.val(),
+					'sfw'   : event.data.searchSfw.prop('checked') ? 1 : 0
+				} );
 				
-				$boardbody.html("");
-				$boardload.show();
+				return false;
+			},
+			
+			tagClick : function(event) {
+				event.preventDefault();
 				
-				$.get(
-					"/board-search.php",
-					{
-						'lang'  : event.data.searchLang.val(),
-						'tags'  : event.data.searchTag.val(),
-						//'time'  : event.data.searchTag.val(),
-						'title' : event.data.searchTitle.val(),
-						'sfw'   : event.data.searchSfw.prop('checked') ? 1 : 0
-					},
-					function(data) {
-						$boardload.hide();
-						boardlist.build.boardlist( $.parseJSON(data) );
-					}
-				);
+				var $this  = $(this),
+					$input = $( boardlist.options.selector['search-tag'] );
+				
+				$input
+					.val( ( $input.val() + " " + $this.text() ).replace(/\s+/g, " ").trim() )
+					.trigger( 'change' )
+					.focus();
 				
 				return false;
 			}
+		},
+		
+		submit : function( parameters ) {
+			var $boardlist = boardlist.$boardlist,
+				$boardbody = $( boardlist.options.selector['board-body'], $boardlist ),
+				$boardload = $( boardlist.options.selector['board-loading'], $boardlist );
+			
+			$boardbody.html("");
+			$boardload.show();
+			
+			$.get(
+				"/board-search.php",
+				parameters,
+				function(data) {
+					$boardload.hide();
+					boardlist.build.boardlist( $.parseJSON(data) );
+				}
+			);
 		},
 		
 		init : function( target ) {
@@ -216,7 +252,6 @@
 			
 			if ($boardlist.length > 0 ) {
 				$( boardlist.options.selector['board-loading'], $boardlist ).hide();
-				
 				
 				boardlist.$boardlist = $boardlist;
 				boardlist.bind.form();
