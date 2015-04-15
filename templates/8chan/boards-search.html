@@ -91,7 +91,7 @@
 				
 				<tbody class="board-list-omitted" data-omitted="{{boards_omitted}}">
 					<tr>
-						<td colspan="7">Displaying results <span class="board-page-num">{{search.page}}</span> through <span class="board-page-count">{{ boards|count + search.page}}</span> out of <span class="board-page-total">{{ boards|count + boards_omitted }}</span>. <span class="board-page-loadmore">Click to load more.</span></td>
+						<td colspan="7">Displaying results <span class="board-page-num">{{search.page + 1}}</span> through <span class="board-page-count">{{ boards|count + search.page}}</span> out of <span class="board-page-total">{{ boards|count + boards_omitted }}</span>. <span class="board-page-loadmore">Click to load more.</span></td>
 						
 						{% if boards_omitted > 0 %}
 						<script type="text/javascript">
