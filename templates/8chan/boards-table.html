@@ -1,7 +1,10 @@
 {% for board in boards %}
 <tr>
-	<td class="board-meta">{{ board.img|raw }} {% if board['sfw'] %}<img src="/static/sfw.png" title="Safe for work">{% else %}<img src="/static/nsfw.png" title="Not safe for work">{% endif %}</td>
-	<td class="board-uri"><div class="board-list-wrapper uri"><a href='/{{board['uri']}}/'>/{{board['uri']}}/</a>{{lock|raw}}</div></td>
+	<td class="board-meta">{{ board.locale }}</td>
+	<td class="board-uri"><div class="board-cell">
+		<a href='/{{board['uri']}}/'>/{{board['uri']}}/</a>
+		{% if board['sfw'] %}<i class="fa fa-briefcase board-sfw" title="SFW"></i>{% endif %}
+	</div></td>
 	<td class="board-title"><div class="board-cell" title="Created {{board['time']}} ({{board['ago']}} ago)">{{ board['title'] }}</div></td>
 	<td class="board-pph"><div class="board-cell">{{board['pph']}}</td>
 	<td class="board-max"><div class="board-cell">{{board['posts_total']}}</td>

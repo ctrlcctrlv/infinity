@@ -28,12 +28,13 @@ $boardQuery = prepare("SELECT COUNT(1) AS 'boards_total', SUM(indexed) AS 'board
 $boardQuery->execute() or error(db_error($tagQuery));
 $boardResult = $boardQuery->fetchAll(PDO::FETCH_ASSOC)[0];
 
-$boards_total  = number_format( $boardResult['boards_total'], 0 );
-$boards_public = number_format( $boardResult['boards_public'], 0 );
-$boards_hidden = number_format( $boardResult['boards_total'] - $boardResult['boards_public'], 0 );
+$boards_total   = number_format( $boardResult['boards_total'], 0 );
+$boards_public  = number_format( $boardResult['boards_public'], 0 );
+$boards_hidden  = number_format( $boardResult['boards_total'] - $boardResult['boards_public'], 0 );
+$boards_omitted = (int) $searchJson['omitted'];
 
-$posts_hour    = number_format( fetchBoardActivity(), 0 );
-$posts_total   = number_format( $boardResult['posts_total'], 0 );
+$posts_hour     = number_format( fetchBoardActivity(), 0 );
+$posts_total    = number_format( $boardResult['posts_total'], 0 );
 
 /* Create and distribute page */
 $config['additional_javascript'] = array(
@@ -54,21 +55,22 @@ $tagsHTML = Element("8chan/boards-tags.html", array(
 );
 
 $searchHTML = Element("8chan/boards-search.html", array(
-		"config"        => $config,
+		"config"         => $config,
 		
-		"boards_total"  => $boards_total,
-		"boards_public" => $boards_public,
-		"boards_hidden" => $boards_hidden,
+		"boards_total"   => $boards_total,
+		"boards_public"  => $boards_public,
+		"boards_hidden"  => $boards_hidden,
+		"boards_omitted" => $boards_omitted,
 		
-		"posts_hour"    => $posts_hour,
-		"posts_total"   => $posts_total,
+		"posts_hour"     => $posts_hour,
+		"posts_total"    => $posts_total,
 		
-		"founding_date" => $founding_date,
-		"page_updated"  => date('r'),
-		"uptime"        => shell_exec('uptime -p'),
+		"founding_date"  => $founding_date,
+		"page_updated"   => date('r'),
+		"uptime"         => shell_exec('uptime -p'),
 		
-		"html_boards"   => $boardsHTML,
-		"html_tags"     => $tagsHTML
+		"html_boards"    => $boardsHTML,
+		"html_tags"      => $tagsHTML
 	)
 );
 

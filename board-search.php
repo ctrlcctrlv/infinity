@@ -28,6 +28,8 @@ $search = array(
 	'tags'  => false,
 	'time'  => ( (int)( time() / 3600 ) * 3600 ) - 3600,
 	'title' => false,
+	
+	'index' => count( $_GET ) == 0,
 );
 
 // Include NSFW boards?
@@ -169,12 +171,18 @@ array_multisort(
 	$response['boards']
 );
 
+$boardLimit = $search['index'] ? 50 : 100;
+
+$response['omitted'] = $search['index'] ? 0 : count( $response['boards'] ) - $boardLimit;
+$response['boards']  = array_splice( $response['boards'], 0, $boardLimit );
+$response['order']   = array_keys( $response['boards'] );
+
 // Get the top most popular tags.
 if (count($response['tags']) > 0) {
 	// Sort by most active tags.
 	arsort( $response['tags'] );
 	// Get the first n most active tags.
-	$response['tags'] = array_splice( $response['tags'], 0, 200 );
+	$response['tags'] = array_splice( $response['tags'], 0, 100 );
 	
 	// $tagLightest = end( array_keys( $response['tag'] ) );
 }

@@ -39,6 +39,16 @@
 					
 					<div class="search-item search-submit">
 						<button id="search-submit">Search</button>
+						<span id="search-loading" class="loading-small board-list-loading" style="display: none;"></span>
+						<script type="text/javascript">
+							/* Cheeky hack.
+							   DOM Mutation is now depreceated, but board-directory.js fires before this button is added.
+							   Since .ready() only fires after the entire page loads, we have this here to disable it as soon
+							   as we pass it in the DOM structure.
+							   We don't just disable="disable" it because then it would be broken for all non-JS browsers. */
+							   document.getElementById( 'search-submit' ).disabled = "disabled";
+							   document.getElementById( 'search-loading' ).style.display = "inline-block";
+						</script>
 					</div>
 				</div>
 				
@@ -65,13 +75,21 @@
 						<th class="board-uri" data-column="uri">{% trans %}Board{% endtrans %}</th>
 						<th class="board-title" data-column="title">{% trans %}Title{% endtrans %}</th>
 						<th class="board-pph" data-column="pph" title="Posts per hour">{% trans %}PPH{% endtrans %}</th>
-						<th class="board-max" data-column="max">{% trans %}Total posts{% endtrans %}</th>
-						<th class="board-unique" data-column="unique" title="Unique IPs to post in the last 72 hours">{% trans %}Active users{% endtrans %}</th>
+						<th class="board-max" data-column="posts_total">{% trans %}Total posts{% endtrans %}</th>
+						<th class="board-unique" data-column="active" title="Unique IPs to post in the last 72 hours">{% trans %}Active users{% endtrans %}</th>
 						<th class="board-tags" data-column="tags">{% trans %}Tags{% endtrans %}</th>
 					</tr>
 				</thead>
 				
 				<tbody class="board-list-tbody">{{html_boards}}</tbody>
+				
+				{% if boards_omitted > 0 %}
+				<tbody class="board-list-omitted" data-omitted="{{boards_omitted}}">
+					<tr>
+						<td colspan="7">{{boards_omitted}} board{% if boards_omitted != 1 %}s were{% else %} was{% endif %} omitted.</td>
+					</tr>
+				</tbody>
+				{% endif %}
 				
 				<tfoot class="board-list-loading">
 					<tr>

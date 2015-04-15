@@ -34,17 +34,19 @@
 				'board-cell-uri'     : "<td class=\"board-uri\"></td>",
 				'board-cell-title'   : "<td class=\"board-title\"></td>",
 				'board-cell-pph'     : "<td class=\"board-pph\"></td>",
-				'board-cell-max'     : "<td class=\"board-max\"></td>",
-				'board-cell-unique'  : "<td class=\"board-unique\"></td>",
+				'board-cell-posts_total' : "<td class=\"board-max\"></td>",
+				'board-cell-active'  : "<td class=\"board-unique\"></td>",
 				'board-cell-tags'    : "<td class=\"board-tags\"></td>",
 				
 				// Content wrapper
 				// Used to help constrain contents to their <td>.
 				'board-content-wrap' : "<div class=\"board-cell\"></div>",
 				
-				
-				// Tagging
-				'board-datum-tags' : "<a class=\"tag-link\" href=\"#\"></a>"
+				'board-datum-lang'   : "<span class=\"board-lang\"></span>",
+				'board-datum-uri'    : "<a class=\"board-link\"></a>",
+				'board-datum-sfw'    : "<i class=\"fa fa-briefcase board-sfw\" title=\"SFW\"></i>",
+				'board-datum-nsfw'   : "<i class=\"fa fa-briefcase board-nsfw\" title=\"NSFW\"></i>",
+				'board-datum-tags'   : "<a class=\"tag-link\" href=\"#\"></a>"
 			}
 		},
 		
@@ -73,59 +75,101 @@
 				if ($search.length > 0) {
 					// Bind form events.
 					$search.on( 'submit', searchForms, boardlist.events.searchSubmit );
-					$searchSubmit.on( 'click', searchForms, boardlist.events.searchSubmit );
+					$searchSubmit.prop( 'disabled', false ).on( 'click', searchForms, boardlist.events.searchSubmit );
 				}
 			}
 		},
 		
 		build  : {
 			boardlist : function(data) {
-				boardlist.build.boards(data['boards']);
+				boardlist.build.boards(data['boards'], data['order']);
 				boardlist.build.tags(data['tags']);
 				
 			},
 			
-			boards : function(data) {
+			boards : function(data, order) {
 				// Find our head, columns, and body.
 				var $head = $( boardlist.options.selector['board-head'], boardlist.$boardlist ),
 				    $cols = $("[data-column]", $head ),
 				    $body = $( boardlist.options.selector['board-body'], boardlist.$boardlist );
 				
-				$.each( data, function( index, row ) {
-					var $row = $( boardlist.options.template['board-row'] );
+				$.each( order, function( index, uri ) {
+					var row  = data[uri];
+					    $row = $( boardlist.options.template['board-row'] );
 					
 					$cols.each( function( index, col ) {
-						var $col   = $(col),
-						    column = $col.attr('data-column'),
-						    value  = row[column]
-						    $cell  = $( boardlist.options.template['board-cell-' + column] ),
-						    $wrap  = $( boardlist.options.template['board-content-wrap'] );
-						
-						if (value instanceof Array) {
-							if (typeof boardlist.options.template['board-datum-' + column] !== "undefined") {
-								$.each( value, function( index, singleValue ) {
-									$( boardlist.options.template['board-datum-' + column] )
-										.text( singleValue )
-										.appendTo( $wrap );
-								} );
-							}
-							else {
-								$wrap.text( value.join(" ") );
-							}
-						}
-						else {
-							$wrap.text( value );
-						}
-						
-						$wrap.appendTo( $cell );
-						$cell.appendTo( $row );
+						boardlist.build.board( row, col ).appendTo( $row );
 					} );
-						
-						if( index >= 100 ) return false;
+					
+					if( index >= 100 ) return false;
 					
 					$row.appendTo( $body );
 				} );
+			},
+			board : function( row, col ) {
+				var $col   = $(col),
+				    column = $col.attr('data-column'),
+				    value  = row[column]
+				    $cell  = $( boardlist.options.template['board-cell-' + column] ),
+				    $wrap  = $( boardlist.options.template['board-content-wrap'] );
 				
+				if (typeof boardlist.build.boardcell[column] === "undefined") {
+					if (value instanceof Array) {
+						if (typeof boardlist.options.template['board-datum-' + column] !== "undefined") {
+							$.each( value, function( index, singleValue ) {
+								$( boardlist.options.template['board-datum-' + column] )
+									.text( singleValue )
+									.appendTo( $wrap );
+							} );
+						}
+						else {
+							$wrap.text( value.join(" ") );
+						}
+					}
+					else {
+						$wrap.text( value );
+					}
+				}
+				else {
+					var $content = boardlist.build.boardcell[column]( row, value );
+					
+					if ($content instanceof jQuery) {
+						// We use .append() instead of .appendTo() as we do elsewhere
+						// because $content can be multiple elements.
+						$wrap.append( $content );
+					}
+					else if (typeof $content === "string") {
+						$wrap.html( $content );
+					}
+					else {
+						console.log("Special cell constructor returned a " + (typeof $content) + " that board-directory.js cannot interpret.");
+					}
+				}
+				
+				$wrap.appendTo( $cell );
+				return $cell;
+			},
+			boardcell : {
+				'meta' : function( row, value ) {
+					return $( boardlist.options.template['board-datum-lang'] ).text( row['locale'] );
+				},
+				'uri'  : function( row, value ) {
+					var $link = $( boardlist.options.template['board-datum-uri'] ),
+						$sfw  = $( boardlist.options.template['board-datum-' + (row['sfw'] == 1 ? "sfw" : "nsfw")] );
+					
+					$link
+						.attr( 'href', "/"+row['uri']+"/" )
+						.text( "/"+row['uri']+"/" );
+					
+					// I decided against NSFW icons because it clutters the index.
+					// Blue briefcase = SFW. No briefcase = NSFW. Seems better.
+					if (row['sfw'] == 1) {
+						return $link[0].outerHTML + $sfw[0].outerHTML;
+					}
+					else {
+						return $link[0].outerHTML;
+					}
+				}
 			},
 			
 			tags : function(data) {
@@ -168,10 +212,13 @@
 				target = boardlist.options.selector.boardlist;
 			}
 			
-			var $target = $(target);
+			var $boardlist = $(target);
 			
-			if ($target.length > 0 ) {
-				boardlist.$boardlist = $target;
+			if ($boardlist.length > 0 ) {
+				$( boardlist.options.selector['board-loading'], $boardlist ).hide();
+				
+				
+				boardlist.$boardlist = $boardlist;
 				boardlist.bind.form();
 			}
 		}
