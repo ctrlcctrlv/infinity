@@ -119,7 +119,6 @@ unset( $boardTags );
 
 /* Activity Fetching */
 $boardActivity = fetchBoardActivity( array_keys( $response['boards'] ), $search['time'], true );
-$response['tags'] = array();
 
 // Loop through each board and record activity to it.
 // We will also be weighing and building a tag list.
@@ -141,20 +140,7 @@ foreach ($response['boards'] as $boardUri => &$board) {
 		
 		unset( $precision );
 	}
-	
-	if (isset($board['tags']) && count($board['tags']) > 0) {
-		foreach ($board['tags'] as $tag) {
-			if (isset($response['tags'][$tag])) {
-				$response['tags'][$tag] += $board['active'];
-			}
-			else {
-				$response['tags'][$tag] = $board['active'];
-			}
-		}
-	}
 }
-
-unset( $boardActivity );
 
 // Sort boards by their popularity, then by their total posts.
 $boardActivityValues   = array();
@@ -177,16 +163,63 @@ $response['omitted'] = $search['index'] ? 0 : count( $response['boards'] ) - $bo
 $response['boards']  = array_splice( $response['boards'], 0, $boardLimit );
 $response['order']   = array_keys( $response['boards'] );
 
-// Get the top most popular tags.
-if (count($response['tags']) > 0) {
-	// Sort by most active tags.
-	arsort( $response['tags'] );
-	// Get the first n most active tags.
-	$response['tags'] = array_splice( $response['tags'], 0, 100 );
-	
-	// $tagLightest = end( array_keys( $response['tag'] ) );
+
+// Loop through the truncated array to compile tags.
+$response['tags'] = array();
+$tagUsage = array( 'boards' => array(), 'users' => array() );
+
+foreach ($response['boards'] as $boardUri => &$board) {
+	if (isset($board['tags']) && count($board['tags']) > 0) {
+		foreach ($board['tags'] as $tag) {
+			if (!isset($tagUsage['boards'][$tag])) {
+				$tagUsage['boards'][$tag] = 0;
+			}
+			if (!isset($tagUsage['users'][$tag])) {
+				$tagUsage['users'][$tag] = 0;
+			}
+			
+			$response['tags'][$tag] = true;
+			++$tagUsage['boards'][$tag];
+			$tagUsage['users'][$tag] += $board['active'];
+		}
+	}
 }
 
+// Get the top most popular tags.
+if (count($response['tags']) > 0) {
+	arsort( $tagUsage['boards'] );
+	arsort( $tagUsage['users'] );
+	
+	array_multisort(
+		$tagUsage['boards'], SORT_DESC, SORT_NUMERIC,
+		$tagUsage['users'], SORT_DESC, SORT_NUMERIC,
+		$response['tags']
+	);
+	
+	// Get the first n most active tags.
+	$response['tags'] = array_splice( $response['tags'], 0, 100 );
+	$response['tagOrder'] = array_keys( $response['tags'] );
+	$response['tagWeight'] = array();
+	
+	$tagsMostUsers  = max( $tagUsage['users'] );
+	$tagsLeastUsers = min( $tagUsage['users'] );
+	$tagsAvgUsers   = array_sum( $tagUsage['users'] ) / count( $tagUsage['users'] );
+	
+	$weightDepartureFurthest = 0;
+	
+	foreach ($tagUsage['users'] as $tagUsers) {
+		$weightDeparture = abs( $tagUsers - $tagsAvgUsers );
+		
+		if( $weightDeparture > $weightDepartureFurthest ) {
+			$weightDepartureFurthest = $weightDeparture;
+		}
+	}
+	
+	foreach ($tagUsage['users'] as $tagName => $tagUsers) {
+		$weightDeparture = abs( $tagUsers - $tagsAvgUsers );
+		$response['tagWeight'][$tagName] = 75 + round( 100 * ( $weightDeparture / $weightDepartureFurthest ), 0);
+	}
+}
 
 /* Include our interpreted search terms. */
 $response['search'] = $search;

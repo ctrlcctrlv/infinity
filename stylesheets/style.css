@@ -1043,6 +1043,15 @@ span.pln {
 	min-height: 76px;
 	min-width:  128px;
 }
+.loading-small {
+	background: none;
+	background-color: none;
+	background-image: url('/static/infinity-small.gif');
+	background-position: center center;
+	background-repeat: no-repeat;
+	min-height: 24px;
+	min-width:  48px;
+}
 
 
 /* Responsive helpers */
@@ -1378,6 +1387,18 @@ table.board-list-table .board-tags {
 	padding: 0 15px 0 4px;
 }
 
+table.board-list-table .board-uri .board-nsfw {
+	color: rgb(230,0,0);
+	margin: 0 0 0 0.6em;
+	float: right;
+}
+table.board-list-table .board-uri .board-sfw {
+	/* I'm using blue instead of green to help users with Deuteranopia (most common form of colorblndness). */
+	color: rgb(0,0,230);
+	margin: 0 0 0 0.6em;
+	float: right;
+}
+
 table.board-list-table div.board-cell {
 	max-width: 100%;
 	overflow: hidden;
@@ -1397,9 +1418,7 @@ aside.search-container .box {
 }
 
 .board-search {
-	padding: 0 0 8px 0;
-	margin: 8px;
-	border-bottom: 1px solid #000333;
+	margin: 8px 0;
 }
 .search-item {
 	margin: 8px 0;
@@ -1427,12 +1446,17 @@ aside.search-container .box {
 	min-width: 100%;
 	width: 100%:
 }
+#search-loading {
+	display: inline-block;
+	vertical-align: bottom;
+}
 
 ul.tag-list {
 	display: block;
 	list-style: none;
-	padding: 0;
-	margin: 0 8px;
+	margin: 8px 8px -9px 8px;
+	padding: 8px 0 0 0;
+	border-top: 1px solid #000333;
 }
 ul.tag-list::after {
 	content: ' ';
@@ -1445,7 +1469,10 @@ li.tag-item {
 	font-size: 100%;
 	list-style: none;
 	margin: 0;
-	padding: 0 0.6em 0 0;
+	padding: 0 4px 0 0;
+}
+li.tag-item:last-child {
+	padding-bottom: 17px;
 }
 a.tag-link {
 	overflow: hidden;

@@ -19,8 +19,8 @@ if (count($searchJson)) {
 	if (isset($searchJson['boards'])) {
 		$boards = $searchJson['boards'];
 	}
-	if (isset($searchJson['tags'])) {
-		$tags   = $searchJson['tags'];
+	if (isset($searchJson['tagWeight'])) {
+		$tags   = $searchJson['tagWeight'];
 	}
 }
 
