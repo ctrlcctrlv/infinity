@@ -70,6 +70,8 @@ $tagsHTML = Element("8chan/boards-tags.html", array(
 
 $searchHTML = Element("8chan/boards-search.html", array(
 		"config"         => $config,
+		"boards"         => $boards,
+		"tags"           => $tags,
 		"search"         => $searchJson['search'],
 		
 		"boards_total"   => $boards_total,

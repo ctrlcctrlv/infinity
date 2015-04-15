@@ -15,6 +15,7 @@
 				'board-head'    : ".board-list-head",
 				'board-body'    : ".board-list-tbody",
 				'board-loading' : ".board-list-loading",
+				'board-omitted' : ".board-list-omitted",
 				
 				'search'        : "#search-form",
 				'search-lang'   : "#search-lang-input",
@@ -23,7 +24,12 @@
 				'search-title'  : "#search-title-input",
 				'search-submit' : "#search-submit",
 				
-				'tag-link'      : ".tag-link"
+				'tag-link'      : ".tag-link",
+				
+				'footer-page'   : ".board-page-num",
+				'footer-count'  : ".board-page-count",
+				'footer-total'  : ".board-page-total",
+				'footer-more'   : ".board-page-loadmore"
 			},
 			
 			// HTML Templates for dynamic construction
@@ -78,6 +84,8 @@
 				if ($search.length > 0) {
 					// Bind form events.
 					boardlist.$boardlist
+						// Load more
+						.on( 'click', selectors['board-omitted'], searchForms, boardlist.events.loadMore )
 						// Tag click
 						.on( 'click', selectors['tag-link'], searchForms, boardlist.events.tagClick )
 						// Form Submission
@@ -94,18 +102,19 @@
 			boardlist : function(data) {
 				boardlist.build.boards(data['boards'], data['order']);
 				boardlist.build.lastSearch(data['search']);
+				boardlist.build.footer(data);
 				boardlist.build.tags(data['tags']);
 				
 			},
 			
-			boards : function(data, order) {
+			boards : function(boards, order) {
 				// Find our head, columns, and body.
 				var $head = $( boardlist.options.selector['board-head'], boardlist.$boardlist ),
 				    $cols = $("[data-column]", $head ),
 				    $body = $( boardlist.options.selector['board-body'], boardlist.$boardlist );
 				
 				$.each( order, function( index, uri ) {
-					var row  = data[uri];
+					var row  = boards[uri];
 					    $row = $( boardlist.options.template['board-row'] );
 					
 					$cols.each( function( index, col ) {
@@ -114,6 +123,7 @@
 					
 					$row.appendTo( $body );
 				} );
+				
 			},
 			board : function(row, col) {
 				var $col   = $(col),
@@ -192,13 +202,45 @@
 				};
 			},
 			
+			footer : function(data) {
+				var selector = boardlist.options.selector,
+				    $page    = $( selector['footer-page'], boardlist.$boardlist ),
+				    $count   = $( selector['footer-count'], boardlist.$boardlist ),
+				    $total   = $( selector['footer-total'], boardlist.$boardlist ),
+				    $more    = $( selector['footer-more'], boardlist.$boardlist );
+				
+				var boards   = Object.keys(data['boards']).length,
+				    omitted  = data['omitted'] - data['search']['page'];
+				
+				if (omitted < 0) {
+					omitted = 0;
+				}
+				
+				var total    = boards + omitted + data['search']['page'];
+				
+				//$page.text( data['search']['page'] );
+				$count.text( data['search']['page'] + boards );
+				$total.text( total );
+				$more.toggle( omitted != 0 );
+			},
+			
 			tags : function(data) {
 			}
 		},
 		
 		events : {
+			loadMore : function(event) {
+				var parameters = $.extend( {}, boardlist.lastSearch );
+				
+				parameters.page = $( boardlist.options.selector['board-body'], boardlist.$boardlist ).children().length;
+				
+				boardlist.submit( parameters );
+			},
+			
 			searchSubmit : function(event) {
 				event.preventDefault();
+				
+				$( boardlist.options.selector['board-body'], boardlist.$boardlist ).html("");
 				
 				boardlist.submit( { 
 					'lang'  : event.data.searchLang.val(),
@@ -227,17 +269,19 @@
 		
 		submit : function( parameters ) {
 			var $boardlist = boardlist.$boardlist,
-				$boardbody = $( boardlist.options.selector['board-body'], $boardlist ),
-				$boardload = $( boardlist.options.selector['board-loading'], $boardlist );
+			    $boardload = $( boardlist.options.selector['board-loading'], $boardlist ),
+			    $searchSubmit = $( boardlist.options.selector['search-submit'] );
 			
-			$boardbody.html("");
+			$searchSubmit.prop( 'disabled', true );
 			$boardload.show();
 			
-			$.get(
+			return $.get(
 				"/board-search.php",
 				parameters,
 				function(data) {
+					$searchSubmit.prop( 'disabled', false );
 					$boardload.hide();
+					
 					boardlist.build.boardlist( $.parseJSON(data) );
 				}
 			);

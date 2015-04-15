@@ -199,6 +199,7 @@ array_multisort(
 $boardLimit = $search['index'] ? 50 : 100;
 
 $response['omitted'] = count( $response['boards'] ) - $boardLimit;
+$response['omitted'] = $response['omitted'] < 0 ? 0 : $response['omitted'];
 $response['boards']  = array_splice( $response['boards'], $search['page'], $boardLimit );
 $response['order']   = array_keys( $response['boards'] );
 

@@ -1356,6 +1356,7 @@ div.boardlist a {
 table.board-list-table {
 	display: table;
 	margin: -2px;
+	margin-bottom: 10px;
 	overflow: hidden;
 	table-layout: fixed;
 }
@@ -1404,14 +1405,26 @@ table.board-list-table div.board-cell {
 	overflow: hidden;
 }
 
-tfoot.board-list-loading {
+tbody.board-list-loading {
 	display: none;
 }
-tfoot.board-list-loading .loading {
+tbody.board-list-loading .loading {
 	height: 80px;
 }
 
+tbody.board-list-omitted td {
+	background: #98E;
+	border-top: 1px solid #000333;
+	padding: 8px;
+	font-size: 125%;
+	text-align: center;
+}
+tbody.board-list-omitted .board-page-loadmore {
+	display: none;
+}
+
 aside.search-container {
+	margin-bottom: 12px;
 }
 aside.search-container .box {
 	margin-right: 12px;
