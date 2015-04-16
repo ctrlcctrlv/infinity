@@ -1033,6 +1033,23 @@ span.pln {
   }
 }
 
+/* === SITE-WIDE ASSETS === */
+#logo {
+	display: block;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	text-align: center;
+}
+#logo-link {
+	display: inline;
+}
+#logo-img {
+	display: inline-block;
+	height: 128px;
+	width: auto;
+}
+
 /* === GENERAL CLASSES === */
 .loading {
 	background: none;

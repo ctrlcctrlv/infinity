@@ -93,8 +93,7 @@ $searchHTML = Element("8chan/boards-search.html", array(
 
 $pageHTML = Element("page.html", array(
 		"config" => $config,
-		"body"   => $searchHTML,
-		"title"  => "Boards on &infin;chan"
+		"body"   => $searchHTML
 	)
 );
 

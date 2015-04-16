@@ -12,7 +12,15 @@
 <body class="8chan {% if mod %}is-moderator{% else %}is-not-moderator{% endif %} stylesheet-{% if config.default_stylesheet.1 != '' and not mod %}{{ config.default_stylesheet.1 }}{% else %}default{% endif %}">
 	{% if pm %}<div class="top_notice">You have <a href="?/PM/{{ pm.id }}">an unread PM</a>{% if pm.waiting > 0 %}, plus {{ pm.waiting }} more waiting{% endif %}.</div><hr>{% endif %}
 	<header>
-		<h1>{{ title }}</h1>
+		{% if config.site_logo %}
+		<figure id="logo">
+			<a id="logo-link" href="/" title="Return to the front page">
+				<img id="logo-img" src="{{config.site_logo}}" alt="{{config.site_nane}}" />
+			</a>
+		</figure>
+		{% endif %}
+		
+		{% if title %}<h1>{{ title }}</h1>{% endif %}
 		<div class="subtitle">
 			{% if subtitle %}
 				{{ subtitle }}
