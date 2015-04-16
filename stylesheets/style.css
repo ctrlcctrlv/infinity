@@ -368,7 +368,12 @@ div.delete {
 }
 
 div.post.reply p {
-  margin: 0.3em 0 0 0;
+	display: block;
+	margin: 0;
+	
+	line-height: 1.16em;
+	font-size: 13px;
+	min-height: 1.16em;
 }
 
 div.post.reply div.body {
@@ -1070,6 +1075,14 @@ span.pln {
 	min-width:  48px;
 }
 
+/* Text and accessibility */
+.ltr {
+	direction: ltr;
+}
+.rtl {
+	direction: rtl;
+	font-family: Tahoma;
+}
 
 /* Responsive helpers */
 .col {

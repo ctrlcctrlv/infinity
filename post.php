@@ -643,7 +643,8 @@ elseif (isset($_POST['post'])) {
 	
 	if (mysql_version() >= 50503) {
 		$post['body_nomarkup'] = $post['body']; // Assume we're using the utf8mb4 charset
-	} else {
+	}
+	else {
 		// MySQL's `utf8` charset only supports up to 3-byte symbols
 		// Remove anything >= 0x010000
 		
