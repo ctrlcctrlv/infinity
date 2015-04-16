@@ -24,12 +24,13 @@
 				'search-title'  : "#search-title-input",
 				'search-submit' : "#search-submit",
 				
+				'tag-list'      : ".tag-list",
 				'tag-link'      : ".tag-link",
 				
 				'footer-page'   : ".board-page-num",
 				'footer-count'  : ".board-page-count",
 				'footer-total'  : ".board-page-total",
-				'footer-more'   : ".board-page-loadmore"
+				'footer-more'   : "#board-list-more"
 			},
 			
 			// HTML Templates for dynamic construction
@@ -50,11 +51,18 @@
 				// Used to help constrain contents to their <td>.
 				'board-content-wrap' : "<div class=\"board-cell\"></div>",
 				
+				// Individual items or parts of a single table cell.
 				'board-datum-lang'   : "<span class=\"board-lang\"></span>",
 				'board-datum-uri'    : "<a class=\"board-link\"></a>",
 				'board-datum-sfw'    : "<i class=\"fa fa-briefcase board-sfw\" title=\"SFW\"></i>",
 				'board-datum-nsfw'   : "<i class=\"fa fa-briefcase board-nsfw\" title=\"NSFW\"></i>",
-				'board-datum-tags'   : "<a class=\"tag-link\" href=\"#\"></a>"
+				'board-datum-tags'   : "<a class=\"tag-link\" href=\"#\"></a>",
+				
+				
+				// Tag list.
+				'tag-list'           : "<ul class=\"tag-list\"></ul>",
+				'tag-item'           : "<li class=\"tag-item\"></li>",
+				'tag-link'           : "<a class=\"tag-link\" href=\"#\"></a>"
 			}
 		},
 		
@@ -103,7 +111,7 @@
 				boardlist.build.boards(data['boards'], data['order']);
 				boardlist.build.lastSearch(data['search']);
 				boardlist.build.footer(data);
-				boardlist.build.tags(data['tags']);
+				boardlist.build.tags(data['tagWeight']);
 				
 			},
 			
@@ -207,7 +215,8 @@
 				    $page    = $( selector['footer-page'], boardlist.$boardlist ),
 				    $count   = $( selector['footer-count'], boardlist.$boardlist ),
 				    $total   = $( selector['footer-total'], boardlist.$boardlist ),
-				    $more    = $( selector['footer-more'], boardlist.$boardlist );
+				    $more    = $( selector['footer-more'], boardlist.$boardlist ),
+				    $omitted = $( selector['board-omitted'], boardlist.$boardlist );
 				
 				var boards   = Object.keys(data['boards']).length,
 				    omitted  = data['omitted'] - data['search']['page'];
@@ -221,10 +230,29 @@
 				//$page.text( data['search']['page'] );
 				$count.text( data['search']['page'] + boards );
 				$total.text( total );
-				$more.toggle( omitted != 0 );
+				$more.toggleClass( "board-list-hasmore", omitted != 0 );
+				$omitted.toggle( boards + omitted > 0 );
 			},
 			
-			tags : function(data) {
+			tags : function(tags) {
+				var selector = boardlist.options.selector,
+				    template = boardlist.options.template,
+				    $list    = $( selector['tag-list'], boardlist.$boardlist );
+				
+				if ($list.length) {
+					
+					$.each( tags, function(tag, weight) {
+						var $item = $( template['tag-item'] ),
+						    $link = $( template['tag-link'] );
+						
+						$link
+							.css( 'font-size', weight+"%" )
+							.text( tag )
+							.appendTo( $item );
+						
+						$item.appendTo( $list );
+					} );
+				}
 			}
 		},
 		
@@ -240,6 +268,7 @@
 			searchSubmit : function(event) {
 				event.preventDefault();
 				
+				$( boardlist.options.selector['tag-list'], boardlist.$boardlist ).html("");
 				$( boardlist.options.selector['board-body'], boardlist.$boardlist ).html("");
 				
 				boardlist.submit( { 
@@ -268,12 +297,14 @@
 		},
 		
 		submit : function( parameters ) {
-			var $boardlist = boardlist.$boardlist,
-			    $boardload = $( boardlist.options.selector['board-loading'], $boardlist ),
-			    $searchSubmit = $( boardlist.options.selector['search-submit'] );
+			var $boardlist    = boardlist.$boardlist,
+			    $boardload    = $( boardlist.options.selector['board-loading'], $boardlist ),
+			    $searchSubmit = $( boardlist.options.selector['search-submit'], $boardlist ),
+			    $footerMore   = $( boardlist.options.selector['board-omitted'], $boardlist );
 			
 			$searchSubmit.prop( 'disabled', true );
 			$boardload.show();
+			$footerMore.hide();
 			
 			return $.get(
 				"/board-search.php",

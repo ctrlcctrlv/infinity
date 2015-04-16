@@ -841,6 +841,7 @@ function fetchBoardActivity( array $uris = array(), $forTime = false, $detailed 
 		$forTime = time();
 	}
 	// Get the last hour for this timestamp.
+	$nowHour = ( (int)( time() / 3600 ) * 3600 );
 	$forHour = ( (int)( $forTime / 3600 ) * 3600 ) - 3600;
 	
 	$boardActivity = array(
@@ -857,7 +858,7 @@ function fetchBoardActivity( array $uris = array(), $forTime = false, $detailed 
 	}
 	
 	if ($detailed === true) {
-		$bsQuery = prepare("SELECT `stat_uri`, `post_count`, `author_ip_array` FROM ``board_stats`` WHERE {$uriSearch} ( `stat_hour` <= :hour AND `stat_hour` >= :hoursago )");
+		$bsQuery = prepare("SELECT `stat_uri`, `stat_hour`, `post_count`, `author_ip_array` FROM ``board_stats`` WHERE {$uriSearch} ( `stat_hour` <= :hour AND `stat_hour` >= :hoursago )");
 		$bsQuery->bindValue(':hour', $forHour, PDO::PARAM_INT);
 		$bsQuery->bindValue(':hoursago', $forHour - ( 3600 * 72 ), PDO::PARAM_INT);
 		$bsQuery->execute() or error(db_error($bsQuery));
@@ -867,11 +868,17 @@ function fetchBoardActivity( array $uris = array(), $forTime = false, $detailed 
 		// Format the results.
 		foreach ($bsResult as $bsRow) {
 			if (!isset($boardActivity['active'][$bsRow['stat_uri']])) {
-				$boardActivity['active'][$bsRow['stat_uri']] = unserialize( $bsRow['author_ip_array'] );
+				if ($bsRow['stat_hour'] == $forHour) {
+					$boardActivity['active'][$bsRow['stat_uri']] = unserialize( $bsRow['author_ip_array'] );
+				}
+				
 				$boardActivity['average'][$bsRow['stat_uri']] = $bsRow['post_count'];
 			}
 			else {
-				$boardActivity['active'][$bsRow['stat_uri']] = array_merge( $boardActivity['active'][$bsRow['stat_uri']], unserialize( $bsRow['author_ip_array'] ) );
+				if ($bsRow['stat_hour'] == $forHour) {
+					$boardActivity['active'][$bsRow['stat_uri']] = array_merge( $boardActivity['active'][$bsRow['stat_uri']], unserialize( $bsRow['author_ip_array'] ) );
+				}
+				
 				$boardActivity['average'][$bsRow['stat_uri']] = $bsRow['post_count'];
 			}
 		}
@@ -885,9 +892,8 @@ function fetchBoardActivity( array $uris = array(), $forTime = false, $detailed 
 	}
 	// Simple return.
 	else {
-		$bsQuery = prepare("SELECT SUM(`post_count`) AS `post_count` FROM ``board_stats`` WHERE {$uriSearch} ( `stat_hour` <= :hour AND `stat_hour` >= :hoursago )");
+		$bsQuery = prepare("SELECT SUM(`post_count`) AS `post_count` FROM ``board_stats`` WHERE {$uriSearch} ( `stat_hour` = :hour )");
 		$bsQuery->bindValue(':hour', $forHour, PDO::PARAM_INT);
-		$bsQuery->bindValue(':hoursago', $forHour - ( 3600 * 72 ), PDO::PARAM_INT);
 		$bsQuery->execute() or error(db_error($bsQuery));
 		$bsResult = $bsQuery->fetchAll(PDO::FETCH_ASSOC);
 		

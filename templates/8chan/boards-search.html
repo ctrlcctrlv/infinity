@@ -91,14 +91,14 @@
 				
 				<tbody class="board-list-omitted" data-omitted="{{boards_omitted}}">
 					<tr>
-						<td colspan="7">Displaying results <span class="board-page-num">{{search.page + 1}}</span> through <span class="board-page-count">{{ boards|count + search.page}}</span> out of <span class="board-page-total">{{ boards|count + boards_omitted }}</span>. <span class="board-page-loadmore">Click to load more.</span></td>
+						<td colspan="7" id="board-list-more">Displaying results <span class="board-page-num">{{search.page + 1}}</span> through <span class="board-page-count">{{ boards|count + search.page}}</span> out of <span class="board-page-total">{{ boards|count + boards_omitted }}</span>. <span class="board-page-loadmore">Click to load more.</span></td>
 						
 						{% if boards_omitted > 0 %}
 						<script type="text/javascript">
 							/* Cheeky hack redux.
 							   We want to show the loadmore for JS users when we have omitted boards.
 							   However, the board-directory.js isn't designed to manipulate the page index on immediate load. */
-							document.getElementsByClassName("board-page-loadmore")[0].style.display = "inline";
+							document.getElementById("board-list-more").className = "board-list-hasmore";
 						</script>
 						{% endif %}
 					</tr>

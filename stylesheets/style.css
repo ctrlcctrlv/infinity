@@ -1419,8 +1419,17 @@ tbody.board-list-omitted td {
 	font-size: 125%;
 	text-align: center;
 }
+tbody.board-list-omitted #board-list-more {
+	cursor: default;
+}
+tbody.board-list-omitted #board-list-more.board-list-hasmore {
+	cursor: pointer;
+}
 tbody.board-list-omitted .board-page-loadmore {
 	display: none;
+}
+tbody.board-list-omitted .board-list-hasmore .board-page-loadmore {
+	display: inline;
 }
 
 aside.search-container {

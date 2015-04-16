@@ -261,7 +261,7 @@ if (count($response['tags']) > 0) {
 			$response['tagWeight'][$tagName] = 75 + round( 100 * ( $weightDeparture / $weightDepartureFurthest ), 0);
 		}
 		else {
-			$response['tagWeight'][$tagName] = 0;
+			$response['tagWeight'][$tagName] = 100;
 		}
 	}
 }
