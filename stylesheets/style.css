@@ -363,10 +363,6 @@ p.intro a {
   color: maroon;
 }
 
-div.delete {
-  float: right;
-}
-
 div.post.reply p {
 	display: block;
 	margin: 0;
@@ -1130,7 +1126,75 @@ span.pln {
 }
 
 
+.clearfix {
+	display: block;
+	clear: both;
+	visibility: hidden;
+	overflow: hidden;
+	
+	font-size: 0px;
+	line-height: 0px;
+	
+	box-sizing: border-box;
+	border: none;
+	height: 0;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	zoom: 1;
+}
+
 /* === SPECIFIC PAGES & FEATURES === */
+
+/* Board List */
+div.boardlist {
+	margin-top: 3px;
+	
+	color: #89A;
+	font-size: 9pt;
+}
+div.boardlist.bottom {
+	margin-top: 12px;
+	clear: both;
+}
+div.boardlist a {
+	text-decoration: none;
+}
+
+/* Threads */
+/* Thread Footer */
+#thread-interactions {
+	margin: 8px 0;
+	clear: both;
+}
+#thread-links {
+	float: left;
+}
+#thread-links > a {
+	padding-left: none;
+	padding-right: 10px;
+}
+#thread-quick-reply {
+	display: none;
+	position: absolute;
+	left: 50%;
+	right: 50%;
+	text-align: center;
+	width: 100px;
+	margin-left: -50px;
+}
+#thread_stats {
+	float: right;
+}
+
+#post-moderation-fields {
+	float: right;
+	text-align: right;
+}
+#delete-fields {
+}
+#report-fields {
+}
 
 /* threadwatcher */
 #watchlist {
@@ -1367,20 +1431,6 @@ div.mix {
 }
 .dropzone .remove-btn:hover {
   color: rgba(125, 125, 125, 1);
-}
-
-/* Board List */
-div.boardlist {
-	margin-top: 3px;
-	
-	color: #89A;
-	font-size: 9pt;
-}
-div.boardlist.bottom {
-	margin-top: 20px;
-}
-div.boardlist a {
-	text-decoration: none;
 }
 
 table.board-list-table {
