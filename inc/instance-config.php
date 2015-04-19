@@ -197,7 +197,7 @@
 		'fr' => "Français",
 		'hu' => "Magyar",
 		'it' => "Italiano",
-		'jp' => "日本語",
+		'ja' => "日本語",
 		'jbo' => "Lojban",
 		'lt' => "Lietuvių Kalba",
 		'lv' => "Latviešu Valoda",
