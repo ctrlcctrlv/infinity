@@ -200,16 +200,14 @@ array_multisort(
 );
 
 if (php_sapi_name() == 'cli') {
-	$boardLimit = $search['index'] ? 50 : 100;
-
-	$response['omitted'] = count( $response['boards'] ) - $boardLimit;
-	$response['omitted'] = $response['omitted'] < 0 ? 0 : $response['omitted'];
-	$response['boards']  = array_splice( $response['boards'], $search['page'], $boardLimit );
-}
-else {
-	$response['omitted'] = 0;
+	$response['boardsFull'] = $response['boards'];
 }
 
+$boardLimit = $search['index'] ? 50 : 100;
+
+$response['omitted'] = count( $response['boards'] ) - $boardLimit;
+$response['omitted'] = $response['omitted'] < 0 ? 0 : $response['omitted'];
+$response['boards']  = array_splice( $response['boards'], $search['page'], $boardLimit );
 $response['order']   = array_keys( $response['boards'] );
 
 
