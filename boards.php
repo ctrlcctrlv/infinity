@@ -5,7 +5,7 @@ include "inc/functions.php";
 $admin         = isset($mod["type"]) && $mod["type"]<=30;
 $founding_date = "October 23, 2013";
 
-if (php_sapi_name() == 'fpm-fcgi' && !$admin) {
+if (php_sapi_name() == 'fpm-fcgi' && !$admin && count($_GET) == 0) {
 	error('Cannot be run directly.');
 }
 
@@ -92,5 +92,15 @@ $pageHTML = Element("page.html", array(
 	)
 );
 
-file_write("boards.html", $pageHTML);
+// We only want to cache if this is not a dynamic form request.
+// Otherwise, our information will be skewed by the search criteria.
+if (count($_GET) == 0) {
+	// Preserves the JSON output format of [{board},{board}].
+	$nonAssociativeBoardList = array_values($boards);
+	
+	file_write("boards.html", $pageHTML);
+	file_write("boards.json", json_encode($nonAssociativeBoardList));
+	file_write("boards-top20.json", json_encode(array_splice($nonAssociativeBoardList, 0, 48)));
+}
+
 echo $pageHTML;

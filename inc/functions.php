@@ -795,10 +795,11 @@ function listBoards($just_uri = false, $indexed_only = false) {
 				``boards``.`indexed` indexed,
 				``boards``.`sfw` sfw,
 				``boards``.`posts_total` posts_total
-			FROM ``boards``" . ( $indexed_only ? " WHERE `indexed` = 1 " : "" ) .
-			"LEFT JOIN ``board_create``
-				ON ``boards``.`uri` = ``board_create``.`uri`
-			ORDER BY ``boards``.`uri`") or error(db_error());
+			FROM ``boards``
+			LEFT JOIN ``board_create``
+				ON ``boards``.`uri` = ``board_create``.`uri`" .
+			( $indexed_only ? " WHERE `indexed` = 1 " : "" ) .
+			"ORDER BY ``boards``.`uri`") or error(db_error());
 		
 		$boards = $query->fetchAll(PDO::FETCH_ASSOC);
 	}
@@ -840,12 +841,17 @@ function fetchBoardActivity( array $uris = array(), $forTime = false, $detailed 
 	if (!is_integer($forTime)) {
 		$forTime = time();
 	}
+	
 	// Get the last hour for this timestamp.
 	$nowHour = ( (int)( time() / 3600 ) * 3600 );
+	// Get the hour before. This is what we actually use for pulling data.
 	$forHour = ( (int)( $forTime / 3600 ) * 3600 ) - 3600;
+	// Get the hour from yesterday to calculate posts per day.
+	$yesterHour = $forHour - ( 3600 * 23 );
 	
 	$boardActivity = array(
 		'active'  => array(),
+		'today'   => array(),
 		'average' => array(),
 	);
 	
@@ -867,9 +873,20 @@ function fetchBoardActivity( array $uris = array(), $forTime = false, $detailed 
 		
 		// Format the results.
 		foreach ($bsResult as $bsRow) {
+			// Do we need to define the arrays for this URI?
 			if (!isset($boardActivity['active'][$bsRow['stat_uri']])) {
 				if ($bsRow['stat_hour'] == $forHour) {
 					$boardActivity['active'][$bsRow['stat_uri']] = unserialize( $bsRow['author_ip_array'] );
+				}
+				else {
+					$boardActivity['active'][$bsRow['stat_uri']] = array();
+				}
+				
+				if ($bsRow['stat_hour'] <= $forHour && $bsRow['stat_hour'] >= $yesterHour) {
+					$boardActivity['today'][$bsRow['stat_uri']] = $bsRow['post_count'];
+				}
+				else {
+					$boardActivity['today'][$bsRow['stat_uri']] = 0;
 				}
 				
 				$boardActivity['average'][$bsRow['stat_uri']] = $bsRow['post_count'];
@@ -879,7 +896,11 @@ function fetchBoardActivity( array $uris = array(), $forTime = false, $detailed 
 					$boardActivity['active'][$bsRow['stat_uri']] = array_merge( $boardActivity['active'][$bsRow['stat_uri']], unserialize( $bsRow['author_ip_array'] ) );
 				}
 				
-				$boardActivity['average'][$bsRow['stat_uri']] = $bsRow['post_count'];
+				if ($bsRow['stat_hour'] <= $forHour && $bsRow['stat_hour'] >= $yesterHour) {
+					$boardActivity['today'][$bsRow['stat_uri']] += $bsRow['post_count'];
+				}
+				
+				$boardActivity['average'][$bsRow['stat_uri']] += $bsRow['post_count'];
 			}
 		}
 		
