@@ -875,13 +875,6 @@ function fetchBoardActivity( array $uris = array(), $forTime = false, $detailed 
 		foreach ($bsResult as $bsRow) {
 			// Do we need to define the arrays for this URI?
 			if (!isset($boardActivity['active'][$bsRow['stat_uri']])) {
-				if ($bsRow['stat_hour'] == $forHour) {
-					$boardActivity['active'][$bsRow['stat_uri']] = unserialize( $bsRow['author_ip_array'] );
-				}
-				else {
-					$boardActivity['active'][$bsRow['stat_uri']] = array();
-				}
-				
 				if ($bsRow['stat_hour'] <= $forHour && $bsRow['stat_hour'] >= $yesterHour) {
 					$boardActivity['today'][$bsRow['stat_uri']] = $bsRow['post_count'];
 				}
@@ -889,17 +882,15 @@ function fetchBoardActivity( array $uris = array(), $forTime = false, $detailed 
 					$boardActivity['today'][$bsRow['stat_uri']] = 0;
 				}
 				
+				$boardActivity['active'][$bsRow['stat_uri']] = unserialize( $bsRow['author_ip_array'] );
 				$boardActivity['average'][$bsRow['stat_uri']] = $bsRow['post_count'];
 			}
 			else {
-				if ($bsRow['stat_hour'] == $forHour) {
-					$boardActivity['active'][$bsRow['stat_uri']] = array_merge( $boardActivity['active'][$bsRow['stat_uri']], unserialize( $bsRow['author_ip_array'] ) );
-				}
-				
 				if ($bsRow['stat_hour'] <= $forHour && $bsRow['stat_hour'] >= $yesterHour) {
 					$boardActivity['today'][$bsRow['stat_uri']] += $bsRow['post_count'];
 				}
 				
+				$boardActivity['active'][$bsRow['stat_uri']] = array_merge( $boardActivity['active'][$bsRow['stat_uri']], unserialize( $bsRow['author_ip_array'] ) );
 				$boardActivity['average'][$bsRow['stat_uri']] += $bsRow['post_count'];
 			}
 		}
