@@ -94,9 +94,9 @@ $pageHTML = Element("page.html", array(
 
 // We only want to cache if this is not a dynamic form request.
 // Otherwise, our information will be skewed by the search criteria.
-if (count($_GET) == 0) {
+if (php_sapi_name() == 'cli') {
 	// Preserves the JSON output format of [{board},{board}].
-	$nonAssociativeBoardList = array_values($boards);
+	$nonAssociativeBoardList = array_values($response['boardsFull']);
 	
 	file_write("boards.html", $pageHTML);
 	file_write("boards.json", json_encode($nonAssociativeBoardList));
@@ -109,6 +109,9 @@ if (count($_GET) == 0) {
 	}
 
 	file_write("boards-top20.json", json_encode(array_splice($topbar, 0, 48)));
+	
+	echo "The board directories have regenerated.";
+	exit;
 }
 
 echo $pageHTML;
