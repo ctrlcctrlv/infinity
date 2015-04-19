@@ -79,7 +79,6 @@ $searchHTML = Element("8chan/boards-search.html", array(
 		
 		"founding_date"  => $founding_date,
 		"page_updated"   => date('r'),
-		"uptime"         => shell_exec('uptime -p'),
 		
 		"html_boards"    => $boardsHTML,
 		"html_tags"      => $tagsHTML
