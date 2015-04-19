@@ -90,5 +90,12 @@ $(document).ready(function(){
 	$(document).on('new_post', function(e, post) {
 		$(post).find('input[type=checkbox].delete').each(init_qpc);
 	});
-});
-
+	
+	// Bottom of the page quick reply function
+	$("#thread-quick-reply").show();
+	$("#link-quick-reply").on( 'click', function(event) {
+		event.preventDefault();
+		$(window).trigger('cite', ['']);
+		return false;
+	} );
+} );

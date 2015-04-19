@@ -76,7 +76,7 @@ function twig_remove_whitespace_filter($data) {
 }
 
 function twig_date_filter($date, $format) {
-	return gmstrftime($format, $date);
+	return gmstrftime($format, (int) $date);
 }
 
 function twig_hasPermission_filter($mod, $permission, $board = null) {
@@ -86,7 +86,7 @@ function twig_hasPermission_filter($mod, $permission, $board = null) {
 function twig_extension_filter($value, $case_insensitive = true) {
 	$ext = mb_substr($value, mb_strrpos($value, '.') + 1);
 	if($case_insensitive)
-		$ext = mb_strtolower($ext);		
+		$ext = mb_strtolower($ext);
 	return $ext;
 }
 
