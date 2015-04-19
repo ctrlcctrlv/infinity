@@ -100,7 +100,15 @@ if (count($_GET) == 0) {
 	
 	file_write("boards.html", $pageHTML);
 	file_write("boards.json", json_encode($nonAssociativeBoardList));
-	file_write("boards-top20.json", json_encode(array_splice($nonAssociativeBoardList, 0, 48)));
+
+	$topbar = array();
+	foreach ($boards as $i => $b) {
+		if (!in_array($b['uri'], $config['no_top_bar_boards'])) {
+			$topbar[] = $b;
+		}
+	}
+
+	file_write("boards-top20.json", json_encode(array_splice($topbar, 0, 48)));
 }
 
 echo $pageHTML;
