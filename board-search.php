@@ -14,13 +14,6 @@ $CanViewUnindexed = isset($mod["type"]) && $mod["type"] <= GlobalVolunteer;
 $response = array();
 
 
-/* Prefetch some information. */
-$languages = array(
-	"en",
-	"es",
-);
-
-
 /* Determine search parameters from $_GET */
 $search = array(
 	'lang'  => false,
@@ -48,7 +41,7 @@ if (isset( $_GET['page'] ) && $_GET['page'] != "") {
 }
 
 // Include what language (if the language is not blank and we recognize it)?
-if (isset( $_GET['lang'] ) && $_GET['lang'] != "" && isset($languages[$search['lang']])) {
+if (isset( $_GET['lang'] ) && $_GET['lang'] != "" && isset($config['languages'][$_GET['lang']])) {
 	$search['lang'] = $_GET['lang'];
 }
 
@@ -116,11 +109,16 @@ foreach ($boards as $board) {
 	$boardLang = strtolower( array_slice( explode( "_", $boardConfig['locale'] ?: "" ), 0 )[0] ); // en_US -> en OR en -> en
 	
 	// Check against our config search options.
-	if ( $search['lang'] !== false && $search['lang'] != $boardLang ) {
+	if ($search['lang'] !== false && $search['lang'] != $boardLang) {
 		continue;
 	}
 	
-	$board['locale'] = $boardLang;
+	if (isset($config['languages'][$boardLang])) {
+		$board['locale'] = $config['languages'][$boardLang];
+	}
+	else {
+		$board['locale'] = $boardLang;
+	}
 	
 	$response['boards'][ $board['uri'] ] = $board;
 }

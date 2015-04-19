@@ -28,7 +28,9 @@
 								<option value="es">Spanish</option>
 							</optgroup>
 							<optgroup label="All">
-								<option value="cn">Chinese</option>
+								{% for lang_code, lang_name in languages %} 
+								<option value="{{lang_code}}">{{lang_name}}</option>
+								{% endfor %}
 							</optgroup>
 						</select>
 					</div>

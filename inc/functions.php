@@ -822,7 +822,7 @@ function loadBoardConfig( $uri ) {
 	$config = array(
 		"locale" => "en_US",
 	);
-	$configPath = "/{$uri}/config.php";
+	$configPath = "./{$uri}/config.php";
 	
 	if (file_exists( $configPath ) && is_readable( $configPath )) {
 		include( $configPath );

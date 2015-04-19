@@ -185,6 +185,32 @@
 		'message' => 'On this board, to prevent raids the number of threads that can be created per hour is limited. Please try again later, or post in an existing thread.'
 	);
 
+	$config['languages'] = array(
+		'ch' => "汉语",
+		'cz' => "Čeština",
+		'dk' => "Dansk",
+		'de' => "Deutsch",
+		'eo' => "Esperanto",
+		'en' => "English",
+		'es' => "Español",
+		'fi' => "Suomi",
+		'fr' => "Français",
+		'hu' => "Magyar",
+		'it' => "Italiano",
+		'jp' => "日本語",
+		'jbo' => "Lojban",
+		'lt' => "Lietuvių Kalba",
+		'lv' => "Latviešu Valoda",
+		'no' => "Norsk",
+		'nl' => "Nederlands Vlaams",
+		'pl' => "Polski",
+		'pt' => "Português",
+		'ru' => "Русский",
+		'sk' => "Slovenský Jazyk",
+		'tw' => "Taiwanese",
+	);
+
+	
 $config['gzip_static'] = false;
 $config['hash_masked_ip'] = true;
 $config['force_subject_op'] = false;
