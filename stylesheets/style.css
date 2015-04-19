@@ -86,6 +86,10 @@ table.mod.config-editor input[type="text"] {
   width: 100%;
 }
 
+#post-form-inner .post-table tr {
+	background-color: transparent;
+}
+
 .post-table th, .post-table-options th {
   width: 85px;
 }
@@ -363,6 +367,7 @@ p.intro a {
   color: maroon;
 }
 
+p.body-line,
 div.post p {
 	display: block;
 	margin: 0;

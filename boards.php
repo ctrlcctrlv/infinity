@@ -46,6 +46,8 @@ $tagQueryGet['tags'] = $tagQueryTags;
 $tag_query      = "?" . http_build_query( $tagQueryGet ) . ($tagQueryTags != "" ? "+" : "");
 
 /* Create and distribute page */
+// buildJavascript();
+
 $boardsHTML = Element("8chan/boards-table.html", array(
 		"config"         => $config,
 		"boards"         => $boards,
@@ -87,6 +89,7 @@ $searchHTML = Element("8chan/boards-search.html", array(
 );
 
 $pageHTML = Element("page.html", array(
+		"title"  => _("Boardlist"),
 		"config" => $config,
 		"body"   => $searchHTML
 	)
@@ -101,9 +104,6 @@ if (php_sapi_name() == 'cli') {
 	file_write("boards.html", $pageHTML);
 	file_write("boards.json", json_encode($nonAssociativeBoardList));
 	file_write("boards-top20.json", json_encode(array_splice($nonAssociativeBoardList, 0, 48)));
-	
-	echo "The board directories have regenerated.";
-	exit;
 }
 
 echo $pageHTML;

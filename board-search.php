@@ -168,14 +168,10 @@ foreach ($response['boards'] as $boardUri => &$board) {
 		$board['active'] = (int) $boardActivity['active'][ $boardUri ];
 	}
 	if (isset($boardActivity['average'][ $boardUri ])) {
-		$precision = 4 - strlen( $boardActivity['average'][ $boardUri ] );
+		$precision = 1;
 		
-		if( $precision < 0 ) {
-			$precision = 0;
-		}
-		
-		$board['pph'] = round( $boardActivity['average'][ $boardUri ], 2 );
-		$board['ppd'] = round( $boardActivity['today'][ $boardUri ], 2 );
+		$board['pph'] = round( $boardActivity['average'][ $boardUri ], $precision );
+		$board['ppd'] = round( $boardActivity['today'][ $boardUri ], $precision );
 		
 		unset( $precision );
 	}
