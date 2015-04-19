@@ -348,6 +348,8 @@ function embed_html($link) {
 
 
 class Post {
+	public $clean;
+	
 	public function __construct($post, $root=null, $mod=false) {
 		global $config;
 		if (!isset($root))

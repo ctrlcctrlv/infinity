@@ -1,0 +1,111 @@
+<main id="boardlist">
+	<section class="description box col col-12">
+		<h2 class="box-title">Global Statistics</h2>
+		<p class="box-content">{% trans %}There are currently <strong>{{boards_public}}</strong> public boards, <strong>{{boards_total}}</strong> total. Site-wide, <strong>{{posts_hour}}</strong> posts have been made in the last hour, with <strong>{{posts_total}}</strong> being made on all active boards since {{founding_date}}.{% endtrans %}</p>
+		{% if uptime %}<p class="box-content">{{uptime}} without interruption</p>{% endif %}
+		<p class="box-content">This page last updated {{page_updated}}.</p>
+	</section>
+	
+	<div class="board-list">
+		<aside class="search-container col col-2">
+			<form id="search-form" class="box" method="get" action="/boards.php">
+				<h2 class="box-title">Search</h2>
+				
+				<div class="board-search box-content">
+					<label class="search-item search-sfw">
+						<input type="checkbox" id="search-sfw-input" name="sfw" value="1" {% if not search.nsfw %}checked="checked"{% endif %} />&nbsp;Hide NSFW boards
+					</label>
+					
+					<div class="search-item search-title">
+						<input type="text" id="search-title-input" name="title" name="title" value="{{search.title}}" placeholder="Search titles..." />
+					</div>
+					
+					<div class="search-item search-lang">
+						<select id="search-lang-input" name="lang">
+							<optgroup label="Popular">
+								<option value="">All languages</option>
+								<option value="en">English</option>
+								<option value="es">Spanish</option>
+							</optgroup>
+							<optgroup label="All">
+								{% for lang_code, lang_name in languages %} 
+								<option value="{{lang_code}}">{{lang_name}}</option>
+								{% endfor %}
+							</optgroup>
+						</select>
+					</div>
+					
+					<div class="search-item search-tag">
+						<input type="text" id="search-tag-input" name="tags" value="{{ search.tags|join(' ') }}" placeholder="Search tags..." />
+					</div>
+					
+					<div class="search-item search-submit">
+						<button id="search-submit">Search</button>
+						<span id="search-loading" class="loading-small board-list-loading" style="display: none;"></span>
+						<script type="text/javascript">
+							/* Cheeky hack.
+							   DOM Mutation is now depreceated, but board-directory.js fires before this button is added.
+							   Since .ready() only fires after the entire page loads, we have this here to disable it as soon
+							   as we pass it in the DOM structure.
+							   We don't just disable="disable" it because then it would be broken for all non-JS browsers. */
+							   document.getElementById( 'search-submit' ).disabled = "disabled";
+							   document.getElementById( 'search-loading' ).style.display = "inline-block";
+						</script>
+					</div>
+				</div>
+				
+				<ul class="tag-list box-content">
+					{{html_tags}}
+				</ul>
+			</form>
+		</aside>
+		
+		<section class="board-list col col-10">
+			<table class="board-list-table">
+				<colgroup>
+					<col class="board-meta" />
+					<col class="board-uri" />
+					<col class="board-title" />
+					<col class="board-pph" />
+					<col class="board-max" />
+					<col class="board-unique" />
+					<col class="board-tags" />
+				</colgroup>
+				<thead class="board-list-head">
+					<tr>
+						<th class="board-meta" data-column="meta"></th>
+						<th class="board-uri" data-column="uri">{% trans %}Board{% endtrans %}</th>
+						<th class="board-title" data-column="title">{% trans %}Title{% endtrans %}</th>
+						<th class="board-pph" data-column="pph" title="Posts per hour">{% trans %}PPH{% endtrans %}</th>
+						<th class="board-max" data-column="posts_total">{% trans %}Total posts{% endtrans %}</th>
+						<th class="board-unique" data-column="active" title="Unique IPs to post in the last 72 hours">{% trans %}Active users{% endtrans %}</th>
+						<th class="board-tags" data-column="tags">{% trans %}Tags{% endtrans %}</th>
+					</tr>
+				</thead>
+				
+				<tbody class="board-list-tbody">{{html_boards}}</tbody>
+				
+				<tbody class="board-list-loading">
+					<tr>
+						<td colspan="7" class="loading"></td>
+					</tr>
+				</tbody>
+				
+				<tbody class="board-list-omitted" data-omitted="{{boards_omitted}}">
+					<tr>
+						<td colspan="7" id="board-list-more">Displaying results <span class="board-page-num">{{search.page + 1}}</span> through <span class="board-page-count">{{ boards|count + search.page}}</span> out of <span class="board-page-total">{{ boards|count + boards_omitted }}</span>. <span class="board-page-loadmore">Click to load more.</span></td>
+						
+						{% if boards_omitted > 0 %}
+						<script type="text/javascript">
+							/* Cheeky hack redux.
+							   We want to show the loadmore for JS users when we have omitted boards.
+							   However, the board-directory.js isn't designed to manipulate the page index on immediate load. */
+							document.getElementById("board-list-more").className = "board-list-hasmore";
+						</script>
+						{% endif %}
+					</tr>
+				</tbody>
+			</table>
+		</section>
+	</div>
+</main>
