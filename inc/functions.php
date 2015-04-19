@@ -628,47 +628,41 @@ function purge($uri) {
 
 function file_write($path, $data, $simple = false, $skip_purge = false) {
 	global $config, $debug;
-	
+
 	if (preg_match('/^remote:\/\/(.+)\:(.+)$/', $path, $m)) {
 		if (isset($config['remote'][$m[1]])) {
 			require_once 'inc/remote.php';
-			
+
 			$remote = new Remote($config['remote'][$m[1]]);
 			$remote->write($data, $m[2]);
 			return;
-		}
-		else {
+		} else {
 			error('Invalid remote server: ' . $m[1]);
 		}
 	}
-	else {
-		// This will convert a local, relative path like "b/index.html" to a full path.
-		// dio_open does not work with relative paths on Windows machines.
-		$path = realpath(dirname($path)) . DIRECTORY_SEPARATOR . basename($path);
-	}
-	
-	if (!$fp = dio_open( $path, O_WRONLY | O_CREAT | O_TRUNC, 0644)) {
+
+	if (!$fp = dio_open($path, O_WRONLY | O_CREAT, 0644))
 		error('Unable to open file for writing: ' . $path);
-	}
-	
+
 	// File locking
-	if (function_exists("dio_fcntl") && dio_fcntl($fp, F_SETLKW, array('type' => F_WRLCK)) === -1) {
+	if (dio_fcntl($fp, F_SETLKW, array('type' => F_WRLCK)) === -1) {
 		error('Unable to lock file: ' . $path);
 	}
-	
+
+	// Truncate file
+	if (!dio_truncate($fp, 0))
+		error('Unable to truncate file: ' . $path);
+
 	// Write data
-	if (($bytes = dio_write($fp, $data)) === false) {
+	if (($bytes = dio_write($fp, $data)) === false)
 		error('Unable to write to file: ' . $path);
-	}
-	
+
 	// Unlock
-	if (function_exists("dio_fcntl")) {
-		dio_fcntl($fp, F_SETLK, array('type' => F_UNLCK));
-	}
-	
+	dio_fcntl($fp, F_SETLK, array('type' => F_UNLCK));
+
 	// Close
 	dio_close($fp);
-	
+
 	/**
 	 * Create gzipped file.
 	 *
