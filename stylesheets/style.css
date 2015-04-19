@@ -1610,3 +1610,7 @@ td.board-tags a.tag-link {
 		width: 0;
 	}
 }
+
+#post-moderation-fields {
+	display: none;
+}
