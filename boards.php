@@ -88,7 +88,8 @@ $searchHTML = Element("8chan/boards-search.html", array(
 
 $pageHTML = Element("page.html", array(
 		"config" => $config,
-		"body"   => $searchHTML
+		"body"   => $searchHTML,
+		"title" => _("Boards on &infin;chan")
 	)
 );
 
@@ -109,9 +110,6 @@ if (php_sapi_name() == 'cli') {
 	}
 
 	file_write("boards-top20.json", json_encode(array_splice($topbar, 0, 48)));
-	
-	echo "The board directories have regenerated.";
-	exit;
 }
 
 echo $pageHTML;
