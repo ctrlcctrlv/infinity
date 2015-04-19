@@ -125,7 +125,6 @@ foreach ($boards as $board) {
 
 unset( $boards );
 
-
 /* Tag Fetching */
 // (We have do this even if we're not filtering by tags so that we know what each board's tags are)
 
@@ -137,6 +136,7 @@ foreach ($response['boards'] as $boardUri => &$board) {
 	// If we are filtering by tag and there is no match, remove from the response.
 	if ( $search['tags'] !== false && ( !isset( $boardTags[ $boardUri ] ) || count(array_intersect($search['tags'], $boardTags[ $boardUri ])) !== count($search['tags']) ) ) {
 		unset( $response['boards'][$boardUri] );
+		continue;
 	}
 	// If we aren't filtering / there is a match AND we have tags, set the tags.
 	else if ( isset( $boardTags[ $boardUri ] ) && $boardTags[ $boardUri ] ) {
@@ -146,6 +146,9 @@ foreach ($response['boards'] as $boardUri => &$board) {
 	else {
 		$board['tags'] = array();
 	}
+	
+	// Legacy support for API readers.
+	$board['max'] = &$board['posts_total'];
 }
 
 unset( $boardTags );
@@ -159,6 +162,7 @@ $boardActivity = fetchBoardActivity( array_keys( $response['boards'] ), $search[
 foreach ($response['boards'] as $boardUri => &$board) {
 	$board['active'] = 0;
 	$board['pph']    = 0;
+	$board['ppd']    = 0;
 	
 	if (isset($boardActivity['active'][ $boardUri ])) {
 		$board['active'] = (int) $boardActivity['active'][ $boardUri ];
@@ -171,6 +175,7 @@ foreach ($response['boards'] as $boardUri => &$board) {
 		}
 		
 		$board['pph'] = round( $boardActivity['average'][ $boardUri ], 2 );
+		$board['ppd'] = round( $boardActivity['today'][ $boardUri ], 2 );
 		
 		unset( $precision );
 	}
@@ -194,11 +199,17 @@ array_multisort(
 	$response['boards']
 );
 
-$boardLimit = $search['index'] ? 50 : 100;
+if (php_sapi_name() == 'cli') {
+	$boardLimit = $search['index'] ? 50 : 100;
 
-$response['omitted'] = count( $response['boards'] ) - $boardLimit;
-$response['omitted'] = $response['omitted'] < 0 ? 0 : $response['omitted'];
-$response['boards']  = array_splice( $response['boards'], $search['page'], $boardLimit );
+	$response['omitted'] = count( $response['boards'] ) - $boardLimit;
+	$response['omitted'] = $response['omitted'] < 0 ? 0 : $response['omitted'];
+	$response['boards']  = array_splice( $response['boards'], $search['page'], $boardLimit );
+}
+else {
+	$response['omitted'] = 0;
+}
+
 $response['order']   = array_keys( $response['boards'] );
 
 
