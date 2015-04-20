@@ -640,29 +640,55 @@ function file_write($path, $data, $simple = false, $skip_purge = false) {
 			error('Invalid remote server: ' . $m[1]);
 		}
 	}
-
-	if (!$fp = dio_open($path, O_WRONLY | O_CREAT, 0644))
-		error('Unable to open file for writing: ' . $path);
-
-	// File locking
-	if (dio_fcntl($fp, F_SETLKW, array('type' => F_WRLCK)) === -1) {
-		error('Unable to lock file: ' . $path);
+	
+	if (!function_exists("dio_truncate")) {
+		if (!$fp = fopen($path, $simple ? 'w' : 'c'))
+			error('Unable to open file for writing: ' . $path);
+		
+		// File locking
+		if (!$simple && !flock($fp, LOCK_EX))
+			error('Unable to lock file: ' . $path);
+		
+		// Truncate file
+		if (!$simple && !ftruncate($fp, 0))
+			error('Unable to truncate file: ' . $path);
+		
+		// Write data
+		if (($bytes = fwrite($fp, $data)) === false)
+			error('Unable to write to file: ' . $path);
+		
+		// Unlock
+		if (!$simple)
+			flock($fp, LOCK_UN);
+		
+		// Close
+		if (!fclose($fp))
+			error('Unable to close file: ' . $path);
 	}
-
-	// Truncate file
-	if (!dio_truncate($fp, 0))
-		error('Unable to truncate file: ' . $path);
-
-	// Write data
-	if (($bytes = dio_write($fp, $data)) === false)
-		error('Unable to write to file: ' . $path);
-
-	// Unlock
-	dio_fcntl($fp, F_SETLK, array('type' => F_UNLCK));
-
-	// Close
-	dio_close($fp);
-
+	else {
+		if (!$fp = dio_open($path, O_WRONLY | O_CREAT, 0644))
+			error('Unable to open file for writing: ' . $path);
+		
+		// File locking
+		if (dio_fcntl($fp, F_SETLKW, array('type' => F_WRLCK)) === -1) {
+			error('Unable to lock file: ' . $path);
+		}
+		
+		// Truncate file
+		if (!dio_truncate($fp, 0))
+			error('Unable to truncate file: ' . $path);
+		
+		// Write data
+		if (($bytes = dio_write($fp, $data)) === false)
+			error('Unable to write to file: ' . $path);
+		
+		// Unlock
+		dio_fcntl($fp, F_SETLK, array('type' => F_UNLCK));
+		
+		// Close
+		dio_close($fp);
+	}
+	
 	/**
 	 * Create gzipped file.
 	 *
