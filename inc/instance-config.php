@@ -197,7 +197,7 @@
 		'fr' => "Français",
 		'hu' => "Magyar",
 		'it' => "Italiano",
-		'jp' => "日本語",
+		'ja' => "日本語",
 		'jbo' => "Lojban",
 		'lt' => "Lietuvių Kalba",
 		'lv' => "Latviešu Valoda",
@@ -233,7 +233,7 @@ $config['page_404'] = 'page_404';
 
 // Flavor and design.
 $config['site_name'] = "&infin;chan";
-$config['site_logo'] = "/static/logo_33.svg";
+#$config['site_logo'] = "/static/logo_33.svg";
 
 // 8chan specific mod pages
 require '8chan-mod-config.php';
