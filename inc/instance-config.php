@@ -7,9 +7,6 @@
 *
 *  You can copy values from config.php (defaults) and paste them here.
 */
-	require_once "lib/htmlpurifier-4.6.0/library/HTMLPurifier.auto.php";
-	require_once "8chan-functions.php";
-
 	// Note - you may want to change some of these in secrets.php instead of here
 	// See the secrets.example.php file
 	$config['db']['server'] = 'localhost';
@@ -129,6 +126,7 @@
 	$config['additional_javascript'][] = 'js/thread-watcher.js';
 	$config['additional_javascript'][] = 'js/ajax.js';
 	$config['additional_javascript'][] = 'js/quick-reply.js';
+	$config['additional_javascript'][] = 'js/quick-post-controls.js';
 	$config['additional_javascript'][] = 'js/show-own-posts.js';
 	$config['additional_javascript'][] = 'js/youtube.js';
 	$config['additional_javascript'][] = 'js/comment-toolbar.js';
@@ -143,6 +141,7 @@
 	$config['additional_javascript'][] = 'js/auto-scroll.js';
 	$config['additional_javascript'][] = 'js/twemoji/twemoji.js';
 	$config['additional_javascript'][] = 'js/file-selector.js';
+	$config['additional_javascript'][] = 'js/board-directory.js';
 	// Oekaki (now depends on config.oekaki so can be in all scripts)
 	$config['additional_javascript'][] = 'js/jquery-ui.custom.min.js';
 	$config['additional_javascript'][] = 'js/wPaint/8ch.js';
@@ -155,46 +154,63 @@
 	$config['stylesheets']['Dark'] = 'dark.css';
 	$config['stylesheets']['Photon'] = 'photon.css';
 	$config['stylesheets']['Redchanit'] = 'redchanit.css';
-
+	
 	$config['stylesheets_board'] = true;
 	$config['markup'][] = array("/^[ |\t]*==(.+?)==[ |\t]*$/m", "<span class=\"heading\">\$1</span>");
 	$config['markup'][] = array("/\[spoiler\](.+?)\[\/spoiler\]/", "<span class=\"spoiler\">\$1</span>");
 	$config['markup'][] = array("/~~(.+?)~~/", "<s>\$1</s>");
 	$config['markup'][] = array("/__(.+?)__/", "<u>\$1</u>");
 	$config['markup'][] = array("/###([^\s']+)###/", "<a href='/boards.html#\$1'>###\$1###</a>");
-
+	
+	$config['markup_paragraphs'] = true;
+	$config['markup_rtl'] = true;
+	
 	$config['boards'] = array(array('<i class="fa fa-home" title="Home"></i>' => '/', '<i class="fa fa-tags" title="Boards"></i>' => '/boards.html', '<i class="fa fa-question" title="FAQ"></i>' => '/faq.html', '<i class="fa fa-random" title="Random"></i>' => '/random.php', '<i class="fa fa-plus" title="New board"></i>' => '/create.php', '<i class="fa fa-ban" title="Public ban list"></i>' => '/bans.html', '<i class="fa fa-search" title="Search"></i>' => '/search.php', '<i class="fa fa-cog" title="Manage board"></i>' => '/mod.php', '<i class="fa fa-quote-right" title="Chat"></i>' => 'https://qchat.rizon.net/?channels=#8chan'), array('b', 'news+', 'boards'), array('operate', 'meta'), array('<i class="fa fa-twitter" title="Twitter"></i>'=>'https://twitter.com/infinitechan'));
 	//$config['boards'] = array(array('<i class="fa fa-home" title="Home"></i>' => '/', '<i class="fa fa-tags" title="Boards"></i>' => '/boards.html', '<i class="fa fa-question" title="FAQ"></i>' => '/faq.html', '<i class="fa fa-random" title="Random"></i>' => '/random.php', '<i class="fa fa-plus" title="New board"></i>' => '/create.php', '<i class="fa fa-search" title="Search"></i>' => '/search.php', '<i class="fa fa-cog" title="Manage board"></i>' => '/mod.php', '<i class="fa fa-quote-right" title="Chat"></i>' => 'https://qchat.rizon.net/?channels=#8chan'), array('b', 'meta', 'int'), array('v', 'a', 'tg', 'fit', 'pol', 'tech', 'mu', 'co', 'sp', 'boards'), array('<i class="fa fa-twitter" title="Twitter"></i>'=>'https://twitter.com/infinitechan'));
-
+	
 	$config['footer'][] = 'All posts on 8chan are the responsibility of the individual poster and not the administration of 8chan, pursuant to 47 U.S.C. &sect; 230.';
 	$config['footer'][] = 'We have not been served any secret court orders and are not under any gag orders.';
 	$config['footer'][] = 'To make a DMCA request or report illegal content, please email <a href="mailto:admin@8chan.co">admin@8chan.co</a>.';
-
+	
 	$config['search']['enable'] = true;
-
+	
 	$config['syslog'] = true;
-
+	
 	$config['hour_max_threads'] = 10;
 	$config['filters'][] = array(
 		'condition' => array(
-			'custom' => function($post) {
-				global $config, $board;
-				if (!$config['hour_max_threads']) return false;
-
-				if ($post['op']) {
-					$query = prepare(sprintf('SELECT COUNT(*) AS `count` FROM ``posts_%s`` WHERE `thread` IS NULL AND FROM_UNIXTIME(`time`) > DATE_SUB(NOW(), INTERVAL 1 HOUR);', $board['uri']));
-					$query->bindValue(':ip', $_SERVER['REMOTE_ADDR']);
-					$query->execute() or error(db_error($query));
-					$r = $query->fetch(PDO::FETCH_ASSOC);
-
-					return ($r['count'] > $config['hour_max_threads']);
-				}
-			}	
+			'custom' => 'max_posts_per_hour'
 		),
 		'action' => 'reject',
 		'message' => 'On this board, to prevent raids the number of threads that can be created per hour is limited. Please try again later, or post in an existing thread.'
 	);
 
+	$config['languages'] = array(
+		'ch' => "汉语",
+		'cz' => "Čeština",
+		'dk' => "Dansk",
+		'de' => "Deutsch",
+		'eo' => "Esperanto",
+		'en' => "English",
+		'es' => "Español",
+		'fi' => "Suomi",
+		'fr' => "Français",
+		'hu' => "Magyar",
+		'it' => "Italiano",
+		'jp' => "日本語",
+		'jbo' => "Lojban",
+		'lt' => "Lietuvių Kalba",
+		'lv' => "Latviešu Valoda",
+		'no' => "Norsk",
+		'nl' => "Nederlands Vlaams",
+		'pl' => "Polski",
+		'pt' => "Português",
+		'ru' => "Русский",
+		'sk' => "Slovenský Jazyk",
+		'tw' => "Taiwanese",
+	);
+
+	
 $config['gzip_static'] = false;
 $config['hash_masked_ip'] = true;
 $config['force_subject_op'] = false;
@@ -212,9 +228,18 @@ $config['enable_antibot'] = false;
 $config['spam']['unicode'] = false;
 $config['twig_cache'] = false;
 $config['report_captcha'] = true;
+
+$config['page_404'] = 'page_404';
+
+// Flavor and design.
+$config['site_name'] = "&infin;chan";
+$config['site_logo'] = "/static/logo_33.svg";
+
 // 8chan specific mod pages
-require '8chan-mod-pages.php';
+require '8chan-mod-config.php';
+
+// Load instance functions later on
+require_once 'instance-functions.php';
 	
 // Load database credentials
 require "secrets.php";
-

@@ -3,10 +3,10 @@ body {
 	color: #800000;
 }
 a:link, a:visited, p.intro a.email span.name {
-	color: #0000ff;
+	color: #800;
 }
 a:link:hover {
-	color: #d00;
+	color: #e00;
 }
 a.post_no {
 	color: #800000;
@@ -65,4 +65,33 @@ table.modlog tr th {
 
 .desktop-style div.boardlist:nth-child(1) {
 	background-color: #F0E0D6;
+}
+
+
+
+.box {
+	background: #fff;
+	border-color: #800;
+	color: #000;
+}
+.box-title {
+	background: #fca;
+	color: #800;
+}
+
+table thead th {
+	border-color: #800;
+	background: #fca;
+	color: #800;
+}
+table tbody tr:nth-of-type( even ) {
+	background-color: #ede2d4;
+}
+
+table.board-list-table .board-uri .board-sfw {
+	color: #800;
+}
+tbody.board-list-omitted td {
+	background: #fca;
+	border-color: #800;
 }

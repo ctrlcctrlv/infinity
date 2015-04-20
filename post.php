@@ -209,11 +209,16 @@ if (isset($_POST['delete'])) {
 	}
 }
 elseif (isset($_POST['post'])) {
-	if (!isset($_POST['body'], $_POST['board']))
+	if (!isset($_POST['body'], $_POST['board'])) {
 		error($config['error']['bot']);
-
-	$post = array('board' => $_POST['board'], 'files' => array());
-
+	}
+	
+	$post = array(
+		'board' => $_POST['board'],
+		'files' => array(),
+		'time'  => time(), // Timezone independent UNIX timecode.
+	);
+	
 	// Check if board exists
 	if (!openBoard($post['board']))
 		error($config['error']['noboard']);
@@ -228,17 +233,13 @@ elseif (isset($_POST['post'])) {
 		$_POST['subject'] = '';
 	
 	if (!isset($_POST['password']))
-		$_POST['password'] = '';	
+		$_POST['password'] = '';
 	
 	if (isset($_POST['thread'])) {
 		$post['op'] = false;
 		$post['thread'] = round($_POST['thread']);
 	} else
 		$post['op'] = true;
-	
-	// Check if board exists
-	if (!openBoard($post['board']))
-		error($config['error']['noboard']);
 
 	// Check if banned
 	checkBan($board['uri']);
@@ -642,7 +643,8 @@ elseif (isset($_POST['post'])) {
 	
 	if (mysql_version() >= 50503) {
 		$post['body_nomarkup'] = $post['body']; // Assume we're using the utf8mb4 charset
-	} else {
+	}
+	else {
 		// MySQL's `utf8` charset only supports up to 3-byte symbols
 		// Remove anything >= 0x010000
 		
@@ -712,7 +714,7 @@ elseif (isset($_POST['post'])) {
 		do_filters($post);
 	}
 	
-	if ($post['has_file']) {	
+	if ($post['has_file']) {
 		foreach ($post['files'] as $key => &$file) {
 		if ($file['is_an_image'] && $config['ie_mime_type_detection'] !== false) {
 			// Check IE MIME type detection XSS exploit
@@ -910,10 +912,15 @@ elseif (isset($_POST['post'])) {
 		$post['files'] = $post['files'];
 	$post['num_files'] = sizeof($post['files']);
 	
+	// Commit the post to the database.
 	$post['id'] = $id = post($post);
 	
 	insertFloodPost($post);
-
+	
+	// Update statistics for this board.
+	updateStatisticsForPost( $post );
+	
+	
 	// Handle cyclical threads
 	if (!$post['op'] && isset($thread['cycle']) && $thread['cycle']) {
 		// Query is a bit weird due to "This version of MariaDB doesn't yet support 'LIMIT & IN/ALL/ANY/SOME subquery'" (MariaDB Ver 15.1 Distrib 10.0.17-MariaDB, for Linux (x86_64))
@@ -1009,17 +1016,20 @@ elseif (isset($_POST['post'])) {
 	event('post-after', $post);
 	
 	buildIndex();
-
-	// We are already done, let's continue our heavy-lifting work in the background (if we run off FastCGI)
-	if (function_exists('fastcgi_finish_request'))
-		@fastcgi_finish_request();
-
-	if ($post['op'])
-		rebuildThemes('post-thread', $board['uri']);
-	else
-		rebuildThemes('post', $board['uri']);
 	
-} elseif (isset($_POST['appeal'])) {
+	// We are already done, let's continue our heavy-lifting work in the background (if we run off FastCGI)
+	if (function_exists('fastcgi_finish_request')) {
+		@fastcgi_finish_request();
+	}
+	
+	if ($post['op']) {
+		rebuildThemes('post-thread', $board['uri']);
+	}
+	else {
+		rebuildThemes('post', $board['uri']);
+	}
+}
+elseif (isset($_POST['appeal'])) {
 	if (!isset($_POST['ban_id']))
 		error($config['error']['bot']);
 	

@@ -58,3 +58,32 @@ p.intro a.email span.name {
 a {
   color: #8020FF;
 }
+
+
+
+.box {
+	background: #343C4E;
+	border: none;
+	color: #FFF;
+}
+.box-title {
+	background: #7F8CA8;
+	color: #0F0C5D;
+}
+
+table thead th {
+	background: #343C4E;
+	border: none;
+	color: #FFF;
+}
+table tbody tr:nth-of-type( even ) {
+	background-color: #343C4E;
+}
+
+table.board-list-table .board-uri .board-sfw {
+	color: #D00;
+}
+tbody.board-list-omitted td {
+	background: #343C4E;
+	border: none;
+}
