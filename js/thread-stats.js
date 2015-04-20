@@ -14,9 +14,8 @@ $(document).ready(function(){
 	var thread_id = (document.location.pathname + document.location.search).split('/');
 	thread_id = thread_id[thread_id.length -1].split('+')[0].split('.')[0];
 	
-	$('form[name="postcontrols"] > .delete')
-		.first()
-		.before('<div id="thread_stats"></div>');
+	$('#thread-links')
+		.after('<div id="thread_stats"></div>');
 	var el = $('#thread_stats');
 	el.prepend('Page <span id="thread_stats_page">?</span>');
 	if (IDsupport){

@@ -81,7 +81,6 @@ $searchHTML = Element("8chan/boards-search.html", array(
 		
 		"founding_date"  => $founding_date,
 		"page_updated"   => date('r'),
-		"uptime"         => shell_exec('uptime -p'),
 		
 		"html_boards"    => $boardsHTML,
 		"html_tags"      => $tagsHTML
@@ -91,7 +90,8 @@ $searchHTML = Element("8chan/boards-search.html", array(
 $pageHTML = Element("page.html", array(
 		"title"  => _("Boardlist"),
 		"config" => $config,
-		"body"   => $searchHTML
+		"body"   => $searchHTML,
+		"title" => _("Boards on &infin;chan")
 	)
 );
 
@@ -103,7 +103,15 @@ if (php_sapi_name() == 'cli') {
 	
 	file_write("boards.html", $pageHTML);
 	file_write("boards.json", json_encode($nonAssociativeBoardList));
-	file_write("boards-top20.json", json_encode(array_splice($nonAssociativeBoardList, 0, 48)));
+
+	$topbar = array();
+	foreach ($boards as $i => $b) {
+		if (!in_array($b['uri'], $config['no_top_bar_boards'])) {
+			$topbar[] = $b;
+		}
+	}
+
+	file_write("boards-top20.json", json_encode(array_splice($topbar, 0, 48)));
 }
 
 echo $pageHTML;

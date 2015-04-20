@@ -177,7 +177,7 @@ function highlightReply(id, event) {
 			post.className += ' highlighted';
 
 			if (history.pushState) {
-				history.pushState(null, null, window.document.location.origin + window.document.location.pathname + window.document.location.search + '#' + id); 
+				history.pushState(null, null, window.document.location.protocol + "//" + window.document.location.host + window.document.location.pathname + window.document.location.search + '#' + id); 
 			} else {
 				window.location.hash = id;
 			}			

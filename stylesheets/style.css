@@ -72,6 +72,9 @@ table.mod.config-editor input[type="text"] {
   width: 98%;
 }
 
+.longtable p {
+	margin: 0;
+}
 
 /* Uncategorized */
 #post-form-outer {
@@ -367,7 +370,6 @@ p.intro a {
   color: maroon;
 }
 
-p.body-line,
 div.post p {
 	display: block;
 	margin: 0;
@@ -378,10 +380,13 @@ div.post p {
 }
 
 div.post div.body {
-  margin-left: 1.8em;
   margin-top: 0.8em;
   padding-right: 3em;
   padding-bottom: 0.3em;
+}
+
+div.post.reply div.body {
+  margin-left: 1.8em;
 }
 
 div.post.reply.highlighted {
@@ -390,10 +395,6 @@ div.post.reply.highlighted {
 
 div.post.reply div.body a {
   color: #D00;
-}
-
-div.post {
-  padding-left: 20px;
 }
 
 div.post div.body {
@@ -1614,4 +1615,8 @@ td.board-tags a.tag-link {
 		font-size: 0;
 		width: 0;
 	}
+}
+
+#post-moderation-fields {
+	display: none;
 }
