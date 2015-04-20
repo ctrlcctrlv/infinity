@@ -2076,7 +2076,7 @@ function markup(&$body, $track_cites = false, $op = false) {
 
 	if (mysql_version() < 50503)
 		$body = mb_encode_numericentity($body, array(0x010000, 0xffffff, 0, 0xffffff), 'UTF-8');
-
+	
 	foreach ($config['markup'] as $markup) {
 		if (is_string($markup[1])) {
 			$body = preg_replace($markup[0], $markup[1], $body);
@@ -2273,17 +2273,26 @@ function markup(&$body, $track_cites = false, $op = false) {
 	}
 	
 	$tracked_cites = array_unique($tracked_cites, SORT_REGULAR);
-
-	//$body = preg_replace("/^\s*&gt;.*$/m", '<span class="quote">$0</span>', $body);
-
+	
 	if ($config['strip_superfluous_returns'])
 		$body = preg_replace('/\s+$/', '', $body);
 	
 	if ($config['markup_paragraphs']) {
 		$paragraphs = explode("\n", $body);
-		$bodyNew = "";
+		$bodyNew    = "";
+		$tagsOpen   = false;
+		
+		// Matches <a>, <a href="" title="">, but not <img/> and returns a
+		$matchOpen  = "#<([A-Z][A-Z0-9]*)+(?:(?:\s+\w+(?:\s*=\s*(?:\".*?\"|'.*?'|[^'\">\s]+))?)+\s*|\s*)>#i";
+		// Matches </a> returns a
+		$matchClose = "#</([A-Z][A-Z0-9]*/?)>#i";
+		$tagsOpened = array();
+		$tagsClosed = array();
 		
 		foreach ($paragraphs as $paragraph) {
+			
+			
+			// Determine if RTL based on content of line.
 			if (strlen(trim($paragraph)) > 0) {
 				$paragraphDirection = is_rtl($paragraph) ? "rtl" : "ltr";
 			}
@@ -2291,6 +2300,8 @@ function markup(&$body, $track_cites = false, $op = false) {
 				$paragraphDirection = "empty";
 			}
 			
+			
+			// Add in a quote class for >quotes.
 			if (strpos($paragraph, "&gt;")===0) {
 				$quoteClass = "quote";
 			}
@@ -2298,12 +2309,63 @@ function markup(&$body, $track_cites = false, $op = false) {
 				$quoteClass = "";
 			}
 			
-			$bodyNew .= "<p class=\"body-line {$paragraphDirection} {$quoteClass}\">" . $paragraph . "</p>";
+			// If tags are closed, start a new line.
+			if ($tagsOpen === false) {
+				$bodyNew .= "<p class=\"body-line {$paragraphDirection} {$quoteClass}\">";
+			}
+			
+			// If tags are open, add the paragraph to our temporary holder instead.
+			if ($tagsOpen !== false) {
+				$tagsOpen .= $paragraph;
+				
+				// Recheck tags to see if we've formed a complete tag with this latest line.
+				if (preg_match_all($matchOpen, $tagsOpen, $tagsOpened) === preg_match_all($matchClose, $tagsOpen, $tagsClosed)) {
+					sort($tagsOpened[1]);
+					sort($tagsClosed[1]);
+					
+					// Double-check to make sure these are the same tags.
+					if (count(array_diff_assoc($tagsOpened[1], $tagsClosed[1])) === 0) {
+						// Tags are closed! \o/
+						$bodyNew .= $tagsOpen;
+						$tagsOpen = false;
+					}
+				}
+				
+				if ($tagsOpen !== false) {
+					$tagsOpen .= "<br />";
+				}
+			}
+			// If tags are closed, check to see if they are now open.
+			// This counts the number of open tags (that are not self-closing) against the number of complete tags.
+			// If they match completely, we are closed.
+			else if (preg_match_all($matchOpen, $paragraph, $tagsOpened) === preg_match_all($matchClose, $paragraph, $tagsClosed)) {
+				sort($tagsOpened[1]);
+				sort($tagsClosed[1]);
+				
+				// Double-check to make sure these are the same tags.
+				if (count(array_diff_assoc($tagsOpened[1], $tagsClosed[1])) === 0) {
+					$bodyNew .= $paragraph;
+				}
+			}
+			else {
+				// Tags are open!
+				$tagsOpen = $paragraph;
+			}
+			
+			// If tags are open, do not close it.
+			if (!$tagsOpen) {
+				$bodyNew .= "</p>";
+			}
+		}
+		
+		if ($tagsOpen !== false) {
+			$bodyNew .= $tagsOpen;
 		}
 		
 		$body = $bodyNew;
 	}
 	else {
+		$body = preg_replace("/^\s*&gt;.*$/m", '<span class="quote">$0</span>', $body);
 		$body = preg_replace("/\n/", '<br/>', $body);
 	}
 	
