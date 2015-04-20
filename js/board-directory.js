@@ -100,7 +100,10 @@
 						.on( 'submit', selectors['search'], searchForms, boardlist.events.searchSubmit )
 						// Submit click
 						.on( 'click', selectors['search-submit'], searchForms, boardlist.events.searchSubmit );
-						
+					
+					$(window)
+						.on( 'hashchange', searchForms, boardlist.events.hashChange );
+					
 					$searchSubmit.prop( 'disabled', false );
 				}
 			}
@@ -265,6 +268,26 @@
 				boardlist.submit( parameters );
 			},
 			
+			hashChange : function(event) {
+				if (window.location.hash != "") {
+					// Turns "#porn,tits" into "porn tits" for easier search results.
+					var tags = window.location.hash.substr(1, window.location.hash.length).split(","),
+					    hash = tags.join(" ");
+				}
+				else {
+					var tags = [],
+					    hash = ""
+				}
+				
+				$( boardlist.options.selector['search-tag'], boardlist.$boardlist ).val( hash );
+				$( boardlist.options.selector['tag-list'], boardlist.$boardlist ).html("");
+				$( boardlist.options.selector['board-body'], boardlist.$boardlist ).html("");
+				
+				boardlist.submit( { 'tags' : tags } );
+				
+				return true;
+			},
+			
 			searchSubmit : function(event) {
 				event.preventDefault();
 				
@@ -330,6 +353,10 @@
 				
 				boardlist.$boardlist = $boardlist;
 				boardlist.bind.form();
+				
+				if (window.location.hash != "") {
+					$(window).trigger( 'hashchange' );
+				}
 			}
 		}
 	};

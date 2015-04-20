@@ -47,7 +47,13 @@ if (isset( $_GET['lang'] ) && $_GET['lang'] != "" && isset($config['languages'][
 
 // Include what tag?
 if (isset( $_GET['tags'] ) && $_GET['tags'] != "") {
-	$search['tags'] = explode( " ", $_GET['tags'] );
+	if (!is_array($_GET['tags'])) {
+		$search['tags'] = explode( " ", (string) $_GET['tags'] );
+	}
+	else {
+		$search['tags'] = $_GET['tags'];
+	}
+	
 	$search['tags'] = array_splice( $search['tags'], 0, 5 );
 }
 
