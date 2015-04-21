@@ -49,7 +49,7 @@
 				
 				// Content wrapper
 				// Used to help constrain contents to their <td>.
-				'board-content-wrap' : "<div class=\"board-cell\"></div>",
+				'board-content-wrap' : "<p class=\"board-cell\"></p>",
 				
 				// Individual items or parts of a single table cell.
 				'board-datum-lang'   : "<span class=\"board-lang\"></span>",
@@ -57,6 +57,7 @@
 				'board-datum-sfw'    : "<i class=\"fa fa-briefcase board-sfw\" title=\"SFW\"></i>",
 				'board-datum-nsfw'   : "<i class=\"fa fa-briefcase board-nsfw\" title=\"NSFW\"></i>",
 				'board-datum-tags'   : "<a class=\"tag-link\" href=\"#\"></a>",
+				'board-datum-pph'    : "<p class=\"board-cell board-pph-desc\" title=\"%1 made in the last hour, %2 on average\"></p>",
 				
 				
 				// Tag list.
@@ -164,9 +165,16 @@
 					var $content = boardlist.build.boardcell[column]( row, value );
 					
 					if ($content instanceof jQuery) {
-						// We use .append() instead of .appendTo() as we do elsewhere
-						// because $content can be multiple elements.
-						$wrap.append( $content );
+						if ($content.is("." + $wrap[0].class)) {
+							// Our new content has the same classes as the wrapper.
+							// Replace the old wrapper.
+							$wrap = $content;
+						}
+						else {
+							// We use .append() instead of .appendTo() as we do elsewhere
+							// because $content can be multiple elements.
+							$wrap.append( $content );
+						}
 					}
 					else if (typeof $content === "string") {
 						$wrap.html( $content );
@@ -199,7 +207,14 @@
 					else {
 						return $link[0].outerHTML;
 					}
-				}
+				},
+				'pph' : function(row, value) {
+					return $( boardlist.options.template['board-datum-pph'] )
+						.attr( 'title', function(index, value) {
+							return value.replace("%1", row['pph']).replace("%2", row['pph_average']);
+						} )
+						.text( row['pph'] );
+				},
 			},
 			
 			lastSearch : function(search) {
@@ -344,6 +359,14 @@
 		init : function( target ) {
 			if (typeof target !== "string") {
 				target = boardlist.options.selector.boardlist;
+			}
+			
+			// Parse ?GET parameters into lastSearch object.
+			if (window.location.search != "" && window.location.search.length > 0) {
+				// ?a=1&b=2 -> a=1&b=2 -> { a : 1, b : 2 }
+				window.location.search.substr(1).split("&").forEach( function(item) {
+					boardlist.lastSearch[item.split("=")[0]] = item.split("=")[1];
+				} );
 			}
 			
 			var $boardlist = $(target);

@@ -57,7 +57,7 @@ p.intro span.subject {
 p.intro span.name {
   color:#C5C8C6
 }
-span.quote {
+.quote {
   color:#adbd68
 }
 span.heading {
@@ -179,9 +179,16 @@ table tbody tr:nth-of-type( even ) {
 }
 
 table.board-list-table .board-uri .board-sfw {
-	color: #C5C8C6;
+	color: #81a2be;
 }
 tbody.board-list-omitted td {
 	background: #282a2e;
 	border-color: #111;
+}
+
+table.board-list-table .board-tags .board-cell:hover {
+	background: #1d1f21;
+}
+table.board-list-table tr:nth-of-type( even ) .board-tags .board-cell {
+	background: #282a2e;
 }

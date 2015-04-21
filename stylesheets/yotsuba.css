@@ -95,3 +95,10 @@ tbody.board-list-omitted td {
 	background: #fca;
 	border-color: #800;
 }
+
+table.board-list-table .board-tags .board-cell:hover {
+	background: #ffe;
+}
+table.board-list-table tr:nth-of-type( even ) .board-tags .board-cell {
+	background: #ede2d4;
+}

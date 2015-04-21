@@ -228,6 +228,7 @@ $config['enable_antibot'] = false;
 $config['spam']['unicode'] = false;
 $config['twig_cache'] = false;
 $config['report_captcha'] = true;
+$config['no_top_bar_boards'] = false;
 
 $config['page_404'] = 'page_404';
 

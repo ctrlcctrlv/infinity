@@ -1,14 +1,14 @@
 {% for board in boards %}
 <tr>
-	<td class="board-meta">{{ board.locale }}</td>
-	<td class="board-uri"><div class="board-cell">
+	<!-- <td class="board-meta">{{ board.locale }}</td> -->
+	<td class="board-uri"><p class="board-cell">
 		<a href='/{{board['uri']}}/'>/{{board['uri']}}/</a>
 		{% if board['sfw'] %}<i class="fa fa-briefcase board-sfw" title="SFW"></i>{% endif %}
-	</div></td>
-	<td class="board-title"><div class="board-cell" title="Created {{board['time']}}">{{board['title']|e}}</div></td>
-	<td class="board-pph"><div class="board-cell">{{board['pph']}}</td>
-	<td class="board-max"><div class="board-cell">{{board['posts_total']}}</td>
-	<td class="board-unique"><div class="board-cell">{{board['active']}}</td>
-	<td class="board-tags"><div class="board-cell">{% for tag in board.tags %}<a class="tag-link" href="{{tag_query}}{{tag|e}}">{{tag|e}}</a>{% endfor %}</div></td>
+	</p></td>
+	<td class="board-title"><p class="board-cell" title="Created {{board['time']}}">{{board['title']|e}}</p></td>
+	<td class="board-pph"><p class="board-cell">{{board['pph']}}</td>
+	<td class="board-unique"><p class="board-cell">{{board['active']}}</td>
+	<td class="board-tags"><p class="board-cell">{% for tag in board.tags %}<a class="tag-link" href="{{tag_query}}{{tag|e}}">{{tag|e}}</a>{% endfor %}</p></td>
+	<td class="board-max"><p class="board-cell">{{board['posts_total']}}</td>
 </tr>
 {% endfor %}
