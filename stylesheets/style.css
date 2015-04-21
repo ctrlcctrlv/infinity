@@ -1183,12 +1183,8 @@ div.boardlist a {
 }
 #thread-quick-reply {
 	display: none;
-	position: absolute;
-	left: 50%;
-	right: 50%;
-	text-align: center;
-	width: 100px;
-	margin-left: -50px;
+	float: right;
+	margin-right: 10px;
 }
 #thread_stats {
 	float: right;
