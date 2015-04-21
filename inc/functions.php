@@ -894,35 +894,59 @@ function fetchBoardActivity( array $uris = array(), $forTime = false, $detailed 
 		
 		// Format the results.
 		foreach ($bsResult as $bsRow) {
-			if ($bsRow['stat_hour'] == $forHour) {
-				$boardActivity['last'][$bsRow['stat_uri']] = $bsRow['post_count'];
-			}
-			
 			// Do we need to define the arrays for this URI?
 			if (!isset($boardActivity['active'][$bsRow['stat_uri']])) {
+				// We are operating under the assumption that no arrays exist.
+				// Because of that, we are flat defining their values.
+				
+				// Set the last hour count to 0 in case this isn't the row from this hour.
+				$boardActivity['last'][$bsRow['stat_uri']] = 0;
+				
+				// If this post was made in the last 24 hours, define 'today' with it.
 				if ($bsRow['stat_hour'] <= $forHour && $bsRow['stat_hour'] >= $yesterHour) {
 					$boardActivity['today'][$bsRow['stat_uri']] = $bsRow['post_count'];
+					
+					// If this post was made the last hour, redefine 'last' with it.
+					if ($bsRow['stat_hour'] == $forHour) {
+						$boardActivity['last'][$bsRow['stat_uri']] = $bsRow['post_count'];
+					}
 				}
 				else {
+					// First record was not made today, define as zero.
 					$boardActivity['today'][$bsRow['stat_uri']] = 0;
 				}
 				
+				// Set the active posters as the unserialized array.
 				$boardActivity['active'][$bsRow['stat_uri']] = unserialize( $bsRow['author_ip_array'] );
+				// Start the average PPH off at the current post count.
 				$boardActivity['average'][$bsRow['stat_uri']] = $bsRow['post_count'];
 			}
 			else {
+				// These arrays ARE defined so we ARE going to assume they exist and compound their values.
+				
+				// If this row came from today, add its post count to 'today'.
 				if ($bsRow['stat_hour'] <= $forHour && $bsRow['stat_hour'] >= $yesterHour) {
 					$boardActivity['today'][$bsRow['stat_uri']] += $bsRow['post_count'];
+					
+					// If this post came from this hour, set it to the post count.
+					// This is an explicit set because we should never get two rows from the same hour.
+					if ($bsRow['stat_hour'] == $forHour) {
+						$boardActivity['last'][$bsRow['stat_uri']] = $bsRow['post_count'];
+					}
 				}
 				
+				// Merge our active poster arrays. Unique counting is done below.
 				$boardActivity['active'][$bsRow['stat_uri']] = array_merge( $boardActivity['active'][$bsRow['stat_uri']], unserialize( $bsRow['author_ip_array'] ) );
+				// Add our post count to the average. Averaging is done below.
 				$boardActivity['average'][$bsRow['stat_uri']] += $bsRow['post_count'];
 			}
 		}
 		
+		// Count the unique posters for each board.
 		foreach ($boardActivity['active'] as &$activity) {
 			$activity = count( array_unique( $activity ) );
 		}
+		// Average the number of posts made for each board.
 		foreach ($boardActivity['average'] as &$activity) {
 			$activity /= 72;
 		}

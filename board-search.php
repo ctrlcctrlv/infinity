@@ -181,7 +181,7 @@ foreach ($response['boards'] as $boardUri => &$board) {
 		}
 		
 		$board['pph_average'] = round( $boardActivity['average'][ $boardUri ], $precision );
-		$board['pph'] = round( $boardActivity['average'][ $boardUri ], 0 );
+		$board['pph'] = (int) $boardActivity['last'][ $boardUri ];
 		$board['ppd'] = round( $boardActivity['today'][ $boardUri ], $precision );
 		
 		unset( $precision );
