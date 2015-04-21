@@ -4,11 +4,12 @@
 	<meta charset="utf-8">
 
         <script type="text/javascript">
-          {% if not no_post_form %}
-            var active_page = "index";
-	  {% else %}
-            var active_page = "ukko";
-          {% endif %}
+	{% if not no_post_form %}
+		var active_page = "index";
+	{% else %}
+		var active_page = "ukko";
+	{% endif %}
+		var board_name="{{ board.uri }}";
         </script>
 
 	{% include 'header.html' %}
