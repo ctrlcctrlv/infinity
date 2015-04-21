@@ -17,7 +17,7 @@ $(function() {
 			e.preventDefault();
 
 			var url = $(this).attr('href');
-			var body = $(this).parent().parent();
+			var body = $(this).parents('.body');
 
 			$.ajax({
 				url: url,
@@ -26,8 +26,6 @@ $(function() {
 					var content = $(data).find('#'+url.split('#')[1]).parent().parent().find(".body").first().html();
 
 					body.html(content);
-
-					var post = $(body).parents('.post');
 				}
 			});
 		});
