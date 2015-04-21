@@ -8,7 +8,7 @@ body {
 	font-family: sans-serif;
 	font-size: 12px;
 }
-span.quote {
+.quote {
     color:#B8D962;
 }
 h1 {
@@ -223,9 +223,16 @@ table tbody tr:nth-of-type( even ) {
 }
 
 table.board-list-table .board-uri .board-sfw {
-	color: #446655;
+	color: #CCCCCC;
 }
 tbody.board-list-omitted td {
 	background: #333333;
 	border-color: #555555;
+}
+
+table.board-list-table .board-tags .board-cell:hover {
+	background: #1e1e1e;
+}
+table.board-list-table tr:nth-of-type( even ) .board-tags .board-cell {
+	background: #333333;
 }

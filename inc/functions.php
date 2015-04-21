@@ -873,6 +873,7 @@ function fetchBoardActivity( array $uris = array(), $forTime = false, $detailed 
 		'active'  => array(),
 		'today'   => array(),
 		'average' => array(),
+		'last'    => array(),
 	);
 	
 	// Query for stats for these boards.
@@ -893,6 +894,10 @@ function fetchBoardActivity( array $uris = array(), $forTime = false, $detailed 
 		
 		// Format the results.
 		foreach ($bsResult as $bsRow) {
+			if ($bsRow['stat_hour'] == $forHour) {
+				$boardActivity['last'][$bsRow['stat_uri']] = $bsRow['post_count'];
+			}
+			
 			// Do we need to define the arrays for this URI?
 			if (!isset($boardActivity['active'][$bsRow['stat_uri']])) {
 				if ($bsRow['stat_hour'] <= $forHour && $bsRow['stat_hour'] >= $yesterHour) {

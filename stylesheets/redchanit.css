@@ -81,9 +81,17 @@ table tbody tr:nth-of-type( even ) {
 }
 
 table.board-list-table .board-uri .board-sfw {
-	color: #D00;
+	color: #8020FF;
 }
 tbody.board-list-omitted td {
 	background: #343C4E;
 	border: none;
+}
+
+table.board-list-table .board-tags .board-cell:hover {
+	line-height: 24px;
+	background: #3B4357;
+}
+table.board-list-table tr:nth-of-type( even ) .board-tags .board-cell {
+	background: #343C4E;
 }

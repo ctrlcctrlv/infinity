@@ -62,24 +62,32 @@
 		
 		<section class="board-list col col-10">
 			<table class="board-list-table">
+				<!--
+					If you are adding or removing columns to this file, there's a few steps.
+					1. Make sure the data is being supplied by the boards.php/board-search.php file.
+					2. Add or remove the <col /> tag and <th /> tag.
+					3. If ADDING, please-please-please add a unique class to your cells and specify information in style.css! Don't duplicate class names.
+					4. If ADDING, open js/board-directory.js and 'board-datum-xxx' definition that matches your data-column <th> attribute.
+					5. Change the colspan="" attributes to be the new total of cells.
+				-->
 				<colgroup>
-					<col class="board-meta" />
+					<!-- <col class="board-meta" /> -->
 					<col class="board-uri" />
 					<col class="board-title" />
 					<col class="board-pph" />
-					<col class="board-max" />
 					<col class="board-unique" />
 					<col class="board-tags" />
+					<col class="board-max" />
 				</colgroup>
 				<thead class="board-list-head">
 					<tr>
-						<th class="board-meta" data-column="meta"></th>
+						<!-- <th class="board-meta" data-column="meta"></th> -->
 						<th class="board-uri" data-column="uri">{% trans %}Board{% endtrans %}</th>
 						<th class="board-title" data-column="title">{% trans %}Title{% endtrans %}</th>
 						<th class="board-pph" data-column="pph" title="Posts per hour">{% trans %}PPH{% endtrans %}</th>
-						<th class="board-max" data-column="posts_total">{% trans %}Total posts{% endtrans %}</th>
 						<th class="board-unique" data-column="active" title="Unique IPs to post in the last 72 hours">{% trans %}Active users{% endtrans %}</th>
 						<th class="board-tags" data-column="tags">{% trans %}Tags{% endtrans %}</th>
+						<th class="board-max" data-column="posts_total">{% trans %}Total posts{% endtrans %}</th>
 					</tr>
 				</thead>
 				
@@ -87,13 +95,13 @@
 				
 				<tbody class="board-list-loading">
 					<tr>
-						<td colspan="7" class="loading"></td>
+						<td colspan="6" class="loading"></td>
 					</tr>
 				</tbody>
 				
 				<tbody class="board-list-omitted" data-omitted="{{boards_omitted}}">
 					<tr>
-						<td colspan="7" id="board-list-more">Displaying results <span class="board-page-num">{{search.page + 1}}</span> through <span class="board-page-count">{{ boards|count + search.page}}</span> out of <span class="board-page-total">{{ boards|count + boards_omitted }}</span>. <span class="board-page-loadmore">Click to load more.</span></td>
+						<td colspan="6" id="board-list-more">Displaying results <span class="board-page-num">{{search.page + 1}}</span> through <span class="board-page-count">{{ boards|count + search.page}}</span> out of <span class="board-page-total">{{ boards|count + boards_omitted }}</span>. <span class="board-page-loadmore">Click to load more.</span></td>
 						
 						{% if boards_omitted > 0 %}
 						<script type="text/javascript">

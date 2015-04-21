@@ -1448,6 +1448,16 @@ table.board-list-table {
 	table-layout: fixed;
 }
 
+table.board-list-table .board-cell {
+	position: static;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
 table.board-list-table .board-meta {
 	padding-right: 4px;
 	width: 70px;
@@ -1471,8 +1481,24 @@ table.board-list-table .board-unique {
 	padding: 4px;
 }
 table.board-list-table .board-tags {
+	position: relative;
+	height: 15px;
 	width: auto;
 	padding: 0 15px 0 4px;
+}
+table.board-list-table .board-tags .tag-link {
+	display: inline;
+}
+table.board-list-table .board-tags .board-cell:hover {
+	position: absolute;
+	background: #EEF2FF;
+	line-height: 23px;
+	top: 0;
+	bottom: 0;
+	width: 310px;
+}
+table.board-list-table tr:nth-of-type( even ) .board-tags .board-cell {
+	background: #D6DAF0;
 }
 
 table.board-list-table .board-uri .board-nsfw {
@@ -1481,8 +1507,7 @@ table.board-list-table .board-uri .board-nsfw {
 	float: right;
 }
 table.board-list-table .board-uri .board-sfw {
-	/* I'm using blue instead of green to help users with Deuteranopia (most common form of colorblndness). */
-	color: rgb(0,0,230);
+	color: #34345C;
 	margin: 0 0 0 0.6em;
 	float: right;
 }

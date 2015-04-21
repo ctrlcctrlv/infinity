@@ -43,7 +43,7 @@ $tagQueryGet    = $_GET;
 $tagQueryTags   = isset($tagQueryGet['tags']) ? $tagQueryGet['tags'] : "";
 unset($tagQueryGet['tags']);
 $tagQueryGet['tags'] = $tagQueryTags;
-$tag_query      = "?" . http_build_query( $tagQueryGet ) . ($tagQueryTags != "" ? "+" : "");
+$tag_query      = "/boards.php?" . http_build_query( $tagQueryGet ) . ($tagQueryTags != "" ? "+" : "");
 
 /* Create and distribute page */
 // buildJavascript();
@@ -103,14 +103,14 @@ if (php_sapi_name() == 'cli') {
 	
 	file_write("boards.html", $pageHTML);
 	file_write("boards.json", json_encode($nonAssociativeBoardList));
-
+	
 	$topbar = array();
 	foreach ($boards as $i => $b) {
-		if (!in_array($b['uri'], $config['no_top_bar_boards'])) {
+		if (is_array($config['no_top_bar_boards']) && !in_array($b['uri'], $config['no_top_bar_boards'])) {
 			$topbar[] = $b;
 		}
 	}
-
+	
 	file_write("boards-top20.json", json_encode(array_splice($topbar, 0, 48)));
 }
 

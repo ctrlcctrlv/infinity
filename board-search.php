@@ -174,9 +174,14 @@ foreach ($response['boards'] as $boardUri => &$board) {
 		$board['active'] = (int) $boardActivity['active'][ $boardUri ];
 	}
 	if (isset($boardActivity['average'][ $boardUri ])) {
-		$precision = 1;
+		$precision = 0;
 		
-		$board['pph'] = round( $boardActivity['average'][ $boardUri ], $precision );
+		if ($boardActivity['average'][ $boardUri ] > 0 && $boardActivity['average'][ $boardUri ] < 10) {
+			$precision = 1;
+		}
+		
+		$board['pph_average'] = round( $boardActivity['average'][ $boardUri ], $precision );
+		$board['pph'] = round( $boardActivity['average'][ $boardUri ], 0 );
 		$board['ppd'] = round( $boardActivity['today'][ $boardUri ], $precision );
 		
 		unset( $precision );

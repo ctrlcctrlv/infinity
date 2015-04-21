@@ -351,9 +351,17 @@ table tbody tr:nth-of-type( even ) {
 }
 
 table.board-list-table .board-uri .board-sfw {
-	color: #333333;
+	color: #8A8A8A;
 }
 tbody.board-list-omitted td {
 	background: transparent;
 	border: none;
+}
+
+table.board-list-table .board-tags .board-cell:hover {
+	line-height: 27px;
+	background: #EEEEEE;
+}
+table.board-list-table tr:nth-of-type( even ) .board-tags .board-cell {
+	background: #DDDDDD;
 }
