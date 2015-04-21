@@ -1457,6 +1457,10 @@ table.board-list-table .board-cell {
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
+table.board-list-table .board-cell::after {
+	content: ' ';
+	clear: both;
+}
 
 table.board-list-table .board-meta {
 	padding-right: 4px;
@@ -1500,7 +1504,10 @@ table.board-list-table .board-tags .board-cell:hover {
 table.board-list-table tr:nth-of-type( even ) .board-tags .board-cell {
 	background: #D6DAF0;
 }
-
+table.board-list-table .board-uri a {
+	display: inline-block;
+	float: left;
+}
 table.board-list-table .board-uri .board-nsfw {
 	color: rgb(230,0,0);
 	margin: 0 0 0 0.6em;
