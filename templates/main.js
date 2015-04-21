@@ -318,9 +318,11 @@ var script_settings = function(script_name) {
 
 function init() {
 	//	store highlighted text for citeReply()
-	document.querySelector('form[name="postcontrols"]').addEventListener('mouseup', function (e) {
-		sessionStorage.quoteClipboard = window.getSelection().toString();
-	});
+	if (document.querySelector('form[name="postcontrols"]') !== null) {
+		document.querySelector('form[name="postcontrols"]').addEventListener('mouseup', function (e) {
+			sessionStorage.quoteClipboard = window.getSelection().toString();
+		});
+	}
 
 	// just enable jquery, almost every script requires it by now. more and more main.js functions are going to start requiring it
 	$('.post-table-options').css('display', 'none');
