@@ -511,7 +511,9 @@ class Thread extends Post {
 		
 		event('show-thread', $this);
 
-		$built = Element('post_thread.html', array(
+		$file = ($index && $config['file_board']) ? 'post_thread_fileboard.html' : 'post_thread.html';
+
+		$built = Element($file, array(
 			'config' => $config,
 			'board' => $board,
 			'post' => &$this,

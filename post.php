@@ -373,7 +373,12 @@ elseif (isset($_POST['post'])) {
 			$url_without_params = $post['file_url'];
 
 		$post['extension'] = strtolower(mb_substr($url_without_params, mb_strrpos($url_without_params, '.') + 1));
-		if (!in_array($post['extension'], $config['allowed_ext']) && !in_array($post['extension'], $config['allowed_ext_files']))
+
+		if ($post['op'] && $config['allowed_ext_op']) {
+			if (!in_array($post['extension'], $config['allowed_ext_op']))
+				error($config['error']['unknownext']);
+		}
+		else if (!in_array($post['extension'], $config['allowed_ext']) && !in_array($post['extension'], $config['allowed_ext_files']))
 			error($config['error']['unknownext']);
 
 		$post['file_tmp'] = tempnam($config['tmp'], 'url');
@@ -640,7 +645,11 @@ elseif (isset($_POST['post'])) {
 			error(_('You must choose a flag to post on this board!'));
 		}
 	}
-	
+
+	if ($config['allowed_tags'] && $_POST['op'] && isset($_POST['tag']) && isset($config['allowed_tags'][$_POST['tag']])) {
+		$post['body'] .= "\n<tinyboard tag>" . $_POST['tag'] . "</tinyboard>";
+	}
+
 	if (mysql_version() >= 50503) {
 		$post['body_nomarkup'] = $post['body']; // Assume we're using the utf8mb4 charset
 	}
@@ -667,7 +676,11 @@ elseif (isset($_POST['post'])) {
 		$allhashes = '';
 
 		foreach ($post['files'] as $key => &$file) {
-			if (!in_array($file['extension'], $config['allowed_ext']) && !in_array($file['extension'], $config['allowed_ext_files']))
+			if ($post['op'] && $config['allowed_ext_op']) {
+				if (!in_array($file['extension'], $config['allowed_ext_op']))
+					error($config['error']['unknownext']);
+			}
+			elseif (!in_array($file['extension'], $config['allowed_ext']) && !in_array($file['extension'], $config['allowed_ext_files']))
 				error($config['error']['unknownext']);
 			
 			$file['is_an_image'] = !in_array($file['extension'], $config['allowed_ext_files']);
