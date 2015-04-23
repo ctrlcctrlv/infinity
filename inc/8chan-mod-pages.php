@@ -592,10 +592,11 @@ $code_tags $katex $replace $multiimage $allow_flash $allow_pdf $user_flags
 $locale
 $anal_filenames
 $file_board
-$add_to_config
 
 if (\$config['disable_images'])
 	\$config['max_pages'] = 10000;
+
+$add_to_config
 EOT;
 
 			// Clean up our CSS...no more expression() or off-site URLs.
