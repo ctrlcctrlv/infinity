@@ -22,3 +22,9 @@ function max_posts_per_hour($post) {
 function page_404() {
 	include('404.php');
 }
+
+function filename_func($a) {
+  $f = basename($a['filename'], '.'.$a['extension']);
+  $f = str_replace(array("\0", "\n", "<", ">", "/", "&"), array("?", "?", "«", "»", "⁄", "and"), $f);
+  return $f;
+}

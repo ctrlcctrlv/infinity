@@ -73,8 +73,9 @@
 				<label><input type='checkbox' name='allowed_type[]' value='{{ type }}' {% if type in config.allowed_ext_files %}checked{% endif %}>{{ type }}</label>  
 			{% endfor %}
 		</td></tr>
-		<tr class='fileboard'><th>{% trans %}Disable OP image upload{% endtrans %}</th><td><input type="checkbox" name="allowed_ext_op" {% if config.allowed_ext_op %}checked{% endif %}></td></tr>
-		<tr class='fileboard'>
+		<tr class='fileboard'><th>{% trans %}Disable OP image upload{% endtrans %}</th><td><input type="checkbox" name="allowed_ext_op" {% if config.allowed_ext_op %}checked{% endif %}>
+			<label> (<input type="checkbox" name="allowed_ext_op_video" {% if config.allowed_ext_op and 'webm' in config.allowed_ext_op %}checked{% endif %}> also allow video upload)</label></td></tr>
+		<tr class='fileboard imgboard'><th>{% trans %}Keep original filename{% endtrans %}</th><td><input type="checkbox" name="anal_filenames" {% if config.filename_func == 'filename_func' %}checked{% endif %}></td></tr>
 		</tr>
 		<tr><th>{% trans %}Max images per post{% endtrans %}</th><td><select name="max_images">{% for i in 1..5 %}<option value="{{ i }}" {% if config.max_images == i %} selected {% endif %}>{{ i }}</option>{% endfor %}</select></td></tr>
 	</table>

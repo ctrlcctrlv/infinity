@@ -452,6 +452,11 @@ FLAGS;
 
 				if (isset ($_POST['allowed_ext_op'])) {
 					$file_board .= "\$config['allowed_ext_op'] = \$config['allowed_ext_files'];\n";
+
+					if (isset ($_POST['allowed_ext_op_video'])) {
+						$file_board .= "\$config['allowed_ext_op'][] = 'webm';
+								\$config['allowed_ext_op'][] = 'mp4';\n";
+					}
 				}
 
 				if (isset ($_POST['tag_id'])) {
@@ -469,6 +474,8 @@ FLAGS;
 					}
 				}
 			}
+
+			$anal_filenames = ($imgboard || $fileboard) && isset($_POST['anal_filenames']) ? "\$config['filename_func'] = 'filename_func';\n" : '';
 
 			$anonymous = base64_encode($_POST['anonymous']);
 			$blotter = base64_encode(purify_html(html_entity_decode($_POST['blotter'])));
@@ -586,6 +593,7 @@ if (\$config['disable_images'])
 	\$config['max_pages'] = 10000;
 
 $locale
+$anal_filenames
 $file_board
 $add_to_config
 EOT;
