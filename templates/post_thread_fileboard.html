@@ -36,7 +36,6 @@
 <td>{% include 'post/time.html' %}
 <td>{{ post.omitted }}
 <td>{% include 'post/post_controls.html' %}
-    <a href="{{ post.root }}{{ board.dir }}{{ config.dir.res }}{{ link_for(post) }}">[{% trans %}Reply{% endtrans %}]</a>
-
+    <a href="{{ post.root }}{{ board.dir }}{{ config.dir.res }}{{ config.file_page|sprintf(post.id) }}">[{% trans %}Reply{% endtrans %}]</a>
 </tr>
 {% endfilter %}
