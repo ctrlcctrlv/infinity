@@ -24,14 +24,18 @@
 	</table>
 
 	<table>
+		<tr><th>{% trans %}Board type{% endtrans %}</th><td><select name="board_type" id="board_type">
+			<option value="imgboard" {% if not config.disable_images and not config.file_board %}selected{% endif %}>Image board</option>
+			<option value="txtboard" {% if config.disable_images %}selected{% endif %}>Text board</option>
+			<option value="fileboard" {% if config.file_board %}selected{% endif %}>File board</option>
+		</select></td></tr>
 		<tr><th>{% trans %}Country flags{% endtrans %}</th><td><input type="checkbox" name="country_flags" {% if config.country_flags %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}/pol/-style user flags{% endtrans %}<br><span class="unimportant">Enabling this disables country flags<br>Make sure to actually upload some first!</span></th><td><input type="checkbox" name="user_flags" {% if config.user_flag %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Forced anonymous{% endtrans %}</th><td><input type="checkbox" name="field_disable_name" {% if config.field_disable_name %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}YouTube/Voocaroo embedding{% endtrans %}</th><td><input type="checkbox" name="enable_embedding" {% if config.enable_embedding %}checked{% endif %}></td></tr>
-		<tr><th>{% trans %}Require image for OP{% endtrans %}</th><td><input type="checkbox" name="force_image_op" {% if config.force_image_op %}checked{% endif %}></td></tr>
+		<tr class='imgboard'><th>{% trans %}Require image for OP{% endtrans %}</th><td><input type="checkbox" name="force_image_op" {% if config.force_image_op %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Require subject for OP{% endtrans %}</th><td><input type="checkbox" name="force_subject_op" {% if config.force_subject_op %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Require user/country flag for all posts{% endtrans %}</th><td><input type="checkbox" name="force_flag" {% if config.force_flag %}checked{% endif %}></td></tr>
-		<tr><th>{% trans %}Disable images{% endtrans %}</th><td><input type="checkbox" name="disable_images" {% if config.disable_images %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Poster ID's{% endtrans %}</th><td><input type="checkbox" name="poster_ids" {% if config.poster_ids %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Display SAGE! after saged posts{% endtrans %}</th><td><input type="checkbox" name="show_sages" {% if config.show_sages %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Automatically convert ... to …{% endtrans %}</th><td><input type="checkbox" name="auto_unicode" {% if config.auto_unicode %}checked{% endif %}></td></tr>
@@ -39,10 +43,10 @@
 		<tr><th>{% trans %}No index{% endtrans %}<br><span class="unimportant">{% trans %}Hide from boards index<br/>and do not index in search engines{% endtrans %}</span></th><td><input type="checkbox" name="meta_noindex" {% if not board.indexed %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Archive my board on 8archive.moe{% endtrans %}<br><span class="unimportant">{% trans %}This archives your board on 8archive.moe if you opt in{% endtrans %}</span></th><td><input type="checkbox" name="8archive" {% if board['8archive'] %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}[code] tags{% endtrans %}</th><td><input type="checkbox" name="code_tags" {% if 'js/code_tags/run_prettify.js' in config.additional_javascript %}checked{% endif %}></td></tr>
-		<tr><th>{% trans %}Oekaki{% endtrans %}</th><td><input type="checkbox" name="oekaki" {% if config.oekaki %}checked{% endif %}></td></tr>
+		<tr class='imgboard fileboard'><th>{% trans %}Oekaki{% endtrans %}</th><td><input type="checkbox" name="oekaki" {% if config.oekaki %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Format math between $${% endtrans %}</th><td><input type="checkbox" name="katex" {% if config.katex %}checked{% endif %}></td></tr>
-		<tr><th>{% trans %}Allow SWF uploading{% endtrans %}</th><td><input type="checkbox" name="allow_flash" {% if 'swf' in config.allowed_ext_files %}checked{% endif %}></td></tr>
-		<tr><th>{% trans %}Allow PDF uploading{% endtrans %}</th><td><input type="checkbox" name="allow_pdf" {% if 'pdf' in config.allowed_ext_files %}checked{% endif %}></td></tr>
+		<tr class='imgboard'><th>{% trans %}Allow SWF uploading{% endtrans %}</th><td><input type="checkbox" name="allow_flash" {% if 'swf' in config.allowed_ext_files %}checked{% endif %}></td></tr>
+		<tr class='imgboard'><th>{% trans %}Allow PDF uploading{% endtrans %}</th><td><input type="checkbox" name="allow_pdf" {% if 'pdf' in config.allowed_ext_files %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Enable dice rolling{% endtrans %}</th><td><input type="checkbox" name="allow_roll" {% if config.allow_roll %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Don't allow users to repost images (whole board){% endtrans %}</th><td><input type="checkbox" name="image_reject_repost" {% if config.image_reject_repost %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Don't allow users to repost images (same thread){% endtrans %}</th><td><input type="checkbox" name="image_reject_repost_in_thread" {% if config.image_reject_repost_in_thread %}checked{% endif %}></td></tr>
@@ -53,7 +57,7 @@
 		<tr><th>{% trans %}Public bans{% endtrans %}<br><span class="unimportant">{% trans %}Displays your bans for the public{% endtrans %}</span></th><td><input type="checkbox" name="public_bans" {% if board.public_bans %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Public action log{% endtrans %}<br><span class="unimportant">{% trans %}Displays all actions to the public{% endtrans %}</span></th><td><select name="public_logs"><option value="0" {% if board.public_logs == 0 %}selected{% endif %}>None</option><option value="1" {% if board.public_logs == 1 %}selected{% endif %}>Full log of all actions</option><option value="2" {% if board.public_logs == 2 %}selected{% endif %}>Full log of all actions, no usernames</option></td></tr>
 		<tr><th>{% trans %}Max number of newlines per post{% endtrans %}</th><td><select name="max_newlines"><option value="0" {% if config.max_newlines == 0 %}selected{% endif %}>unlimited</option>{% for i in range(20, 300) %}<option value="{{ i }}" {% if config.max_newlines == i %}selected{% endif %}>{{ i }}</option>{% endfor %}</select></td></tr>
-		<tr><th>{% trans %}Page count{% endtrans %}</th><td><select name="max_pages">{% for i in range(2, 25) %}<option value="{{ i }}" {% if config.max_pages == i %}selected{% endif %}>{{ i }}</option>{% endfor %}</select></td></tr>
+		<tr><th>{% trans %}Page count{% endtrans %}</th><td><select name="max_pages">{% for i in range(1, 25) %}<option value="{{ i }}" {% if config.max_pages == i %}selected{% endif %}>{{ i }}</option>{% endfor %}</select></td></tr>
 		<tr><th>{% trans %}Bump limit{% endtrans %}</th><td><select name="reply_limit">{% for i in range(250, 750, 25) %}<option value="{{ i }}" {% if config.reply_limit == i %}selected{% endif %}>{{ i }}</option>{% endfor %}</select></td></tr>
 		<tr><th>{% trans %}Language{% endtrans %}<br/><span class="unimportant">{% trans %}Read this page for more information about contributing translations:<br><a href="/translation.html">Translation tutorial</a> or use <a href="https://www.transifex.com/projects/p/infinity/">Transifex</a>{% endtrans %}</span></th><td>
 		<select name="locale">
@@ -64,6 +68,14 @@
 			{% endfor %}
 		</select>
 		</td></tr>
+		<tr class='fileboard'><th>{% trans %}Allowed file types{% endtrans %}</th><td>
+			{% for type in config.fileboard_allowed_types %}
+				<label><input type='checkbox' name='allowed_type[]' value='{{ type }}' {% if type in config.allowed_ext_files %}checked{% endif %}>{{ type }}</label>  
+			{% endfor %}
+		</td></tr>
+		<tr class='fileboard'><th>{% trans %}Disable OP image upload{% endtrans %}</th><td><input type="checkbox" name="allowed_ext_op" {% if config.allowed_ext_op %}checked{% endif %}></td></tr>
+		<tr class='fileboard'>
+		</tr>
 		<tr><th>{% trans %}Max images per post{% endtrans %}</th><td><select name="max_images">{% for i in 1..5 %}<option value="{{ i }}" {% if config.max_images == i %} selected {% endif %}>{{ i }}</option>{% endfor %}</select></td></tr>
 	</table>
 
@@ -99,9 +111,25 @@
 			<tr><td><input name="replace[]"></td><td><input name="with[]"></td></tr>
 		{% endif %}
 	</table>
-	
+
 	<ul style="padding:0;text-align:center;list-style:none">
 		<li><input type="button" value="{% trans 'Add another wordfilter' %}" id="wf_add"></li>
+	</ul>
+	
+	<table id="tags" class='fileboard'>
+		<th colspan="2">{% trans %}Tags{% endtrans %}</th>
+                <tr><th>{% trans %}ID{% endtrans %}</th><th>{% trans %}Description{% endtrans %}</th></tr>
+		{% if config.allowed_tags %}
+			{% for tag_id, tag_desc in config.allowed_tags %}
+				<tr><td><input name="tag_id[]" value="{{ tag_id|e }}"></td><td><input name="tag_desc[]" value="{{ tag_desc|e }}"></td></tr>
+			{% endfor %}
+		{% else %}
+			<tr><td><input name="tag_id[]"></td><td><input name="tag_desc[]"></td></tr>
+		{% endif %}
+	</table>
+
+	<ul style="padding:0;text-align:center;list-style:none">
+		<li class='fileboard'><input type="button" value="{% trans 'Add another tag' %}" id="tag_add"></li>
 		<li><input type="submit" value="{% trans 'Save changes' %}"></li>
 		{#
 		{% if mod|hasPermission(config.mod.deleteboard) %}
@@ -110,4 +138,19 @@
 	</ul>
 </form>
 
-<script>$('#wf_add').on('click', function(){$('#wf').append('<tr><td><input name="replace[]"></td><td><input name="with[]"></td></tr>')});</script>
+<script>
+$('#wf_add').on('click', function() {
+  $('#wf').append('<tr><td><input name="replace[]"></td><td><input name="with[]"></td></tr>');
+});
+
+$('#tag_add').on('click', function() {
+  $('#tags').append('<tr><td><input name="tag_id[]"></td><td><input name="tag_desc[]"></td></tr>');
+});
+
+var update_fields;
+$('#board_type').on('input', update_fields = function() {
+  $('.txtboard, .fileboard, .imgboard').hide();
+  $('.'+$('#board_type').val()).show();
+});
+update_fields();
+</script>
