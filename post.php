@@ -549,6 +549,12 @@ elseif (isset($_POST['post'])) {
 					$file['file_id'] .= "-$i";
 				
 				$file['file'] = $config['dir']['img_root'] . $board['dir'] . $config['dir']['img'] . $file['file_id'] . '.' . $file['extension'];
+
+				while (file_exists ($file['file'])) {
+					$file['file_id'] .= rand(0,9);
+					$file['file'] = $config['dir']['img_root'] . $board['dir'] . $config['dir']['img'] . $file['file_id'] . '.' . $file['extension'];
+				}
+
 				$file['thumb'] = $config['dir']['img_root'] . $board['dir'] . $config['dir']['thumb'] . $file['file_id'] . '.' . ($config['thumb_ext'] ? $config['thumb_ext'] : $file['extension']);
 				$post['files'][] = $file;
 				$i++;
