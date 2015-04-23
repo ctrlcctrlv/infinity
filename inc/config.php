@@ -795,7 +795,7 @@
 	$config['ie_mime_type_detection'] = '/<(?:body|head|html|img|plaintext|pre|script|table|title|a href|channel|scriptlet)/i';
 
 	// Config panel, fileboard: allowed upload extensions
-	$config['fileboard_allowed_types'] = array('zip', '7z', 'tar', 'gz', 'bz2', 'xz', 'swf', 'txt', 'torrent');
+	$config['fileboard_allowed_types'] = array('zip', '7z', 'tar', 'gz', 'bz2', 'xz', 'swf', 'txt', 'pdf', 'torrent');
 
 	// Allowed image file extensions.
 	$config['allowed_ext'][] = 'jpg';
