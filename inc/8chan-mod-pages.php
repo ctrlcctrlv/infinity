@@ -384,13 +384,18 @@ FLAGS;
 		$possible_languages = array_diff(scandir('inc/locale/'), array('..', '.', '.tx', 'README.md'));
 
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+			$board_type = $_POST['board_type'];
+			$imgboard = $board_type == 'imgboard';
+			$txtboard = $board_type == 'txtboard';
+			$fileboard = $board_type == 'fileboard';
+
 			$title = $_POST['title'];
 			$subtitle = $_POST['subtitle'];
 			$country_flags = isset($_POST['country_flags']) ? 'true' : 'false';
 			$field_disable_name = isset($_POST['field_disable_name']) ? 'true' : 'false';
 			$enable_embedding = isset($_POST['enable_embedding']) ? 'true' : 'false';
-			$force_image_op = isset($_POST['force_image_op']) ? 'true' : 'false';
-			$disable_images = isset($_POST['disable_images']) ? 'true' : 'false';
+			$force_image_op = $imgboard && isset($_POST['force_image_op']) ? 'true' : 'false';
+			$disable_images = $txtboard ? 'true' : 'false';
 			$poster_ids = isset($_POST['poster_ids']) ? 'true' : 'false';
 			$show_sages = isset($_POST['show_sages']) ? 'true' : 'false';
 			$auto_unicode = isset($_POST['auto_unicode']) ? 'true' : 'false';
@@ -400,8 +405,8 @@ FLAGS;
 			$image_reject_repost_in_thread = isset($_POST['image_reject_repost_in_thread']) ? 'true' : 'false';
 			$early_404 = isset($_POST['early_404']) ? 'true' : 'false';
 			$allow_delete = isset($_POST['allow_delete']) ? 'true' : 'false';
-			$allow_flash = isset($_POST['allow_flash']) ? '$config[\'allowed_ext_files\'][] = \'swf\';' : '';
-			$allow_pdf = isset($_POST['allow_pdf']) ? '$config[\'allowed_ext_files\'][] = \'pdf\';' : '';
+			$allow_flash = $imgboard && isset($_POST['allow_flash']) ? '$config[\'allowed_ext_files\'][] = \'swf\';' : '';
+			$allow_pdf = $imgboard && isset($_POST['allow_pdf']) ? '$config[\'allowed_ext_files\'][] = \'pdf\';' : '';
 			$code_tags = isset($_POST['code_tags']) ? '$config[\'additional_javascript\'][] = \'js/code_tags/run_prettify.js\';$config[\'markup\'][] = array("/\[code\](.+?)\[\/code\]/ms", "<code><pre class=\'prettyprint\' style=\'display:inline-block\'>\$1</pre></code>");' : '';
 			$katex = isset($_POST['katex']) ? '$config[\'katex\'] = true;$config[\'additional_javascript\'][] = \'js/katex/katex.min.js\'; $config[\'markup\'][] = array("/\[tex\](.+?)\[\/tex\]/ms", "<span class=\'tex\'>\$1</span>"); $config[\'additional_javascript\'][] = \'js/katex-enable.js\';' : '';
 			$user_flags = isset($_POST['user_flags']) ? "if (file_exists('$b/flags.php')) { include 'flags.php'; }\n" : '';
@@ -410,7 +415,7 @@ FLAGS;
 			$force_flag = isset($_POST['force_flag']) ? 'true' : 'false';
 			$tor_posting = isset($_POST['tor_posting']) ? 'true' : 'false';
 			$new_thread_capt = isset($_POST['new_thread_capt']) ? 'true' : 'false';
-			$oekaki = isset($_POST['oekaki']) ? 'true' : 'false';
+			$oekaki = ($imgboard || $fileboard) && isset($_POST['oekaki']) ? 'true' : 'false';
 			
 			if ($_POST['locale'] !== 'en' && in_array($_POST['locale'], $possible_languages)) {
 				$locale = "\$config['locale'] = '{$_POST['locale']}.UTF-8';";
@@ -425,6 +430,52 @@ FLAGS;
 			} else {
 				$multiimage = '';
 			} 
+
+			$file_board = '';
+			if ($fileboard) {
+				$force_image_op = true;
+
+				$file_board = "\$config['threads_per_page'] = 30;
+					       \$config['file_board'] = true;
+					       \$config['threads_preview'] = 0;
+				               \$config['threads_preview_sticky'] = 0;
+					       \$config['allowed_ext_files'] = array();\n";
+
+
+				if (isset ($_POST['allowed_type'])) {
+					foreach ($_POST['allowed_type'] as $val) {
+						if (in_array ($val, $config['fileboard_allowed_types'])) {
+							$file_board .= "\$config['allowed_ext_files'][] = '$val';\n";
+						}
+					}
+				}
+
+				if (isset ($_POST['allowed_ext_op'])) {
+					$file_board .= "\$config['allowed_ext_op'] = \$config['allowed_ext_files'];\n";
+
+					if (isset ($_POST['allowed_ext_op_video'])) {
+						$file_board .= "\$config['allowed_ext_op'][] = 'webm';
+								\$config['allowed_ext_op'][] = 'mp4';\n";
+					}
+				}
+
+				if (isset ($_POST['tag_id'])) {
+					$file_board .= "\$config['allowed_tags'] = array();\n";
+					foreach ($_POST['tag_id'] as $id => $v) {
+						$file_board .= "\$config['allowed_tags'][";
+							$file_board .= 'base64_decode("';
+								$file_board .= base64_encode($_POST['tag_id'][$id]);
+							$file_board .= '")';
+						$file_board .= "] = ";
+							$file_board .= 'base64_decode("';
+								$file_board .= base64_encode($_POST['tag_desc'][$id]);
+							$file_board .= '")';
+						$file_board .= ";\n";
+					}
+				}
+			}
+
+			$anal_filenames = ($imgboard || $fileboard) && isset($_POST['anal_filenames']) ? "\$config['filename_func'] = 'filename_func';\n" : '';
 
 			$anonymous = base64_encode($_POST['anonymous']);
 			$blotter = base64_encode(purify_html(html_entity_decode($_POST['blotter'])));
@@ -461,7 +512,7 @@ FLAGS;
 
 			if (isset($_POST['max_pages'])) {
 				$mp = (int)$_POST['max_pages'];
-				if ($mp > 25 || $mp < 2) {
+				if ($mp > 25 || $mp < 1) {
 					$max_pages = 15;
 				} else {
 					$max_pages = $mp;
@@ -538,10 +589,13 @@ FLAGS;
 \$config['max_newlines'] = $max_newlines;
 \$config['oekaki'] = $oekaki;
 $code_tags $katex $replace $multiimage $allow_flash $allow_pdf $user_flags
+$locale
+$anal_filenames
+$file_board
+
 if (\$config['disable_images'])
 	\$config['max_pages'] = 10000;
 
-$locale
 $add_to_config
 EOT;
 

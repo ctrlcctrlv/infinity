@@ -279,7 +279,8 @@
 		'file_url',
 		'json_response',
 		'user_flag',
-		'no_country'
+		'no_country',
+		'tag'
 	);
 
 	
@@ -793,12 +794,20 @@
 	// Details: https://github.com/savetheinternet/Tinyboard/issues/20
 	$config['ie_mime_type_detection'] = '/<(?:body|head|html|img|plaintext|pre|script|table|title|a href|channel|scriptlet)/i';
 
+	// Config panel, fileboard: allowed upload extensions
+	$config['fileboard_allowed_types'] = array('zip', '7z', 'tar', 'gz', 'bz2', 'xz', 'swf', 'txt', 'pdf', 'torrent');
+
 	// Allowed image file extensions.
 	$config['allowed_ext'][] = 'jpg';
 	$config['allowed_ext'][] = 'jpeg';
 	$config['allowed_ext'][] = 'gif';
 	$config['allowed_ext'][] = 'png';
 	// $config['allowed_ext'][] = 'svg';
+
+	// Allowed extensions for OP. Inherits from the above setting if set to false. Otherwise, it overrides both allowed_ext and
+	// allowed_ext_files (filetypes for downloadable files should be set in allowed_ext_files as well). This setting is useful
+	// for creating fileboards.
+	$config['allowed_ext_op'] = false;
 
 	// Allowed additional file extensions (not images; downloadable files).
 	// $config['allowed_ext_files'][] = 'txt';
@@ -1603,6 +1612,13 @@
 
 	// Allow OP to remove arbitrary posts in his thread
 	$config['user_moderation'] = false;
+
+	// File board. Like 4chan /f/
+	$config['file_board'] = false;
+
+	// Thread tags. Set to false to disable
+	// Example: array('A' => 'Chinese cartoons', 'M' => 'Music', 'P' => 'Pornography');
+	$config['allowed_tags'] = false;
 
 /*
  * ====================
