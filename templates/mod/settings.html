@@ -149,7 +149,7 @@ $('#tag_add').on('click', function() {
 });
 
 var update_fields;
-$('#board_type').on('input', update_fields = function() {
+$('#board_type').on('change', update_fields = function() {
   $('.txtboard, .fileboard, .imgboard').hide();
   $('.'+$('#board_type').val()).show();
 });
