@@ -209,18 +209,18 @@
 				<div class="col col-9 header_text">
 					<em>{% trans %}Welcome to 8chan, the infinitely expanding imageboard.{% endtrans %}</em>
 					<br>
-					<span>[ <a href="/b/">/b/ - Random</a> | <a href="/news+/">/news+/ - News</a> | <a href="/boards/">/boards/ - Boards</a>]</span>
+					<span>[ <a href="/b/">/b/ - Random</a> | <a href="/n/">/n/ - News</a> | <a href="/boards/">/boards/ - Boards</a>]</span>
 					<br>
 					<strong>{% trans %}Top 25 boards:{% endtrans %}</strong>
 					<span class="sub" data-description="3"></span>
-					<br>
+					<!-- <br>
 					<strong>
 						{% trans %}Boards of the week:{% endtrans %}&nbsp;[&nbsp;
 						{% for board in config.boards_of_the_week %}
 							<a href="/{{ board }}">{% if not loop.first %}&nbsp;{% endif %}{{ board }}</a>{% if not loop.last %} /{% endif %}
 						{% endfor %}
 						&nbsp;]
-					</strong> 
+					</strong> -->
 				</div>
 			</header>
 
@@ -276,11 +276,11 @@
 							<a href="create.php" class="button">{% trans %}Create&nbsp;your&nbsp;board{% endtrans %}</a>
 							<a href="boards.html" class="button">{% trans %}Browse&nbsp;existing&nbsp;boards{% endtrans %}</a>
 						</div>
-						<p><table><th><a href="/news+/">Latest headlines</a></th>
+						<p><table><th><a href="/n/">Latest headlines</a></th>
 						<tr><td>
 						<ol style="padding-left:40px">
 							{% for n in newsplus[:15] %}
-								<li><a href="/news+/res/{{ n.thread }}.html">{{ n.subject|e }}</a> (<a href="{{ n.link|e }}">link</a>)</li>
+								<li><a href="/n/res/{{ n.thread }}.html">{{ n.subject|e }}</a> (<a href="{{ n.link|e }}">link</a>)</li>
 							{% endfor %}
 						</ol>
 						</td></tr></table></p>
