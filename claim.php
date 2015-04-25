@@ -58,4 +58,4 @@ foreach($boards as $board) {
 	}
 }
 $body = Element("8chan/claim.html", array("config" => $config, "delete" => $delete));
-echo Element("page.html", array("config" => $config, "body" => $body, "title" => _("Claim"), "subtitle" => _("Take deserted boards back from their owners")));
+file_write("claim.html", Element("page.html", array("config" => $config, "body" => $body, "title" => _("Claim"), "subtitle" => _("Take deserted boards back from their owners"))));

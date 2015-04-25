@@ -56,7 +56,7 @@ A lot of the static pages (claim.html, boards.html, index.html) need to be regen
 
 ```cron
 */10 * * * * cd /srv/http; /usr/bin/php /srv/http/boards.php
-*/5 * * * * cd /srv/http; /usr/bin/php /srv/http/claim.php > /srv/http/claim.html
+*/5 * * * * cd /srv/http; /usr/bin/php /srv/http/claim.php
 */20 * * * * cd /srv/http; /usr/bin/php -r 'include "inc/functions.php"; rebuildThemes("bans");'
 */5 * * * * cd /srv/http; /usr/bin/php /srv/http/index.php
 ```
