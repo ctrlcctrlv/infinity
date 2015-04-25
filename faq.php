@@ -166,7 +166,7 @@ Assuming the /b/ board, they are as follows:</p>
 <h2>How do I donate?</h2>
 <p>Donations can be sent to 1NpQaXqmCBji6gfX8UgaQEmEstvVY7U32C (Bitcoin) or LUPgSCJt3iGeJXUETVhmnbQ89Riaq1yjZm (Litecoin).</p>
 <p>I am also a big fan of Monero (XMR). You can send XMR to our <a href="http://openalias.org">OpenAlias</a> in the simplewallet client, or simply send to 49dBJhGhYFxJEfydS6hH6GRyg1W4cDgupdNVtw7j1WtcUY7xPXwNLw6fUVay644viaCcEhMFG1Z7SjjxRXEFDdNWJdvH9kS.</p>
-<p>If you would like to support development of the engine that 8chan runs on (infinity), you may also <a href="https://gratipay.com/infinitechan">donate via Gratipay</a>.</p>
+<p>If you would like to support development of the engine that 8chan runs on (infinity), you may also <a href="https://flattr.com/submit/auto?user_id=copypaste&url=https%3A%2F%2F8ch.net%2Finfinity.html" target="_blank"><img src="//button.flattr.com/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0"></a>.</p>
 <h2>Are you really a cripple?</h2>
 <p>Yes.</p>
 <img src="/static/Mamoru.jpg" alt="Mamoru" style="width:128px">

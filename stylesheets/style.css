@@ -1650,7 +1650,13 @@ td.board-tags a.tag-link {
 	display: none;
 }
 
-<<<<<<< HEAD
+.announcement {
+	font-size: 75%;
+	padding-bottom: 1%;
+	margin-left: 25%; 
+	margin-right: 25%;
+}
+
 /* Gallery view */
 #gallery_images {
   position: absolute;
