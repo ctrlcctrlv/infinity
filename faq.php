@@ -107,9 +107,9 @@ $body = <<<EOT
 </ul>
 
 <h2>How are featured boards chosen?</h2>
-<p>Top twenty-five boards excluding /meta/, /b/, /operate/, /boards/ and /news+/.</p>
+<p>Top twenty-five boards excluding /meta/, /b/, /operate/, /boards/ and /n/.</p>
 
-<h2>Who owns boards like /b/, /news+/ and /operate/?</h2>
+<h2>Who owns boards like /b/, /n/ and /operate/?</h2>
 <p>No one, so they are <em>de facto</em> managed by the administration.</p>
 
 <h2>Why does <a href="/banned">https://8ch.net/banned</a> say that I'm banned? I can still use the boards?</h2>
