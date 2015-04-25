@@ -84,6 +84,18 @@
 			</td>
 		</tr>
 		{% endif %}
+		{% if config.allowed_tags and not id %}
+			<tr>
+				<th>{% trans %}Tag{% endtrans %}</th>
+				<td>
+					<select name="tag">
+						{% for id, tag in config.allowed_tags %}
+							<option value="{{ id|e }}">{{ tag|e }}</option>
+						{% endfor %}
+					</select>
+				</td>
+			</tr>
+		{% endif %}
 		{% if not config.disable_images %}
 		<tr id="upload">
 			<th>
@@ -230,7 +242,12 @@
 			<td colspan="2">
 				<p class="unimportant board-settings">
 				{% if not config.disable_images %}
-				{% trans %}Allowed file types:{% endtrans %} {{ config.allowed_ext|join(', ') }}{% if config.allowed_ext_files %}, {{ config.allowed_ext_files|join(', ') }}{% endif %}<br />
+				{% trans %}Allowed file types:{% endtrans %}
+				{% if config.allowed_ext_op and not id %}
+					{{ config.allowed_ext_op|join(', ') }}
+				{% else %}
+					{{ config.allowed_ext|join(', ') }}{% if config.allowed_ext_files %}, {{ config.allowed_ext_files|join(', ') }}{% endif %}
+				{% endif %}<br />
 				{% trans %}Max filesize is{% endtrans %} {{ config.max_filesize|filesize }}.<br />
 				{% trans %}Max image dimensions are{% endtrans %} {{ config.max_height }} x {{ config.max_width }}.<br />
 				{% set max_images = config.max_images %} {# workaround for "The text to be translated with "trans" can only contain references to simple variables" #}

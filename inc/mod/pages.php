@@ -3340,7 +3340,7 @@ function mod_theme_configure($theme_name) {
 
 		// Clean cache
 		Cache::delete("themes");
-		Cache::delete("theme_settings_".$theme);
+		Cache::delete("theme_settings_".$theme_name);
 		
 		$result = true;
 		$message = false;

@@ -141,6 +141,7 @@
 	$config['additional_javascript'][] = 'js/auto-scroll.js';
 	$config['additional_javascript'][] = 'js/twemoji/twemoji.js';
 	$config['additional_javascript'][] = 'js/file-selector.js';
+	$config['additional_javascript'][] = 'js/gallery-view.js';
 	$config['additional_javascript'][] = 'js/board-directory.js';
 	// Oekaki (now depends on config.oekaki so can be in all scripts)
 	$config['additional_javascript'][] = 'js/jquery-ui.custom.min.js';
