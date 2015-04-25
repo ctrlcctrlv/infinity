@@ -1015,12 +1015,12 @@ elseif (isset($_POST['post'])) {
 	
 	event('post-after', $post);
 	
-	buildIndex();
-	
 	// We are already done, let's continue our heavy-lifting work in the background (if we run off FastCGI)
 	if (function_exists('fastcgi_finish_request')) {
 		@fastcgi_finish_request();
 	}
+
+	buildIndex();
 	
 	if ($post['op']) {
 		rebuildThemes('post-thread', $board['uri']);
