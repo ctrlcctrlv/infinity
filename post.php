@@ -148,8 +148,20 @@ if (isset($_POST['delete'])) {
 		]));
 
 		if ($resp !== '1') {
-                        error($config['error']['captcha']);
+			$error = $config['error']['captcha'];
 		}
+	}
+	
+	if (isset($error)) {
+		if ($config['report_captcha']) {
+			$captcha = generate_captcha($config['captcha']['extra']);
+		} else {
+			$captcha = null;
+		}
+
+		$body = Element('report.html', array('board' => $board, 'config' => $config, 'error' => $error, 'reason_prefill' => $_POST['reason'], 'post' => 'delete_'.$report[0], 'captcha' => $captcha));
+		echo Element('page.html', ['config' => $config, 'body' => $body]);
+		die();
 	}
 	
 	$reason = escape_markup_modifiers($_POST['reason']);

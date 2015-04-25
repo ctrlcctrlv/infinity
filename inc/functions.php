@@ -24,6 +24,7 @@ if (!extension_loaded('gettext')) {
 }
 require_once 'inc/lib/parsedown/Parsedown.php'; // todo: option for parsedown instead of Tinyboard/STI markup
 require_once 'inc/mod/auth.php';
+require_once '8chan-captcha/functions.php';
 
 // the user is not currently logged in as a moderator
 $mod = false;

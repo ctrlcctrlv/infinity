@@ -1,12 +1,9 @@
 <?php
-if (strpos(getcwd(), '8chan-captcha') === false) chdir('8chan-captcha');
-require_once("config.php");
-require_once("cool-php-captcha-0.3.1/captcha.php");
-
+require_once 'cool-php-captcha-0.3.1/captcha.php';
 function generate_captcha($extra = '1234567890') {
-  global $length, $pdo;
+  global $config;
 
-  $text = rand_string($length, $extra);
+  $text = rand_string($config['captcha']['length'], $extra);
 
   $captcha = new SimpleCaptcha();
 
@@ -18,7 +15,7 @@ function generate_captcha($extra = '1234567890') {
   ob_end_clean();
   $html = '<image src="data:image/png;base64,'.base64_encode($image).'">';
 
-  $query = $pdo->prepare("INSERT INTO `captchas` (`cookie`, `extra`, `text`, `created_at`) VALUES (?, ?, ?, ?)");
+  $query = prepare("INSERT INTO `captchas` (`cookie`, `extra`, `text`, `created_at`) VALUES (?, ?, ?, ?)");
   $query->execute(                               [$cookie,  $extra,  $text,  time()]);
 
   return array("cookie" => $cookie, "html" => $html);
@@ -32,7 +29,8 @@ function rand_string($length, $charset) {
   return $ret;
 }
 
-function cleanup ($pdo, $expires_in) {
-  $pdo->prepare("DELETE FROM `captchas` WHERE `created_at` < ?")->execute([time() - $expires_in]);
+function cleanup () {
+  global $config;
+  prepare("DELETE FROM `captchas` WHERE `created_at` < ?")->execute([time() - $config['captcha']['expires_in']]);
 }
 

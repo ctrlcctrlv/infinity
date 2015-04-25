@@ -10,8 +10,6 @@ if (!$post || !preg_match('/^delete_\d+$/', $post) || !$board || !openBoard($boa
 }
 
 if ($config['report_captcha']) {
-	include '8chan-captcha/functions.php';
-
 	$captcha = generate_captcha($config['captcha']['extra']);
 } else {
 	$captcha = null;

@@ -3,8 +3,8 @@ header('Access-Control-Allow-Origin: *');
 
 $mode = @$_GET['mode'];
 
-require_once("config.php");
-require_once("functions.php");
+chdir('..'); // for "cool PHP CAPTCHA"'s resourcesPath
+include "inc/functions.php"; // general 8chan functions
 
 switch ($mode) {
 // Request: GET entrypoint.php?mode=get&extra=1234567890
@@ -26,7 +26,7 @@ case "get":
 	  echo "<html><body>You do not have JavaScript enabled. To fill out the CAPTCHA, please copy the ID to the post form in the ID field, and write the answer in the answer field.<br><br>CAPTCHA ID: $cookie<br>CAPTCHA image: $html</body></html>";
   } else {
 	  header("Content-type: application/json");
-	  echo json_encode(["cookie" => $cookie, "captchahtml" => $html, "expires_in" => $expires_in]);
+	  echo json_encode(["cookie" => $cookie, "captchahtml" => $html, "expires_in" => $config['captcha']['expires_in']]);
   }
   
   break;
@@ -41,18 +41,17 @@ case "check":
     die();
   }
 
-  cleanup($pdo, $expires_in);
+  cleanup();
 
-  $query = $pdo->prepare("SELECT * FROM `captchas` WHERE `cookie` = ? AND `extra` = ?");
+  $query = prepare("SELECT * FROM `captchas` WHERE `cookie` = ? AND `extra` = ?");
   $query->execute([$_GET['cookie'], $_GET['extra']]);
-
   $ary = $query->fetchAll();
 
   if (!$ary) {
     echo "0";
   }
   else {
-    $query = $pdo->prepare("DELETE FROM `captchas` WHERE `cookie` = ? AND `extra` = ?");
+    $query = prepare("DELETE FROM `captchas` WHERE `cookie` = ? AND `extra` = ?");
     $query->execute([$_GET['cookie'], $_GET['extra']]);
 
     if ($ary[0]['text'] !== $_GET['text']) {

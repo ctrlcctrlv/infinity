@@ -31,7 +31,7 @@ class SimpleCaptcha {
      * directory to another location outise the web server
      *
      */
-    public $resourcesPath = 'cool-php-captcha-0.3.1/resources';
+    public $resourcesPath = '8chan-captcha/cool-php-captcha-0.3.1/resources';
 
     /** Min word length (for non-dictionary random text generation) */
     public $minWordLength = 5;

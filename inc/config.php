@@ -308,14 +308,22 @@
 	// Enable custom captcha provider
 	$config['captcha']['enabled'] = false;
 
+	// Custom CAPTCHA provider general settings
+
+	// Captcha expiration:
+	$config['captcha']['expires_in'] = 120; // 120 seconds
+
+	// Captcha length:
+	$config['captcha']['length'] = 6;
+
 	/* 
 	 * Custom captcha provider path (You will need to change these depending on your configuration! It cannot be
 	 * automatically determined because provider_check requires curl which needs to know the domain of your site.)
 	 * 
 	 * Specify yourimageboard.com/$config['root']/8chan-captcha/entrypoint.php for the default provider or write your own
 	 */
-	$config['captcha']['provider_get']   = 'http://localhost/infinity/8chan-captcha/entrypoint.php';
-	$config['captcha']['provider_check'] = 'http://localhost/infinity/8chan-captcha/entrypoint.php';
+	$config['captcha']['provider_get']   = 'http://localhost/8chan-captcha/entrypoint.php';
+	$config['captcha']['provider_check'] = 'http://localhost/8chan-captcha/entrypoint.php';
 
 	// Custom captcha extra field (eg. charset)
 	$config['captcha']['extra'] = 'abcdefghijklmnopqrstuvwxyz';
