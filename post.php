@@ -159,7 +159,7 @@ if (isset($_POST['delete'])) {
 			$captcha = null;
 		}
 
-		$body = Element('report.html', array('board' => $board, 'config' => $config, 'error' => $error, 'reason_prefill' => $_POST['reason'], 'post' => 'delete_'.$report[0], 'captcha' => $captcha));
+		$body = Element('report.html', array('board' => $board, 'config' => $config, 'error' => $error, 'reason_prefill' => $_POST['reason'], 'post' => 'delete_'.$report[0], 'captcha' => $captcha, 'global' => isset($_POST['global'])));
 		echo Element('page.html', ['config' => $config, 'body' => $body]);
 		die();
 	}
