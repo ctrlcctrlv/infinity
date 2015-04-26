@@ -5,7 +5,6 @@ include "inc/functions.php";
 checkBan('*');
 
 if (!isset($_POST['uri'], $_POST['title'], $_POST['subtitle'], $_POST['username'], $_POST['password'])) {
-include '8chan-captcha/functions.php';
 
 $password = base64_encode(openssl_random_pseudo_bytes(9));
 

@@ -1,6 +1,5 @@
 <?php
 include 'inc/functions.php';
-include '8chan-captcha/functions.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 	$captcha = generate_captcha($config['captcha']['extra']);
