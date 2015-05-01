@@ -2386,10 +2386,6 @@ function markup(&$body, $track_cites = false, $op = false) {
 						$tagsOpen = false;
 					}
 				}
-				
-				if ($tagsOpen !== false) {
-					$tagsOpen .= "<br />";
-				}
 			}
 			// If tags are closed, check to see if they are now open.
 			// This counts the number of open tags (that are not self-closing) against the number of complete tags.
@@ -2411,6 +2407,9 @@ function markup(&$body, $track_cites = false, $op = false) {
 			// If tags are open, do not close it.
 			if (!$tagsOpen) {
 				$bodyNew .= "</p>";
+			}
+			else if ($tagsOpen !== false) {
+				$tagsOpen .= "<br />";
 			}
 		}
 		
