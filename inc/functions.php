@@ -2404,9 +2404,6 @@ function markup(&$body, $track_cites = false, $op = false) {
 				$tagsOpen = $paragraph;
 			}
 			
-			echo $tagsOpen;
-			echo "<hr />";
-			
 			// If tags are open, do not close it.
 			if (!$tagsOpen) {
 				$bodyNew .= "</p>";
