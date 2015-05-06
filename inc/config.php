@@ -839,7 +839,7 @@
 	// Location of thumbnail to use for spoiler images.
 	$config['spoiler_image'] = 'static/spoiler.png';
 	// Location of thumbnail to use for deleted images.
-	// $config['image_deleted'] = 'static/deleted.png';
+	$config['image_deleted'] = 'static/deleted.png';
 	// Location of placeholder image for fileless posts in catalog.
 	$config['no_file_image'] = 'static/no-file.png';
 
@@ -1784,3 +1784,6 @@
 
 	// Allowed HTML tags in ?/edit_pages.
 	$config['allowed_html'] = 'a[href|title],p,br,li,ol,ul,strong,em,u,h2,b,i,tt,div,img[src|alt|title],hr,h1,h2,h3,h4,h5';
+
+	// Use custom assets? (spoiler file, etc; this is used by ?/settings and ?/assets)
+	$config['custom_assets'] = false;

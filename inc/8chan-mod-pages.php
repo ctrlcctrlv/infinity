@@ -303,6 +303,121 @@ FLAGS;
 		mod_page(_('Edit flags'), 'mod/flags.html', array('board'=>$board,'banners'=>$banners,'token'=>make_secure_link_token('banners/'.$board['uri'])));
 	}
 
+	function mod_8_assets($b) {
+		global $config, $mod, $board;
+		require_once 'inc/image.php';
+
+		if (!hasPermission($config['mod']['edit_assets'], $b))
+			error($config['error']['noaccess']);
+	
+		if (!openBoard($b))
+			error("Could not open board!");
+
+		$dir = 'static/assets/'.$b;
+
+		if (!is_dir($dir)){
+			mkdir($dir, 0777, true);
+
+			symlink(getcwd() . '/' . $config['image_deleted'], "$dir/deleted.png");
+			symlink(getcwd() . '/' . $config['spoiler_image'], "$dir/spoiler.png");
+			symlink(getcwd() . '/' . $config['no_file_image'], "$dir/no-file.png");
+		}
+		
+		// "File deleted"
+		if (isset($_FILES['deleted_file']) && !empty($_FILES['deleted_file']['tmp_name'])){
+			$upload = $_FILES['deleted_file']['tmp_name'];
+			$extension = strtolower(mb_substr($_FILES['deleted_file']['name'], mb_strrpos($_FILES['deleted_file']['name'], '.') + 1));
+			var_dump($_FILES);
+
+			if (!is_readable($upload)) {
+				error($config['error']['nomove']);
+			}
+
+			if (filesize($upload) > 512000){
+				error('File too large!');
+			}
+
+			if (!in_array($extension, array('png', 'gif'))) {
+				error('File must be PNG or GIF format.');
+			}
+
+			if (!$size = @getimagesize($upload)) {
+				error($config['error']['invalidimg']);
+			}
+
+			if ($size[0] != 140 or $size[1] != 50){
+				error('Image wrong size!');
+			}
+
+			unlink("$dir/deleted.png");
+			copy($upload, "$dir/deleted.png");
+			purge("$dir/deleted.png");
+		}
+
+		// Spoiler file
+		if (isset($_FILES['spoiler_file']) && !empty($_FILES['spoiler_file']['tmp_name'])){
+			$upload = $_FILES['spoiler_file']['tmp_name'];
+			$extension = strtolower(mb_substr($_FILES['spoiler_file']['name'], mb_strrpos($_FILES['spoiler_file']['name'], '.') + 1));
+
+			if (!is_readable($upload)) {
+				error($config['error']['nomove']);
+			}
+
+			if (filesize($upload) > 512000){
+				error('File too large!');
+			}
+
+
+			if (!in_array($extension, array('png', 'gif'))) {
+				error('File must be PNG or GIF format.');
+			}
+
+			if (!$size = @getimagesize($upload)) {
+				error($config['error']['invalidimg']);
+			}
+
+			if ($size[0] != 128 or $size[1] != 128){
+				error('Image wrong size!');
+			}
+
+			unlink("$dir/spoiler.png");
+			copy($upload, "$dir/spoiler.png");
+			purge("$dir/spoiler.png");
+		}
+
+		// No file
+		if (isset($_FILES['nofile_file']) && !empty($_FILES['nofile_file']['tmp_name'])){
+			$upload = $_FILES['nofile_file']['tmp_name'];
+			$extension = strtolower(mb_substr($_FILES['nofile_file']['name'], mb_strrpos($_FILES['nofile_file']['name'], '.') + 1));
+
+			if (!is_readable($upload)) {
+				error($config['error']['nomove']);
+			}
+
+			if (filesize($upload) > 512000){
+				error('File too large!');
+			}
+
+			if (!in_array($extension, array('png', 'gif'))) {
+				error('File must be PNG or GIF format.');
+			}
+
+			if (!$size = @getimagesize($upload)) {
+				error($config['error']['invalidimg']);
+			}
+
+			if ($size[0] != 500 or $size[1] != 500){
+				error('Image wrong size!');
+			}
+
+			unlink("$dir/no-file.png");
+			copy($upload, "$dir/no-file.png");
+			purge("$dir/no-file.png");
+		}
+
+		mod_page(_('Edit board assets'), 'mod/assets.html', array('board'=>$board,'token'=>make_secure_link_token('assets/'.$board['uri'])));
+	}
+
 	function mod_8_banners($b) {
 		global $config, $mod, $board;
 		require_once 'inc/image.php';
@@ -430,6 +545,16 @@ FLAGS;
 			} else {
 				$multiimage = '';
 			} 
+
+			if (isset($_POST['custom_assets'])) {
+				$assets = "\$config['custom_assets'] = true;
+				           \$config['spoiler_image'] = 'static/assets/$b/spoiler.png';
+				           \$config['image_deleted'] = 'static/assets/$b/deleted.png';
+				           \$config['no_file_image'] = 'static/assets/$b/no-file.png';
+				";
+			} else {
+				$assets = '';
+			}
 
 			$file_board = '';
 			if ($fileboard) {
@@ -588,7 +713,8 @@ FLAGS;
 \$config['max_pages'] = $max_pages;
 \$config['max_newlines'] = $max_newlines;
 \$config['oekaki'] = $oekaki;
-$code_tags $katex $replace $multiimage $allow_flash $allow_pdf $user_flags
+$code_tags $katex $replace $multiimage $allow_flash $allow_pdf $user_flags 
+$assets
 $locale
 $anal_filenames
 $file_board

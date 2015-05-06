@@ -76,10 +76,10 @@
 
 					if ($files[0]) {
 						if ($files[0]->file == 'deleted') {
-							$post['file'] = $config['image_deleted'];
+							$post['file'] = $config['root'] . $config['image_deleted'];
 						}
 						else if($files[0]->thumb == 'spoiler') {
-							$post['file'] = '/' . $config['spoiler_image'];
+							$post['file'] = $config['root'] . $config['spoiler_image'];
 						}
 						else {
 							if ($files[0]->thumb == 'file') {
