@@ -8,9 +8,9 @@
 	<input type="hidden" name="token" value="{{ token }}">
 	<table>
 		<tr>
-			<th>{% trans 'Username' %}</th>
+			<th>{% trans 'Username' %}<br/>{% if not mod|hasPermission(config.mod.editusers) %}<small style="font-weight:normal">({% trans 'warning: changing your username<br/>will log you out and change all occurrences<br/>of your old username to the new one in<br/>your board\'s logs' %}){% endif %}</th>
 			<td>
-				{% if new or mod|hasPermission(config.mod.editusers) %}
+				{% if new or mod|hasPermission(config.mod.edit_profile) %}
 					<input size="20" maxlength="30" type="text" name="username" value="{{ user.username|e }}" autocomplete="off">
 				{% else %}
 					{{ user.username|e }}
@@ -20,8 +20,18 @@
 		<tr>
 			<th>{% trans 'Password' %}{% if not new %} <small style="font-weight:normal">({% trans 'new; optional' %})</small>{% endif %}</th>
 			<td>
-				{% if new or (mod|hasPermission(config.mod.editusers) or (mod|hasPermission(config.mod.change_password) and user.id == mod.id)) %}
+				{% if new or (mod|hasPermission(config.mod.editusers) or (mod|hasPermission(config.mod.edit_profile) and user.id == mod.id)) %}
 					<input size="20" maxlength="30" type="password" name="password" value="" autocomplete="off">
+				{% else %}
+					-
+				{% endif %}
+			</td>
+		</tr>
+		<tr>
+			<th>{% trans 'Email' %}<br/> <small style="font-weight:normal">({% trans 'if you forget your board password<br/>email admin@8chan.co from this<br/>address to request a reset; optional' %})</small></th>
+			<td>
+				{% if new or (mod|hasPermission(config.mod.editusers) or (mod|hasPermission(config.mod.edit_profile) and user.id == mod.id)) %}
+					<input size="20" maxlength="1024" type="text" name="email" value="{{ user.email|e }}" autocomplete="off">
 				{% else %}
 					-
 				{% endif %}
@@ -42,6 +52,7 @@
 				</td>
 			</tr>
 		{% endif %}
+		{% if mod|hasPermission(config.mod.editusers) %}
 		<tr>
 			<th>{% trans 'Boards' %}</th>
 			<td>
@@ -73,6 +84,7 @@
 				</ul>
 			</td>
 		</tr>
+		{% endif %}
 	</table>
 	
 	<ul style="padding:0;text-align:center;list-style:none">
