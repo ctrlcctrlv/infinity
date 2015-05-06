@@ -1,0 +1,32 @@
+<div style="text-align:center">
+<form action="{{ action }}" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="token" value="{{ token }}">
+	<p><small>All board assets must be less than 500KB and either PNG or GIF format. Please be aware that files may be cached by your browser, so make sure to clear your cache if you change one.</small></p>
+
+	<h2>Upload new spoiler file</h2>
+
+	<p><input type="file" name="spoiler_file"></p>
+
+	<p><small>Spoiler file must be 128 x 128.</small></p>
+	
+	<p>Current spoiler file:<br> <img src="static/assets/{{ board.uri }}/spoiler.png"></p>
+	<hr/>
+	<h2>Upload new "file deleted" file</h2>
+
+	<p><input type="file" name="deleted_file"></p>
+
+	<p><small>"File deleted" file must be 140 x 50.</small></p>
+	
+	<p>Current "file deleted" file:<br> <img src="static/assets/{{ board.uri }}/deleted.png"></p>
+	<hr/>
+	<h2>Upload new "no file" file</h2>
+
+	<p><input type="file" name="nofile_file"></p>
+
+	<p><small>"No file" file must be 500 x 500.</small></p>
+	
+	<p>Current "no file" file:<br> <img src="static/assets/{{ board.uri }}/no-file.png" width="255"></p>
+
+	<p><input type="submit" value="Upload new file(s)"></p>
+</form>
+</div>
