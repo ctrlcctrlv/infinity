@@ -25,12 +25,9 @@ main {
 
 /* Tables */
 table {
-  margin: auto;
-  width: 100%;
-}
-
-table {
 	margin: auto;
+}
+table.board-list-table {
 	width: 100%;
 }
 table tbody td {
