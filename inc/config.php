@@ -1787,3 +1787,10 @@
 
 	// Use custom assets? (spoiler file, etc; this is used by ?/settings and ?/assets)
 	$config['custom_assets'] = false;
+
+	// If you use CloudFlare set these for some features to work correctly.
+	$config['cloudflare'] = array();
+	$config['cloudflare']['enabled'] = false;
+	$config['cloudflare']['token'] = 'token';
+	$config['cloudflare']['email'] = 'email';
+	$config['cloudflare']['domain'] = 'example.com';

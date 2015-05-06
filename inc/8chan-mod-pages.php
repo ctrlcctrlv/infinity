@@ -224,7 +224,7 @@
 			}
 
 			copy($upload, "$dir/$id.$extension");
-			purge("$dir/$id.$extension");
+			purge("$dir/$id.$extension", true);
 			$config['user_flags'][$id] = utf8tohtml($description);
 			file_write($b.'/flags.ser', serialize($config['user_flags']));
 		}
@@ -327,7 +327,6 @@ FLAGS;
 		if (isset($_FILES['deleted_file']) && !empty($_FILES['deleted_file']['tmp_name'])){
 			$upload = $_FILES['deleted_file']['tmp_name'];
 			$extension = strtolower(mb_substr($_FILES['deleted_file']['name'], mb_strrpos($_FILES['deleted_file']['name'], '.') + 1));
-			var_dump($_FILES);
 
 			if (!is_readable($upload)) {
 				error($config['error']['nomove']);
@@ -351,7 +350,7 @@ FLAGS;
 
 			unlink("$dir/deleted.png");
 			copy($upload, "$dir/deleted.png");
-			purge("$dir/deleted.png");
+			purge("$dir/deleted.png", true);
 		}
 
 		// Spoiler file
@@ -382,7 +381,7 @@ FLAGS;
 
 			unlink("$dir/spoiler.png");
 			copy($upload, "$dir/spoiler.png");
-			purge("$dir/spoiler.png");
+			purge("$dir/spoiler.png", true);
 		}
 
 		// No file
@@ -412,7 +411,7 @@ FLAGS;
 
 			unlink("$dir/no-file.png");
 			copy($upload, "$dir/no-file.png");
-			purge("$dir/no-file.png");
+			purge("$dir/no-file.png", true);
 		}
 
 		mod_page(_('Edit board assets'), 'mod/assets.html', array('board'=>$board,'token'=>make_secure_link_token('assets/'.$board['uri'])));
