@@ -92,7 +92,7 @@ class Api {
 		$apiPost['filename'] = @substr($file->name, 0, strrpos($file->name, '.'));
 		$dotPos = strrpos($file->file, '.');
 		$apiPost['ext'] = substr($file->file, $dotPos);
-		$apiPost['tim'] = substr($file->file, 0, $dotPos);
+		$apiPost['tim'] = urlencode(substr($file->file, 0, $dotPos));
 		if (isset($file->hash))
 			$apiPost['md5'] = base64_encode(hex2bin($file->hash));
 	}
