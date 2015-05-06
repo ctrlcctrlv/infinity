@@ -475,7 +475,7 @@ FLAGS;
 				}
 			}
 
-			$anal_filenames = ($imgboard || $fileboard) && isset($_POST['anal_filenames']) ? "\$config['filename_func'] = 'filename_func';\n" : '';
+			$anal_filenames = ($fileboard) && isset($_POST['anal_filenames']) ? "\$config['filename_func'] = 'filename_func';\n" : '';
 
 			$anonymous = base64_encode($_POST['anonymous']);
 			$blotter = base64_encode(purify_html(html_entity_decode($_POST['blotter'])));
