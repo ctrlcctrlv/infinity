@@ -8,7 +8,7 @@
 <td><a class="post_no" onclick="citeReply({{ post.id }})" href="{{ post.link('q') }}">{{ post.id }}</a>
 <td>{% include 'post/name.html' %}
     {% include 'post/flag.html' %}
-<td>[<a href="{{ config.uri_img }}{{ post.files[0].file }}">{{ post.files[0].filename|e|bidi_cleanup }}</a>]
+<td>[<a target="_blank" href="{{ config.uri_img }}{{ post.files[0].file }}">{{ post.files[0].filename|e|bidi_cleanup }}</a>]
 <td>{% if post.modifiers['tag'] %}[{{ post.modifiers['tag']|e }}]{% endif %}
 <td>{% include 'post/subject.html' %}
 	{% if post.sticky %}

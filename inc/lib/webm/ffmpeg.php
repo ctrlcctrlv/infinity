@@ -57,17 +57,17 @@ function make_webm_thumbnail($filename, $thumbnail, $width, $height, $duration) 
   global $board, $config;
 
   $filename = escapeshellarg($filename);
-  //$thumbnail = escapeshellarg($thumbnail); // Should be safe by default but you
+  $thumbnailfc = escapeshellarg($thumbnail); // Should be safe by default but you
                                            // can never be too safe.
   $ffmpeg = $config['webm']['ffmpeg_path'];
 
   $ret = 0;
   $ffmpeg_out = array();
-  exec("$ffmpeg -strict -2 -ss " . floor($duration / 2) . " -i $filename -v quiet -an -vframes 1 -f mjpeg -vf scale=$width:$height $thumbnail 2>&1", $ffmpeg_out, $ret);
+  exec("$ffmpeg -strict -2 -ss " . floor($duration / 2) . " -i $filename -v quiet -an -vframes 1 -f mjpeg -vf scale=$width:$height $thumbnailfc 2>&1", $ffmpeg_out, $ret);
   // Work around for https://trac.ffmpeg.org/ticket/4362
   if (filesize($thumbnail) === 0) {
     // try again with first frame
-    exec("$ffmpeg -y -strict -2 -ss 0 -i $filename -v quiet -an -vframes 1 -f mjpeg -vf scale=$width:$height $thumbnail 2>&1", $ffmpeg_out, $ret);
+    exec("$ffmpeg -y -strict -2 -ss 0 -i $filename -v quiet -an -vframes 1 -f mjpeg -vf scale=$width:$height $thumbnailfc 2>&1", $ffmpeg_out, $ret);
     clearstatcache();
     // failed if no thumbnail size even if ret code 0, ffmpeg is buggy
     if (filesize($thumbnail) === 0) {

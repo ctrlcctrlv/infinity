@@ -986,7 +986,7 @@ function fetchBoardTags( $uris ) {
 				$boardTags[ $tagRow['uri'] ] = array();
 			}
 			
-			$boardTags[ $tagRow['uri'] ][] = htmlentities( utf8_encode( $tag ) );
+			$boardTags[ $tagRow['uri'] ][] = $tag;
 		}
 	}
 	

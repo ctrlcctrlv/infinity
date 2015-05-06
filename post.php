@@ -664,7 +664,7 @@ elseif (isset($_POST['post'])) {
 		}
 	}
 
-	if ($config['allowed_tags'] && $post['op'] && isset($_POST['tag']) && isset($config['allowed_tags'][$_POST['tag']])) {
+	if ($config['allowed_tags'] && $post['op'] && isset($_POST['tag']) && $_POST['tag'] && isset($config['allowed_tags'][$_POST['tag']])) {
 		$post['body'] .= "\n<tinyboard tag>" . $_POST['tag'] . "</tinyboard>";
 	}
 
