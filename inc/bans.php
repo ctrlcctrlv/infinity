@@ -187,7 +187,9 @@ class Bans {
 
 			if ($ban['post']) {
 				$post = json_decode($ban['post']);
-				$ban['message'] = $post->body;
+				if ($post) {
+					$ban['message'] = $post->body;
+				}
 			}
 			unset($ban['ipstart'], $ban['ipend'], $ban['post'], $ban['creator']);
 
