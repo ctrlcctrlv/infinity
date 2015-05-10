@@ -2122,12 +2122,13 @@ function mod_user_new() {
 		$salt = generate_salt();
 		$password = hash('sha256', $salt . sha1($_POST['password']));
 		
-		$query = prepare('INSERT INTO ``mods`` VALUES (NULL, :username, :password, :salt, :type, :boards)');
+		$query = prepare('INSERT INTO ``mods`` VALUES (NULL, :username, :password, :salt, :type, :boards, :email)');
 		$query->bindValue(':username', $_POST['username']);
 		$query->bindValue(':password', $password);
 		$query->bindValue(':salt', $salt);
 		$query->bindValue(':type', $type);
 		$query->bindValue(':boards', implode(',', $boards));
+		$query->bindValue(':email', (isset($_POST['email']) ? $_POST['email'] : ''));
 		$query->execute() or error(db_error($query));
 		
 		$userID = $pdo->lastInsertId();

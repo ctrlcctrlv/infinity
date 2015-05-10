@@ -118,7 +118,7 @@
 			$salt = generate_salt();
 			$password = hash('sha256', $salt . sha1($_POST['password']));
 			
-			$query = prepare('INSERT INTO ``mods`` VALUES (NULL, :username, :password, :salt, 19, :board)');
+			$query = prepare('INSERT INTO ``mods`` VALUES (NULL, :username, :password, :salt, 19, :board, "")');
 			$query->bindValue(':username', $_POST['username']);
 			$query->bindValue(':password', $password);
 			$query->bindValue(':salt', $salt);
