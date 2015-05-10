@@ -17,6 +17,7 @@ if (active_page == 'catalog') $(function(){
 		var value = this.value, old;
 		$(".grid-li").removeClass("grid-size-vsmall");
 		$(".grid-li").removeClass("grid-size-small");
+		$(".grid-li").removeClass("grid-size-medium");
 		$(".grid-li").removeClass("grid-size-large");
 		$(".grid-li").addClass("grid-size-"+value);
 		catalog.image_size = value;

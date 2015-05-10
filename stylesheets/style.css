@@ -778,6 +778,16 @@ pre {
   max-height: 192px;
 }
 
+.theme-catalog div.grid-size-medium img {
+  max-height: 33%;
+  max-width: 95%
+}
+
+.theme-catalog div.grid-size-medium {
+  min-width:200px; max-width: 200px;
+  max-height: 274px;
+}
+
 .theme-catalog div.grid-size-large img {
   max-height: 40%;
   max-width: 95%
