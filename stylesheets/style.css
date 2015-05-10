@@ -314,7 +314,7 @@ div.post img.icon {
   padding: 0;
 }
 
-div.post i.fa {
+div.post i.fa, div.thread i.fa {
   margin: 0 4px;
   font-size: 16px;
 }
