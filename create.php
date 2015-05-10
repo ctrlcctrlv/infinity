@@ -21,7 +21,7 @@ $title = $_POST['title'];
 $subtitle = $_POST['subtitle'];
 $username = $_POST['username'];
 $password = $_POST['password'];
-$email = $_POST['email'];
+$email = (isset($_POST['email']) ? $_POST['email'] : '');
 
 $resp = file_get_contents($config['captcha']['provider_check'] . "?" . http_build_query([
 	'mode' => 'check',
