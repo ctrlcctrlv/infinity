@@ -1244,9 +1244,6 @@ div.boardlist a {
 div.mix {
 	display: inline-block;
 } 
-.theme-catalog div.thread:hover {
-	overflow-y: auto; width: 100%
-}
 
 /* Mona Font */
 .aa {
