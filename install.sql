@@ -10,6 +10,11 @@
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
 -- --------------------------------------------------------
 
 --
@@ -134,7 +139,6 @@ CREATE TABLE IF NOT EXISTS `mods` (
   `salt` char(32) CHARACTER SET ascii NOT NULL,
   `type` smallint(2) NOT NULL,
   `boards` text CHARACTER SET utf8 NOT NULL,
-  `email` varchar(1024) DEFAULT '',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`,`username`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 ;
@@ -304,7 +308,7 @@ CREATE TABLE IF NOT EXISTS `ban_appeals` (
 -- Table structure for table `post_clean`
 --
 
-CREATE TABLE IF NOT EXISTS `post_clean` (
+CREATE TABLE `post_clean` (
   `clean_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `post_id` int(11) unsigned NOT NULL,
   `board_id` varchar(58) NOT NULL,
@@ -322,7 +326,7 @@ CREATE TABLE IF NOT EXISTS `post_clean` (
 -- Table structure for table `board_tags`
 --
 
-CREATE TABLE IF NOT EXISTS `board_tags` (
+CREATE TABLE `board_tags` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uri` varchar(30) DEFAULT NULL,
   `tag` varchar(255) DEFAULT NULL,
@@ -335,7 +339,7 @@ CREATE TABLE IF NOT EXISTS `board_tags` (
 -- Table structure for table `tor_cookies`
 --
 
-CREATE TABLE IF NOT EXISTS `tor_cookies` (
+CREATE TABLE `tor_cookies` (
   `cookie` varchar(255) NOT NULL,
   `created` datetime NOT NULL,
   `uses` tinyint(3) unsigned DEFAULT '0',
@@ -348,7 +352,7 @@ CREATE TABLE IF NOT EXISTS `tor_cookies` (
 -- Table structure for table `dnsbl_bypass`
 --
 
-CREATE TABLE IF NOT EXISTS `dnsbl_bypass` (
+CREATE TABLE `dnsbl_bypass` (
   `ip` varchar(255) NOT NULL,
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`ip`)
@@ -360,7 +364,7 @@ CREATE TABLE IF NOT EXISTS `dnsbl_bypass` (
 -- Table structure for table `filters`
 --
 
-CREATE TABLE IF NOT EXISTS `filters` (
+CREATE TABLE `filters` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` varchar(255) DEFAULT NULL,
   `reason` text,
@@ -375,7 +379,7 @@ CREATE TABLE IF NOT EXISTS `filters` (
 -- Table structure for table `pages`
 --
 
-CREATE TABLE IF NOT EXISTS `pages` (
+CREATE TABLE `pages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `board` varchar(255) DEFAULT NULL,
   `name` varchar(255) NOT NULL,
@@ -392,7 +396,7 @@ CREATE TABLE IF NOT EXISTS `pages` (
 -- Table structure for `board_stts`
 --
 
-CREATE TABLE IF NOT EXISTS `board_stats` (
+CREATE TABLE IF NOT EXISTS ``board_stats`` (
 	`stat_uri` VARCHAR(58) NOT NULL,
 	`stat_hour` INT(11) UNSIGNED NOT NULL,
 	`post_count` INT(11) UNSIGNED NULL,
@@ -401,3 +405,9 @@ CREATE TABLE IF NOT EXISTS `board_stats` (
 	`author_ip_array` TEXT NULL,
 	PRIMARY KEY (`stat_uri`, `stat_hour`)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
