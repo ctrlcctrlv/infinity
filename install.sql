@@ -139,6 +139,7 @@ CREATE TABLE IF NOT EXISTS `mods` (
   `salt` char(32) CHARACTER SET ascii NOT NULL,
   `type` smallint(2) NOT NULL,
   `boards` text CHARACTER SET utf8 NOT NULL,
+  `email` varchar(1024) DEFAULT '',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`,`username`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 ;
