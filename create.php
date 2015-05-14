@@ -21,6 +21,7 @@ $title = $_POST['title'];
 $subtitle = $_POST['subtitle'];
 $username = $_POST['username'];
 $password = $_POST['password'];
+$email = (isset($_POST['email']) ? $_POST['email'] : '');
 
 $resp = file_get_contents($config['captcha']['provider_check'] . "?" . http_build_query([
 	'mode' => 'check',
@@ -39,6 +40,8 @@ if (!preg_match('/^[a-zA-Z0-9._]{1,30}$/', $username))
 	error(_('Invalid username'));
 if ($resp !== '1')
 	error($config['error']['captcha']);
+if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+	$email = '';
 
 foreach (listBoards() as $i => $board) {
 	if ($board['uri'] == $uri)
@@ -66,12 +69,13 @@ error(_('The username you\'ve tried to enter already exists!'));
 $salt = generate_salt();
 $password = hash('sha256', $salt . sha1($password));
 
-$query = prepare('INSERT INTO ``mods`` VALUES (NULL, :username, :password, :salt, :type, :boards)');
+$query = prepare('INSERT INTO ``mods`` VALUES (NULL, :username, :password, :salt, :type, :boards, :email)');
 $query->bindValue(':username', $username);
 $query->bindValue(':password', $password);
 $query->bindValue(':salt', $salt);
 $query->bindValue(':type', 20);
 $query->bindValue(':boards', $uri);
+$query->bindValue(':email', $email);
 $query->execute() or error(db_error($query));
 		
 $query = prepare('INSERT INTO ``boards`` (`uri`, `title`, `subtitle`) VALUES (:uri, :title, :subtitle)');

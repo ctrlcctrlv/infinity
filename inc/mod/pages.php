@@ -1914,11 +1914,11 @@ function mod_deletebyip($boardName, $post, $global = false) {
 function mod_user($uid) {
 	global $config, $mod;
 	
-	if (!hasPermission($config['mod']['editusers']) && !(hasPermission($config['mod']['change_password']) && $uid == $mod['id']))
+	if (!hasPermission($config['mod']['editusers']) && !(hasPermission($config['mod']['edit_profile']) && $uid == $mod['id']))
 		error($config['error']['noaccess']);
 
 	if (in_array($mod['boards'][0], array('infinity', 'z')))
-		error('This board has password changing disabled.');
+		error('This board has profile changing disabled.');
 	
 	$query = prepare('SELECT * FROM ``mods`` WHERE `id` = :id');
 	$query->bindValue(':id', $uid);
@@ -1997,8 +1997,8 @@ function mod_user($uid) {
 		return;
 	}
 	
-	if (hasPermission($config['mod']['change_password']) && $uid == $mod['id'] && isset($_POST['password'])) {
-		if ($_POST['password'] != '') {
+	if (hasPermission($config['mod']['edit_profile']) && $uid == $mod['id']) {
+		if (isset($_POST['password']) && $_POST['password'] != '') {
 			$salt = generate_salt();
 			$password = hash('sha256', $salt . sha1($_POST['password']));
 
@@ -2013,13 +2013,50 @@ function mod_user($uid) {
 			login($user['username'], $_POST['password']);
 			setCookies();
 		}
+
+		if (isset($_POST['username']) && $user['username'] !== $_POST['username']) {
+			if ($_POST['username'] == '')
+				error(sprintf($config['error']['required'], 'username'));
+
+			if (!preg_match('/^[a-zA-Z0-9._]{1,30}$/', $_POST['username']))
+				error(_('Invalid username'));
+			
+			$query = prepare('SELECT `username` FROM ``mods``');
+			$query->execute() or error(db_error($query));
+			$users = $query->fetchAll(PDO::FETCH_ASSOC);
+
+			foreach ($users as $i => $v) {
+				if (strtolower($_POST['username']) == strtolower($v['username'])) {
+					error(_('Refusing to change your username because another user is already using it.'));
+				}
+			}
+
+			$query = prepare('UPDATE ``mods`` SET `username` = :username WHERE `id` = :id');
+			$query->bindValue(':id', $uid);
+			$query->bindValue(':username', $_POST['username']);
+			$query->execute() or error(db_error($query));
 		
-		if (hasPermission($config['mod']['manageusers']))
-			header('Location: ?/users', true, $config['redirect_http']);
-		else
-			header('Location: ?/', true, $config['redirect_http']);
+			modLog('Renamed user "' . utf8tohtml($user['username']) . '" <small>(#' . $user['id'] . ')</small> to "' . utf8tohtml($_POST['username']) . '"');
+		}
+	
+		if (isset($_POST['email']) && $user['email'] !== $_POST['email'] && (empty($_POST['email']) || filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))) {
+			// account was renamed
+			$query = prepare('UPDATE ``mods`` SET `email` = :email WHERE `id` = :id');
+			$query->bindValue(':id', $uid);
+			$query->bindValue(':email', $_POST['email']);
+			$query->execute() or error(db_error($query));
 		
-		return;
+			modLog('Changed user\'s email "' . utf8tohtml($user['email']) . '" <small>(#' . $user['id'] . ')</small> to "' . utf8tohtml($_POST['email']) . '"');
+		}
+		
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			if (hasPermission($config['mod']['manageusers']))
+				header('Location: ?/users', true, $config['redirect_http']);
+			else
+				header('Location: ?/', true, $config['redirect_http']);
+			
+			return;
+		}
 	}
 	
 	if (hasPermission($config['mod']['modlog'])) {
@@ -2032,21 +2069,18 @@ function mod_user($uid) {
 	}
 	
 	if ($mod['type'] >= ADMIN){
-	$boards = listBoards();
+		$boards = listBoards();
 	} else {
-	$boards2 = explode(',', $user['boards']);
-	
-	foreach($boards2 as $string){
-		
-		$boards[] = array("uri"=>$string, "title"=>"MY BOARD");
-		
-	}
-	
+		$boards2 = explode(',', $user['boards']);
 
+		foreach ($boards2 as $string){
+			$boards[] = array("uri"=>$string, "title" => _("My board"));
+		}
 	}
+
 	$user['boards'] = explode(',', $user['boards']);
 	
-	mod_page(_('Edit user'), 'mod/user.html', array(
+	mod_page(_('Edit user profile'), 'mod/user.html', array(
 		'user' => $user,
 		'logs' => $log,
 		'boards' => $boards,
@@ -2088,12 +2122,13 @@ function mod_user_new() {
 		$salt = generate_salt();
 		$password = hash('sha256', $salt . sha1($_POST['password']));
 		
-		$query = prepare('INSERT INTO ``mods`` VALUES (NULL, :username, :password, :salt, :type, :boards)');
+		$query = prepare('INSERT INTO ``mods`` VALUES (NULL, :username, :password, :salt, :type, :boards, :email)');
 		$query->bindValue(':username', $_POST['username']);
 		$query->bindValue(':password', $password);
 		$query->bindValue(':salt', $salt);
 		$query->bindValue(':type', $type);
 		$query->bindValue(':boards', implode(',', $boards));
+		$query->bindValue(':email', (isset($_POST['email']) ? $_POST['email'] : ''));
 		$query->execute() or error(db_error($query));
 		
 		$userID = $pdo->lastInsertId();
@@ -2114,7 +2149,7 @@ function mod_users() {
 	if (!hasPermission($config['mod']['manageusers']))
 		error($config['error']['noaccess']);
 	
-	$query = query("SELECT ``m``.`id`, ``m``.`username`, ``m``.`boards`, ``m``.`type`, 
+	$query = query("SELECT ``m``.`id`, ``m``.`username`, ``m``.`boards`, ``m``.`type`, ``m``.`email`, 
 	``ml``.`time` last, ``ml``.`text` action
 	FROM ``mods`` AS m
 	LEFT JOIN (
@@ -2125,7 +2160,7 @@ function mod_users() {
 	        FROM ``modlogs``
 	        GROUP BY `mod`   
 	    ) AS ml2 USING (`mod`, time)
-	) AS ml ON m.id = ml.`mod` ORDER BY ``m``.`type` DESC;") or error(db_error());
+	) AS ml ON m.id = ml.`mod` GROUP BY ``m``.`id` ORDER BY ``m``.`type` DESC;") or error(db_error());
 	$users = $query->fetchAll(PDO::FETCH_ASSOC);
 	
 	foreach ($users as &$user) {

@@ -229,12 +229,9 @@
 		{% if not config.field_disable_password or (mod and post.mod|hasPermission(config.mod.bypass_field_disable, board.uri)) %}<tr>
 			<th>
 				{% trans %}Password{% endtrans %}
-				<!-- For Chrom(e|ium) -->
-				<input type='text' style='display: none'>
-				<input type='password' style='display: none'>
 			</th>
 			<td>
-				<input type="password" name="password" value="" size="12" maxlength="18" autocomplete="off"> 
+				<input type="text" name="password" value="" size="12" maxlength="18" autocomplete="off"> 
 				<span class="unimportant hint">{% trans %}(For file and post deletion.){% endtrans %}</span>
 			</td>
 		</tr>{% endif %}

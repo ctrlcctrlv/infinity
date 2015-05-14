@@ -69,14 +69,15 @@ form table tr th {
   color:#C5C8C6
 }
 div.ban h2 {
-  background:#FCA;
+  background:#282A2E;
   color:inherit
 }
 div.ban {
-  border-color:#800
+  border-color:#282A2E;
 }
-div.ban p {
-  color:#000
+div.ban {
+  color:#C5C8C6;
+  background-color: inherit;
 }
 div.pages {
   background:#1d1f21;

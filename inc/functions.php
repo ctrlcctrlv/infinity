@@ -589,8 +589,41 @@ function boardTitle($uri) {
 	return false;
 }
 
-function purge($uri) {
+function cloudflare_purge($uri) {
+	global $config;
+
+	if (!$config['cloudflare']['enabled']) return;
+
+	$fields = array(
+		'a' => 'zone_file_purge',
+		'tkn' => $config['cloudflare']['token'],
+		'email' => $config['cloudflare']['email'],
+		'z' => $config['cloudflare']['domain'],
+		'url' => 'https://' . $config['cloudflare']['domain'] . '/' . $uri
+	);
+
+	$fields_string = http_build_query($fields);
+
+	$ch = curl_init();
+
+	curl_setopt($ch, CURLOPT_URL, 'https://www.cloudflare.com/api_json.html');
+	curl_setopt($ch, CURLOPT_POST, count($fields));
+	curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+	$result = curl_exec($ch);
+
+	curl_close($ch);
+
+	return $result;
+}
+
+function purge($uri, $cloudflare = false) {
 	global $config, $debug;
+
+	if ($cloudflare) {
+		cloudflare_purge($uri);
+	}
 
 	if (!isset($config['purge'])) return;
 
@@ -986,7 +1019,7 @@ function fetchBoardTags( $uris ) {
 				$boardTags[ $tagRow['uri'] ] = array();
 			}
 			
-			$boardTags[ $tagRow['uri'] ][] = htmlentities( utf8_encode( $tag ) );
+			$boardTags[ $tagRow['uri'] ][] = $tag;
 		}
 	}
 	

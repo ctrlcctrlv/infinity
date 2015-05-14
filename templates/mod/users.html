@@ -3,6 +3,7 @@
 		<th>{% trans 'ID' %}</th>
 		<th>{% trans 'Username' %}</th>
 		<th>{% trans 'Type' %}</th>
+		<th>{% trans 'Email' %}</th>
 		<th>{% trans 'Boards' %}</th>
 		{% if mod|hasPermission(config.mod.modlog) %}
 			<th>{% trans 'Last action' %}</th>
@@ -26,6 +27,9 @@
 				{% else %}
 					<em>{% trans 'Unknown' %}</em> ({{ user.type }})
 				{% endif %}
+			</td>
+			<td>
+				{{ user.email|e }}
 			</td>
 			<td>
 				{% if user.boards == '' %}

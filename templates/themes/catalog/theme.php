@@ -76,13 +76,17 @@
 
 					if ($files[0]) {
 						if ($files[0]->file == 'deleted') {
-							$post['file'] = $config['image_deleted'];
+							$post['file'] = $config['root'] . $config['image_deleted'];
 						}
 						else if($files[0]->thumb == 'spoiler') {
-							$post['file'] = '/' . $config['spoiler_image'];
+							$post['file'] = $config['root'] . $config['spoiler_image'];
 						}
 						else {
-							$post['file'] = $config['uri_thumb'] . $files[0]->thumb;
+							if ($files[0]->thumb == 'file') {
+								$post['file'] = $config['root'] . sprintf($config['file_thumb'], 'file.png');
+							} else {
+								$post['file'] = $config['uri_thumb'] . $files[0]->thumb;
+							}
 							$post['fullimage'] = $config['uri_img']  . $files[0]->file;
 						}
 					}

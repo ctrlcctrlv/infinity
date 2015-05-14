@@ -839,7 +839,7 @@
 	// Location of thumbnail to use for spoiler images.
 	$config['spoiler_image'] = 'static/spoiler.png';
 	// Location of thumbnail to use for deleted images.
-	// $config['image_deleted'] = 'static/deleted.png';
+	$config['image_deleted'] = 'static/deleted.png';
 	// Location of placeholder image for fileless posts in catalog.
 	$config['no_file_image'] = 'static/no-file.png';
 
@@ -1530,7 +1530,7 @@
 	// Edit any users' login information
 	$config['mod']['editusers'] = ADMIN;
 	// Change user's own password
-	$config['mod']['change_password'] = JANITOR;
+	$config['mod']['edit_profile'] = JANITOR;
 	// Delete a user
 	$config['mod']['deleteusers'] = ADMIN;
 	// Create a user
@@ -1783,4 +1783,14 @@
 	$config['report_captcha'] = false;
 
 	// Allowed HTML tags in ?/edit_pages.
-	$config['allowed_html'] = 'a[href|title],p,br,li,ol,ul,strong,em,u,h2,b,i,tt,div,img[src|alt|title],hr';
+	$config['allowed_html'] = 'a[href|title],p,br,li,ol,ul,strong,em,u,h2,b,i,tt,div,img[src|alt|title],hr,h1,h2,h3,h4,h5';
+
+	// Use custom assets? (spoiler file, etc; this is used by ?/settings and ?/assets)
+	$config['custom_assets'] = false;
+
+	// If you use CloudFlare set these for some features to work correctly.
+	$config['cloudflare'] = array();
+	$config['cloudflare']['enabled'] = false;
+	$config['cloudflare']['token'] = 'token';
+	$config['cloudflare']['email'] = 'email';
+	$config['cloudflare']['domain'] = 'example.com';

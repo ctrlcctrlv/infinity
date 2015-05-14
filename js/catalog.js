@@ -17,6 +17,7 @@ if (active_page == 'catalog') $(function(){
 		var value = this.value, old;
 		$(".grid-li").removeClass("grid-size-vsmall");
 		$(".grid-li").removeClass("grid-size-small");
+		$(".grid-li").removeClass("grid-size-medium");
 		$(".grid-li").removeClass("grid-size-large");
 		$(".grid-li").addClass("grid-size-"+value);
 		catalog.image_size = value;
@@ -35,4 +36,14 @@ if (active_page == 'catalog') $(function(){
 	if (catalog.image_size !== undefined) {
 		$('#image_size').val(catalog.image_size).trigger('change');
 	}
+
+	$('div.thread').on('click', function(e) {
+		if ($(this).css('overflow-y') === 'hidden') {
+			$(this).css('overflow-y', 'auto');
+			$(this).css('width', '100%');
+		} else {
+			$(this).css('overflow-y', 'hidden');
+			$(this).css('width', 'auto');
+		}
+	});
 });

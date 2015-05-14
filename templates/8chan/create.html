@@ -7,6 +7,7 @@
 <tr><th>Subtitle</th><td><input name="subtitle" type="text"> <span class="unimportant">{% trans %}(must be < 200 chars){% endtrans %}</td></tr>
 <tr><th>{% trans %}Username{% endtrans %}</th><td><input name="username" type="text"> <span class="unimportant">{% trans %}(must contain only alphanumeric, periods and underscores){% endtrans %}</span></td></tr>
 <tr><th>{% trans %}Password{% endtrans %}</th><td><input name="password" type="text" value="{{ password }}" readonly> <span class="unimportant">{% trans %}(write this down){% endtrans %}</span></td></tr>
+<tr><th>{% trans %}Email{% endtrans %}</th><td><input name="email" type="text" value=""> <span class="unimportant">{% trans %}(optional, for board recovery){% endtrans %}</span></td></tr>
 <tr><th>{% trans %}CAPTCHA{% endtrans %}</th><td>{{ captcha['html'] }}<br/>
 <input class="captcha_text" name="captcha_text" size="25" maxlength="6" autocomplete="off" type="text">
 <input class="captcha_cookie" name="captcha_cookie" type="hidden" autocomplete="off" value="{{ captcha['cookie']|e }}"><br/></td></tr>

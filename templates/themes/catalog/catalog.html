@@ -32,6 +32,7 @@
         <select id="image_size" style="display: inline-block">
                 <option value="vsmall">{% trans 'Very small' %}</option>
                 <option selected value="small">{% trans 'Small' %}</option>
+                <option value="medium">{% trans 'Medium' %}</option>
                 <option value="large">{% trans 'Large' %}</option>
         </select>
         <div class="threads">
@@ -44,6 +45,7 @@
 				 data-id="{{ post.id }}"
 				 data-sticky="{% if post.sticky %}true{% else %}false{% endif %}"
 				 data-locked="{% if post.locked %}true{% else %}false{% endif %}"
+				 data-cycle="{% if post.cycle %}true{% else %}false{% endif %}"
 			>
                                 <div class="thread grid-li grid-size-small">  
                                         <a href="{{post.link}}">  
@@ -55,7 +57,7 @@
                                                  id="img-{{ post.id }}" data-subject="{% if post.subject %}{{ post.subject|e }}{% endif %}" data-name="{{ post.name|e }}" data-muhdifference="{{ post.muhdifference }}" class="{{post.board}} thread-image" title="{{post.bump|date('%b %d %H:%M')}}">
                                         </a>
                                                 <div class="replies">
-                                                        <strong>R: {{ post.reply_count }} / I: {{ post.image_count }}{% if post.sticky %} (sticky){% endif %}</strong>
+                                                        <strong>R: {{ post.reply_count }} / I: {{ post.image_count }} / P: {{ (loop.index // config.threads_per_page) + 1 }} {% include 'post/mod_attributes.html' %} </strong>
                                                         {% if post.subject %}
 								<p class="intro">
 									<span class="subject">

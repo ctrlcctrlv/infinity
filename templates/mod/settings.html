@@ -30,7 +30,8 @@
 			<option value="fileboard" {% if config.file_board %}selected{% endif %}>File board</option>
 		</select></td></tr>
 		<tr><th>{% trans %}Country flags{% endtrans %}</th><td><input type="checkbox" name="country_flags" {% if config.country_flags %}checked{% endif %}></td></tr>
-		<tr><th>{% trans %}/pol/-style user flags{% endtrans %}<br><span class="unimportant">Enabling this disables country flags<br>Make sure to actually upload some first!</span></th><td><input type="checkbox" name="user_flags" {% if config.user_flag %}checked{% endif %}></td></tr>
+		<tr><th>{% trans %}/pol/-style user flags{% endtrans %}<br><span class="unimportant">Enabling this disables country flags<br>Make sure to actually upload some first on the flags page!</span></th><td><input type="checkbox" name="user_flags" {% if config.user_flag %}checked{% endif %}></td></tr>
+		<tr><th>{% trans %}Custom board assets{% endtrans %}<br><span class="unimportant">Enabling this uses your custom spoiler/deleted/no file images.<br>Make sure to actually upload some first on the assets page or they will 404!</span></th><td><input type="checkbox" name="custom_assets" {% if config.custom_assets %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Forced anonymous{% endtrans %}</th><td><input type="checkbox" name="field_disable_name" {% if config.field_disable_name %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}YouTube/Voocaroo embedding{% endtrans %}</th><td><input type="checkbox" name="enable_embedding" {% if config.enable_embedding %}checked{% endif %}></td></tr>
 		<tr class='imgboard'><th>{% trans %}Require image for OP{% endtrans %}</th><td><input type="checkbox" name="force_image_op" {% if config.force_image_op %}checked{% endif %}></td></tr>
@@ -75,7 +76,7 @@
 		</td></tr>
 		<tr class='fileboard'><th>{% trans %}Disable OP image upload{% endtrans %}</th><td><input type="checkbox" name="allowed_ext_op" {% if config.allowed_ext_op %}checked{% endif %}>
 			<label> (<input type="checkbox" name="allowed_ext_op_video" {% if config.allowed_ext_op and 'webm' in config.allowed_ext_op %}checked{% endif %}> also allow video upload)</label></td></tr>
-		<tr class='fileboard imgboard'><th>{% trans %}Keep original filename{% endtrans %}</th><td><input type="checkbox" name="anal_filenames" {% if config.filename_func == 'filename_func' %}checked{% endif %}></td></tr>
+		<tr class='fileboard'><th>{% trans %}Keep original filename{% endtrans %}</th><td><input type="checkbox" name="anal_filenames" {% if config.filename_func == 'filename_func' %}checked{% endif %}></td></tr>
 		</tr>
 		<tr><th>{% trans %}Max images per post{% endtrans %}</th><td><select name="max_images">{% for i in 1..5 %}<option value="{{ i }}" {% if config.max_images == i %} selected {% endif %}>{{ i }}</option>{% endfor %}</select></td></tr>
 	</table>
@@ -88,6 +89,7 @@
 
 
 	<p style="text-align:center"><a href="?/banners/{{board.uri}}">{% trans %}Edit board banners{% endtrans %}</a></p>
+	<p style="text-align:center"><a href="?/assets/{{board.uri}}">{% trans %}Edit board assets{% endtrans %}</a></p>
 	<p style="text-align:center"><a href="?/flags/{{board.uri}}">{% trans %}Edit board flags{% endtrans %}</a></p>
 	<p style="text-align:center"><a href="?/volunteers/{{board.uri}}">{% trans %}Edit board volunteers{% endtrans %}</a></p>
 	<p style="text-align:center"><a href="?/tags/{{board.uri}}">{% trans %}Edit board tags{% endtrans %}</a></p>
