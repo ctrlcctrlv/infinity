@@ -67,6 +67,9 @@ table.modlog tr th {
 	background-color: #F0E0D6;
 }
 
+div.boardlist:not(.bottom) {
+  background-color: #F0E0D6;
+}
 
 
 .box {
