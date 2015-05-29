@@ -55,6 +55,11 @@ if (isset( $_GET['tags'] ) && $_GET['tags'] != "") {
 	}
 	
 	$search['tags'] = array_splice( $search['tags'], 0, 5 );
+	
+	foreach ($search['tags'] as &$tag)
+	{
+		$tag = strtolower( $tag );
+	}
 }
 
 // What time range?
@@ -64,7 +69,7 @@ if (isset( $_GET['time'] ) && is_numeric( $_GET['time'] ) ) {
 
 // Include what in the uri / title / subtitle?
 if (isset( $_GET['title'] ) && $_GET['title'] != "") {
-	$search['title'] = $_GET['title'];
+	$search['title'] = strtolower( $_GET['title'] );
 }
 
 /* Search boards */
@@ -92,10 +97,10 @@ foreach ($boards as $board) {
 		if (strpos("/{$board['uri']}/", $search['title']) !== false) {
 			$board['weight'] = 30;
 		}
-		else if (strpos($board['title'], $search['title']) !== false) {
+		else if (strpos(strtolower($board['title']), $search['title']) !== false) {
 			$board['weight'] = 20;
 		}
-		else if (strpos($board['subtitle'], $search['title']) !== false) {
+		else if (strpos(strtolower($board['subtitle']), $search['title']) !== false) {
 			$board['weight'] = 10;
 		}
 		else {

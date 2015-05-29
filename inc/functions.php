@@ -1023,7 +1023,7 @@ function fetchBoardTags( $uris ) {
 				$boardTags[ $tagRow['uri'] ] = array();
 			}
 			
-			$boardTags[ $tagRow['uri'] ][] = $tag;
+			$boardTags[ $tagRow['uri'] ][] = strtolower( $tag );
 		}
 	}
 	
