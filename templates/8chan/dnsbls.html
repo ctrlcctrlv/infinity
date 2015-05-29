@@ -1,8 +1,6 @@
 <form method="POST">
-<p>{% trans %}Your IP is listed in our DNSBL. To stop attackers, we require users who use certain IP ranges to pass a test which proves they are human every 24 hours.{% endtrans %}</p>
-<p>{% trans %}Tor users need to fill out the CAPTCHA every 3 hours or 5 posts.{% endtrans %}</p>
-
-<p>{% trans %}It is also possible that the site is currently under attack and we are requiring everyone to pass the test right now. Sorry for the inconvenience.{% endtrans %}</p>
+<p>{% trans %}Please fill out the CAPTCHA below to make your post. This is required once every 24 hours for normal users.{% endtrans %}
+<p>{% trans %}Tor users need to fill out the CAPTCHA every 3 hours or 5 posts, and must have cookies enabled so they can keep the "tor" cookie.{% endtrans %}</p>
 
 {{ ayah_html|raw }}
 
