@@ -54,7 +54,7 @@ case "check":
     $query = prepare("DELETE FROM `captchas` WHERE `cookie` = ? AND `extra` = ?");
     $query->execute([$_GET['cookie'], $_GET['extra']]);
 
-    if ($ary[0]['text'] !== $_GET['text']) {
+    if (strtolower($ary[0]['text']) !== strtolower($_GET['text'])) {
       echo "0";
     }
     else {
