@@ -58,7 +58,7 @@
 	$config['allowed_ext_files'][] = 'mp4';
 	$config['webm']['use_ffmpeg'] = true;
 	$config['webm']['allow_audio'] = true;
-	$config['webm']['max_length'] = 60 * 30;
+	$config['webm']['max_length'] = 60 * 120;
 
 	// Mod shit
 	$config['mod']['groups'][25] = 'GlobalVolunteer';
