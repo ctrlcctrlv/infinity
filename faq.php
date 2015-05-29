@@ -70,12 +70,14 @@ $body = <<<EOT
 <p>Make sure you are using the volunteer interface to view your board. The URL of your browser should be <a href="/mod.php?/yourboard"><tt>https://8ch.net/mod.php?/yourboard</tt></a>.</p>
 
 <p>If you are the owner of the board, put "## Board Owner" in the name field. If someone else is the owner and you are just assisting them, put "## Board Volunteer" in the name field. Write your post and click "Reply". It will appear with your capcode.</p>
-<h2>Help! The owner of X board is doing something I don't like!</h2>
-<p>If they aren't doing anything illegal, I can't help you. I don't dictate how board owners should manage their boards.</p>
-<p>If they are doing something illegal, email me.</p>
-
-<h2>Can you give me X board?</h2>
-<p>If the owner of the board is inactive or the board is broken due to bad CSS, sure. Send me an email. You can see a list of boards that qualify for being taken over <a href="/claim.html">here</a>.</p>
+<h2>Help! The owner of X board is doing something I don't like! Can I have X board?</h2>
+<p>If they aren't doing anything illegal, I can't help you. I don't dictate how board owners should manage their boards <a href="http://8archive.moe/meta/thread/18555/#18555">outside of a few conditions</a>:</p>
+<ol>
+<li>the board owner nukes the board either by deleting all the posts or banning so much IP space hardly anyone can post</li>
+<li>the board owner implements CSS which makes posting impossible or very difficult, and someone wants to use the board name for something else</li>
+<li>the board owner allows illegal content to be posted, or states in the rules that the global rule doesn't apply</li>
+</ol>
+<p>If they are, email me.</p>
 
 <h2>Can you add some new feature?</h2>
 <p>Open a <a href="https://github.com/ctrlcctrlv/8chan/issues">Github issue</a>. Better yet, write it yourself and open a pull request.
@@ -164,9 +166,8 @@ Assuming the /b/ board, they are as follows:</p>
 <p>The current key fingerprint is <tt>6F12 EC72 A82A BCA3 5235  063A 10DD C983 901A A183</tt>.</p>
 
 <h2>How do I donate?</h2>
-<p>Donations can be sent to 1NpQaXqmCBji6gfX8UgaQEmEstvVY7U32C (Bitcoin) or LUPgSCJt3iGeJXUETVhmnbQ89Riaq1yjZm (Litecoin).</p>
+<p>Donations can be sent to 1NpQaXqmCBji6gfX8UgaQEmEstvVY7U32C (Bitcoin) or LgNczzSm64C3BmaXyFVQnM3PvcmSd196f6 (Litecoin).</p>
 <p>I am also a big fan of Monero (XMR). You can send XMR to our <a href="http://openalias.org">OpenAlias</a> in the simplewallet client, or simply send to 49dBJhGhYFxJEfydS6hH6GRyg1W4cDgupdNVtw7j1WtcUY7xPXwNLw6fUVay644viaCcEhMFG1Z7SjjxRXEFDdNWJdvH9kS.</p>
-<p>If you would like to support development of the engine that 8chan runs on (infinity), you may also <a href="https://flattr.com/submit/auto?user_id=copypaste&url=https%3A%2F%2F8ch.net%2Finfinity.html" target="_blank"><img src="//button.flattr.com/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0"></a>.</p>
 <h2>Are you really a cripple?</h2>
 <p>Yes.</p>
 <img src="/static/Mamoru.jpg" alt="Mamoru" style="width:128px">

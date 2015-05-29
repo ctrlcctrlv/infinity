@@ -528,8 +528,14 @@ FLAGS;
 			$force_subject_op = isset($_POST['force_subject_op']) ? 'true' : 'false';
 			$force_flag = isset($_POST['force_flag']) ? 'true' : 'false';
 			$tor_posting = isset($_POST['tor_posting']) ? 'true' : 'false';
+			$tor_image_posting = isset($_POST['tor_image_posting']) ? 'true' : 'false';
 			$new_thread_capt = isset($_POST['new_thread_capt']) ? 'true' : 'false';
 			$oekaki = ($imgboard || $fileboard) && isset($_POST['oekaki']) ? 'true' : 'false';
+			$view_bumplock = isset($_POST['view_bumplock']) ? '-1' : 'MOD';
+
+			if (($tor_image_posting === 'true') && isset($_POST['meta_noindex'])) {
+				error('Please index your board to enable this.');
+			}
 			
 			if ($_POST['locale'] !== 'en' && in_array($_POST['locale'], $possible_languages)) {
 				$locale = "\$config['locale'] = '{$_POST['locale']}.UTF-8';";
@@ -706,12 +712,14 @@ FLAGS;
 \$config['force_subject_op'] = $force_subject_op;
 \$config['force_flag'] = $force_flag;
 \$config['tor_posting'] = $tor_posting;
+\$config['tor_image_posting'] = $tor_image_posting;
 \$config['new_thread_capt'] = $new_thread_capt;
 \$config['hour_max_threads'] = $hour_max_threads;
 \$config['reply_limit'] = $reply_limit;
 \$config['max_pages'] = $max_pages;
 \$config['max_newlines'] = $max_newlines;
 \$config['oekaki'] = $oekaki;
+\$config['mod']['view_bumplock'] = $view_bumplock;
 $code_tags $katex $replace $multiimage $allow_flash $allow_pdf $user_flags 
 $assets
 $locale
@@ -735,7 +743,7 @@ EOT;
 				foreach ($matched[0] as $match) {
 					$match_okay = false;
 					foreach ($config['allowed_offsite_urls'] as $allowed_url) {
-						if (strpos($match, $allowed_url) !== false && strpos($match, '#') === false) {
+						if (strpos($match, $allowed_url) !== false && strpos($match, '#') === false && strpos($match, '?') === false && strpos($match, ';') === false) {
 							$match_okay = true;
 						}
 					}

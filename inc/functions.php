@@ -951,7 +951,9 @@ function fetchBoardActivity( array $uris = array(), $forTime = false, $detailed 
 				}
 				
 				// Set the active posters as the unserialized array.
-				$boardActivity['active'][$bsRow['stat_uri']] = unserialize( $bsRow['author_ip_array'] );
+				$uns = @unserialize($bsRow['author_ip_array']);
+				if (!$uns) continue;
+				$boardActivity['active'][$bsRow['stat_uri']] = $uns;
 				// Start the average PPH off at the current post count.
 				$boardActivity['average'][$bsRow['stat_uri']] = $bsRow['post_count'];
 			}
@@ -970,7 +972,9 @@ function fetchBoardActivity( array $uris = array(), $forTime = false, $detailed 
 				}
 				
 				// Merge our active poster arrays. Unique counting is done below.
-				$boardActivity['active'][$bsRow['stat_uri']] = array_merge( $boardActivity['active'][$bsRow['stat_uri']], unserialize( $bsRow['author_ip_array'] ) );
+				$uns = @unserialize($bsRow['author_ip_array']);
+				if (!$uns) continue;
+				$boardActivity['active'][$bsRow['stat_uri']] = array_merge( $boardActivity['active'][$bsRow['stat_uri']], $uns );
 				// Add our post count to the average. Averaging is done below.
 				$boardActivity['average'][$bsRow['stat_uri']] += $bsRow['post_count'];
 			}
@@ -1019,7 +1023,7 @@ function fetchBoardTags( $uris ) {
 				$boardTags[ $tagRow['uri'] ] = array();
 			}
 			
-			$boardTags[ $tagRow['uri'] ][] = $tag;
+			$boardTags[ $tagRow['uri'] ][] = strtolower( $tag );
 		}
 	}
 	
@@ -2553,7 +2557,7 @@ function strip_combining_chars($str) {
 		$o = 0;
 		$ord = ordutf8($char, $o);
 
-		if ( ($ord >= 768 && $ord <= 879) || ($ord >= 7616 && $ord <= 7679) || ($ord >= 8400 && $ord <= 8447) || ($ord >= 65056 && $ord <= 65071)){
+		if ( ($ord >= 768 && $ord <= 879) || ($ord >= 1750 && $ord <= 1773) || ($ord >= 3655 && $ord <= 3659) || ($ord >= 7616 && $ord <= 7679) || ($ord >= 8400 && $ord <= 8447) || ($ord >= 65056 && $ord <= 65071)){
 			continue;
 		}
 
