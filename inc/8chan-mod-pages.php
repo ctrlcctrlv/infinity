@@ -671,7 +671,18 @@ FLAGS;
 					$max_newlines = $mn;
 				}
 			} else {
-				$max_newlines = $mn;
+				$max_newlines = 0;
+			}
+
+			if (isset($_POST['min_body'])) {
+				$mb = (int)$_POST['min_body'];
+				if ($mb < 0 || $mb > 1024) {
+					$min_body = 0;
+				} else {
+					$min_body = $mb;
+				}
+			} else {
+				$min_body = 0;
 			}
 
 			if (!(strlen($title) < 40))
@@ -721,6 +732,7 @@ FLAGS;
 \$config['max_pages'] = $max_pages;
 \$config['max_newlines'] = $max_newlines;
 \$config['oekaki'] = $oekaki;
+\$config['min_body'] = $min_body;
 \$config['mod']['view_bumplock'] = $view_bumplock;
 $code_tags $katex $replace $multiimage $allow_flash $allow_pdf $user_flags 
 $assets
