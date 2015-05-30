@@ -49,6 +49,7 @@
 		<tr class='imgboard'><th>{% trans %}Allow SWF uploading{% endtrans %}</th><td><input type="checkbox" name="allow_flash" {% if 'swf' in config.allowed_ext_files %}checked{% endif %}></td></tr>
 		<tr class='imgboard'><th>{% trans %}Allow PDF uploading{% endtrans %}</th><td><input type="checkbox" name="allow_pdf" {% if 'pdf' in config.allowed_ext_files %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Enable dice rolling{% endtrans %}</th><td><input type="checkbox" name="allow_roll" {% if config.allow_roll %}checked{% endif %}></td></tr>
+		<tr><th><a href="http://blog.xkcd.com/2008/01/14/robot9000-and-xkcd-signal-attacking-noise-in-chat/">{% trans %}ROBOT9000{% endtrans %}</a></th><td><input type="checkbox" name="robot_enable" {% if config.robot_enable %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Don't allow users to repost images (whole board){% endtrans %}</th><td><input type="checkbox" name="image_reject_repost" {% if config.image_reject_repost %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Don't allow users to repost images (same thread){% endtrans %}</th><td><input type="checkbox" name="image_reject_repost_in_thread" {% if config.image_reject_repost_in_thread %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Allow a poster to delete his own posts{% endtrans %}</th><td><input type="checkbox" name="allow_delete" {% if config.allow_delete %}checked{% endif %}></td></tr>
