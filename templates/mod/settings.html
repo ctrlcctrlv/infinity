@@ -88,7 +88,7 @@
 	<table>
 		<tr><th colspan="2"><strong>{% trans %}Spam settings{% endtrans %}</strong></th></tr>
 		<tr><th>{% trans %}Early 404{% endtrans %}<br><span class="unimportant">With this enabled, threads with less than 10 replies will 404 at page 5 instead of at page 15.<br>In effect, this makes it so that raiders have to put 10 replies in all their threads to slide an entire board.</span></th><td><input type="checkbox" name="early_404" {% if config.early_404 %}checked{% endif %}></td></tr>
-		<tr><th>{% trans %}Max threads per hour board-wide{% endtrans %}<br><span class="unimportant">Only allow X threads to be made per hour, regardless of poster<br>If a thread is deleted, it's not counted</span></th><td><select name="hour_max_threads"><option value="none">none</option>{% for i in ['10', '25', '50', '100'] %}<option value="{{ i }}" {% if config.hour_max_threads == i %} selected {% endif %}>{{ i }}</option>{% endfor %}</select></td></tr>
+		<tr><th>{% trans %}Max threads per hour board-wide{% endtrans %}<br><span class="unimportant">Only allow X threads to be made per hour, regardless of poster<br>If a thread is deleted, it's not counted</span></th><td><select name="hour_max_threads"><option value="none">none</option>{% for i in 1..100 %}<option value="{{ i }}" {% if config.hour_max_threads == i %} selected {% endif %}>{{ i }}</option>{% endfor %}</select></td></tr>
 	</table>
 
 

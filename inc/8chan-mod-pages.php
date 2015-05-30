@@ -635,8 +635,8 @@ FLAGS;
 				}
 			}
 
-			if (isset($_POST['hour_max_threads']) && in_array($_POST['hour_max_threads'], ['10', '25', '50', '100'])) {
-				$hour_max_threads = $_POST['hour_max_threads'];	
+			if (isset($_POST['hour_max_threads']) && (int)$_POST['hour_max_threads'] > 0 && (int)$_POST['hour_max_threads'] < 101 ) {
+				$hour_max_threads = (int)$_POST['hour_max_threads'];	
 			} else {
 				$hour_max_threads = 'false';
 			}
