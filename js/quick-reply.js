@@ -210,7 +210,7 @@
 		// Synchronise other inputs
 		$origPostForm.find('input[type="text"],select').on('change input propertychange', function() {
 			$postForm.find('[name="' + $(this).attr('name') + '"]').val($(this).val());
-		});
+		}).change();
 		$postForm.find('input[type="text"],select').on('change input propertychange', function() {
 			$origPostForm.find('[name="' + $(this).attr('name') + '"]').val($(this).val());
 		});
