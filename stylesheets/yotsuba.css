@@ -105,3 +105,9 @@ table.board-list-table .board-tags .board-cell:hover {
 table.board-list-table tr:nth-of-type( even ) .board-tags .board-cell {
 	background: #ede2d4;
 }
+
+#quick-reply .post-table, #quick-reply td {
+	border-collapse: collapse;
+	background: none repeat scroll 0% 0% #f0e0d6;
+	margin: 0px;
+}
