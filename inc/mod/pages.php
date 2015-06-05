@@ -2325,8 +2325,9 @@ function mod_new_pm($username) {
 
 		if ($row['boards'] === '*') {
 			// If the global user PM'd them first within the last month, they can reply.
-			$check = prepare('SELECT * FROM ``pms`` WHERE FROM_UNIXTIME(`time`) < DATE_SUB(NOW(), INTERVAL 1 MONTH) AND `to` = :to');
-			$check->bindValue(':to', $row['id']);
+			$check = prepare('SELECT * FROM ``pms`` WHERE FROM_UNIXTIME(`time`) > DATE_SUB(NOW(), INTERVAL 1 MONTH) AND `sender` = :sender AND `to` = :to');
+			$check->bindValue(':sender', $row['id']);
+			$check->bindValue(':to', $mod['id']);
 			$check->execute() or error(db_error($check));
 			if (!$check->rowCount()) {
 				error(_('You may not PM a member of global staff who did not PM you within the last month. Try posting on /operate/ or emailing us instead: admin@8chan.co'));
