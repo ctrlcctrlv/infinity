@@ -1381,6 +1381,12 @@
 	// PM snippet (for ?/inbox) length in characters.
 	$config['mod']['snippet_length'] = 75;
 
+	// Max PMs that can be sent by one user per hour.
+	$config['mod']['pm_ratelimit'] = 100;
+
+	// Maximum size of a PM.
+	$config['mod']['pm_maxsize'] = 8192;
+
 	// Edit raw HTML in posts by default.
 	$config['mod']['raw_html_default'] = false;
 
@@ -1544,6 +1550,10 @@
 	$config['mod']['modlog_ip'] = MOD;
 	// Create a PM (viewing mod usernames)
 	$config['mod']['create_pm'] = JANITOR;
+	// Create a PM for anyone 
+	$config['mod']['pm_all'] = ADMIN;
+	// Bypass PM ratelimit
+	$config['mod']['bypass_pm_ratelimit'] = ADMIN;
 	// Read any PM, sent to or from anybody
 	$config['mod']['master_pm'] = ADMIN;
 	// Rebuild everything

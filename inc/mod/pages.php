@@ -2299,21 +2299,48 @@ function mod_new_pm($username) {
 	if (!hasPermission($config['mod']['create_pm']))
 		error($config['error']['noaccess']);
 	
-	$query = prepare("SELECT `id` FROM ``mods`` WHERE `username` = :username");
+	$query = prepare("SELECT `id`, `boards` FROM ``mods`` WHERE `username` = :username");
 	$query->bindValue(':username', $username);
 	$query->execute() or error(db_error($query));
-	if (!$id = $query->fetchColumn()) {
-		// Old style ?/PM: by user ID
-		$query = prepare("SELECT `username` FROM ``mods`` WHERE `id` = :username");
-		$query->bindValue(':username', $username);
-		$query->execute() or error(db_error($query));
-		if ($username = $query->fetchColumn())
-			header('Location: ?/new_PM/' . $username, true, $config['redirect_http']);
-		else
-			error($config['error']['404']);
+	if (!$row = $query->fetch()) {
+		error($config['error']['404']);
+	}
+
+	// Rate limit for PMs
+	if (!hasPermission($config['mod']['bypass_pm_ratelimit'])) {
+		$ratelimit = prepare('SELECT `id` FROM ``pms`` WHERE FROM_UNIXTIME(`time`) > DATE_SUB(NOW(), INTERVAL 1 HOUR) AND `sender` = :sender');
+		$ratelimit->bindValue(':sender', $mod['id']);
+		$ratelimit->execute() or error(db_error($ratelimit));
+
+		if ($ratelimit->rowCount() >= $config['mod']['pm_ratelimit']) {
+			error(_('You are sending too many PMs per hour. Try again later.'));
+		}
+	}
+
+	// Lock users into only being able to message users assigned to their board.
+	if (!hasPermission($config['mod']['pm_all'])) {
+		if ($mod['boards'][0] != $row['boards'] && !($row['boards'] === '*')) {
+			error(_('You may only PM users assigned to your board'));
+		}
+
+		if ($row['boards'] === '*') {
+			// If the global user PM'd them first within the last month, they can reply.
+			$check = prepare('SELECT * FROM ``pms`` WHERE FROM_UNIXTIME(`time`) < DATE_SUB(NOW(), INTERVAL 1 MONTH) AND `to` = :to');
+			$check->bindValue(':to', $row['id']);
+			$check->execute() or error(db_error($check));
+			if (!$check->rowCount()) {
+				error(_('You may not PM a member of global staff who did not PM you within the last month. Try posting on /operate/ or emailing us instead: admin@8chan.co'));
+			}
+		}
 	}
 	
 	if (isset($_POST['message'])) {
+		$id = $row['id'];
+
+		if (strlen($_POST['message']) > $config['mod']['pm_maxsize']) {
+			error(sprintf(_('Your message exceeds %d characters, please shorten it.'), $config['mod']['pm_maxsize']));
+		}
+
 		$_POST['message'] = escape_markup_modifiers($_POST['message']);
 		markup($_POST['message']);
 		
@@ -2336,7 +2363,7 @@ function mod_new_pm($username) {
 	
 	mod_page(sprintf('%s %s', _('New PM for'), $username), 'mod/new_pm.html', array(
 		'username' => $username,
-		'id' => $id,
+		'id' => $row['id'],
 		'token' => make_secure_link_token('new_PM/' . $username)
 	));
 }
