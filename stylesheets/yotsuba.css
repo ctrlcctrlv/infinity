@@ -2,8 +2,11 @@ body {
 	background: #ffe url('img/fade-yotsuba.png') repeat-x 50% 0%;
 	color: #800000;
 }
-a:link, a:visited, .intro a.email span.name {
+a:link, a:visited, .intro span.name {
 	color: #800;
+}
+a.email { 
+	color: #00f;
 }
 a:link:hover {
 	color: #e00;
