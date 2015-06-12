@@ -2317,8 +2317,8 @@ function mod_new_pm($username) {
 		}
 	}
 
-	// Lock users into only being able to message users assigned to their board; Exclude global volunteers.
-	if (!hasPermission($config['mod']['clean_global']) {
+	// Lock users into only being able to message users assigned to their board.
+	if (!hasPermission($config['mod']['pm_all'])) {
 		if ($mod['boards'][0] != $row['boards'] && !($row['boards'] === '*')) {
 			error(_('You may only PM users assigned to your board'));
 		}
