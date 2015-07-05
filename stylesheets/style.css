@@ -1247,7 +1247,10 @@ div.mix {
 
 /* Mona Font */
 .aa {
-	font-family: Mona, "MS PGothic", "ＭＳ Ｐゴシック", sans-serif;
+	/* IPAMonaPGothic looks a bit worse than others but close enough thus lower priority. 
+	 * I wish we had something like a wiki to inform users they're better of just using ttf-mona.
+	 */
+	font-family: Mona, "MS PGothic", "ＭＳ Ｐゴシック", IPAMonaPGothic, sans-serif;
 	display: block!important;
 	font-size: 12pt;
 }
