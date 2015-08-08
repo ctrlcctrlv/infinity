@@ -35,6 +35,7 @@ $safe_config['default_stylesheet'] = $config['default_stylesheet'];
 $safe_config['captcha'] = $config['captcha'];
 $safe_config['force_subject_op'] = $config['force_subject_op'];
 $safe_config['tor_posting'] = $config['tor_posting'];
+$safe_config['tor_image_posting'] = $config['tor_image_posting']
 $safe_config['new_thread_capt'] = $config['new_thread_capt'];
 $safe_config['hour_max_threads'] = $config['hour_max_threads'];
 $safe_config['disable_images'] = $config['disable_images'];
