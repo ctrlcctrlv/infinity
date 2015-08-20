@@ -81,7 +81,7 @@
 	$config['poster_id_length'] = 6;
 	$config['ayah_enabled'] = false;
 	$config['cbRecaptcha'] = true;
-	$config['url_banner'] = '/banners.php';
+	$config['url_banner'] = 'https://banners.8ch.net';
 	$config['additional_javascript_compile'] = true;
 	//$config['default_stylesheet'] = array('Notsuba', 'notsuba.css');
 	$config['additional_javascript'][] = 'js/jquery.min.js';
@@ -108,7 +108,6 @@
 	$config['additional_javascript'][] = 'js/hide-images.js';
 	$config['additional_javascript'][] = 'js/expand-all-images.js';
 	$config['additional_javascript'][] = 'js/local-time.js';
-	$config['additional_javascript'][] = 'js/no-animated-gif.js';
 	$config['additional_javascript'][] = 'js/expand.js';
 	$config['additional_javascript'][] = 'js/auto-reload.js';
 	$config['additional_javascript'][] = 'js/options/user-css.js';
@@ -166,7 +165,7 @@
 	$config['markup_paragraphs'] = true;
 	$config['markup_rtl'] = true;
 	
-	$config['boards'] = array(array('<i class="fa fa-home" title="Home"></i>' => '/', '<i class="fa fa-tags" title="Boards"></i>' => '/boards.html', '<i class="fa fa-question" title="FAQ"></i>' => '/faq.html', '<i class="fa fa-random" title="Random"></i>' => '/random.php', '<i class="fa fa-plus" title="New board"></i>' => '/create.php', '<i class="fa fa-ban" title="Public ban list"></i>' => '/bans.html', '<i class="fa fa-search" title="Search"></i>' => '/search.php', '<i class="fa fa-cog" title="Manage board"></i>' => '/mod.php', '<i class="fa fa-quote-right" title="Chat"></i>' => 'https://qchat.rizon.net/?channels=#8chan'), array('b', 'n', 'boards'), array('operate', 'meta'), array('<i class="fa fa-twitter" title="Twitter"></i>'=>'https://twitter.com/infinitechan'));
+	$config['boards'] = array(array('<i class="fa fa-home" title="Home"></i> home' => '/', '<i class="fa fa-tags" title="Boards"></i> board list' => '/boards.html', '<i class="fa fa-question" title="FAQ"></i> faq' => '/faq.html', '<i class="fa fa-random" title="Random"></i> random' => '/random.php', '<i class="fa fa-plus" title="New board"></i> create' => '/create.php', '<i class="fa fa-ban" title="Public ban list"></i> bans' => '/bans.html', '<i class="fa fa-search" title="Search"></i> search' => '/search.php', '<i class="fa fa-cog" title="Manage board"></i> manage' => '/mod.php', '<i class="fa fa-quote-right" title="Chat"></i> irc' => 'https://qchat.rizon.net/?channels=#8chan'), array('<i class="fa fa-twitter" title="Twitter"></i>'=>'https://twitter.com/infinitechan'));
 	//$config['boards'] = array(array('<i class="fa fa-home" title="Home"></i>' => '/', '<i class="fa fa-tags" title="Boards"></i>' => '/boards.html', '<i class="fa fa-question" title="FAQ"></i>' => '/faq.html', '<i class="fa fa-random" title="Random"></i>' => '/random.php', '<i class="fa fa-plus" title="New board"></i>' => '/create.php', '<i class="fa fa-search" title="Search"></i>' => '/search.php', '<i class="fa fa-cog" title="Manage board"></i>' => '/mod.php', '<i class="fa fa-quote-right" title="Chat"></i>' => 'https://qchat.rizon.net/?channels=#8chan'), array('b', 'meta', 'int'), array('v', 'a', 'tg', 'fit', 'pol', 'tech', 'mu', 'co', 'sp', 'boards'), array('<i class="fa fa-twitter" title="Twitter"></i>'=>'https://twitter.com/infinitechan'));
 	
 	$config['footer'][] = 'All posts on 8chan are the responsibility of the individual poster and not the administration of 8chan, pursuant to 47 U.S.C. &sect; 230.';
@@ -232,6 +231,7 @@ $config['report_captcha'] = true;
 $config['no_top_bar_boards'] = false;
 
 $config['page_404'] = 'page_404';
+$config['convert_args'] = '-size %dx%d %s -thumbnail %dx%d -quality 85%% -background \'#d6daf0\' -alpha remove -auto-orient +profile "*" %s';
 
 // Flavor and design.
 $config['site_name'] = "&infin;chan";

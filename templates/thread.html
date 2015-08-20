@@ -23,10 +23,9 @@
 	<title>{{ board.url }} - {{ meta_subject }}</title>
 </head>
 <body class="8chan {% if mod %}is-moderator{% else %}is-not-moderator{% endif %}" data-stylesheet="{% if config.default_stylesheet.1 != '' and not mod %}{{ config.default_stylesheet.1 }}{% else %}default{% endif %}">
-	<a name="top"></a> 
 	{{ boardlist.top }}
 	{% if pm %}<div class="top_notice">You have <a href="?/PM/{{ pm.id }}">an unread PM</a>{% if pm.waiting > 0 %}, plus {{ pm.waiting }} more waiting{% endif %}.</div><hr />{% endif %}
-	{% if config.url_banner %}<img class="board_image" src="{{ config.url_banner }}?board={{ board.uri|url_encode }}" {% if config.banner_width or config.banner_height %}style="{% if config.banner_width %}width:{{ config.banner_width }}px{% endif %};{% if config.banner_width %}height:{{ config.banner_height }}px{% endif %}" {% endif %}alt="" />{% endif %}
+	{% if config.url_banner %}<img class="board_image" src="{{ config.url_banner }}/random/{{ board.uri|url_encode }}" {% if config.banner_width or config.banner_height %}style="{% if config.banner_width %}width:{{ config.banner_width }}px{% endif %};{% if config.banner_width %}height:{{ config.banner_height }}px{% endif %}" {% endif %}alt="" />{% endif %}
 	<header>
 		<h1>{{ board.url }} - {{ board.title|e }}</h1>
 		<div class="subtitle">
@@ -51,9 +50,7 @@
 	<div class="banner">{% trans %}Posting mode: Reply{% endtrans %} <a class="unimportant" href="{{ return }}">[{% trans %}Return{% endtrans %}]</a> <a class="unimportant" href="javascript:window.scrollTo(0,document.body.scrollHeight);
 ">[{% trans %}Go to bottom {% endtrans %}]</a></div>
 
-	{% if board.uri not in config.banned_ad_boards %}
-		{% include 'ad_top.html' %}
-	{% endif %}
+	{% include 'ad_top.html' %}
 
 	{% include 'post_form.html' %}
 
@@ -87,6 +84,10 @@
 
 	{% if board.uri not in config.banned_ad_boards %}
 		{% include 'ad_bottom.html' %}
+	{% endif %}
+
+	{% if board.uri %}
+		<div id="8ch-bottom"></div>
 	{% endif %}
 
 	<footer>

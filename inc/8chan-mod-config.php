@@ -43,6 +43,7 @@
 	$config['mod']['view_ban'] = BOARDVOLUNTEER;
 	$config['mod']['reassign_board'] = GLOBALVOLUNTEER;
 	$config['mod']['move'] = GLOBALVOLUNTEER;
+	$config['mod']['pm_all'] = GLOBALVOLUNTEER;
 	$config['mod']['shadow_capcode'] = 'Global Volunteer';
 
 	// Mod pages assignment

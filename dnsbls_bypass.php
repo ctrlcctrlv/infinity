@@ -22,16 +22,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 	if ($resp === '1') {
 		$tor = checkDNSBL($_SERVER['REMOTE_ADDR']);
 		if (!$tor) {
-			$query = prepare('INSERT INTO ``dnsbl_bypass`` VALUES(:ip, NOW()) ON DUPLICATE KEY UPDATE `created`=NOW()');
+			$query = prepare('INSERT INTO ``dnsbl_bypass`` VALUES(:ip, NOW(), 0) ON DUPLICATE KEY UPDATE `created`=NOW(),`uses`=0');
 			$query->bindValue(':ip', $_SERVER['REMOTE_ADDR']);
 			$query->execute() or error(db_error($query));
-		} else {
-			$cookie = bin2hex(openssl_random_pseudo_bytes(16));
-			$query = prepare('INSERT INTO ``tor_cookies`` VALUES(:cookie, NOW(), 0)');
-			$query->bindValue(':cookie', $cookie);
-			$query->execute() or error(db_error($query));
-			setcookie("tor", $cookie);
 		}
+		$cookie = bin2hex(openssl_random_pseudo_bytes(16));
+		$query = prepare('INSERT INTO ``tor_cookies`` VALUES(:cookie, NOW(), 0)');
+		$query->bindValue(':cookie', $cookie);
+		$query->execute() or error(db_error($query));
+		setcookie("tor", $cookie, time()+60*60*3);
+	
 		echo Element("page.html", array("config" => $config, "body" => '', "title" => _("Success!"), "subtitle" => _("You may now go back and make your post.")));
 	} else {
 		error(_('You failed the CAPTCHA') . _('. <a href="https://8ch.net/dnsbls_bypass.php">Try again.</a> If it\'s not working, email admin@8chan.co for support.'));

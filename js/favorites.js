@@ -11,7 +11,7 @@
  */
 
 if (!localStorage.favorites) {
-	localStorage.favorites = '[]';
+	localStorage.favorites = '["operate","b"]';
 }
 
 function favorite(board) {

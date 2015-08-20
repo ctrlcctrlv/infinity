@@ -19,7 +19,7 @@
 	{{ boardlist.top }}
 	
 	{% if pm %}<div class="top_notice">You have <a href="?/PM/{{ pm.id }}">an unread PM</a>{% if pm.waiting > 0 %}, plus {{ pm.waiting }} more waiting{% endif %}.</div><hr />{% endif %}
-	{% if config.url_banner %}<img class="board_image" src="{{ config.url_banner }}?board={{ board.uri|url_encode }}" {% if config.banner_width or config.banner_height %}style="{% if config.banner_width %}width:{{ config.banner_width }}px{% endif %};{% if config.banner_width %}height:{{ config.banner_height }}px{% endif %}" {% endif %}alt="" />{% endif %}
+	{% if config.url_banner %}<img class="board_image" src="{{ config.url_banner }}/random/{{ board.uri|url_encode }}" {% if config.banner_width or config.banner_height %}style="{% if config.banner_width %}width:{{ config.banner_width }}px{% endif %};{% if config.banner_width %}height:{{ config.banner_height }}px{% endif %}" {% endif %}alt="" />{% endif %}
 	
 	<header>
 		<h1>{{ board.url }} - {{ board.title|e }}</h1>
@@ -42,9 +42,7 @@
 		{{ config.announcement }}
 	{% endif %}
 
-	{% if board.uri not in config.banned_ad_boards %}
-		{% include 'ad_top.html' %}
-	{% endif %}
+	{% include 'ad_top.html' %}
 
 	{% if not no_post_form %}
 		{% include 'post_form.html' %}
@@ -83,6 +81,10 @@
 
 	{% if board.uri not in config.banned_ad_boards %}
 		{% include 'ad_bottom.html' %}
+	{% endif %}
+
+	{% if board.uri %}
+		<div id="8ch-bottom"></div>
 	{% endif %}
 
 	<footer>

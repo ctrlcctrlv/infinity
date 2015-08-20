@@ -121,7 +121,7 @@ function loadConfig() {
 	}
 
 	if (!file_exists('inc/instance-config.php'))
-		$error('Tinyboard is not configured! Create inc/instance-config.php.');
+		$error('Posting is down momentarily. Please try again later.');
 
 	// Initialize locale as early as possible
 
@@ -2557,7 +2557,7 @@ function strip_combining_chars($str) {
 		$o = 0;
 		$ord = ordutf8($char, $o);
 
-		if ( ($ord >= 768 && $ord <= 879) || ($ord >= 1750 && $ord <= 1773) || ($ord >= 3655 && $ord <= 3659) || ($ord >= 7616 && $ord <= 7679) || ($ord >= 8400 && $ord <= 8447) || ($ord >= 65056 && $ord <= 65071)){
+		if ( ($ord >= 768 && $ord <= 879) || ($ord >= 1536 && $ord <= 1791) || ($ord >= 3655 && $ord <= 3659) || ($ord >= 7616 && $ord <= 7679) || ($ord >= 8400 && $ord <= 8447) || ($ord >= 65056 && $ord <= 65071)){
 			continue;
 		}
 

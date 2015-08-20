@@ -64,7 +64,14 @@ $tagsHTML = Element("8chan/boards-tags.html", array(
 	)
 );
 
-$searchHTML = Element("8chan/boards-search.html", array(
+$query = query('SELECT np.* FROM newsplus np INNER JOIN `posts_n` p ON np.thread=p.id WHERE np.dead IS FALSE ORDER BY p.bump DESC');
+if ($query) {
+	$newsplus = $query->fetchAll(PDO::FETCH_ASSOC);
+} else {
+	$newsplus = false;
+}
+
+$searchArray = array(
 		"config"         => $config,
 		"boards"         => $boards,
 		"tags"           => $tags,
@@ -83,17 +90,28 @@ $searchHTML = Element("8chan/boards-search.html", array(
 		"page_updated"   => date('r'),
 		
 		"html_boards"    => $boardsHTML,
-		"html_tags"      => $tagsHTML
+		"html_tags"      => $tagsHTML,
+		"newsplus" => $newsplus
+);
+
+$searchHTML = Element("8chan/boards-index.html", $searchArray);
+
+$pageHTML = Element("page.html", array(
+		"title" => "8chan, the infinitely expanding imageboard",
+		"config" => $config,
+		"body"   => $searchHTML,
 	)
 );
 
-$pageHTML = Element("page.html", array(
-		"title"  => _("Boardlist"),
+$searchHTML2 = Element("8chan/boards-search.html", $searchArray);
+
+$pageHTML2 = Element("page.html", array(
+		"title" => "Boards on 8chan",
 		"config" => $config,
-		"body"   => $searchHTML,
-		"title" => _("Boards on &infin;chan")
+		"body"   => $searchHTML2,
 	)
 );
+
 
 // We only want to cache if this is not a dynamic form request.
 // Otherwise, our information will be skewed by the search criteria.
@@ -101,7 +119,8 @@ if (php_sapi_name() == 'cli') {
 	// Preserves the JSON output format of [{board},{board}].
 	$nonAssociativeBoardList = array_values($response['boardsFull']);
 	
-	file_write("boards.html", $pageHTML);
+	file_write("index.html", $pageHTML);
+	file_write("boards.html", $pageHTML2);
 	file_write("boards.json", json_encode($nonAssociativeBoardList));
 	
 	$topbar = array();

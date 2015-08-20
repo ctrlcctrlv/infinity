@@ -670,17 +670,19 @@
 	$config['markup'][] = array(
 		"/\[(aa|code)\](.+?)\[\/(?:aa|code)\]/ms", 
 		function($matches) {
-			$markupchars = array('_', '\'', '~', '*', '=');
+			$markupchars = array('_', '\'', '~', '*', '=', '-');
 			$replacement = $markupchars;
 			array_walk($replacement, function(&$v) {
 				$v = "&#".ord($v).";";
 			});
 
-			// These are hacky fixes for ###board-tags### and >quotes.
+			// These are hacky fixes for ###board-tags###, ellipses and >quotes.
 			$markupchars[] = '###';
 			$replacement[] = '&#35;&#35;&#35;';
 			$markupchars[] = '&gt;';
 			$replacement[] = '&#62;';
+			$markupchars[] = '...';
+			$replacement[] = '..&#46;';
 
 			if ($matches[1] === 'aa') {
 				return '<span class="aa">' . str_replace($markupchars, $replacement, $matches[2]) . '</span>';

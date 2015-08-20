@@ -111,10 +111,10 @@ $(document).ready(function() {
 		$('.poster_id').each(toggle_id);
 	}
 	
-	if(forced_anon) {
+	if (forced_anon) {
 		enable_fa();
 		if (window.Options && Options.get_tab('general')) {
-			$('#toggle-locked-threads>input').prop('checked', true);
+			$('#forced-anon>input').prop('checked', true);
 		}
 	}
 	

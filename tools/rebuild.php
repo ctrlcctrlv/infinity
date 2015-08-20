@@ -40,15 +40,15 @@ if(!$options['quiet'])
 	echo "Clearing template cache...\n";
 
 load_twig();
-$twig->clearCacheFiles();
+//$twig->clearCacheFiles();
 
 if(!$options['quiet'])
 	echo "Regenerating theme files...\n";
-rebuildThemes('all');
+//rebuildThemes('all');
 
 if(!$options['quiet'])
 	echo "Generating Javascript file...\n";
-buildJavascript();
+#buildJavascript();
 
 $main_js = $config['file_script'];
 
@@ -69,7 +69,7 @@ foreach($boards as &$board) {
 		// different javascript file
 		if(!$options['quiet'])
 			echo "Generating Javascript file...\n";
-		buildJavascript();
+		#buildJavascript();
 	}
 	
 	
@@ -89,7 +89,7 @@ foreach($boards as &$board) {
 		}
 	}
 	
-	$query = query(sprintf("SELECT `id` FROM ``posts_%s`` WHERE `thread` IS NULL", $board['uri'])) or error(db_error());
+	$query = query(sprintf("SELECT `id` FROM ``posts_%s`` WHERE `thread` IS NULL ORDER BY `time` DESC", $board['uri'])) or error(db_error());
 	while($post = $query->fetch()) {
 		if(!$options['quiet'])
 			echo "Rebuilding #{$post['id']}...\n";

@@ -50,6 +50,9 @@ $body = <<<EOT
 <p>Other than that, you are free to institute whatever rules you want on your board.</p>
 <p><a href="/obscenity.html">More information about US obscenity laws and how they relate to 8chan boards</a></p>
 <p><a href="/dost.html">More information about the Dost test</a></p>
+
+<p><strong>TL;DR: 8chan considers all nude images of children to be child porn and they will be deleted and the posting address banned if viable.</strong></p>
+
 <p><a href="/personhood.html">Just who is this 8chan person anyway?</a></p>
 <h2>How do I add more volunteers?</h2>
 <p>You may do this in your board settings, click on "Edit board volunteers".

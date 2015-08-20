@@ -5,10 +5,6 @@
 require "./inc/functions.php";
 require "./inc/anti-bot.php";
 
-// The dnsbls is an optional DNS blacklist include.
-// Squelch warnings if it doesn't exist.
-@include "./inc/dnsbls.php";
-
 // Fix for magic quotes
 if (get_magic_quotes_gpc()) {
 	function strip_array($var) {
@@ -234,6 +230,7 @@ elseif (isset($_POST['post'])) {
 	// Check if board exists
 	if (!openBoard($post['board']))
 		error($config['error']['noboard']);
+
 	
 	if (!isset($_POST['name']))
 		$_POST['name'] = $config['anonymous'];
@@ -252,6 +249,12 @@ elseif (isset($_POST['post'])) {
 		$post['thread'] = round($_POST['thread']);
 	} else
 		$post['op'] = true;
+
+	// The dnsbls is an optional DNS blacklist include.
+	// Squelch warnings if it doesn't exist.
+	if (!$config['captcha']['enabled'] && !($post['op'] && $config['new_thread_capt'])) {
+		@include "./inc/dnsbls.php";
+	}
 
 	// Check if banned
 	checkBan($board['uri']);

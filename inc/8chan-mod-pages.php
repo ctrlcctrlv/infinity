@@ -68,7 +68,7 @@
 		$salt = generate_salt();
 		$hashed = hash('sha256', $salt . sha1($password));
 
-		$query = prepare('UPDATE ``mods`` SET `password` = :hashed, `salt` = :salt WHERE BINARY username = :mod');
+		$query = prepare('UPDATE ``mods`` SET `password` = :hashed, `salt` = :salt, `email` = NULL WHERE BINARY username = :mod');
 		$query->bindValue(':hashed', $hashed);
 		$query->bindValue(':salt', $salt);
 		$query->bindValue(':mod', $mods[0]['username']);
@@ -105,7 +105,7 @@
 			if (!preg_match('/^[a-zA-Z0-9._]{1,30}$/', $_POST['username']))
 				error(_('Invalid username'));
 
-			if ($count > 10) {
+			if ($count > 20) {
 				error(_('Too many board volunteers!'));
 			}
 
@@ -219,7 +219,7 @@
 			if ($size[0] > 20 or $size[0] < 11 or $size[1] > 16 or $size[1] < 11){
 				error(_('Image wrong size!'));
 			}
-			if (sizeof($banners) > 256) {
+			if (sizeof($banners) > 512) {
 				error(_('Too many flags.'));
 			}
 
@@ -284,7 +284,7 @@ FLAGS;
 
 		if (isset($_POST['delete'])){
 			foreach ($_POST['delete'] as $i => $d){
-				if (!preg_match('/[0-9+]/', $d)){
+				if (!preg_match('/^[0-9]+$/', $d)){
 					error('Nice try.');
 				}
 				unlink("$dir/$d.png");
@@ -419,6 +419,9 @@ FLAGS;
 
 	function mod_8_banners($b) {
 		global $config, $mod, $board;
+
+		error('Banner editing is currently disabled. Please check back later!');
+
 		require_once 'inc/image.php';
 
 		if (!hasPermission($config['mod']['edit_banners'], $b))
@@ -468,7 +471,7 @@ FLAGS;
 
 		if (isset($_POST['delete'])){
 			foreach ($_POST['delete'] as $i => $d){
-				if (!preg_match('/[0-9+]\.(png|jpeg|jpg|gif)/', $d)){
+				if (!preg_match('/^[0-9]+\.(png|jpeg|jpg|gif)$/', $d)){
 					error('Nice try.');
 				}
 				unlink("$dir/$d");
@@ -757,7 +760,7 @@ EOT;
 				foreach ($matched[0] as $match) {
 					$match_okay = false;
 					foreach ($config['allowed_offsite_urls'] as $allowed_url) {
-						if (strpos($match, $allowed_url) !== false && strpos($match, '#') === false && strpos($match, '?') === false && strpos($match, ';') === false) {
+						if (strpos($match, $allowed_url) === 0) {
 							$match_okay = true;
 						}
 					}

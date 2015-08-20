@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS ``posts_{{ board }}`` (
    `name` varchar(35) DEFAULT NULL,
    `trip` varchar(15) DEFAULT NULL,
    `capcode` varchar(50) DEFAULT NULL,
-   `body` text NOT NULL,
+   `body` longtext NOT NULL,
    `body_nomarkup` text,
    `time` int(11) NOT NULL,
    `bump` int(11) DEFAULT NULL,

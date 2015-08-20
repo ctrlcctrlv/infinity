@@ -3557,6 +3557,7 @@ function mod_edit_page($id) {
 				break;
 			case 'infinity':
 				$c = $content;
+				$config['max_links'] = PHP_INT_MAX;
 				markup($content);
 				$write = $content;
 				$content = $c;
