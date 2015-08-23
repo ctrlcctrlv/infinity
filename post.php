@@ -358,6 +358,32 @@ elseif (isset($_POST['post'])) {
 		if (!isset($post['embed'])) {
 			error($config['error']['invalid_embed']);
 		}
+
+		if ($config['image_reject_repost']) {
+			if ($p = getPostByEmbed($post['embed'])) {
+				error(sprintf($config['error']['fileexists'], 
+					($post['mod'] ? $config['root'] . $config['file_mod'] . '?/' : $config['root']) .
+					($board['dir'] . $config['dir']['res'] .
+						($p['thread'] ?
+							$p['thread'] . '.html#' . $p['id']
+						:
+							$p['id'] . '.html'
+						))
+				));
+			}
+		} else if (!$post['op'] && $config['image_reject_repost_in_thread']) {
+			if ($p = getPostByEmbedInThread($post['embed'], $post['thread'])) {
+				error(sprintf($config['error']['fileexistsinthread'], 
+					($post['mod'] ? $config['root'] . $config['file_mod'] . '?/' : $config['root']) .
+					($board['dir'] . $config['dir']['res'] .
+						($p['thread'] ?
+							$p['thread'] . '.html#' . $p['id']
+						:
+							$p['id'] . '.html'
+						))
+				));
+			}
+		}
 	}
 	
 	if (!hasPermission($config['mod']['bypass_field_disable'], $board['uri'])) {
@@ -909,7 +935,7 @@ elseif (isset($_POST['post'])) {
 				));
 			}
 		}
-		}
+	}
 	
 	if (!hasPermission($config['mod']['postunoriginal'], $board['uri']) && $config['robot_enable'] && checkRobot($post['body_nomarkup'])) {
 		undoImage($post);
