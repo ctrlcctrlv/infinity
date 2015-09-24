@@ -103,7 +103,14 @@ class Api {
 		$fields = $threadsPage ? $this->threadsPageFields : $this->postFields;
 		$this->translateFields($fields, $post, $apiPost);
 
-		if ($this->config['poster_ids']) $apiPost['id'] = poster_id($post->ip, $post->thread, $board['uri']);
+		if ($this->config['poster_ids']) {
+			if ($post->thread) {
+				$apiPost['id'] = poster_id($post->ip, $post->thread, $board['uri']);
+			} else {
+				$apiPost['id'] = poster_id($post->ip, $post->id, $board['uri']);
+			}
+		}
+
 		if ($threadsPage) return $apiPost;
 
 		// Handle country field
