@@ -1,6 +1,8 @@
 infinity
 ========================================================
 
+## This software is DEPRECATED and UNMAINTAINED. Come January 1, 2016, no security fixes will be merged in. You are encouraged to [use the rewrite](https://github.com/infinity-next/infinity-next) or [downgrade to vichan](https://github.com/vichan-devel/vichan).
+
 About
 ------------
 infinity is a fork of vichan, with the difference that infinity is geared towards allowing users to create their own boards. A running instance is at [8ch.net](https://8ch.net/) (new! a user of the software wrote to me that they created a Polish version: [8ch.pl](http://8ch.pl/))
