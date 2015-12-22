@@ -1,9 +1,23 @@
-infinity
+modified infinity
 ========================================================
 
-## This software is DEPRECATED and UNMAINTAINED. Come January 1, 2016, no security fixes will be merged in. You are encouraged to [use the rewrite](https://github.com/infinity-next/infinity-next) or [downgrade to vichan](https://github.com/vichan-devel/vichan).
+OdiliTime Modifications
+-----------------------
+This is a reduced disk-IO version that does not write the HTML or JSON files to disk.
+It writes them to a redis-backed memory store which then can be quickly retrieved by a webserver
+without hitting the disk at all. See nginx's HttpRedis2Module module for more of what I mean.
 
-About
+If you don't have HttpRedis2Module, i've included a 404.php that you can use with an htaccess like:
+
+```
+RewriteEngine On
+RewriteRule ^[^/]+/$ %{REQUEST_URI}/../../odiliMagic.php [NC,L]
+RewriteRule ^[^/]+/[^/]+$ %{REQUEST_URI}/../../odiliMagic.php [NC,L]
+RewriteRule ^[^/]+/res/[^/]+$ %{REQUEST_URI}/../../odiliMagic.php [NC,L]
+```
+This example assumes your URL includes one directory level, i.e. http://localhost/vichan/
+
+About infinity
 ------------
 infinity is a fork of vichan, with the difference that infinity is geared towards allowing users to create their own boards. A running instance is at [8ch.net](https://8ch.net/) (new! a user of the software wrote to me that they created a Polish version: [8ch.pl](http://8ch.pl/))
 
@@ -19,7 +33,7 @@ Basic requirements:
 A computer running a Unix or Unix-like OS(infinity has been specifically tested with and is known to work under Ubuntu 14.x), Apache, MySQL, and PHP
 * Make sure Apache has read/write access to the directory infinity resides in.
 * `install.php` is not maintained. Don't use it.
-* As of February 22, 2015, you need the [DirectIO module (dio.so)](http://php.net/manual/en/ref.dio.php). This is for compatibility with NFS. 
+* As of February 22, 2015, you need the [DirectIO module (dio.so)](http://php.net/manual/en/ref.dio.php). This is for compatibility with NFS.
 
 Step 1. Create infinity's database from the included install.sql file. Enter mysql and create an empty database named 'infinity'. Then cd into the infinity base directory and run:
 ```
