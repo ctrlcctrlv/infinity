@@ -34,7 +34,7 @@ function handle_boards(data) {
 	data = JSON.parse(data);
 
 	$.each(data, function(k, v) {
-		boards.push('<a href="/'+v+(window.active_page === 'catalog' ? '/catalog.html' : '')+'">'+v+'</a>');
+		boards.push('<a href="'+configRoot+v+(window.active_page === 'catalog' ? '/catalog.html' : '')+'">'+v+'</a>');
 	})
 
 	if (boards[0]) {

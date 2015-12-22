@@ -66,7 +66,7 @@ $(document).ready(function(){
 			};
 			$('#thread_stats_uids').text(size(ids));
 		}
-		$.getJSON('//'+ document.location.host +'/'+ board_name +'/threads.json').success(function(data){
+		$.getJSON('//'+ document.location.host + configRoot + board_name +'/threads.json').success(function(data){
 			var found, page = '???';
 			for (var i=0;data[i];i++){
 				var threads = data[i].threads;
@@ -87,7 +87,7 @@ $(document).ready(function(){
 	// load the current page the thread is on.
 	// uses ajax call so it gets loaded on a delay (depending on network resources available)
 	var thread_stats_page_timer = setInterval(function(){
-		$.getJSON('//'+ document.location.host +'/'+ board_name +'/threads.json').success(function(data){
+		$.getJSON('//'+ document.location.host + configRoot + board_name +'/threads.json').success(function(data){
 			var found, page = '???';
 			for (var i=0;data[i];i++){
 				var threads = data[i].threads;
