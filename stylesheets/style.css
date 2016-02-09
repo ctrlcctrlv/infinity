@@ -1018,6 +1018,7 @@ pre {
 
 .poster_id {
   cursor: pointer;
+  white-space:nowrap;
 }
 
 .poster_id::before {
