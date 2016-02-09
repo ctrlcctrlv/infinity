@@ -50,6 +50,7 @@ if(!$options['quiet'])
 	echo "Generating Javascript file...\n";
 #buildJavascript();
 
+
 $main_js = $config['file_script'];
 
 $boards = listBoards();
@@ -102,4 +103,3 @@ if(!$options['quiet'])
 
 unset($board);
 modLog('Rebuilt everything using tools/rebuild.php');
-

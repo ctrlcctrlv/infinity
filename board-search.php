@@ -114,7 +114,7 @@ foreach ($boards as $board) {
 	}
 	
 	// Load board config.
-	$boardConfig = loadBoardConfig( $board['uri'] );
+	$boardConfig = @loadBoardConfig( $board['uri'] );
 	
 	// Determine language/locale and tags.
 	$boardLang = strtolower( array_slice( explode( "_", $boardConfig['locale'] ?: "" ), 0 )[0] ); // en_US -> en OR en -> en

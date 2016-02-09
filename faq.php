@@ -61,6 +61,8 @@ $body = <<<EOT
 <h2>How do I contact the admin?</h2>
 <p>The admin can be reached at <tt>admin at 8chan dot co</tt>.</p>
 
+<p><a href="/who.html">Who owns 8chan?</a></p>
+
 <h2>What's your privacy policy?</h2>
 <p>Find it <a href="/privacy.pdf">here</a>.</p>
 
@@ -128,6 +130,7 @@ $body = <<<EOT
 <h2>Where's the archive?</h2>
 <p><s>There isn't one yet and there will never be an official archive.</s></p>
 <p>Given that archives are inevitable and will be created anyway via <a href="https://archive.today">archive.today</a>, Google cache, and anyone who installs Asagi, I'm softening my stance on this. Currently, 8archive.moe provides our archive, and I may set up an official one. <strong>All archives officially partnered with us will be opt-in by our board owners, not opt-out. Archives who archive boards that have not opted in will be considered pirate archives, and legal action may be taken.</strong></p>
+<p>If you want to make a 3rd party archive, please only archive boards that have <a href="https://8ch.net/8archive.json">opted in to archival</a>.</p>
 
 <h2>Can I have a list of all API endpoints for getting raw data from 8chan?</h2>
 <p>
@@ -178,4 +181,5 @@ Assuming the /b/ board, they are as follows:</p>
 
 EOT;
 
-echo Element("page.html", array("config" => $config, "body" => $body, "title" => "FAQ"));
+$body = Element("page.html", array("config" => $config, "body" => $body, "title" => "FAQ"));
+file_write("faq.html", $body);

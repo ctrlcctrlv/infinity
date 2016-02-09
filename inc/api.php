@@ -89,7 +89,8 @@ class Api {
 
 	private function translateFile($file, &$apiPost) {
 		$this->translateFields($this->fileFields, $file, $apiPost);
-		$apiPost['filename'] = @substr($file->name, 0, strrpos($file->name, '.'));
+		if (!isset($file->file) or !isset($file->name)) return;
+		$apiPost['filename'] = substr($file->name, 0, strrpos($file->name, '.'));
 		$dotPos = strrpos($file->file, '.');
 		$apiPost['ext'] = substr($file->file, $dotPos);
 		$apiPost['tim'] = urlencode(substr($file->file, 0, $dotPos));

@@ -289,7 +289,7 @@ class ImageConvert extends ImageBase {
 				}
 			}
 		} else {
-			rename($this->temp, $src);
+			copy($this->temp, $src);
 			chmod($src, 0664);
 		}
 	}
@@ -366,7 +366,7 @@ class ImageConvert extends ImageBase {
 					if (strpos($error, "known incorrect sRGB profile") === false &&
                                             strpos($error, "iCCP: Not recognizing known sRGB profile that has been edited") === false) {
 						$this->destroy();
-						error(_('Failed to resize image!')." "._('Details: ').nl2br(htmlspecialchars($error)), null, array('convert_error' => $error));
+						error(_('Failed to resize image!')." "._('Details: ').nl2br(htmlspecialchars($error)), true, array('convert_error' => $error));
 					}
 					if (!file_exists($this->temp)) {
 						$this->destroy();

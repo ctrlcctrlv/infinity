@@ -30,7 +30,7 @@
 
 				if (php_sapi_name() === "cli") echo "Rebuilding $board catalog...\n";
 			}
-		} elseif ($action == 'post-thread' || ($settings['update_on_posts'] && $action == 'post') || ($settings['update_on_posts'] && $action == 'post-delete') && (in_array($board, $boards) | $settings['all'])) {
+		} elseif ($action == 'post-thread' || ($settings['update_on_posts'] && $action == 'post') || ($settings['update_on_posts'] && $action == 'post-delete') && (in_array($board, $boards) || $settings['all'])) {
 			$b = new Catalog();
 
 			if ($config['smart_build']) {

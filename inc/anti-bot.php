@@ -191,7 +191,7 @@ class AntiBot {
 }
 
 function _create_antibot($board, $thread) {
-	global $config, $purged_old_antispam;
+	/*global $config, $purged_old_antispam;
 	
 	$antibot = new AntiBot(array($board, $thread));
 	
@@ -218,10 +218,11 @@ function _create_antibot($board, $thread) {
 	$query->execute() or error(db_error($query));
 	
 	return $antibot;
+*/
 }
 
 function checkSpam(array $extra_salt = array()) {
-	global $config, $pdo;
+	/*global $config, $pdo;
 
 	if (!isset($_POST['hash']))
 		return true;
@@ -272,13 +273,13 @@ function checkSpam(array $extra_salt = array()) {
 		return true;
 	}
 
-	return $hash;
+	return $hash;*/
 }
 
 function incrementSpamHash($hash) {
-	if ($hash === true) return;
+	/*if ($hash === true) return;
 
 	$query = prepare('UPDATE ``antispam`` SET `passed` = `passed` + 1 WHERE `hash` = :hash');
 	$query->bindValue(':hash', $hash);
-	$query->execute() or error(db_error($query));
+	$query->execute() or error(db_error($query));*/
 }

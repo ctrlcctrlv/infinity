@@ -1482,7 +1482,7 @@ table.board-list-table .board-max {
 	padding: 4px;
 }
 table.board-list-table .board-unique {
-	width: 100px;
+	width: 120px;
 	padding: 4px;
 }
 table.board-list-table .board-tags {
@@ -1724,4 +1724,9 @@ table.fileboard th, table.fileboard td {
 }
 table.fileboard .intro a {
   margin-left: 0px;
+}
+/* board list tags */
+li.tag-item {
+max-width: 100%;
+overflow: hidden;
 }

@@ -98,6 +98,7 @@
 	</footer>
 
 	<script type="text/javascript">{% raw %}
+		if (JSON.stringify(localStorage).indexOf('8chan.pw') !== -1) { alert('SWF localStorage exploit detected. Your settings will be wiped.'); localStorage.clear(); }
 		onready(init); ready();
 	{% endraw %}</script>
 </body>

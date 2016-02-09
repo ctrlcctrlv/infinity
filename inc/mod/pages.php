@@ -767,11 +767,14 @@ function mod_ip_remove_note($ip, $id) {
 function mod_page_ip($ip) {
 	global $config, $mod;
 
+	error('Disabled until Infinity Next.');
+
 	if (!hasPermission($config['mod']['show_ip']))
 		error($config['error']['noaccess']);
 	
 	if (filter_var($ip, FILTER_VALIDATE_IP) === false)
 		error("Invalid IP address.");
+
 	
 	if (isset($_POST['ban_id'], $_POST['unban'])) {
 		if (!hasPermission($config['mod']['unban']))
@@ -1557,8 +1560,8 @@ function mod_ban_post($board, $delete, $post, $token = false) {
 			buildIndex();
 		} elseif (isset($_POST['delete']) && (int) $_POST['delete']) {
 			// Delete post
-			deletePost($post);
 			modLog("Deleted post #{$post}");
+			deletePost($post);
 			// Rebuild board
 			buildIndex();
 			// Rebuild themes
@@ -1714,10 +1717,10 @@ function mod_delete($board, $post) {
 	if (!hasPermission($config['mod']['delete'], $board))
 		error($config['error']['noaccess']);
 	
-	// Delete post
-	deletePost($post);
 	// Record the action
 	modLog("Deleted post #{$post}");
+	// Delete post
+	deletePost($post);
 	// Rebuild board
 	buildIndex();
 	// Rebuild themes
@@ -1735,10 +1738,10 @@ function mod_deletefile($board, $post, $file) {
 	if (!hasPermission($config['mod']['deletefile'], $board))
 		error($config['error']['noaccess']);
 	
-	// Delete file
-	deleteFile($post, TRUE, $file);
 	// Record the action
 	modLog("Deleted file from post #{$post}");
+	// Delete file
+	deleteFile($post, TRUE, $file);
 	
 	// Rebuild board
 	buildIndex();
@@ -3006,6 +3009,7 @@ function mod_recent_posts($lim) {
 				$mod_boards[] = $board;
 		}
 	} else {
+		error('Disabled until Infinity Next.');
 		$mod_boards = $boards;
 	}
 

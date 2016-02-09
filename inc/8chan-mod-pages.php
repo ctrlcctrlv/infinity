@@ -270,7 +270,7 @@
 \$config['user_flag'] = true;
 \$config['uri_flags'] = '/static/custom-flags/$b/%s.png';
 \$config['flag_style'] = '';
-\$config['user_flags'] = unserialize(file_get_contents('$b/flags.ser'));
+\$config['user_flags'] = unserialize(@file_get_contents('$b/flags.ser'));
 FLAGS;
 
 	                if ($config['cache']['enabled']) {

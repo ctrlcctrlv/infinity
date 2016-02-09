@@ -1,5 +1,6 @@
 <?php
 include 'inc/functions.php';
+$tor = checkDNSBL($_SERVER['REMOTE_ADDR']);
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 	$captcha = generate_captcha($config['captcha']['extra']);
@@ -20,7 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 	]));
 
 	if ($resp === '1') {
-		$tor = checkDNSBL($_SERVER['REMOTE_ADDR']);
 		if (!$tor) {
 			$query = prepare('INSERT INTO ``dnsbl_bypass`` VALUES(:ip, NOW(), 0) ON DUPLICATE KEY UPDATE `created`=NOW(),`uses`=0');
 			$query->bindValue(':ip', $_SERVER['REMOTE_ADDR']);
@@ -34,6 +34,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 	
 		echo Element("page.html", array("config" => $config, "body" => '', "title" => _("Success!"), "subtitle" => _("You may now go back and make your post.")));
 	} else {
-		error(_('You failed the CAPTCHA') . _('. <a href="https://8ch.net/dnsbls_bypass.php">Try again.</a> If it\'s not working, email admin@8chan.co for support.'));
+		if ($tor) { 
+			error(_('You failed the CAPTCHA') . _('. <a href="http://oxwugzccvk3dk6tj.onion/dnsbls_bypass.php">Try again.</a> If it\'s not working, email admin@8chan.co for support.'));
+		} else {
+			error(_('You failed the CAPTCHA') . _('. <a href="https://8ch.net/dnsbls_bypass.php">Try again.</a> If it\'s not working, email admin@8chan.co for support.'));
+		}
 	}
 }

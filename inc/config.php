@@ -882,13 +882,13 @@
 	$config['image_identification_iqdb'] = false;
 	
 	// Set this to true if you're using a BSD
-	$config['bsd_md5'] = false;
+	$config['bsd_md5'] = true;
 
 	// Number of posts in a "View Last X Posts" page
 	$config['noko50_count'] = 50;
 	// Number of posts a thread needs before it gets a "View Last X Posts" page.
 	// Set to an arbitrarily large value to disable.
-	$config['noko50_min'] = 100;
+	$config['noko50_min'] = 1000;
 /*
  * ====================
  *  Board settings
@@ -1147,6 +1147,7 @@
 	$config['error']['filesize']		= _('Maximum file size: %maxsz% bytes<br>Your file\'s size: %filesz% bytes');
 	$config['error']['maxsize']		= _('The file was too big.');
 	$config['error']['genwebmerror']	= _('There was a problem processing your webm.');
+	$config['error']['genmp4merror']	= _('MP4 must be made up of one H264 and one AAC stream only.');
 	$config['error']['webmerror'] 		= _('There was a problem processing your webm.');//Is this error used anywhere ?
 	$config['error']['invalidwebm'] 	= _('Invalid webm uploaded.');
 	$config['error']['webmhasaudio'] 	= _('The uploaded webm contains an audio or another type of additional stream.');
@@ -1806,3 +1807,6 @@
 	$config['cloudflare']['token'] = 'token';
 	$config['cloudflare']['email'] = 'email';
 	$config['cloudflare']['domain'] = 'example.com';
+
+	// Version
+	$config['version'] = '+ <a href="https://github.com/ctrlcctrlv/infinity">infinity</a> 41b06ff037';

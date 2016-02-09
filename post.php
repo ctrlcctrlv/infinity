@@ -319,7 +319,7 @@ elseif (isset($_POST['post'])) {
 			error($config['error']['noaccess']);
 	}
 	
-	if (!$post['mod']) {
+	if (!$post['mod'] && false) {
 		$post['antispam_hash'] = checkSpam(array($board['uri'], isset($post['thread']) ? $post['thread'] : ($config['try_smarter'] && isset($_POST['page']) ? 0 - (int)$_POST['page'] : null)));
 		if ($post['antispam_hash'] === true && $config['enable_antibot'])
 			error($config['error']['spam']);
@@ -477,7 +477,7 @@ elseif (isset($_POST['post'])) {
 	// Handle our Tor users
 	$tor = checkDNSBL();
 	if ($tor && !(isset($_SERVER['HTTP_X_TOR'], $_SERVER['REMOTE_ADDR']) && $_SERVER['REMOTE_ADDR'] == '127.0.0.2' && $_SERVER['HTTP_X_TOR'] = 'true'))
-		error('To post on 8chan over Tor, you must use the hidden service for security reasons. You can find it at <a href="http://fullchan4jtta4sx.onion">http://fullchan4jtta4sx.onion</a>.');
+		error('To post on 8chan over Tor, you must use the hidden service for security reasons. You can find it at <a href="http://oxwugzccvk3dk6tj.onion">http://oxwugzccvk3dk6tj.onion</a>.');
 	if ($tor && $post['has_file'] && !$config['tor_image_posting'])
 		error('Sorry. Tor users can\'t upload files on this board.');
 	if ($tor && !$config['tor_posting'])
@@ -729,6 +729,8 @@ elseif (isset($_POST['post'])) {
 			}
 			elseif (!in_array($file['extension'], $config['allowed_ext']) && !in_array($file['extension'], $config['allowed_ext_files']))
 				error($config['error']['unknownext']);
+
+			// if ($file['extension'] === 'swf') error('SWF uploading has been disabled globally due to a localStorage editing vulnerability.');
 			
 			$file['is_an_image'] = !in_array($file['extension'], $config['allowed_ext_files']);
 			
@@ -740,8 +742,8 @@ elseif (isset($_POST['post'])) {
 			if (!is_readable($upload))
 				error($config['error']['nomove']);
 
-			$md5cmd = $config['bsd_md5'] ? 'md5 -r' : 'md5sum';
-			if( ($output = shell_exec_error("cat " . escapeshellarg($upload) . " | $md5cmd")) !== false ) {
+			$md5cmd = $config['bsd_md5'] ? '/sbin/md5 -r' : 'md5sum';
+			if( ($output = shell_exec_error("/bin/cat " . escapeshellarg($upload) . " | $md5cmd")) !== false ) {
 				$explodedvar = explode(' ', $output);
 				$hash = $explodedvar[0];
 			} else {
@@ -750,14 +752,14 @@ elseif (isset($_POST['post'])) {
 
 			// filter files by MD5
 			$query = prepare('SELECT * FROM ``filters`` WHERE `type` = "md5" and `value` = :value');
-			$query->bindValue(':value', $hash);
+			$query->bindValue(':value', trim($hash));
 			$result = $query->execute() or error(db_error());
 			if ($row = $query->fetch()) {
 				$reason = utf8tohtml($row['reason']);
 				error("Sorry, cannot upload. Matched MD5 of disallowed file. Reason: {$reason}");
 			}
 
-			$file['hash'] = $hash;
+			$file['hash'] = trim($hash);
 			$allhashes .= $hash;
 		}
 		
@@ -994,7 +996,7 @@ elseif (isset($_POST['post'])) {
 		}
 	}
 	
-	if (isset($post['antispam_hash'])) {
+	if (isset($post['antispam_hash']) and false) {
 		incrementSpamHash($post['antispam_hash']);
 	}
 	
@@ -1080,7 +1082,6 @@ elseif (isset($_POST['post'])) {
 		@fastcgi_finish_request();
 	}
 
-	buildIndex();
 	
 	if ($post['op']) {
 		rebuildThemes('post-thread', $board['uri']);
@@ -1088,6 +1089,7 @@ elseif (isset($_POST['post'])) {
 	else {
 		rebuildThemes('post', $board['uri']);
 	}
+	buildIndex();
 }
 elseif (isset($_POST['appeal'])) {
 	if (!isset($_POST['ban_id']))

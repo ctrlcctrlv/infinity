@@ -244,9 +244,8 @@ function loadConfig() {
 	if (!isset($config['user_flags']))
 		$config['user_flags'] = array();
 
-	if (!isset($__version))
-		$__version = file_exists('.installed') ? trim(file_get_contents('.installed')) : false;
-	$config['version'] = $__version;
+	//if (!isset($__version))
+	$__version = $config['version'];
 
 	if ($config['allow_roll'])
 		event_handler('post', 'diceRoller');
@@ -705,7 +704,7 @@ function file_write($path, $data, $simple = false, $skip_purge = false) {
 		
 		// File locking
 		if (dio_fcntl($fp, F_SETLKW, array('type' => F_WRLCK)) === -1) {
-			error('Unable to lock file: ' . $path);
+			error('AUnable to lock file: ' . $path);
 		}
 		
 		// Truncate file
@@ -1439,10 +1438,10 @@ function deletePost($id, $error_if_doesnt_exist=true, $rebuild_after=true) {
 			@file_unlink($board['dir'] . $config['dir']['res'] . sprintf($config['file_page50'], $post['id']));
 			@file_unlink($board['dir'] . $config['dir']['res'] . sprintf('%d.json', $post['id']));
 
-			$antispam_query = prepare('DELETE FROM ``antispam`` WHERE `board` = :board AND `thread` = :thread');
+			/*$antispam_query = prepare('DELETE FROM ``antispam`` WHERE `board` = :board AND `thread` = :thread');
 			$antispam_query->bindValue(':board', $board['uri']);
 			$antispam_query->bindValue(':thread', $post['id']);
-			$antispam_query->execute() or error(db_error($antispam_query));
+			$antispam_query->execute() or error(db_error($antispam_query));*/
 		} elseif ($query->rowCount() == 1) {
 			// Rebuild thread
 			$rebuild = &$post['thread'];
@@ -1906,34 +1905,39 @@ function buildIndex($global_api = "yes") {
 			continue;
 
 		if (!$config['smart_build']) {
-			$content = index($page);
-			if (!$content)
-				break;
+			if ($page < 3) {
+				$content = index($page);
+				if (!$content)
+					break;
 
-			// json api
-			if ($config['api']['enabled']) {
-				$threads = $content['threads'];
-				$json = json_encode($api->translatePage($threads));
-				file_write($jsonFilename, $json);
+				// json api
+				if ($config['api']['enabled']) {
+					$threads = $content['threads'];
+					$json = json_encode($api->translatePage($threads));
+					file_write($jsonFilename, $json);
 
-				$catalog[$page-1] = $threads;
+					$catalog[$page-1] = $threads;
+				}
+
+				if ($config['api']['enabled'] && $global_api != "skip" && $config['try_smarter'] && isset($build_pages)
+					&& !empty($build_pages) && !in_array($page, $build_pages) )
+					continue;
+
+				if ($config['try_smarter']) {
+					$antibot = create_antibot($board['uri'], 0 - $page);
+					$content['current_page'] = $page;
+				}
+				//$antibot->reset();
+				$content['pages'] = $pages;
+				$content['pages'][$page-1]['selected'] = true;
+				$content['btn'] = getPageButtons($content['pages']);
+				$content['antibot'] = $antibot;
+
+				file_write($filename, Element('index.html', $content));
+			} else {
+				file_write($filename, 'Back pages are disabled to save on I/O write. Use the <a href="catalog.html">catalog</a> to find threads on pages greater than 3.');
+				file_write($jsonFilename, '{}');
 			}
-
-			if ($config['api']['enabled'] && $global_api != "skip" && $config['try_smarter'] && isset($build_pages)
-				&& !empty($build_pages) && !in_array($page, $build_pages) )
-				continue;
-
-			if ($config['try_smarter']) {
-				$antibot = create_antibot($board['uri'], 0 - $page);
-				$content['current_page'] = $page;
-			}
-			$antibot->reset();
-			$content['pages'] = $pages;
-			$content['pages'][$page-1]['selected'] = true;
-			$content['btn'] = getPageButtons($content['pages']);
-			$content['antibot'] = $antibot;
-
-			file_write($filename, Element('index.html', $content));
 		}
 		else {
 			file_unlink($filename);
@@ -2557,7 +2561,7 @@ function strip_combining_chars($str) {
 		$o = 0;
 		$ord = ordutf8($char, $o);
 
-		if ( ($ord >= 768 && $ord <= 879) || ($ord >= 1536 && $ord <= 1791) || ($ord >= 3655 && $ord <= 3659) || ($ord >= 7616 && $ord <= 7679) || ($ord >= 8400 && $ord <= 8447) || ($ord >= 65056 && $ord <= 65071)){
+		if ( ($ord >= 768 && $ord <= 879) || ($ord >= 1536 && $ord <= 1791) || ($ord >= 3655 && $ord <= 3659) || ($ord >= 7107 && $ord <= 7116) || ($ord >= 7064 && $ord <= 7072) || ($ord >= 7616 && $ord <= 7679) || ($ord >= 8400 && $ord <= 8447) || ($ord >= 65056 && $ord <= 65071)){
 			continue;
 		}
 
@@ -2637,10 +2641,10 @@ function buildThread($id, $return = false, $mod = false) {
 	} else if ($return) {
 		return $body;
 	} else {
-		$noko50fn = $board['dir'] . $config['dir']['res'] . sprintf($config['file_page50'], $id);
-		if ($hasnoko50 || file_exists($noko50fn)) {
-			buildThread50($id, $return, $mod, $thread, $antibot);
-		}
+		//$noko50fn = $board['dir'] . $config['dir']['res'] . sprintf($config['file_page50'], $id);
+		//if ($hasnoko50 || file_exists($noko50fn)) {
+		//	buildThread50($id, $return, $mod, $thread, $antibot);
+		//}
 
 		file_write($board['dir'] . $config['dir']['res'] . sprintf($config['file_page'], $id), $body);
 	}
@@ -2649,9 +2653,11 @@ function buildThread($id, $return = false, $mod = false) {
 function buildThread50($id, $return = false, $mod = false, $thread = null, $antibot = false) {
 	global $board, $config, $build_pages;
 	$id = round($id);
+
+	return;
 	
-	if ($antibot)
-		$antibot->reset();
+	//if ($antibot)
+		//$antibot->reset();
 		
 	if (!$thread) {
 		$query = prepare(sprintf("SELECT * FROM ``posts_%s`` WHERE (`thread` IS NULL AND `id` = :id) OR `thread` = :id ORDER BY `thread`,`id` DESC LIMIT :limit", $board['uri']));

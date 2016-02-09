@@ -34,11 +34,25 @@ function is_valid_webm($ffprobe_out) {
   $extension = pathinfo($ffprobe_out['format']['filename'], PATHINFO_EXTENSION);
 
   if ($extension === 'webm') {
-    if ($ffprobe_out['format']['format_name'] != 'matroska,webm')
+    if (count($ffprobe_out['streams']) === 1) {
+      if (!in_array($ffprobe_out['streams'][0]['codec_name'], ['vp8','vp9']))
+        return array('code' => 2, 'msg' => $config['error']['invalidwebm']);
+    } else if (count($ffprobe_out['streams']) === 2) {
+      if (!in_array($ffprobe_out['streams'][0]['codec_name'], ['vp8','vp9']) || !in_array($ffprobe_out['streams'][1]['codec_name'], ['opus','vorbis']))
+        return array('code' => 2, 'msg' => $config['error']['invalidwebm']);
+    } else {
       return array('code' => 2, 'msg' => $config['error']['invalidwebm']);
+    }
   } elseif ($extension === 'mp4') {
-    if ($ffprobe_out['streams'][0]['codec_name'] != 'h264' && $ffprobe_out['streams'][1]['codec_name'] != 'aac')
-      return array('code' => 2, 'msg' => $config['error']['invalidwebm']);
+    if (count($ffprobe_out['streams']) === 1) {
+      if ($ffprobe_out['streams'][0]['codec_name'] != 'h264')
+        return array('code' => 2, 'msg' => $config['error']['genmp4error']);
+    } else if (count($ffprobe_out['streams']) === 2) {
+      if ($ffprobe_out['streams'][0]['codec_name'] != 'h264' || $ffprobe_out['streams'][1]['codec_name'] != 'aac')
+        return array('code' => 2, 'msg' => $config['error']['genmp4error']);
+    } else {
+      return array('code' => 2, 'msg' => $config['error']['genmp4error']);
+    }
   } else {
     return array('code' => 1, 'msg' => $config['error']['genwebmerror']);  
   }
