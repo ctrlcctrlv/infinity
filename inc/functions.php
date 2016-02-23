@@ -677,14 +677,19 @@ function file_write($path, $data, $simple = false, $skip_purge = false) {
 	if ($board && $useCache) {
 		if (!isset($config['cache']['odiliMagicBoards'][$board])) {
 			$useCache=false;
+			$useFile=true;
 		} else {
 			$type=strtolower($config['cache']['odiliMagicBoards'][$board]);
 			if ($type==='hybrid') {
 				$useFile=true;
+				$useCache=true;
 			} elseif ($type==='memory') {
 				// defaults will be fine
+				$useCache=true;
+				$useFile=false;
 			} else {
 				$useCache=false;
+				$useFile=true;
 			}
 		}
 	}
