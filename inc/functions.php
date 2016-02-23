@@ -663,9 +663,30 @@ function purge($uri, $cloudflare = false) {
 function file_write($path, $data, $simple = false, $skip_purge = false) {
 	global $config, $debug;
 	//echo "file_write($path, ", strlen($data), ", $simple, $skip_purge)<br>\n";
+	$board='';
+	if (strpos($path, '/')!==false) {
+		$parts=explode('/', $path, 2);
+		$board=$parts[0];
+	}
 	$useCache=true;
+	$useFile=false;
 	if ($path=='main.js') {
 		$useCache=false;
+		$useFile=true;
+	}
+	if ($board && $useCache) {
+		if (!isset($config['cache']['odiliMagicBoards'][$board])) {
+			$useCache=false;
+		} else {
+			$type=strtolower($config['cache']['odiliMagicBoards'][$board]);
+			if ($type==='hybrid') {
+				$useFile=true;
+			} elseif ($type==='memory') {
+				// defaults will be fine
+			} else {
+				$useCache=false;
+			}
+		}
 	}
 	if ($useCache) {
     Cache::store('vichan_filecache_'.$path, $data, -1);
@@ -691,7 +712,7 @@ function file_write($path, $data, $simple = false, $skip_purge = false) {
 		}
 	}
 
-  if (!$useCache) {
+  if ($useFile) {
     if (!function_exists("dio_truncate")) {
       if (!$fp = fopen($path, $simple ? 'w' : 'c'))
         error('Unable to open file for writing: ' . $path);
