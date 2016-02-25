@@ -668,12 +668,8 @@ function file_write($path, $data, $simple = false, $skip_purge = false) {
 		$parts=explode('/', $path, 2);
 		$board=$parts[0];
 	}
-	$useCache=true;
-	$useFile=false;
-	if ($path=='main.js') {
-		$useCache=false;
-		$useFile=true;
-	}
+	$useCache=false;
+	$useFile=true;
 	if ($board && $useCache) {
 		if (!isset($config['cache']['odiliMagicBoards'][$board])) {
 			$useCache=false;
@@ -684,14 +680,18 @@ function file_write($path, $data, $simple = false, $skip_purge = false) {
 				$useFile=true;
 				$useCache=true;
 			} elseif ($type==='memory') {
-				// defaults will be fine
 				$useCache=true;
 				$useFile=false;
 			} else {
+				// defaults will be fine
 				$useCache=false;
 				$useFile=true;
 			}
 		}
+	}
+	if ($path=='main.js') {
+		$useCache=false;
+		$useFile=true;
 	}
 	if ($useCache) {
     Cache::store('vichan_filecache_'.$path, $data, -1);
