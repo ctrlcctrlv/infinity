@@ -1,7 +1,12 @@
 infinity
 ========================================================
 
-## This software is DEPRECATED and UNMAINTAINED. Come January 1, 2016, no security fixes will be merged in. You are encouraged to [use the rewrite](https://github.com/infinity-next/infinity-next) or [downgrade to vichan](https://github.com/vichan-devel/vichan).
+A message about infinity GitHub repo
+------------
+Given that Fredrick Brennan is no longer sole administrator of 8chan, maintenance of this repository has passed to N.T. Technology, Inc (NTT). NTT has decided to split the repo into two branches:
+
+* `master`: The historical infinity repository as it was in November of 2015.
+* `public-site`: A repository containing some patches over master of changes that have been made to infinity since then by either Mr. Brennan or other developers on behalf of NTT. Going forward all activity will be on this branch.
 
 About
 ------------
