@@ -108,7 +108,7 @@
 	
 	<ul>
 		{% for board in boards %}
-		{% if board.uri in mod.boards or mod.boards[0] == '*' %}
+		{% if board.uri in mod.boards and mod.boards[0] != '*' %}
 			<li>
 				<a href="?/{{ config.board_path|sprintf(board.uri) }}{{ config.file_index }}">{{ config.board_abbreviation|sprintf(board.uri) }}</a>
 					 - 
@@ -124,7 +124,10 @@
 
 				{% endif %}
 				{% if mod.type == "20" %}
+					&nbsp;
 					<a href="?/settings/{{ board.uri }}"><small>[{% trans 'settings' %}]</small></a>
+					&nbsp;
+					<a href="https://banners.8ch.net/oauth_send"><small>[{% trans 'banners' %}]</small></a>
 				{% endif %}
 				{% if mod|hasPermission(config.mod.manageboards) %}
 					 <a href="?/edit/{{ board.uri }}"><small>[{% trans 'edit' %}]</small></a>
@@ -133,6 +136,9 @@
 			</li>
 		{% endif %}
 		{% endfor %}
+		{% if mod.boards[0] == '*' %}
+			<li>{{boards|length}} boards</li>
+		{% endif %}
 		
 		{% if mod|hasPermission(config.mod.newboard) %}
 			<li style="margin-top:15px"><a href="?/new-board"><strong>{% trans 'Create new board' %}</strong></a></li>
