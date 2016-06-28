@@ -22,7 +22,7 @@
 *
 */
 
-
+//YT auto play
 $(document).ready(function(){
 	if (window.Options && Options.get_tab('general')) {
 		Options.extend_tab("general", "<span id='youtube-size'>" + _('YouTube size') + ": <input type='number' id='youtube-width' value='360'>x<input type='number' id='youtube-height' value='270'>");
@@ -54,11 +54,15 @@ $(document).ready(function(){
 		}
 		
 		$('div.video-container a', tag).click(function() {
-			$(this.parentNode).html('<iframe style="float:left;margin: 10px 20px" type="text/html" '+
+			$(this.parentNode).append('<iframe style="float:left;margin: 10px 20px" type="text/html" '+
 				'width="'+our_yt.width+'" height="'+our_yt.height+'" src="//www.youtube.com/embed/' + $(this.parentNode).data('video') +
 				'?autoplay=1&html5=1'+ $(this.parentNode).data('params') +'" allowfullscreen frameborder="0"/>');
-
+			$(this).remove();
 			return false;
+		});
+		//Twitch YT size
+		$('div.video-container.twitch').find('object').each(function(i,v) {
+			$(v).attr('width', our_yt.width).attr('height', our_yt.height);
 		});
 	};
 	do_embed_yt(document);
@@ -69,3 +73,46 @@ $(document).ready(function(){
         });
 });
 
+//YT draggable
+$(document).on('ready', function() {
+	//Options for jQuery-UI draggable
+	var ui_draggable_opts = {handle: ".video-handle", containment: 'window', scroll: false, distance: 10, stop: function(){$(this).css('position','fixed');}}
+	//Get a suitable background color, based on the current CSS
+	var dummy_reply = $('<div class="post reply"></div>').appendTo($('body'));
+	var reply_background = dummy_reply.css('backgroundColor');
+	dummy_reply.remove();
+
+	//Add pop buttons
+	$('.video-container').prepend($('<a href="#" class="video-pop" style="font-weight:bold;float:right">[pop]</a>'))
+	$('.video-container').css({display:'inline-block',float:'left'});
+	$('.thread>.video-container>a>img').css('margin-bottom',0)
+
+	$('.video-pop').on('click', function(e) {
+	    e.preventDefault();
+	    var vc = $(this).parents('.video-container');
+
+	    if (vc.hasClass('popped')) {
+		//vc.remove();
+			vc.removeClass('popped');
+			vc.draggable('destroy');
+			vc.removeClass('ui-draggable');
+			vc.css('position','static');
+			vc.find('.video-handle').remove();
+			$(this).text('[pop]');
+		return;
+	    } else {
+			$(this).text('[return]');
+			vc.prepend($('<i class="fa fa-arrows video-handle" style="border:1px solid black;padding:2px;cursor:move">'));
+			vc.addClass('ui-draggable');
+			vc.addClass('popped');
+			vc.css('background-color', reply_background);
+			//No hiding under the nav
+			vc.css('z-index', 31);
+			//Correct displacement that would occur when the height of the page changes when a video is first dragged; ui draggable is meant to be used for pos:relative not pos:fixed
+			vc.css('top', vc.offset().top - $(window).scrollTop());
+			vc.css('left', vc.offset().left - $(window).scrollLeft());
+			vc.css('position','fixed');
+			vc.draggable(ui_draggable_opts);    
+		}
+	});
+});
