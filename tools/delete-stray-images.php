@@ -11,20 +11,24 @@
 
 require dirname(__FILE__) . '/inc/cli.php';
 
-$boards = listBoards();
+$boards = array('wx');
 
-foreach ($boards as $board) {
+foreach ($boards as $b) {
+	openBoard($b);
 	echo "/{$board['uri']}/... ";
 	
-	openBoard($board['uri']);
-	
-	$query = query(sprintf("SELECT `file`, `thumb` FROM ``posts_%s`` WHERE `file` IS NOT NULL", $board['uri']));
+	$query = query(sprintf("SELECT `files` FROM ``posts_%s`` WHERE `files` IS NOT NULL", $board['uri']));
 	$valid_src = array();
 	$valid_thumb = array();
 	
 	while ($post = $query->fetch(PDO::FETCH_ASSOC)) {
-		$valid_src[] = $post['file'];
-		$valid_thumb[] = $post['thumb'];
+		$files = json_decode($post['files'], true);
+		if (!$files or !is_array($files)) continue;
+		foreach ($files as $i => $f) {
+			if (!isset($f['file']) or !isset($f['thumb'])) continue;
+			$valid_src[] = $f['file'];
+			$valid_thumb[] = $f['thumb'];
+		}
 	}
 	
 	$files_src = array_map('basename', glob($board['dir'] . $config['dir']['img'] . '*'));
@@ -37,10 +41,13 @@ foreach ($boards as $board) {
 		'deleted' => 0,
 		'size' => 0
 	);
+	//print_r($valid_src); print_r($stray_src); die();
 	
 	foreach ($stray_src as $src) {
 		$stats['deleted']++;
-		$stats['size'] = filesize($board['dir'] . $config['dir']['img'] . $src);
+		$size = filesize($board['dir'] . $config['dir']['img'] . $src);
+		$stats['size'] += $size;
+		echo "Will delete " . $board['dir'] . $config['dir']['img'] . $src . " ($size)\n";
 		if (!file_unlink($board['dir'] . $config['dir']['img'] . $src)) {
 			$er = error_get_last();
 			die("error: " . $er['message'] . "\n");
@@ -49,7 +56,9 @@ foreach ($boards as $board) {
 		
 	foreach ($stray_thumb as $thumb) {
 		$stats['deleted']++;
-		$stats['size'] = filesize($board['dir'] . $config['dir']['thumb'] . $thumb);
+		$size = filesize($board['dir'] . $config['dir']['thumb'] . $thumb);
+		$stats['size'] += $size;
+		echo "Will delete " . $board['dir'] . $config['dir']['thumb'] . $thumb . " ($size)\n";
 		if (!file_unlink($board['dir'] . $config['dir']['thumb'] . $thumb)) {
 			$er = error_get_last();
 			die("error: " . $er['message'] . "\n");
