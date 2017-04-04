@@ -59,7 +59,7 @@ $body = <<<EOT
 <h2>How do I manage my board?</h2>
 <p>Go to <a href="/mod.php">the volunteer panel</a> and click on the board link for your board.</p>
 <h2>How do I contact the admin?</h2>
-<p>The admin can be reached at <tt>admin at 8chan dot co</tt>.</p>
+<p>The admin can be reached at <tt><a href="mailto:admin@8chan.co">admin@8chan.co</a></tt>.</p>
 
 <h2>What's your privacy policy?</h2>
 <p>Find it <a href="/privacy.pdf">here</a>.</p>
