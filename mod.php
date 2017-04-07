@@ -104,13 +104,7 @@ $pages = array(
 	
 	'/config'				=> 'secure_POST config',	// config editor
 	'/config/(\%b)'				=> 'secure_POST config',	// config editor
-	
-	// these pages aren't listed in the dashboard without $config['debug']
-	'/debug/antispam'			=> 'debug_antispam',
-	'/debug/recent'				=> 'debug_recent_posts',
-	'/debug/apc'				=> 'debug_apc',
-	'/debug/sql'				=> 'secure_POST debug_sql',
-	
+		
 	// This should always be at the end:
 	'/(\%b)/?'										=> 'view_board',
 	'/(\%b)/' . preg_quote($config['file_index'], '!')					=> 'view_board',
