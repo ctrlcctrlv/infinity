@@ -3,7 +3,7 @@ infinity
 
 Notice
 ------------
-As of April 9, 2017, Infinity is longer be maintained. IB development will continue on a security-focused fork located here: https://github.com/OpenIB/OpenIB
+As of April 9, 2017, Infinity is longer be maintained. Development of this project will continue on a security-focused fork located here: https://github.com/OpenIB/OpenIB
 
 A message about infinity GitHub repo
 ------------
