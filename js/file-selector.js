@@ -39,7 +39,11 @@ $('#upload_file').hide();  // hide the original file selector
 $('.dropzone-wrap').css('user-select', 'none').show();  // let jquery add browser specific prefix
 
 function addFile(file) {
-	if (files.length == max_images)
+	var fileSum = 0;
+	for (var i=0;i<files.length;i++) {
+		fileSum += files[i].size;
+	}
+	if (files.length == max_images || fileSum + file.size > 8*1024*1024) //change this to $config['max_filesize']
 		return;
 
 	files.push(file);
