@@ -28,8 +28,8 @@ onready(function(){
 					return;
 
 				// or WEBM
-				if (/^\/player\.php\?/.test($(this).parent().attr('href')))
-					return;
+              			if (/(?i)\.(webm|mp4)$/.test($(this).parent().attr('href')))
+            			        return;
 
 				if (!$(this).parent().data('expanded'))
 					$(this).parent().click();
