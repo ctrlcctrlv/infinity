@@ -1,12 +1,33 @@
 <?php
 include 'inc/functions.php';
-$global = isset($_GET['global']);
-$post = (isset($_GET['post']) ? $_GET['post'] : false);
-$board = (isset($_GET['board']) ? $_GET['board'] : false);
 
-if (!$post || !preg_match('/^delete_\d+$/', $post) || !$board || !openBoard($board)) {
-	header('HTTP/1.1 400 Bad Request');
-	error(_('Bad request.'));
+function outputError($errCode, $errString) {
+  http_response_code($errCode);
+  error ($errString);
+  return 0;
+}
+
+$globalExists = isset($_GET['global']);
+$postExists   = isset($_GET['post']);
+$boardExists  = isset($_GET['board']);
+
+if (!$postExists){
+	outputError(400, "No input.");
+}
+
+if (!$boardExist){
+  outputError(400, "No input.");
+}
+
+$post  = $_GET['post'];
+$board = $_GET['board'];
+
+if (!preg_match('/^delete_\d+$/', $post)){
+  outputError(400, "Bad input.");
+}
+
+if (!openBoard($board){
+  outputError(404, "No board.");
 }
 
 if ($config['report_captcha']) {
