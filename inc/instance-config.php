@@ -230,7 +230,6 @@ $config['twig_cache'] = false;
 $config['report_captcha'] = true;
 $config['no_top_bar_boards'] = false;
 
-$config['page_404'] = 'page_404';
 $config['convert_args'] = '-size %dx%d %s -thumbnail %dx%d -quality 85%% -background \'#d6daf0\' -alpha remove -auto-orient +profile "*" %s';
 
 // Flavor and design.
