@@ -1,23 +1,108 @@
 <?php
 /*
  *  Copyright (c) 2010-2014 Tinyboard Development Group
+ *  Copyright (c) 2016 Ron Watkins [ron<at>2ch.net]
  */
 require "./inc/functions.php";
 require "./inc/anti-bot.php";
 
 // Fix for magic quotes
 if (get_magic_quotes_gpc()) {
-	function strip_array($var) {
-		return is_array($var) ? array_map('strip_array', $var) : stripslashes($var);
-	}
-	
 	$_GET = strip_array($_GET);
 	$_POST = strip_array($_POST);
 }
 
-if (isset($_POST['delete'])) {
-	// Delete
+if (isset($_POST['delete'])){
+  deletePosts();
+  exit;
+}
+
+if (isset($_POST['report'])) {
+  manageReports();
+  exit;
+}
+
+if (isset($_POST['appeal'])) {
+  manageBanAppeal();
+  exit;
+}
+
+if (isset($_POST['post'])) {
+  manageNewPost();
+  exit;
+}
+
+# This is here if none of the previous applied
+doomsday();
+
+
+function strip_array($var) {
+  return is_array($var) ? array_map('strip_array', $var) : stripslashes($var);
+}
 	
+function ipv4to6($ip) {
+  if (strpos($ip, ':') !== false) {
+    if (strpos($ip, '.') > 0)
+      $ip = substr($ip, strrpos($ip, ':')+1);
+    else return $ip;  //native ipv6
+  }
+  $iparr = array_pad(explode('.', $ip), 4, 0);
+  $part7 = base_convert(($iparr[0] * 256) + $iparr[1], 10, 16);
+  $part8 = base_convert(($iparr[2] * 256) + $iparr[3], 10, 16);
+  return '::ffff:'.$part7.':'.$part8;
+}
+
+function unlink_tmp_file($file) {
+  @unlink($file);
+  fatal_error_handler();
+}
+
+function manageBanAppeal(){ 
+	if (!isset($_POST['ban_id']))
+		error($config['error']['bot']);
+	
+	$ban_id = (int)$_POST['ban_id'];
+	
+	$bans = Bans::find($_SERVER['REMOTE_ADDR']);
+	foreach ($bans as $_ban) {
+		if ($_ban['id'] == $ban_id) {
+			$ban = $_ban;
+			break;
+		}
+	}
+	
+	if (!isset($ban)) {
+		error(_("That ban doesn't exist or is not for you."));
+	}
+	
+	if ($ban['expires'] && $ban['expires'] - $ban['created'] <= $config['ban_appeals_min_length']) {
+		error(_("You cannot appeal a ban of this length."));
+	}
+	
+	$query = query("SELECT `denied` FROM ``ban_appeals`` WHERE `ban_id` = $ban_id") or error(db_error());
+	$ban_appeals = $query->fetchAll(PDO::FETCH_COLUMN);
+	
+	if (count($ban_appeals) >= $config['ban_appeals_max']) {
+		error(_("You cannot appeal this ban again."));
+	}
+	
+	foreach ($ban_appeals as $is_denied) {
+		if (!$is_denied)
+			error(_("There is already a pending appeal for this ban."));
+	}
+	
+	$query = prepare("INSERT INTO ``ban_appeals`` VALUES (NULL, :ban_id, :time, :message, 0)");
+	$query->bindValue(':ban_id', $ban_id, PDO::PARAM_INT);
+	$query->bindValue(':time', time(), PDO::PARAM_INT);
+	$query->bindValue(':message', $_POST['appeal']);
+	$query->execute() or error(db_error($query));
+	
+	displayBan($ban);
+}
+
+
+function deletePosts() {
+	// Delete
 	if (!isset($_POST['board'], $_POST['password']))
 		error($config['error']['bot']);
 	
@@ -104,119 +189,121 @@ if (isset($_POST['delete'])) {
                 @fastcgi_finish_request();
 
 	rebuildThemes('post-delete', $board['uri']);
+} 
 
-} elseif (isset($_POST['report'])) {
-	if (!isset($_POST['board'], $_POST['reason']))
-		error($config['error']['bot']);
-	
-	$report = array();
-	foreach ($_POST as $post => $value) {
-		if (preg_match('/^delete_(\d+)$/', $post, $m)) {
-			$report[] = (int)$m[1];
-		}
-	}
-	
-	if (checkDNSBL()) error("Tor users may not report posts.");
-		
-	// Check if board exists
-	if (!openBoard($_POST['board']))
-		error($config['error']['noboard']);
-	
-	// Check if banned
-	checkBan($board['uri']);
-	
-	if (empty($report))
-		error($config['error']['noreport']);
-	
-	if (count($report) > $config['report_limit'])
-		error($config['error']['toomanyreports']);
+function manageReports () {
+  if (!isset($_POST['board'], $_POST['reason']))
+    error($config['error']['bot']);
+  
+  $report = array();
+  foreach ($_POST as $post => $value) {
+    if (preg_match('/^delete_(\d+)$/', $post, $m)) {
+      $report[] = (int)$m[1];
+    }
+  }
+  
+  if (checkDNSBL()) error("Tor users may not report posts.");
+    
+  // Check if board exists
+  if (!openBoard($_POST['board']))
+    error($config['error']['noboard']);
+  
+  // Check if banned
+  checkBan($board['uri']);
+  
+  if (empty($report))
+    error($config['error']['noreport']);
+  
+  if (count($report) > $config['report_limit'])
+    error($config['error']['toomanyreports']);
 
-	if ($config['report_captcha'] && !isset($_POST['captcha_text'], $_POST['captcha_cookie'])) {
-		error($config['error']['bot']);
-	}
+  if ($config['report_captcha'] && !isset($_POST['captcha_text'], $_POST['captcha_cookie'])) {
+    error($config['error']['bot']);
+  }
 
-	if ($config['report_captcha']) {
-		$resp = file_get_contents($config['captcha']['provider_check'] . "?" . http_build_query([
-			'mode' => 'check',
-			'text' => $_POST['captcha_text'],
-			'extra' => $config['captcha']['extra'],
-			'cookie' => $_POST['captcha_cookie']
-		]));
+  if ($config['report_captcha']) {
+    $resp = file_get_contents($config['captcha']['provider_check'] . "?" . http_build_query([
+      'mode' => 'check',
+      'text' => $_POST['captcha_text'],
+      'extra' => $config['captcha']['extra'],
+      'cookie' => $_POST['captcha_cookie']
+    ]));
 
-		if ($resp !== '1') {
-			$error = $config['error']['captcha'];
-		}
-	}
-	
-	if (isset($error)) {
-		if ($config['report_captcha']) {
-			$captcha = generate_captcha($config['captcha']['extra']);
-		} else {
-			$captcha = null;
-		}
+    if ($resp !== '1') {
+      $error = $config['error']['captcha'];
+    }
+  }
+  
+  if (isset($error)) {
+    if ($config['report_captcha']) {
+      $captcha = generate_captcha($config['captcha']['extra']);
+    } else {
+      $captcha = null;
+    }
 
-		$body = Element('report.html', array('board' => $board, 'config' => $config, 'error' => $error, 'reason_prefill' => $_POST['reason'], 'post' => 'delete_'.$report[0], 'captcha' => $captcha, 'global' => isset($_POST['global'])));
-		echo Element('page.html', ['config' => $config, 'body' => $body]);
-		die();
-	}
-	
-	$reason = escape_markup_modifiers($_POST['reason']);
-	markup($reason);
-	
-	foreach ($report as &$id) {
-		$query = prepare(
-			"SELECT
-				`thread`,
-				`post_clean`.`clean_local`,
-				`post_clean`.`clean_global`
-			FROM `posts_{$board['uri']}`
-			LEFT JOIN `post_clean`
-				ON `post_clean`.`board_id` = '{$board['uri']}'
-				AND `post_clean`.`post_id` = :id
-			WHERE `id` = :id"
-		);
-		$query->bindValue(':id', $id, PDO::PARAM_INT);
-		$query->execute() or error(db_error($query));
-		
-		if( $post = $query->fetch(PDO::FETCH_ASSOC) ) {
-			$report_local  = !$post['clean_local'];
-			$report_global = isset($_POST['global']) && !$post['clean_global'];
-			
-			if( $report_local || $report_global ) {
-				$thread = $post['thread'];
-				
-				if ($config['syslog']) {
-					_syslog(LOG_INFO, 'Reported post: ' .
-						'/' . $board['dir'] . $config['dir']['res'] . sprintf($config['file_page'], $thread ? $thread : $id) . ($thread ? '#' . $id : '') .
-						' for "' . $reason . '"'
-					);
-				}
-				
-				$query = prepare("INSERT INTO `reports` (`time`, `ip`, `board`, `post`, `reason`, `local`, `global`) VALUES (:time, :ip, :board, :post, :reason, :local, :global)");
-				$query->bindValue(':time',   time(), PDO::PARAM_INT);
-				$query->bindValue(':ip',     $_SERVER['REMOTE_ADDR'], PDO::PARAM_STR);
-				$query->bindValue(':board',  $board['uri'], PDO::PARAM_INT);
-				$query->bindValue(':post',   $id, PDO::PARAM_INT);
-				$query->bindValue(':reason', $reason, PDO::PARAM_STR);
-				$query->bindValue(':local',  $report_local, PDO::PARAM_BOOL);
-				$query->bindValue(':global', $report_global, PDO::PARAM_BOOL);
-				$query->execute() or error(db_error($query));
-			}
-		}
-	}
-	
-	$is_mod = isset($_POST['mod']) && $_POST['mod'];
-	$root = $is_mod ? $config['root'] . $config['file_mod'] . '?/' : $config['root'];
-	
-	if (!isset($_POST['json_response'])) {
-		$index = $root . $board['dir'] . $config['file_index'];
-		echo Element('page.html', array('config' => $config, 'body' => '<div style="text-align:center"><a href="javascript:window.close()">[ ' . _('Close window') ." ]</a> <a href='$index'>[ " . _('Return') . ' ]</a></div>', 'title' => _('Report submitted!')));
-	} else {
-		header('Content-Type: text/json');
-		echo json_encode(array('success' => true));
-	}
+    $body = Element('report.html', array('board' => $board, 'config' => $config, 'error' => $error, 'reason_prefill' => $_POST['reason'], 'post' => 'delete_'.$report[0], 'captcha' => $captcha, 'global' => isset($_POST['global'])));
+    echo Element('page.html', ['config' => $config, 'body' => $body]);
+    die();
+  }
+  
+  $reason = escape_markup_modifiers($_POST['reason']);
+  markup($reason);
+  
+  foreach ($report as &$id) {
+    $query = prepare(
+      "SELECT
+        `thread`,
+        `post_clean`.`clean_local`,
+        `post_clean`.`clean_global`
+      FROM `posts_{$board['uri']}`
+      LEFT JOIN `post_clean`
+        ON `post_clean`.`board_id` = '{$board['uri']}'
+        AND `post_clean`.`post_id` = :id
+      WHERE `id` = :id"
+    );
+    $query->bindValue(':id', $id, PDO::PARAM_INT);
+    $query->execute() or error(db_error($query));
+    
+    if( $post = $query->fetch(PDO::FETCH_ASSOC) ) {
+      $report_local  = !$post['clean_local'];
+      $report_global = isset($_POST['global']) && !$post['clean_global'];
+      
+      if( $report_local || $report_global ) {
+        $thread = $post['thread'];
+        
+        if ($config['syslog']) {
+          _syslog(LOG_INFO, 'Reported post: ' .
+            '/' . $board['dir'] . $config['dir']['res'] . sprintf($config['file_page'], $thread ? $thread : $id) . ($thread ? '#' . $id : '') .
+            ' for "' . $reason . '"'
+          );
+        }
+        
+        $query = prepare("INSERT INTO `reports` (`time`, `ip`, `board`, `post`, `reason`, `local`, `global`) VALUES (:time, :ip, :board, :post, :reason, :local, :global)");
+        $query->bindValue(':time',   time(), PDO::PARAM_INT);
+        $query->bindValue(':ip',     $_SERVER['REMOTE_ADDR'], PDO::PARAM_STR);
+        $query->bindValue(':board',  $board['uri'], PDO::PARAM_INT);
+        $query->bindValue(':post',   $id, PDO::PARAM_INT);
+        $query->bindValue(':reason', $reason, PDO::PARAM_STR);
+        $query->bindValue(':local',  $report_local, PDO::PARAM_BOOL);
+        $query->bindValue(':global', $report_global, PDO::PARAM_BOOL);
+        $query->execute() or error(db_error($query));
+      }
+    }
+  }
+  
+  $is_mod = isset($_POST['mod']) && $_POST['mod'];
+  $root = $is_mod ? $config['root'] . $config['file_mod'] . '?/' : $config['root'];
+  
+  if (!isset($_POST['json_response'])) {
+    $index = $root . $board['dir'] . $config['file_index'];
+    echo Element('page.html', array('config' => $config, 'body' => '<div style="text-align:center"><a href="javascript:window.close()">[ ' . _('Close window') ." ]</a> <a href='$index'>[ " . _('Return') . ' ]</a></div>', 'title' => _('Report submitted!')));
+  } else {
+    header('Content-Type: text/json');
+    echo json_encode(array('success' => true));
+  }
 }
-elseif (isset($_POST['post'])) {
+
+function manageNewPost(){
 	if (!isset($_POST['body'], $_POST['board'])) {
 		error($config['error']['bot']);
 	}
@@ -274,7 +361,7 @@ elseif (isset($_POST['post'])) {
 	}
 
 	// Same, but now with our custom captcha provider
-	//if ($config['captcha']['enabled']) {
+	//if ($config['captcha']['enabled']) 
 	//New thread captcha
 	if (($config['captcha']['enabled']) || (($post['op']) && ($config['new_thread_capt'])) ) {
 		$resp = file_get_contents($config['captcha']['provider_check'] . "?" . http_build_query([
@@ -423,10 +510,6 @@ elseif (isset($_POST['post'])) {
 			error($config['error']['unknownext']);
 
 		$post['file_tmp'] = tempnam($config['tmp'], 'url');
-		function unlink_tmp_file($file) {
-			@unlink($file);
-			fatal_error_handler();
-		}
 		register_shutdown_function('unlink_tmp_file', $post['file_tmp']);
 		
 		$fp = fopen($post['file_tmp'], 'w');
@@ -655,19 +738,7 @@ elseif (isset($_POST['post'])) {
 	if (($config['country_flags'] && (!$config['allow_no_country'] || $config['force_flag'])) || ($config['country_flags'] && $config['allow_no_country'] && !isset($_POST['no_country']))) {
 		require 'inc/lib/geoip/geoip.inc';
 		$gi=geoip\geoip_open('inc/lib/geoip/GeoIPv6.dat', GEOIP_STANDARD);
-	
-		function ipv4to6($ip) {
-			if (strpos($ip, ':') !== false) {
-				if (strpos($ip, '.') > 0)
-					$ip = substr($ip, strrpos($ip, ':')+1);
-				else return $ip;  //native ipv6
-			}
-			$iparr = array_pad(explode('.', $ip), 4, 0);
-			$part7 = base_convert(($iparr[0] * 256) + $iparr[1], 10, 16);
-			$part8 = base_convert(($iparr[2] * 256) + $iparr[3], 10, 16);
-			return '::ffff:'.$part7.':'.$part8;
-		}
-	
+
 		$country_code = geoip\geoip_country_code_by_addr_v6($gi, ipv4to6($_SERVER['REMOTE_ADDR']));
 		$country_name = geoip\geoip_country_name_by_addr_v6($gi, ipv4to6($_SERVER['REMOTE_ADDR']));
 		if (!$country_code) $country_code = 'A1';
@@ -1089,53 +1160,14 @@ elseif (isset($_POST['post'])) {
 		rebuildThemes('post', $board['uri']);
 	}
 }
-elseif (isset($_POST['appeal'])) {
-	if (!isset($_POST['ban_id']))
-		error($config['error']['bot']);
-	
-	$ban_id = (int)$_POST['ban_id'];
-	
-	$bans = Bans::find($_SERVER['REMOTE_ADDR']);
-	foreach ($bans as $_ban) {
-		if ($_ban['id'] == $ban_id) {
-			$ban = $_ban;
-			break;
-		}
-	}
-	
-	if (!isset($ban)) {
-		error(_("That ban doesn't exist or is not for you."));
-	}
-	
-	if ($ban['expires'] && $ban['expires'] - $ban['created'] <= $config['ban_appeals_min_length']) {
-		error(_("You cannot appeal a ban of this length."));
-	}
-	
-	$query = query("SELECT `denied` FROM ``ban_appeals`` WHERE `ban_id` = $ban_id") or error(db_error());
-	$ban_appeals = $query->fetchAll(PDO::FETCH_COLUMN);
-	
-	if (count($ban_appeals) >= $config['ban_appeals_max']) {
-		error(_("You cannot appeal this ban again."));
-	}
-	
-	foreach ($ban_appeals as $is_denied) {
-		if (!$is_denied)
-			error(_("There is already a pending appeal for this ban."));
-	}
-	
-	$query = prepare("INSERT INTO ``ban_appeals`` VALUES (NULL, :ban_id, :time, :message, 0)");
-	$query->bindValue(':ban_id', $ban_id, PDO::PARAM_INT);
-	$query->bindValue(':time', time(), PDO::PARAM_INT);
-	$query->bindValue(':message', $_POST['appeal']);
-	$query->execute() or error(db_error($query));
-	
-	displayBan($ban);
+
+function doomsday(){
+  if (!file_exists($config['has_installed'])) {
+    header('Location: install.php', true, $config['redirect_http']);
+  } else {
+    // They opened post.php in their browser manually.
+    error($config['error']['nopost']);
+  }
 }
-else {
-	if (!file_exists($config['has_installed'])) {
-		header('Location: install.php', true, $config['redirect_http']);
-	} else {
-		// They opened post.php in their browser manually.
-		error($config['error']['nopost']);
-	}
-}
+
+
