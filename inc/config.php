@@ -1461,8 +1461,6 @@
 	$config['mod']['view_bumplock'] = MOD;
 	// Edit posts
 	$config['mod']['editpost'] = ADMIN;
-	// "Move" a thread to another board (EXPERIMENTAL; has some known bugs)
-	$config['mod']['move'] = DISABLED;
 	// Bypass "field_disable_*" (forced anonymity, etc.)
 	$config['mod']['bypass_field_disable'] = MOD;
 	// Post bypass unoriginal content check on robot-enabled boards
@@ -1569,8 +1567,6 @@
 	$config['mod']['news_custom'] = ADMIN;
 	// Delete news entries
 	$config['mod']['news_delete'] = ADMIN;
-	// Execute un-filtered SQL queries on the database (?/debug/sql)
-	$config['mod']['debug_sql'] = DISABLED;
 	// Look through all cache values for debugging when APC is enabled (?/debug/apc)
 	$config['mod']['debug_apc'] = ADMIN;
 	// Edit the current configuration (via web interface)
@@ -1587,16 +1583,6 @@
 
 	// Config editor permissions
 	$config['mod']['config'] = array();
-
-	// Disable the following configuration variables from being changed via ?/config. The following default
-	// banned variables are considered somewhat dangerous.
-	$config['mod']['config'][DISABLED] = array(
-		'mod>config',
-		'mod>config_editor_php',
-		'mod>groups',
-		'convert_args',
-		'db>password',
-	);
 	
 	$config['mod']['config'][JANITOR] = array(
 		'!', // Allow editing ONLY the variables listed (in this case, nothing).
@@ -1606,17 +1592,6 @@
 		'!', // Allow editing ONLY the variables listed (plus that in $config['mod']['config'][JANITOR]).
 		'global_message',
 	);
-	
-	// Example: Disallow ADMIN from editing (and viewing) $config['db']['password'].
-	// $config['mod']['config'][ADMIN] = array(
-	// 	'db>password',
-	// );
-	
-	// Example: Allow ADMIN to edit anything other than $config['db']
-	// (and $config['mod']['config'][DISABLED]).
-	// $config['mod']['config'][ADMIN] = array(
-	// 	'db',
-	// );
 
 	// Allow OP to remove arbitrary posts in his thread
 	$config['user_moderation'] = false;
