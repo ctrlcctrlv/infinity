@@ -11,12 +11,9 @@
 			return;
 		}
 
-		if ($config['smart_build']) {
-			file_unlink($settings['uri'] . '/index.html');
-		}
-		else {
-			file_write($settings['uri'] . '/index.html', $ukko->build());
-		}
+
+		file_write($settings['uri'] . '/index.html', $ukko->build());
+
 	}
 	
 	class ukko {
