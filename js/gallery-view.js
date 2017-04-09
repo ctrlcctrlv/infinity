@@ -110,9 +110,6 @@ $(function(){
     active.find('img, video').fadeOut(200, function() { $(this).remove(); });
 
     var i;
-    if (img.match(/player\.php/)) {
-      img = img.replace(/.*player\.php\?v=|&t=.*/g, '');
-    }
     if (img.match(/\.webm$|\.mp4$|\.ogv$/i)) { // We are handling video nao
       i = $('<video>');
       i.attr('src', img);
