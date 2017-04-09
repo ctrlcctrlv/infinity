@@ -21,24 +21,18 @@
 			foreach ($boards as $board) {
 				$b = new Catalog();
 
-				if ($config['smart_build']) {
-					file_unlink($config['dir']['home'] . $board . '/catalog.html');
-				}
-				else {
+
 					$b->build($settings, $board);
-				}
+
 
 				if (php_sapi_name() === "cli") echo "Rebuilding $board catalog...\n";
 			}
 		} elseif ($action == 'post-thread' || ($settings['update_on_posts'] && $action == 'post') || ($settings['update_on_posts'] && $action == 'post-delete') && (in_array($board, $boards) | $settings['all'])) {
 			$b = new Catalog();
 
-			if ($config['smart_build']) {
-				file_unlink($config['dir']['home'] . $board . '/catalog.html');
-			}
-			else {
+
 				$b->build($settings, $board);
-			}
+
 		}
 	}
 	

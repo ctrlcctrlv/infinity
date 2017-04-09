@@ -1886,62 +1886,59 @@ function checkMute() {
 function buildIndex($global_api = "yes") {
 	global $board, $config, $build_pages;
 
-	if (!$config['smart_build']) {
-		$pages = getPages();
-		if (!$config['try_smarter'])
-			$antibot = create_antibot($board['uri']);
-
-		if ($config['api']['enabled']) {
-			$api = new Api();
-			$catalog = array();
-		}
+	$pages = getPages();
+	if (!$config['try_smarter']) {
+		$antibot = create_antibot($board['uri']);
 	}
+
+	if ($config['api']['enabled']) {
+		$api = new Api();
+		$catalog = array();
+	}
+	
 
 	for ($page = 1; $page <= $config['max_pages']; $page++) {
 		$filename = $board['dir'] . ($page == 1 ? $config['file_index'] : sprintf($config['file_page'], $page));
 		$jsonFilename = $board['dir'] . ($page - 1) . '.json'; // pages should start from 0
 
-		if ((!$config['api']['enabled'] || $global_api == "skip" || $config['smart_build']) && $config['try_smarter']
+		if ((!$config['api']['enabled'] || $global_api == "skip") && $config['try_smarter']
 			 && isset($build_pages) && !empty($build_pages) && !in_array($page, $build_pages) )
 			continue;
 
-		if (!$config['smart_build']) {
-			$content = index($page);
-			if (!$content)
-				break;
 
-			// json api
-			if ($config['api']['enabled']) {
-				$threads = $content['threads'];
-				$json = json_encode($api->translatePage($threads));
-				file_write($jsonFilename, $json);
+		$content = index($page);
+		if (!$content)
+			break;
 
-				$catalog[$page-1] = $threads;
-			}
+		// json api
+		if ($config['api']['enabled']) {
+			$threads = $content['threads'];
+			$json = json_encode($api->translatePage($threads));
+			file_write($jsonFilename, $json);
 
-			if ($config['api']['enabled'] && $global_api != "skip" && $config['try_smarter'] && isset($build_pages)
-				&& !empty($build_pages) && !in_array($page, $build_pages) )
-				continue;
-
-			if ($config['try_smarter']) {
-				$antibot = create_antibot($board['uri'], 0 - $page);
-				$content['current_page'] = $page;
-			}
-			$antibot->reset();
-			$content['pages'] = $pages;
-			$content['pages'][$page-1]['selected'] = true;
-			$content['btn'] = getPageButtons($content['pages']);
-			$content['antibot'] = $antibot;
-
-			file_write($filename, Element('index.html', $content));
+			$catalog[$page-1] = $threads;
 		}
-		else {
-			file_unlink($filename);
-			file_unlink($jsonFilename);
+
+		if ($config['api']['enabled'] && $global_api != "skip" && $config['try_smarter'] && isset($build_pages)
+			&& !empty($build_pages) && !in_array($page, $build_pages) )
+			continue;
+
+		if ($config['try_smarter']) {
+			$antibot = create_antibot($board['uri'], 0 - $page);
+			$content['current_page'] = $page;
 		}
+		$antibot->reset();
+		$content['pages'] = $pages;
+		$content['pages'][$page-1]['selected'] = true;
+		$content['btn'] = getPageButtons($content['pages']);
+		$content['antibot'] = $antibot;
+
+		file_write($filename, Element('index.html', $content));
+		
+
 	}
 
-	if (!$config['smart_build'] && $page < $config['max_pages']) {
+	if ($page < $config['max_pages']) {
 		for (;$page<=$config['max_pages'];$page++) {
 			$filename = $board['dir'] . ($page==1 ? $config['file_index'] : sprintf($config['file_page'], $page));
 			file_unlink($filename);
@@ -1955,21 +1952,15 @@ function buildIndex($global_api = "yes") {
 
 	// json api catalog
 	if ($config['api']['enabled'] && $global_api != "skip") {
-		if ($config['smart_build']) {
-			$jsonFilename = $board['dir'] . 'catalog.json';
-			file_unlink($jsonFilename);
-			$jsonFilename = $board['dir'] . 'threads.json';
-			file_unlink($jsonFilename);
-		}
-		else {
-			$json = json_encode($api->translateCatalog($catalog));
-			$jsonFilename = $board['dir'] . 'catalog.json';
-			file_write($jsonFilename, $json);
 
-			$json = json_encode($api->translateCatalog($catalog, true));
-			$jsonFilename = $board['dir'] . 'threads.json';
-			file_write($jsonFilename, $json);
-		}
+		$json = json_encode($api->translateCatalog($catalog));
+		$jsonFilename = $board['dir'] . 'catalog.json';
+		file_write($jsonFilename, $json);
+
+		$json = json_encode($api->translateCatalog($catalog, true));
+		$jsonFilename = $board['dir'] . 'threads.json';
+		file_write($jsonFilename, $json);
+		
 	}
 
 	if ($config['try_smarter'])
@@ -2582,7 +2573,7 @@ function buildThread($id, $return = false, $mod = false) {
 	if ($config['try_smarter'] && !$mod)
 		$build_pages[] = thread_find_page($id);
 
-	if (!$config['smart_build'] || $return || $mod) {
+	if ( $return || $mod) {
 		$query = prepare(sprintf("SELECT * FROM ``posts_%s`` WHERE (`thread` IS NULL AND `id` = :id) OR `thread` = :id ORDER BY `thread`,`id`", $board['uri']));
 		$query->bindValue(':id', $id, PDO::PARAM_INT);
 		$query->execute() or error(db_error($query));
@@ -2629,12 +2620,7 @@ function buildThread($id, $return = false, $mod = false) {
 		file_unlink($jsonFilename);
 	}
 
-	if ($config['smart_build'] && !$return && !$mod) {
-		$noko50fn = $board['dir'] . $config['dir']['res'] . sprintf($config['file_page50'], $id);
-		file_unlink($noko50fn);
-
-		file_unlink($board['dir'] . $config['dir']['res'] . sprintf($config['file_page'], $id));
-	} else if ($return) {
+	if ($return) {
 		return $body;
 	} else {
 		$noko50fn = $board['dir'] . $config['dir']['res'] . sprintf($config['file_page50'], $id);
