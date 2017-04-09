@@ -9,7 +9,7 @@ Due to being a recent fork, we have not yet deviated much from Infinity.
 
 As of now, most things (other than installation) that apply to upstream vichan also apply to OpenIB. See their readme for a detailed FAQ: https://github.com/vichan-devel/vichan/blob/master/README.md
 
-If you are not interested in letting your users make their own boards, install vichan instead of infinity.
+If you are not interested in letting your users make their own boards, install vichan instead of OpenIB.
 
 **Much like Arch Linux, OpenIB should be considered ``rolling release''. Unlike upstream vichan, we have no install.php. Database schema and templates are changed often and it is on you to read the Git log before updating!**
 
