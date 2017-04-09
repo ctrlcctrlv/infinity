@@ -1,42 +1,51 @@
-OpenIB
+infinity
 ========================================================
+
+Notice
+------------
+As of April 9, 2017, Infinity is longer be maintained. Development of this project will continue on a security-focused fork located here: https://github.com/OpenIB/OpenIB
+
+A message about infinity GitHub repo
+------------
+Given that Fredrick Brennan is no longer sole administrator of 8chan, maintenance of this repository has passed to N.T. Technology, Inc (NTTEC). NTTEC has decided to split the repo into two branches:
+
+* `master`: The historical infinity repository as it was in November of 2015.
+* `public-site`: A repository containing some patches over master of changes that have been made to infinity since then by either Mr. Brennan or other developers on behalf of NTTEC. Going forward all activity will be on this branch.
 
 About
 ------------
-OpenIB is a fork of Infinity which is a fork of vichan. OpenIB will be a security fork focused on user security. Infinity offered us board creation ontop of vichan. Now OpenIB will be refactoring Infinity and making the imageboard ecosystem safer for users. A running instance is at [8ch.net](https://8ch.net/) 
+infinity is a fork of vichan, with the difference that infinity is geared towards allowing users to create their own boards. A running instance is at [8ch.net](https://8ch.net/) (new! a user of the software wrote to me that they created a Polish version: [8ch.pl](http://8ch.pl/))
 
-Due to being a recent fork, we have not yet deviated much from Infinity.
+Most things (other than installation) that apply to upstream vichan also apply to infinity. See their readme for a detailed FAQ: https://github.com/vichan-devel/vichan/blob/master/README.md
 
-As of now, most things (other than installation) that apply to upstream vichan also apply to OpenIB. See their readme for a detailed FAQ: https://github.com/vichan-devel/vichan/blob/master/README.md
+If you are not interested in letting your users make their own boards, install vichan instead of infinity.
 
-If you are not interested in letting your users make their own boards, install vichan instead of OpenIB.
-
-**Much like Arch Linux, OpenIB should be considered ``rolling release''. Unlike upstream vichan, we have no install.php. Database schema and templates are changed often and it is on you to read the Git log before updating!**
+**Much like Arch Linux, infinity should be considered ``rolling release''. Unlike upstream vichan, we have no install.php. Database schema and templates are changed often and it is on you to read the Git log before updating!**
 
 Installation
 ------------
 Basic requirements:
-A computer running a Unix or Unix-like OS (OpenIB has been specifically tested with and is known to work under FreeBSD 10.3), Apache, MySQL, and PHP
-* Make sure Apache has read/write access to the directory OpenIB resides in.
+A computer running a Unix or Unix-like OS(infinity has been specifically tested with and is known to work under Ubuntu 14.x), Apache, MySQL, and PHP
+* Make sure Apache has read/write access to the directory infinity resides in.
 * `install.php` is not maintained. Don't use it.
 * As of February 22, 2015, you need the [DirectIO module (dio.so)](http://php.net/manual/en/ref.dio.php). This is for compatibility with NFS. 
 
-Step 1. Create OpenIB's database from the included install.sql file. Enter mysql and create an empty database named 'openib'. Then cd into the openib base directory and run:
+Step 1. Create infinity's database from the included install.sql file. Enter mysql and create an empty database named 'infinity'. Then cd into the infinity base directory and run:
 ```
-mysql -uroot -p openib < install.sql
-echo '+ <a href="https://github.com/OpenIB/OpenIB">OpenIB</a> '`git rev-parse HEAD|head -c 10` > .installed
+mysql -uroot -p infinity < install.sql
+echo '+ <a href="https://github.com/ctrlcctrlv/infinity">infinity</a> '`git rev-parse HEAD|head -c 10` > .installed
 ```
 
-Step 2. /inc/secrets.php does not exist by default, but OpenIB needs it in order to function. To fix this, cd into /inc/ and run:
+Step 2. /inc/secrets.php does not exist by default, but infinity needs it in order to function. To fix this, cd into /inc/ and run:
 ```
 sudo cp secrets.example.php secrets.php
 ```
 
-Now open secrets.php and edit the $config['db'] settings to point to the 'openib' MySQL database you created in Step 1. 'user' and 'password' refer to your MySQL login credentials.  It should look something like this when you're finished:
+Now open secrets.php and edit the $config['db'] settings to point to the 'infinity' MySQL database you created in Step 1. 'user' and 'password' refer to your MySQL login credentials.  It should look something like this when you're finished:
 
 ```
 	$config['db']['server'] = 'localhost';
-	$config['db']['database'] = 'openib';
+	$config['db']['database'] = 'infinity';
 	$config['db']['prefix'] = '';
 	$config['db']['user'] = 'root';
 	$config['db']['password'] = 'password';
@@ -44,12 +53,12 @@ Now open secrets.php and edit the $config['db'] settings to point to the 'openib
 	$config['cache']['enabled'] = 'apc';
 ```
 
-Step 3.(Optional) By default, OpenIB will ignore any changes you make to the template files until you log into mod.php, go to Rebuild, and select Flush Cache. You may find this inconvenient. To make OpenIB automatically accept your changes to the template files, set $config['twig_cache'].
+Step 3.(Optional) By default, infinity will ignore any changes you make to the template files until you log into mod.php, go to Rebuild, and select Flush Cache. You may find this inconvenient. To make infinity automatically accept your changes to the template files, set $config['twig_cache'].
 
-Step 4. OpenIB can function in a *very* barebones fashion after the first two steps, but you should probably install these additional packages if you want to seriously run it and/or contribute to it. Make sure to run the below as root:
+Step 4. Infinity can function in a *very* barebones fashion after the first two steps, but you should probably install these additional packages if you want to seriously run it and/or contribute to it. ffmpeg may fail to install under certain versions of Ubuntu. If it does, remove it from this script and install it via an alternate method. Make sure to run the below as root:
 
 ```
-pkg add graphicxmagick gifsicle nginx mysql56-server php56 php56-mysql ffmpeg pear 
+apt-get install graphicsmagick gifsicle php5-fpm mysql-client php5-mysql php5-cli php-pear php5-apcu php5-dev; add-apt-repository ppa:jon-severinsson/ffmpeg; add-apt-repository ppa:nginx/stable; apt-get update; apt-get install nginx ffmpeg; pear install Net_DNS2; pecl install "channel://pecl.php.net/dio-0.0.7"
 ```
 
 Page Generation
