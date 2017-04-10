@@ -173,16 +173,7 @@ foreach ($pages as $uri => $handler) {
 			}
 			$handler = preg_replace('/^secure(_POST)? /', '', $handler);
 		}
-		
-		if ($config['debug']) {
-			$debug['mod_page'] = array(
-				'req' => $query,
-				'match' => $uri,
-				'handler' => $handler,
-			);
-			$debug['time']['parse_mod_req'] = '~' . round((microtime(true) - $parse_start_time) * 1000, 2) . 'ms';
-		}
-		
+				
 		if (is_string($handler)) {
 			if ($handler[0] == ':') {
 				header('Location: ' . substr($handler, 1),  true, $config['redirect_http']);
