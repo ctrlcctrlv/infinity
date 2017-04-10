@@ -270,8 +270,6 @@
 		'lock',
 		'raw',
 		'embed',
-		'recaptcha_challenge_field',
-		'recaptcha_response_field',
 		'captcha_cookie',
 		'captcha_text',
 		'spoiler',
@@ -293,15 +291,6 @@
          * is located in the following directory:'/inc/lib/ayah/ayah_config.php'
 	 */
 	$config['ayah_enabled'] = false;
-	
-	// Enable reCaptcha to make spam even harder. Rarely necessary.
-	$config['recaptcha'] = false;
-	// Enable reCaptcha on create.php to prevent automated requests.
-	$config['cbRecaptcha'] = false;
-
-	// Public and private key pair from https://www.google.com/recaptcha/admin/create
-	$config['recaptcha_public'] = '6LcXTcUSAAAAAKBxyFWIt2SO8jwx4W7wcSMRoN3f';
-	$config['recaptcha_private'] = '6LcXTcUSAAAAAOGVbVdhmEM1_SyRF4xTKe8jbzf_';
 
 	$config['captcha'] = array();
 
