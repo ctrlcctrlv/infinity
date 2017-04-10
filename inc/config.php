@@ -263,8 +263,6 @@
 		'lock',
 		'raw',
 		'embed',
-		'recaptcha_challenge_field',
-		'recaptcha_response_field',
 		'captcha_cookie',
 		'captcha_text',
 		'spoiler',
