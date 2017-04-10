@@ -85,51 +85,6 @@
 					$('<td class="submit"></td>').append($td.find('input[type="submit"]')).insertAfter($td);
 				}
 	
-				// reCAPTCHA
-				if ($td.find('#recaptcha_widget_div').length) {
-					// Just show the image, and have it interact with the real form.
-					var $captchaimg = $td.find('#recaptcha_image img');
-					
-					$captchaimg
-						.removeAttr('id')
-						.removeAttr('style')
-						.addClass('recaptcha_image')
-						.click(function() {
-							$('#recaptcha_reload').click();
-						});
-					
-					// When we get a new captcha...
-					$('#recaptcha_response_field').focus(function() {
-						if ($captchaimg.attr('src') != $('#recaptcha_image img').attr('src')) {
-							$captchaimg.attr('src', $('#recaptcha_image img').attr('src'));
-							$postForm.find('input[name="recaptcha_challenge_field"]').val($('#recaptcha_challenge_field').val());
-							$postForm.find('input[name="recaptcha_response_field"]').val('').focus();
-						}
-					});
-					
-					$postForm.submit(function() {
-						setTimeout(function() {
-							$('#recaptcha_reload').click();
-						}, 200);
-					});
-					
-					// Make a new row for the response text
-					var $newRow = $('<tr><td class="recaptcha-response" colspan="2"></td></tr>');
-					$newRow.children().first().append(
-						$td.find('input').removeAttr('style')
-					);
-					$newRow.find('#recaptcha_response_field')
-						.removeAttr('id')
-						.addClass('recaptcha_response_field')
-						.attr('placeholder', $('#recaptcha_response_field').attr('placeholder'));
-					
-					$('#recaptcha_response_field').addClass('recaptcha_response_field')
-					
-					$td.replaceWith($('<td class="recaptcha" colspan="2"></td>').append($('<span></span>').append($captchaimg)));
-					
-					$newRow.insertAfter(this);
-				}
-	
 				// Upload section
 				if ($td.find('input[type="file"]').length) {
 					if ($td.find('input[name="file_url"]').length) {
