@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 		<input class='captcha_text' name='captcha_text' size='25' maxlength='6' autocomplete='off' type='text'>
 		<input class='captcha_cookie' name='captcha_cookie' type='hidden' autocomplete='off' value='{$captcha['cookie']}'><br/>";
 
-	$body = Element("8chan/dnsbls.html", array("config" => $config, "ayah_html" => $html));
+	$body = Element("8chan/dnsbls.html", array("config" => $config, "captcha_html" => $html));
 
 	echo Element("page.html", array("config" => $config, "body" => $body, "title" => _("Bypass DNSBL"), "subtitle" => _("Post even if blocked")));
 } else {
