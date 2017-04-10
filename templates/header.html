@@ -30,33 +30,4 @@
 			{% for javascript in config.additional_javascript %}<script type="text/javascript" src="{{ config.additional_javascript_url }}{{ javascript }}"></script>{% endfor %}
 			{% endif %}
 		{% endif %}
-		{% if config.recaptcha %}<style type="text/css">{% raw %}
-			#recaptcha_area {
-				float: none !important;
-				padding: 0 !important;
-			}
-			#recaptcha_logo, #recaptcha_privacy {
-				display: none;
-			}
-			#recaptcha_table {
-				border: none !important;
-			}
-			#recaptcha_table tr:first-child {
-				height: auto;
-			}
-			.recaptchatable img {
-				float: none !important;
-			}
-			#recaptcha_response_field {
-				font-size: 10pt !important;
-				border: 1px solid #a9a9a9 !important;
-				padding: 1px !important;
-			}
-			td.recaptcha_image_cell {
-				background: transparent !important;
-			}
-			.recaptchatable, #recaptcha_area tr, #recaptcha_area td, #recaptcha_area th {
-				padding: 0 !important;
-			}
-		{% endraw %}</style>{% endif %}
 		{% if config.katex %}<script type="text/javascript" src="/js/mathjax/MathJax.js?config=8chanTeX"></script>{% endif %}
