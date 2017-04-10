@@ -12,7 +12,7 @@ $postExists   = isset($_GET['post']);
 $boardExists  = isset($_GET['board']);
 
 if (!$postExists){
-	outputError(400, "No input.");
+  outputError(400, "No input.");
 }
 
 if (!$boardExist){
@@ -31,9 +31,9 @@ if (!openBoard($board){
 }
 
 if ($config['report_captcha']) {
-	$captcha = generate_captcha($config['captcha']['extra']);
+  $captcha = generate_captcha($config['captcha']['extra']);
 } else {
-	$captcha = null;
+  $captcha = null;
 }
 
 $body = Element('report.html', ['global' => $global, 'post' => $post, 'board' => $board, 'captcha' => $captcha, 'config' => $config]);
