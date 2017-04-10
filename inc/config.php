@@ -36,13 +36,6 @@
 	// $config['global_message'] = 'This is an important announcement!';
 	$config['blotter'] = &$config['global_message'];
 
-	// Shows some extra information at the bottom of pages. Good for development/debugging.
-	$config['debug'] = false;
-	// For development purposes. Displays (and "dies" on) all errors and warnings. Turn on with the above.
-	$config['verbose_errors'] = true;
-	// EXPLAIN all SQL queries (when in debug mode).
-	$config['debug_explain'] = false;
-
 	// Directory where temporary files will be created.
 	$config['tmp'] = sys_get_temp_dir();
 
@@ -280,17 +273,6 @@
 		'no_country',
 		'tag'
 	);
-
-	
-	
-	/* Uses are you a human to stop automated requests to make boards disabled by default
-	 * if you wish to use 'are you a human' to block automated board creation requests
-	
-	 * to use AYAH you must enter your 'AYAH_PUBLISHER_KEY' and your 'AYAH_SCORING_KEY' in
-	 * the configuration file for AYAH. The config file for AYAH
-         * is located in the following directory:'/inc/lib/ayah/ayah_config.php'
-	 */
-	$config['ayah_enabled'] = false;
 
 	$config['captcha'] = array();
 
