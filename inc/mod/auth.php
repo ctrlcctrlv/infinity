@@ -164,9 +164,6 @@ function check_login($prompt = false) {
 		);
 	}
 
-	if ($config['debug'])
-		$parse_start_time = microtime(true);
-
 	// Fix for magic quotes
 	if (get_magic_quotes_gpc()) {
 		function strip_array($var) {
