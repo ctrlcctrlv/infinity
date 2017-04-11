@@ -44,10 +44,11 @@ if ($requestMethod === "POST"){
   ]));
 
   if ($resp === '1') {
-    $tor = checkDNSBL($_SERVER['REMOTE_ADDR']);
+    $tor = checkDNSBL($_SERVER['REMOTE_ADDR']); // This actually needs to use an IP address, but doesnt store it anywhere
+    $identity = getIdentity();
     if (!$tor) {
       $query = prepare('INSERT INTO ``dnsbl_bypass`` VALUES(:ip, NOW(), 0) ON DUPLICATE KEY UPDATE `created`=NOW(),`uses`=0');
-      $query->bindValue(':ip', $_SERVER['REMOTE_ADDR']);
+      $query->bindValue(':ip', $identity);
       $query->execute() or error(db_error($query));
     }
     $cookie = bin2hex(openssl_random_pseudo_bytes(16));
