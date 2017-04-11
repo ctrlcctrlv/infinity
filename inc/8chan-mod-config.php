@@ -5,8 +5,6 @@
 	$config['mod']['noticeboard_post'] = GLOBALVOLUNTEER;
 	$config['mod']['search'] = GLOBALVOLUNTEER;
 	$config['mod']['clean_global'] = GLOBALVOLUNTEER;
-	$config['mod']['debug_recent'] = ADMIN;
-	$config['mod']['debug_antispam'] = ADMIN;
 	$config['mod']['noticeboard_post'] = ADMIN;
 	$config['mod']['modlog'] = GLOBALVOLUNTEER;
 	$config['mod']['mod_board_log'] = MOD;

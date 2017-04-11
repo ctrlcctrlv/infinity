@@ -20,9 +20,10 @@
 	if(isset($_GET['search']) && !empty($_GET['search']) && isset($_GET['board']) && in_array($_GET['board'], $boards)) {		
 		$phrase = $_GET['search'];
 		$_body = '';
+		$identity = getIdentity();
 		
 		$query = prepare("SELECT COUNT(*) FROM ``search_queries`` WHERE `ip` = :ip AND `time` > :time");
-		$query->bindValue(':ip', $_SERVER['REMOTE_ADDR']);
+		$query->bindValue(':ip', $identity);
 		$query->bindValue(':time', time() - ($queries_per_minutes[1] * 60));
 		$query->execute() or error(db_error($query));
 		if($query->fetchColumn() > $queries_per_minutes[0])
@@ -36,7 +37,7 @@
 			
 		
 		$query = prepare("INSERT INTO ``search_queries`` VALUES (:ip, :time, :query)");
-		$query->bindValue(':ip', $_SERVER['REMOTE_ADDR']);
+		$query->bindValue(':ip', $identity);
 		$query->bindValue(':time', time());
 		$query->bindValue(':query', $phrase);
 		$query->execute() or error(db_error($query));

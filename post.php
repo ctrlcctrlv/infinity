@@ -191,10 +191,11 @@ if (isset($_POST['delete'])) {
 						' for "' . $reason . '"'
 					);
 				}
+				$identity = getIdentity();
 				
 				$query = prepare("INSERT INTO `reports` (`time`, `ip`, `board`, `post`, `reason`, `local`, `global`) VALUES (:time, :ip, :board, :post, :reason, :local, :global)");
 				$query->bindValue(':time',   time(), PDO::PARAM_INT);
-				$query->bindValue(':ip',     $_SERVER['REMOTE_ADDR'], PDO::PARAM_STR);
+				$query->bindValue(':ip',     $identity, PDO::PARAM_STR);
 				$query->bindValue(':board',  $board['uri'], PDO::PARAM_INT);
 				$query->bindValue(':post',   $id, PDO::PARAM_INT);
 				$query->bindValue(':reason', $reason, PDO::PARAM_STR);
@@ -260,20 +261,6 @@ elseif (isset($_POST['post'])) {
 	checkBan($board['uri']);
 
 	// Check for CAPTCHA right after opening the board so the "return" link is in there
-	if ($config['recaptcha']) {
-		if (!isset($_POST['recaptcha_challenge_field']) || !isset($_POST['recaptcha_response_field']))
-			error($config['error']['bot']);
-		// Check what reCAPTCHA has to say...
-		$resp = recaptcha_check_answer($config['recaptcha_private'],
-			$_SERVER['REMOTE_ADDR'],
-			$_POST['recaptcha_challenge_field'],
-			$_POST['recaptcha_response_field']);
-		if (!$resp->is_valid) {
-			error($config['error']['captcha']);
-		}
-	}
-
-	// Same, but now with our custom captcha provider
 	//if ($config['captcha']['enabled']) {
 	//New thread captcha
 	if (($config['captcha']['enabled']) || (($post['op']) && ($config['new_thread_capt'])) ) {
@@ -1094,8 +1081,8 @@ elseif (isset($_POST['appeal'])) {
 		error($config['error']['bot']);
 	
 	$ban_id = (int)$_POST['ban_id'];
-	
-	$bans = Bans::find($_SERVER['REMOTE_ADDR']);
+	$identity = getIdentity();
+	$bans = Bans::find($identity);
 	foreach ($bans as $_ban) {
 		if ($_ban['id'] == $ban_id) {
 			$ban = $_ban;

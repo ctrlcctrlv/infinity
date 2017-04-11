@@ -22,11 +22,7 @@
 				}
 			}
 		}
-
-		if ($config['smart_build']) {
-			file_unlink($settings['path']);
-		}
-		else {		
+	
 			$boards = explode(' ', $settings['boards']);
 		
 			$threads = array();
@@ -42,5 +38,5 @@
 				'threads' => $threads,
 				'boards' => $boards,
 			)));
-		}
+		
 	}
