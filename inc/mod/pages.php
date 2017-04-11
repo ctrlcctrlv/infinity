@@ -2116,7 +2116,7 @@ function mod_user_new() {
 		}
 		
 		$type = (int)$_POST['type'];
-		if (!isset($config['mod']['groups'][$type]) || $type == DISABLED)
+		if (!isset($config['mod']['groups'][$type]) )
 			error(sprintf($config['error']['invalidfield'], 'type'));
 		
 		$salt = generate_salt();
@@ -2200,7 +2200,7 @@ function mod_user_promote($uid, $action) {
 		}
 	}
 	
-	if ($new_group === false || $new_group == DISABLED)
+	if ($new_group === false )
 		error(_('Impossible to promote/demote user.'));
 	
 	$query = prepare("UPDATE ``mods`` SET `type` = :group_value WHERE `id` = :id");
