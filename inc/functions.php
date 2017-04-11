@@ -33,6 +33,11 @@ register_shutdown_function('fatal_error_handler');
 mb_internal_encoding('UTF-8');
 loadConfig();
 
+function getIdentity(){
+  $identity = $_SERVER['REMOTE_ADDR'];
+  return $identity;
+}
+
 function init_locale($locale, $error='error') {
 	if ($locale === 'en') 
 		$locale = 'en_US.utf8';
@@ -265,9 +270,11 @@ function loadConfig() {
 	}
 
 	// Keep the original address to properly comply with other board configurations
-	if (!isset($__ip))
-		$__ip = $_SERVER['REMOTE_ADDR'];
-
+	if (!isset($__ip)){
+		$identity = getIdentity();
+		$__ip = $identity;
+	}
+	
 	// ::ffff:0.0.0.0
 	if (preg_match('/^\:\:(ffff\:)?(\d+\.\d+\.\d+\.\d+)$/', $__ip, $m))
 		$_SERVER['REMOTE_ADDR'] = $m[2];
@@ -1035,8 +1042,9 @@ function displayBan($ban) {
 	if (!$ban['seen']) {
 		Bans::seen($ban['id']);
 	}
-
-	$ban['ip'] = $_SERVER['REMOTE_ADDR'];
+	$identity = getIdentity();
+	
+	$ban['ip'] = $identity;
 
 	if ($ban['post'] && isset($ban['post']['board'], $ban['post']['id'])) {
 		if (openBoard($ban['post']['board'])) {
@@ -1095,8 +1103,9 @@ function checkBan($board = false) {
 
 	if (event('check-ban', $board))
 		return true;
-
-	$bans = Bans::find($_SERVER['REMOTE_ADDR'], $board, $config['show_modname']);
+	$identity = getIdentity();
+	
+	$bans = Bans::find($identity, $board, $config['show_modname']);
 	
 	foreach ($bans as &$ban) {
 		if ($ban['expires'] && $ban['expires'] < time()) {
@@ -1184,9 +1193,10 @@ function threadExists($id) {
 
 function insertFloodPost(array $post) {
 	global $board;
+	$identity = getIdentity();
 	
 	$query = prepare("INSERT INTO ``flood`` VALUES (NULL, :ip, :board, :time, :posthash, :filehash, :isreply)");
-	$query->bindValue(':ip', $_SERVER['REMOTE_ADDR']);
+	$query->bindValue(':ip', $identity);
 	$query->bindValue(':board', $board['uri']);
 	$query->bindValue(':time', time());
 	$query->bindValue(':posthash', make_comment_hex($post['body_nomarkup']));
@@ -1225,12 +1235,14 @@ function post(array $post) {
 		$query->bindValue(':trip', null, PDO::PARAM_NULL);
 	}
 	
+	$identity = getIdentity();
+	
 	$query->bindValue(':name', $post['name']);
 	$query->bindValue(':body', $post['body']);
 	$query->bindValue(':body_nomarkup', $post['body_nomarkup']);
 	$query->bindValue(':time', isset($post['time']) ? $post['time'] : time(), PDO::PARAM_INT);
 	$query->bindValue(':password', $post['password']);
-	$query->bindValue(':ip', isset($post['ip']) ? $post['ip'] : $_SERVER['REMOTE_ADDR']);
+	$query->bindValue(':ip', isset($post['ip']) ? $post['ip'] : $identity);
 	
 	if ($post['op'] && $post['mod'] && isset($post['sticky']) && $post['sticky']) {
 		$query->bindValue(':sticky', true, PDO::PARAM_INT);
@@ -1585,7 +1597,8 @@ function index($page, $mod=false) {
 
 // Handle statistic tracking for a new post.
 function updateStatisticsForPost( $post, $new = true ) {
-	$postIp   = isset($post['ip']) ? $post['ip'] : $_SERVER['REMOTE_ADDR'];
+	$identity = getIdentity();
+	$postIp   = isset($post['ip']) ? $post['ip'] : $identity;
 	$postUri  = $post['board'];
 	$postTime = (int)( $post['time'] / 3600 ) * 3600;
 	
@@ -1788,11 +1801,12 @@ function muteTime() {
 
 	if ($time = event('mute-time'))
 		return $time;
-
+	$identity = getIdentity();
+	
 	// Find number of mutes in the past X hours
 	$query = prepare("SELECT COUNT(*) FROM ``mutes`` WHERE `time` >= :time AND `ip` = :ip");
 	$query->bindValue(':time', time()-($config['robot_mute_hour']*3600), PDO::PARAM_INT);
-	$query->bindValue(':ip', $_SERVER['REMOTE_ADDR']);
+	$query->bindValue(':ip', $identity);
 	$query->execute() or error(db_error($query));
 
 	if (!$result = $query->fetchColumn())
@@ -1802,9 +1816,10 @@ function muteTime() {
 
 function mute() {
 	// Insert mute
+	$identity = getIdentity();
 	$query = prepare("INSERT INTO ``mutes`` VALUES (:ip, :time)");
 	$query->bindValue(':time', time(), PDO::PARAM_INT);
-	$query->bindValue(':ip', $_SERVER['REMOTE_ADDR']);
+	$query->bindValue(':ip', $identity);
 	$query->execute() or error(db_error($query));
 
 	return muteTime();
@@ -1814,17 +1829,19 @@ function checkMute() {
 	global $config;
 
 	if ($config['cache']['enabled']) {
+		$identity = getIdentity();
 		// Cached mute?
-		if (($mute = cache::get("mute_${_SERVER['REMOTE_ADDR']}")) && ($mutetime = cache::get("mutetime_${_SERVER['REMOTE_ADDR']}"))) {
+		if (($mute = cache::get("mute_${identity}")) && ($mutetime = cache::get("mutetime_${identity}"))) {
 			error(sprintf($config['error']['youaremuted'], $mute['time'] + $mutetime - time()));
 		}
 	}
 
 	$mutetime = muteTime();
 	if ($mutetime > 0) {
+		$identity = getIdentity();
 		// Find last mute time
 		$query = prepare("SELECT `time` FROM ``mutes`` WHERE `ip` = :ip ORDER BY `time` DESC LIMIT 1");
-		$query->bindValue(':ip', $_SERVER['REMOTE_ADDR']);
+		$query->bindValue(':ip', $identity);
 		$query->execute() or error(db_error($query));
 
 		if (!$mute = $query->fetch(PDO::FETCH_ASSOC)) {
@@ -1834,8 +1851,9 @@ function checkMute() {
 
 		if ($mute['time'] + $mutetime > time()) {
 			if ($config['cache']['enabled']) {
-				cache::set("mute_${_SERVER['REMOTE_ADDR']}", $mute, $mute['time'] + $mutetime - time());
-				cache::set("mutetime_${_SERVER['REMOTE_ADDR']}", $mutetime, $mute['time'] + $mutetime - time());
+				$identity = getIdentity();
+				cache::set("mute_${identity}", $mute, $mute['time'] + $mutetime - time());
+				cache::set("mutetime_${identity}", $mutetime, $mute['time'] + $mutetime - time());
 			}
 			// Not expired yet
 			error(sprintf($config['error']['youaremuted'], $mute['time'] + $mutetime - time()));
