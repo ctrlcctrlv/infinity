@@ -3061,3 +3061,8 @@ function markdown($s) {
 
 	return $pd->text($s);
 }
+
+function getIdentity(){
+  $identity = $_SERVER['REMOTE_ADDR'];
+  return $identity;
+}
