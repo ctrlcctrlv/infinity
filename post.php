@@ -191,10 +191,11 @@ if (isset($_POST['delete'])) {
 						' for "' . $reason . '"'
 					);
 				}
+				$identity = getIdentity();
 				
 				$query = prepare("INSERT INTO `reports` (`time`, `ip`, `board`, `post`, `reason`, `local`, `global`) VALUES (:time, :ip, :board, :post, :reason, :local, :global)");
 				$query->bindValue(':time',   time(), PDO::PARAM_INT);
-				$query->bindValue(':ip',     $_SERVER['REMOTE_ADDR'], PDO::PARAM_STR);
+				$query->bindValue(':ip',     $identity, PDO::PARAM_STR);
 				$query->bindValue(':board',  $board['uri'], PDO::PARAM_INT);
 				$query->bindValue(':post',   $id, PDO::PARAM_INT);
 				$query->bindValue(':reason', $reason, PDO::PARAM_STR);
@@ -1080,8 +1081,8 @@ elseif (isset($_POST['appeal'])) {
 		error($config['error']['bot']);
 	
 	$ban_id = (int)$_POST['ban_id'];
-	
-	$bans = Bans::find($_SERVER['REMOTE_ADDR']);
+	$identity = getIdentity();
+	$bans = Bans::find($identity);
 	foreach ($bans as $_ban) {
 		if ($_ban['id'] == $ban_id) {
 			$ban = $_ban;
