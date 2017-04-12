@@ -1,5 +1,6 @@
 <?php
 
+require 'inc/functions.php';
 require 'inc/lib/IP/Lifo/IP/IP.php';
 require 'inc/lib/IP/Lifo/IP/BC.php';
 require 'inc/lib/IP/Lifo/IP/CIDR.php';
@@ -7,32 +8,6 @@ require 'inc/lib/IP/Lifo/IP/CIDR.php';
 use Lifo\IP\CIDR;
 
 class Bans {
-  static public function range_to_string($mask) {
-    list($ipstart, $ipend) = $mask;
-
-    if (!isset($ipend) || $ipend === false) {
-      // Not a range. Single IP address.
-      $ipstr = inet_ntop($ipstart);
-      return $ipstr;
-    }
-
-    if (strlen($ipstart) != strlen($ipend))
-      return '???'; // What the fuck are you doing, son?
-
-    $range = CIDR::range_to_cidr(inet_ntop($ipstart), inet_ntop($ipend));
-    if ($range !== false)
-      return $range;
-
-    return '???';
-  }
-
-  private static function calc_cidr($mask) {
-    $cidr = new CIDR($mask);
-    $range = $cidr->getRange();
-
-    return array(inet_pton($range[0]), inet_pton($range[1]));
-  }
-
   public static function parse_time($str) {
     if (empty($str))
       return false;
@@ -77,46 +52,6 @@ class Bans {
     return time() + $expire;
   }
 
-  static public function parse_range($mask) {
-    $ipstart = false;
-    $ipend = false;
-
-    if (preg_match('@^(\d{1,3}\.){1,3}([\d*]{1,3})?$@', $mask) && substr_count($mask, '*') == 1) {
-      // IPv4 wildcard mask
-      $parts = explode('.', $mask);
-      $ipv4 = '';
-      foreach ($parts as $part) {
-        if ($part == '*') {
-          $ipstart = inet_pton($ipv4 . '0' . str_repeat('.0', 3 - substr_count($ipv4, '.')));
-          $ipend = inet_pton($ipv4 . '255' . str_repeat('.255', 3 - substr_count($ipv4, '.')));
-          break;
-        } elseif(($wc = strpos($part, '*')) !== false) {
-          $ipstart = inet_pton($ipv4 . substr($part, 0, $wc) . '0' . str_repeat('.0', 3 - substr_count($ipv4, '.')));
-          $ipend = inet_pton($ipv4 . substr($part, 0, $wc) . '9' . str_repeat('.255', 3 - substr_count($ipv4, '.')));
-          break;
-        }
-        $ipv4 .= "$part.";
-      }
-    } elseif (preg_match('@^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/\d+$@', $mask)) {
-      list($ipv4, $bits) = explode('/', $mask);
-      if ($bits > 32)
-        return false;
-
-      list($ipstart, $ipend) = self::calc_cidr($mask);
-    } elseif (preg_match('@^[:a-z\d]+/\d+$@i', $mask)) {
-      list($ipv6, $bits) = explode('/', $mask);
-      if ($bits > 128)
-        return false;
-
-      list($ipstart, $ipend) = self::calc_cidr($mask);
-    } else {
-      if (($ipstart = @inet_pton($mask)) === false)
-        return false;
-    }
-
-    return array($ipstart, $ipend);
-  }
-
   static public function find($criteria, $board = false, $get_mod_info = false, $id = false) {
     global $config;
 
@@ -124,14 +59,16 @@ class Bans {
     ' . ($get_mod_info ? 'LEFT JOIN ``mods`` ON ``mods``.`id` = `creator`' : '') . '
     WHERE ' . ($id ? 'id = :id' : '
       (' . ($board !== false ? '(`board` IS NULL OR `board` = :board) AND' : '') . '
-      (`ipstart` = :ip OR (:ip >= `ipstart` AND :ip <= `ipend`)))') . '
+      (`iphash` = :ip ))') . '
     ORDER BY `expires` IS NULL, `expires` DESC');
-
-    if ($board !== false)
+    
+    if ($board !== false){
       $query->bindValue(':board', $board, PDO::PARAM_STR);
+    }
 
+    // pretty sure bindValue(':id',$criteria); is a bug
     if (!$id) {
-      $query->bindValue(':ip', inet_pton($criteria));
+      $query->bindValue(':ip', $criteria);
     } else {
       $query->bindValue(':id', $criteria);
     }
@@ -141,16 +78,24 @@ class Bans {
     $ban_list = array();
 
     while ($ban = $query->fetch(PDO::FETCH_ASSOC)) {
-      if ($ban['expires'] && ($ban['seen'] || !$config['require_ban_view']) && $ban['expires'] < time()) {
-        self::delete($ban['id']);
-      } else {
-        if ($ban['post'])
-          $ban['post'] = json_decode($ban['post'], true);
-        $ban['mask'] = self::range_to_string(array($ban['ipstart'], $ban['ipend']));
-        $ban_list[] = $ban;
+      if (!isset($ban['expires'])) {
+        $banPost = ""
+        if ($ban['post']) {
+          $banPost = json_decode($ban['post'], true);
+        }
+        $ban['post'] = $banPost;
+        array_push($ban_list, $ban);
+        continue;
       }
+      if ($ban['expires'] >= time()) {
+        continue;
+      }
+      if ($ban['seen'] && $config['require_ban_view']) {
+        self::delete($ban['id']);
+      }
+      continue;
     }
-
+    
     return $ban_list;
   }
 
@@ -170,34 +115,29 @@ class Bans {
       }
     }
 
-    $query = query("SELECT ``bans``.*, `username`, `type` FROM ``bans``
+    $query = prepare("SELECT ``bans``.*, `username`, `type` FROM ``bans``
       LEFT JOIN ``mods`` ON ``mods``.`id` = `creator`
       LEFT JOIN ``boards`` ON ``boards``.`uri` = ``bans``.`board`
-        $query_addition
-       ORDER BY `created` DESC") or error(db_error());
-                $bans = $query->fetchAll(PDO::FETCH_ASSOC);
+       :queryaddition 
+       ORDER BY `created` DESC") ;
+    $query->bindValue(':queryaddition', $query_addition);
+    $query->execute() or error(db_error($query));
+    $bans = $query->fetchAll(PDO::FETCH_ASSOC);
 
     $out ? fputs($out, "[") : print("[");
 
     $end = end($bans);
     foreach ($bans as &$ban) {
-      $ban['mask'] = self::range_to_string(array($ban['ipstart'], $ban['ipend']));
-
-      if ($ban['post']) {
+      if (isset($ban['post'])) {
         $post = json_decode($ban['post']);
-        if ($post) {
-          $ban['message'] = $post->body;
-        }
+        $ban['message'] = $post->body;
       }
-      unset($ban['ipstart'], $ban['ipend'], $ban['post'], $ban['creator']);
+      unset($ban['post'], $ban['creator']);
 
       if ($board_access === false || in_array ($ban['board'], $board_access)) {
         $ban['access'] = true;
       }
 
-      if (filter_var($ban['mask'], FILTER_VALIDATE_IP) !== false) {
-        $ban['single_addr'] = true;
-      }
       if ($filter_staff || ($board_access !== false && !in_array($ban['board'], $board_access))) {
         switch ($ban['type']) {
           case ADMIN:
@@ -218,11 +158,6 @@ class Bans {
         $ban['vstaff'] = true;
       }
       unset($ban['type']);
-      if ($filter_ips || ($board_access !== false && !in_array($ban['board'], $board_access))) {
-        $ban['mask'] = @less_ip($ban['mask'], $ban['board']);
-
-        $ban['masked'] = true;
-      }
 
       $json = json_encode($ban);
       $out ? fputs($out, $json) : print($json);
@@ -236,13 +171,19 @@ class Bans {
 
   static public function seen($ban_id) {
     global $config;
-    $query = query("UPDATE ``bans`` SET `seen` = 1 WHERE `id` = " . (int)$ban_id) or error(db_error());
-                if (!$config['cron_bans']) rebuildThemes('bans');
+    $query = prepare("UPDATE ``bans`` SET `seen` = 1 WHERE `id` = :id" ; 
+    $query -> bindValue(':id', (int)$ban_id);
+    $query->execute() or error(db_error($query));
+    if (!$config['cron_bans']) {
+      rebuildThemes('bans');
+    }
   }
 
   static public function purge() {
     global $config;
-    $query = query("DELETE FROM ``bans`` WHERE `expires` IS NOT NULL AND `expires` < " . time() . " AND `seen` = 1") or error(db_error());
+    $query = prepare("DELETE FROM ``bans`` WHERE `expires` IS NOT NULL AND `expires` < :expiretime AND `seen` = 1");
+    $query -> bindValue (':expireTime', time());
+    $query->execute() or error(db_error($query));
     if (!$config['cron_bans']) rebuildThemes('bans');
   }
 
@@ -252,51 +193,53 @@ class Bans {
     if ($boards && $boards[0] == '*') $boards = false;
 
     if ($modlog) {
-      $query = query("SELECT `ipstart`, `ipend`, `board` FROM ``bans`` WHERE `id` = " . (int)$ban_id) or error(db_error());
+      $query = prepare("SELECT `iphash`, `board` FROM ``bans`` WHERE `id` = :uid"; 
+      $query -> bindValue(':uid', (int)$ban_id);
+      $query->execute() or error(db_error($query));
+      
+      // Ban doesn't exist
       if (!$ban = $query->fetch(PDO::FETCH_ASSOC)) {
-        // Ban doesn't exist
         return false;
       }
 
-      if ($boards !== false && !in_array($ban['board'], $boards)) 
+      if ($boards !== false && !in_array($ban['board'], $boards)) {
         error($config['error']['noaccess']);
+      }
 
-      if ($ban['board']) 
+      if ($ban['board']) {
         openBoard($ban['board']);
+      }
 
-      $mask = self::range_to_string(array($ban['ipstart'], $ban['ipend']));
-
-      modLog("Removed ban #{$ban_id} for " .
-        (filter_var($mask, FILTER_VALIDATE_IP) !== false ? "<a href=\"?/IP/$mask\">$mask</a>" : $mask));
+      modLog("Removed ban #{$ban_id} for {$ban['iphash']}</a>";
     }
 
-    query("DELETE FROM ``bans`` WHERE `id` = " . (int)$ban_id) or error(db_error());
+    $query = prepare("DELETE FROM ``bans`` WHERE `id` = :uid";
+    $query -> bindValue(':uid', (int)$ban_id) ;
+    $query->execute() or error(db_error($query));
 
     if (!$dont_rebuild || !$config['cron_bans']) rebuildThemes('bans');
 
     return true;
   }
 
-  static public function new_ban($mask, $reason, $length = false, $ban_board = false, $mod_id = false, $post = false) {
+  static public function new_ban($iphash, $reason, $length = false, $ban_board = false, $mod_id = false, $post = false) {
     global $config, $mod, $pdo, $board;
+
+    if (!isset($iphash)) {
+      error ("need an ip hash");
+    }
 
     if ($mod_id === false) {
       $mod_id = isset($mod['id']) ? $mod['id'] : -1;
     }
 
-    if (!in_array($ban_board, $mod['boards']) && $mod['boards'][0] != '*')
+    if (!in_array($ban_board, $mod['boards']) && $mod['boards'][0] != '*'){
       error($config['error']['noaccess']);
+    }
 
-    $range = self::parse_range($mask);
-    $mask = self::range_to_string($range);
+    $query = prepare("INSERT INTO ``bans`` VALUES (NULL, :iphash, :time, :expires, :board, :mod, :reason, 0, :post)");
 
-    $query = prepare("INSERT INTO ``bans`` VALUES (NULL, :ipstart, :ipend, :time, :expires, :board, :mod, :reason, 0, :post)");
-
-    $query->bindValue(':ipstart', $range[0]);
-    if ($range[1] !== false && $range[1] != $range[0])
-      $query->bindValue(':ipend', $range[1]);
-    else
-      $query->bindValue(':ipend', null, PDO::PARAM_NULL);
+    $query->bindValue(':iphash', $iphash);
 
     $query->bindValue(':mod', $mod_id);
     $query->bindValue(':time', time());
@@ -305,8 +248,9 @@ class Bans {
       $reason = escape_markup_modifiers($reason);
       markup($reason);
       $query->bindValue(':reason', $reason);
-    } else
+    } else {
       $query->bindValue(':reason', null, PDO::PARAM_NULL);
+    }
 
     if ($length) {
       if (is_int($length) || ctype_digit($length)) {
@@ -350,7 +294,7 @@ class Bans {
         ' ban on ' .
         ($ban_board ? '/' . $ban_board . '/' : 'all boards') .
         ' for ' .
-        (filter_var($mask, FILTER_VALIDATE_IP) !== false ? "<a href=\"?/IP/$mask\">$mask</a>" : $mask) .
+        "{$iphash}" .
         ' (<small>#' . $pdo->lastInsertId() . '</small>)' .
         ' with ' . ($reason ? 'reason: ' . utf8tohtml($reason) . '' : 'no reason'));
     }
