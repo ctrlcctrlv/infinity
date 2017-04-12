@@ -4,6 +4,8 @@
  *  Copyright (c) 2010-2014 Tinyboard Development Group
  */
 
+ini_set('display_errors', false); 
+
 if (realpath($_SERVER['SCRIPT_FILENAME']) == str_replace('\\', '/', __FILE__)) {
 	// You cannot request this file directly.
 	exit;
