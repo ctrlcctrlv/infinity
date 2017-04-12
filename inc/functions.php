@@ -282,15 +282,6 @@ function loadConfig() {
 	if (preg_match('/^\:\:(ffff\:)?(\d+\.\d+\.\d+\.\d+)$/', $__ip, $m))
 		$_SERVER['REMOTE_ADDR'] = $m[2];
 
-	if ($config['verbose_errors']) {
-		set_error_handler('verbose_error_handler');
-		error_reporting(E_ALL);
-		ini_set('display_errors', true);
-		ini_set('html_errors', false);
-	} else {
-		ini_set('display_errors', false);
-	}
-
 	if ($config['syslog'])
 		openlog('tinyboard', LOG_ODELAY, LOG_SYSLOG); // open a connection to sysem logger
 
@@ -2552,142 +2543,51 @@ function buildThread($id, $return = false, $mod = false) {
 	if ($config['try_smarter'] && !$mod)
 		$build_pages[] = thread_find_page($id);
 
-	if ( $return || $mod) {
-		$query = prepare(sprintf("SELECT * FROM ``posts_%s`` WHERE (`thread` IS NULL AND `id` = :id) OR `thread` = :id ORDER BY `thread`,`id`", $board['uri']));
-		$query->bindValue(':id', $id, PDO::PARAM_INT);
-		$query->execute() or error(db_error($query));
+	$query = prepare(sprintf("SELECT * FROM ``posts_%s`` WHERE (`thread` IS NULL AND `id` = :id) OR `thread` = :id ORDER BY `thread`,`id`", $board['uri']));
+	$query->bindValue(':id', $id, PDO::PARAM_INT);
+	$query->execute() or error(db_error($query));
 
-		while ($post = $query->fetch(PDO::FETCH_ASSOC)) {
-			if (!isset($thread)) {
-				$thread = new Thread($post, $mod ? '?/' : $config['root'], $mod);
-			} else {
-				$thread->add(new Post($post, $mod ? '?/' : $config['root'], $mod));
-			}
+	while ($post = $query->fetch(PDO::FETCH_ASSOC)) {
+		if (!isset($thread)) {
+			$thread = new Thread($post, $mod ? '?/' : $config['root'], $mod);
+		} else {
+			$thread->add(new Post($post, $mod ? '?/' : $config['root'], $mod));
 		}
+	}
 
-		// Check if any posts were found
-		if (!isset($thread))
-			error($config['error']['nonexistant']);
+	// Check if any posts were found
+	if (!isset($thread))
+		error($config['error']['nonexistant']);
 	
-		$hasnoko50 = $thread->postCount() >= $config['noko50_min'];
-		$antibot = $mod || $return ? false : create_antibot($board['uri'], $id);
-
-		$body = Element('thread.html', array(
-			'board' => $board,
-			'thread' => $thread,
-			'body' => $thread->build(),
-			'config' => $config,
-			'id' => $id,
-			'mod' => $mod,
-			'hasnoko50' => $hasnoko50,
-			'isnoko50' => false,
-			'antibot' => $antibot,
-			'boardlist' => createBoardlist($mod),
-			'return' => ($mod ? '?' . $board['url'] . $config['file_index'] : $config['root'] . $board['dir'] . $config['file_index'])
-		));
-
-		// json api
-		if ($config['api']['enabled']) {
-			$api = new Api();
-			$json = json_encode($api->translateThread($thread));
-			$jsonFilename = $board['dir'] . $config['dir']['res'] . $id . '.json';
-			file_write($jsonFilename, $json);
-		}
-	}
-	else {
-		$jsonFilename = $board['dir'] . $config['dir']['res'] . $id . '.json';
-		file_unlink($jsonFilename);
-	}
-
-	if ($return) {
-		return $body;
-	} else {
-		$noko50fn = $board['dir'] . $config['dir']['res'] . sprintf($config['file_page50'], $id);
-		if ($hasnoko50 || file_exists($noko50fn)) {
-			buildThread50($id, $return, $mod, $thread, $antibot);
-		}
-
-		file_write($board['dir'] . $config['dir']['res'] . sprintf($config['file_page'], $id), $body);
-	}
-}
-
-function buildThread50($id, $return = false, $mod = false, $thread = null, $antibot = false) {
-	global $board, $config, $build_pages;
-	$id = round($id);
-	
-	if ($antibot)
-		$antibot->reset();
-		
-	if (!$thread) {
-		$query = prepare(sprintf("SELECT * FROM ``posts_%s`` WHERE (`thread` IS NULL AND `id` = :id) OR `thread` = :id ORDER BY `thread`,`id` DESC LIMIT :limit", $board['uri']));
-		$query->bindValue(':id', $id, PDO::PARAM_INT);
-		$query->bindValue(':limit', $config['noko50_count']+1, PDO::PARAM_INT);
-		$query->execute() or error(db_error($query));
-		
-		$num_images = 0;
-		while ($post = $query->fetch(PDO::FETCH_ASSOC)) {
-			if (!isset($thread)) {
-				$thread = new Thread($post, $mod ? '?/' : $config['root'], $mod);
-			} else {
-				if ($post['files'])
-					$num_images += $post['num_files'];
-					
-				$thread->add(new Post($post, $mod ? '?/' : $config['root'], $mod));
-			}
-		}
-
-		// Check if any posts were found
-		if (!isset($thread))
-			error($config['error']['nonexistant']);
-
-
-		if ($query->rowCount() == $config['noko50_count']+1) {
-			$count = prepare(sprintf("SELECT COUNT(`id`) as `num` FROM ``posts_%s`` WHERE `thread` = :thread UNION ALL
-						  SELECT SUM(`num_files`) FROM ``posts_%s`` WHERE `files` IS NOT NULL AND `thread` = :thread", $board['uri'], $board['uri']));
-			$count->bindValue(':thread', $id, PDO::PARAM_INT);
-			$count->execute() or error(db_error($count));
-			
-			$c = $count->fetch();
-			$thread->omitted = $c['num'] - $config['noko50_count'];
-			
-			$c = $count->fetch();
-			$thread->omitted_images = $c['num'] - $num_images;
-		}
-
-		$thread->posts = array_reverse($thread->posts);
-	} else {
-		$allPosts = $thread->posts;
-
-		$thread->posts = array_slice($allPosts, -$config['noko50_count']);
-		$thread->omitted += count($allPosts) - count($thread->posts);
-		foreach ($allPosts as $index => $post) {
-			if ($index == count($allPosts)-count($thread->posts))
-				break;  
-			if ($post->files)
-				$thread->omitted_images += $post->num_files;
-		}
-	}
-
-	$hasnoko50 = $thread->postCount() >= $config['noko50_min'];		
+	$hasnoko50 = $thread->postCount() >= $config['noko50_min'];
+	$antibot = $mod || $return ? false : create_antibot($board['uri'], $id);
 
 	$body = Element('thread.html', array(
 		'board' => $board,
 		'thread' => $thread,
-		'body' => $thread->build(false, true),
+		'body' => $thread->build(),
 		'config' => $config,
 		'id' => $id,
 		'mod' => $mod,
 		'hasnoko50' => $hasnoko50,
-		'isnoko50' => true,
-		'antibot' => $mod ? false : ($antibot ? $antibot : create_antibot($board['uri'], $id)),
+		'isnoko50' => false,
+		'antibot' => $antibot,
 		'boardlist' => createBoardlist($mod),
 		'return' => ($mod ? '?' . $board['url'] . $config['file_index'] : $config['root'] . $board['dir'] . $config['file_index'])
-	));	
+	));
+
+	// json api
+	if ($config['api']['enabled']) {
+		$api = new Api();
+		$json = json_encode($api->translateThread($thread));
+		$jsonFilename = $board['dir'] . $config['dir']['res'] . $id . '.json';
+		file_write($jsonFilename, $json);
+	}
 
 	if ($return) {
 		return $body;
 	} else {
-		file_write($board['dir'] . $config['dir']['res'] . sprintf($config['file_page50'], $id), $body);
+		file_write($board['dir'] . $config['dir']['res'] . sprintf($config['file_page'], $id), $body);
 	}
 }
 
