@@ -1340,20 +1340,6 @@ div.mix {
 #quick-reply .nonsense {
 	display: none;
 }
-#quick-reply td.recaptcha {
-	text-align: center;
-	padding: 0 0 1px 0;
-}
-#quick-reply td.recaptcha span {
-	display: inline-block;
-	width: 100%;
-	background: white;
-	border: 1px solid #ccc;
-	cursor: pointer;
-}
-#quick-reply td.recaptcha-response {
-	padding: 0 0 1px 0;
-}
 @media screen and (max-width: 600px) {
 	#quick-reply {
 		display: none !important;

@@ -33,6 +33,14 @@ register_shutdown_function('fatal_error_handler');
 mb_internal_encoding('UTF-8');
 loadConfig();
 
+function getIdentity(){
+  $userIP = (string) $_SERVER['REMOTE_ADDR'];
+  // Use a static salt for testing. Switch to a rotating salt after getIdentity() is confirmed working.
+  $hashSalt = "qFmQx6sdNCcVeTknVtBSUQRb"; // from random.org
+  $identity = crypt($userIP, '$2a$07$' . $hashSalt . '$') . "\n";
+  return $identity;
+}
+
 function init_locale($locale, $error='error') {
 	if ($locale === 'en') 
 		$locale = 'en_US.utf8';
@@ -53,7 +61,7 @@ $current_locale = 'en';
 
 
 function loadConfig() {
-	global $board, $config, $__ip, $debug, $__version, $microtime_start, $current_locale, $events;
+	global $board, $config, $__ip, $__version, $microtime_start, $current_locale, $events;
 
 	$error = function_exists('error') ? 'error' : 'basic_error_function_because_the_other_isnt_loaded_yet';
 
@@ -265,9 +273,11 @@ function loadConfig() {
 	}
 
 	// Keep the original address to properly comply with other board configurations
-	if (!isset($__ip))
-		$__ip = $_SERVER['REMOTE_ADDR'];
-
+	if (!isset($__ip)){
+		$identity = getIdentity();
+		$__ip = $identity;
+	}
+	
 	// ::ffff:0.0.0.0
 	if (preg_match('/^\:\:(ffff\:)?(\d+\.\d+\.\d+\.\d+)$/', $__ip, $m))
 		$_SERVER['REMOTE_ADDR'] = $m[2];
@@ -284,9 +294,6 @@ function loadConfig() {
 	if ($config['syslog'])
 		openlog('tinyboard', LOG_ODELAY, LOG_SYSLOG); // open a connection to sysem logger
 
-	if ($config['recaptcha'])
-		require_once 'inc/lib/recaptcha/recaptchalib.php';
-	
 	if ($config['cache']['enabled'])
 		require_once 'inc/cache.php';
 
@@ -302,7 +309,6 @@ function loadConfig() {
 			'$config = array();'.
 			'$config[\'cache\'] = '.var_export($config['cache'], true).';'.
 			'$config[\'cache_config\'] = true;'.
-			'$config[\'debug\'] = '.var_export($config['debug'], true).';'.
 			'require_once(\'inc/cache.php\');'
 		);
 
@@ -310,25 +316,6 @@ function loadConfig() {
 
 		Cache::set('config_'.$boardsuffix, $config);
 		Cache::set('events_'.$boardsuffix, $events);
-	}
-	
-	if ($config['debug']) {
-		if (!isset($debug)) {
-			$debug = array(
-				'sql' => array(),
-				'exec' => array(),
-				'purge' => array(),
-				'cached' => array(),
-				'write' => array(),
-				'time' => array(
-					'db_queries' => 0,
-					'exec' => 0,
-				),
-				'start' => $microtime_start,
-				'start_debug' => microtime(true)
-			);
-			$debug['start'] = $microtime_start;
-		}
 	}
 }
 
@@ -552,11 +539,6 @@ function openBoard($uri) {
 	$board = getBoardInfo($uri);
 	if ($board) {
 		setupBoard($board);
-
-		if (function_exists('after_open_board')) {
-			after_open_board();
-		}
-
 		return true;
 	}
 	return false;
@@ -619,7 +601,7 @@ function cloudflare_purge($uri) {
 }
 
 function purge($uri, $cloudflare = false) {
-	global $config, $debug;
+	global $config;
 
 	if ($cloudflare) {
 		cloudflare_purge($uri);
@@ -641,10 +623,6 @@ function purge($uri, $cloudflare = false) {
 		$uri = $config['root'] . $uri;
 	}
 
-	if ($config['debug']) {
-		$debug['purge'][] = $uri;
-	}
-
 	foreach ($config['purge'] as &$purge) {
 		$host = &$purge[0];
 		$port = &$purge[1];
@@ -661,7 +639,7 @@ function purge($uri, $cloudflare = false) {
 }
 
 function file_write($path, $data, $simple = false, $skip_purge = false) {
-	global $config, $debug;
+	global $config;
 
 	if (preg_match('/^remote:\/\/(.+)\:(.+)$/', $path, $m)) {
 		if (isset($config['remote'][$m[1]])) {
@@ -760,21 +738,11 @@ function file_write($path, $data, $simple = false, $skip_purge = false) {
 		purge($path);
 	}
 
-	if ($config['debug']) {
-		$debug['write'][] = $path . ': ' . $bytes . ' bytes';
-	}
-
 	event('write', $path);
 }
 
 function file_unlink($path) {
-	global $config, $debug;
-
-	if ($config['debug']) {
-		if (!isset($debug['unlink']))
-			$debug['unlink'] = array();
-		$debug['unlink'][] = $path;
-	}
+	global $config;
 
 	$ret = @unlink($path);
 
@@ -1072,8 +1040,9 @@ function displayBan($ban) {
 	if (!$ban['seen']) {
 		Bans::seen($ban['id']);
 	}
-
-	$ban['ip'] = $_SERVER['REMOTE_ADDR'];
+	$identity = getIdentity();
+	
+	$ban['ip'] = $identity;
 
 	if ($ban['post'] && isset($ban['post']['board'], $ban['post']['id'])) {
 		if (openBoard($ban['post']['board'])) {
@@ -1132,8 +1101,9 @@ function checkBan($board = false) {
 
 	if (event('check-ban', $board))
 		return true;
-
-	$bans = Bans::find($_SERVER['REMOTE_ADDR'], $board, $config['show_modname']);
+	$identity = getIdentity();
+	
+	$bans = Bans::find($identity, $board, $config['show_modname']);
 	
 	foreach ($bans as &$ban) {
 		if ($ban['expires'] && $ban['expires'] < time()) {
@@ -1221,9 +1191,10 @@ function threadExists($id) {
 
 function insertFloodPost(array $post) {
 	global $board;
+	$identity = getIdentity();
 	
 	$query = prepare("INSERT INTO ``flood`` VALUES (NULL, :ip, :board, :time, :posthash, :filehash, :isreply)");
-	$query->bindValue(':ip', $_SERVER['REMOTE_ADDR']);
+	$query->bindValue(':ip', $identity);
 	$query->bindValue(':board', $board['uri']);
 	$query->bindValue(':time', time());
 	$query->bindValue(':posthash', make_comment_hex($post['body_nomarkup']));
@@ -1262,12 +1233,14 @@ function post(array $post) {
 		$query->bindValue(':trip', null, PDO::PARAM_NULL);
 	}
 	
+	$identity = getIdentity();
+	
 	$query->bindValue(':name', $post['name']);
 	$query->bindValue(':body', $post['body']);
 	$query->bindValue(':body_nomarkup', $post['body_nomarkup']);
 	$query->bindValue(':time', isset($post['time']) ? $post['time'] : time(), PDO::PARAM_INT);
 	$query->bindValue(':password', $post['password']);
-	$query->bindValue(':ip', isset($post['ip']) ? $post['ip'] : $_SERVER['REMOTE_ADDR']);
+	$query->bindValue(':ip', isset($post['ip']) ? $post['ip'] : $identity);
 	
 	if ($post['op'] && $post['mod'] && isset($post['sticky']) && $post['sticky']) {
 		$query->bindValue(':sticky', true, PDO::PARAM_INT);
@@ -1534,7 +1507,7 @@ function thread_find_page($thread) {
 }
 
 function index($page, $mod=false) {
-	global $board, $config, $debug;
+	global $board, $config;
 
 	$body = '';
 	$offset = round($page*$config['threads_per_page']-$config['threads_per_page']);
@@ -1622,7 +1595,8 @@ function index($page, $mod=false) {
 
 // Handle statistic tracking for a new post.
 function updateStatisticsForPost( $post, $new = true ) {
-	$postIp   = isset($post['ip']) ? $post['ip'] : $_SERVER['REMOTE_ADDR'];
+	$identity = getIdentity();
+	$postIp   = isset($post['ip']) ? $post['ip'] : $identity;
 	$postUri  = $post['board'];
 	$postTime = (int)( $post['time'] / 3600 ) * 3600;
 	
@@ -1825,11 +1799,12 @@ function muteTime() {
 
 	if ($time = event('mute-time'))
 		return $time;
-
+	$identity = getIdentity();
+	
 	// Find number of mutes in the past X hours
 	$query = prepare("SELECT COUNT(*) FROM ``mutes`` WHERE `time` >= :time AND `ip` = :ip");
 	$query->bindValue(':time', time()-($config['robot_mute_hour']*3600), PDO::PARAM_INT);
-	$query->bindValue(':ip', $_SERVER['REMOTE_ADDR']);
+	$query->bindValue(':ip', $identity);
 	$query->execute() or error(db_error($query));
 
 	if (!$result = $query->fetchColumn())
@@ -1839,29 +1814,32 @@ function muteTime() {
 
 function mute() {
 	// Insert mute
+	$identity = getIdentity();
 	$query = prepare("INSERT INTO ``mutes`` VALUES (:ip, :time)");
 	$query->bindValue(':time', time(), PDO::PARAM_INT);
-	$query->bindValue(':ip', $_SERVER['REMOTE_ADDR']);
+	$query->bindValue(':ip', $identity);
 	$query->execute() or error(db_error($query));
 
 	return muteTime();
 }
 
 function checkMute() {
-	global $config, $debug;
+	global $config;
 
 	if ($config['cache']['enabled']) {
+		$identity = getIdentity();
 		// Cached mute?
-		if (($mute = cache::get("mute_${_SERVER['REMOTE_ADDR']}")) && ($mutetime = cache::get("mutetime_${_SERVER['REMOTE_ADDR']}"))) {
+		if (($mute = cache::get("mute_${identity}")) && ($mutetime = cache::get("mutetime_${identity}"))) {
 			error(sprintf($config['error']['youaremuted'], $mute['time'] + $mutetime - time()));
 		}
 	}
 
 	$mutetime = muteTime();
 	if ($mutetime > 0) {
+		$identity = getIdentity();
 		// Find last mute time
 		$query = prepare("SELECT `time` FROM ``mutes`` WHERE `ip` = :ip ORDER BY `time` DESC LIMIT 1");
-		$query->bindValue(':ip', $_SERVER['REMOTE_ADDR']);
+		$query->bindValue(':ip', $identity);
 		$query->execute() or error(db_error($query));
 
 		if (!$mute = $query->fetch(PDO::FETCH_ASSOC)) {
@@ -1871,8 +1849,9 @@ function checkMute() {
 
 		if ($mute['time'] + $mutetime > time()) {
 			if ($config['cache']['enabled']) {
-				cache::set("mute_${_SERVER['REMOTE_ADDR']}", $mute, $mute['time'] + $mutetime - time());
-				cache::set("mutetime_${_SERVER['REMOTE_ADDR']}", $mutetime, $mute['time'] + $mutetime - time());
+				$identity = getIdentity();
+				cache::set("mute_${identity}", $mute, $mute['time'] + $mutetime - time());
+				cache::set("mutetime_${identity}", $mutetime, $mute['time'] + $mutetime - time());
 			}
 			// Not expired yet
 			error(sprintf($config['error']['youaremuted'], $mute['time'] + $mutetime - time()));
@@ -1886,62 +1865,59 @@ function checkMute() {
 function buildIndex($global_api = "yes") {
 	global $board, $config, $build_pages;
 
-	if (!$config['smart_build']) {
-		$pages = getPages();
-		if (!$config['try_smarter'])
-			$antibot = create_antibot($board['uri']);
-
-		if ($config['api']['enabled']) {
-			$api = new Api();
-			$catalog = array();
-		}
+	$pages = getPages();
+	if (!$config['try_smarter']) {
+		$antibot = create_antibot($board['uri']);
 	}
+
+	if ($config['api']['enabled']) {
+		$api = new Api();
+		$catalog = array();
+	}
+	
 
 	for ($page = 1; $page <= $config['max_pages']; $page++) {
 		$filename = $board['dir'] . ($page == 1 ? $config['file_index'] : sprintf($config['file_page'], $page));
 		$jsonFilename = $board['dir'] . ($page - 1) . '.json'; // pages should start from 0
 
-		if ((!$config['api']['enabled'] || $global_api == "skip" || $config['smart_build']) && $config['try_smarter']
+		if ((!$config['api']['enabled'] || $global_api == "skip") && $config['try_smarter']
 			 && isset($build_pages) && !empty($build_pages) && !in_array($page, $build_pages) )
 			continue;
 
-		if (!$config['smart_build']) {
-			$content = index($page);
-			if (!$content)
-				break;
 
-			// json api
-			if ($config['api']['enabled']) {
-				$threads = $content['threads'];
-				$json = json_encode($api->translatePage($threads));
-				file_write($jsonFilename, $json);
+		$content = index($page);
+		if (!$content)
+			break;
 
-				$catalog[$page-1] = $threads;
-			}
+		// json api
+		if ($config['api']['enabled']) {
+			$threads = $content['threads'];
+			$json = json_encode($api->translatePage($threads));
+			file_write($jsonFilename, $json);
 
-			if ($config['api']['enabled'] && $global_api != "skip" && $config['try_smarter'] && isset($build_pages)
-				&& !empty($build_pages) && !in_array($page, $build_pages) )
-				continue;
-
-			if ($config['try_smarter']) {
-				$antibot = create_antibot($board['uri'], 0 - $page);
-				$content['current_page'] = $page;
-			}
-			$antibot->reset();
-			$content['pages'] = $pages;
-			$content['pages'][$page-1]['selected'] = true;
-			$content['btn'] = getPageButtons($content['pages']);
-			$content['antibot'] = $antibot;
-
-			file_write($filename, Element('index.html', $content));
+			$catalog[$page-1] = $threads;
 		}
-		else {
-			file_unlink($filename);
-			file_unlink($jsonFilename);
+
+		if ($config['api']['enabled'] && $global_api != "skip" && $config['try_smarter'] && isset($build_pages)
+			&& !empty($build_pages) && !in_array($page, $build_pages) )
+			continue;
+
+		if ($config['try_smarter']) {
+			$antibot = create_antibot($board['uri'], 0 - $page);
+			$content['current_page'] = $page;
 		}
+		$antibot->reset();
+		$content['pages'] = $pages;
+		$content['pages'][$page-1]['selected'] = true;
+		$content['btn'] = getPageButtons($content['pages']);
+		$content['antibot'] = $antibot;
+
+		file_write($filename, Element('index.html', $content));
+		
+
 	}
 
-	if (!$config['smart_build'] && $page < $config['max_pages']) {
+	if ($page < $config['max_pages']) {
 		for (;$page<=$config['max_pages'];$page++) {
 			$filename = $board['dir'] . ($page==1 ? $config['file_index'] : sprintf($config['file_page'], $page));
 			file_unlink($filename);
@@ -1955,21 +1931,15 @@ function buildIndex($global_api = "yes") {
 
 	// json api catalog
 	if ($config['api']['enabled'] && $global_api != "skip") {
-		if ($config['smart_build']) {
-			$jsonFilename = $board['dir'] . 'catalog.json';
-			file_unlink($jsonFilename);
-			$jsonFilename = $board['dir'] . 'threads.json';
-			file_unlink($jsonFilename);
-		}
-		else {
-			$json = json_encode($api->translateCatalog($catalog));
-			$jsonFilename = $board['dir'] . 'catalog.json';
-			file_write($jsonFilename, $json);
 
-			$json = json_encode($api->translateCatalog($catalog, true));
-			$jsonFilename = $board['dir'] . 'threads.json';
-			file_write($jsonFilename, $json);
-		}
+		$json = json_encode($api->translateCatalog($catalog));
+		$jsonFilename = $board['dir'] . 'catalog.json';
+		file_write($jsonFilename, $json);
+
+		$json = json_encode($api->translateCatalog($catalog, true));
+		$jsonFilename = $board['dir'] . 'threads.json';
+		file_write($jsonFilename, $json);
+		
 	}
 
 	if ($config['try_smarter'])
@@ -2582,7 +2552,7 @@ function buildThread($id, $return = false, $mod = false) {
 	if ($config['try_smarter'] && !$mod)
 		$build_pages[] = thread_find_page($id);
 
-	if (!$config['smart_build'] || $return || $mod) {
+	if ( $return || $mod) {
 		$query = prepare(sprintf("SELECT * FROM ``posts_%s`` WHERE (`thread` IS NULL AND `id` = :id) OR `thread` = :id ORDER BY `thread`,`id`", $board['uri']));
 		$query->bindValue(':id', $id, PDO::PARAM_INT);
 		$query->execute() or error(db_error($query));
@@ -2629,12 +2599,7 @@ function buildThread($id, $return = false, $mod = false) {
 		file_unlink($jsonFilename);
 	}
 
-	if ($config['smart_build'] && !$return && !$mod) {
-		$noko50fn = $board['dir'] . $config['dir']['res'] . sprintf($config['file_page50'], $id);
-		file_unlink($noko50fn);
-
-		file_unlink($board['dir'] . $config['dir']['res'] . sprintf($config['file_page'], $id));
-	} else if ($return) {
+	if ($return) {
 		return $body;
 	} else {
 		$noko50fn = $board['dir'] . $config['dir']['res'] . sprintf($config['file_page50'], $id);
@@ -2958,26 +2923,11 @@ function DNS($host) {
 }
 
 function shell_exec_error($command, $suppress_stdout = false) {
-	global $config, $debug;
-	
-	if( $config['debug'] ) {
-		$start = microtime(true);
-	}
+	global $config;
 	
 	$return = trim(shell_exec('PATH="' . escapeshellcmd($config['shell_path']) . ':$PATH";' .
 		$command . ' 2>&1 ' . ($suppress_stdout ? '> /dev/null ' : '') . '&& echo "TB_SUCCESS"'));
 	$return = preg_replace('/TB_SUCCESS$/', '', $return);
-	
-	if( $config['debug'] ) {
-		$time       = microtime(true) - $start;
-		
-		$debug['exec'][] = array(
-			'command'  => $command,
-			'time' => '~' . round($time * 1000, 2) . 'ms',
-			'response' => $return ? $return : null
-		);
-		$debug['time']['exec'] += $time;
-	}
 	
 	return $return === 'TB_SUCCESS' ? false : $return;
 }

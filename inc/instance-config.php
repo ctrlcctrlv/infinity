@@ -41,9 +41,7 @@
 	$config['always_noko'] = true;
 	$config['allow_no_country'] = true;
 	$config['thread_subject_in_title'] = true;
-	$config['spam']['hidden_inputs_max_pass'] = 128;
-	$config['ayah_enabled'] = true;
-	
+	$config['spam']['hidden_inputs_max_pass'] = 128;	
 
 	// Image shit
 	$config['thumb_method'] = 'convert';
@@ -79,8 +77,6 @@
 	// Board shit
 	$config['max_links'] = 40;
 	$config['poster_id_length'] = 6;
-	$config['ayah_enabled'] = false;
-	$config['cbRecaptcha'] = true;
 	$config['url_banner'] = 'https://banners.8ch.net';
 	$config['additional_javascript_compile'] = true;
 	//$config['default_stylesheet'] = array('Notsuba', 'notsuba.css');
@@ -230,7 +226,6 @@ $config['twig_cache'] = false;
 $config['report_captcha'] = true;
 $config['no_top_bar_boards'] = false;
 
-$config['page_404'] = 'page_404';
 $config['convert_args'] = '-size %dx%d %s -thumbnail %dx%d -quality 85%% -background \'#d6daf0\' -alpha remove -auto-orient +profile "*" %s';
 
 // Flavor and design.

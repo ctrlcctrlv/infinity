@@ -334,9 +334,6 @@ form table tr td div {
     padding-left: 0px;
 
 }
-.recaptchatable .recaptcha_image_cell {
-    padding: 0px !important;
-}
 
 div.post.reply.highlighted {
 background: rgba(88, 53, 41, 0.3);

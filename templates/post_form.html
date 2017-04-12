@@ -58,16 +58,6 @@
 				{% endif %}
 			</td>
 		</tr>
-		{% if config.recaptcha %}
-		<tr>
-			<th>
-				{% trans %}Verification{% endtrans %} <span class="required-star">*</span>
-			</th>
-			<td>
-				<script type="text/javascript" src="//www.google.com/recaptcha/api/challenge?k={{ config.recaptcha_public }}"></script>
-			</td>
-		</tr>
-		{% endif %}
 
 		{% if config.captcha.enabled or (config.new_thread_capt and not id) %}
 		<tr class='captcha'>

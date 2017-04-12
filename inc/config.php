@@ -36,13 +36,6 @@
 	// $config['global_message'] = 'This is an important announcement!';
 	$config['blotter'] = &$config['global_message'];
 
-	// Shows some extra information at the bottom of pages. Good for development/debugging.
-	$config['debug'] = false;
-	// For development purposes. Displays (and "dies" on) all errors and warnings. Turn on with the above.
-	$config['verbose_errors'] = true;
-	// EXPLAIN all SQL queries (when in debug mode).
-	$config['debug_explain'] = false;
-
 	// Directory where temporary files will be created.
 	$config['tmp'] = sys_get_temp_dir();
 
@@ -270,8 +263,6 @@
 		'lock',
 		'raw',
 		'embed',
-		'recaptcha_challenge_field',
-		'recaptcha_response_field',
 		'captcha_cookie',
 		'captcha_text',
 		'spoiler',
@@ -282,26 +273,6 @@
 		'no_country',
 		'tag'
 	);
-
-	
-	
-	/* Uses are you a human to stop automated requests to make boards disabled by default
-	 * if you wish to use 'are you a human' to block automated board creation requests
-	
-	 * to use AYAH you must enter your 'AYAH_PUBLISHER_KEY' and your 'AYAH_SCORING_KEY' in
-	 * the configuration file for AYAH. The config file for AYAH
-         * is located in the following directory:'/inc/lib/ayah/ayah_config.php'
-	 */
-	$config['ayah_enabled'] = false;
-	
-	// Enable reCaptcha to make spam even harder. Rarely necessary.
-	$config['recaptcha'] = false;
-	// Enable reCaptcha on create.php to prevent automated requests.
-	$config['cbRecaptcha'] = false;
-
-	// Public and private key pair from https://www.google.com/recaptcha/admin/create
-	$config['recaptcha_public'] = '6LcXTcUSAAAAAKBxyFWIt2SO8jwx4W7wcSMRoN3f';
-	$config['recaptcha_private'] = '6LcXTcUSAAAAAOGVbVdhmEM1_SyRF4xTKe8jbzf_';
 
 	$config['captcha'] = array();
 
@@ -1471,8 +1442,6 @@
 	$config['mod']['view_bumplock'] = MOD;
 	// Edit posts
 	$config['mod']['editpost'] = ADMIN;
-	// "Move" a thread to another board (EXPERIMENTAL; has some known bugs)
-	$config['mod']['move'] = DISABLED;
 	// Bypass "field_disable_*" (forced anonymity, etc.)
 	$config['mod']['bypass_field_disable'] = MOD;
 	// Post bypass unoriginal content check on robot-enabled boards
@@ -1579,8 +1548,6 @@
 	$config['mod']['news_custom'] = ADMIN;
 	// Delete news entries
 	$config['mod']['news_delete'] = ADMIN;
-	// Execute un-filtered SQL queries on the database (?/debug/sql)
-	$config['mod']['debug_sql'] = DISABLED;
 	// Look through all cache values for debugging when APC is enabled (?/debug/apc)
 	$config['mod']['debug_apc'] = ADMIN;
 	// Edit the current configuration (via web interface)
@@ -1597,16 +1564,6 @@
 
 	// Config editor permissions
 	$config['mod']['config'] = array();
-
-	// Disable the following configuration variables from being changed via ?/config. The following default
-	// banned variables are considered somewhat dangerous.
-	$config['mod']['config'][DISABLED] = array(
-		'mod>config',
-		'mod>config_editor_php',
-		'mod>groups',
-		'convert_args',
-		'db>password',
-	);
 	
 	$config['mod']['config'][JANITOR] = array(
 		'!', // Allow editing ONLY the variables listed (in this case, nothing).
@@ -1616,17 +1573,6 @@
 		'!', // Allow editing ONLY the variables listed (plus that in $config['mod']['config'][JANITOR]).
 		'global_message',
 	);
-	
-	// Example: Disallow ADMIN from editing (and viewing) $config['db']['password'].
-	// $config['mod']['config'][ADMIN] = array(
-	// 	'db>password',
-	// );
-	
-	// Example: Allow ADMIN to edit anything other than $config['db']
-	// (and $config['mod']['config'][DISABLED]).
-	// $config['mod']['config'][ADMIN] = array(
-	// 	'db',
-	// );
 
 	// Allow OP to remove arbitrary posts in his thread
 	$config['user_moderation'] = false;

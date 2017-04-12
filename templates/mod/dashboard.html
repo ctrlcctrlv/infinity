@@ -153,20 +153,6 @@
 </fieldset>
 {% endif %}
 
-<!-- Debug Information -->
-{% if config.debug %}
-<fieldset class="mod-dash mod-dash-set mod-dash-debug">
-	<legend>{% trans 'Debug' %}</legend>
-	<ul>
-		<li><a href="?/debug/antispam">{% trans 'Anti-spam' %}</a></li>
-		<li><a href="?/debug/recent">{% trans 'Recent posts' %}</a></li>
-		{% if mod|hasPermission(config.mod.debug_sql) %}
-			<li><a href="?/debug/sql">{% trans 'SQL' %}</a></li>
-		{% endif %}
-	</ul>
-</fieldset>
-{% endif %}
-
 <!-- Update -->
 {% if newer_release %}
 <fieldset class="mod-dash mod-dash-set mod-dash-update">

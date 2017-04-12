@@ -8,7 +8,7 @@
  */
 
 $config['db']['server'] = 'localhost';
-$config['db']['database'] = '8chan';
+$config['db']['database'] = 'openib';
 //$config['db']['prefix'] = '';
 $config['db']['user'] = 'eightchan-user';
 $config['db']['password'] = 'mysecretpassword';

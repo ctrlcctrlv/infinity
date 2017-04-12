@@ -41,8 +41,7 @@ CREATE TABLE IF NOT EXISTS `antispam` (
 
 CREATE TABLE IF NOT EXISTS `bans` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `ipstart` varbinary(16) NOT NULL,
-  `ipend` varbinary(16) DEFAULT NULL,
+  `iphash` varchar(32) NOT NULL,
   `created` int(10) unsigned NOT NULL,
   `expires` int(10) unsigned DEFAULT NULL,
   `board` varchar(58) DEFAULT NULL,
@@ -52,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `bans` (
   `post` blob,
   PRIMARY KEY (`id`),
   KEY `expires` (`expires`),
-  KEY `ipstart` (`ipstart`,`ipend`)
+  KEY `iphash` (`iphash`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -149,7 +148,7 @@ CREATE TABLE IF NOT EXISTS `mods` (
 --
 
 INSERT INTO `mods` VALUES
-(1, 'admin', 'cedad442efeef7112fed0f50b011b2b9bf83f6898082f995f69dd7865ca19fb7', '4a44c6c55df862ae901b413feecb0d49', 30, '*');
+(1, 'admin', 'cedad442efeef7112fed0f50b011b2b9bf83f6898082f995f69dd7865ca19fb7', '4a44c6c55df862ae901b413feecb0d49', 30, '*', NULL);
 
 -- --------------------------------------------------------
 

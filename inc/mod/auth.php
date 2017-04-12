@@ -5,6 +5,7 @@
  */
 
 defined('TINYBOARD') or exit;
+require_once 'inc/functions.php';
 
 // create a hash/salt pair for validate logins
 function mkhash($username, $password, $salt = false) {
@@ -18,7 +19,8 @@ function mkhash($username, $password, $salt = false) {
 	}
 	
 	// generate hash (method is not important as long as it's strong)
-	$hash = substr(base64_encode(md5($username . $config['cookies']['salt'] . sha1($username . $password . $salt . ($config['mod']['lock_ip'] ? $_SERVER['REMOTE_ADDR'] : ''), true), true)), 0, 20);
+	$identity = getIdentity();
+	$hash = substr(base64_encode(md5($username . $config['cookies']['salt'] . sha1($username . $password . $salt . ($config['mod']['lock_ip'] ? $identity : ''), true), true)), 0, 20);
 	
 	if (isset($generated_salt))
 		return array($hash, $salt);
@@ -80,9 +82,10 @@ function destroyCookies() {
 
 function modLog($action, $_board=null) {
 	global $mod, $board, $config;
+	$identity = getIdentity();
 	$query = prepare("INSERT INTO ``modlogs`` VALUES (:id, :ip, :board, :time, :text)");
 	$query->bindValue(':id', (isset($mod['id']) ? $mod['id'] : -1), PDO::PARAM_INT);
-	$query->bindValue(':ip', $_SERVER['REMOTE_ADDR']);
+	$query->bindValue(':ip', $identity);
 	$query->bindValue(':time', time(), PDO::PARAM_INT);
 	$query->bindValue(':text', $action);
 	if (isset($_board))
@@ -163,9 +166,6 @@ function check_login($prompt = false) {
 			'boards' => explode(',', $user['boards'])
 		);
 	}
-
-	if ($config['debug'])
-		$parse_start_time = microtime(true);
 
 	// Fix for magic quotes
 	if (get_magic_quotes_gpc()) {
