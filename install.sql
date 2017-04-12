@@ -49,7 +49,6 @@ CREATE TABLE IF NOT EXISTS `bans` (
   `reason` text,
   `seen` tinyint(1) NOT NULL,
   `post` blob,
-  `warning` bool DEFAULT false,
   PRIMARY KEY (`id`),
   KEY `expires` (`expires`),
   KEY `iphash` (`iphash`)
