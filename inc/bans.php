@@ -1,6 +1,5 @@
 <?php
 
-require 'inc/functions.php';
 require 'inc/lib/IP/Lifo/IP/IP.php';
 require 'inc/lib/IP/Lifo/IP/BC.php';
 require 'inc/lib/IP/Lifo/IP/CIDR.php';
@@ -79,7 +78,7 @@ class Bans {
 
     while ($ban = $query->fetch(PDO::FETCH_ASSOC)) {
       if (!isset($ban['expires'])) {
-        $banPost = ""
+        $banPost = "";
         if ($ban['post']) {
           $banPost = json_decode($ban['post'], true);
         }
@@ -171,7 +170,7 @@ class Bans {
 
   static public function seen($ban_id) {
     global $config;
-    $query = prepare("UPDATE ``bans`` SET `seen` = 1 WHERE `id` = :id" ; 
+    $query = prepare("UPDATE ``bans`` SET `seen` = 1 WHERE `id` = :id"); 
     $query -> bindValue(':id', (int)$ban_id);
     $query->execute() or error(db_error($query));
     if (!$config['cron_bans']) {
@@ -193,7 +192,7 @@ class Bans {
     if ($boards && $boards[0] == '*') $boards = false;
 
     if ($modlog) {
-      $query = prepare("SELECT `iphash`, `board` FROM ``bans`` WHERE `id` = :uid"; 
+      $query = prepare("SELECT `iphash`, `board` FROM ``bans`` WHERE `id` = :uid"); 
       $query -> bindValue(':uid', (int)$ban_id);
       $query->execute() or error(db_error($query));
       
@@ -210,10 +209,10 @@ class Bans {
         openBoard($ban['board']);
       }
 
-      modLog("Removed ban #{$ban_id} for {$ban['iphash']}</a>";
+      modLog("Removed ban #{$ban_id} for {$ban['iphash']}</a>");
     }
 
-    $query = prepare("DELETE FROM ``bans`` WHERE `id` = :uid";
+    $query = prepare("DELETE FROM ``bans`` WHERE `id` = :uid");
     $query -> bindValue(':uid', (int)$ban_id) ;
     $query->execute() or error(db_error($query));
 
