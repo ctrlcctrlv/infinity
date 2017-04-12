@@ -41,8 +41,7 @@ CREATE TABLE IF NOT EXISTS `antispam` (
 
 CREATE TABLE IF NOT EXISTS `bans` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `ipstart` varbinary(16) NOT NULL,
-  `ipend` varbinary(16) DEFAULT NULL,
+  `iphash` varchar(32) NOT NULL,
   `created` int(10) unsigned NOT NULL,
   `expires` int(10) unsigned DEFAULT NULL,
   `board` varchar(58) DEFAULT NULL,
@@ -50,9 +49,10 @@ CREATE TABLE IF NOT EXISTS `bans` (
   `reason` text,
   `seen` tinyint(1) NOT NULL,
   `post` blob,
+  `warning` bool DEFAULT false,
   PRIMARY KEY (`id`),
   KEY `expires` (`expires`),
-  KEY `ipstart` (`ipstart`,`ipend`)
+  KEY `iphash` (`iphash`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
