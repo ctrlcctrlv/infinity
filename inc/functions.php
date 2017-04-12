@@ -34,7 +34,10 @@ mb_internal_encoding('UTF-8');
 loadConfig();
 
 function getIdentity(){
-  $identity = $_SERVER['REMOTE_ADDR'];
+  $userIP = (string) $_SERVER['REMOTE_ADDR'];
+  // Use a static salt for testing. Switch to a rotating salt after getIdentity() is confirmed working.
+  $hashSalt = "qFmQx6sdNCcVeTknVtBSUQRb"; // from random.org
+  $identity = crypt($userIP, '$2a$07$' . $hashSalt . '$') . "\n";
   return $identity;
 }
 
