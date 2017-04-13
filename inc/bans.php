@@ -94,7 +94,6 @@ class Bans {
       }
       continue;
     }
-    
     return $ban_list;
   }
 
@@ -236,7 +235,7 @@ class Bans {
       error($config['error']['noaccess']);
     }
 
-    $query = prepare("INSERT INTO ``bans`` VALUES (NULL, :iphash, :time, :expires, :board, :mod, :reason, 0, :post)");
+    $query = prepare("INSERT INTO ``bans`` VALUES (NULL, :iphash, :time, :expires, :board, :mod, :reason, 0, :post, 0)");
 
     $query->bindValue(':iphash', $iphash);
 
