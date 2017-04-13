@@ -15,7 +15,7 @@ if (!$postExists){
   outputError(400, "No input.");
 }
 
-if (!$boardExist){
+if (!$boardExists){
   outputError(400, "No input.");
 }
 
@@ -26,7 +26,7 @@ if (!preg_match('/^delete_\d+$/', $post)){
   outputError(400, "Bad input.");
 }
 
-if (!openBoard($board){
+if (!openBoard($board)){
   outputError(404, "No board.");
 }
 
@@ -36,5 +36,5 @@ if ($config['report_captcha']) {
   $captcha = null;
 }
 
-$body = Element('report.html', ['global' => $global, 'post' => $post, 'board' => $board, 'captcha' => $captcha, 'config' => $config]);
+$body = Element('report.html', ['global' => $globalExists, 'post' => $post, 'board' => $board, 'captcha' => $captcha, 'config' => $config]);
 echo Element('page.html', ['config' => $config, 'body' => $body]);
