@@ -68,7 +68,7 @@ $query = query('SELECT np.* FROM newsplus np INNER JOIN `posts_n` p ON np.thread
 if ($query) {
 	$newsplus = $query->fetchAll(PDO::FETCH_ASSOC);
 } else {
-	$newsplus = false;
+	$newsplus = array();
 }
 
 $searchArray = array(
