@@ -1,8 +1,10 @@
 /* SHADILAY
- *A P.E.P.E. Skin by H0K4CH4N.
- *Based on TOMORROW STYLE
+ *A PEPE Skin by H0K4CH4N.
  *https://hokachan.com/
  *https://github.com/kekkin/H0K4CH4N
+ *Based on TOMORROW STYLE
+ *A cool dark skin by 7185.
+ *https://github.com/7185/8chan-tomorrow/
  */
 
  
@@ -121,7 +123,6 @@ form#quick-reply {
  
 .thread{
   background: #282a2e!important;
-  margin-bottom: 1em !important;
   padding: 1em 1em 0 1em !important;
   border: none !important;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8) !important;
@@ -138,7 +139,7 @@ form#quick-reply {
 div.post.reply {
   background-color: #1d1f21;
   border: 1px solid #1d1f21;
-  margin-bottom: 2px;
+  margin-bottom: 5px;
   margin-left: 16px;
   margin-top: 2px;
   border-radius: 15px;
@@ -285,8 +286,9 @@ div.ban p {
  * CATALOG THREAD LAYOUT
  * Activate the code below if you want to show threads like a grid. 
  */
-
-/*.thread{
+ 
+/*
+.thread{
  display: inline-block;
  vertical-align: top;
  text-align: center;
@@ -301,11 +303,9 @@ div.ban p {
  border-radius: 15px;
  overflow:hidden; 
 }
-
 .file.multifile.post-image{
    width:25px;		
 }
-
 .post-image {
   display: block;
   float: none !important;
@@ -321,7 +321,10 @@ div.ban p {
   max-height: 50px;
   max-width: 50px;
 }
-
+iframe {
+    max-width: 150px!important;
+    max-height: 100px!important;
+}
 .file:not(.multifile) .post-image {
   float: none;
   margin-left: auto;
@@ -329,20 +332,31 @@ div.ban p {
   max-width: 150px;
   max-height: 150px;
 }
-
+p.fileinfo {
+    display: none!important;
+}
 .file:not(.multifile) {
   float: none;
   margin-left: auto;
   margin-right: auto;
   max-width: 155px;
-}*/
+}
+.thread:hover {
+	overflow-y: scroll;
+	}
+*/
 
 /* 
- *If you want to enable scroll when on click you need to comment out the .thread code above and activate the code below.
+ *IMPORTANT 
+ *This conflicts with way too many scripts etc... and benefits are minor when you can do the same with a hover effect. 
+ *If you enable this be warned that it conflicts with infinite scroll, etc...
+ *I could fix it but there is a moment that a modification like this is too much trouble for what it's worth.
+ *INSTRUCTIONS
+ *If you want to enable scroll when on click you need to comment out the .thread and .thread:hover code above and activate the code below.
  *You also need to add these lines in /public_html/templates/post_thread.html :
  *<input type="checkbox" id="thread_{{ post.id }}" data-board="{{ board.uri }}" style="display:none;"/>
  *<label id="thread-label" for="thread_{{ post.id }}" data-board="{{ board.uri }}">
- *<div class="thread-depreciated" id="thread_{{ post.id }}" data-board="{{ board.uri }}">
+ *<div class="thread" id="thread_{{ post.id }}" data-board="{{ board.uri }}">
  * ...... blah blah bunch of code here. 
  *</div>
  *</label>
