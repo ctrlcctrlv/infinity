@@ -43,7 +43,14 @@ span.capcode {
 }
 span.omitted {
   color:#707070;
-}	
+}
+div.video-container img.post-image {
+  background-color:#000;
+  border-color:#fff;
+  border-width:2px;
+  border-style:none dotted none;
+  padding:0;
+}
 
 /* 
  * HEADINGS
@@ -61,13 +68,13 @@ h2 {
  */
 
 a:link {
-  color:#8abe81;
+  color:#8cb14c;
 }
 a:visited {
-  color:#7e961a;
+  color:#6B8E23;
 }
 a:hover {
-  color:#5F89AC;
+  color:#9ACD32;
 }
 a.post_no {
   color:#C5C8C6;
@@ -81,7 +88,7 @@ a.post_no:hover {
  */
  
 p.intro span.subject {
-  color:#b294bb;
+  color:#b0c700;
 }
 p.intro span.name {
   color:#C5C8C6;
@@ -103,7 +110,7 @@ form {
 form table {
   margin: auto;
   background: #1d1f21;
-  padding: 1em 1em 1em 1em !important;
+  padding: 5px;
   box-shadow: 1px 1px 10px 10px rgba(0, 0, 0, 1) !important;
   border-radius: 15px;
 }
@@ -199,13 +206,13 @@ div.boardlist:nth-of-type(1) {
   box-shadow:0 0 3px 0 #111;
 }
 div.boardlist a:link {
-  color:#8abe81;
+  color:#8cb14c;
 }
 div.boardlist a:visited {
-  color:#7e961a;
+  color:#6B8E23;
 }
 div.boardlist a:hover {
-  color:#5F89AC;
+  color:#9ACD32;
 }
 div.boardlist.bottom {
   margin-top: 12px;
@@ -245,14 +252,6 @@ div#watchlist a,a.watchThread {
 }
 div#watchlist a:hover,a.watchThread:hover {
   color:#5F89AC;
-}
-
-div.video-container img.post-image {
-  background-color:#000;
-  border-color:#fff;
-  border-width:2px;
-  border-style:none dotted none;
-  padding:0;
 }
 
 /* 
@@ -381,3 +380,4 @@ p.fileinfo {
   overflow-x: hidden;
   width: 210px;
 }*/
+
