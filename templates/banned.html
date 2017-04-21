@@ -2,9 +2,9 @@
 {# Automatically removes unnecessary whitespace #}
 <div class="ban">
 	{% if ban.expires and time() >= ban.expires %}
-		<h2>{% trans %}You were banned! ;_;{% endtrans %}</h2>
+		<h2>{% trans %}You were banned!{% endtrans %}</h2>
 	{% else %}
-		<h2>{% trans %}You are banned! ;_;{% endtrans %}</h2>
+		<h2>{% trans %}You are banned!{% endtrans %}</h2>
 	{% endif %}
 	<p>
 		{% if ban.expires and time() >= ban.expires %}
@@ -83,7 +83,7 @@
 		{% endif %}
 		</span>
 	</p>
-	<p>{% trans %}Your IP address is{% endtrans %} <strong>{{ ban.ip }}</strong>.</p>
+	<p>{% trans %}Your IP hash is{% endtrans %} <strong>{{ ban.ip }}</strong>.</p>
 
 	{% if config.ban_page_extra %}
 		<p>{{ config.ban_page_extra }}</p>
