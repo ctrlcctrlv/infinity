@@ -1726,3 +1726,22 @@ table.fileboard th, table.fileboard td {
 table.fileboard .intro a {
   margin-left: 0px;
 }
+
+a.post_anchor {
+  display: inline-block;
+  visibility: hidden;
+}
+
+.intro > a.post_anchor {
+  position: relative;
+  top: -38px;
+}
+
+.thread > a.post_anchor {
+  position: absolute;
+  top: -20px;
+}
+
+.thread {
+  position: relative;
+}
