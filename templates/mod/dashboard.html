@@ -104,40 +104,37 @@
 
 <!-- Boards -->
 <fieldset class="mod-dash mod-dash-set mod-dash-boards">
-	<legend>{% trans 'Boards' %}</legend>
-	
-	<ul>
-		{% for board in boards %}
-		{% if board.uri in mod.boards or mod.boards[0] == '*' %}
-			<li>
-				<a href="?/{{ config.board_path|sprintf(board.uri) }}{{ config.file_index }}">{{ config.board_abbreviation|sprintf(board.uri) }}</a>
-					 - 
-				{{ board.title|e }}
-				{% if board.subtitle %}
-					<small>&mdash; 
-						{% if config.allow_subtitle_html %}
-							{{ board.subtitle }}
-						{% else %}
-							{{ board.subtitle|e }}
-						{% endif %}
-					</small>
+        <legend>{% trans 'Boards' %}</legend>
+        <ul>
+          {% for board in boards %}
+          {% if board.uri in mod.boards and mod.boards[0] != '*' %}
 
-				{% endif %}
-				{% if mod.type == "20" %}
-					<a href="?/settings/{{ board.uri }}"><small>[{% trans 'settings' %}]</small></a>
-				{% endif %}
-				{% if mod|hasPermission(config.mod.manageboards) %}
-					 <a href="?/edit/{{ board.uri }}"><small>[{% trans 'edit' %}]</small></a>
-					 <a href="?/settings/{{ board.uri }}"><small>[{% trans 'settings' %}]</small></a>
-				{% endif %}
-			</li>
-		{% endif %}
-		{% endfor %}
-		
-		{% if mod|hasPermission(config.mod.newboard) %}
-			<li style="margin-top:15px"><a href="?/new-board"><strong>{% trans 'Create new board' %}</strong></a></li>
-		{% endif %}
-	</ul>
+              {{ config.board_abbreviation|sprintf(board.uri) }} - {{ board.title|e }} - {{ board.subtitle|e }}:
+              <br>
+              <a href="?/{{ config.board_path|sprintf(board.uri) }}{{ config.file_index }}"><small>[{% trans 'index' %}]</small></a>
+              &nbsp;
+              <a href="?/{{ board.uri }}/catalog.html"><small>[{% trans 'catalog' %}]</small></a>
+              {% if mod.type == "20" %}
+                &nbsp;
+                <a href="?/settings/{{ board.uri }}"><small>[{% trans 'settings' %}]</small></a>
+                &nbsp;
+                <a href="https://banners.8ch.net/oauth_send"><small>[{% trans 'banners' %}]</small></a>
+              {% endif %}
+              {% if mod|hasPermission(config.mod.manageboards) %}
+                 <a href="?/edit/{{ board.uri }}"><small>[{% trans 'edit' %}]</small></a>
+                 <a href="?/settings/{{ board.uri }}"><small>[{% trans 'settings' %}]</small></a>
+              {% endif %}
+
+          {% endif %}
+          {% endfor %}
+          {% if mod.boards[0] == '*' %}
+            <li>{{boards|length}} boards</li>
+          {% endif %}
+
+          {% if mod|hasPermission(config.mod.newboard) %}
+            <li style="margin-top:15px"><a href="?/new-board"><strong>{% trans 'Create new board' %}</strong></a></li>
+          {% endif %}
+        </ul>
 </fieldset>
 
 <!-- Misc -->
