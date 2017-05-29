@@ -138,6 +138,11 @@
 	$config['additional_javascript'][] = 'js/file-selector.js';
 	$config['additional_javascript'][] = 'js/gallery-view.js';
 	$config['additional_javascript'][] = 'js/board-directory.js';
+	//Auto update catalog
+	$config['additional_javascript'][] = 'js/catalog-updater.js';
+	//Screen capture / post capture
+	$config['additional_javascript'][] = 'js/post-capture.js';
+
 	// Oekaki (now depends on config.oekaki so can be in all scripts)
 	$config['additional_javascript'][] = 'js/jquery-ui.custom.min.js';
 	$config['additional_javascript'][] = 'js/wPaint/8ch.js';
