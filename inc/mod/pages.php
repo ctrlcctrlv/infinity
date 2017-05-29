@@ -1719,7 +1719,11 @@ function mod_delete($board, $post) {
 	// Rebuild themes
 	rebuildThemes('post-delete', $board);
 	// Redirect
-	header('Location: ?/' . sprintf($config['board_path'], $board) . $config['file_index'], true, $config['redirect_http']);
+	if (isset($_SERVER["HTTP_REFERER"])) {
+		header('Location: ?/reports');
+	} else {
+		header('Location: ?/' . sprintf($config['board_path'], $board) . $config['file_index'], true, $config['redirect_http']);
+	}	
 }
 
 function mod_deletefile($board, $post, $file) {
