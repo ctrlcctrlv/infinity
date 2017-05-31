@@ -545,6 +545,8 @@
 
 	// When true, all names will be set to $config['anonymous'].
 	$config['field_disable_name'] = false;
+	// When true, all names of the thread page will be set to $config['anonymous'].
+	$config['force_anon_thread'] = false;
 	// When true, there will be no email field.
 	$config['field_disable_email'] = false;
 	// When true, there will be no subject field.
