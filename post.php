@@ -316,6 +316,28 @@ elseif (isset($_POST['post'])) {
 		checkMute();
 	}
 	
+        /*Check Force Anonymous thread*/
+        if(isset($config['force_anon_thread'])){
+                if (isset($_POST['force_anon']) && $post['op']) {
+                        $post['force_anon'] = true;
+                } else{
+                        $post['force_anon'] = false;
+
+                        if (isset($_POST['thread'])) {
+                                //Check if force_anon is enable or 1, then forced anonymous, to avoid field form injection.
+                                $query = prepare(sprintf("SELECT `force_anon` FROM ``posts_%s`` WHERE `id` = :id", $board['uri']));
+                                $query->bindValue(':id', $post['thread'], PDO::PARAM_INT);
+                                $query->execute() or error(db_error());
+                                if ($row = $query->fetch()) {
+                                        if($row['force_anon']==1){
+                                                $_POST['name'] = $config['anonymous']; // forced anonymous
+                                        }
+                                }
+                        }
+
+                }
+        }
+	
 	//Check if thread exists
 	if (!$post['op']) {
 		$query = prepare(sprintf("SELECT `sticky`,`locked`,`cycle`,`sage` FROM ``posts_%s`` WHERE `id` = :id AND `thread` IS NULL LIMIT 1", $board['uri']));
