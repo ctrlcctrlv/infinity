@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS ``posts_{{ board }}`` (
    `locked` int(1) NOT NULL,
    `cycle` int(1) NOT NULL,
    `sage` int(1) NOT NULL,
+   `force_anon` BOOL DEFAULT '0',
    `embed` text,
    `edited_at` int(11) DEFAULT NULL,
    UNIQUE KEY `id` (`id`),
