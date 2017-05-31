@@ -510,6 +510,7 @@ FLAGS;
 			$subtitle = $_POST['subtitle'];
 			$country_flags = isset($_POST['country_flags']) ? 'true' : 'false';
 			$field_disable_name = isset($_POST['field_disable_name']) ? 'true' : 'false';
+			$force_anon_thread = isset($_POST['force_anon_thread']) ? 'true' : 'false';
 			$enable_embedding = isset($_POST['enable_embedding']) ? 'true' : 'false';
 			$force_image_op = $imgboard && isset($_POST['force_image_op']) ? 'true' : 'false';
 			$disable_images = $txtboard ? 'true' : 'false';
@@ -707,6 +708,7 @@ FLAGS;
 <?php
 \$config['country_flags'] = $country_flags;
 \$config['field_disable_name'] = $field_disable_name;
+\$config['force_anon_thread'] = $force_anon_thread;
 \$config['enable_embedding'] = $enable_embedding;
 \$config['force_image_op'] = $force_image_op;
 \$config['disable_images'] = $disable_images;
@@ -810,6 +812,7 @@ EOT;
 			 || $_config['captcha']['extra'] != $config['captcha']['extra']
 			 || $_config['blotter'] != $config['blotter']
 			 || $_config['field_disable_name'] != $config['field_disable_name']
+			 || $_config['force_anon_thread'] != $config['force_anon_thread']
 			 || $_config['show_sages'] != (isset($config['show_sages']) && $config['show_sages'])) {
 				buildIndex();
 				$query = query(sprintf("SELECT `id` FROM ``posts_%s`` WHERE `thread` IS NULL", $b)) or error(db_error());
