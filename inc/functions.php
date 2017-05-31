@@ -1205,8 +1205,8 @@ function insertFloodPost(array $post) {
 
 function post(array $post) {
 	global $pdo, $board;
-	$query = prepare(sprintf("INSERT INTO ``posts_%s`` VALUES ( NULL, :thread, :subject, :email, :name, :trip, :capcode, :body, :body_nomarkup, :time, :time, :files, :num_files, :filehash, :password, :ip, :sticky, :locked, :cycle, 0, :embed, NULL)", $board['uri']));
-	
+	$query = prepare(sprintf("INSERT INTO ``posts_%s`` VALUES ( NULL, :thread, :subject, :email, :name, :trip, :capcode, :body, :body_nomarkup, :time, :time, :files, :num_files, :filehash, :password, :ip, :sticky, :locked, :cycle, 0, :force_anon, :embed, NULL)", $board['uri']));
+
 	// Basic stuff
 	if (!empty($post['subject'])) {
 		$query->bindValue(':subject', $post['subject']);
@@ -1282,6 +1282,12 @@ function post(array $post) {
 		$query->bindValue(':filehash', null, PDO::PARAM_NULL);
 	}
 	
+	/*Force Anonymous*/
+	if (isset($post['force_anon']) && $post['force_anon']) {
+		$query->bindValue(':force_anon', true, PDO::PARAM_BOOL);
+	} else {
+		$query->bindValue(':force_anon', false, PDO::PARAM_BOOL);
+	}	
 	if (!$query->execute()) {
 		undoImage($post);
 		error(db_error($query));
