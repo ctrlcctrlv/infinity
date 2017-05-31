@@ -33,6 +33,7 @@
 		<tr><th>{% trans %}/pol/-style user flags{% endtrans %}<br><span class="unimportant">Enabling this disables country flags<br>Make sure to actually upload some first on the flags page!</span></th><td><input type="checkbox" name="user_flags" {% if config.user_flag %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Custom board assets{% endtrans %}<br><span class="unimportant">Enabling this uses your custom spoiler/deleted/no file images.<br>Make sure to actually upload some first on the assets page or they will 404!</span></th><td><input type="checkbox" name="custom_assets" {% if config.custom_assets %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Forced anonymous{% endtrans %}</th><td><input type="checkbox" name="field_disable_name" {% if config.field_disable_name %}checked{% endif %}></td></tr>
+		<tr><th>{% trans %}Allow forced anonymous{% endtrans %}</th><td><input type="checkbox" name="force_anon_thread" {% if config.force_anon_thread %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}YouTube/Voocaroo embedding{% endtrans %}</th><td><input type="checkbox" name="enable_embedding" {% if config.enable_embedding %}checked{% endif %}></td></tr>
 		<tr class='imgboard'><th>{% trans %}Require image for OP{% endtrans %}</th><td><input type="checkbox" name="force_image_op" {% if config.force_image_op %}checked{% endif %}></td></tr>
 		<tr><th>{% trans %}Require subject for OP{% endtrans %}</th><td><input type="checkbox" name="force_subject_op" {% if config.force_subject_op %}checked{% endif %}></td></tr>
