@@ -61,7 +61,9 @@
 			<li><a href="?/bans">{% trans 'Ban list' %}</a></li>
 		{% endif %}
 		{% if config.ban_appeals and mod|hasPermission(config.mod.view_ban_appeals) %}
-			<li><a href="?/ban-appeals">{% trans 'Ban appeals' %}</a></li>
+			{% if total_ban_appeals > 0 %}<strong>{% endif %}
+			<li><a href="?/ban-appeals">{% trans 'Ban appeals' %} ({{ total_ban_appeals }})</a></li>
+			{% if total_ban_appeals > 0 %}</strong>{% endif %}
 		{% endif %}
 		{% if mod|hasPermission(config.mod.manageusers) %}
 			<li><a href="?/users">{% trans 'Manage users' %}</a></li>
