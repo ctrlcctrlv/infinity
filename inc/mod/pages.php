@@ -2654,6 +2654,8 @@ function mod_reports() {
 					
 					'clean'                 => $clean,
 					
+					'go_to_thread'          => "?/{$report_item['board_id']}/res/" . ( $content['thread'] ?: $content['id'] ) . ".html",
+					
 					'uri_content_demote'    => "?/{$uri_content_base}{$report_item['board_id']}/{$content['id']}/demote",
 					'uri_content_promote'   => "?/{$uri_content_base}{$report_item['board_id']}/{$content['id']}/promote",
 					'uri_content_dismiss'   => "?/{$uri_content_base}{$report_item['board_id']}/{$content['id']}/dismiss",
