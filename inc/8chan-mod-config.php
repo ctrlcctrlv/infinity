@@ -8,6 +8,7 @@
 	$config['mod']['noticeboard_post'] = ADMIN;
 	$config['mod']['modlog'] = GLOBALVOLUNTEER;
 	$config['mod']['mod_board_log'] = MOD;
+	$config['mod']['boardvolunteer_board_log'] = BOARDVOLUNTEER;
 	$config['mod']['editpost'] = BOARDVOLUNTEER;
 	$config['mod']['edit_banners'] = MOD;
 	$config['mod']['edit_assets'] = MOD;
