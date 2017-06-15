@@ -16,7 +16,7 @@
 	</label>
 	{% include 'post/poster_id.html' %}&nbsp;
 	<a class="post_no" id="post_no_{{ post.id }}" onclick="highlightReply({{ post.id }})" href="{% if isnoko50 %}{{ post.link('', config.file_page50) }}{% else %}{{ post.link }}{% endif %}">No.</a>
-	<a class="post_no" target="_blank" onclick="citeReply({{ post.id }})" href="{% if isnoko50 %}{{ post.link('q', config.file_page50) }}{% else %}{{ post.link('q') }}{% endif %}">{{ post.id }}</a>
+	<a class="post_no" {% if mod.id %}target="_blank"{% endif %} onclick="citeReply({{ post.id }})" href="{% if isnoko50 %}{{ post.link('q', config.file_page50) }}{% else %}{{ post.link('q') }}{% endif %}">{{ post.id }}</a>
 	{% include 'post/mod_attributes.html' %}
 	{% if index %}
 		<a href="{{ post.root }}{{ board.dir }}{{ config.dir.res }}{{ config.file_page|sprintf(post.id) }}">[{% trans %}Reply{% endtrans %}]</a>
