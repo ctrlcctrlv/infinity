@@ -1,0 +1,23 @@
+<p>The following is a list of boards that have received <b>no Board Owner login for two weeks</b>. Because this list is automated, it does <b>not</b> include boards whose Board Owners have failed to comply with <a href="https://8ch.net/globalrule.html" target="_blank">The 8chan Global Rule</a> or <b>any</b> of the <a href="https://8ch.net/faq.html#help-the-owner-of-x-board-is-doing-something-i-dont-like-remove-him" target="_blank">conditions for legitimate board ownership</a>.</p>
+
+<p>The boards contained in this list are considered abandoned and anyone can claim them. <b>To claim a board, please email claim@8ch.net.</b> If applicable, include any relevant experience with the board's subject matter as well. Most boards will be given away on a first-come-first-serve basis, but large boards with long histories may require multiple applications from many different individuals before a decision is made, <i>at the discretion of the 8chan administration</i>.</p>
+
+<p>Please note: this page is regenerated every hour.</p>
+<p>Replies to claim emails may require some time, depending on the board in question. Invalid claims may not even receive a reply (for instance, if the Board Owner is quite active and complies with The 8chan Global Rule and the conditions for legitimate board ownership). <b>If you wish to create a new board immediately and you are not overly concerned with the board's name, please go through the <a href="https://8ch.net/create.php" target="_blank">automatic board creation process</a> instead.</b> Thank you for using 8chan, anon!</p>
+
+<table class="modlog" style="width:auto"><thead>
+<tr>
+        <th>{% trans %}Board URI{% endtrans %}</th>
+        <th>{% trans %}Last active{% endtrans %}</th>
+        <th>{% trans %}Owner last active{% endtrans %}</th>
+        <th>{% trans %}Claim board{% endtrans %}</th>
+</tr></thead><tbody>
+{% for board in delete %}
+<tr>
+        <td>/{{ board.board }}/</td>
+        <td>{{ board.last_activity_date }}</td>
+        <td>{{ board.last_mod_f }}</td>
+        <td><a href="mailto:claim@8ch.net?subject=I'd like to claim /{{ board.board }}/">Claim (opens email)</a></td>
+</tr>
+{% endfor %}
+</tbody></table>
