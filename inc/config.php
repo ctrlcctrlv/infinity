@@ -1113,6 +1113,7 @@
 	$config['error']['toomanycross']	= _('Too many cross-board links; post discarded.');
 	$config['error']['nodelete']		= _('You didn\'t select anything to delete.');
 	$config['error']['noreport']		= _('You didn\'t select anything to report.');
+	$config['error']['report_limit_50']     = _('Your report must not exceed 50 characters.');
 	$config['error']['toomanyreports']	= _('You can\'t report that many posts at once.');
 	$config['error']['invalidpassword']	= _('Wrong password…');
 	$config['error']['invalidimg']		= _('Invalid image.');
