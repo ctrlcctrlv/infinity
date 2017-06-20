@@ -125,6 +125,9 @@ if (isset($_POST['delete'])) {
 	// Check if banned
 	checkBan($board['uri']);
 	
+	if(strlen($_POST['reason']) > 50)
+		error($config['error']['report_limit_50']);
+	
 	if (empty($report))
 		error($config['error']['noreport']);
 	
