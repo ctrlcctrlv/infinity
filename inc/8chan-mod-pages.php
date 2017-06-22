@@ -176,6 +176,12 @@
 
 		$dir = 'static/custom-flags/'.$b;
 
+                foreach($config['user_flags'] as $k_flag=>$v_flag){
+                        if(!file_exists($dir."/".$k_flag.".png")){
+                                unset($config['user_flags'][$k_flag]);
+                        }
+                }
+		
 		if (!is_dir($dir)){
 			mkdir($dir, 0777, true);
 		}
