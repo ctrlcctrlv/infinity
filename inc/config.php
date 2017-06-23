@@ -1743,3 +1743,7 @@
 	$config['cloudflare']['token'] = 'token';
 	$config['cloudflare']['email'] = 'email';
 	$config['cloudflare']['domain'] = 'example.com';
+
+	// Version
+	$config['version'] = '+ <a href="https://github.com/ctrlcctrlv/infinity">infinity</a> + <a href="https://github.com/OpenIB/OpenIB/">OpenIB</a>';
+
