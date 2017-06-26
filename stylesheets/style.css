@@ -508,6 +508,13 @@ span.heading {
   font-weight: bold;
 }
 
+span.detected {
+  background: #FAF8F8;
+  color: #3060A8;
+  border: 1px solid #3060A8;
+  padding: 0 1px;
+}
+
 span.spoiler {
   background: black;
   color: black;
