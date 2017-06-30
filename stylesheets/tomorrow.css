@@ -193,3 +193,18 @@ table.board-list-table .board-tags .board-cell:hover {
 table.board-list-table tr:nth-of-type( even ) .board-tags .board-cell {
 	background: #282a2e;
 }
+
+/*Modification of frontpage*/
+ul.box-content{
+  background-color: #1d1f21;
+}
+
+li.col-12{
+  background-color: #282a2e ;
+}
+
+li.col-12:nth-child(odd) { background: #1d1f21!important; }
+
+ul.box-content {
+  margin: 0px 0!important;
+}
