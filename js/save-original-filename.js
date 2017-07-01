@@ -8,7 +8,7 @@
 $(function() {
   $("a[download]").each(function() { var url = $(this).attr('href'); $(this).attr('href', url.replace('media.', '').replace('media2.','')); });
 
-  $("a[download]").not('.hash_unix').each(function() {
+  $("a[download]").each(function() {
           var url = $(this).attr('href');
           var filenamedownload = $(this).text();
           $(this).attr('href', url.replace('//8ch.net', '//media.8ch.net'));
