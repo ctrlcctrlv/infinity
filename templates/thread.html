@@ -67,7 +67,7 @@
 			<span id="thread-links">
 				<a id="thread-return" href="{{ return }}">[{% trans %}Return{% endtrans %}]</a>
 				<a id="thread-top" href="#top">[{% trans %}Go to top{% endtrans %}]</a>
-				<a id="thread-catalog" href="{{ config.root }}{{ board.dir }}{{ config.catalog_link }}">[{% trans %}Catalog{% endtrans %}]</a>
+				<a id="thread-catalog" href="{% if mod %}?{% endif %}{{ config.root }}{{ board.dir }}{{ config.catalog_link }}">[{% trans %}Catalog{% endtrans %}]</a>
 			</span>
 			
 			<span id="thread-quick-reply">
