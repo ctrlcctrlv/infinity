@@ -139,8 +139,6 @@
 	$config['additional_javascript'][] = 'js/file-selector.js';
 	$config['additional_javascript'][] = 'js/gallery-view.js';
 	$config['additional_javascript'][] = 'js/board-directory.js';
-	//New tab link
-	$config['additional_javascript'][] = 'js/link_newtab.js';
 
 	//Auto update catalog
 	$config['additional_javascript'][] = 'js/catalog-updater.js';
