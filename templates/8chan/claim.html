@@ -14,7 +14,7 @@
 </tr></thead><tbody>
 {% for board in delete %}
 <tr>
-        <td>/{{ board.board }}/</td>
+        <td><a href="/{{ board.board }}" target="_blank">/{{ board.board }}/</a></td>
         <td>{{ board.last_activity_date }}</td>
         <td>{{ board.last_mod_f }}</td>
         <td><a href="mailto:claim@8ch.net?subject=I'd like to claim /{{ board.board }}/">Claim (opens email)</a></td>
