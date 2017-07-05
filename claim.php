@@ -58,7 +58,9 @@ foreach($boards as $board) {
 
                 $last_mod_f = $last_mod_date ? $last_mod_date->format('Y-m-d H:i:s') : '<em>never</em>';
                 $last_activity_f = $last_activity_date ? $last_activity_date->format('Y-m-d H:i:s') : '<em>never</em>';
-                $delete[] = array('board' => $board, 'last_activity_date' => $last_activity_f, 'last_mod' => $last_mod_date, 'last_mod_f' => $last_mod_f);
+                $not_allowed = array("jim","sudo","delete");
+                if(!in_array($board,$not_allowed))
+                        $delete[] = array('board' => $board, 'last_activity_date' => $last_activity_f, 'last_mod' => $last_mod_date, 'last_mod_f' => $last_mod_f);
         }
 
 }
