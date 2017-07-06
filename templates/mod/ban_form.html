@@ -13,7 +13,7 @@
 		<input type="hidden" name="delete" value="{% if delete %}1{% else %}0{% endif %}">
 	{% endif %}
 	{% if tor %}
-		<p style="color:red;font-size:2em">Warning! This IP is a Tor exit node. Tor is a global network that allows for truly anonymous posting by obfuscating the user's real IP address. Please do not ban it, all bans on Tor exit nodes are globally undone every week. On 8chan, Tor users are allowed to post five times per CAPTCHA they complete, and image uploads are not allowed. <em>If the global restrictions on Tor users are not enough and you would really like to stop Tor users, there is a setting in your board options. Please think carefully before enabling it.</em></p>
+		<p style="color:red;font-size:1em;margin-left:17%;margin-right:17%;text-align:center;">Warning! This IP is a Tor exit node. Tor is a global network that allows for truly anonymous posting by obfuscating the user's real IP address. Please do not ban it. On 8chan, Tor users are allowed to post five times per CAPTCHA they complete and are not allowed to upload images. <em>If the global restrictions on Tor users are not enough and you would really like to stop Tor users, there is a setting in your board options. Please think carefully before enabling it.</em></p>
 	{% endif %}
 	
 	<table>
