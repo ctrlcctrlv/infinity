@@ -915,6 +915,10 @@
 
 	// Assign each poster in a thread a unique ID, shown by "ID: xxxxx" before the post number.
 	$config['poster_ids'] = false;
+
+	// TOR IP hash
+	$config['tor_ip_hash'] = '$2a$07$qFmQx6sdNCcVeTknVtBSUOgylNGQokMgcxRsQ/1lb1Vz9jvckO6j2';
+
 	// Number of characters in the poster ID (maximum is 40).
 	$config['poster_id_length'] = 5;
 
