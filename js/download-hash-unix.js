@@ -26,7 +26,7 @@ onready(function(){
 
               file_ctr = file_ctr + 1;
 
-              if($(this).find('a').attr('href') && !$(this).hasClass('hash_unix')){
+              if($(this).find('a').attr('href') && !$(this).find('.unimportant').find('a').hasClass('hash_unix')){
                 var new_href = $(this).find('a').attr('href').replace('//8ch.net', '//media.8ch.net');
                 var download_hash = " <a download='"+hash_filename_download+"' class='hash_unix' title='"+hash_filename_download+"' href='"+ new_href +"'>(h)</a>";
                 var download_unixtime = "<a download='"+unix_filename_download+"' class='hash_unix' title='"+unix_filename_download+"' href='"+ new_href +"/"+unix_filename_download+"'>(u)</a>";
