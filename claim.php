@@ -39,6 +39,11 @@ function last_activity($board) {
                 }
         }
 
+        //if no post and if BO has logged in within two weeks. SHOULD NOT be including boards in claim.html
+        if (!$row['time'] || ($last_mod_date and $last_mod_date > $mod_ago)){
+                return false;
+        }
+
         if (($last_activity_date < $ago or ($last_mod_date and $last_mod_date < $mod_ago))) {
                 return array($last_activity_date, $last_mod_date, $mods);
         }
