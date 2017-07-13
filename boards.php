@@ -67,6 +67,23 @@ $tagsHTML = Element("8chan/boards-tags.html", array(
 $query = query('SELECT np.* FROM newsplus np INNER JOIN `posts_n` p ON np.thread=p.id WHERE np.dead IS FALSE ORDER BY p.bump DESC');
 if ($query) {
 	$newsplus = $query->fetchAll(PDO::FETCH_ASSOC);
+	
+        $n_ctr = 0;
+        $n_limit = 5;
+        $data_newsplus = array();
+        for ($i=0; $i<count($newsplus); $i++) {
+          if($newsplus[$i]['board']=="n") {
+              if ($n_ctr<$n_limit) {
+                  $data_newsplus[] = $newsplus[$i];
+                  $n_ctr++;
+              }
+          } else {
+              $data_newsplus[] = $newsplus[$i];
+          }
+        }
+
+        $newsplus = $data_newsplus;
+
 } else {
 	$newsplus = array();
 }
