@@ -44,6 +44,18 @@ function getIdentity(){
   return $identity;
 }
 
+function getIdentityRange(){
+  global $config;
+  $userIP = (string) $_SERVER['REMOTE_ADDR'];
+  $userIPrange = explode(".",$userIP);
+  array_pop($userIPrange);
+  array_push($userIPrange,"0/24");
+  $userIPrange = implode(".",$userIPrange);
+  $hashSalt = $config['hashSalt']; // from random.org
+  $userIPrange = crypt($userIPrange, '$2a$07$' . $hashSalt . '$');
+  return $userIPrange;
+}
+
 function init_locale($locale, $error='error') {
 	if ($locale === 'en') 
 		$locale = 'en_US.utf8';
@@ -1096,8 +1108,8 @@ function checkBan($board = false) {
 	if (event('check-ban', $board))
 		return true;
 	$identity = getIdentity();
-	
-	$bans = Bans::find($identity, $board, $config['show_modname']);
+	$identityrange = getIdentityRange();
+	$bans = Bans::find($identity, $board, $config['show_modname'],false,$identityrange);
 	
 	foreach ($bans as &$ban) {
 		if ($ban['expires'] && $ban['expires'] < time()) {
@@ -1206,7 +1218,7 @@ function insertFloodPost(array $post) {
 
 function post(array $post) {
 	global $pdo, $board;
-	$query = prepare(sprintf("INSERT INTO ``posts_%s`` VALUES ( NULL, :thread, :subject, :email, :name, :trip, :capcode, :body, :body_nomarkup, :time, :time, :files, :num_files, :filehash, :password, :ip, :sticky, :locked, :cycle, 0, :force_anon, :embed, NULL)", $board['uri']));
+	$query = prepare(sprintf("INSERT INTO ``posts_%s`` VALUES ( NULL, :thread, :subject, :email, :name, :trip, :capcode, :body, :body_nomarkup, :time, :time, :files, :num_files, :filehash, :password, :ip, :range_ip_hash, :sticky, :locked, :cycle, 0, :force_anon, :embed, NULL)", $board['uri']));
 
 	// Basic stuff
 	if (!empty($post['subject'])) {
@@ -1235,6 +1247,7 @@ function post(array $post) {
 	$query->bindValue(':time', isset($post['time']) ? $post['time'] : time(), PDO::PARAM_INT);
 	$query->bindValue(':password', $post['password']);
 	$query->bindValue(':ip', isset($post['ip']) ? $post['ip'] : $identity);
+	$query->bindValue(':range_ip_hash', getIdentityRange());
 	
 	if ($post['op'] && $post['mod'] && isset($post['sticky']) && $post['sticky']) {
 		$query->bindValue(':sticky', true, PDO::PARAM_INT);
