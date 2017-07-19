@@ -1264,6 +1264,7 @@
 	// Mod links (full HTML).
 	$config['mod']['link_delete'] = '[D]';
 	$config['mod']['link_ban'] = '[B]';
+	$config['mod']['link_range_ban'] = '[RB]';
 	$config['mod']['link_bandelete'] = '[B&amp;D]';
 	$config['mod']['link_deletefile'] = '[F]';
 	$config['mod']['link_spoilerimage'] = '[S]';
