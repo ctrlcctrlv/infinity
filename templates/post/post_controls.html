@@ -16,6 +16,9 @@
 {% if mod|hasPermission(config.mod.ban, board.uri) %}
 	<a title="{% trans %}Ban{% endtrans %}" href="?/{{ board.dir }}ban/{{ post.id }}">{{ config.mod.link_ban }}</a>&nbsp;
 {% endif %}
+{% if mod|hasPermission(config.mod.ban, board.uri) %}
+  <a title="{% trans %}Range Ban{% endtrans %}" href="?/{{ board.dir }}banrange/{{ post.id }}">{{ config.mod.link_range_ban }}</a>&nbsp;
+{% endif %}	
 {% if mod|hasPermission(config.mod.bandelete, board.uri) %}
 	<a title="{% trans %}Ban & Delete{% endtrans %}" href="?/{{ board.dir }}ban&amp;delete/{{ post.id }}">{{ config.mod.link_bandelete }}</a>&nbsp;
 {% endif %}
