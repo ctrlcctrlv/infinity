@@ -1516,6 +1516,7 @@ function mod_move($originBoard, $postID) {
 
 function mod_ban_post($board, $delete, $post, $token = false) {
 	global $config, $mod;
+	$rangeban = false;
 	
 	if (!openBoard($board))
 		error($config['error']['noboard']);
@@ -1523,17 +1524,28 @@ function mod_ban_post($board, $delete, $post, $token = false) {
 	if (!hasPermission($config['mod']['delete'], $board))
 		error($config['error']['noaccess']);
 
-	$security_token = make_secure_link_token($board . '/ban/' . $post);
-	
-	$query = prepare(sprintf('SELECT ' . ($config['ban_show_post'] ? '*' : '`ip`, `thread`') .
-		' FROM ``posts_%s`` WHERE `id` = :id', $board));
+	if($delete=='range'){
+		$delete = "";
+		$rangeban = true;
+		$security_token = make_secure_link_token($board . '/banrange/' . $post);
+		$query = prepare(sprintf('SELECT ' . ($config['ban_show_post'] ? '*' : '`range_ip_hash`, `thread`') .
+		  ' FROM ``posts_%s`` WHERE `id` = :id', $board));
+	}else{
+		$security_token = make_secure_link_token($board . '/ban/' . $post);
+		$query = prepare(sprintf('SELECT ' . ($config['ban_show_post'] ? '*' : '`ip`, `thread`') .
+		  ' FROM ``posts_%s`` WHERE `id` = :id', $board));
+	}
+
 	$query->bindValue(':id', $post);
 	$query->execute() or error(db_error($query));
 	if (!$_post = $query->fetch(PDO::FETCH_ASSOC))
 		error($config['error']['404']);
 	
 	$thread = $_post['thread'];
-	$ip = $_post['ip'];
+	//Check if IP has value
+	if($rangeban && $_post['range_ip_hash']=="")
+		error(_("No IP Range"));
+	$ip = ($rangeban) ? $_post['range_ip_hash'] : $_post['ip'];
 	$tor = checkDNSBL($ip);
 
 	if (isset($_POST['new_ban'], $_POST['reason'], $_POST['length'], $_POST['board'])) {
@@ -1583,11 +1595,12 @@ function mod_ban_post($board, $delete, $post, $token = false) {
 		'board' => $board,
 		'tor' => $tor,
 		'delete' => (bool)$delete,
+		'rangeban' => (bool)$rangeban,
 		'boards' => listBoards(),
 		'token' => $security_token
 	);
 	
-	mod_page(_('New ban'), 'mod/ban_form.html', $args);
+	mod_page(_(($rangeban) ? 'New range ban' : 'New ban'), 'mod/ban_form.html', $args);
 }
 
 function mod_edit_post($board, $edit_raw_html, $postID) {
