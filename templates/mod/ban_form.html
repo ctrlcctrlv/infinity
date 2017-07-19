@@ -1,5 +1,9 @@
 {% if post and board %}
-	{% set action = '?/' ~ board ~ '/ban/' ~ post %}
+	{% if rangeban %}
+		{% set action = '?/' ~ board ~ '/banrange/' ~ post %}
+	{% else %}
+		{% set action = '?/' ~ board ~ '/ban/' ~ post %}
+	{% endif %}
 {% else %}
 	{% set action = '?/ban' %}
 {% endif %}
@@ -34,7 +38,6 @@
 						{% endfor %}
 					</select>
 				{% endif %}
-				<p class="unimportant hint">{% trans %}Be careful with range bans. The bigger the range, the more likely it will affect users you didn't intend.{% endtrans %}</p>
 			</td>
 		</tr>
 		<tr>
