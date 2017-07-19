@@ -27,12 +27,6 @@
 					<input type="text" name="ip" id="ip" size="30" maxlength="60" value="{{ ip }}">
 				{% else %}
 					{{ ip|less_ip(board) }}&nbsp;
-					<select name="range">
-						<option value="">no range ban</option>
-						{% for i in range(29, 12) %}
-							<option value="/{{i}}">/{{i}} (covers {{2**(32-i)}} addresses)</option>
-						{% endfor %}
-					</select>
 				{% endif %}
 				<p class="unimportant hint">{% trans %}Be careful with range bans. The bigger the range, the more likely it will affect users you didn't intend.{% endtrans %}</p>
 			</td>
