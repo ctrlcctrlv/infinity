@@ -32,7 +32,7 @@ function handle_boards(data) {
 }
 
 if (!(window.location.pathname != '' && window.location.pathname != '/' && window.location.pathname != '/index.html' && typeof show_top !== "undefined" && !show_top)) {
-	$.getJSON("/boards-top20.json", handle_boards)
+	$.getJSON("https://8ch.net/boards-top20.json", handle_boards)
 }
 
 });
