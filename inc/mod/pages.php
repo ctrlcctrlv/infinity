@@ -875,14 +875,16 @@ function mod_page_ip_less($b, $id) {
 	if (!openBoard($b))
 		error('No board.');
 
-	$query = prepare(sprintf('SELECT `ip` FROM ``posts_%s`` WHERE `id` = :id', $b));
+	$query = prepare(sprintf('SELECT `ip`,`range_ip_hash` FROM ``posts_%s`` WHERE `id` = :id', $b));
 	$query->bindValue(':id', $id);
 	$query->execute() or error(db_error($query));
 	
 	$result = $query->fetch(PDO::FETCH_ASSOC);
 
+	$iprange = false;
 	if ($result) {
 		$ip = $result['ip'];
+		$iprange = $result['range_ip_hash'];
 	} else {
 		error(_('Could not find that post.'));
 	}
@@ -947,7 +949,7 @@ function mod_page_ip_less($b, $id) {
 	$args['token'] = make_secure_link_token('ban');
 	
 	if (hasPermission($config['mod']['view_ban'])) {
-		$args['bans'] = Bans::find($ip, false, true);
+		$args['bans'] = Bans::find($ip, false, true, false, $iprange);
 	}
 	
 	if (hasPermission($config['mod']['view_notes'])) {
