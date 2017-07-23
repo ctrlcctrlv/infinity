@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS ``posts_{{ board }}`` (
    `filehash` text CHARACTER SET ascii,
    `password` varchar(20) DEFAULT NULL,
    `ip` varchar(60) CHARACTER SET ascii NOT NULL,
+   `range_ip_hash` varchar(60) CHARACTER SET ascii NOT NULL,
    `sticky` int(1) NOT NULL,
    `locked` int(1) NOT NULL,
    `cycle` int(1) NOT NULL,
