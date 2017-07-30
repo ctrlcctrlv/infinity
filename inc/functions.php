@@ -582,28 +582,11 @@ function cloudflare_purge($uri) {
 
 	if (!$config['cloudflare']['enabled']) return;
 
-	$fields = array(
-		'a' => 'zone_file_purge',
-		'tkn' => $config['cloudflare']['token'],
-		'email' => $config['cloudflare']['email'],
-		'z' => $config['cloudflare']['domain'],
-		'url' => 'https://' . $config['cloudflare']['domain'] . '/' . $uri
-	);
-
-	$fields_string = http_build_query($fields);
-
-	$ch = curl_init();
-
-	curl_setopt($ch, CURLOPT_URL, 'https://www.cloudflare.com/api_json.html');
-	curl_setopt($ch, CURLOPT_POST, count($fields));
-	curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-	$result = curl_exec($ch);
-
-	curl_close($ch);
-
-	return $result;
+	$schema_urls_purge = array("https://".$config['cloudflare']['domain'],"http://".$config['cloudflare']['domain'],"https://sys.".$config['cloudflare']['domain']);
+	foreach($schema_urls_purge as $schema_url_purge){
+		$cmd = "curl -X DELETE \"https://api.cloudflare.com/client/v4/zones/".$config['cloudflare']['zone']."/purge_cache\" -H \"X-Auth-Email: ".$config['cloudflare']['email']."\" -H \"X-Auth-Key: ".$config['cloudflare']['token']."\" -H \"Content-Type: application/json\" --data '{\"files\":[\"".$schema_url_purge."/".$uri."\"]}'";
+		$r = shell_exec_error($cmd);
+	}	
 }
 
 function purge($uri, $cloudflare = false) {
