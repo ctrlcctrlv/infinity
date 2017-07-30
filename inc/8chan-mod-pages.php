@@ -175,12 +175,6 @@
 			$config['user_flags'] = unserialize(file_get_contents("$b/flags.ser"));
 
 		$dir = 'static/custom-flags/'.$b;
-
-                foreach($config['user_flags'] as $k_flag=>$v_flag){
-                        if(!file_exists($dir."/".$k_flag.".png")){
-                                unset($config['user_flags'][$k_flag]);
-                        }
-                }
 		
 		if (!is_dir($dir)){
 			mkdir($dir, 0777, true);
@@ -265,7 +259,7 @@
 			if (strlen($description) > 255)
 				error(_('Flag description too long!'));
 			$config['user_flags'][$id] = utf8tohtml($description);
-			file_write($b.'/flags.ser', serialize($config['user_flags']));
+			file_put_contents($b.'/flags.ser', serialize($config['user_flags']));
 		}
 
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -296,7 +290,7 @@ FLAGS;
 				unlink("$dir/$d.png");
 				$id = explode('.', $d)[0];
 				unset($config['user_flags'][$id]);
-				file_write($b.'/flags.ser', serialize($config['user_flags']));
+				file_put_contents($b.'/flags.ser', serialize($config['user_flags']));
 			}
 		}
 
