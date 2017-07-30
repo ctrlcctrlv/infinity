@@ -1749,6 +1749,7 @@
 	// If you use CloudFlare set these for some features to work correctly.
 	$config['cloudflare'] = array();
 	$config['cloudflare']['enabled'] = false;
+	$config['cloudflare']['zone'] = 'zone';
 	$config['cloudflare']['token'] = 'token';
 	$config['cloudflare']['email'] = 'email';
 	$config['cloudflare']['domain'] = 'example.com';
