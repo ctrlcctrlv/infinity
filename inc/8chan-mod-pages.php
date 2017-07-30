@@ -232,7 +232,7 @@
 			copy($upload, "$dir/$id.$extension");
 			purge("$dir/$id.$extension", true);
 			$config['user_flags'][$id] = utf8tohtml($description);
-			file_write($b.'/flags.ser', serialize($config['user_flags']));
+			file_put_contents($b.'/flags.ser', serialize($config['user_flags']));
 		}
 	
 		// Handle a new flag, if any.
@@ -302,7 +302,7 @@ FLAGS;
 
 		if (isset($_POST['alphabetize'])) {
 			asort($config['user_flags'], SORT_NATURAL | SORT_FLAG_CASE);
-			file_write($b.'/flags.ser', serialize($config['user_flags']));
+			file_put_contents($b.'/flags.ser', serialize($config['user_flags']));
 		}
 
 		$banners = array_diff(scandir($dir), array('..', '.'));
