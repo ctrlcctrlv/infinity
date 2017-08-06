@@ -1722,7 +1722,7 @@
 	$config['link_regex'] = '((?:(?:https?:)?\/\/|ftp:\/\/|irc:\/\/)[^\s<>()"]+?(?:\([^\s<>()"]*?\)[^\s<>()"]*?)*)((?:\s|<|>|"|\.|\]|!|\?|,|&\#44;|&quot;)*(?:[\s<>()"]|$))';
 
 	// Allowed URLs in ?/settings
-	$config['allowed_offsite_urls'] = array('https://i.imgur.com/', 'https://media.8ch.net/', 'https://media.8chan.co/', 'https://a.pomf.se/', 'https://fonts.googleapis.com/', 'https://fonts.gstatic.com/');
+	$config['allowed_offsite_urls'] = array('https://i.imgur.com/', 'https://media.8ch.net/', 'https://fonts.googleapis.com/', 'https://fonts.gstatic.com/');
 
 	// Use read.php?
 	// read.php is a file that dynamically displays pages to users instead of the build on demand system in use in Tinyboard since 2010.
