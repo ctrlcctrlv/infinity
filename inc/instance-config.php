@@ -117,7 +117,9 @@
 	$config['additional_javascript'][] = 'js/id_colors.js';
 	$config['additional_javascript'][] = 'js/inline.js';
 	$config['additional_javascript'][] = 'js/infinite-scroll.js';
-	$config['additional_javascript'][] = 'js/download-file.js';
+        $config['additional_javascript'][] = 'js/download-original.js';
+        $config['additional_javascript'][] = 'js/download-hash-unix.js';
+	$config['additional_javascript'][] = 'js/save-original-filename.js';
 	$config['additional_javascript'][] = 'js/thread-watcher.js';
 	$config['additional_javascript'][] = 'js/ajax.js';
 	$config['additional_javascript'][] = 'js/quick-reply.js';
