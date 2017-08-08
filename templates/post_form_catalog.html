@@ -1,0 +1,276 @@
+<!--  New thread form for catalog page -->
+<div id="post-form-outer">
+<div id="post-form-inner">
+
+<!-- Show and hide link button for new thread form -->
+<strong style="font-size:1.3em"><a href="#" class="show-create-thread-catalog">[{% trans %}Create a thread{% endtrans %}]</a></strong>
+
+<form name="post" onsubmit="return dopost(this);" enctype="multipart/form-data" action="https://sys.8ch.net/post.php" method="post" style="display: none;" id="create-thread-catalog">
+{% if id %}<input type="hidden" name="thread" value="{{ id }}">{% endif %}
+<input type="hidden" name="board" value="{{ board }}">
+<input type="hidden" name="page" value="1">
+{% if mod %}<input type="hidden" name="mod" value="1">{% endif %}
+	<table class="post-table"><tbody>
+		{% if not config.field_disable_name or (mod and post.mod|hasPermission(config.mod.bypass_field_disable, board.uri)) %}<tr>
+			<th>
+				{% trans %}Name{% endtrans %}
+			</th>
+			<td>
+				<input type="text" name="name" size="25" maxlength="35" autocomplete="off">
+			</td>
+		</tr>{% endif %}
+		{% if not config.field_disable_email or (mod and post.mod|hasPermission(config.mod.bypass_field_disable, board.uri)) %}<tr>
+			<th>
+				{% trans %}Email{% endtrans %}
+			</th>
+			<td>
+				{% if config.field_email_selectbox and not (mod and post.mod|hasPermission(config.mod.bypass_field_disable, board.uri)) %}
+				<select name="email" id="email_selectbox" autocomplete="off">
+					<option value=""></option>
+					<option value="sage">sage</option>
+					{% if not config.always_noko %}<option value="noko">noko</option>{% endif %}
+				</select>
+				{% else %}
+				<input type="text" name="email" size="25" maxlength="40" autocomplete="off">
+				{% endif %}
+				{% if not (not (config.field_disable_subject or (id and config.field_disable_reply_subject)) or (mod and post.mod|hasPermission(config.mod.bypass_field_disable, board.uri))) %}
+				<input accesskey="s" style="margin-left:2px;" type="submit" name="post" value="{% if id %}{{ config.button_reply }}{% else %}{{ config.button_newtopic }}{% endif %}" />
+				{% endif %}
+			</td>
+		</tr>{% endif %}
+		{% if not (config.field_disable_subject or (id and config.field_disable_reply_subject)) or (mod and post.mod|hasPermission(config.mod.bypass_field_disable, board.uri)) %}<tr>
+			<th>
+				{% trans %}Subject{% endtrans %} {% if config.force_subject_op and not id %}<span class="required-star">*</span>{% endif %}
+			</th>
+			<td>
+				<input style="float:left;" type="text" name="subject" size="25" maxlength="100" autocomplete="off">
+				<input accesskey="s" style="margin-left:2px;" type="submit" name="post" value="{% if id %}{{ config.button_reply }}{% else %}{{ config.button_newtopic }}{% endif %}" />
+			</td>
+		</tr>
+		{% endif %}
+		<tr>
+			<th>
+				{% trans %}Comment{% endtrans %} <span class="required-star">*</span>
+			</th>
+			<td>
+				<textarea name="body" id="body" rows="5" cols="35"></textarea>
+				{% if not (not (config.field_disable_subject or (id and config.field_disable_reply_subject)) or (mod and post.mod|hasPermission(config.mod.bypass_field_disable, board.uri))) %}
+				{% if not (not config.field_disable_email or (mod and post.mod|hasPermission(config.mod.bypass_field_disable, board.uri))) %}
+				<input accesskey="s" style="margin-left:2px;" type="submit" name="post" value="{% if id %}{{ config.button_reply }}{% else %}{{ config.button_newtopic }}{% endif %}" />{% if config.spoiler_images %} <input id="spoiler" name="spoiler" type="checkbox"> <label for="spoiler">{% trans %}Spoiler Image{% endtrans %}</label>{% endif %}
+				{% endif %}
+				{% endif %}
+			</td>
+		</tr>
+		{% if config.recaptcha %}
+		<tr>
+			<th>
+				{% trans %}Verification{% endtrans %} <span class="required-star">*</span>
+			</th>
+			<td>
+				<script type="text/javascript" src="//www.google.com/recaptcha/api/challenge?k={{ config.recaptcha_public }}"></script>
+			</td>
+		</tr>
+		{% endif %}
+
+		{% if config.captcha.enabled or (config.new_thread_capt and not id) %}
+		<tr class='captcha'>
+			<th>
+				{% trans %}Verification{% endtrans %} <span class="required-star">*</span>
+			</th>
+			<td>
+				<script>load_captcha("{{ config.captcha.provider_get }}", "{{ config.captcha.extra }}");</script>
+				<noscript>You seem to have JavaScript disabled. To complete the CAPTCHA,<br><a href="{{ config.captcha.provider_get }}?mode=get&amp;extra={{ config.captcha.extra }}&amp;nojs=true" target="_blank">open this link in a new tab</a> and put the result in the boxes below:
+				<br>
+				ID: <input class="captcha_cookie" type="text" name="captcha_cookie" size="25" autocomplete="off"><br>
+				Answer: <input class="captcha_text" type="text" name="captcha_text" size="25" maxlength="6" autocomplete="off">
+				</noscript>
+			</td>
+		</tr>
+		{% endif %}
+		{% if config.allowed_tags and not id %}
+			<tr>
+				<th>{% trans %}Tag{% endtrans %}</th>
+				<td>
+					<select name="tag">
+						{% for id, tag in config.allowed_tags %}
+							<option value="{{ id|e }}">{{ tag|e }}</option>
+						{% endfor %}
+					</select>
+				</td>
+			</tr>
+		{% endif %}
+		{% if not config.disable_images %}
+		<tr id="upload">
+			<th>
+				{% trans %}File{% endtrans %} {% if config.force_image_op and not id %}<span class="required-star">*</span>{% endif %}
+			</th>
+			<td>
+				<input type="file" name="file" id="upload_file">
+				<div class="dropzone-wrap" style="display: none;">
+					<div class="dropzone" tabindex="0">
+						<div class="file-hint">{% trans %}Select/drop/paste files here{% endtrans %}</div>
+						<div class="file-thumbs"></div>
+					</div>
+				</div>
+				<script type="text/javascript">init_file_selector({{ config.max_images }});</script>
+				{% if config.allow_upload_by_url %}
+					<div style="float:none;text-align:left" id="upload_url">
+						<label for="file_url">{% trans %}Or URL{% endtrans %}</label>:
+						<input style="display:inline" type="text" id="file_url" name="file_url" size="35">
+					</div>
+				{% endif %}
+			</td>
+		</tr>
+		{% endif %}
+		{% set flag_tr %}
+		{% if config.user_flag %}
+			<tr>
+				<th>{% trans %}Flag{% endtrans %} {% if config.force_flag %}<span class="required-star">*</span>{% endif %}</th>
+				<td>
+					<select name="user_flag" id="user_flag">
+						{% if not config.force_flag %}<option value="">{% trans %}None{% endtrans %}</option>{% endif %}
+						{% for flag, text in config.user_flags %}
+							<option value="{{ flag }}">{{ text }}</option>
+						{% endfor %}
+					</select>
+				</td>
+			</tr>
+		{% endif %}
+		{% endset %}
+		{% if config.force_flag %}
+			{{ flag_tr }}
+		{% endif %}
+		<tr>
+			<td class="required-field-cell">
+				<span class="required-wrap hint">
+					<span class="required-star">*</span> <span class="unimportant">{% trans %}= required field{% endtrans %}</span>
+				</span>
+			</td>
+			<td class="show-options-cell">
+				<a href="#" class="show-post-table-options">[&#9654; {% trans %}Show post options &amp; limits{% endtrans %}]</a>
+				<strong class="faq-message unimportant hint"><br />Confused? See the <a href="/faq.html">FAQ</a>.</strong>
+			</td>
+		</tr>
+	</tbody></table>
+	<table class="post-table-options"><tbody>
+
+		{% if not config.force_flag %}
+			{{ flag_tr }}
+		{% endif %}
+
+		{% if config.enable_embedding %}
+		<tr id="upload_embed">
+			<th>
+				{% trans %}Embed{% endtrans %}
+			</th>
+			<td>
+				<input type="text" name="embed" value="" size="30" maxlength="120" autocomplete="off"><br> <span class="unimportant hint">{% trans %}(replaces files and can be used instead){% endtrans %}</span>
+			</td>
+		</tr>
+		{% endif %}
+		{% if config.oekaki %}
+		<tr id="oekaki">
+			<th>{% trans %}Oekaki{% endtrans %}</th>
+			<td>
+				<div class="oekaki-applet"></div>
+				<a href="#" onclick="if (oekaki && !oekaki.initialized) { oekaki.init(); this.innerHTML = '{% trans %}Close oekaki applet{% endtrans %}' } else { oekaki.deinit(); this.innerHTML = '{% trans %}Show oekaki applet{% endtrans %}' }; return false;">{% trans %}Show oekaki applet{% endtrans %}</a>
+				<br/>
+				<span class="unimportant hint">{% trans %}(replaces files and can be used instead){% endtrans %}</span>
+			</td>
+		</tr>
+		{% endif %}
+		<tr id="options-row">
+			<th>
+				{% trans %}Options{% endtrans %}
+			</th>
+			<td>
+				<div class="no-bump-option">
+					<label><input title="No bump" id="no-bump" name="no-bump" type="checkbox">
+					{% trans %}Do not bump{% endtrans %}
+					<br/>
+					<span class="unimportant hint">{% trans %}(you can also write sage in the email field){% endtrans %}</span></label>
+				</div>
+
+				{% if config.spoiler_images %}<div class="spoiler-images-option">
+					<label><input title="Spoiler images" id="spoiler" name="spoiler" type="checkbox">
+					{% trans %}Spoiler images{% endtrans %}
+					<br/>
+					<span class="unimportant hint">{% trans %}(this replaces the thumbnails of your images with question marks){% endtrans %}</label>
+				</div>{% endif %}
+
+				{% if config.allow_no_country and config.country_flags and not config.force_flag %}<div class="no-country-option">
+					<label><input title="No country flag" id="no_country" name="no_country" type="checkbox">
+					{% trans %}Hide country{% endtrans %}
+					<br/>
+					<span class="unimportant hint">{% trans %}(this board displays your country when you post if this is unchecked){% endtrans %}</span></label>
+				</div>{% endif %}
+
+				{% if mod %}
+				{% if not id and post.mod|hasPermission(config.mod.sticky, board.uri) %}<div class="sticky-option">
+					<label><input title="{% trans %}Sticky{% endtrans %}" type="checkbox" name="sticky" id="sticky">
+					{% trans %}Sticky{% endtrans %}</label>
+				</div>{% endif %}
+				{% if not id and post.mod|hasPermission(config.mod.lock, board.uri) %}<div class="lock-option">
+					<label><input title="{% trans %}Lock{% endtrans %}" type="checkbox" name="lock" id="lock">
+					{% trans %}Lock{% endtrans %}</label>
+				</div>{% endif %}
+				{% if post.mod|hasPermission(config.mod.rawhtml, board.uri) %}<div class="raw-html-option">
+					<label><input title="{% trans %}Raw HTML{% endtrans %}" type="checkbox" name="raw" id="raw">
+					{% trans %}Raw HTML{% endtrans %}</label>
+				</div>{% endif %}
+				{% endif %}
+
+                                <!-- Force Anon-->
+                                {% if not id and config.force_anon_thread %}
+                                <div class="force-anon">
+                                  <label><input title="Force Anonymous" id="force_anon" name="force_anon" type="checkbox">
+                                  {% trans %}Force Anonymous{% endtrans %}
+                                  <br/>
+                                  <span class="unimportant hint">{% trans %}(reply to this thread will be forced anonymous){% endtrans %}</label>
+                                </div>
+                                {% endif %}
+                                <!--End Force Anon-->
+
+				{# Should always be at the end #}
+				{% if config.allow_roll %}<div class="dice-option">
+					<table>
+						<tr><td>{% trans 'dice' %}</td><td>{% trans 'sides' %}</td><td>{% trans 'modifier' %}</td></tr>
+						<tr><td><input class="dx" name="dx" min="0" type="number"></td><td><input class="dy" name="dy" min="0" type="number"></td><td><input class="dz" name="dz" type="number"></td></tr>
+					</table>
+				</div>{% endif %}
+			</td>
+		</tr>
+		{% if not config.field_disable_password or (mod and post.mod|hasPermission(config.mod.bypass_field_disable, board.uri)) %}<tr>
+			<th>
+				{% trans %}Password{% endtrans %}
+			</th>
+			<td>
+				<input type="text" name="password" value="" size="12" maxlength="18" autocomplete="off">
+				<span class="unimportant hint">{% trans %}(For file and post deletion.){% endtrans %}</span>
+			</td>
+		</tr>{% endif %}
+		<tr>
+			<td colspan="2">
+				<p class="unimportant board-settings">
+				{% if not config.disable_images %}
+				{% trans %}Allowed file types:{% endtrans %}
+				{% if config.allowed_ext_op and not id %}
+					{{ config.allowed_ext_op|join(', ') }}
+				{% else %}
+					{{ config.allowed_ext|join(', ') }}{% if config.allowed_ext_files %}, {{ config.allowed_ext_files|join(', ') }}{% endif %}
+				{% endif %}<br />
+				{% trans %}Max filesize is{% endtrans %} {{ config.max_filesize|filesize }}.<br />
+				{% trans %}Max image dimensions are{% endtrans %} {{ config.max_height }} x {{ config.max_width }}.<br />
+				{% set max_images = config.max_images %} {# workaround for "The text to be translated with "trans" can only contain references to simple variables" #}
+				{% trans %}You may upload {{ max_images }} per post.{% endtrans %}<br />
+				{% endif %}
+				</p>
+			</td>
+		</tr>
+	</tbody></table>
+</form>
+</div>
+</div>
+<script type="text/javascript">{% raw %}
+	rememberStuff();
+{% endraw %}</script>
