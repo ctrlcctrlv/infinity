@@ -1,0 +1,732 @@
+/* Fonts */
+ 
+@import url(https://fonts.googleapis.com/css?family=Sofadi+One);
+@import url(https://fonts.googleapis.com/css?family=Flavors);
+@import url(https://fonts.googleapis.com/css?family=Andada);
+
+/* Banner Fix. */
+
+img.banner, img.board_image {
+    display: block;
+    border: 0px solid #fff;
+    margin: 12px auto 0px;
+}
+
+/* Board Announcement*/
+
+div.blotter {
+    color: #A4C;
+    text-shadow: 1px 1px black;
+    font: orange;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Round the corners of the table on the board pages. */
+
+div.ban {border:#555555 2px solid;-webkit-border-radius:5px;-khtml-border-radius:5px;-moz-border-radius:5px;border-radius:5px; font-family: "monospace"; background-color: #111;padding:8px 8px;}
+
+/* Header text in the board pages. */
+
+div.ban h2 {text-align: center; vertical-align: middle; background-color: rgba(20, 20, 20, 0.9);font-family: URW Chancery L, Lucida Calligraphy;font-size: 14pt;color:#fff;padding: 0px;text-shadow: 1px 1px 0px #000, -1px 1px 0px #000, 1px -1px 0px #000, -1px -1px 0px #000, 0px 1px 0px #000, 0px -1px 0px #000, -1px 0px 0px #000, 1px 0px 0px #000;}
+
+div.ban h2:hover {
+    -webkit-animation-name: glow;
+    animation-name: glow;
+    -webkit-animation-duration: 0.15s;
+    animation-duration: 0.15s;
+    -webkit-animation-timing-function: linear;
+    animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+}
+
+@keyframes glow {
+    50% {
+        -moz-box-shadow: 0 0 10px 1px #0f0fff;
+        -webkit-box-shadow: 0 0 10px 1px #0f0fff;
+        box-shadow: 0 0 10px 1px #0f0fff;
+    }
+    100% {
+        -moz-box-shadow: 0 0 20px 3px #0f6fff;
+        -webkit-box-shadow: 0 0 20px 3px #0f6fff;
+        box-shadow: 0 0 20px 3px #0f6fff;
+    }
+}
+
+@-webkit-keyframes glow {
+    50% {
+        -webkit-box-shadow: 0 0 10px 1px #ff0fff;
+    }
+    100% {
+        -webkit-box-shadow: 0 0 20px 3px #ff6fff;
+    }
+}
+
+/* Newline background in the board pages. */
+
+div.ban p {
+    background: #111;
+}
+
+/* Set the background color and background image for the whole board (repeating texture). */
+
+/* body{background:url("https://media.8chan.co/fringe/src/1420932121602-4.jpg") scroll 0 0 #EEF2FF;height:100%} */
+
+/* body {background: url("https://media.8ch.net/fringe/src/1440640949595-0.jpg") repeat-y scroll 0% 0% #000;color:#fff;} */
+
+body { 
+  background: url(https://i.imgur.com/Bg9NtFU.png) no-repeat center center fixed #000; 
+  color:#fff;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+p.body-line.ltr {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+p.body-line.empty {
+    margin-top:1px;
+    margin-bottom:1px;
+}
+
+/* Cursors */
+
+html, *, hover {cursor: url(https://i.imgur.com/vyaLY2f.png), default;}
+a:hover, .options_tab_icon, i, input[type="submit"], select#email_selectbox, select#user_flag {cursor: url(https://i.imgur.com/5n0TQGD.png), progress !important;}
+label, img {cursor: url(https://i.imgur.com/oykIOAD.png), progress !important;}
+
+/* Change the colour of header text, post number text, and the time-stamp label. */
+
+span.heading {
+    color:#fd684f;
+    text-shadow: 1px 1px 0px #fff, -1px 1px 0px #fff, 1px -1px 0px #fff, -1px -1px 0px #fff, 0px 1px 0px #fff, 0px -1px 0px #fff, -1px 0px 0px #fff, 1px 0px 0px #fff;
+    font-size:18px;
+}
+p.intro a.post_no {color:#50bd62;}
+p.intro time {color:#f6296d;}
+.quote {
+    color: #78FF22;
+    text-shadow: 1px 1px 0px #222, -1px 1px 0px #222, 1px -1px 0px #222, -1px -1px 0px #222, 0px 1px 0px #222, 0px -1px 0px #222, -1px 0px 0px #222, 1px 0px 0px #222;
+}
+
+/* Change the font and other traits of the board title */
+
+h1 {
+    font-family: URW Chancery L, Lucida Calligraphy;
+    letter-spacing: 3px;
+    font-size: 32pt;
+    margin: 0px;
+    text-shadow: 1px 1px 0px #000, -1px 1px 0px #000, 1px -1px 0px #000, -1px -1px 0px #000, 0px 1px 0px #000, 0px -1px 0px #000, -1px 0px 0px #000, 1px 0px 0px #000, 2px 2px 0px #000, -2px 2px 0px #000, 2px -2px 0px black, -2px -2px 0px black, 0px 2px 0px black, 0px -2px 0px black, -2px 0px 0px black, 2px 0px 0px black, 1px 2px 0px black, -1px 2px 0px black, 1px -2px 0px black, -1px -2px 0px black, 2px 1px 0px black, -2px 1px 0px black, 2px -1px 0px black, -2px -1px 0px black;
+    color:#0fffff;
+}
+
+header div.subtitle {
+    font-family: "Bitstream Charter";
+    font-size: 16pt;
+    color:#0a5f94;
+    text-shadow: 1px 1px 0px #000, -1px 1px 0px #000, 1px -1px 0px #000, -1px -1px 0px #000, 0px 1px 0px #000, 0px -1px 0px #000, -1px 0px 0px #000, 1px 0px 0px #000;
+}
+
+/* Change the board list appearance. */
+
+div.boardlist:not(.bottom){background-color:#FFFFFF!important;border-bottom:2px ridge #A6F!important;color:#707;text-align:center;padding:4px 96px;opacity:0.80;}
+
+div.boardlist:not(.bottom){background-color:#000!important;border-bottom:2px solid #426!important;color:#f9f;text-align:center;padding:2px 96px;opacity:0.80;}
+
+div.boardlist:not(.bottom) a{color:#4ff;}
+div.boardlist:not(.bottom) a:hover{color:#fff;}
+
+/* Set how every reply in a thread looks */
+
+div.post.reply {background: none repeat scroll 0% 0% rgba(60, 60, 15, 0.6); scroll 0 0 #d2dffb;border:#555555 1px solid;-webkit-border-radius:5px;-khtml-border-radius:5px;-moz-border-radius:5px;border-radius:5px;}
+
+div.post.reply:hover {
+    margin-left: 10px;
+}
+
+div.post.reply.highlighted{background:url("https://i.imgur.com/ajihro9.png") scroll 0 0 #b5ccff}
+
+/* Spin Script that makes the flags spin when you hover over them. */
+
+p.intro img.flag:hover, img.flag:focus, img.flag:active {
+    animation:flaghover 1.5s linear 0s infinite;
+    -o-animation:flaghover 1.5s linear 0s infinite;
+    -moz-animation:flaghover 1.5s linear 0s infinite;
+    -webkit-animation:flaghover 1.5s linear 0s infinite;
+}
+
+@keyframes flaghover {
+    10% {
+        transform: translateZ(0);
+    }
+    20% {
+        transform: rotate(-360deg);
+    }
+    60% {
+        transform: rotate(-180deg);
+    }
+}
+
+@-o-keyframes flaghover {
+    10% {
+        transform: translateZ(0);
+    }
+    20% {
+        transform: rotate(-360deg);
+    }
+    60% {
+        transform: rotate(-180deg);
+    }
+}
+
+@-moz-keyframes flaghover {
+    10% {
+        transform: translateZ(0);
+    }
+    20% {
+        transform: rotate(-360deg);
+    }
+    60% {
+        transform: rotate(-180deg);
+    }
+}
+
+@-webkit-keyframes flaghover {
+    10% {
+        transform: translateZ(0);
+    }
+    20% {
+        transform: rotate(-360deg);
+    }
+    60% {
+        transform: rotate(-180deg);
+    }
+}
+
+/* Rainbow Color Rotation Script that makes the Board Title and Subtitle changes colours constantly */
+
+h1,div.subtitle{
+    -webkit-animation:colorRotate 6s linear 0s infinite;
+    -moz-animation:colorRotate 6s linear 0s infinite;
+    -o-animation:colorRotate 6s linear 0s infinite;
+    animation:colorRotate 6s linear 0s infinite;
+}
+
+@-webkit-keyframes colorRotate {
+    from {
+        color: rgb(255, 0, 0);
+    } 16.6% {
+        color: rgb(255, 0, 255);
+    }
+    33.3% {
+        color: rgb(0, 0, 255);
+    }
+    50% {
+        color: rgb(0, 255, 255);
+    }
+    66.6% {
+        color: rgb(0, 255, 0);
+    }
+    83.3% {
+        color: rgb(255, 255, 0);
+    }
+    to {
+        color: rgb(255, 0, 0);
+    }
+}
+
+@-moz-keyframes colorRotate {
+    from {
+        color: rgb(255, 0, 0);
+    }
+    16.6% {
+        color: rgb(255, 0, 255);
+    }
+    33.3% {
+        color: rgb(0, 0, 255);
+    }
+    50% {
+        color: rgb(0, 255, 255);
+    }
+    66.6% {
+        color: rgb(0, 255, 0);
+    }
+    83.3% {
+        color: rgb(255, 255, 0);
+    }
+    to {
+        color: rgb(255, 0, 0);
+    }
+}
+
+@-o-keyframes colorRotate {
+    from {
+        color: rgb(255, 0, 0);
+    }
+    16.6% {
+        color: rgb(255, 0, 255);
+    }
+    33.3% {
+        color: rgb(0, 0, 255);
+    }
+    50% {
+        color: rgb(0, 255, 255);
+    }
+    66.6% {
+        color: rgb(0, 255, 0);
+    }
+    83.3% {
+        color: rgb(255, 255, 0);
+    }
+    to {
+        color: rgb(255, 0, 0);
+    }
+}
+
+@keyframes colorRotate {
+    from {
+        color: rgb(255, 0, 0);
+    }
+    16.6% {
+        color: rgb(255, 0, 255);
+    }
+    33.3% {
+        color: rgb(0, 0, 255);
+    }
+    50% {
+        color: rgb(0, 255, 255);
+    }
+    66.6% {
+        color: rgb(0, 255, 0);
+    }
+    83.3% {
+        color: rgb(255, 255, 0);
+    }
+    to {
+        color: rgb(255, 0, 0);
+    }
+}
+
+/* Buzz Script that makes the board banner buzz when you hover over it. */
+
+div#op_13763.post.op, img.banner, img.board_image {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+}
+
+div#op_13763.post.op:hover, img.banner:hover, img.board_image:hover {
+    -webkit-animation-name: buzz;
+    animation-name: buzz;
+    -webkit-animation-duration: 0.15s;
+    animation-duration: 0.15s;
+    -webkit-animation-timing-function: linear;
+    animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+}
+
+@keyframes buzz {
+    50% {
+        -webkit-transform: translateX(3px) rotate(2deg);
+        transform: translateX(3px) rotate(2deg);
+    }
+    100% {
+        -webkit-transform: translateX(-3px) rotate(-2deg);
+        transform: translateX(-3px) rotate(-2deg);
+    }
+}
+
+@-webkit-keyframes buzz {
+    50% {
+        -webkit-transform: translateX(3px) rotate(2deg);
+        transform: translateX(3px) rotate(2deg);
+    }
+    100% {
+        -webkit-transform: translateX(-3px) rotate(-2deg);
+        transform: translateX(-3px) rotate(-2deg);
+    }
+}
+
+/* Changes made to the commenting box */
+
+form table tr th {
+    background: none repeat scroll 0% 0% #671;
+    border-top: 1px solid #593B27;
+    border: 1px solid rgba(0, 0, 0, 0.0);
+    background: rgba(0, 0, 0, 0.2);
+    background: -webkit-gradient(linear, left top, left bottom, from(#205), to(#1d2c36));
+    background: -webkit-linear-gradient(top, #205, #110);
+    background: -moz-linear-gradient(top, #205, #110);
+    background: -ms-linear-gradient(top, #205, #110);
+    background: -o-linear-gradient(top, #205, #110);
+    padding: 2px 4px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: rgba(20,0,0,1) 0 1px 0;
+    -moz-box-shadow: rgba(20,0,0,1) 0 1px 0;
+    box-shadow: rgba(20,0,0,1) 0 1px 0;
+    text-shadow: rgba(20,0,0,.4) 0 1px 0;
+    color:#C5F8F6;
+    font-size: 15px;
+    text-align: right;
+    font-variant: small-caps;
+    font-family: 'Flavors', Helvetica, Arial, Sans-Serif;
+    text-decoration: none;
+    vertical-align: middle;
+}
+
+input {
+    border-top: 1px solid #556263;
+    background: #1d2c36;
+    background: -webkit-gradient(linear, left top, left bottom, from(#000000), to(#332e2e));
+    background: -webkit-linear-gradient(top, #000000, #332e2e);
+    background: -moz-linear-gradient(top, #000000, #332e2e);
+    background: -ms-linear-gradient(top, #000000, #332e2e);
+    background: -o-linear-gradient(top, #000000, #332e2e);
+    padding: 2px 4px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+    -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+    box-shadow: rgba(0,0,0,1) 0 1px 0;
+    text-shadow: rgba(0,0,0,.4) 0 1px 0;
+    color: white;
+    font-size: 9px;
+    font-family: Helvetica, Arial, Sans-Serif;
+    text-decoration: none;
+    vertical-align: middle;
+}
+
+select#user_flag {
+    border-top: 1px solid #fcb;
+    background: #010;
+    background: -webkit-gradient(linear, left top, left bottom, from(#000000), to(#332e2e));
+    background: -webkit-linear-gradient(top, #000000, #332e2e);
+    background: -moz-linear-gradient(top, #000000, #332e2e);
+    background: -ms-linear-gradient(top, #000000, #332e2e);
+    background: -o-linear-gradient(top, #000000, #332e2e);
+    padding: 2px 4px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+    -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+    box-shadow: rgba(0,0,0,1) 0 1px 0;
+    text-shadow: rgba(0,0,0,.4) 0 1px 0;
+    color: white;
+    font-size: 9px;
+    font-family: Helvetica, Arial, Sans-Serif;
+    text-decoration: none;
+    vertical-align: middle;
+}
+
+input[type="password"], input[type="text"] {
+    background: #000;
+}
+
+select#user_flag:hover, input:hover {
+   border-top-color: #f0f0f0;
+   background: #000000;
+   color: #ccc;
+}
+input:active {
+   border-top-color: #4990bf;
+   background: #4990bf;
+}
+
+input[type="submit"] {
+    margin:0px;
+    padding: 3px 4px;
+}
+
+span.heading {
+    color: #60F6F0;
+    font-size: 11pt;
+    font-weight: bold;
+}
+
+input, textarea {
+    background-color: #000;
+    color: #fff;
+}
+
+[type="text"]{
+    width:!inherent;
+}
+
+[name="post"] [type="text"] {
+    width:289px;
+}
+
+/* End of changes made to the commenting box */
+
+/* Further customization of the reply box */
+
+p.intro {
+    font-family: 'Courier New',Courier,Freemono,'Nimbus Mono L',monospace;
+}
+
+p.intro span.name {
+    font-family: 'Courier New',Courier,Freemono,'Nimbus Mono L',monospace;
+    text-shadow: 1px 1px 0px #000, -1px 1px 0px #000, 1px -1px 0px #000, -1px -1px 0px #000, 0px 1px 0px #000, 0px -1px 0px #000, -1px 0px 0px #000, 1px 0px 0px #000;
+    color: #CFD;
+}
+
+p.intro span.subject {
+    font-family: 'Helvetica Neue',Arial,'Liberation Sans',FreeSans,sans-serif;
+    text-shadow: 1px 1px 0px #000, -1px 1px 0px #000, 1px -1px 0px #000, -1px -1px 0px #000, 0px 1px 0px #000, 0px -1px 0px #000, -1px 0px 0px #000, 1px 0px 0px #000;
+    color: #0DF;
+}
+
+p.intro time {
+    color: #FB8;
+    font-weight: bold;
+    padding-left: 0px;
+    padding-right: 0px;
+    text-shadow: 1px 1px 0px #000, -1px 1px 0px #000, 1px -1px 0px #000, -1px -1px 0px #000, 0px 1px 0px #000, 0px -1px 0px #000, -1px 0px 0px #000, 1px 0px 0px #000;
+}
+
+p.intro a.post_no {
+    color: #FFF;
+    font-weight: bold;
+    padding-left: 0px;
+    padding-right: 0px;
+    text-shadow: 1px 1px 0px #000, -1px 1px 0px #000, 1px -1px 0px #000, -1px -1px 0px #000, 0px 1px 0px #000, 0px -1px 0px #000, -1px 0px 0px #000, 1px 0px 0px #000;
+}
+
+.poster_id {
+    color: #CFF;
+    font-weight: bold;
+    background: transparent;
+    padding-left: 0px;
+    padding-right: 0px;
+    text-shadow: 1px 1px 0px #000, -1px 1px 0px #000, 1px -1px 0px #000, -1px -1px 0px #000, 0px 1px 0px #000, 0px -1px 0px #000, -1px 0px 0px #000, 1px 0px 0px #000;
+}
+
+div.post.reply {
+    background:url("https://i.imgur.com/saWoraq.png") repeat-x scroll 0% 0% rgba(255, 255, 255, 0.6);
+    scroll 0 0 #d2dffb;
+    border:#fff 2px solid;
+    -webkit-border-radius:30px/10px;
+    -webkit-border-top-left-radius:5px;
+    -khtml-border-radius:30px/10px;
+    -khtml-border-top-left-radius:5px;
+    -moz-border-radius:30px/10px;
+    -moz-border-top-left-radius:5px;
+    border-radius:25px/10px;
+    border-top-left-radius:5px;
+}
+
+div.post.reply.highlighted{background:url("https://i.imgur.com/ajihro9.png") repeat-x scroll 0 0 rgba(255, 235, 255, 0.6);}
+}
+
+/* Montalk theme */
+
+body {
+    background: url("https://media.8ch.net/fringe/src/1440640949595-0.jpg") repeat-y scroll 0% 0% #000;
+    margin: 0px;
+    padding: 0px;
+    color:gray;
+}
+
+form {
+    color: #D9E2FD;
+    margin-bottom: 20px;
+    margin-left: 0px;
+    padding: 5px 2em 20px;
+    margin-top: 0px;
+}
+
+table tbody tr:nth-of-type(2n) {
+    background-color: rgba(0, 0, 0, 0.0);
+}
+
+div.thread {
+    background: url("https://i.imgur.com/GZiBIS0.png") 
+    repeat-x scroll 0% 0% rgba(29, 33, 51, 0.6);
+    border-bottom: 1px dashed #444;
+    border-left: 1px dashed #444;
+}
+
+img.banner, img.board_image {
+    margin-top:20px
+}
+
+.new-threads, .board-settings {
+    height:0px;
+    color: rgba(100,100,100,0.0);
+}
+
+div.pages {
+    color: #89A;
+    background: none repeat scroll 0% 0% #111;
+    display: inline;
+    padding: 3px;
+    border-right: 1px solid #444;
+    border-bottom: 1px solid #555;
+    margin-left: 20px;
+}
+
+a,a:visited {
+    text-decoration: none;
+    color: #FFBF00;
+}
+
+a:hover,p.intro a.post_no:hover {
+    color: #fff;
+    text-shadow: 0px 0px 4px orange;
+}
+
+a.post_no {
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+}
+
+div.post.reply div.body a {
+    color: #FFBF00;
+}
+
+p.intro a.email span.name {
+    color: rgb(236, 236, 236);
+}
+
+p.intro a.email span.name:hover {
+    color: white;
+    text-shadow: 0px 0px 4px orange;
+}
+
+a.email:hover {
+    background:none;
+}
+
+p.intro span.name {
+    color: #B2DBF0;
+    font-weight: bold;
+}
+
+p.intro span.subject {
+    color: #fff;
+    font-weight: bold;
+    text-shadow: 1px 1px 0px #000, -1px 1px 0px #000, 1px -1px 0px #000, -1px -1px 0px #000, 0px 1px 0px #000, 0px -1px 0px #000, -1px 0px 0px #000, 1px 0px 0px #000;
+}
+
+p.intro span.subject:before {
+    color: #D9E2FD;
+    content:"» ";
+}
+
+span.trip {
+    color: #66cc94;
+}
+
+span.heading {
+  font-family: verdana;
+  font-size: 1.3em;
+  font-weight: bold;
+  font-family: verdana;
+  /*margin-left: 10px;*/
+  margin-top: 1em;
+  color: white !important;
+  text-shadow: 1px 1px 0px #000, -1px 1px 0px #000, 1px -1px 0px #000, -1px -1px 0px #000, 0px 1px 0px #000, 0px -1px 0px #000, -1px 0px 0px #000, 1px 0px 0px #000;
+}
+
+p.intro a.post_no {color:silver;}
+p.intro time {color:silver;}
+p.intro .poster_id {color:gray;}
+
+span.quote {
+    color: #78FF22;
+    text-shadow: 1px 1px 0px #222, -1px 1px 0px #222, 1px -1px 0px #222, -1px -1px 0px #222, 0px 1px 0px #222, 0px -1px 0px #222, -1px 0px 0px #222, 1px 0px 0px #222;
+}
+
+div.post.reply {
+    background:url("https://i.imgur.com/saWoraq.png") repeat-x scroll 0% 0% rgba(255, 255, 255, 0.6);
+    background-color: #0F1623;
+    border: 1px solid #373737;-webkit-border-radius:7px;-khtml-border-radius:7px;-moz-border-radius:7px;border-radius:7px;
+    min-width: 16%;
+}
+
+div.post.reply.highlighted {
+    background:url("https://i.imgur.com/ajihro9.png") repeat-x scroll 0 0 #0F1623;
+    box-shadow: inset 0 0 10px #246;
+}
+
+hr { border-top: 1px solid #555; border-bottom: 1px solid #888; }
+
+div.banner {
+    background-color: #81C0FF;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #D5D6E1 #6E6F82 #6E6F82 #BDBECD;
+}
+
+form table tr th {
+    background: none repeat scroll 0% 0% #036;
+}
+
+body {
+    margin: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+/* Catalog Fix */
+
+.theme-catalog div.thread:hover {
+  background: #000;
+  border-color: #111;
+}
+
+div.pages a.selected {
+    color: #fff;
+    font-weight: bolder;
+}
+
+#options_div, #alert_div {
+    background-color: #025;
+}
+
+.options_tab_icon {
+    color: #fff;
+}
+
+/* More Font Stuff */
+
+/* Post submission table */
+ 
+form table tr th {
+  background:rgba(0, 0, 0, 0.2);
+  border:1px solid rgba(0, 0, 0, 0.0);
+  padding: 2px 4px;
+  color:#C5F8F6;
+  font-family: 'Flavors', cursive;
+  font-size:15px;
+  text-align: right;
+  font-variant: small-caps;
+}
+
+p.intro {
+    font-family: 'Sofadi One','Courier New',Courier,Freemono,'Nimbus Mono L',monospace;
+}
+
+p.intro span.name {
+    font-family: 'Andada','Courier New',Courier,Freemono,'Nimbus Mono L',monospace;
+    text-shadow: 1px 1px 0px #000, -1px 1px 0px #000, 1px -1px 0px #000, -1px -1px 0px #000, 0px 1px 0px #000, 0px -1px 0px #000, -1px 0px 0px #000, 1px 0px 0px #000;
+    color: #CFD;
+}
+
+p.intro span.subject {
+    font-family: 'Andada','Helvetica Neue',Arial,'Liberation Sans',FreeSans,sans-serif;
+    text-shadow: 1px 1px 0px #000, -1px 1px 0px #000, 1px -1px 0px #000, -1px -1px 0px #000, 0px 1px 0px #000, 0px -1px 0px #000, -1px 0px 0px #000, 1px 0px 0px #000;
+    color: #0DF;
+}
+
+div.ban h2 { font-family: 'Andada';}
