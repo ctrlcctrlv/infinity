@@ -221,7 +221,7 @@ class Bans {
     return true;
   }
 
-  static public function new_ban($iphash, $reason, $length = false, $ban_board = false, $mod_id = false, $post = false) {
+  static public function new_ban($iphash, $reason, $length = false, $ban_board = false, $mod_id = false, $post = false, $bandelete =false) {
     global $config, $mod, $pdo, $board;
 
     if (!isset($iphash)) {
@@ -288,7 +288,8 @@ class Bans {
     $query->execute() or error(db_error($query));
 
     if (isset($mod['id']) && $mod['id'] == $mod_id) {
-      modLog('Created a new ' .
+      modLog('Created a ' .
+        (!$bandelete ? 'new' : '').
         ($length > 0 ? preg_replace('/^(\d+) (\w+?)s?$/', '$1-$2', until($length)) : 'permanent') .
         ' ban on ' .
         ($ban_board ? '/' . $ban_board . '/' : 'all boards') .
