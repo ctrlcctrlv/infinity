@@ -1,0 +1,59 @@
+{% if mod %}
+<span class="controls {% if not post.thread %}op{% endif %}">
+<!-- [D] -->
+{% if mod|hasPermission(config.mod.delete, board) %}
+        {{ secure_link_confirm(config.mod.link_delete, 'Delete'|trans, 'Are you sure you want to delete this?'|trans, board ~ '/delete/' ~ post.id) }}&nbsp;
+{% endif %}
+<!-- [Sage] / bumplock / bumpunlock -->
+{% if mod|hasPermission(config.mod.bumplock, board) %}
+        {% if post.sage %}
+        <a title="{% trans %}Allow thread to be bumped{% endtrans %}" href="?/{{ secure_link(board ~ '/bumpunlock/' ~ post.id) }}">{{ config.mod.link_bumpunlock }}</a>&nbsp;
+        {% else %}
+        <a title="{% trans %}Prevent thread from being bumped{% endtrans %}" href="?/{{ secure_link(board ~ '/bumplock/' ~ post.id) }}">{{ config.mod.link_bumplock }}</a>&nbsp;
+        {% endif %}
+{% endif %}
+<!-- [Lock] lock -->
+{% if mod|hasPermission(config.mod.lock, board) %}
+        {% if post.locked %}
+        <a title="{% trans %}Unlock thread{% endtrans %}" href="?/{{ secure_link(board ~ '/unlock/' ~ post.id) }}">{{ config.mod.link_unlock }}</a>&nbsp;
+        {% else %}
+        <a title="{% trans %}Lock thread{% endtrans %}" href="?/{{ secure_link(board ~ '/lock/' ~ post.id) }}">{{ config.mod.link_lock }}</a>&nbsp;
+        {% endif %}
+{% endif %}
+<!-- [B&D]-->
+{% if mod|hasPermission(config.mod.bandelete, board) %}
+        <a title="{% trans %}Ban & Delete{% endtrans %}" href="?/{{ board }}/ban&amp;delete/{{ post.id }}">{{ config.mod.link_bandelete }}</a>&nbsp;
+{% endif %}
+
+<div>
+
+{% if not post.thread %}
+{% if mod|hasPermission(config.mod.sticky, board) %}
+  {% if post.sticky %}
+  <a title="{% trans %}Make thread not sticky{% endtrans %}" href="?/{{ secure_link(board ~ '/unsticky/' ~ post.id) }}">{{ config.mod.link_desticky }}</a>&nbsp;
+  {% else %}
+  <a title="{% trans %}Make thread sticky{% endtrans %}" href="?/{{ secure_link(board ~ '/sticky/' ~ post.id) }}">{{ config.mod.link_sticky }}</a>&nbsp;
+  {% endif %}
+{% endif %}
+{% if mod|hasPermission(config.mod.cycle, board) %}
+  {% if post.cycle %}
+  <a title="{% trans %}Make thread not cycle{% endtrans %}" href="?/{{ secure_link(board ~ '/uncycle/' ~ post.id) }}">{{ config.mod.link_uncycle }}</a>&nbsp;
+  {% else %}
+  <a title="{% trans %}Make thread cycle{% endtrans %}" href="?/{{ secure_link(board ~ '/cycle/' ~ post.id) }}">{{ config.mod.link_cycle }}</a>&nbsp;
+  {% endif %}
+{% endif %}
+
+{% endif %}
+
+<!-- [Edit]-->
+{% if mod|hasPermission(config.mod.editpost, board) %}
+  <a title="{% trans %}Edit post{% endtrans %}" href="?/{{ board }}/edit{% if config.mod.raw_html_default %}_raw{% endif %}/{{ post.id }}">{{ config.mod.link_editpost }}</a>&nbsp;
+{% endif %}
+
+<!-- [B&D+]-->
+{% if mod|hasPermission(config.mod.bandeletebyip, board) %}
+        <a title="{% trans %}Ban & delete all posts by this IP address{% endtrans %}" href="?/{{ board }}/ban&amp;deletebyip/{{ post.id }}/global">{{ config.mod.link_bandeletebyip }}</a>&nbsp;
+{% endif %}
+</div>
+</span>
+{% endif %}
