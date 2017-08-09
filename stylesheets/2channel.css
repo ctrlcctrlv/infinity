@@ -1,0 +1,228 @@
+/*=== 8/jp/.css ===*/
+
+body {
+background: #BCE url(data:image/gif;base64,R0lGODlhPAA8AJEAANzAptCznMWtmbOekiH5BAQUAP8ALAAAAAA8ADwAAAL/nI+py+0YnpzUCRGyDnjzC4bipXWeBgBnKaRuNgpDmKll4Oa6jvN1ihNFLCJEa4WDeWIjgOmzAX1InOGhukxJe5kBVChLopwmgPcyw8hmwC11YBsOhVjOK5neeGGdq9ZUBJUWRhU11uLEpsfSZdBDwjQV0RFWc6Li1dZyoVVlcoCoBsk0ShN1RPby9KVm9SgVGanEh2HzstfDVnhwBznDMUi6Uhu34VLowQtUEmww8ru62pMCZ+tsA+ioCUJWSdo6RaxyV6PtXOVHJgkCFz6yVOWUM0VtkEir7XQjdYYmSzvtxzhsJKAByxSnVIRJ336FG/hD3CJP9pbBYgcwRBpc/8bI2fnYQR+MitigYaSlUdoYS4XaRNmIUBK+byqn7ZhHjGWimGocQqlzCUU5aM7QgHpwZFAwGUybzqgAVcGfNVEdzBuzbEUORDyW3bxpLMw8dYUIcc0qRoOjjh62TkszsN6sUn/qFJMzrFJatSSAYOJ44giXjoiA0nGXsnCudjfi3NWK5CLDZzX6TrrbCahWGoLfIPb1g48ueEhuoET2E6XS0GYuG3pUOrLk0884qZBhpsVGSj4js4C0RBihNl5MBos9CyUjd3xEc9bNeJClzcOWewPjrxbL6DWnnxL1ZMvvIi0bkTkOA+3E5r+/u7myBI4/rYBFav4YWKZRwSy6tf/CtpByyVUXGBUh2FKCDbjcZl9bsQECj4ELCoVbcv6FJgZ/SliECxP2CERIWjsIdFc0irlyHzpwLHDQUjRld04RCVC1AI0yOqPAi+LpiBpJX/2oQ0hADvlVcLPF0EiAnTTk0EXasHPbczEopUw3/Xii1h7NfJhHhsC5xw58UUrzSVl9YMARIAYCFA4CW+kVTXIpSacmKS5SNc1zknQZJlPSJQTeB/34h6NHA7525hrL7cPORYEg9JiRkdhzWHs0sYHQgSM9qEc/RmX0DhOtbZMlWYFg1Od4l9KQaYqiLVrKOaoiOVlxobAXHG1uMHXKZ3aKFWmuBpYSqodTNlqNJgUpircnsWBmd6qfXMCC3EiiZASqKVMWNxhyJuKaWh1SOsqterI5apkUBQAAOw==);
+background-repeat: repeat;
+font-family: "ï¼­ï¼³ ï¼°ã‚´ã‚·ãƒƒã‚¯", "MS PGothic", "Mona", "IPA ãƒ¢ãƒŠãƒ¼ Pã‚´ã‚·ãƒƒã‚¯", "IPAMonaPGothic", "Monapo",sans-serif!important;
+font-size: 12pt;
+}
+.ad-banner {
+display: none;
+}
+header,form,.blotter, .boardlist, .pages {
+padding: 7px;
+border: 1px outset #808080!important;
+}
+header, form[name=post],.blotter,.boardlist,.pages {
+background-color: #cfc!important;
+}
+.boardlist {
+position:static!important;
+}
+h1, .subtitle, form table {
+border:1px inset #808080;
+}
+h1, form[name=postcontrols] div {
+margin-bottom: 7px;
+}
+form[name=post] table, .pages {
+width:100%;
+}
+.own_post {
+display: none;
+}
+.pages {
+display:block!important;
+box-sizing:border-box;
+}
+a {
+text-decoration: none!important;
+}
+h1 {
+letter-spacing: 0px;
+}
+/* How to deal with tripfags */
+.trip {
+font-size: 0;
+}
+.trip::after {
+content: ' IS A FAGGOT';
+color: #FFD700;
+font-weight: bold;
+font-size: 13pt;
+-webkit-animation-name: tripfags;
+-webkit-animation-duration: 3s;
+-webkit-animation-timing-function: linear;
+-webkit-animation-iteration-count: infinite;
+animation-direction: alternate;
+animation-timing-function: ease-in-out;
+-webkit-animation-play-state: running;
+/* Standard syntax */
+animation-name: tripfags;
+animation-duration: 3s;
+animation-timing-function: linear;
+animation-iteration-count: infinite;
+animation-direction: alternate;
+animation-timing-function: ease-in-out;
+animation-play-state: running;
+}
+/* Chrome, Safari, Opera */
+@-webkit-keyframes tripfags {
+0%   {color:#FF0000; left:0px; top:0px;}
+20%   {color:#FFA500; left:0px; top:0px;}
+40%   {color:#FFFF00; left:0px; top:0px;}
+60%  {color:#008000; left:0px; top:0px;}
+80%   {color:#0000FF; left:0px; top:0px;}
+100% {color:#4B0082; left:0px; top:0px;}
+}
+/* Standard syntax */
+@keyframes tripfags {
+0%   {color:#FF0000; left:0px; top:0px;}
+20%   {color:#FFA500; left:0px; top:0px;}
+40%   {color:#FFFF00; left:0px; top:0px;}
+60%  {color:#008000; left:0px; top:0px;}
+80%   {color:#0000FF; left:0px; top:0px;}
+100% {color:#4B0082; left:0px; top:0px;}
+}
+form[name=post] table tbody th, .reply {
+background-color: transparent!important;
+border: none!important;
+}
+table tbody tr:nth-of-type(2n) {
+background-color: transparent!important;
+border: none!important;
+}
+form[name=postcontrols], .post-hover {
+background-color: #efefef!important;
+}
+.post-hover {
+border: 1px outset #808080!important;
+}
+.post-menu li {
+background-color: #cfc;
+}
+form[name=post] table tbody tr {
+display: inline-block;
+}
+form[name=post] table tbody tr:nth-child(3), form[name=post] table tbody tr:nth-child(4) {
+display: block;
+width: 100%;
+}
+#body {
+width: 528px!important;
+height: 112px!important;
+}
+form[name=postcontrols]>div {
+float: none;
+border: 1px inset #808080;
+padding: 3px;
+}
+.theme-catalog div.thread:hover {
+background: #BCE;
+border-color: #cfc;
+}
+.ltr {
+margin: 0 auto 7px auto;
+}
+a.show-create-thread-catalog {
+font-weight: bold;
+font-size: 1.3em;
+}
+a#show-all-hide-thread {
+font-weight: bold;
+font-size: 1.1em;
+}
+a#catalog_search_button {
+font-weight: bold;
+font-size: 1.1em;
+}
+div, textarea, th, input {
+font-family: "ï¼­ï¼³ ï¼°ã‚´ã‚·ãƒƒã‚¯", "MS PGothic", "Mona", "IPA ãƒ¢ãƒŠãƒ¼ Pã‚´ã‚·ãƒƒã‚¯", "IPAMonaPGothic", "Monapo",sans-serif;
+font-size: 16px;
+}
+input, textarea, keygen, select, button {
+font-family: "ï¼­ï¼³ ï¼°ã‚´ã‚·ãƒƒã‚¯", "MS PGothic", "Mona", "IPA ãƒ¢ãƒŠãƒ¼ Pã‚´ã‚·ãƒƒã‚¯", "IPAMonaPGothic", "Monapo",sans-serif;
+}
+div.post p {
+font-size: 16px!important;
+}
+div#thread-interactions {
+padding-bottom: 23px;
+}
+select:not(:-internal-list-box) {
+margin: auto auto 5px auto;
+}
+.highlighted .post_no {
+color:#f00!important
+}
+.subtitle {
+font-size:16px!important
+}
+.highlighted {
+background: #BCE!important;
+border-radius: 6px!important;
+}
+.unimportant, .unimportant * {
+font-size: 11.5px;
+}
+hr {
+border:0px!important
+}
+.faq-message {
+display: none;
+}
+.hint {
+display: none !important
+}
+.body-line.empty:first-child:last-child:after {
+content: "ｷﾀ━━━(ﾟ∀ﾟ)━━━!!";
+}
+.subject {
+color: #f00!important;
+display: block;
+font-size: 24px;
+padding-bottom: 3.5px;
+}
+.post_no {
+float: left
+}
+.name {
+margin-left: .5em
+}
+#quick-reply {
+width: 528px!important;
+}
+div#options_tablist {
+background-color: #cfc;
+}
+.options_tab {
+background-color: #cfc;
+}
+input.format_option {
+font-family: "ï¼­ï¼³ ï¼°ã‚´ã‚·ãƒƒã‚¯", "MS PGothic", "Mona", "IPA ãƒ¢ãƒŠãƒ¼ Pã‚´ã‚·ãƒƒã‚¯", "IPAMonaPGothic", "Monapo",sans-serif!important;
+font-size: 13pt!important;
+}
+input[name=post] {
+min-width: 100px;
+}
+.poster_id {
+background-color: transparent!important;
+color: #000!important;
+padding: 0!important;
+border-radius: 0!important;
+}
+.highlighted .post_no {
+color: #f00!important;
+}
+/* chrome mouse wheel extension*/
+.desktop-style div.boardlist:not(.bottom) {
+position: fixed;
+top: 0;
+left: 0;
+right: 0;
+margin-top: 0;
+z-index: 30;
+box-shadow: 0 1px 2px rgba(0, 0, 0, .15);
+border-bottom: 1px solid;
+/* background-color: #D6DAF0; */
+}
