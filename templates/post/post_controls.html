@@ -22,6 +22,12 @@
 {% if mod|hasPermission(config.mod.bandelete, board.uri) %}
 	<a title="{% trans %}Ban & Delete{% endtrans %}" href="?/{{ board.dir }}ban&amp;delete/{{ post.id }}">{{ config.mod.link_bandelete }}</a>&nbsp;
 {% endif %}
+{% if mod|hasPermission(config.mod.bandeletebyip, board.uri) %}
+        <a title="{% trans %}Ban & delete all posts by this IP address{% endtrans %}" href="?/{{ board.dir }}ban&amp;deletebyip/{{ post.id }}/global">{{ config.mod.link_bandeletebyip }}</a>&nbsp;
+{% endif %}
+{% if mod|hasPermission(config.mod.bandeletebyip_thread, board.uri) %}
+        <a title="{% trans %}Ban & delete all posts by this IP address in this thread{% endtrans %}" href="?/{{ board.dir }}ban&amp;deletebyip/{{ post.id }}">{{ config.mod.link_bandeletebyip_thread }}</a>&nbsp;
+{% endif %}
 
 {% if not post.thread %}
 {% if mod|hasPermission(config.mod.sticky, board.uri) %}
