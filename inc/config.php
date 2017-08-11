@@ -1266,6 +1266,8 @@
 	$config['mod']['link_ban'] = '[B]';
 	$config['mod']['link_range_ban'] = '[RB]';
 	$config['mod']['link_bandelete'] = '[B&amp;D]';
+	$config['mod']['link_bandeletebyip'] = '[B&amp;D+]';
+	$config['mod']['link_bandeletebyip_thread'] = '[B&amp;D*]';
 	$config['mod']['link_deletefile'] = '[F]';
 	$config['mod']['link_spoilerimage'] = '[S]';
 	$config['mod']['link_spoilerimages'] = '[S+]';
@@ -1416,6 +1418,10 @@
 	$config['mod']['ban'] = MOD;
 	// Ban and delete (one click; instant)
 	$config['mod']['bandelete'] = MOD;
+	// Ban and delete by ip (one click; instant)
+	$config['mod']['bandeletebyip'] = MOD;
+	// Ban and delete by in in thread (one click; instant)
+	$config['mod']['bandeletebyip_thread'] = MOD;
 	// Remove bans
 	$config['mod']['unban'] = MOD;
 	// Spoiler image
