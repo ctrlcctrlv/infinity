@@ -1605,6 +1605,119 @@ function mod_ban_post($board, $delete, $post, $token = false) {
 	mod_page(_(($rangeban) ? 'New range ban' : 'New ban'), 'mod/ban_form.html', $args);
 }
 
+function mod_ban_postbyip($board, $delete, $post, $global = false, $token = false) {
+  global $config, $mod;
+  $global = (bool)$global;
+
+  if (!openBoard($board))
+    error($config['error']['noboard']);
+
+  if (!$global && !hasPermission($config['mod']['bandeletebyip'], $board))
+    error($config['error']['noaccess']);
+
+  if ($global && !hasPermission($config['mod']['bandeletebyip'], $board))
+    error($config['error']['noaccess']);
+
+
+  if($global)
+    $security_token = make_secure_link_token($board . '/ban&deletebyip/' . $post . '/global');
+  else
+    $security_token = make_secure_link_token($board . '/ban&deletebyip/' . $post);
+
+   $query = prepare(sprintf('SELECT ' . ($config['ban_show_post'] ? '*' : '`ip`, `thread`') .
+     ' FROM ``posts_%s`` WHERE `id` = :id', $board));
+
+  $query->bindValue(':id', $post);
+  $query->execute() or error(db_error($query));
+  if (!$_post = $query->fetch(PDO::FETCH_ASSOC))
+    error($config['error']['404']);
+  $thread = $_post['thread'];
+  $ip = $_post['ip'];
+  $tor = checkDNSBL($ip);
+
+  if (isset($_POST['new_ban'], $_POST['reason'], $_POST['length'], $_POST['board'])) {
+    require_once 'inc/mod/ban.php';
+
+    if (isset($_POST['ip']))
+      $ip = $_POST['ip'];
+
+    if (isset($_POST['range']))
+      $ip = $ip . $_POST['range'];
+
+    if($global){
+      $query_byip = prepare(sprintf('SELECT * FROM ``posts_%s`` WHERE `ip` = :ip', $board));
+      $query_byip->bindValue(':ip', $_post['ip']);
+    }else{
+
+        // Find thread
+        $query_thread = prepare(sprintf('SELECT `thread` FROM ``posts_%s`` WHERE `id` = :id', $board));
+        $query_thread->bindValue(':id', $post);
+        $query_thread->execute() or error(db_error($query));
+        if($thread_db = $query_thread->fetchColumn()){
+          /*reply(prepare to delete post)*/
+          $posts_field = '`ip` = :ip AND (`thread` = :thread OR `id` = :id)';
+        }else{
+          /*OP and reply(prepare to delete post)*/
+          $posts_field = '`id` = :id OR `thread` = :thread';
+        }
+
+        $query_byip = prepare(sprintf('SELECT * FROM ``posts_%s`` WHERE '.$posts_field, $board));
+        $query_byip->bindValue(':thread', $_post['thread']);
+        $query_byip->bindValue(':id', $post);
+
+        if(isset($thread_db)){
+          $query_byip->bindValue(':thread', $thread_db);
+          $query_byip->bindValue(':ip', $ip);
+          $query_byip->bindValue(':id', $thread_db);
+        }else{
+          $query_byip->bindValue(':id', $post);
+          $query_byip->bindValue(':thread', $post);
+        }
+
+    }
+
+    $query_byip->execute() or error(db_error($query_byip));
+
+    while ($_postbyip = $query_byip->fetch(PDO::FETCH_ASSOC)) {
+
+      if($post == $_postbyip['id']){
+        Bans::new_ban($ip, $_POST['reason'], $_POST['length'], $_POST['board'] == '*' ? false : $_POST['board'],
+          false, $config['ban_show_post'] ? $_postbyip : false, true);
+      }
+
+      if (isset($_POST['delete']) && (int) $_POST['delete']) {
+        deletePost($_postbyip['id'],false);
+        // Rebuild board
+        buildIndex();
+        // Rebuild themes
+        rebuildThemes('post-delete', $board);
+      }
+
+    }////end while
+
+    if($global){
+      modLog("Deleted all posts by IP address: <a href=\"?/IP/$ip\">$ip</a>");
+    }else{
+      modLog("Deleted all posts by IP address in a thread: <a href=\"?/IP/$ip\">$ip</a>");
+    }
+    header('Location: ?/' . sprintf($config['board_path'], $board) . $config['file_index'], true, $config['redirect_http']);
+  }
+
+  $args = array(
+    'ip' => $ip,
+    'hide_ip' => !hasPermission($config['mod']['show_ip'], $board),
+    'post' => $post,
+    'board' => $board,
+    'tor' => $tor,
+    'bandeletetype' => ($global)?1:0,
+    'delete' => (bool)$delete,
+    'boards' => listBoards(),
+    'token' => $security_token
+  );
+
+  mod_page(_(($global)?"New ban: delete all posts by this IP on this board":'New ban: delete all posts by this IP in this thread'), 'mod/ban_form.html', $args);
+}
+	    
 function mod_edit_post($board, $edit_raw_html, $postID) {
 	global $config, $mod;
 
