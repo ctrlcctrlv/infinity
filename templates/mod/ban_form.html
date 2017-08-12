@@ -1,6 +1,12 @@
 {% if post and board %}
 	{% if rangeban %}
 		{% set action = '?/' ~ board ~ '/banrange/' ~ post %}
+        {% elseif bandeletetype == "1" or bandeletetype == "0"%}
+                {% if bandeletetype == "1" %}
+                        {% set action = '?/' ~ board ~ '/ban&deletebyip/' ~ post ~ '/global' %}
+                {% else %}
+                        {% set action = '?/' ~ board ~ '/ban&deletebyip/' ~ post %}
+                {% endif %}
 	{% else %}
 		{% set action = '?/' ~ board ~ '/ban/' ~ post %}
 	{% endif %}
