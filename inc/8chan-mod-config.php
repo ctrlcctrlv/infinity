@@ -17,6 +17,10 @@
 	$config['mod']['edit_volunteers'] = MOD;
 	$config['mod']['edit_tags'] = MOD;
 	$config['mod']['clean'] = BOARDVOLUNTEER;
+
+        $config['mod']['bandeletebyip'] = BOARDVOLUNTEER;
+        $config['mod']['bandeletebyip_thread'] = BOARDVOLUNTEER;
+
 	// new perms
 
 	$config['mod']['ban'] = BOARDVOLUNTEER;
