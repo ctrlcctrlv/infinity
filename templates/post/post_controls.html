@@ -70,6 +70,16 @@
 {% if mod|hasPermission(config.mod.editpost, board.uri) %}
 	<a title="{% trans %}Edit post{% endtrans %}" href="?/{{ board.dir }}edit{% if config.mod.raw_html_default %}_raw{% endif %}/{{ post.id }}">{{ config.mod.link_editpost }}</a>&nbsp;
 {% endif %}
+
+{% if post.files and mod %}
+  {% if file.file != 'deleted' and mod|hasPermission(config.mod.deletefilebyip, board.uri) %}
+    {{ secure_link_confirm(config.mod.link_deletefilebyip, 'Delete all files posted by this IP address on this board'|trans, 'Are you sure you want to delete this file by this IP address?'|trans, board.dir ~ 'deletefilebyip/' ~ post.id ~ '/0' ) }}
+  {% endif %}
+
+  {% if file.file != 'deleted' and mod|hasPermission(config.mod.deletefilebyip_thread, board.uri) %}
+    {{ secure_link_confirm(config.mod.link_deletefilebyip_thread, 'Delete all files posted by this IP address in this thread'|trans, 'Are you sure you want to delete this file by this IP address in this thread?'|trans, board.dir ~ 'deletefilebyip/' ~ post.id ~ '/0/thread' ) }}&nbsp;
+  {% endif %}
+{% endif %}
 </span>
 
 {% endif %}
