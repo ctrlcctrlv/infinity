@@ -1269,6 +1269,8 @@
 	$config['mod']['link_bandeletebyip'] = '[B&amp;D+]';
 	$config['mod']['link_bandeletebyip_thread'] = '[B&amp;D*]';
 	$config['mod']['link_deletefile'] = '[F]';
+	$config['mod']['link_deletefilebyip'] = '[F+]';
+	$config['mod']['link_deletefilebyip_thread'] = '[F*]';
 	$config['mod']['link_spoilerimage'] = '[S]';
 	$config['mod']['link_spoilerimages'] = '[S+]';
 	$config['mod']['link_deletebyip'] = '[D+]';
@@ -1428,6 +1430,10 @@
 	$config['mod']['spoilerimage'] = JANITOR;
 	// Delete file (and keep post)
 	$config['mod']['deletefile'] = JANITOR;
+	// Delete file by ip (and keep post)
+	$config['mod']['deletefilebyip'] = ADMIN;
+	// Delete file by ip in thread (and keep post)
+	$config['mod']['deletefilebyip_thread'] = ADMIN;
 	// Delete all posts by IP
 	$config['mod']['deletebyip'] = MOD;
 	// Delete all posts by IP across all boards
