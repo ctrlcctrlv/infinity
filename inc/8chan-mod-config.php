@@ -41,6 +41,8 @@
 	$config['mod']['ban_appeals'] = BOARDVOLUNTEER;
 	$config['mod']['view_ban_appeals'] = BOARDVOLUNTEER;
 	$config['mod']['view_ban'] = BOARDVOLUNTEER;
+	$config['mod']['deletefilebyip'] = BOARDVOLUNTEER;
+	$config['mod']['deletefilebyip_thread'] = BOARDVOLUNTEER;
 	$config['mod']['reassign_board'] = GLOBALVOLUNTEER;
 	$config['mod']['move'] = GLOBALVOLUNTEER;
 	$config['mod']['pm_all'] = GLOBALVOLUNTEER;
