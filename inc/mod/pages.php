@@ -1889,6 +1889,156 @@ function mod_deletefile($board, $post, $file) {
 	header('Location: ?/' . sprintf($config['board_path'], $board) . $config['file_index'], true, $config['redirect_http']);
 }
 
+function mod_deletefilebyip($board, $post, $file) {
+        global $config, $mod;
+
+        if (!openBoard($board))
+                error($config['error']['noboard']);
+
+        if (!hasPermission($config['mod']['deletefilebyip'], $board))
+                error($config['error']['noaccess']);
+
+
+        // Find IP address
+        $query = prepare(sprintf('SELECT `ip` FROM ``posts_%s`` WHERE `id` = :id', $board));
+        $query->bindValue(':id', $post);
+        $query->execute() or error(db_error($query));
+        if (!$ip = $query->fetchColumn())
+                error($config['error']['invalidpost']);
+
+        $boards = array(array('uri' => $board));
+
+        $query = '';
+        foreach ($boards as $_board) {
+                $query .= sprintf("SELECT `num_files`, `files`, `thread`, `id`, '%s' AS `board` FROM ``posts_%s`` WHERE `ip` = :ip UNION ALL ", $_board['uri'], $_board['uri']);
+        }
+        $query = preg_replace('/UNION ALL $/', '', $query);
+
+        $query = prepare($query);
+        $query->bindValue(':ip', $ip);
+        $query->execute() or error(db_error($query));
+
+        if ($query->rowCount() < 1)
+                error($config['error']['invalidpost']);
+
+        @set_time_limit($config['mod']['rebuild_timelimit']);
+        while ($post = $query->fetch(PDO::FETCH_ASSOC)) {
+                $files = json_decode($post['files']);
+                if($post["files"]!=NULL){
+                        for($file_ctr=0;$file_ctr<$post['num_files'];$file_ctr++){
+                                if(isset($files[$file]->file) && $files[$file]->file != "deleted"){
+                                        // Record the action
+                                        #modLog("Deleted file from post #{$post["id"]}");
+                                        // Delete file
+                                        deleteFile($post["id"], TRUE, $file_ctr);
+
+                                        // Rebuild board
+                                        buildIndex();
+                                        // Rebuild themes
+                                        rebuildThemes('post-delete', $board);
+                                }
+                        }
+                        $file_ctr=0;
+                }
+        }
+
+        modLog("Deleted all files by IP address: <a href=\"?/IP/$ip\">$ip</a>");
+
+        // Redirect
+        /*redirect back to report queue after deleting, or else redirect to index*/
+        if (isset($_SERVER["HTTP_REFERER"])) {
+                $ref = explode("?",$_SERVER["HTTP_REFERER"]);
+                $redirect_from = "?".$ref[count($ref)-1];
+                header('Location: '.$redirect_from);
+        } else {
+                header('Location: ?/' . sprintf($config['board_path'], $board) . $config['file_index'], true, $config['redirect_http']);
+        }
+}
+
+function mod_deletefilebyip_thread($board, $post, $file) {
+        global $config, $mod;
+
+        if (!openBoard($board))
+                error($config['error']['noboard']);
+
+        if (!hasPermission($config['mod']['deletefilebyip_thread'], $board))
+                error($config['error']['noaccess']);
+
+        // Find IP address
+        $query = prepare(sprintf('SELECT `ip` FROM ``posts_%s`` WHERE `id` = :id', $board));
+        $query->bindValue(':id', $post);
+        $query->execute() or error(db_error($query));
+        if (!$ip = $query->fetchColumn())
+                error($config['error']['invalidpost']);
+
+        $boards = array(array('uri' => $board));
+
+        // Find thread
+        $query_thread = prepare(sprintf('SELECT `thread` FROM ``posts_%s`` WHERE `id` = :id', $board));
+        $query_thread->bindValue(':id', $post);
+        $query_thread->execute() or error(db_error($query));
+        if($thread_db = $query_thread->fetchColumn()){
+                /*reply(prepare to delete post)*/
+                $posts_field = '`ip` = :ip AND (`thread` = :thread OR `id` = :id)';
+        }
+        else{
+                /*OP and reply(prepare to delete post)*/
+                $posts_field = '`id` = :id OR `thread` = :thread';
+        }
+
+        $query = '';
+        foreach ($boards as $_board) {
+                $query .= sprintf("SELECT `num_files`, `ip`, `files`, `thread`, `id`, '%s' AS `board` FROM ``posts_%s`` WHERE $posts_field UNION ALL ", $_board['uri'], $_board['uri']);
+        }
+        $query = preg_replace('/UNION ALL $/', '', $query);
+        $query = prepare($query);
+        if($thread_db){
+                $query->bindValue(':thread', $thread_db);
+                $query->bindValue(':ip', $ip);
+                $query->bindValue(':id', $thread_db);
+        }else{
+                $query->bindValue(':id', $post);
+                $query->bindValue(':thread', $post);
+        }
+        $query->execute() or error(db_error($query));
+
+        if ($query->rowCount() < 1)
+                error($config['error']['invalidpost']);
+
+        @set_time_limit($config['mod']['rebuild_timelimit']);
+        while ($post = $query->fetch(PDO::FETCH_ASSOC)) {
+                $files = json_decode($post['files']);
+                if($post["files"]!=NULL && $ip==$post['ip']){
+                        for($file_ctr=0;$file_ctr<$post['num_files'];$file_ctr++){
+                                if(isset($files[$file]->file) && $files[$file]->file != "deleted"){
+                                        // Record the action
+                                        //modLog("Deleted file from post #{$post['id']}");
+                                        // Delete file
+                                        deleteFile($post['id'], TRUE, $file_ctr);
+
+                                        // Rebuild board
+                                        buildIndex();
+                                        // Rebuild themes
+                                        rebuildThemes('post-delete', $board);
+                                }
+                        }
+                        $file_ctr=0;
+                }
+        }
+
+        modLog("Deleted all files by IP address in a thread: <a href=\"?/IP/$ip\">$ip</a>");
+
+        // Redirect
+        /*redirect back to report queue after deleting, or else redirect to index*/
+        if (isset($_SERVER["HTTP_REFERER"])) {
+                $ref = explode("?",$_SERVER["HTTP_REFERER"]);
+                $redirect_from = "?".$ref[count($ref)-1];
+                header('Location: '.$redirect_from);
+        } else {
+                header('Location: ?/' . sprintf($config['board_path'], $board) . $config['file_index'], true, $config['redirect_http']);
+        }
+}
+
 function mod_spoiler_image($board, $post, $file) {
 	global $config, $mod;
 	   
