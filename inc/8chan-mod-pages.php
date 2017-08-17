@@ -794,9 +794,9 @@ EOT;
 			}
 
 			$query = query('SELECT `uri`, `title`, `subtitle` FROM ``boards`` WHERE `8archive` = TRUE');
-			file_write('8archive.json', json_encode($query->fetchAll(PDO::FETCH_ASSOC)));
-			file_write($b.'/config.php', $config_file);
-			file_write('stylesheets/board/'.$b.'.css', $clean_css);
+			file_put_contents('8archive.json', json_encode($query->fetchAll(PDO::FETCH_ASSOC)));
+			file_put_contents($b.'/config.php', $config_file);
+			file_put_contents('stylesheets/board/'.$b.'.css', $clean_css);
 
 			$_config = $config;
 			unset($config['wordfilters']);
