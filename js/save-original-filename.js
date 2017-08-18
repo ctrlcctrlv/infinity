@@ -13,4 +13,10 @@ $(function() {
           var filenamedownload = $(this).text();
           $(this).attr('href', url.replace('//8ch.net', '//media.8ch.net'));
   });
+
+  $("a[download]").each(function() {
+          var url = $(this).attr('href');
+          $(this).attr('href', url.replace('/file_store/', '/file_dl/'));
+  });
+
 });
