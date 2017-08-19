@@ -16,7 +16,10 @@ $(function() {
 
   $("a[download]").each(function() {
           var url = $(this).attr('href');
-          $(this).attr('href', url.replace('/file_store/', '/file_dl/'));
+          url = url.replace('/file_store/', '/file_dl/');
+          url = url.replace('/src/', '/file_dl/');
+          url = url.replace(/\s/g, '_');
+          $(this).attr('href', url);
   });
 
 });
