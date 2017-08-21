@@ -60,6 +60,16 @@ $(document).ready(function(){
 
 			return false;
 		});
+		
+                /*Vlive*/
+                $('div.video-container-vlive a', tag).click(function() {
+                   $(this.parentNode).append('<iframe style="float:left;margin: 10px 20px" type="text/html" '+
+                    'width="'+our_yt.width+'" height="'+our_yt.height+'" src="https://www.vlive.tv/embed/' + $(this.parentNode).data('video') +
+                    '#playerBoxArea" allowfullscreen scrolling="no" frameborder="0"/>');
+                   $(this).remove();
+                   return false;
+                });
+
 	};
 	do_embed_yt(document);
 
@@ -69,3 +79,39 @@ $(document).ready(function(){
         });
 });
 
+$(document).on('ready', function() {
+          /*Vlive*/
+          //Add pop buttons
+          $('.video-container-vlive').prepend($('<a href="#" class="video-pop" style="font-weight:bold;float:right">[pop]</a>'))
+          $('.video-container-vlive').css({display:'inline-block',float:'left'});
+          $('.thread>.video-container-vlive>a>img').css('margin-bottom',0)
+
+          $('.video-pop').on('click', function(e) {
+              e.preventDefault();
+              var vc = $(this).parents('.video-container-vlive');
+
+              if (vc.hasClass('popped')) {
+              vc.removeClass('popped');
+              vc.draggable('destroy');
+              vc.removeClass('ui-draggable');
+              vc.css('position','static');
+              vc.find('.video-handle').remove();
+              $(this).text('[pop]');
+              return;
+              } else {
+              $(this).text('[return]');
+              vc.prepend($('<i class="fa fa-arrows video-handle" style="border:1px solid black;padding:2px;cursor:move">'));
+              vc.addClass('ui-draggable');
+              vc.addClass('popped');
+              vc.css('background-color', reply_background);
+              //No hiding under the nav
+              vc.css('z-index', 31);
+              //Correct displacement that would occur when the height of the page changes when a video is first dragged; ui draggable is meant to be used for pos:relative not pos:fixed
+              vc.css('top', vc.offset().top - $(window).scrollTop());
+              vc.css('left', vc.offset().left - $(window).scrollLeft());
+              vc.css('position','fixed');
+              vc.draggable(ui_draggable_opts);
+            }
+          });
+
+});	
