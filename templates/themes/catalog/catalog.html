@@ -13,7 +13,7 @@
 <body class="theme-catalog active-catalog">
 	{{ boardlist.top }}
 	<header>
-		<h1>{{ settings.title }} (<a href="{{link}}">/{{ board }}/</a>)</h1>
+		<h1>{{ settings.title }} (<a href="{% if mod %}?{% endif %}{{link}}">/{{ board }}/</a>)</h1>
 		<div class="subtitle">{{ settings.subtitle }}</div>
 	</header>
 	{% if board.uri not in config.banned_ad_boards %}
