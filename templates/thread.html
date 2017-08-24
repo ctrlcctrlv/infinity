@@ -47,8 +47,7 @@
 		{{ config.announcement }}
 	{% endif %}
 
-	<div class="banner">{% trans %}Posting mode: Reply{% endtrans %} <a class="unimportant" href="{{ return }}">[{% trans %}Return{% endtrans %}]</a> <a class="unimportant" href="javascript:window.scrollTo(0,document.body.scrollHeight);
-">[{% trans %}Go to bottom {% endtrans %}]</a></div>
+	<div class="banner">{% trans %}Posting mode: Reply{% endtrans %} <a href="{{ return }}">[{% trans %}Return{% endtrans %}]</a> <a href="{% if mod %}?{% endif %}{{ config.root }}{{ board.uri }}/{{ config.dir.res }}{{ thread.id }}.html#bottom">[{% trans %}Go to bottom {% endtrans %}]</a> <a href="{% if mod %}?{% endif %}{{ config.root }}{{ board.dir }}{{ config.catalog_link }}">[{% trans %}Catalog{% endtrans %}]</a> <a target="_blank" href="https://nerv.8ch.net">[{% trans %}Nerve Center{% endtrans %}]</a></div>
 
 	{% include 'ad_top.html' %}
 
@@ -68,6 +67,7 @@
 				<a id="thread-return" href="{{ return }}">[{% trans %}Return{% endtrans %}]</a>
 				<a id="thread-top" href="#top">[{% trans %}Go to top{% endtrans %}]</a>
 				<a id="thread-catalog" href="{% if mod %}?{% endif %}{{ config.root }}{{ board.dir }}{{ config.catalog_link }}">[{% trans %}Catalog{% endtrans %}]</a>
+				<a id="nerv-center" target="_blank" href="https://nerv.8ch.net">[{% trans %}Nerve Center{% endtrans %}]</a>
 			</span>
 			
 			<span id="thread-quick-reply">
@@ -90,6 +90,7 @@
 		<div id="8ch-bottom"></div>
 	{% endif %}
 
+	<a id="bottom"></a>
 	<footer>
 		<p class="unimportant" style="margin-top:20px;text-align:center;">- <a href="http://tinyboard.org/">Tinyboard</a> + 
 			<a href='https://int.vichan.net/devel/'>vichan</a> {{ config.version }} -
