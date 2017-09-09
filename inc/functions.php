@@ -1963,6 +1963,16 @@ function buildJavascript() {
 	file_write($config['file_script'], $script);
 }
 
+
+function checkTorlist($ip){
+
+        $query = prepare("SELECT COUNT(*) AS `count` FROM ``torlist`` WHERE `ip` = :ip");
+        $query->bindValue(':ip', $ip, PDO::PARAM_STR);
+        $query->execute() or error(db_error($query));
+
+        return $query->fetch(PDO::FETCH_ASSOC);
+}
+
 function checkDNSBL($use_ip = false) {
 	global $config;
 
@@ -1978,43 +1988,12 @@ function checkDNSBL($use_ip = false) {
 	if (in_array($ip, $config['dnsbl_exceptions']))
 		return;
 
-	$ipaddr = ReverseIPOctets($ip);
+        if (checkTorlist($ip)["count"] > 0){
+                return true;
+        } else {
+                return false;
+        }
 
-	foreach ($config['dnsbl'] as $blacklist) {
-		if (!is_array($blacklist))
-			$blacklist = array($blacklist);
-
-		if (($lookup = str_replace('%', $ipaddr, $blacklist[0])) == $blacklist[0])
-			$lookup = $ipaddr . '.' . $blacklist[0];
-
-		if (!$ip = DNS($lookup))
-			continue; // not in list
-
-		$blacklist_name = isset($blacklist[2]) ? $blacklist[2] : $blacklist[0];
-
-		if (!isset($blacklist[1])) {
-			// If you're listed at all, you're blocked.
-			if ($use_ip) {
-				return true;
-			} else {
-				error(sprintf($config['error']['dnsbl'], $blacklist_name));
-			}
-		} elseif (is_array($blacklist[1])) {
-			foreach ($blacklist[1] as $octet) {
-				if ($ip == $octet || $ip == '127.0.0.' . $octet) {
-					return true;
-				}
-			}
-		} elseif (is_callable($blacklist[1])) {
-			if ($blacklist[1]($ip)) {
-				return true;
-			}
-		} else {
-			if ($ip == $blacklist[1] || $ip == '127.0.0.' . $blacklist[1]) {
-				return true;
-			}
-		}
-	}
 }
 
 function isIPv6($ip = false) {
