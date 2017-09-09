@@ -1071,6 +1071,13 @@
 		'<img style="width:255px" src="//img.youtube.com/vi/$1/0.jpg" class="post-image"/>'.
 		'</a></div>';
 
+         //Vlive
+        $config['vlive_js_html'] = '<div class="video-container-vlive" data-video="$1" data-params="">'.
+          '<span class="unimportant yt-help">V Live embed. Click on thumbnail to play.</span><br>'.
+          '<a href="$0" target="_blank" class="file">'.
+          '<img src="/static/vlive.jpg" id="$1" data-params="$0" class="post-image vlive_thumb"/>'.
+          '</a></div>';
+
 	// Custom embedding (YouTube, vimeo, etc.)
 	// It's very important that you match the entire input (with ^ and $) or things will not work correctly.
 	$config['embedding'] = array(
@@ -1078,6 +1085,10 @@
 			'/^https?:\/\/(?:\w+\.)?(?:youtube\.com\/watch\?|youtu\.be\/)(?:(?:&?v=)?([a-zA-Z0-9\-_]{10,11}))$/i',
 			$config['youtube_js_html']
 		),
+                array(
+                  '/^https?:\/\/(?:\w+\.)?(?:vlive\.tv\/)video\/([0-9]{5})$/i',
+                  $config['vlive_js_html']
+                ),
 	);
 
 	// Embedding width and height.
