@@ -28,7 +28,7 @@ $(document).ready(function(){
 	            <option value="large">Large</option>\
 	    </select>';
 
-	var show_all = '<span> <a href="javascript:void(0)" style="text-decoration:none; cursor:pointer;" action="clicked" id="show-all-hide-thread">[Show all] </a> </span>';
+	var show_all = '<span id="navsettings"> <a href="javascript:void(0)" style="text-decoration:none; cursor:pointer;" action="clicked" id="show-all-hide-thread">[Show all] </a> </span>';
 
 	$(".GRIDS").before(sort_by_html + " " + image_size_html + " " + show_all);
 
@@ -1560,4 +1560,50 @@ $(document).ready(function(){
         main();
 
     }
+
+
+    //Show top boards
+    window.boards = new Array();
+    var show_top_boards;
+
+    show_top_boards = "<span class='show_top_boards_settings'><label id='show_top_boards'><input type='checkbox' /> Show top boards</label></span>"
+    $(show_top_boards).insertAfter("#navsettings");
+
+    if (typeof localStorage.show_top_boards === 'undefined') {
+        localStorage.show_top_boards = 'false';
+        var show_top = JSON.parse(localStorage.show_top_boards);
+    }
+
+    var show_top = JSON.parse(localStorage.show_top_boards);
+    if (show_top) $('#show_top_boards>input').attr('checked', 'checked');
+
+
+    $('#show_top_boards>input').on('change', function() {
+        var show_top = ($(this).is(':checked'));
+        localStorage.show_top_boards = JSON.stringify(show_top);
+        if(show_top){
+            updateTopBoards(show_top);
+        }else{
+            $('.sub[data-description="4"]').remove();
+        }
+    });
+
+
+    function handle_boards(data) {
+      $.each(data, function(k, v) {
+        boards.push('<a href="/'+v.uri+(window.active_page === 'catalog' ? '/catalog.html' : '/index.html')+'" title="'+v.title+'">'+v.uri+'</a>');
+      })
+
+      if (boards[0]) {
+        $('.sub[data-description="1"]').after('<span class="sub" data-description="4"> [ '+boards.slice(0,25).join(" / ")+' ] </span>');
+      }
+    }
+
+    function updateTopBoards(show_top){
+        if (!(typeof show_top !== "undefined" && !show_top)) {
+          $.getJSON("https://8ch.net/boards-top20.json", handle_boards)
+        }
+    }
+    updateTopBoards(show_top);
+
 });
