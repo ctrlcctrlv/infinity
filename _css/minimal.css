@@ -356,3 +356,5 @@ span.global-report {
 span.show_top_boards_settings {
     float: right;
 }
+
+.banner a[href^="https://nerv"], .pages a[href^="https://nerv"], #nerv-center {display: none;}
