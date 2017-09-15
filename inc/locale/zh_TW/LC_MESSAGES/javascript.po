@@ -1,1589 +1,1574 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# 
-# Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: infinity\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-10-18 13:47+0200\n"
-"PO-Revision-Date: 2015-04-01 23:22+0000\n"
+"PO-Revision-Date: 2017-09-13 05:21+0000\n"
 "Last-Translator: copypaste <admin@8chan.co>\n"
-"Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/infinity/language/zh_TW/)\n"
+"Language-Team: Chinese (Taiwan) (http://www.transifex."
+"com/projects/p/infinity/language/zh_TW/)\n"
+"Language: zh-TW\n"
+"Plural-Forms: nplurals=1; plural=0\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: zh_TW\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Loco-Source-Locale: en_HK\n"
+"X-Loco-Parser: loco_parse_po\n"
+"X-Generator: Loco - https://localise.biz/"
 
-#: ../../../../js/style-select.js:40 ../../../../js/style-select.js:41
+#: ../../../../js//options/user-js.js:52 ../../../../js/options/user-js.js:52
+msgid "Enter your own Javascript code here..."
+msgstr "在此輸入你的自訂Javascript:"
+
+#: ../../../../js//show-own-posts.js:36 ../../../../js//show-own-posts.js:49 
+#: ../../../../js/show-own-posts.js:36 ../../../../js/show-own-posts.js:49
+msgid "(You)"
+msgstr "（你）"
+
+#: ../../../../js//treeview.js:18 ../../../../js/treeview.js:18
+msgid "Use tree view by default"
+msgstr "預設使用「樹視模式」"
+
+#: ../../../../js//update_boards.js:6 ../../../../js/update_boards.js:6
+msgid "Show top boards"
+msgstr "顯示最top版頁"
+
+#: ../../../../js//webm-settings.js:57 ../../../../js/webm-settings.js:57
+msgid "Loop videos by default"
+msgstr "預設重複播放影片"
+
+#: ../../../../js//youtube.js:28 ../../../../js/youtube.js:28
+msgid "YouTube size"
+msgstr "YouTube大小"
+
+#: ../../../../templates//main.js:96 ../../../../templates/main.js:96
+msgid "OK"
+msgstr "OK"
+
+#: ../../../../templates//main.js:102 ../../../../templates/main.js:102
+msgid "Cancel"
+msgstr "取消"
+
+#: ../../../../templates//main.js:325 ../../../../templates/main.js:330
+msgid "Hide post options &amp; limits"
+msgstr "隱藏發帖選項及上限"
+
+#: ../../../../templates//main.js:329 ../../../../templates/main.js:334
+msgid "Show post options &amp; limits"
+msgstr "顯示發帖選項及上限"
+
+#: ../../../../js/fix-report-delete-submit.js:15
+msgid "Delete post"
+msgstr "刪除發言"
+
+#: ../../../../js/fix-report-delete-submit.js:16
+msgid "Delete file"
+msgstr "刪除檔案"
+
+#: ../../../../js/fix-report-delete-submit.js:38
+msgid "Global report"
+msgstr "舉報給8chan總版主"
+
+#: ../../../../js/thread-watcher.js:32
+msgid "Thread #"
+msgstr "帖編號 #"
+
+#: ../../../../js/thread-watcher.js:47
+msgid "Clear List"
+msgstr "清除名單"
+
+#: ../../../../js/thread-watcher.js:48
+msgid "Clear Ghosts"
+msgstr "清除鬼帖"
+
+#: ../../../../js/thread-watcher.js:83
+msgid "Reply"
+msgstr "回覆"
+
+#: ../../../../js/thread-watcher.js:150
+msgid "watchlist"
+msgstr "監視表"
+
+#: ../../../../js/thread-watcher.js:152
+msgid "Watch Thread"
+msgstr "監視此帖"
+
+#: ../../../../js/inline.js:126
+msgid "Enable inlining"
+msgstr "開啟嵌入式回覆"
+
+#: ../../../../js/inline.js:127
+msgid "Hide inlined backlinked posts"
+msgstr "隱藏已嵌入的回覆"
+
+#: ../../../../js/file-selector.js:13
+msgid "Drag and drop file selection"
+msgstr "以滑鼠拖放來選取檔案"
+
+#: ../../../../js/comment-toolbar.js:16
+msgid "Spoiler"
+msgstr "劇透隱藏"
+
+#: ../../../../js/comment-toolbar.js:24
+msgid "Italics"
+msgstr "斜體"
+
+#: ../../../../js/comment-toolbar.js:32 ../../../../js/wPaint/2ch.js:2580 
+#: ../../../../js/wPaint/oekaki.js:3 
+#: ../../../../js/wPaint/plugins/text/text.js:9 
+#: ../../../../js/wPaint/plugins/text/src/wPaint.menu.text.js:9 
+#: ../../../../js/wPaint/lib/plugins.js:356 ../../../../js/wPaint/8ch.js:2561
+msgid "Bold"
+msgstr "粗體"
+
+#: ../../../../js/comment-toolbar.js:40
+msgid "Underline"
+msgstr "底線"
+
+#: ../../../../js/comment-toolbar.js:48
+msgid "Code"
+msgstr "源碼"
+
+#: ../../../../js/comment-toolbar.js:56
+msgid "Strike"
+msgstr "橫線"
+
+#: ../../../../js/comment-toolbar.js:64
+msgid "Heading"
+msgstr "主旨"
+
+#: ../../../../js/comment-toolbar.js:274
+msgid "Customize Formatting"
+msgstr "自訂格式"
+
+#: ../../../../js/comment-toolbar.js:298
+msgid "Add Rule"
+msgstr "增加規則"
+
+#: ../../../../js/comment-toolbar.js:299
+msgid "Save Rules"
+msgstr "儲存規則"
+
+#: ../../../../js/comment-toolbar.js:300
+msgid "Revert"
+msgstr "復原"
+
+#: ../../../../js/comment-toolbar.js:301
+msgid "Reset to Default"
+msgstr "預設值"
+
+#: ../../../../js/wPaint/2ch.js:428 ../../../../js/wPaint/wPaint.min.js:409 
+#: ../../../../js/wPaint/lib/wColorPicker.js:28 
+#: ../../../../js/wPaint/8ch.js:409
+msgid "R"
+msgstr "紅"
+
+#: ../../../../js/wPaint/2ch.js:428 ../../../../js/wPaint/wPaint.min.js:409 
+#: ../../../../js/wPaint/lib/wColorPicker.js:28 
+#: ../../../../js/wPaint/8ch.js:409
+msgid "G"
+msgstr "綠"
+
+#: ../../../../js/wPaint/2ch.js:428 ../../../../js/wPaint/wPaint.min.js:409 
+#: ../../../../js/wPaint/lib/wColorPicker.js:28 
+#: ../../../../js/wPaint/8ch.js:409
+msgid "B"
+msgstr "藍"
+
+#: ../../../../js/wPaint/2ch.js:428 ../../../../js/wPaint/wPaint.min.js:409 
+#: ../../../../js/wPaint/lib/wColorPicker.js:28 
+#: ../../../../js/wPaint/8ch.js:409
+msgid "Both"
+msgstr "兩者"
+
+#: ../../../../js/wPaint/2ch.js:428 ../../../../js/wPaint/wPaint.min.js:409 
+#: ../../../../js/wPaint/lib/wColorPicker.js:28 
+#: ../../../../js/wPaint/8ch.js:409
+msgid "Flip"
+msgstr "反轉"
+
+#: ../../../../js/wPaint/2ch.js:2233 ../../../../js/wPaint/oekaki.js:3 
+#: ../../../../js/wPaint/plugins/main/src/wPaint.menu.main.js:9 
+#: ../../../../js/wPaint/plugins/main/main.js:9 
+#: ../../../../js/wPaint/lib/plugins.js:9 ../../../../js/wPaint/8ch.js:2214
+msgid "Undo"
+msgstr "復原"
+
+#: ../../../../js/wPaint/2ch.js:2240 ../../../../js/wPaint/oekaki.js:3 
+#: ../../../../js/wPaint/plugins/main/src/wPaint.menu.main.js:16 
+#: ../../../../js/wPaint/plugins/main/main.js:16 
+#: ../../../../js/wPaint/lib/plugins.js:16 ../../../../js/wPaint/8ch.js:2221
+msgid "Redo"
+msgstr "重做"
+
+#: ../../../../js/wPaint/2ch.js:2254 ../../../../js/wPaint/oekaki.js:3 
+#: ../../../../js/wPaint/plugins/main/src/wPaint.menu.main.js:30 
+#: ../../../../js/wPaint/plugins/main/main.js:30 
+#: ../../../../js/wPaint/lib/plugins.js:30 ../../../../js/wPaint/8ch.js:2235
+msgid "Rectangle"
+msgstr "長方形"
+
+#: ../../../../js/wPaint/2ch.js:2260 ../../../../js/wPaint/oekaki.js:3 
+#: ../../../../js/wPaint/plugins/main/src/wPaint.menu.main.js:36 
+#: ../../../../js/wPaint/plugins/main/main.js:36 
+#: ../../../../js/wPaint/lib/plugins.js:36 ../../../../js/wPaint/8ch.js:2241
+msgid "Ellipse"
+msgstr "橢圓形"
+
+#: ../../../../js/wPaint/2ch.js:2266 ../../../../js/wPaint/oekaki.js:3 
+#: ../../../../js/wPaint/plugins/main/src/wPaint.menu.main.js:42 
+#: ../../../../js/wPaint/plugins/main/main.js:42 
+#: ../../../../js/wPaint/lib/plugins.js:42 ../../../../js/wPaint/8ch.js:2247
+msgid "Line"
+msgstr "線"
+
+#: ../../../../js/wPaint/2ch.js:2273 ../../../../js/wPaint/oekaki.js:3 
+#: ../../../../js/wPaint/plugins/main/src/wPaint.menu.main.js:49 
+#: ../../../../js/wPaint/plugins/main/main.js:49 
+#: ../../../../js/wPaint/lib/plugins.js:49 ../../../../js/wPaint/8ch.js:2254
+msgid "Pencil"
+msgstr "鉛筆"
+
+#: ../../../../js/wPaint/2ch.js:2280 ../../../../js/wPaint/oekaki.js:3 
+#: ../../../../js/wPaint/plugins/main/src/wPaint.menu.main.js:56 
+#: ../../../../js/wPaint/plugins/main/main.js:56 
+#: ../../../../js/wPaint/lib/plugins.js:56 ../../../../js/wPaint/8ch.js:2261
+msgid "Eraser"
+msgstr "擦紙膠"
+
+#: ../../../../js/wPaint/2ch.js:2287 ../../../../js/wPaint/oekaki.js:3 
+#: ../../../../js/wPaint/plugins/main/src/wPaint.menu.main.js:63 
+#: ../../../../js/wPaint/plugins/main/main.js:63 
+#: ../../../../js/wPaint/lib/plugins.js:63 ../../../../js/wPaint/8ch.js:2268
+msgid "Bucket"
+msgstr "油桶"
+
+#: ../../../../js/wPaint/2ch.js:2293 ../../../../js/wPaint/oekaki.js:3 
+#: ../../../../js/wPaint/plugins/main/src/wPaint.menu.main.js:69 
+#: ../../../../js/wPaint/plugins/main/main.js:69 
+#: ../../../../js/wPaint/lib/plugins.js:69 ../../../../js/wPaint/8ch.js:2274
+msgid "Fill Color"
+msgstr "填色"
+
+#: ../../../../js/wPaint/2ch.js:2299 ../../../../js/wPaint/oekaki.js:3 
+#: ../../../../js/wPaint/plugins/main/src/wPaint.menu.main.js:75 
+#: ../../../../js/wPaint/plugins/main/main.js:75 
+#: ../../../../js/wPaint/lib/plugins.js:75 ../../../../js/wPaint/8ch.js:2280
+msgid "Stroke Width"
+msgstr "筆頭粗幼"
+
+#: ../../../../js/wPaint/2ch.js:2306 ../../../../js/wPaint/oekaki.js:3 
+#: ../../../../js/wPaint/plugins/main/src/wPaint.menu.main.js:82 
+#: ../../../../js/wPaint/plugins/main/main.js:82 
+#: ../../../../js/wPaint/lib/plugins.js:82 ../../../../js/wPaint/8ch.js:2287
+msgid "Stroke Color"
+msgstr "筆頭顏色"
+
+#: ../../../../js/wPaint/2ch.js:2586 ../../../../js/wPaint/oekaki.js:3 
+#: ../../../../js/wPaint/plugins/text/text.js:15 
+#: ../../../../js/wPaint/plugins/text/src/wPaint.menu.text.js:15 
+#: ../../../../js/wPaint/lib/plugins.js:362 ../../../../js/wPaint/8ch.js:2567
+msgid "Italic"
+msgstr "斜體"
+
+#: ../../../../js/wPaint/2ch.js:2597 ../../../../js/wPaint/oekaki.js:3 
+#: ../../../../js/wPaint/plugins/text/text.js:26 
+#: ../../../../js/wPaint/plugins/text/src/wPaint.menu.text.js:26 
+#: ../../../../js/wPaint/lib/plugins.js:373 ../../../../js/wPaint/8ch.js:2578
+msgid "Font Size"
+msgstr "大字大小"
+
+#: ../../../../js/wPaint/2ch.js:2605 ../../../../js/wPaint/oekaki.js:3 
+#: ../../../../js/wPaint/plugins/text/text.js:34 
+#: ../../../../js/wPaint/plugins/text/src/wPaint.menu.text.js:34 
+#: ../../../../js/wPaint/lib/plugins.js:381 ../../../../js/wPaint/8ch.js:2586
+msgid "Font Family"
+msgstr "字體"
+
+#: ../../../../js/wPaint/2ch.js:2811 ../../../../js/wPaint/oekaki.js:3 
+#: ../../../../js/wPaint/plugins/shapes/shapes.js:12 
+#: ../../../../js/wPaint/plugins/shapes/src/wPaint.menu.main.shapes.js:12 
+#: ../../../../js/wPaint/lib/plugins.js:587 ../../../../js/wPaint/8ch.js:2792
+msgid "Rounded Rectangle"
+msgstr "圓角長方形"
+
+#: ../../../../js/wPaint/2ch.js:2819 ../../../../js/wPaint/oekaki.js:3 
+#: ../../../../js/wPaint/plugins/shapes/shapes.js:20 
+#: ../../../../js/wPaint/plugins/shapes/src/wPaint.menu.main.shapes.js:20 
+#: ../../../../js/wPaint/lib/plugins.js:595 ../../../../js/wPaint/8ch.js:2800
+msgid "Square"
+msgstr "正方形"
+
+#: ../../../../js/wPaint/2ch.js:2827 ../../../../js/wPaint/oekaki.js:3 
+#: ../../../../js/wPaint/plugins/shapes/shapes.js:28 
+#: ../../../../js/wPaint/plugins/shapes/src/wPaint.menu.main.shapes.js:28 
+#: ../../../../js/wPaint/lib/plugins.js:603 ../../../../js/wPaint/8ch.js:2808
+msgid "Rounded Square"
+msgstr "圓角正方形"
+
+#: ../../../../js/wPaint/2ch.js:2835 ../../../../js/wPaint/oekaki.js:3 
+#: ../../../../js/wPaint/plugins/shapes/shapes.js:36 
+#: ../../../../js/wPaint/plugins/shapes/src/wPaint.menu.main.shapes.js:36 
+#: ../../../../js/wPaint/lib/plugins.js:611 ../../../../js/wPaint/8ch.js:2816
+msgid "Diamond"
+msgstr "菱形"
+
+#: ../../../../js/wPaint/2ch.js:2847 ../../../../js/wPaint/oekaki.js:3 
+#: ../../../../js/wPaint/plugins/shapes/shapes.js:48 
+#: ../../../../js/wPaint/plugins/shapes/src/wPaint.menu.main.shapes.js:48 
+#: ../../../../js/wPaint/lib/plugins.js:623 ../../../../js/wPaint/8ch.js:2828
+msgid "Circle"
+msgstr "圓形"
+
+#: ../../../../js/wPaint/2ch.js:2855 ../../../../js/wPaint/oekaki.js:3 
+#: ../../../../js/wPaint/plugins/shapes/shapes.js:56 
+#: ../../../../js/wPaint/plugins/shapes/src/wPaint.menu.main.shapes.js:56 
+#: ../../../../js/wPaint/lib/plugins.js:631 ../../../../js/wPaint/8ch.js:2836
+msgid "Pentagon"
+msgstr "五角形"
+
+#: ../../../../js/wPaint/2ch.js:2863 ../../../../js/wPaint/oekaki.js:3 
+#: ../../../../js/wPaint/plugins/shapes/shapes.js:64 
+#: ../../../../js/wPaint/plugins/shapes/src/wPaint.menu.main.shapes.js:64 
+#: ../../../../js/wPaint/lib/plugins.js:639 ../../../../js/wPaint/8ch.js:2844
+msgid "Hexagon"
+msgstr "六角形"
+
+#: ../../../../js/wPaint/2ch.js:3025 ../../../../js/wPaint/src/oekaki8.js:17
+msgid "Post my oekaki"
+msgstr "發表網上畫板"
+
+#: ../../../../js/wPaint/2ch.js:3025 ../../../../js/wPaint/src/oekaki8.js:17
+msgid "Check image size"
+msgstr "檢查圖片大小"
+
+#: ../../../../js/wPaint/2ch.js:3058 ../../../../js/wPaint/src/oekaki8.js:50
+msgid "Your image size is %size%/%maxsize%."
+msgstr "你的圖片大小為 %size%/%maxsize%"
+
+#: ../../../../js/wPaint/2ch.js:3065 ../../../../js/wPaint/src/oekaki8.js:57
+msgid "Image must be 500x250 to be uploaded. Please resize it."
+msgstr "上載圖片必須為 500x250"
+
+#: ../../../../js/wPaint/2ch.js:3069 ../../../../js/wPaint/src/oekaki8.js:61
+msgid "Your image is too large, it needs to be 128KB or less."
+msgstr "你的圖片太大了，上限為 128KB"
+
+#: ../../../../js/wPaint/2ch.js:3085 ../../../../js/wPaint/src/oekaki8.js:77
+msgid "Click on any image on this site to load it into oekaki applet."
+msgstr "請按要載入網上畫板的圖片。"
+
+#: ../../../../js/wPaint/plugins/file/src/wPaint.menu.main.file.js:8
+msgid "Save Image"
+msgstr "儲存圖片"
+
+#: ../../../../js/wPaint/plugins/file/src/wPaint.menu.main.file.js:18
+msgid "Load Image to Foreground"
+msgstr "把圖片載入到前景"
+
+#: ../../../../js/wPaint/plugins/file/src/wPaint.menu.main.file.js:28
+msgid "Load Image to Background"
+msgstr "把圖片載入到背景"
+
+#: ../../../../js/post-filter.js:205
+msgid "Hide post"
+msgstr "隱藏帖子"
+
+#: ../../../../js/post-filter.js:206
+msgid "Unhide post"
+msgstr "顯示被隱藏的帖子"
+
+#: ../../../../js/post-filter.js:208
+msgid "Add filter"
+msgstr "加入過濾"
+
+#: ../../../../js/post-filter.js:209
+msgid "Post +"
+msgstr "貼 +"
+
+#: ../../../../js/post-filter.js:209
+msgid "Hide post and all replies"
+msgstr "隱藏帖子及其所有回覆"
+
+#: ../../../../js/post-filter.js:210 ../../../../js/post-filter.js:216
+msgid "ID"
+msgstr "ID"
+
+#: ../../../../js/post-filter.js:211
+msgid "ID +"
+msgstr "ID +"
+
+#: ../../../../js/post-filter.js:211
+msgid "Hide ID and all replies"
+msgstr "隱藏 ID 及所有回覆"
+
+#: ../../../../js/post-filter.js:212 ../../../../js/post-filter.js:217 
+#: ../../../../js/post-filter.js:651
+msgid "Name"
+msgstr "名稱"
+
+#: ../../../../js/post-filter.js:213 ../../../../js/post-filter.js:218 
+#: ../../../../js/post-filter.js:652
+msgid "Tripcode"
+msgstr "Tripcode"
+
+#: ../../../../js/post-filter.js:215
+msgid "Remove filter"
+msgstr "移除過濾"
+
+#: ../../../../js/post-filter.js:647
+msgid "Filters"
+msgstr "過濾列表"
+
+#: ../../../../js/post-filter.js:653
+msgid "Subject"
+msgstr "主題"
+
+#: ../../../../js/post-filter.js:659
+msgid "Add"
+msgstr "加入"
+
+#: ../../../../js/post-filter.js:660
+msgid "Clear all filters"
+msgstr "清除所有過濾"
+
+#: ../../../../js/post-filter.js:662
+msgid "This will clear all filtering rules including hidden posts."
+msgstr "清除所有包括隱藏帖子的過濾"
+
+#: ../../../../js/post-filter.js:662
+msgid "yes"
+msgstr "是"
+
+#: ../../../../js/post-filter.js:662
+msgid "no"
+msgstr "否"
+
+#: ../../../../js/style-select.js:40 ../../../../js/style-select.js:41 
 #: ../../../../js//style-select.js:41
 msgid "Style: "
-msgstr ""
+msgstr "樣式："
 
-#: ../../../../js/hide-images.js:50 ../../../../js/upload-selection.js:51
-#: ../../../../js/quick-post-controls.js:30 ../../../../js/hide-images.js:51
-#: ../../../../js/quick-post-controls.js:32
-#: ../../../../js/upload-selection.js:61 ../../../../js/upload-selection.js:69
-#: ../../../../js//hide-images.js:51 ../../../../js//quick-post-controls.js:32
+#: ../../../../js/hide-images.js:50 ../../../../js/upload-selection.js:51 
+#: ../../../../js/quick-post-controls.js:30 ../../../../js/hide-images.js:51 
+#: ../../../../js/quick-post-controls.js:32 
+#: ../../../../js/upload-selection.js:61 ../../../../js/upload-selection.js:69 
+#: ../../../../js//hide-images.js:51 ../../../../js//quick-post-controls.js:32 
 #: ../../../../js//upload-selection.js:69
 msgid "File"
-msgstr ""
+msgstr "檔案"
 
-#: ../../../../js/hide-images.js:50 ../../../../js/hide-images.js:51
+#: ../../../../js/hide-images.js:50 ../../../../js/hide-images.js:51 
 #: ../../../../js//hide-images.js:51
 msgid "hide"
-msgstr ""
+msgstr "原裝"
 
-#: ../../../../js/hide-images.js:56 ../../../../js/hide-images.js:57
+#: ../../../../js/hide-images.js:56 ../../../../js/hide-images.js:57 
 #: ../../../../js/hide-images.js:63 ../../../../js//hide-images.js:63
 msgid "show"
-msgstr ""
+msgstr "顯示"
 
-#: ../../../../js/toggle-locked-threads.js:39
-#: ../../../../js/toggle-locked-threads.js:54
-#: ../../../../js/toggle-locked-threads.js:40
-#: ../../../../js/toggle-locked-threads.js:55
-#: ../../../../js/toggle-locked-threads.js:41
-#: ../../../../js/toggle-locked-threads.js:56
-#: ../../../../js/toggle-locked-threads.js:53
-#: ../../../../js/toggle-locked-threads.js:70
-#: ../../../../js//toggle-locked-threads.js:53
+#: ../../../../js/toggle-locked-threads.js:39 
+#: ../../../../js/toggle-locked-threads.js:54 
+#: ../../../../js/toggle-locked-threads.js:40 
+#: ../../../../js/toggle-locked-threads.js:55 
+#: ../../../../js/toggle-locked-threads.js:41 
+#: ../../../../js/toggle-locked-threads.js:56 
+#: ../../../../js/toggle-locked-threads.js:53 
+#: ../../../../js/toggle-locked-threads.js:70 
+#: ../../../../js//toggle-locked-threads.js:53 
 #: ../../../../js//toggle-locked-threads.js:70
 msgid "Show locked threads"
-msgstr ""
+msgstr "顯示被鎖帖子"
 
-#: ../../../../js/toggle-locked-threads.js:39
-#: ../../../../js/toggle-locked-threads.js:54
-#: ../../../../js/toggle-locked-threads.js:40
-#: ../../../../js/toggle-locked-threads.js:55
-#: ../../../../js/toggle-locked-threads.js:41
-#: ../../../../js/toggle-locked-threads.js:56
-#: ../../../../js/toggle-locked-threads.js:44
-#: ../../../../js/toggle-locked-threads.js:53
-#: ../../../../js/toggle-locked-threads.js:70
-#: ../../../../js//toggle-locked-threads.js:44
-#: ../../../../js//toggle-locked-threads.js:53
+#: ../../../../js/toggle-locked-threads.js:39 
+#: ../../../../js/toggle-locked-threads.js:54 
+#: ../../../../js/toggle-locked-threads.js:40 
+#: ../../../../js/toggle-locked-threads.js:55 
+#: ../../../../js/toggle-locked-threads.js:41 
+#: ../../../../js/toggle-locked-threads.js:56 
+#: ../../../../js/toggle-locked-threads.js:44 
+#: ../../../../js/toggle-locked-threads.js:53 
+#: ../../../../js/toggle-locked-threads.js:70 
+#: ../../../../js//toggle-locked-threads.js:44 
+#: ../../../../js//toggle-locked-threads.js:53 
 #: ../../../../js//toggle-locked-threads.js:70
 msgid "Hide locked threads"
-msgstr ""
+msgstr "原裝被鎖帖子"
 
-#: ../../../../js/upload-selection.js:32 ../../../../js/upload-selection.js:45
-#: ../../../../js/upload-selection.js:53
-#: ../../../../js//upload-selection.js:53
+#: ../../../../js/upload-selection.js:32 ../../../../js/upload-selection.js:45 
+#: ../../../../js/upload-selection.js:53 ../../../../js//upload-selection.js:53
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
-#: ../../../../js/upload-selection.js:50 ../../../../js/upload-selection.js:60
-#: ../../../../js/upload-selection.js:68
-#: ../../../../js//upload-selection.js:68
+#: ../../../../js/upload-selection.js:50 ../../../../js/upload-selection.js:60 
+#: ../../../../js/upload-selection.js:68 ../../../../js//upload-selection.js:68
 msgid "Select"
-msgstr ""
+msgstr "選擇"
 
-#: ../../../../js/upload-selection.js:53 ../../../../js/upload-selection.js:63
-#: ../../../../js/upload-selection.js:71
-#: ../../../../js//upload-selection.js:71
+#: ../../../../js/upload-selection.js:53 ../../../../js/upload-selection.js:63 
+#: ../../../../js/upload-selection.js:71 ../../../../js//upload-selection.js:71
 msgid "Remote"
-msgstr ""
+msgstr "遙距"
 
-#: ../../../../js/upload-selection.js:56 ../../../../js/upload-selection.js:66
-#: ../../../../js/upload-selection.js:74
-#: ../../../../js//upload-selection.js:74
+#: ../../../../js/upload-selection.js:56 ../../../../js/upload-selection.js:66 
+#: ../../../../js/upload-selection.js:74 ../../../../js//upload-selection.js:74
 msgid "Embed"
-msgstr ""
+msgstr "嵌入"
 
-#: ../../../../js/upload-selection.js:59 ../../../../js/upload-selection.js:69
-#: ../../../../js/upload-selection.js:77
-#: ../../../../js//upload-selection.js:77
+#: ../../../../js/upload-selection.js:59 ../../../../js/upload-selection.js:69 
+#: ../../../../js/upload-selection.js:77 ../../../../js//upload-selection.js:77
 msgid "Oekaki"
-msgstr ""
+msgstr "網上畫版"
 
-#: ../../../../js/toggle-images.js:41 ../../../../js/toggle-images.js:42
+#: ../../../../js/toggle-images.js:41 ../../../../js/toggle-images.js:42 
 #: ../../../../js/toggle-images.js:45 ../../../../js//toggle-images.js:45
 msgid "hidden"
-msgstr ""
+msgstr "被隱藏"
 
-#: ../../../../js/toggle-images.js:57 ../../../../js/toggle-images.js:70
-#: ../../../../js/toggle-images.js:58 ../../../../js/toggle-images.js:71
-#: ../../../../js/toggle-images.js:86 ../../../../js//toggle-images.js:70
+#: ../../../../js/toggle-images.js:57 ../../../../js/toggle-images.js:70 
+#: ../../../../js/toggle-images.js:58 ../../../../js/toggle-images.js:71 
+#: ../../../../js/toggle-images.js:86 ../../../../js//toggle-images.js:70 
 #: ../../../../js//toggle-images.js:86
 msgid "Show images"
-msgstr ""
+msgstr "顯示圖片"
 
-#: ../../../../js/toggle-images.js:57 ../../../../js/toggle-images.js:70
-#: ../../../../js/toggle-images.js:58 ../../../../js/toggle-images.js:71
-#: ../../../../js/toggle-images.js:63 ../../../../js/toggle-images.js:86
-#: ../../../../js//toggle-images.js:63 ../../../../js//toggle-images.js:70
+#: ../../../../js/toggle-images.js:57 ../../../../js/toggle-images.js:70 
+#: ../../../../js/toggle-images.js:58 ../../../../js/toggle-images.js:71 
+#: ../../../../js/toggle-images.js:63 ../../../../js/toggle-images.js:86 
+#: ../../../../js//toggle-images.js:63 ../../../../js//toggle-images.js:70 
 #: ../../../../js//toggle-images.js:86
 msgid "Hide images"
-msgstr ""
+msgstr "隱藏圖片"
 
-#: ../../../../js/quick-post-controls.js:27
-#: ../../../../js/quick-post-controls.js:29
+#: ../../../../js/quick-post-controls.js:27 
+#: ../../../../js/quick-post-controls.js:29 
 #: ../../../../js//quick-post-controls.js:29
 msgid "Password"
-msgstr ""
+msgstr "密碼"
 
-#: ../../../../js/quick-post-controls.js:29
-#: ../../../../js/quick-post-controls.js:31
+#: ../../../../js/quick-post-controls.js:29 
+#: ../../../../js/quick-post-controls.js:31 
 #: ../../../../js//quick-post-controls.js:31
 msgid "Delete file only"
-msgstr ""
+msgstr "只刪除檔案"
 
-#: ../../../../js/quick-post-controls.js:31
-#: ../../../../js/quick-post-controls.js:33
+#: ../../../../js/quick-post-controls.js:31 
+#: ../../../../js/quick-post-controls.js:33 
 #: ../../../../js//quick-post-controls.js:33
 msgid "Delete"
-msgstr ""
+msgstr "刪除"
 
-#: ../../../../js/quick-post-controls.js:35
-#: ../../../../js/quick-post-controls.js:37 ../../../../js/mod/ban-list.js:40
-#: ../../../../js//mod/ban-list.js:40
-#: ../../../../js//quick-post-controls.js:41
+#: ../../../../js/quick-post-controls.js:35 
+#: ../../../../js/quick-post-controls.js:37 ../../../../js/mod/ban-list.js:40 
+#: ../../../../js//mod/ban-list.js:40 
+#: ../../../../js//quick-post-controls.js:41 
 #: ../../../../js/quick-post-controls.js:41
 msgid "Reason"
-msgstr ""
+msgstr "原因"
 
-#: ../../../../js/quick-post-controls.js:37
-#: ../../../../js/quick-post-controls.js:39
-#: ../../../../js//quick-post-controls.js:43
-#: ../../../../js/fix-report-delete-submit.js:37
+#: ../../../../js/quick-post-controls.js:37 
+#: ../../../../js/quick-post-controls.js:39 
+#: ../../../../js//quick-post-controls.js:43 
+#: ../../../../js/fix-report-delete-submit.js:37 
 #: ../../../../js/quick-post-controls.js:43
 msgid "Report"
-msgstr ""
+msgstr "報告"
 
-#: ../../../../js/expand.js:20 ../../../../js/expand.js:22
+#: ../../../../js/expand.js:20 ../../../../js/expand.js:22 
 #: ../../../../js//expand.js:22
 msgid "Click reply to view."
-msgstr ""
+msgstr "按「回覆」來顯示。"
 
-#: ../../../../js/expand.js:20 ../../../../js/expand.js:22
-#: ../../../../js/live-index.js:72 ../../../../js/live-index.js:83
-#: ../../../../js//expand.js:22 ../../../../js//live-index.js:72
+#: ../../../../js/expand.js:20 ../../../../js/expand.js:22 
+#: ../../../../js/live-index.js:72 ../../../../js/live-index.js:83 
+#: ../../../../js//expand.js:22 ../../../../js//live-index.js:72 
 #: ../../../../js//live-index.js:83
 msgid "Click to expand"
-msgstr ""
+msgstr "擴展按此"
 
-#: ../../../../js/expand.js:44 ../../../../js/expand.js:46
+#: ../../../../js/expand.js:44 ../../../../js/expand.js:46 
 #: ../../../../js/expand.js:50 ../../../../js//expand.js:50
 msgid "Hide expanded replies"
-msgstr ""
+msgstr "隱藏已擴展回覆"
 
 #: ../../../../js/oekaki.js:10
 msgid "Brush size"
-msgstr ""
+msgstr "畫筆大小"
 
 #: ../../../../js/oekaki.js:10
 msgid "Set text"
-msgstr ""
+msgstr "字句"
 
-#: ../../../../js/oekaki.js:10 ../../../../js/wPaint/2ch.js:2247
-#: ../../../../js/wPaint/oekaki.js:3
-#: ../../../../js/wPaint/plugins/main/src/wPaint.menu.main.js:23
-#: ../../../../js/wPaint/plugins/main/main.js:23
+#: ../../../../js/oekaki.js:10 ../../../../js/wPaint/2ch.js:2247 
+#: ../../../../js/wPaint/oekaki.js:3 
+#: ../../../../js/wPaint/plugins/main/src/wPaint.menu.main.js:23 
+#: ../../../../js/wPaint/plugins/main/main.js:23 
 #: ../../../../js/wPaint/lib/plugins.js:23 ../../../../js/wPaint/8ch.js:2228
 msgid "Clear"
-msgstr ""
+msgstr "清除"
 
 #: ../../../../js/oekaki.js:10
 msgid "Save"
-msgstr ""
+msgstr "儲存"
 
 #: ../../../../js/oekaki.js:10
 msgid "Load"
-msgstr ""
+msgstr "開啟"
 
 #: ../../../../js/oekaki.js:11
 msgid "Toggle eraser"
-msgstr ""
+msgstr "擦紙膠"
 
 #: ../../../../js/oekaki.js:11
 msgid "Get color"
-msgstr ""
+msgstr "選擇顏色"
 
 #: ../../../../js/oekaki.js:11
 msgid "Fill"
-msgstr ""
+msgstr "填滿"
 
 #: ../../../../js/oekaki.js:12
 msgid "Use oekaki instead of file?"
-msgstr ""
+msgstr "以網上畫板取代檔案？"
 
 #: ../../../../js/oekaki.js:21
 msgid "Edit in oekaki"
-msgstr ""
+msgstr "以網上畫板編輯"
 
 #: ../../../../js/oekaki.js:152
 msgid "Enter some text"
-msgstr ""
+msgstr "輸入一些文字"
 
 #: ../../../../js/oekaki.js:153
 msgid "Enter font or leave empty"
-msgstr ""
+msgstr "輸入字體（可丟空）"
 
-#: ../../../../js/forced-anon.js:59 ../../../../js/forced-anon.js:65
-#: ../../../../js/forced-anon.js:69 ../../../../js/forced-anon.js:60
-#: ../../../../js/forced-anon.js:66 ../../../../js/forced-anon.js:70
-#: ../../../../js/forced-anon.js:61 ../../../../js/forced-anon.js:67
-#: ../../../../js/forced-anon.js:71 ../../../../js/forced-anon.js:73
-#: ../../../../js/forced-anon.js:81 ../../../../js/forced-anon.js:85
-#: ../../../../js//forced-anon.js:74 ../../../../js//forced-anon.js:80
-#: ../../../../js//forced-anon.js:97 ../../../../js//forced-anon.js:101
-#: ../../../../js/forced-anon.js:74 ../../../../js/forced-anon.js:80
+#: ../../../../js/forced-anon.js:59 ../../../../js/forced-anon.js:65 
+#: ../../../../js/forced-anon.js:69 ../../../../js/forced-anon.js:60 
+#: ../../../../js/forced-anon.js:66 ../../../../js/forced-anon.js:70 
+#: ../../../../js/forced-anon.js:61 ../../../../js/forced-anon.js:67 
+#: ../../../../js/forced-anon.js:71 ../../../../js/forced-anon.js:73 
+#: ../../../../js/forced-anon.js:81 ../../../../js/forced-anon.js:85 
+#: ../../../../js//forced-anon.js:74 ../../../../js//forced-anon.js:80 
+#: ../../../../js//forced-anon.js:97 ../../../../js//forced-anon.js:101 
+#: ../../../../js/forced-anon.js:74 ../../../../js/forced-anon.js:80 
 #: ../../../../js/forced-anon.js:97 ../../../../js/forced-anon.js:101
 msgid "Forced anonymity"
-msgstr ""
+msgstr "強制匿名"
 
-#: ../../../../js/forced-anon.js:59 ../../../../js/forced-anon.js:65
-#: ../../../../js/forced-anon.js:60 ../../../../js/forced-anon.js:66
-#: ../../../../js/forced-anon.js:61 ../../../../js/forced-anon.js:67
-#: ../../../../js/forced-anon.js:73 ../../../../js/forced-anon.js:81
-#: ../../../../js//forced-anon.js:80 ../../../../js//forced-anon.js:97
+#: ../../../../js/forced-anon.js:59 ../../../../js/forced-anon.js:65 
+#: ../../../../js/forced-anon.js:60 ../../../../js/forced-anon.js:66 
+#: ../../../../js/forced-anon.js:61 ../../../../js/forced-anon.js:67 
+#: ../../../../js/forced-anon.js:73 ../../../../js/forced-anon.js:81 
+#: ../../../../js//forced-anon.js:80 ../../../../js//forced-anon.js:97 
 #: ../../../../js/forced-anon.js:80 ../../../../js/forced-anon.js:97
 msgid "enabled"
-msgstr ""
+msgstr "已啟動"
 
-#: ../../../../js/forced-anon.js:59 ../../../../js/forced-anon.js:69
-#: ../../../../js/forced-anon.js:60 ../../../../js/forced-anon.js:70
-#: ../../../../js/forced-anon.js:61 ../../../../js/forced-anon.js:71
-#: ../../../../js/forced-anon.js:73 ../../../../js/forced-anon.js:85
-#: ../../../../js//forced-anon.js:80 ../../../../js//forced-anon.js:101
+#: ../../../../js/forced-anon.js:59 ../../../../js/forced-anon.js:69 
+#: ../../../../js/forced-anon.js:60 ../../../../js/forced-anon.js:70 
+#: ../../../../js/forced-anon.js:61 ../../../../js/forced-anon.js:71 
+#: ../../../../js/forced-anon.js:73 ../../../../js/forced-anon.js:85 
+#: ../../../../js//forced-anon.js:80 ../../../../js//forced-anon.js:101 
 #: ../../../../js/forced-anon.js:80 ../../../../js/forced-anon.js:101
 msgid "disabled"
-msgstr ""
+msgstr "已關掉"
 
-#: ../../../../js/local-time.js:40 ../../../../js/local-time.js:41
-#: ../../../../js/local-time.js:30 ../../../../templates/main.js:63
-#: ../../../../js//local-time.js:32 ../../../../js//post-hover.js:335
-#: ../../../../templates//main.js:69 ../../../../js/post-hover.js:335
+#: ../../../../js/local-time.js:40 ../../../../js/local-time.js:41 
+#: ../../../../js/local-time.js:30 ../../../../templates/main.js:63 
+#: ../../../../js//local-time.js:32 ../../../../js//post-hover.js:335 
+#: ../../../../templates//main.js:69 ../../../../js/post-hover.js:335 
 #: ../../../../js/local-time.js:32 ../../../../templates/main.js:69
 msgid "Sun"
-msgstr ""
+msgstr "星期日"
 
-#: ../../../../js/local-time.js:40 ../../../../js/local-time.js:41
-#: ../../../../js/local-time.js:30 ../../../../templates/main.js:63
-#: ../../../../js//local-time.js:32 ../../../../js//post-hover.js:335
-#: ../../../../templates//main.js:69 ../../../../js/post-hover.js:335
+#: ../../../../js/local-time.js:40 ../../../../js/local-time.js:41 
+#: ../../../../js/local-time.js:30 ../../../../templates/main.js:63 
+#: ../../../../js//local-time.js:32 ../../../../js//post-hover.js:335 
+#: ../../../../templates//main.js:69 ../../../../js/post-hover.js:335 
 #: ../../../../js/local-time.js:32 ../../../../templates/main.js:69
 msgid "Mon"
-msgstr ""
+msgstr "星期一"
 
-#: ../../../../js/local-time.js:40 ../../../../js/local-time.js:41
-#: ../../../../js/local-time.js:30 ../../../../templates/main.js:63
-#: ../../../../js//local-time.js:32 ../../../../js//post-hover.js:335
-#: ../../../../templates//main.js:69 ../../../../js/post-hover.js:335
+#: ../../../../js/local-time.js:40 ../../../../js/local-time.js:41 
+#: ../../../../js/local-time.js:30 ../../../../templates/main.js:63 
+#: ../../../../js//local-time.js:32 ../../../../js//post-hover.js:335 
+#: ../../../../templates//main.js:69 ../../../../js/post-hover.js:335 
 #: ../../../../js/local-time.js:32 ../../../../templates/main.js:69
 msgid "Tue"
-msgstr ""
+msgstr "星期二"
 
-#: ../../../../js/local-time.js:40 ../../../../js/local-time.js:41
-#: ../../../../js/local-time.js:30 ../../../../templates/main.js:63
-#: ../../../../js//local-time.js:32 ../../../../js//post-hover.js:335
-#: ../../../../templates//main.js:69 ../../../../js/post-hover.js:335
+#: ../../../../js/local-time.js:40 ../../../../js/local-time.js:41 
+#: ../../../../js/local-time.js:30 ../../../../templates/main.js:63 
+#: ../../../../js//local-time.js:32 ../../../../js//post-hover.js:335 
+#: ../../../../templates//main.js:69 ../../../../js/post-hover.js:335 
 #: ../../../../js/local-time.js:32 ../../../../templates/main.js:69
 msgid "Wed"
-msgstr ""
+msgstr "星期三"
 
-#: ../../../../js/local-time.js:40 ../../../../js/local-time.js:41
-#: ../../../../js/local-time.js:30 ../../../../templates/main.js:63
-#: ../../../../js//local-time.js:32 ../../../../js//post-hover.js:335
-#: ../../../../templates//main.js:69 ../../../../js/post-hover.js:335
+#: ../../../../js/local-time.js:40 ../../../../js/local-time.js:41 
+#: ../../../../js/local-time.js:30 ../../../../templates/main.js:63 
+#: ../../../../js//local-time.js:32 ../../../../js//post-hover.js:335 
+#: ../../../../templates//main.js:69 ../../../../js/post-hover.js:335 
 #: ../../../../js/local-time.js:32 ../../../../templates/main.js:69
 msgid "Thu"
-msgstr ""
+msgstr "星期四"
 
-#: ../../../../js/local-time.js:40 ../../../../js/local-time.js:41
-#: ../../../../js/local-time.js:30 ../../../../templates/main.js:63
-#: ../../../../js//local-time.js:32 ../../../../js//post-hover.js:335
-#: ../../../../templates//main.js:69 ../../../../js/post-hover.js:335
+#: ../../../../js/local-time.js:40 ../../../../js/local-time.js:41 
+#: ../../../../js/local-time.js:30 ../../../../templates/main.js:63 
+#: ../../../../js//local-time.js:32 ../../../../js//post-hover.js:335 
+#: ../../../../templates//main.js:69 ../../../../js/post-hover.js:335 
 #: ../../../../js/local-time.js:32 ../../../../templates/main.js:69
 msgid "Fri"
-msgstr ""
+msgstr "星期五"
 
-#: ../../../../js/local-time.js:40 ../../../../js/local-time.js:41
-#: ../../../../js/local-time.js:30 ../../../../templates/main.js:63
-#: ../../../../js//local-time.js:32 ../../../../js//post-hover.js:335
-#: ../../../../templates//main.js:69 ../../../../js/post-hover.js:335
+#: ../../../../js/local-time.js:40 ../../../../js/local-time.js:41 
+#: ../../../../js/local-time.js:30 ../../../../templates/main.js:63 
+#: ../../../../js//local-time.js:32 ../../../../js//post-hover.js:335 
+#: ../../../../templates//main.js:69 ../../../../js/post-hover.js:335 
 #: ../../../../js/local-time.js:32 ../../../../templates/main.js:69
 msgid "Sat"
-msgstr ""
+msgstr "星期六"
 
-#: ../../../../js/catalog-link.js:21 ../../../../js/catalog-link.js:32
-#: ../../../../js/catalog-link.js:40 ../../../../js/catalog-link.js:33
-#: ../../../../js/catalog-link.js:44 ../../../../js/catalog-link.js:52
-#: ../../../../js/catalog-link.js:28 ../../../../js/catalog-link.js:39
-#: ../../../../js/catalog-link.js:47 ../../../../js//catalog-link.js:28
+#: ../../../../js/catalog-link.js:21 ../../../../js/catalog-link.js:32 
+#: ../../../../js/catalog-link.js:40 ../../../../js/catalog-link.js:33 
+#: ../../../../js/catalog-link.js:44 ../../../../js/catalog-link.js:52 
+#: ../../../../js/catalog-link.js:28 ../../../../js/catalog-link.js:39 
+#: ../../../../js/catalog-link.js:47 ../../../../js//catalog-link.js:28 
 #: ../../../../js//catalog-link.js:39 ../../../../js//catalog-link.js:47
 msgid "Catalog"
-msgstr ""
+msgstr "目錄"
 
-#: ../../../../js/quick-reply.js:21 ../../../../js/quick-reply-old.js:21
+#: ../../../../js/quick-reply.js:21 ../../../../js/quick-reply-old.js:21 
 #: ../../../../js/quick-reply-old.js:23
 msgid "Submit"
-msgstr ""
+msgstr "發佈"
 
-#: ../../../../js/quick-reply.js:31 ../../../../js/quick-reply-old.js:31
+#: ../../../../js/quick-reply.js:31 ../../../../js/quick-reply-old.js:31 
 #: ../../../../js/quick-reply-old.js:33
 msgid "Quick reply"
-msgstr ""
+msgstr "快速回覆"
 
-#: ../../../../js/quick-reply.js:33 ../../../../js/quick-reply-old.js:33
+#: ../../../../js/quick-reply.js:33 ../../../../js/quick-reply-old.js:33 
 #: ../../../../js/quick-reply-old.js:35
-#, python-brace-format
 msgid "Posting mode: Replying to <small>&gt;&gt;{0}</small>"
-msgstr ""
+msgstr "發布模式：現正回覆 >>{0}"
 
-#: ../../../../js/quick-reply.js:33 ../../../../js/quick-reply-old.js:33
+#: ../../../../js/quick-reply.js:33 ../../../../js/quick-reply-old.js:33 
 #: ../../../../js/quick-reply-old.js:35
 msgid "Return"
-msgstr ""
+msgstr "返回"
 
-#: ../../../../js/expand-all-images.js:20
-#: ../../../../js/expand-all-images.js:21
-#: ../../../../js/expand-all-images.js:22
-#: ../../../../js/expand-all-images.js:23
+#: ../../../../js/expand-all-images.js:20 
+#: ../../../../js/expand-all-images.js:21 
+#: ../../../../js/expand-all-images.js:22 
+#: ../../../../js/expand-all-images.js:23 
 #: ../../../../js//expand-all-images.js:23
 msgid "Expand all images"
-msgstr ""
+msgstr "擴展所有圖片"
 
-#: ../../../../templates/main.js:6 ../../../../templates//main.js:12
+#: ../../../../templates/main.js:6 ../../../../templates//main.js:12 
 #: ../../../../templates/main.js:12
 msgid "Hello!"
-msgstr ""
+msgstr "你好！"
 
-#: ../../../../templates/main.js:18 ../../../../templates//main.js:24
+#: ../../../../templates/main.js:18 ../../../../templates//main.js:24 
 #: ../../../../templates/main.js:24
-#, python-brace-format
 msgid "{0} users"
-msgstr ""
+msgstr "{0} 個使用者"
 
-#: ../../../../templates/themes/ukko/ukko.js:28
-#: ../../../../templates/themes/ukko/ukko.js:39
-#: ../../../../templates/themes/ukko/ukko.js:29
-#: ../../../../templates/themes/ukko/ukko.js:40
-#: ../../../../templates/themes/ukko/ukko.js:52
-#: ../../../../templates/themes/ukko/ukko.js:63
-#: ../../../../templates//themes/ukko/ukko.js:29
+#: ../../../../templates/themes/ukko/ukko.js:28 
+#: ../../../../templates/themes/ukko/ukko.js:39 
+#: ../../../../templates/themes/ukko/ukko.js:29 
+#: ../../../../templates/themes/ukko/ukko.js:40 
+#: ../../../../templates/themes/ukko/ukko.js:52 
+#: ../../../../templates/themes/ukko/ukko.js:63 
+#: ../../../../templates//themes/ukko/ukko.js:29 
 #: ../../../../templates//themes/ukko/ukko.js:40
 msgid "(hide threads from this board)"
-msgstr ""
+msgstr "（隱藏所有這個版的帖子）"
 
-#: ../../../../templates/themes/ukko/ukko.js:32
-#: ../../../../templates/themes/ukko/ukko.js:44
-#: ../../../../templates/themes/ukko/ukko.js:33
-#: ../../../../templates/themes/ukko/ukko.js:45
-#: ../../../../templates/themes/ukko/ukko.js:56
-#: ../../../../templates/themes/ukko/ukko.js:68
-#: ../../../../templates//themes/ukko/ukko.js:33
+#: ../../../../templates/themes/ukko/ukko.js:32 
+#: ../../../../templates/themes/ukko/ukko.js:44 
+#: ../../../../templates/themes/ukko/ukko.js:33 
+#: ../../../../templates/themes/ukko/ukko.js:45 
+#: ../../../../templates/themes/ukko/ukko.js:56 
+#: ../../../../templates/themes/ukko/ukko.js:68 
+#: ../../../../templates//themes/ukko/ukko.js:33 
 #: ../../../../templates//themes/ukko/ukko.js:45
 msgid "(show threads from this board)"
-msgstr ""
+msgstr "（顯示所有這個版的帖子）"
 
-#: ../../../../templates/themes/ukko/ukko.js:57
-#: ../../../../templates/themes/ukko/ukko.js:58
-#: ../../../../templates/themes/ukko/ukko.js:81
+#: ../../../../templates/themes/ukko/ukko.js:57 
+#: ../../../../templates/themes/ukko/ukko.js:58 
+#: ../../../../templates/themes/ukko/ukko.js:81 
 #: ../../../../templates//themes/ukko/ukko.js:58
 msgid "No more threads to display"
-msgstr ""
+msgstr "版尾"
 
-#: ../../../../templates/themes/ukko/ukko.js:79
-#: ../../../../templates/themes/ukko/ukko.js:80
-#: ../../../../templates/themes/ukko/ukko.js:103
-#: ../../../../js/infinite-scroll.js:48 ../../../../js//infinite-scroll.js:48
+#: ../../../../templates/themes/ukko/ukko.js:79 
+#: ../../../../templates/themes/ukko/ukko.js:80 
+#: ../../../../templates/themes/ukko/ukko.js:103 
+#: ../../../../js/infinite-scroll.js:48 ../../../../js//infinite-scroll.js:48 
 #: ../../../../templates//themes/ukko/ukko.js:80
 msgid "Loading..."
-msgstr ""
+msgstr "載入中。。。"
 
-#: ../../../../js/download-original.js:32
-#: ../../../../js/download-original.js:33
+#: ../../../../js/download-original.js:32 
+#: ../../../../js/download-original.js:33 
 #: ../../../../js//download-original.js:33
 msgid "Save as original filename"
-msgstr ""
+msgstr "以原檔名下載"
 
-#: ../../../../js/ajax-post-controls.js:43
+#: ../../../../js/ajax-post-controls.js:43 
 #: ../../../../js//ajax-post-controls.js:43
 msgid "Reported post(s)."
-msgstr ""
+msgstr "被檢舉的帖子。"
 
-#: ../../../../js/ajax-post-controls.js:53
+#: ../../../../js/ajax-post-controls.js:53 
 #: ../../../../js//ajax-post-controls.js:53
 msgid "An unknown error occured!"
-msgstr ""
+msgstr "發生不明錯誤！"
 
-#: ../../../../js/ajax-post-controls.js:60
+#: ../../../../js/ajax-post-controls.js:60 
 #: ../../../../js//ajax-post-controls.js:60
 msgid "Something went wrong... An unknown error occured!"
-msgstr ""
+msgstr "有事發生。。。發生不明錯誤！"
 
-#: ../../../../js/ajax-post-controls.js:68
+#: ../../../../js/ajax-post-controls.js:68 
 #: ../../../../js//ajax-post-controls.js:68
 msgid "Working..."
-msgstr ""
+msgstr "運算中。。。"
 
-#: ../../../../js/ajax.js:42 ../../../../js/ajax.js:45
+#: ../../../../js/ajax.js:42 ../../../../js/ajax.js:45 
 #: ../../../../js//ajax.js:42
 msgid "Posting... (#%)"
-msgstr ""
+msgstr "發帖中。。。(#%)"
 
-#: ../../../../js/ajax.js:104 ../../../../js/ajax.js:109
+#: ../../../../js/ajax.js:104 ../../../../js/ajax.js:109 
 #: ../../../../js//ajax.js:110 ../../../../js/ajax.js:110
 msgid "Posted..."
-msgstr ""
+msgstr "帖已發！"
 
-#: ../../../../js/ajax.js:106 ../../../../js/ajax.js:111
+#: ../../../../js/ajax.js:106 ../../../../js/ajax.js:111 
 #: ../../../../js//ajax.js:114 ../../../../js/ajax.js:114
 msgid "An unknown error occured when posting!"
-msgstr ""
+msgstr "發帖時發生不明錯誤！"
 
-#: ../../../../js/ajax.js:130 ../../../../js/ajax.js:135
+#: ../../../../js/ajax.js:130 ../../../../js/ajax.js:135 
 #: ../../../../js//ajax.js:131 ../../../../js/ajax.js:131
 msgid "Posting..."
-msgstr ""
+msgstr "發帖中。。。"
 
-#: ../../../../js/quick-reply.js:223 ../../../../js/quick-reply.js:224
-#: ../../../../js/quick-reply.js:225 ../../../../js//quick-reply.js:142
+#: ../../../../js/quick-reply.js:223 ../../../../js/quick-reply.js:224 
+#: ../../../../js/quick-reply.js:225 ../../../../js//quick-reply.js:142 
 #: ../../../../js/quick-reply.js:142
 msgid "Upload URL"
-msgstr ""
+msgstr "上載URL"
 
-#: ../../../../js/quick-reply.js:266 ../../../../js/quick-reply.js:267
+#: ../../../../js/quick-reply.js:266 ../../../../js/quick-reply.js:267 
 #: ../../../../js/quick-reply.js:268
 msgid "Spoiler Image"
-msgstr ""
+msgstr "隱藏縮圖"
 
-#: ../../../../js/quick-reply.js:277 ../../../../js/quick-reply.js:278
-#: ../../../../js/quick-reply.js:279 ../../../../js/quick-reply.js:281
-#: ../../../../js//quick-reply.js:170 ../../../../js/post-filter.js:654
+#: ../../../../js/quick-reply.js:277 ../../../../js/quick-reply.js:278 
+#: ../../../../js/quick-reply.js:279 ../../../../js/quick-reply.js:281 
+#: ../../../../js//quick-reply.js:170 ../../../../js/post-filter.js:654 
 #: ../../../../js/quick-reply.js:170
 msgid "Comment"
-msgstr ""
+msgstr "留言"
 
-#: ../../../../js/quick-reply.js:285 ../../../../js/quick-reply.js:406
-#: ../../../../js/quick-reply.js:286 ../../../../js/quick-reply.js:407
-#: ../../../../js/quick-reply.js:287 ../../../../js/quick-reply.js:408
-#: ../../../../js/quick-reply.js:289 ../../../../js/quick-reply.js:410
-#: ../../../../js//quick-reply.js:186 ../../../../js//quick-reply.js:308
+#: ../../../../js/quick-reply.js:285 ../../../../js/quick-reply.js:406 
+#: ../../../../js/quick-reply.js:286 ../../../../js/quick-reply.js:407 
+#: ../../../../js/quick-reply.js:287 ../../../../js/quick-reply.js:408 
+#: ../../../../js/quick-reply.js:289 ../../../../js/quick-reply.js:410 
+#: ../../../../js//quick-reply.js:186 ../../../../js//quick-reply.js:308 
 #: ../../../../js/quick-reply.js:186 ../../../../js/quick-reply.js:308
 msgid "Quick Reply"
-msgstr ""
+msgstr "快速回覆"
 
-#: ../../../../js/watch.js:249 ../../../../js/watch.js:250
-#: ../../../../js/watch.js:288 ../../../../js/watch.js:289
-#: ../../../../js/watch.js:330 ../../../../js/watch.js:331
-#: ../../../../js/watch.js:361 ../../../../js/watch.js:362
+#: ../../../../js/watch.js:249 ../../../../js/watch.js:250 
+#: ../../../../js/watch.js:288 ../../../../js/watch.js:289 
+#: ../../../../js/watch.js:330 ../../../../js/watch.js:331 
+#: ../../../../js/watch.js:361 ../../../../js/watch.js:362 
 #: ../../../../js//watch.js:361 ../../../../js//watch.js:362
 msgid "Stop watching this thread"
-msgstr ""
+msgstr "停止監察此帖"
 
-#: ../../../../js/watch.js:249 ../../../../js/watch.js:250
-#: ../../../../js/watch.js:288 ../../../../js/watch.js:289
-#: ../../../../js/watch.js:330 ../../../../js/watch.js:331
-#: ../../../../js/watch.js:361 ../../../../js/watch.js:362
+#: ../../../../js/watch.js:249 ../../../../js/watch.js:250 
+#: ../../../../js/watch.js:288 ../../../../js/watch.js:289 
+#: ../../../../js/watch.js:330 ../../../../js/watch.js:331 
+#: ../../../../js/watch.js:361 ../../../../js/watch.js:362 
 #: ../../../../js//watch.js:361 ../../../../js//watch.js:362
 msgid "Watch this thread"
-msgstr ""
+msgstr "監察此帖"
 
-#: ../../../../js/watch.js:260 ../../../../js/watch.js:261
-#: ../../../../js/watch.js:269 ../../../../js/watch.js:299
-#: ../../../../js/watch.js:300 ../../../../js/watch.js:308
-#: ../../../../js/watch.js:341 ../../../../js/watch.js:342
-#: ../../../../js/watch.js:350 ../../../../js/watch.js:372
-#: ../../../../js/watch.js:373 ../../../../js/watch.js:381
-#: ../../../../js//watch.js:372 ../../../../js//watch.js:373
+#: ../../../../js/watch.js:260 ../../../../js/watch.js:261 
+#: ../../../../js/watch.js:269 ../../../../js/watch.js:299 
+#: ../../../../js/watch.js:300 ../../../../js/watch.js:308 
+#: ../../../../js/watch.js:341 ../../../../js/watch.js:342 
+#: ../../../../js/watch.js:350 ../../../../js/watch.js:372 
+#: ../../../../js/watch.js:373 ../../../../js/watch.js:381 
+#: ../../../../js//watch.js:372 ../../../../js//watch.js:373 
 #: ../../../../js//watch.js:381
 msgid "Unpin this board"
-msgstr ""
+msgstr "停止把此版置頂"
 
-#: ../../../../js/watch.js:260 ../../../../js/watch.js:261
-#: ../../../../js/watch.js:269 ../../../../js/watch.js:299
-#: ../../../../js/watch.js:300 ../../../../js/watch.js:308
-#: ../../../../js/watch.js:341 ../../../../js/watch.js:342
-#: ../../../../js/watch.js:350 ../../../../js/watch.js:372
-#: ../../../../js/watch.js:373 ../../../../js/watch.js:381
-#: ../../../../js//watch.js:372 ../../../../js//watch.js:373
+#: ../../../../js/watch.js:260 ../../../../js/watch.js:261 
+#: ../../../../js/watch.js:269 ../../../../js/watch.js:299 
+#: ../../../../js/watch.js:300 ../../../../js/watch.js:308 
+#: ../../../../js/watch.js:341 ../../../../js/watch.js:342 
+#: ../../../../js/watch.js:350 ../../../../js/watch.js:372 
+#: ../../../../js/watch.js:373 ../../../../js/watch.js:381 
+#: ../../../../js//watch.js:372 ../../../../js//watch.js:373 
 #: ../../../../js//watch.js:381
 msgid "Pin this board"
-msgstr ""
+msgstr "置頂此版"
 
-#: ../../../../js/watch.js:262 ../../../../js/watch.js:267
-#: ../../../../js/watch.js:268 ../../../../js/watch.js:301
-#: ../../../../js/watch.js:306 ../../../../js/watch.js:307
-#: ../../../../js/watch.js:343 ../../../../js/watch.js:348
-#: ../../../../js/watch.js:349 ../../../../js/watch.js:374
-#: ../../../../js/watch.js:379 ../../../../js/watch.js:380
-#: ../../../../js//watch.js:374 ../../../../js//watch.js:379
+#: ../../../../js/watch.js:262 ../../../../js/watch.js:267 
+#: ../../../../js/watch.js:268 ../../../../js/watch.js:301 
+#: ../../../../js/watch.js:306 ../../../../js/watch.js:307 
+#: ../../../../js/watch.js:343 ../../../../js/watch.js:348 
+#: ../../../../js/watch.js:349 ../../../../js/watch.js:374 
+#: ../../../../js/watch.js:379 ../../../../js/watch.js:380 
+#: ../../../../js//watch.js:374 ../../../../js//watch.js:379 
 #: ../../../../js//watch.js:380
 msgid "Stop watching this board"
-msgstr ""
+msgstr "停止監察此版"
 
-#: ../../../../js/watch.js:262 ../../../../js/watch.js:267
-#: ../../../../js/watch.js:268 ../../../../js/watch.js:301
-#: ../../../../js/watch.js:306 ../../../../js/watch.js:307
-#: ../../../../js/watch.js:343 ../../../../js/watch.js:348
-#: ../../../../js/watch.js:349 ../../../../js/watch.js:374
-#: ../../../../js/watch.js:379 ../../../../js/watch.js:380
-#: ../../../../js//watch.js:374 ../../../../js//watch.js:379
+#: ../../../../js/watch.js:262 ../../../../js/watch.js:267 
+#: ../../../../js/watch.js:268 ../../../../js/watch.js:301 
+#: ../../../../js/watch.js:306 ../../../../js/watch.js:307 
+#: ../../../../js/watch.js:343 ../../../../js/watch.js:348 
+#: ../../../../js/watch.js:349 ../../../../js/watch.js:374 
+#: ../../../../js/watch.js:379 ../../../../js/watch.js:380 
+#: ../../../../js//watch.js:374 ../../../../js//watch.js:379 
 #: ../../../../js//watch.js:380
 msgid "Watch this board"
-msgstr ""
+msgstr "監察此版"
 
 #: ../../../../js/wpaint.js:113 ../../../../js//wpaint.js:113
 msgid "Click on any image on this site to load it into oekaki applet"
-msgstr ""
+msgstr "請按要載入網上畫板的圖片"
 
-#: ../../../../js/local-time.js:29 ../../../../templates/main.js:62
+#: ../../../../js/local-time.js:29 ../../../../templates/main.js:62 
 #: ../../../../templates//main.js:68 ../../../../templates/main.js:68
 msgid "Sunday"
-msgstr ""
+msgstr "星期日"
 
-#: ../../../../js/local-time.js:29 ../../../../templates/main.js:62
+#: ../../../../js/local-time.js:29 ../../../../templates/main.js:62 
 #: ../../../../templates//main.js:68 ../../../../templates/main.js:68
 msgid "Monday"
-msgstr ""
+msgstr "星期一"
 
-#: ../../../../js/local-time.js:29 ../../../../templates/main.js:62
+#: ../../../../js/local-time.js:29 ../../../../templates/main.js:62 
 #: ../../../../templates//main.js:68 ../../../../templates/main.js:68
 msgid "Tuesday"
-msgstr ""
+msgstr "星期二"
 
-#: ../../../../js/local-time.js:29 ../../../../templates/main.js:62
+#: ../../../../js/local-time.js:29 ../../../../templates/main.js:62 
 #: ../../../../templates//main.js:68 ../../../../templates/main.js:68
 msgid "Wednesday"
-msgstr ""
+msgstr "星期三"
 
-#: ../../../../js/local-time.js:29 ../../../../templates/main.js:62
+#: ../../../../js/local-time.js:29 ../../../../templates/main.js:62 
 #: ../../../../templates//main.js:68 ../../../../templates/main.js:68
 msgid "Thursday"
-msgstr ""
+msgstr "星期四"
 
-#: ../../../../js/local-time.js:29 ../../../../templates/main.js:62
+#: ../../../../js/local-time.js:29 ../../../../templates/main.js:62 
 #: ../../../../templates//main.js:68 ../../../../templates/main.js:68
 msgid "Friday"
-msgstr ""
+msgstr "星期五"
 
-#: ../../../../js/local-time.js:29 ../../../../templates/main.js:62
+#: ../../../../js/local-time.js:29 ../../../../templates/main.js:62 
 #: ../../../../templates//main.js:68 ../../../../templates/main.js:68
 msgid "Saturday"
-msgstr ""
+msgstr "星期六"
 
-#: ../../../../js/local-time.js:31 ../../../../templates/main.js:64
+#: ../../../../js/local-time.js:31 ../../../../templates/main.js:64 
 #: ../../../../templates//main.js:70 ../../../../templates/main.js:70
 msgid "January"
-msgstr ""
+msgstr "一月"
 
-#: ../../../../js/local-time.js:31 ../../../../templates/main.js:64
+#: ../../../../js/local-time.js:31 ../../../../templates/main.js:64 
 #: ../../../../templates//main.js:70 ../../../../templates/main.js:70
 msgid "February"
-msgstr ""
+msgstr "二月"
 
-#: ../../../../js/local-time.js:31 ../../../../templates/main.js:64
+#: ../../../../js/local-time.js:31 ../../../../templates/main.js:64 
 #: ../../../../templates//main.js:70 ../../../../templates/main.js:70
 msgid "March"
-msgstr ""
+msgstr "三月"
 
-#: ../../../../js/local-time.js:31 ../../../../templates/main.js:64
+#: ../../../../js/local-time.js:31 ../../../../templates/main.js:64 
 #: ../../../../templates//main.js:70 ../../../../templates/main.js:70
 msgid "April"
-msgstr ""
+msgstr "四月"
 
-#: ../../../../js/local-time.js:31 ../../../../js/local-time.js:32
-#: ../../../../templates/main.js:64 ../../../../templates/main.js:65
-#: ../../../../templates//main.js:70 ../../../../templates//main.js:71
+#: ../../../../js/local-time.js:31 ../../../../js/local-time.js:32 
+#: ../../../../templates/main.js:64 ../../../../templates/main.js:65 
+#: ../../../../templates//main.js:70 ../../../../templates//main.js:71 
 #: ../../../../templates/main.js:70 ../../../../templates/main.js:71
 msgid "May"
-msgstr ""
+msgstr "五月"
 
-#: ../../../../js/local-time.js:31 ../../../../templates/main.js:64
+#: ../../../../js/local-time.js:31 ../../../../templates/main.js:64 
 #: ../../../../templates//main.js:70 ../../../../templates/main.js:70
 msgid "June"
-msgstr ""
+msgstr "六月"
 
-#: ../../../../js/local-time.js:31 ../../../../templates/main.js:64
+#: ../../../../js/local-time.js:31 ../../../../templates/main.js:64 
 #: ../../../../templates//main.js:70 ../../../../templates/main.js:70
 msgid "July"
-msgstr ""
+msgstr "七月"
 
-#: ../../../../js/local-time.js:31 ../../../../templates/main.js:64
+#: ../../../../js/local-time.js:31 ../../../../templates/main.js:64 
 #: ../../../../templates//main.js:70 ../../../../templates/main.js:70
 msgid "August"
-msgstr ""
+msgstr "八月"
 
-#: ../../../../js/local-time.js:31 ../../../../templates/main.js:64
+#: ../../../../js/local-time.js:31 ../../../../templates/main.js:64 
 #: ../../../../templates//main.js:70 ../../../../templates/main.js:70
 msgid "September"
-msgstr ""
+msgstr "九月"
 
-#: ../../../../js/local-time.js:31 ../../../../templates/main.js:64
+#: ../../../../js/local-time.js:31 ../../../../templates/main.js:64 
 #: ../../../../templates//main.js:70 ../../../../templates/main.js:70
 msgid "October"
-msgstr ""
+msgstr "十月"
 
-#: ../../../../js/local-time.js:31 ../../../../templates/main.js:64
+#: ../../../../js/local-time.js:31 ../../../../templates/main.js:64 
 #: ../../../../templates//main.js:70 ../../../../templates/main.js:70
 msgid "November"
-msgstr ""
+msgstr "十一月"
 
-#: ../../../../js/local-time.js:31 ../../../../templates/main.js:64
+#: ../../../../js/local-time.js:31 ../../../../templates/main.js:64 
 #: ../../../../templates//main.js:70 ../../../../templates/main.js:70
 msgid "December"
-msgstr ""
+msgstr "十二月"
 
-#: ../../../../js/local-time.js:32 ../../../../templates/main.js:65
+#: ../../../../js/local-time.js:32 ../../../../templates/main.js:65 
 #: ../../../../templates//main.js:71 ../../../../templates/main.js:71
 msgid "Jan"
-msgstr ""
+msgstr "一月"
 
-#: ../../../../js/local-time.js:32 ../../../../templates/main.js:65
+#: ../../../../js/local-time.js:32 ../../../../templates/main.js:65 
 #: ../../../../templates//main.js:71 ../../../../templates/main.js:71
 msgid "Feb"
-msgstr ""
+msgstr "二月"
 
-#: ../../../../js/local-time.js:32 ../../../../templates/main.js:65
+#: ../../../../js/local-time.js:32 ../../../../templates/main.js:65 
 #: ../../../../templates//main.js:71 ../../../../templates/main.js:71
 msgid "Mar"
-msgstr ""
+msgstr "三月"
 
-#: ../../../../js/local-time.js:32 ../../../../templates/main.js:65
+#: ../../../../js/local-time.js:32 ../../../../templates/main.js:65 
 #: ../../../../templates//main.js:71 ../../../../templates/main.js:71
 msgid "Apr"
-msgstr ""
+msgstr "四月"
 
-#: ../../../../js/local-time.js:32 ../../../../templates/main.js:65
+#: ../../../../js/local-time.js:32 ../../../../templates/main.js:65 
 #: ../../../../templates//main.js:71 ../../../../templates/main.js:71
 msgid "Jun"
-msgstr ""
+msgstr "六月"
 
-#: ../../../../js/local-time.js:32 ../../../../templates/main.js:65
+#: ../../../../js/local-time.js:32 ../../../../templates/main.js:65 
 #: ../../../../templates//main.js:71 ../../../../templates/main.js:71
 msgid "Jul"
-msgstr ""
+msgstr "七月"
 
-#: ../../../../js/local-time.js:32 ../../../../templates/main.js:65
+#: ../../../../js/local-time.js:32 ../../../../templates/main.js:65 
 #: ../../../../templates//main.js:71 ../../../../templates/main.js:71
 msgid "Aug"
-msgstr ""
+msgstr "八月"
 
-#: ../../../../js/local-time.js:32 ../../../../templates/main.js:65
+#: ../../../../js/local-time.js:32 ../../../../templates/main.js:65 
 #: ../../../../templates//main.js:71 ../../../../templates/main.js:71
 msgid "Sep"
-msgstr ""
+msgstr "九月"
 
-#: ../../../../js/local-time.js:32 ../../../../templates/main.js:65
+#: ../../../../js/local-time.js:32 ../../../../templates/main.js:65 
 #: ../../../../templates//main.js:71 ../../../../templates/main.js:71
 msgid "Oct"
-msgstr ""
+msgstr "十月"
 
-#: ../../../../js/local-time.js:32 ../../../../templates/main.js:65
+#: ../../../../js/local-time.js:32 ../../../../templates/main.js:65 
 #: ../../../../templates//main.js:71 ../../../../templates/main.js:71
 msgid "Nov"
-msgstr ""
+msgstr "十一月"
 
-#: ../../../../js/local-time.js:32 ../../../../templates/main.js:65
+#: ../../../../js/local-time.js:32 ../../../../templates/main.js:65 
 #: ../../../../templates//main.js:71 ../../../../templates/main.js:71
 msgid "Dec"
-msgstr ""
+msgstr "十二月"
 
-#: ../../../../js/local-time.js:33 ../../../../templates/main.js:66
+#: ../../../../js/local-time.js:33 ../../../../templates/main.js:66 
 #: ../../../../templates//main.js:72 ../../../../templates/main.js:72
 msgid "AM"
-msgstr ""
+msgstr "上午"
 
-#: ../../../../js/local-time.js:34 ../../../../templates/main.js:67
+#: ../../../../js/local-time.js:34 ../../../../templates/main.js:67 
 #: ../../../../templates//main.js:73 ../../../../templates/main.js:73
 msgid "PM"
-msgstr ""
+msgstr "下午"
 
-#: ../../../../js/local-time.js:35 ../../../../templates/main.js:68
+#: ../../../../js/local-time.js:35 ../../../../templates/main.js:68 
 #: ../../../../templates//main.js:74 ../../../../templates/main.js:74
 msgid "am"
-msgstr ""
+msgstr "上午"
 
-#: ../../../../js/local-time.js:36 ../../../../templates/main.js:69
+#: ../../../../js/local-time.js:36 ../../../../templates/main.js:69 
 #: ../../../../templates//main.js:75 ../../../../templates/main.js:75
 msgid "pm"
-msgstr ""
+msgstr "下午"
 
-#: ../../../../js/expand-video.js:45 ../../../../js/expand-video.js:48
+#: ../../../../js/expand-video.js:45 ../../../../js/expand-video.js:48 
 #: ../../../../js//expand-video.js:48
 msgid "Your browser does not support HTML5 video."
-msgstr ""
+msgstr "您的瀏覽器並不支援HTML5影片。"
 
-#: ../../../../js/expand-video.js:189 ../../../../js/expand-video.js:192
+#: ../../../../js/expand-video.js:189 ../../../../js/expand-video.js:192 
 #: ../../../../js/expand-video.js:193 ../../../../js//expand-video.js:193
 msgid "[play once]"
-msgstr ""
+msgstr "[播放一次]"
 
-#: ../../../../js/expand-video.js:190 ../../../../js/expand-video.js:193
+#: ../../../../js/expand-video.js:190 ../../../../js/expand-video.js:193 
 #: ../../../../js/expand-video.js:194 ../../../../js//expand-video.js:194
 msgid "[loop]"
-msgstr ""
+msgstr "[loop]"
 
-#: ../../../../js/webm-settings.js:42 ../../../../js/webm-settings.js:45
+#: ../../../../js/webm-settings.js:42 ../../../../js/webm-settings.js:45 
 #: ../../../../js//webm-settings.js:46 ../../../../js/webm-settings.js:46
 msgid "WebM Settings"
-msgstr ""
+msgstr "WebM設定"
 
-#: ../../../../js/webm-settings.js:44 ../../../../js/webm-settings.js:54
+#: ../../../../js/webm-settings.js:44 ../../../../js/webm-settings.js:54 
 #: ../../../../js//webm-settings.js:55 ../../../../js/webm-settings.js:55
 msgid "Expand videos inline"
-msgstr ""
+msgstr "擴展所有影片"
 
-#: ../../../../js/webm-settings.js:45 ../../../../js/webm-settings.js:55
+#: ../../../../js/webm-settings.js:45 ../../../../js/webm-settings.js:55 
 #: ../../../../js//webm-settings.js:56 ../../../../js/webm-settings.js:56
 msgid "Play videos on hover"
-msgstr ""
+msgstr "無滑鼠模式：影片自動播放"
 
-#: ../../../../js/webm-settings.js:46 ../../../../js/webm-settings.js:56
+#: ../../../../js/webm-settings.js:46 ../../../../js/webm-settings.js:56 
 #: ../../../../js//webm-settings.js:58 ../../../../js/webm-settings.js:58
 msgid "Default volume"
-msgstr ""
+msgstr "預設音量"
 
-#: ../../../../js/treeview.js:18 ../../../../js//treeview.js:68
+#: ../../../../js/treeview.js:18 ../../../../js//treeview.js:68 
 #: ../../../../js/treeview.js:68
 msgid "Tree view"
-msgstr ""
+msgstr "樹視"
 
-#: ../../../../js/expand-all-images.js:32
-#: ../../../../js/expand-all-images.js:35
-#: ../../../../js//expand-all-images.js:43
+#: ../../../../js/expand-all-images.js:32 
+#: ../../../../js/expand-all-images.js:35 
+#: ../../../../js//expand-all-images.js:43 
 #: ../../../../js/expand-all-images.js:43
 msgid "Shrink all images"
-msgstr ""
+msgstr "縮細所有圖片"
 
-#: ../../../../js/no-animated-gif.js:33 ../../../../js/no-animated-gif.js:37
-#: ../../../../js/no-animated-gif.js:40 ../../../../js//no-animated-gif.js:45
+#: ../../../../js/no-animated-gif.js:33 ../../../../js/no-animated-gif.js:37 
+#: ../../../../js/no-animated-gif.js:40 ../../../../js//no-animated-gif.js:45 
 #: ../../../../js/no-animated-gif.js:45
 msgid "Animate GIFs"
-msgstr ""
+msgstr "播放GIFs"
 
-#: ../../../../js/no-animated-gif.js:42 ../../../../js/no-animated-gif.js:48
-#: ../../../../js/no-animated-gif.js:47 ../../../../js/no-animated-gif.js:57
-#: ../../../../js/no-animated-gif.js:62 ../../../../js/no-animated-gif.js:50
-#: ../../../../js/no-animated-gif.js:60 ../../../../js/no-animated-gif.js:65
-#: ../../../../js//no-animated-gif.js:57 ../../../../js//no-animated-gif.js:74
-#: ../../../../js//no-animated-gif.js:79 ../../../../js/no-animated-gif.js:74
+#: ../../../../js/no-animated-gif.js:42 ../../../../js/no-animated-gif.js:48 
+#: ../../../../js/no-animated-gif.js:47 ../../../../js/no-animated-gif.js:57 
+#: ../../../../js/no-animated-gif.js:62 ../../../../js/no-animated-gif.js:50 
+#: ../../../../js/no-animated-gif.js:60 ../../../../js/no-animated-gif.js:65 
+#: ../../../../js//no-animated-gif.js:57 ../../../../js//no-animated-gif.js:74 
+#: ../../../../js//no-animated-gif.js:79 ../../../../js/no-animated-gif.js:74 
 #: ../../../../js/no-animated-gif.js:79
 msgid "Unanimate GIFs"
-msgstr ""
+msgstr "靜態GIFs"
 
-#: ../../../../js/webm-settings.js:41 ../../../../js//webm-settings.js:42
+#: ../../../../js/webm-settings.js:41 ../../../../js//webm-settings.js:42 
 #: ../../../../js/webm-settings.js:42
 msgid "WebM"
-msgstr ""
+msgstr "WebM"
 
-#: ../../../../js/live-index.js:25 ../../../../js/live-index.js:84
+#: ../../../../js/live-index.js:25 ../../../../js/live-index.js:84 
 #: ../../../../js//live-index.js:25 ../../../../js//live-index.js:84
 msgid "No new posts."
-msgstr ""
+msgstr "無新回覆。"
 
-#: ../../../../js/live-index.js:30 ../../../../js/live-index.js:73
+#: ../../../../js/live-index.js:30 ../../../../js/live-index.js:73 
 #: ../../../../js//live-index.js:30 ../../../../js//live-index.js:73
 msgid "No new threads."
-msgstr ""
+msgstr "無新帖。"
 
 #: ../../../../js/live-index.js:72 ../../../../js//live-index.js:72
-#, python-brace-format
 msgid "There are {0} new threads."
-msgstr ""
+msgstr "有 {0} 個新帖。"
 
 #: ../../../../js/live-index.js:83 ../../../../js//live-index.js:83
-#, python-brace-format
 msgid "There are {0} new posts in this thread."
-msgstr ""
+msgstr "有 {0} 個新回覆。"
 
 #: ../../../../js/options.js:106 ../../../../js//options.js:106
 msgid "Options"
-msgstr ""
+msgstr "設定"
 
 #: ../../../../js/options/general.js:15 ../../../../js//options/general.js:15
 msgid "General"
-msgstr ""
+msgstr "一般"
 
-#: ../../../../js/options/general.js:18 ../../../../js//options/general.js:21
+#: ../../../../js/options/general.js:18 ../../../../js//options/general.js:21 
 #: ../../../../js/options/general.js:21
 msgid "Storage: "
-msgstr ""
+msgstr "儲存："
 
-#: ../../../../js/options/general.js:21 ../../../../js//options/general.js:24
+#: ../../../../js/options/general.js:21 ../../../../js//options/general.js:24 
 #: ../../../../js/options/general.js:24
 msgid "Export"
-msgstr ""
+msgstr "匯出"
 
-#: ../../../../js/options/general.js:27 ../../../../js//options/general.js:30
+#: ../../../../js/options/general.js:27 ../../../../js//options/general.js:30 
 #: ../../../../js/options/general.js:30
 msgid "Import"
-msgstr ""
+msgstr "匯入"
 
-#: ../../../../js/options/general.js:28 ../../../../js//options/general.js:31
+#: ../../../../js/options/general.js:28 ../../../../js//options/general.js:31 
 #: ../../../../js/options/general.js:31
 msgid "Paste your storage data"
-msgstr ""
+msgstr "貼上你的儲存數據"
 
-#: ../../../../js/options/general.js:40 ../../../../js//options/general.js:43
+#: ../../../../js/options/general.js:40 ../../../../js//options/general.js:43 
 #: ../../../../js/options/general.js:43
 msgid "Erase"
-msgstr ""
+msgstr "刪除"
 
-#: ../../../../js/options/general.js:41 ../../../../js//options/general.js:44
+#: ../../../../js/options/general.js:41 ../../../../js//options/general.js:44 
 #: ../../../../js/options/general.js:44
 msgid ""
 "Are you sure you want to erase your storage? This involves your hidden "
 "threads, watched threads, post password and many more."
-msgstr ""
+msgstr "你真的想刪除你的儲存數據嗎？儲存數據包括你已隱藏及監視的帖子，發帖密碼，等等。"
 
 #: ../../../../js/options/user-css.js:14
 msgid "User CSS"
-msgstr ""
+msgstr "用戶CSS"
 
 #: ../../../../js/options/user-css.js:23
 msgid "Update custom CSS"
-msgstr ""
+msgstr "更新自訂CSS"
 
-#: ../../../../js/options/user-css.js:45
-#: ../../../../js//options/user-css.js:120
+#: ../../../../js/options/user-css.js:45 
+#: ../../../../js//options/user-css.js:120 
 #: ../../../../js/options/user-css.js:122
 msgid "Enter here your own CSS rules..."
-msgstr ""
+msgstr "在這輸入你的自訂CSS"
 
 #: ../../../../js/options/user-css.js:46
 msgid ""
 "If you want to make a redistributable style, be sure to\n"
 "   have a Yotsuba B theme selected."
-msgstr ""
+msgstr "若您想分享你的CSS，請記得選擇Yotsuba B。"
 
-#: ../../../../js/options/user-css.js:47
-#: ../../../../js//options/user-css.js:123
+#: ../../../../js/options/user-css.js:47 
+#: ../../../../js//options/user-css.js:123 
 #: ../../../../js/options/user-css.js:125
 msgid "You can include CSS files from remote servers, for example:"
-msgstr ""
+msgstr "你可以匯入遠端的CSS，例子："
 
 #: ../../../../js/options/user-js.js:14 ../../../../js//options/user-js.js:14
 msgid "User JS"
-msgstr ""
+msgstr "用戶Javascript"
 
 #: ../../../../js/options/user-js.js:23
 msgid "Update custom Javascript"
-msgstr ""
+msgstr "更新自訂Javascript"
 
 #: ../../../../js/options/user-js.js:54
 msgid "Enter here your own Javascript code..."
-msgstr ""
+msgstr "在此輸入你的Javascript："
 
 #: ../../../../js/options/user-js.js:55
 msgid ""
 "Have a backup of your storage somewhere, as messing here\n"
 "   may render you this website unusable."
-msgstr ""
+msgstr "請記得備份你的儲存數據。"
 
-#: ../../../../js/options/user-js.js:56 ../../../../js//options/user-js.js:53
+#: ../../../../js/options/user-js.js:56 ../../../../js//options/user-js.js:53 
 #: ../../../../js/options/user-js.js:53
 msgid "You can include JS files from remote servers, for example:"
-msgstr ""
+msgstr "你可以匯入遠端的Javascript，例子："
 
-#: ../../../../js/id_colors.js:6 ../../../../js/id_colors.js:12
+#: ../../../../js/id_colors.js:6 ../../../../js/id_colors.js:12 
 #: ../../../../js//id_colors.js:6 ../../../../js//id_colors.js:12
 msgid "Color IDs"
-msgstr ""
+msgstr "有色ID"
 
-#: ../../../../js/auto-reload.js:33 ../../../../js//auto-reload.js:96
+#: ../../../../js/auto-reload.js:33 ../../../../js//auto-reload.js:96 
 #: ../../../../js/auto-reload.js:107
 msgid "Update"
-msgstr ""
+msgstr "更新"
 
 #: ../../../../js/mod/ban-list.js:29 ../../../../js//mod/ban-list.js:29
 msgid "IP address"
-msgstr ""
+msgstr "IP地址"
 
 #: ../../../../js/mod/ban-list.js:42 ../../../../js//mod/ban-list.js:42
 msgid "Seen"
-msgstr ""
+msgstr "已讀"
 
 #: ../../../../js/mod/ban-list.js:44 ../../../../js//mod/ban-list.js:44
 msgid "Message for which user was banned is included"
-msgstr ""
+msgstr "以下為被ban的帖／回覆"
 
 #: ../../../../js/mod/ban-list.js:45 ../../../../js//mod/ban-list.js:45
 msgid "Message:"
-msgstr ""
+msgstr "內文："
 
 #: ../../../../js/mod/ban-list.js:53 ../../../../js//mod/ban-list.js:53
 msgid "Board"
-msgstr ""
+msgstr "版"
 
 #: ../../../../js/mod/ban-list.js:55 ../../../../js//mod/ban-list.js:55
 msgid "all"
-msgstr ""
+msgstr "所有"
 
 #: ../../../../js/mod/ban-list.js:57 ../../../../js//mod/ban-list.js:57
 msgid "Set"
-msgstr ""
+msgstr "設定"
 
 #: ../../../../js/mod/ban-list.js:58 ../../../../js//mod/ban-list.js:58
 msgid " ago"
-msgstr ""
+msgstr "之前"
 
 #: ../../../../js/mod/ban-list.js:61 ../../../../js//mod/ban-list.js:61
 msgid "Expires"
-msgstr ""
+msgstr "過期"
 
 #: ../../../../js/mod/ban-list.js:62 ../../../../js//mod/ban-list.js:62
 msgid "never"
-msgstr ""
+msgstr "永不"
 
 #: ../../../../js/mod/ban-list.js:64 ../../../../js//mod/ban-list.js:64
 msgid "in "
-msgstr ""
+msgstr "於"
 
 #: ../../../../js/mod/ban-list.js:66 ../../../../js//mod/ban-list.js:66
 msgid "Staff"
-msgstr ""
+msgstr "職員"
 
 #: ../../../../js/mod/ban-list.js:73 ../../../../js//mod/ban-list.js:73
 msgid "system"
-msgstr ""
+msgstr "系統"
 
-#: ../../../../js/auto-reload.js:33 ../../../../js//auto-reload.js:96
+#: ../../../../js/auto-reload.js:33 ../../../../js//auto-reload.js:96 
 #: ../../../../js/auto-reload.js:107
 msgid "Auto"
-msgstr ""
+msgstr "自動"
 
-#: ../../../../js/auto-reload.js:141 ../../../../js//auto-reload.js:210
+#: ../../../../js/auto-reload.js:141 ../../../../js//auto-reload.js:210 
 #: ../../../../js/auto-reload.js:222
 msgid "Updating..."
-msgstr ""
+msgstr "更新中。。。"
 
-#: ../../../../js/auto-reload.js:183 ../../../../js//auto-reload.js:257
+#: ../../../../js/auto-reload.js:183 ../../../../js//auto-reload.js:257 
 #: ../../../../js/auto-reload.js:269
-#, python-brace-format
 msgid "Thread updated with {0} new post(s)"
-msgstr ""
+msgstr "帖已更新，有{0}個新回覆"
 
-#: ../../../../js/auto-reload.js:185 ../../../../js//auto-reload.js:259
+#: ../../../../js/auto-reload.js:185 ../../../../js//auto-reload.js:259 
 #: ../../../../js/auto-reload.js:271
 msgid "No new posts found"
-msgstr ""
+msgstr "無新回覆"
 
-#: ../../../../js/auto-reload.js:191 ../../../../js//auto-reload.js:265
+#: ../../../../js/auto-reload.js:191 ../../../../js//auto-reload.js:265 
 #: ../../../../js/auto-reload.js:277
 msgid "Thread deleted or pruned"
-msgstr ""
+msgstr "帖已被刪除"
 
-#: ../../../../js/auto-reload.js:199 ../../../../js//auto-reload.js:273
+#: ../../../../js/auto-reload.js:199 ../../../../js//auto-reload.js:273 
 #: ../../../../js/auto-reload.js:285
 msgid "Error: "
-msgstr ""
+msgstr "錯誤："
 
-#: ../../../../js/auto-reload.js:201 ../../../../js//auto-reload.js:275
+#: ../../../../js/auto-reload.js:201 ../../../../js//auto-reload.js:275 
 #: ../../../../js/auto-reload.js:287
 msgid "Unknown error"
-msgstr ""
+msgstr "不明錯誤"
 
 #: ../../../../js/infinite-scroll.js:47 ../../../../js//infinite-scroll.js:47
 msgid "Page"
-msgstr ""
+msgstr "頁"
 
 #: ../../../../js/infinite-scroll.js:82 ../../../../js//infinite-scroll.js:82
 msgid "All"
-msgstr ""
+msgstr "全部"
 
-#: ../../../../templates/main.js:29 ../../../../templates/main.js:47
-#: ../../../../templates//main.js:35 ../../../../templates//main.js:53
+#: ../../../../templates/main.js:29 ../../../../templates/main.js:47 
+#: ../../../../templates//main.js:35 ../../../../templates//main.js:53 
 #: ../../../../templates/main.js:35 ../../../../templates/main.js:53
 msgid "second(s)"
-msgstr ""
+msgstr "秒"
 
-#: ../../../../templates/main.js:31 ../../../../templates/main.js:49
-#: ../../../../templates//main.js:37 ../../../../templates//main.js:55
+#: ../../../../templates/main.js:31 ../../../../templates/main.js:49 
+#: ../../../../templates//main.js:37 ../../../../templates//main.js:55 
 #: ../../../../templates/main.js:37 ../../../../templates/main.js:55
 msgid "minute(s)"
-msgstr ""
+msgstr "分"
 
-#: ../../../../templates/main.js:33 ../../../../templates/main.js:51
-#: ../../../../templates//main.js:39 ../../../../templates//main.js:57
+#: ../../../../templates/main.js:33 ../../../../templates/main.js:51 
+#: ../../../../templates//main.js:39 ../../../../templates//main.js:57 
 #: ../../../../templates/main.js:39 ../../../../templates/main.js:57
 msgid "hour(s)"
-msgstr ""
+msgstr "小時"
 
-#: ../../../../templates/main.js:35 ../../../../templates/main.js:53
-#: ../../../../templates//main.js:41 ../../../../templates//main.js:59
+#: ../../../../templates/main.js:35 ../../../../templates/main.js:53 
+#: ../../../../templates//main.js:41 ../../../../templates//main.js:59 
 #: ../../../../templates/main.js:41 ../../../../templates/main.js:59
 msgid "day(s)"
-msgstr ""
+msgstr "日"
 
-#: ../../../../templates/main.js:37 ../../../../templates/main.js:55
-#: ../../../../templates//main.js:43 ../../../../templates//main.js:61
+#: ../../../../templates/main.js:37 ../../../../templates/main.js:55 
+#: ../../../../templates//main.js:43 ../../../../templates//main.js:61 
 #: ../../../../templates/main.js:43 ../../../../templates/main.js:61
 msgid "week(s)"
-msgstr ""
+msgstr "星期"
 
-#: ../../../../templates/main.js:39 ../../../../templates/main.js:57
-#: ../../../../templates//main.js:45 ../../../../templates//main.js:63
+#: ../../../../templates/main.js:39 ../../../../templates/main.js:57 
+#: ../../../../templates//main.js:45 ../../../../templates//main.js:63 
 #: ../../../../templates/main.js:45 ../../../../templates/main.js:63
 msgid "year(s)"
-msgstr ""
+msgstr "年"
 
 #: ../../../../js//ajax.js:121 ../../../../js/ajax.js:121
 msgid ""
 "The server took too long to submit your post. Your post was probably still "
 "submitted. If it wasn't, 8chan might be experiencing issues right now -- "
 "please try your post again later. Error information: "
-msgstr ""
+msgstr "伺服器沒有回應，但帖有可能已經成功發出。若否，8chan可能正出現問題－請遲些再試。錯誤訊息："
 
 #: ../../../../js//auto-reload.js:41 ../../../../js/auto-reload.js:52
 msgid "Auto update"
-msgstr ""
+msgstr "自動更新"
 
 #: ../../../../js//auto-reload.js:42 ../../../../js/auto-reload.js:53
 msgid "Auto update thread"
-msgstr ""
+msgstr "自動更新帖子"
 
 #: ../../../../js//auto-reload.js:43 ../../../../js/auto-reload.js:54
 msgid "Show desktop notifications when users quote me"
-msgstr ""
+msgstr "當有人引用我時，顯示通知"
 
 #: ../../../../js//auto-reload.js:44 ../../../../js/auto-reload.js:55
 msgid "Show desktop notifications on all replies"
-msgstr ""
+msgstr "給所有回覆也顯示通知"
 
-#: ../../../../js//auto-scroll.js:4 ../../../../js//auto-scroll.js:18
+#: ../../../../js//auto-scroll.js:4 ../../../../js//auto-scroll.js:18 
 #: ../../../../js/auto-scroll.js:4 ../../../../js/auto-scroll.js:18
 msgid "Scroll to new posts"
-msgstr ""
+msgstr "當有新回覆時，滾動到未讀位置"
 
 #: ../../../../js//captcha.js:30 ../../../../js/captcha.js:30
 msgid "Verification"
-msgstr ""
+msgstr "認證"
 
-#: ../../../../js//comment-toolbar.js:262
-#: ../../../../js//comment-toolbar.js:268
+#: ../../../../js//comment-toolbar.js:262 
+#: ../../../../js//comment-toolbar.js:268 
 #: ../../../../js/comment-toolbar.js:262 ../../../../js/comment-toolbar.js:268
 msgid "Enable formatting keybinds"
-msgstr ""
+msgstr "開啟格式化hotkey"
 
-#: ../../../../js//comment-toolbar.js:263
-#: ../../../../js//comment-toolbar.js:269
+#: ../../../../js//comment-toolbar.js:263 
+#: ../../../../js//comment-toolbar.js:269 
 #: ../../../../js/comment-toolbar.js:263 ../../../../js/comment-toolbar.js:269
 msgid "Show formatting toolbar"
-msgstr ""
+msgstr "顯示格式化工具列"
 
 #: ../../../../js//download-all.js:8 ../../../../js/download-all.js:8
 msgid "Download All"
-msgstr ""
+msgstr "全部下載"
 
 #: ../../../../js//forced-anon.js:73 ../../../../js/forced-anon.js:73
 msgid "Hide IDs"
-msgstr ""
+msgstr "隱藏ID"
 
 #: ../../../../js//image-hover.js:14 ../../../../js/image-hover.js:14
 msgid "Image hover"
-msgstr ""
+msgstr "無滑鼠模式：圖片自動擴展"
 
 #: ../../../../js//image-hover.js:15 ../../../../js/image-hover.js:15
 msgid "Image hover on catalog"
-msgstr ""
+msgstr "無滑鼠模式：於目錄圖片自動擴展"
 
 #: ../../../../js//image-hover.js:16 ../../../../js/image-hover.js:16
 msgid "Image hover should follow cursor"
-msgstr ""
+msgstr "自動擴展圖片會跟隨滑鼠"
 
-#: ../../../../js//inline-expanding.js:193
+#: ../../../../js//inline-expanding.js:193 
 #: ../../../../js/inline-expanding.js:193
 msgid "Number of simultaneous image downloads (0 to disable): "
-msgstr ""
+msgstr "同時下載圖片上限（0會關閉此選項）："
 
 #: ../../../../js//katex-enable.js:15 ../../../../js/katex-enable.js:15
 msgid "Error: Invalid LaTeX syntax."
-msgstr ""
+msgstr "錯誤：LaTeX syntax不正確。"
 
 #: ../../../../js//local-time.js:89 ../../../../js/local-time.js:89
 msgid "Show relative time"
-msgstr ""
+msgstr "顯示相對時間"
 
 #: ../../../../js//options/fav.js:27 ../../../../js/options/fav.js:27
 msgid "Favorites"
-msgstr ""
+msgstr "我的最愛"
 
 #: ../../../../js//options/fav.js:42 ../../../../js/options/fav.js:42
 msgid "Drag the boards to sort them."
-msgstr ""
+msgstr "允許drag and drop版名來作排序。"
 
 #: ../../../../js//options/general.js:18 ../../../../js/options/general.js:18
 msgid "Note: Most option changes will only take effect on future page loads."
-msgstr ""
+msgstr "注意：大部分設定需要F5後才會生效。"
 
-#: ../../../../js//options/user-css.js:15
-#: ../../../../js/options/user-css.js:15
+#: ../../../../js//options/user-css.js:15 ../../../../js/options/user-css.js:15
 msgid "Theme"
-msgstr ""
+msgstr "主題"
 
-#: ../../../../js//options/user-css.js:23
-#: ../../../../js/options/user-css.js:23
+#: ../../../../js//options/user-css.js:23 ../../../../js/options/user-css.js:23
 msgid "Save custom CSS"
-msgstr ""
+msgstr "儲存自訂CSS"
 
-#: ../../../../js//options/user-css.js:42
-#: ../../../../js/options/user-css.js:43
+#: ../../../../js//options/user-css.js:42 ../../../../js/options/user-css.js:43
 msgid "Board-specific CSS"
-msgstr ""
+msgstr "版主自訂CSS"
 
-#: ../../../../js//options/user-css.js:54
-#: ../../../../js/options/user-css.js:56
+#: ../../../../js//options/user-css.js:54 ../../../../js/options/user-css.js:56
 msgid "Style should affect all boards, not just current board"
-msgstr ""
+msgstr "把此CSS套用到所有8chan版"
 
-#: ../../../../js//options/user-css.js:121
+#: ../../../../js//options/user-css.js:121 
 #: ../../../../js/options/user-css.js:123
 msgid ""
 "If you want to make a redistributable style, be sure to\n"
 "have a Yotsuba B theme selected."
-msgstr ""
+msgstr "若您想分享你的CSS，請記得選擇Yotsuba B。"
 
-#: ../../../../js//options/user-css.js:122
+#: ../../../../js//options/user-css.js:122 
 #: ../../../../js/options/user-css.js:124
 msgid "These will be applied on top of whatever theme you choose below."
-msgstr ""
+msgstr "這一切都會套用到已選主題之上。"
 
 #: ../../../../js//options/user-js.js:16 ../../../../js/options/user-js.js:16
 msgid ""
 "Do not paste code here unless you absolutely trust the source or have read "
 "it yourself!"
-msgstr ""
+msgstr "除非你絕對信任源碼，否則切勿在這裡貼上來歷不明的code！"
 
 #: ../../../../js//options/user-js.js:16 ../../../../js/options/user-js.js:16
 msgid ""
 "Untrusted code pasted here could do malicious things such as spam the site "
 "under your IP."
-msgstr ""
+msgstr "惡意的code可以導致你的IP被用來洗版。"
 
 #: ../../../../js//options/user-js.js:24 ../../../../js/options/user-js.js:24
 msgid "Save custom Javascript"
-msgstr ""
-
-#: ../../../../js//options/user-js.js:52 ../../../../js/options/user-js.js:52
-msgid "Enter your own Javascript code here..."
-msgstr ""
-
-#: ../../../../js//show-own-posts.js:36 ../../../../js//show-own-posts.js:49
-#: ../../../../js/show-own-posts.js:36 ../../../../js/show-own-posts.js:49
-msgid "(You)"
-msgstr ""
-
-#: ../../../../js//treeview.js:18 ../../../../js/treeview.js:18
-msgid "Use tree view by default"
-msgstr ""
-
-#: ../../../../js//update_boards.js:6 ../../../../js/update_boards.js:6
-msgid "Show top boards"
-msgstr ""
-
-#: ../../../../js//webm-settings.js:57 ../../../../js/webm-settings.js:57
-msgid "Loop videos by default"
-msgstr ""
-
-#: ../../../../js//youtube.js:28 ../../../../js/youtube.js:28
-msgid "YouTube size"
-msgstr ""
-
-#: ../../../../templates//main.js:96 ../../../../templates/main.js:96
-msgid "OK"
-msgstr ""
-
-#: ../../../../templates//main.js:102 ../../../../templates/main.js:102
-msgid "Cancel"
-msgstr ""
-
-#: ../../../../templates//main.js:325 ../../../../templates/main.js:330
-msgid "Hide post options &amp; limits"
-msgstr ""
-
-#: ../../../../templates//main.js:329 ../../../../templates/main.js:334
-msgid "Show post options &amp; limits"
-msgstr ""
-
-#: ../../../../js/fix-report-delete-submit.js:15
-msgid "Delete post"
-msgstr ""
-
-#: ../../../../js/fix-report-delete-submit.js:16
-msgid "Delete file"
-msgstr ""
-
-#: ../../../../js/fix-report-delete-submit.js:38
-msgid "Global report"
-msgstr ""
-
-#: ../../../../js/thread-watcher.js:32
-msgid "Thread #"
-msgstr ""
-
-#: ../../../../js/thread-watcher.js:47
-msgid "Clear List"
-msgstr ""
-
-#: ../../../../js/thread-watcher.js:48
-msgid "Clear Ghosts"
-msgstr ""
-
-#: ../../../../js/thread-watcher.js:83
-msgid "Reply"
-msgstr ""
-
-#: ../../../../js/thread-watcher.js:150
-msgid "watchlist"
-msgstr ""
-
-#: ../../../../js/thread-watcher.js:152
-msgid "Watch Thread"
-msgstr ""
-
-#: ../../../../js/inline.js:126
-msgid "Enable inlining"
-msgstr ""
-
-#: ../../../../js/inline.js:127
-msgid "Hide inlined backlinked posts"
-msgstr ""
-
-#: ../../../../js/file-selector.js:13
-msgid "Drag and drop file selection"
-msgstr ""
-
-#: ../../../../js/comment-toolbar.js:16
-msgid "Spoiler"
-msgstr ""
-
-#: ../../../../js/comment-toolbar.js:24
-msgid "Italics"
-msgstr ""
-
-#: ../../../../js/comment-toolbar.js:32 ../../../../js/wPaint/2ch.js:2580
-#: ../../../../js/wPaint/oekaki.js:3
-#: ../../../../js/wPaint/plugins/text/text.js:9
-#: ../../../../js/wPaint/plugins/text/src/wPaint.menu.text.js:9
-#: ../../../../js/wPaint/lib/plugins.js:356 ../../../../js/wPaint/8ch.js:2561
-msgid "Bold"
-msgstr ""
-
-#: ../../../../js/comment-toolbar.js:40
-msgid "Underline"
-msgstr ""
-
-#: ../../../../js/comment-toolbar.js:48
-msgid "Code"
-msgstr ""
-
-#: ../../../../js/comment-toolbar.js:56
-msgid "Strike"
-msgstr ""
-
-#: ../../../../js/comment-toolbar.js:64
-msgid "Heading"
-msgstr ""
-
-#: ../../../../js/comment-toolbar.js:274
-msgid "Customize Formatting"
-msgstr ""
-
-#: ../../../../js/comment-toolbar.js:298
-msgid "Add Rule"
-msgstr ""
-
-#: ../../../../js/comment-toolbar.js:299
-msgid "Save Rules"
-msgstr ""
-
-#: ../../../../js/comment-toolbar.js:300
-msgid "Revert"
-msgstr ""
-
-#: ../../../../js/comment-toolbar.js:301
-msgid "Reset to Default"
-msgstr ""
-
-#: ../../../../js/wPaint/2ch.js:428 ../../../../js/wPaint/wPaint.min.js:409
-#: ../../../../js/wPaint/lib/wColorPicker.js:28
-#: ../../../../js/wPaint/8ch.js:409
-msgid "R"
-msgstr ""
-
-#: ../../../../js/wPaint/2ch.js:428 ../../../../js/wPaint/wPaint.min.js:409
-#: ../../../../js/wPaint/lib/wColorPicker.js:28
-#: ../../../../js/wPaint/8ch.js:409
-msgid "G"
-msgstr ""
-
-#: ../../../../js/wPaint/2ch.js:428 ../../../../js/wPaint/wPaint.min.js:409
-#: ../../../../js/wPaint/lib/wColorPicker.js:28
-#: ../../../../js/wPaint/8ch.js:409
-msgid "B"
-msgstr ""
-
-#: ../../../../js/wPaint/2ch.js:428 ../../../../js/wPaint/wPaint.min.js:409
-#: ../../../../js/wPaint/lib/wColorPicker.js:28
-#: ../../../../js/wPaint/8ch.js:409
-msgid "Both"
-msgstr ""
-
-#: ../../../../js/wPaint/2ch.js:428 ../../../../js/wPaint/wPaint.min.js:409
-#: ../../../../js/wPaint/lib/wColorPicker.js:28
-#: ../../../../js/wPaint/8ch.js:409
-msgid "Flip"
-msgstr ""
-
-#: ../../../../js/wPaint/2ch.js:2233 ../../../../js/wPaint/oekaki.js:3
-#: ../../../../js/wPaint/plugins/main/src/wPaint.menu.main.js:9
-#: ../../../../js/wPaint/plugins/main/main.js:9
-#: ../../../../js/wPaint/lib/plugins.js:9 ../../../../js/wPaint/8ch.js:2214
-msgid "Undo"
-msgstr ""
-
-#: ../../../../js/wPaint/2ch.js:2240 ../../../../js/wPaint/oekaki.js:3
-#: ../../../../js/wPaint/plugins/main/src/wPaint.menu.main.js:16
-#: ../../../../js/wPaint/plugins/main/main.js:16
-#: ../../../../js/wPaint/lib/plugins.js:16 ../../../../js/wPaint/8ch.js:2221
-msgid "Redo"
-msgstr ""
-
-#: ../../../../js/wPaint/2ch.js:2254 ../../../../js/wPaint/oekaki.js:3
-#: ../../../../js/wPaint/plugins/main/src/wPaint.menu.main.js:30
-#: ../../../../js/wPaint/plugins/main/main.js:30
-#: ../../../../js/wPaint/lib/plugins.js:30 ../../../../js/wPaint/8ch.js:2235
-msgid "Rectangle"
-msgstr ""
-
-#: ../../../../js/wPaint/2ch.js:2260 ../../../../js/wPaint/oekaki.js:3
-#: ../../../../js/wPaint/plugins/main/src/wPaint.menu.main.js:36
-#: ../../../../js/wPaint/plugins/main/main.js:36
-#: ../../../../js/wPaint/lib/plugins.js:36 ../../../../js/wPaint/8ch.js:2241
-msgid "Ellipse"
-msgstr ""
-
-#: ../../../../js/wPaint/2ch.js:2266 ../../../../js/wPaint/oekaki.js:3
-#: ../../../../js/wPaint/plugins/main/src/wPaint.menu.main.js:42
-#: ../../../../js/wPaint/plugins/main/main.js:42
-#: ../../../../js/wPaint/lib/plugins.js:42 ../../../../js/wPaint/8ch.js:2247
-msgid "Line"
-msgstr ""
-
-#: ../../../../js/wPaint/2ch.js:2273 ../../../../js/wPaint/oekaki.js:3
-#: ../../../../js/wPaint/plugins/main/src/wPaint.menu.main.js:49
-#: ../../../../js/wPaint/plugins/main/main.js:49
-#: ../../../../js/wPaint/lib/plugins.js:49 ../../../../js/wPaint/8ch.js:2254
-msgid "Pencil"
-msgstr ""
-
-#: ../../../../js/wPaint/2ch.js:2280 ../../../../js/wPaint/oekaki.js:3
-#: ../../../../js/wPaint/plugins/main/src/wPaint.menu.main.js:56
-#: ../../../../js/wPaint/plugins/main/main.js:56
-#: ../../../../js/wPaint/lib/plugins.js:56 ../../../../js/wPaint/8ch.js:2261
-msgid "Eraser"
-msgstr ""
-
-#: ../../../../js/wPaint/2ch.js:2287 ../../../../js/wPaint/oekaki.js:3
-#: ../../../../js/wPaint/plugins/main/src/wPaint.menu.main.js:63
-#: ../../../../js/wPaint/plugins/main/main.js:63
-#: ../../../../js/wPaint/lib/plugins.js:63 ../../../../js/wPaint/8ch.js:2268
-msgid "Bucket"
-msgstr ""
-
-#: ../../../../js/wPaint/2ch.js:2293 ../../../../js/wPaint/oekaki.js:3
-#: ../../../../js/wPaint/plugins/main/src/wPaint.menu.main.js:69
-#: ../../../../js/wPaint/plugins/main/main.js:69
-#: ../../../../js/wPaint/lib/plugins.js:69 ../../../../js/wPaint/8ch.js:2274
-msgid "Fill Color"
-msgstr ""
-
-#: ../../../../js/wPaint/2ch.js:2299 ../../../../js/wPaint/oekaki.js:3
-#: ../../../../js/wPaint/plugins/main/src/wPaint.menu.main.js:75
-#: ../../../../js/wPaint/plugins/main/main.js:75
-#: ../../../../js/wPaint/lib/plugins.js:75 ../../../../js/wPaint/8ch.js:2280
-msgid "Stroke Width"
-msgstr ""
-
-#: ../../../../js/wPaint/2ch.js:2306 ../../../../js/wPaint/oekaki.js:3
-#: ../../../../js/wPaint/plugins/main/src/wPaint.menu.main.js:82
-#: ../../../../js/wPaint/plugins/main/main.js:82
-#: ../../../../js/wPaint/lib/plugins.js:82 ../../../../js/wPaint/8ch.js:2287
-msgid "Stroke Color"
-msgstr ""
-
-#: ../../../../js/wPaint/2ch.js:2586 ../../../../js/wPaint/oekaki.js:3
-#: ../../../../js/wPaint/plugins/text/text.js:15
-#: ../../../../js/wPaint/plugins/text/src/wPaint.menu.text.js:15
-#: ../../../../js/wPaint/lib/plugins.js:362 ../../../../js/wPaint/8ch.js:2567
-msgid "Italic"
-msgstr ""
-
-#: ../../../../js/wPaint/2ch.js:2597 ../../../../js/wPaint/oekaki.js:3
-#: ../../../../js/wPaint/plugins/text/text.js:26
-#: ../../../../js/wPaint/plugins/text/src/wPaint.menu.text.js:26
-#: ../../../../js/wPaint/lib/plugins.js:373 ../../../../js/wPaint/8ch.js:2578
-msgid "Font Size"
-msgstr ""
-
-#: ../../../../js/wPaint/2ch.js:2605 ../../../../js/wPaint/oekaki.js:3
-#: ../../../../js/wPaint/plugins/text/text.js:34
-#: ../../../../js/wPaint/plugins/text/src/wPaint.menu.text.js:34
-#: ../../../../js/wPaint/lib/plugins.js:381 ../../../../js/wPaint/8ch.js:2586
-msgid "Font Family"
-msgstr ""
-
-#: ../../../../js/wPaint/2ch.js:2811 ../../../../js/wPaint/oekaki.js:3
-#: ../../../../js/wPaint/plugins/shapes/shapes.js:12
-#: ../../../../js/wPaint/plugins/shapes/src/wPaint.menu.main.shapes.js:12
-#: ../../../../js/wPaint/lib/plugins.js:587 ../../../../js/wPaint/8ch.js:2792
-msgid "Rounded Rectangle"
-msgstr ""
-
-#: ../../../../js/wPaint/2ch.js:2819 ../../../../js/wPaint/oekaki.js:3
-#: ../../../../js/wPaint/plugins/shapes/shapes.js:20
-#: ../../../../js/wPaint/plugins/shapes/src/wPaint.menu.main.shapes.js:20
-#: ../../../../js/wPaint/lib/plugins.js:595 ../../../../js/wPaint/8ch.js:2800
-msgid "Square"
-msgstr ""
-
-#: ../../../../js/wPaint/2ch.js:2827 ../../../../js/wPaint/oekaki.js:3
-#: ../../../../js/wPaint/plugins/shapes/shapes.js:28
-#: ../../../../js/wPaint/plugins/shapes/src/wPaint.menu.main.shapes.js:28
-#: ../../../../js/wPaint/lib/plugins.js:603 ../../../../js/wPaint/8ch.js:2808
-msgid "Rounded Square"
-msgstr ""
-
-#: ../../../../js/wPaint/2ch.js:2835 ../../../../js/wPaint/oekaki.js:3
-#: ../../../../js/wPaint/plugins/shapes/shapes.js:36
-#: ../../../../js/wPaint/plugins/shapes/src/wPaint.menu.main.shapes.js:36
-#: ../../../../js/wPaint/lib/plugins.js:611 ../../../../js/wPaint/8ch.js:2816
-msgid "Diamond"
-msgstr ""
-
-#: ../../../../js/wPaint/2ch.js:2847 ../../../../js/wPaint/oekaki.js:3
-#: ../../../../js/wPaint/plugins/shapes/shapes.js:48
-#: ../../../../js/wPaint/plugins/shapes/src/wPaint.menu.main.shapes.js:48
-#: ../../../../js/wPaint/lib/plugins.js:623 ../../../../js/wPaint/8ch.js:2828
-msgid "Circle"
-msgstr ""
-
-#: ../../../../js/wPaint/2ch.js:2855 ../../../../js/wPaint/oekaki.js:3
-#: ../../../../js/wPaint/plugins/shapes/shapes.js:56
-#: ../../../../js/wPaint/plugins/shapes/src/wPaint.menu.main.shapes.js:56
-#: ../../../../js/wPaint/lib/plugins.js:631 ../../../../js/wPaint/8ch.js:2836
-msgid "Pentagon"
-msgstr ""
-
-#: ../../../../js/wPaint/2ch.js:2863 ../../../../js/wPaint/oekaki.js:3
-#: ../../../../js/wPaint/plugins/shapes/shapes.js:64
-#: ../../../../js/wPaint/plugins/shapes/src/wPaint.menu.main.shapes.js:64
-#: ../../../../js/wPaint/lib/plugins.js:639 ../../../../js/wPaint/8ch.js:2844
-msgid "Hexagon"
-msgstr ""
-
-#: ../../../../js/wPaint/2ch.js:3025 ../../../../js/wPaint/src/oekaki8.js:17
-msgid "Post my oekaki"
-msgstr ""
-
-#: ../../../../js/wPaint/2ch.js:3025 ../../../../js/wPaint/src/oekaki8.js:17
-msgid "Check image size"
-msgstr ""
-
-#: ../../../../js/wPaint/2ch.js:3058 ../../../../js/wPaint/src/oekaki8.js:50
-msgid "Your image size is %size%/%maxsize%."
-msgstr ""
-
-#: ../../../../js/wPaint/2ch.js:3065 ../../../../js/wPaint/src/oekaki8.js:57
-msgid "Image must be 500x250 to be uploaded. Please resize it."
-msgstr ""
-
-#: ../../../../js/wPaint/2ch.js:3069 ../../../../js/wPaint/src/oekaki8.js:61
-msgid "Your image is too large, it needs to be 128KB or less."
-msgstr ""
-
-#: ../../../../js/wPaint/2ch.js:3085 ../../../../js/wPaint/src/oekaki8.js:77
-msgid "Click on any image on this site to load it into oekaki applet."
-msgstr ""
-
-#: ../../../../js/wPaint/plugins/file/src/wPaint.menu.main.file.js:8
-msgid "Save Image"
-msgstr ""
-
-#: ../../../../js/wPaint/plugins/file/src/wPaint.menu.main.file.js:18
-msgid "Load Image to Foreground"
-msgstr ""
-
-#: ../../../../js/wPaint/plugins/file/src/wPaint.menu.main.file.js:28
-msgid "Load Image to Background"
-msgstr ""
-
-#: ../../../../js/post-filter.js:205
-msgid "Hide post"
-msgstr ""
-
-#: ../../../../js/post-filter.js:206
-msgid "Unhide post"
-msgstr ""
-
-#: ../../../../js/post-filter.js:208
-msgid "Add filter"
-msgstr ""
-
-#: ../../../../js/post-filter.js:209
-msgid "Post +"
-msgstr ""
-
-#: ../../../../js/post-filter.js:209
-msgid "Hide post and all replies"
-msgstr ""
-
-#: ../../../../js/post-filter.js:210 ../../../../js/post-filter.js:216
-msgid "ID"
-msgstr ""
-
-#: ../../../../js/post-filter.js:211
-msgid "ID +"
-msgstr ""
-
-#: ../../../../js/post-filter.js:211
-msgid "Hide ID and all replies"
-msgstr ""
-
-#: ../../../../js/post-filter.js:212 ../../../../js/post-filter.js:217
-#: ../../../../js/post-filter.js:651
-msgid "Name"
-msgstr ""
-
-#: ../../../../js/post-filter.js:213 ../../../../js/post-filter.js:218
-#: ../../../../js/post-filter.js:652
-msgid "Tripcode"
-msgstr ""
-
-#: ../../../../js/post-filter.js:215
-msgid "Remove filter"
-msgstr ""
-
-#: ../../../../js/post-filter.js:647
-msgid "Filters"
-msgstr ""
-
-#: ../../../../js/post-filter.js:653
-msgid "Subject"
-msgstr ""
-
-#: ../../../../js/post-filter.js:659
-msgid "Add"
-msgstr ""
-
-#: ../../../../js/post-filter.js:660
-msgid "Clear all filters"
-msgstr ""
-
-#: ../../../../js/post-filter.js:662
-msgid "This will clear all filtering rules including hidden posts."
-msgstr ""
-
-#: ../../../../js/post-filter.js:662
-msgid "yes"
-msgstr ""
-
-#: ../../../../js/post-filter.js:662
-msgid "no"
-msgstr ""
+msgstr "儲存自訂"
