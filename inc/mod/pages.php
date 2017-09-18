@@ -1184,7 +1184,7 @@ function mod_cycle($board, $uncycle, $post) {
 	$query->bindValue(':cycle', $uncycle ? 0 : 1);
 	$query->execute() or error(db_error($query));
 	if ($query->rowCount()) {
-		modLog(($uncycle ? 'Made not cyclical' : 'Made cyclical') . " thread #{$post}");
+		modLog(($uncycle ? 'Uncycled' : 'Cycled') . " thread #{$post}");
 		buildThread($post);
 		buildIndex();
 	}
