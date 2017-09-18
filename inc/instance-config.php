@@ -146,6 +146,8 @@
 	//Screen capture / post capture
 	$config['additional_javascript'][] = 'js/post-capture.js';
 
+	$config['additional_javascript'][] = 'js/hide-velocious-tempestuous.js';
+
 	// Oekaki (now depends on config.oekaki so can be in all scripts)
 	$config['additional_javascript'][] = 'js/jquery-ui.custom.min.js';
 	$config['additional_javascript'][] = 'js/wPaint/8ch.js';
