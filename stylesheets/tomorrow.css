@@ -208,3 +208,11 @@ li.col-12:nth-child(odd) { background: #1d1f21!important; }
 ul.box-content {
   margin: 0px 0!important;
 }
+
+a.hash_unix, a.hash_unix:visited, a.download_file_8ch, a.download_file_8ch:visited{
+    color: #81a2be;
+}
+
+#boardlist span{
+  color : #C5C8C6 !important;
+}
