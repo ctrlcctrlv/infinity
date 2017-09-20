@@ -362,3 +362,39 @@ table.board-list-table .board-tags .board-cell:hover {
 table.board-list-table tr:nth-of-type( even ) .board-tags .board-cell {
 	background: #DDDDDD;
 }
+
+#velocious_main section.description.box.col.col-12{
+  background: rgb(238, 238, 238) !important;
+}
+
+#velocious_main .box{
+ border: 0px;
+}
+
+#recent_main section.description.box.col.col-12{
+  background: rgb(238, 238, 238) !important;
+}
+
+#recent_main .box{
+ border: 0px;
+}
+
+#tempestuous_main section.description.box.col.col-12{
+  background: rgb(238, 238, 238) !important;
+}
+
+#tempestuous_main .box{
+ border: 0px;
+}
+
+
+#boardlist li:nth-child(odd) { background:#DDDDDD !important; }
+
+#boardlist .box-title{
+  background : transparent;
+}
+
+#activeboards_main section.description.box.col.col-12{
+  background: rgb(238, 238, 238) !important;
+  border:0px;
+}
