@@ -114,3 +114,19 @@ table.board-list-table tr:nth-of-type( even ) .board-tags .board-cell {
 	background: none repeat scroll 0% 0% #f0e0d6;
 	margin: 0px;
 }
+
+.description {
+  background: rgb(255, 255, 238) none repeat scroll 0% 0% !important;
+}
+
+#velocious_main li:nth-child(odd) { background:#ede2d4 !important; }
+
+#recent_main li:nth-child(odd) { background:#ede2d4 !important; }
+
+#tempestuous_main li:nth-child(odd) { background:#ede2d4 !important; }
+
+#activeboards_main li:nth-child(odd) { background:#ede2d4 !important; }
+
+.board-list #search-form{
+ background: #ffffee!important;
+}
