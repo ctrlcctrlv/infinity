@@ -452,3 +452,73 @@ div.post-menu {color: #ffffff}
 div.boardlist:not(.bottom) {position: static;}
 body { min-width: 100%;}
 }
+
+/*new design*/
+table.board-list-table {
+    background: #d6daf0;
+}
+tbody.board-list-tbody tr:nth-child(odd){
+  background: #eef2ff;
+}
+
+footer{
+color:#fff;
+}
+
+a {
+    color: #ef16a2!important;
+}
+
+#boardlist, .box, .box-title{
+ color:#61CE3C!important;
+}
+
+#boardlist .description{
+ background: #1A1A1A !important;
+ border: solid 1px #7b68ee;
+}
+
+#velocious_main li:nth-child(odd) { background:#2b2b2b !important; }
+#recent_main li:nth-child(odd) { background:#2b2b2b !important; }
+#tempestuous_main li:nth-child(odd) { background:#2b2b2b !important; }
+#activeboards_main li:nth-child(odd) { background:#2b2b2b !important; }
+
+#boardlist .description .box-title, .search-container .box-title{
+  background: #2b2b2b!important;
+}
+
+tbody.board-list-tbody tr:nth-child(odd){
+  background: #2b2b2b;
+}
+
+#boardlist thead th {
+  background: #2b2b2b!important;
+  color:#61CE3C!important;
+}
+
+#boardlist table.board-list-table {
+    background: #7b68ee !important;
+}
+.board-list-omitted td {
+   background: #2b2b2b!important;
+}
+
+table tbody tr:nth-of-type( even ) {
+    background-color: #1a1a1a;
+}
+
+#boardlist .board-list #search-form{
+  background: #1a1a1a;
+}
+
+table.board-list-table tr:nth-of-type( even ) .board-tags .board-cell {
+    background: transparent !important;
+}
+
+div.banner, div.banner a {
+    color: white !important;
+}
+
+#boardlist span{
+  color : #61CE3C !important;
+}
