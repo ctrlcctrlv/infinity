@@ -93,6 +93,7 @@ class Api {
 		$dotPos = strrpos($file->file, '.');
 		$apiPost['ext'] = substr($file->file, $dotPos);
 		$apiPost['tim'] = urlencode(substr($file->file, 0, $dotPos));
+		$apiPost['spoiler'] = (isset($file->thumb_path) && $file->thumb_path == "spoiler") ? 1 : 0;
 		if (isset($file->hash))
 			$apiPost['md5'] = base64_encode(hex2bin($file->hash));
 	}
