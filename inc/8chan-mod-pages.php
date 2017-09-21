@@ -537,6 +537,7 @@ FLAGS;
 			$new_thread_capt = isset($_POST['new_thread_capt']) ? 'true' : 'false';
 			$oekaki = ($imgboard || $fileboard) && isset($_POST['oekaki']) ? 'true' : 'false';
 			$view_bumplock = isset($_POST['view_bumplock']) ? '-1' : 'MOD';
+			$enable_emoji = isset($_POST['enable_emoji']) ? 'true' : 'false';
 
 			if (($tor_image_posting === 'true') && isset($_POST['meta_noindex'])) {
 				error('Please index your board to enable this.');
@@ -556,6 +557,14 @@ FLAGS;
 				$multiimage = '';
 			} 
 
+                        if (isset($_POST['enable_emoji'])) {
+                                $emoji_config = "
+                                        \$config['emoji_enable'] = true;
+                                        \$config['additional_javascript']['emoji'] = 'js/twemoji/twemoji.js';";
+                        } else {
+                                $emoji_config = "";
+                        }			
+			
 			if (isset($_POST['custom_assets'])) {
 				$assets = "\$config['custom_assets'] = true;
 				           \$config['spoiler_image'] = 'static/assets/$b/spoiler.png';
@@ -739,7 +748,8 @@ FLAGS;
 \$config['oekaki'] = $oekaki;
 \$config['min_body'] = $min_body;
 \$config['mod']['view_bumplock'] = $view_bumplock;
-$code_tags $katex $replace $multiimage $allow_flash $allow_pdf $user_flags 
+\$config['enable_emoji'] = $enable_emoji;
+$code_tags $katex $replace $multiimage $emoji_config $allow_flash $allow_pdf $user_flags 
 $assets
 $locale
 $anal_filenames
