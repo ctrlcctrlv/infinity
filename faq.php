@@ -3,50 +3,51 @@ include "inc/functions.php";
 $body = <<<EOT
 
 
-<a id="top-faq">
+<a id="top-faq"></a>
 <style>img{max-width:100%}</style>
 <div class="ban">
 <ol>
-        <li> <a href="#what-is-8chan">What is 8chan?</a></li>
-        <li> <a href="#what-is-an-imageboard">What is an imageboard?</a></li>
-        <li> <a href="#how-is-8chan-run">How is 8chan run?</a></li>
-        <li> <a href="#how-do-i-create-a-new-thread">How do I create a new thread?</a></li>
-        <li> <a href="#how-do-i-reply-to-a-thread">How do I reply to a thread?</a></li>
-        <li> <a href="#how-do-i-reply-to-another-poster">How do I reply to another poster?</a></li>
-        <li> <a href="#are-there-any-global-rules-regarding-content">Are there any global rules regarding content?</a></li>
-        <li> <a href="#how-do-i-format-my-text">How do I format my text?</a></li>
-        <li> <a href="#what-is-sage">What is sage?</a></li>
-        <li> <a href="#what-is-a-tripcode">What is a tripcode?</a></li>
+	<li> <a href="#what-is-8chan">What is 8chan?</a></li>
+	<li> <a href="#what-is-an-imageboard">What is an imageboard?</a></li>
+	<li> <a href="#how-is-8chan-run">How is 8chan run?</a></li>
+	<li> <a href="#how-do-i-create-a-new-thread">How do I create a new thread?</a></li>  
+	<li> <a href="#how-do-i-reply-to-a-thread">How do I reply to a thread?</a></li>  
+	<li> <a href="#how-do-i-reply-to-another-poster">How do I reply to another poster?</a></li>  
+	<li> <a href="#are-there-any-global-rules-regarding-content">Are there any global rules regarding content?</a></li>
+	<li> <a href="#how-do-i-format-my-text">How do I format my text?</a></li>
+	<li> <a href="#what-is-sage">What is sage?</a></li>
+	<li> <a href="#what-is-a-tripcode">What is a tripcode?</a></li>
         <li> <a href="#what-is-alacrity">What is Alacrity?</a></li>
         <li> <a href="#thread-has-been-deleted-but-still-able-open-it-why-is-this">A thread has been deleted but I'm still able to open it. Why is this?</a></li>
         <li> <a href="#a-thread-404d-out-of-nowhere-but-is-not-deleted-how-do-i-fix-it">A thread 404'd out of nowhere, but it is not deleted. How do I fix it?</a></li>
-        <li> <a href="#how-screencap-works">How does [Screencap] work?</a></li>
-        <li> <a href="#what-are-these-featured-boards-at-the-top-of-the-page">What are these featured boards at the top?</a></li>
-        <li> <a href="#is-there-a-way-to-tell-if-im-banned">Is there a way to tell if I'm banned?</a></li>
-        <li> <a href="#where-is-the-mobile-app">Where is the mobile app?</a></li>
-        <li> <a href="#where-is-the-archive">Where is the archive?</a></li>
-        <li> <a href="#what-is-the-best-way-to-contact-the-8chan-administration">What is the best way to contact the 8chan administration?</a></li>
-        <li> <a href="#do-you-have-a-privacy-policy">Do you have a privacy policy?</a></li>
-        <li> <a href="#which-boards-are-global-and-owned-by-the-8chan-administration">Which boards are global and owned by the 8chan administration?</a></li>
-        <li> <a href="#could-you-add-a-new-feature">Could you add a new feature?</a></li>
-        <li> <a href="#8chans-onion-service-is-giving-me-an-error-did-you-discontinue-tor-support">8chan's onion service is giving me an error. Did you discontinue Tor support?</a></li>
-        <li> <a href="#i-am-getting-infinite-captchas-when-I-try-to-post-with-my-vpn-did-you-globally-ban-it-or-are-you-not-allowing-vpns-to-post">I am getting infinite captchas when I try to post with my VPN. Did you globally ban it or are you not allowing VPNs to post?</a></li>
-        <li> <a href="#i-am-getting-x-error-when-trying-to-post-am-i-banned">I am getting X error when trying to post, am I banned?</a></li>
-        <li> <a href="#can-i-donate-to-8chan">Can I donate to 8chan?</a></li>
-        <li> <a href="#i-would-like-to-advertise-on-8ch.net-is-this-possible">I would like to advertise on 8ch.net, is this possible?</a></li>
-        <li> <a href="#i-saw-an-ad-i-believe-violates-global-rules-how-can-i-report-it">I saw an ad that I believe violates global rules, how can I report it?</a></li>
-        <li> <a href="#i-created-a-board-how-do-i-manage-it">I created a board, how do I manage it?</a></li>
-        <li> <a href="#how-do-i-add-more-volunteers">How do I add more volunteers?</a></li>
-        <li> <a href="#how-do-i-post-as-a-volunteer-on-my-board">How do I post as a volunteer on my board?</a></li>
-        <li> <a href="#help-my-board-has-been-deleted">Help! My board has been deleted!</a></li>
-        <li> <a href="#i-lost-ownership-of-my-board-what-happened">I lost ownership of my board, what happened?</a></li>
-        <li> <a href="#help-the-owner-of-x-board-is-doing-something-i-dont-like-remove-him">Help! The owner of X board is doing something I don't like! Remove him!</a></li>
-        <li> <a href="#are-there-any-publicly-available-statistics">Are there any publicly available statistics?</a></li>
-        <li> <a href="#i-want-my-board-to-show-up-in-the-recommended-board-list">I want my board to show up in the recommended board list!</a></li>
-        <li> <a href="#i-got-an-email-at-8chanco-email-address">I got an email from an @8chan.co email address. Is that you?</a></li>
-        <li> <a href="#can-i-have-a-list-of-all-api-endpoints-for-getting-raw-data-from-8chan">Can I have a list of all API endpoints for getting raw data from 8chan?</a></li>
-        <li> <a href="#i-would-like-to-contribute-a-translation-in-my-language">I would like to contribute a translation in my language.</a></li>
-        <li> <a href="#what-is-the-8chan-nerve-center">What is the 8chan Nerve Center?</a></li>
+	<li> <a href="#how-screencap-works">How does [Screencap] work?</a></li>
+	<li> <a href="#what-are-these-featured-boards-at-the-top-of-the-page">What are these featured boards at the top?</a></li>
+	<li> <a href="#is-there-a-way-to-tell-if-im-banned">Is there a way to tell if I'm banned?</a></li>
+	<li> <a href="#where-is-the-mobile-app">Where is the mobile app?</a></li>
+	<li> <a href="#where-is-the-archive">Where is the archive?</a></li>
+	<li> <a href="#what-is-the-best-way-to-contact-the-8chan-administration">What is the best way to contact the 8chan administration?</a></li>
+	<li> <a href="#do-you-have-a-privacy-policy">Do you have a privacy policy?</a></li>
+	<li> <a href="#which-boards-are-global-and-owned-by-the-8chan-administration">Which boards are global and owned by the 8chan administration?</a></li>
+	<li> <a href="#could-you-add-a-new-feature">Could you add a new feature?</a></li>
+	<li> <a href="#8chans-onion-service-is-giving-me-an-error-did-you-discontinue-tor-support">8chan's onion service is giving me an error. Did you discontinue Tor support?</a></li>
+	<li> <a href="#i-am-getting-infinite-captchas-when-I-try-to-post-with-my-vpn-did-you-globally-ban-it-or-are-you-not-allowing-vpns-to-post">I am getting infinite captchas when I try to post with my VPN. Did you globally ban it or are you not allowing VPNs to post?</a></li>
+	<li> <a href="#i-am-getting-x-error-when-trying-to-post-am-i-banned">I am getting X error when trying to post, am I banned?</a></li>
+	<li> <a href="#can-i-donate-to-8chan">Can I donate to 8chan?</a></li>
+	<li> <a href="#i-would-like-to-advertise-on-8ch.net-is-this-possible">I would like to advertise on 8ch.net, is this possible?</a></li>
+	<li> <a href="#i-saw-an-ad-i-believe-violates-global-rules-how-can-i-report-it">I saw an ad that I believe violates global rules, how can I report it?</a></li>
+	<li> <a href="#i-created-a-board-how-do-i-manage-it">I created a board, how do I manage it?</a></li>
+	<li> <a href="#how-do-i-add-more-volunteers">How do I add more volunteers?</a></li>
+	<li> <a href="#how-do-i-post-as-a-volunteer-on-my-board">How do I post as a volunteer on my board?</a></li>
+	<li> <a href="#help-my-board-has-been-deleted">Help! My board has been deleted!</a></li>
+	<li> <a href="#i-lost-ownership-of-my-board-what-happened">I lost ownership of my board, what happened?</a></li>
+	<li> <a href="#help-the-owner-of-x-board-is-doing-something-i-dont-like-remove-him">Help! The owner of X board is doing something I don't like! Remove him!</a></li>
+	<li> <a href="#are-there-any-publicly-available-statistics">Are there any publicly available statistics?</a></li>
+	<li> <a href="#i-want-my-board-to-show-up-in-the-recommended-board-list">I want my board to show up in the recommended board list!</a></li>
+	<li> <a href="#i-got-an-email-at-8chanco-email-address">I got an email from an @8chan.co email address. Is that you?</a></li>
+	<li> <a href="#can-i-have-a-list-of-all-api-endpoints-for-getting-raw-data-from-8chan">Can I have a list of all API endpoints for getting raw data from 8chan?</a></li>
+	<li> <a href="#i-would-like-to-contribute-a-translation-in-my-language">I would like to contribute a translation in my language.</a></li>
+	<li> <a href="#what-is-the-8chan-nerve-center">What is the 8chan Nerve Center?</a></li>
+	<li> <a href="#which-websites-can-i-embed">Which websites can I embed?</a></li>
 </ol>
 
 
@@ -89,7 +90,7 @@ Navigate to the board you would like to post on, fill out the post form, and cli
 
 <a id="how-do-i-reply-to-a-thread"></a><h2>How do I reply to a thread?</h2>
 
-<p>On 8chan, threads are ordered from newest (top) to oldest (bottom), while replies are ordered from oldest (top) to newest (bottom).
+<p>On 8chan, threads are ordered from newest (top) to oldest (bottom), while replies are ordered from oldest (top) to newest (bottom).  
 To reply to a thread, click on <i>[Reply]</i> on any thread on a board's index page or, from a board's catalog, click on any thread tile.</p>
 <p><img src='static/how_to_reply.png'></p>
 
@@ -153,13 +154,13 @@ To reply to a thread, click on <i>[Reply]</i> on any thread on a board's index p
 
 
 <a id="what-is-a-tripcode"></a><h2>What is a tripcode?</h2>
-<p>Most posts on 8chan are made anonymously, but this is not the only way to post. The <i>Name</i> field can be used to establish identity as follows: </p>
+<p>Most posts on 8chan are made anonymously, but this is not the only way to post. The <i>Name</i> field can be used to establish identity as follows: </p> 
 
 <ol>
-        <li>By simply entering a name in the <i>Name</i> field. This is not secure, since any other poster is able to use the same name;</li>
-        <li>By entering one # character and a password in the <i>Name</i> field. Adding #example to the <i>Name</i> field would generate !KtW6XcghiY. This is reasonably secure - however, with increasing GPU speeds, these tripcodes may be cracked in a few days by a dedicated attacker;</li>
-        <li>By entering two # characters and a password in the <i>Name</i> field. Adding ##example to the <i>Name</i> field would generate !!Dz.MSNRw9M. This is quite secure, but it relies on a secret salt on the server. This means the code will not work on websites other than 8chan;</li>
-        <li>Board owners and volunteers may capcode by entering <i>## Board Owner</i> or <i>## Board Volunteer</i> in the <i>Name</i> field, depending on their respective positions.</li>
+	<li>By simply entering a name in the <i>Name</i> field. This is not secure, since any other poster is able to use the same name;</li>
+	<li>By entering one # character and a password in the <i>Name</i> field. Adding #example to the <i>Name</i> field would generate !KtW6XcghiY. This is reasonably secure - however, with increasing GPU speeds, these tripcodes may be cracked in a few days by a dedicated attacker;</li>
+	<li>By entering two # characters and a password in the <i>Name</i> field. Adding ##example to the <i>Name</i> field would generate !!Dz.MSNRw9M. This is quite secure, but it relies on a secret salt on the server. This means the code will not work on websites other than 8chan;</li>
+	<li>Board owners and volunteers may capcode by entering <i>## Board Owner</i> or <i>## Board Volunteer</i> in the <i>Name</i> field, depending on their respective positions.</li>
 </ol>
 
 <p>Please note: on 8chan, <b>board owners</b> may disable the <i>Name</i> field by clicking on <i>Settings</i> and checking the <i>Forced anonymous</i> box. Additionally, <b>users</b> are able to anonymize all posts on any 8chan board by clicking on <i>[Options]</i> (top-right corner) and checking the <i>Forced anonymity</i> box under <i>General</i>. This is because many users (including board owners) <b>do not like</b> people using tripcodes if there is no proper reason for it.</p>
@@ -171,7 +172,7 @@ To reply to a thread, click on <i>[Reply]</i> on any thread on a board's index p
 <p>Alacrity is composed of four scalable servers (one master and three slaves). Each server contains multiple nodes and others may be added on demand (for instance, if there is a sudden influx of users). Whenever a node crashes, some threads on the website start displaying 404 despite not being deleted yet.</p>
 <p align="right" style="font-size:0.7em"><a href="#top-faq">[Back to Index]</a></p>
 
-<a id="thread-has-been-deleted-but-still-able-open-it-why-is-this"></a>
+<a id="thread-has-been-deleted-but-still-able-open-it-why-is-this"></a> 
 
 <h2>A thread has been deleted but I'm still able to open it. Why is this?</h2>
 <p>The thread is deleted but still visible cached because of the way Alacrity works. The thread will properly show 404 in a matter of time, whenever Alacrity catches up. Read the <a href="#what-is-alacrity"><i>What is Alacrity?</i></a> entry if you want to know more.</p>
@@ -198,15 +199,15 @@ To reply to a thread, click on <i>[Reply]</i> on any thread on a board's index p
 
 
 <a id="what-are-these-featured-boards-at-the-top-of-the-page"></a><h2>What are these featured boards at the top?</h2>
-<p>There are three different lists that may be displayed at the top (from left to right):</p>
+<p>There are three different lists that may be displayed at the top (from left to right):</p> 
 <ol>
-        <li>Trending Boards: <a href="https://8ch.net/dir" target="_blank">/dir/</a> (8chan's directory) plus eight boards periodically selected by an algorithm;</li>
-        <li>Top Boards: these are the <a href="https://8ch.net/boards.html" target="_blank">top 25 boards</a> on 8chan according to the number of <a target="_blank" href="https://8ch.net/activeusers.html">active users</a>, that is, the number of /16 subnet ranges to post on any given board in the last 72 hours;</li>
-        <li>Personal Favorite Boards: users may create a list of their favorite boards by clicking on the star icon <img src="static/star.png" width="15px"> next to a board's name.</li>
+	<li>Trending Boards: <a href="https://8ch.net/dir" target="_blank">/dir/</a> (8chan's directory) plus eight boards periodically selected by an algorithm;</li>
+	<li>Top Boards: these are the <a href="https://8ch.net/boards.html" target="_blank">top 25 boards</a> on 8chan according to the number of <a target="_blank" href="https://8ch.net/activeusers.html">active users</a>, that is, the number of /16 subnet ranges to post on any given board in the last 72 hours;</li>
+	<li>Personal Favorite Boards: users may create a list of their favorite boards by clicking on the star icon <img src="static/star.png" width="15px"> next to a board's name.</li>
 </ol>
 
 
-<p><b>All lists are optional.</b> You may disable the <i>Trending Boards</i> and <i>Top Boards</i> lists by clicking on <i>[Options]</i> and unchecking either the <i>Show top boards</i> box or the <i>Show trending boards</i> box or both. By default, only the <i>Trending Boards</i> list will be displayed. </p>
+<p><b>All lists are optional.</b> You may disable the <i>Trending Boards</i> and <i>Top Boards</i> lists by clicking on <i>[Options]</i> and unchecking either the <i>Show top boards</i> box or the <i>Show trending boards</i> box or both. By default, only the <i>Trending Boards</i> list will be displayed. </p> 
 <p align="right" style="font-size:0.7em"><a href="#top-faq">[Back to Index]</a></p>
 
 
@@ -237,7 +238,7 @@ To reply to a thread, click on <i>[Reply]</i> on any thread on a board's index p
 
 
 <a id="what-is-the-best-way-to-contact-the-8chan-administration"></a><h2>What is the best way to contact the 8chan administration?</h2>
-<p><b>Definitely not IRC.</b> You may reach the 8chan Administrator by sending an email to <a href="mailto:admin@8ch.net" target="_top">admin@8ch.net</a>.
+<p><b>Definitely not IRC.</b> You may reach the 8chan Administrator by sending an email to <a href="mailto:admin@8ch.net" target="_top">admin@8ch.net</a>.  
 Alternatively, you can go to <a href="https://8ch.net/sudo/catalog.html" target="_blank">/sudo/</a> and create a thread to discuss technical issues, report bugs, request features, and <s>chimp out</s> speak with the 8chan Administrator.</p>
 <p>For more information about who owns 8chan, please <a target="_blank" href="https://8ch.net/who.html">click here</a>.</p>
 <p align="right" style="font-size:0.7em"><a href="#top-faq">[Back to Index]</a></p>
@@ -272,7 +273,7 @@ Alternatively, you can go to <a href="https://8ch.net/sudo/catalog.html" target=
 <a id="i-am-getting-infinite-captchas-when-I-try-to-post-with-my-vpn-did-you-globally-ban-it-or-are-you-not-allowing-vpns-to-post"></a><h2>I am getting infinite captchas when I try to post with my VPN. Did you globally ban it or are you not allowing VPNs to post?</h2>
 <p><b>The use of VPNs is allowed on all boards.</b> Unlike Tor posting, <b>board owners cannot opt out of posting through VPNs</b>. However, board owners and volunteers might ban some VPNs unknowingly, since they cannot see full IPs, only IP hashes. If your VPN has been banned, a ban message will be displayed and you may appeal the ban.</p>
 
-<p>If you receive infinite captchas without being able to post after switching to a VPN, restart your browser and try again. If it still does not work, explain your situation on <a target="_blank" href="https://8ch.net/sudo/catalog.html">/sudo/</a>.</p>
+<p>If you receive infinite captchas without being able to post after switching to a VPN, restart your browser and try again. If it still does not work, explain your situation on <a target="_blank" href="https://8ch.net/sudo/catalog.html">/sudo/</a>.</p>  
 
 <p>If you are getting infinite captchas without using a VPN, the error may be Cloudflare-related. Again, post about it on <a href="https://8ch.net/sudo/catalog.html" target="_blank">/sudo/</a>.</p>
 <p align="right" style="font-size:0.7em"><a href="#top-faq">[Back to Index]</a></p>
@@ -288,7 +289,7 @@ Alternatively, you can go to <a href="https://8ch.net/sudo/catalog.html" target=
 
 
 <a id="can-i-donate-to-8chan"></a><h2>Can I donate to 8chan?</h2>
-<p>8chan is currently <b>not</b> taking any donations. If you see any 8chan donation drives that are not mentioned here, they are a scam.
+<p>8chan is currently <b>not</b> taking any donations. If you see any 8chan donation drives that are not mentioned here, they are a scam.  
 If you want to financially support 8chan anyway, you can do so by <a target="_blank" href="https://softserve.8ch.net">advertising on the website</a>. Read the next question for more information.</p>
 <p align="right" style="font-size:0.7em"><a href="#top-faq">[Back to Index]</a></p>
 
@@ -322,7 +323,7 @@ There, you have access to the noticeboard (messages from the 8chan administratio
 
 <a id="how-do-i-post-as-a-volunteer-on-my-board"></a><h2>How do I post as a board owner or volunteer on my board?</h2>
 <p>Make sure you are using the board owner or volunteer interface to view your board. The URL of your browser should be <b>https://8ch.net/mod.php?/<yourboard></b>.</p>
-<p>If you are the owner of the board, enter <i>## Board Owner</i> in the <i>Name</i> field.</p>
+<p>If you are the owner of the board, enter <i>## Board Owner</i> in the <i>Name</i> field.</p> 
 <p>If you are a volunteer on the board, enter <i>## Board Volunteer</i> in the <i>Name</i> field. Create your post and click on <i>New Reply</i>. It will appear with your capcode.</p>
 <p align="right" style="font-size:0.7em"><a href="#top-faq">[Back to Index]</a></p>
 
@@ -330,7 +331,7 @@ There, you have access to the noticeboard (messages from the 8chan administratio
 
 <a id="help-my-board-has-been-deleted"></a><h2>Help! My board has been deleted!</h2>
 <p>As of November 13th, 2014, board expiration no longer occurs automatically.</p>
-<p>A board only gets deleted by the 8chan administration if the board is found to have been allowing and / or storing child pornography, per the <a target="_blank" href="https://8ch.net/globalrule.html">8chan global rule</a>.</p>
+<p>A board only gets deleted by the 8chan administration if the board is found to have been allowing and / or storing child pornography, per the <a target="_blank" href="https://8ch.net/globalrule.html">8chan global rule</a>.</p>  
 <p>Alternatively, at the discretion of the 8chan administration, the board in question may be forced into becoming a textboard instead to remove all law-breaking images.</p>
 <p align="right" style="font-size:0.7em"><a href="#top-faq">[Back to Index]</a></p>
 
@@ -348,12 +349,12 @@ There, you have access to the noticeboard (messages from the 8chan administratio
 <p>However, a few conditions must be met:</p>
 
 <ol>
-        <li> The board owner must not allow illegal content to be posted on his or her board;</li>
-        <li> The board owner must not state in his or her board's rules that the 8chan global rule does not apply;</li>
-        <li> The board owner must not blanket-ban large swaths of IP ranges;</li>
-        <li> The board owner must not make it impossible to post on his or her board, either by locking all or most threads and / or deleting all or most threads or posts;</li>
-        <li> The board owner must not implement CSS that makes it impossible to post;</li>
-        <li> The board owner must not squat in a board for the purpose of redirecting users from 8chan to a different website. <b>Please note:</b> creating a bunker in case of primary-website malfunction / downtime is fine, provided all of the above are complied with.</li>
+	<li> The board owner must not allow illegal content to be posted on his or her board;</li> 
+	<li> The board owner must not state in his or her board's rules that the 8chan global rule does not apply;</li>  
+	<li> The board owner must not blanket-ban large swaths of IP ranges;</li>
+	<li> The board owner must not make it impossible to post on his or her board, either by locking all or most threads and / or deleting all or most threads or posts;</li>  
+	<li> The board owner must not implement CSS that makes it impossible to post;</li>
+	<li> The board owner must not squat in a board for the purpose of redirecting users from 8chan to a different website. <b>Please note:</b> creating a bunker in case of primary-website malfunction / downtime is fine, provided all of the above are complied with.</li>
 </ol>
 
 <p>If the board owner fails to comply with <b>any</b> of the above, you may report the board to the 8chan Administrator on <a target="_blank" href="https://8ch.net/sudo/">/sudo/</a>. The board will then be eligible for reassignment, at the discretion of the 8chan administration.</p>
@@ -373,7 +374,7 @@ There, you have access to the noticeboard (messages from the 8chan administratio
 
 <a id="i-want-my-board-to-show-up-in-the-recommended-board-list"></a><h2>I want my board to show up in the Trending Boards bar!</h2>
 
-<p>Qualifying boards are selected by an algorithm and change periodically. <a target="_blank" href="https://8ch.net/dir/">/dir/</a>, which is not a global board, is pinned because it acts as a board directory.</p>
+<p>Qualifying boards are selected by an algorithm and change periodically. <a target="_blank" href="https://8ch.net/dir/">/dir/</a>, which is not a global board, is pinned because it acts as a board directory.</p>  
 
 <p>If you <b>do not want your board to show up</b>, choose the option to have your board unlisted in the board owner settings.</p>
 <p align="right" style="font-size:0.7em"><a href="#top-faq">[Back to Index]</a></p>
@@ -385,11 +386,11 @@ There, you have access to the noticeboard (messages from the 8chan administratio
 <a id="i-got-an-email-at-8chanco-email-address"></a><h2>I got an email from an @8chan.co email address. Is that you?</h2>
 <p>Probably not. Anyone can create an email account under the @8chan.co domain name at <a href="https://cock.li/auth/register" target="_blank">cock.li</a>. <a href="https://cock.li/auth/register" target="_blank">cock.li</a> is an unaffiliated third party that started to provide this service after an agreement with 8chan's creator and former Administrator Fredrick Brennan. The 8chan administration takes no responsibility for this service. That said, we have quite a few official 8chan email addresses. They are:</p>
 <ul>
-        <li><a href="mailto:admin@8ch.net">admin@8ch.net</a>;</li>
-        <li><a href="mailto:dmca@8ch.net">dmca@8ch.net</a>;</li>
-        <li><a href="mailto:ads@8ch.net">ads@8ch.net;</a></li>
-        <li><a href="mailto:claim@8ch.net">claim@8ch.net</a>;</li>
-        <li><a href="mailto:apply@8ch.net">apply@8ch.net</a>.</li>
+	<li><a href="mailto:admin@8ch.net">admin@8ch.net</a>;</li>
+	<li><a href="mailto:dmca@8ch.net">dmca@8ch.net</a>;</li>
+	<li><a href="mailto:ads@8ch.net">ads@8ch.net;</a></li>
+	<li><a href="mailto:claim@8ch.net">claim@8ch.net</a>;</li>
+	<li><a href="mailto:apply@8ch.net">apply@8ch.net</a>.</li>
 </ul>
 <p align="right" style="font-size:0.7em"><a href="#top-faq">[Back to Index]</a></p>
 
@@ -400,10 +401,10 @@ There, you have access to the noticeboard (messages from the 8chan administratio
 
 <p>Taking <a href="https://8ch.net/b/catalog.html" target="_blank">/b/</a> as an example, they are as follows:</p>
 <ul>
-        <li>https://8ch.net/b/index.rss - an RSS-formatted index so that you can watch smaller boards and get updates when they get new posts using a feed reader like Thunderbird or Feedly;</li>
-        <li>https://8ch.net/b/0.json - an index of all threads on page 0 of /b/;</li>
-        <li>https://8ch.net/b/res/1.json - all replies of thread 1 on /b/;</li>
-        <li>https://8ch.net/b/threads.json - a thread index of all 15 pages of /b/.</li>
+	<li>https://8ch.net/b/index.rss - an RSS-formatted index so that you can watch smaller boards and get updates when they get new posts using a feed reader like Thunderbird or Feedly;</li>
+	<li>https://8ch.net/b/0.json - an index of all threads on page 0 of /b/;</li>
+	<li>https://8ch.net/b/res/1.json - all replies of thread 1 on /b/;</li>
+	<li>https://8ch.net/b/threads.json - a thread index of all 15 pages of /b/.</li>
 </ul>
 
 <p>There are also endpoints for getting information about 8chan's boards:</p>
@@ -421,7 +422,7 @@ There, you have access to the noticeboard (messages from the 8chan administratio
 <p align="right" style="font-size:0.7em"><a href="#top-faq">[Back to Index]</a></p>
 
 
-<a id="what-is-the-8chan-nerve-center"></a>
+<a id="what-is-the-8chan-nerve-center"></a> 
 
 <h2>What is the 8chan Nerve Center?</h2>
 <p>The <a href="https://nerv.8ch.net" target="_blank">Nerve Center</a> is 8chan's overboard. It shows threads from all 8chan boards in catalog view. The <a href="https://nerv.8ch.net" target="_blank">Nerve Center</a> can display up to eight boards of your choosing by adding the board names to the URL. For example, <i>nerv.8ch.net/board1/board2/board3/boardetc</i>. You cannot create threads or moderate boards from the <a href="https://nerv.8ch.net" target="_blank">Nerve Center</a>.</p>
@@ -466,8 +467,13 @@ calculateEnergy !v !m !p = round $!<br>
 
 <p>This is a work in progress and more functions will be added in the future based on community feedback.</p>
 
-<p><i>[This FAQ was updated on August 21, 2017. The previous version looked like <a target="_blank" href="https://archive.is/MKhxD">this</a>.]</i></p>
+<a id="which-websites-can-i-embed"></a><h2>Which websites can I embed?</h2>
+<p>
+Currently you may embed the following websites: YouTube.com, Twitch.tv, Vid.me, LiveLeak.com, Nicovideo.jp, SoundCloud.com, Vimeo.com, DailyMotion.com, VaughnLive.tv, Streamable.com, xHamster.com, PornHub.com, Redtube.com, Tube8.com, XVideos.com, YouJizz.com, vlive.com (https no supported).
+</p>
 <p align="right" style="font-size:0.7em"><a href="#top-faq">[Back to Index]</a></p>
+
+<p><i>[This FAQ was updated on September 21, 2017. The previous version looked like <a target="_blank" href="https://archive.is/sY1Vn">this</a>.]</i></p>
 
 </div>
 
