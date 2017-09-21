@@ -468,3 +468,13 @@ table.board-list-table .board-tags .board-cell:hover {
 table.board-list-table tr:nth-of-type( even ) .board-tags .board-cell {
 	background: #100000;
 }
+
+#boardlist .description{
+  background: transparent !important;
+}
+
+#boardlist li:nth-child(odd) { background:transparent!important; }
+
+#boardlist span{
+  color : #FFAA00!important;
+}
