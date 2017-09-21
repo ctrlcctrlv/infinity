@@ -120,7 +120,7 @@ function mod_dashboard() {
         $query_ban_appeals = prepare("SELECT *, COUNT(*) AS `total_ban_appeals` FROM ``ban_appeals``
                 LEFT JOIN ``bans`` ON `ban_id` = ``bans``.`id`
                 LEFT JOIN ``mods`` ON ``bans``.`creator` = ``mods``.`id`
-                WHERE `denied` != 1 ".($local ? " AND ``bans``.`board` = :board " : "")." ORDER BY `time`");
+                WHERE `denied` != 1 ".($local ? " AND ``bans``.`board` = :board " : " AND ``bans``.`board` IS NULL ")." ORDER BY `time`");
         $query_ban_appeals->bindValue(':board', $mod['boards'][0]);
 
         $query_ban_appeals->execute() or error(db_error($query));
