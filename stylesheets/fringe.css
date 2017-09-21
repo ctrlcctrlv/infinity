@@ -730,3 +730,61 @@ p.intro span.subject {
 }
 
 div.ban h2 { font-family: 'Andada';}
+
+/*new design*/
+#boardlist .box{
+  background:#3b4357;
+  color:#fff;
+}
+
+#boardlist .box-content.col.col-12 {
+    background: #000;
+    color: #fff;
+}
+
+#boardlist li:nth-child(odd) { background:#3b4357 !important; }
+
+
+tbody.board-list-tbody tr:nth-child(odd){
+  background: #3b4357;
+}
+
+#boardlist .box-title{
+  background : #3b4357;
+}
+
+#boardlist .board-list-table .board-list-head th{
+  background : #3b4357 !important;
+}
+
+#velocious_main section.description.box.col.col-12{
+  background: #000 !important;
+}
+
+#recent_main section.description.box.col.col-12{
+  background: #000 !important;
+}
+
+#tempestuous_main section.description.box.col.col-12{
+  background: #000 !important;
+}
+
+table.board-list-table tr:nth-of-type( even ) .board-tags .board-cell {
+        background: transparent !important;
+}
+
+tbody.board-list-omitted td {
+    background: #3b4357;
+}
+
+#boardlist .box-title{
+        color:#fff!important;
+}
+
+#boardlist .board-list-head th{
+  color:#fff!important;
+}
+
+#boardlist span{
+  color : #fff !important;
+}
