@@ -95,3 +95,31 @@ table.board-list-table .board-tags .board-cell:hover {
 table.board-list-table tr:nth-of-type( even ) .board-tags .board-cell {
 	background: #343C4E;
 }
+
+#velocious_main .description{
+        background : #343C4E !important;
+}
+
+#velocious_main li:nth-child(odd) { background:#3b4357 !important; }
+
+#recent_main .description{
+        background : #343C4E !important;
+}
+
+#recent_main li:nth-child(odd) { background:#3b4357 !important; }
+
+#tempestuous_main .description{
+        background : #343C4E !important;
+}
+
+#tempestuous_main li:nth-child(odd) { background:#3b4357 !important; }
+
+#activeboards_main .description{
+        background : #343C4E !important;
+}
+
+#activeboards_main li:nth-child(odd) { background:#3b4357 !important; }
+
+#boardlist span{
+  color : #fff !important;
+}
