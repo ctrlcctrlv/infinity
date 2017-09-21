@@ -1,5 +1,5 @@
 {% for ban in ban_appeals %}
-
+{% if mod.type!="25" or ban.board==false %}
 <form action="" method="post" style="margin: 10px 0">
 	<input type="hidden" name="token" value="{{ token }}">
 	<table style="margin: 5px 0">
@@ -108,5 +108,5 @@
 	{% endif %}
 </form>
 <hr>
-
+{% endif %}
 {% endfor %}
