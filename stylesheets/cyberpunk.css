@@ -6,9 +6,9 @@
         font-family: "Lucida Console", Monaco, monospace;
         font-size: 14px;
         background: url("https://i.imgur.com/rRLs7q4.png") fixed repeat top #000000;
-float: left;
 margin-left: 10px;
 margin-right: 35px;
+display:grid;
     }
 
 div#thread_39085 {
@@ -438,7 +438,7 @@ form table tr th {
 
 p.intro a.email span.name{color: #c80b63}
 p.intro span.capcode {color: #FBDE2D}
-p.intro span.capcode:before {font-family: MS PGothic; content: "（　´∀｀） 🔰"}
+p.intro span.capcode:before {font-family: MS PGothic; content: "ï¼ˆã€€Â´âˆ€ï½€ï¼‰ ðŸ”°"}
 
 
 label {display:none}
@@ -463,6 +463,7 @@ tbody.board-list-tbody tr:nth-child(odd){
 
 footer{
 color:#fff;
+margin: inherit;
 }
 
 a {
@@ -521,4 +522,19 @@ div.banner, div.banner a {
 
 #boardlist span{
   color : #61CE3C !important;
+}
+
+div.module, div.ban {
+    background: #1A1A1A !important;
+    border: solid 1px #7b68ee;
+    color: #61CE3C!important;
+}
+
+div.ban h2 {
+  background: #2b2b2b!important;
+  color: #61CE3C!important;
+}
+
+li.col-12:nth-child(2n+1) {
+    background: #2b2b2b !important;
 }
