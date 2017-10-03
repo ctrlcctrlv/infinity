@@ -97,29 +97,53 @@ table.board-list-table tr:nth-of-type( even ) .board-tags .board-cell {
 }
 
 #velocious_main .description{
-        background : #343C4E !important;
+	background : #343C4E !important;
 }
 
 #velocious_main li:nth-child(odd) { background:#3b4357 !important; }
 
 #recent_main .description{
-        background : #343C4E !important;
+	background : #343C4E !important;
 }
 
 #recent_main li:nth-child(odd) { background:#3b4357 !important; }
 
 #tempestuous_main .description{
-        background : #343C4E !important;
+	background : #343C4E !important;
 }
 
 #tempestuous_main li:nth-child(odd) { background:#3b4357 !important; }
 
 #activeboards_main .description{
-        background : #343C4E !important;
+	background : #343C4E !important;
 }
 
 #activeboards_main li:nth-child(odd) { background:#3b4357 !important; }
 
 #boardlist span{
   color : #fff !important;
+}
+
+/*09/28/2017*/
+div.ban {
+    background: #343C4E !important;
+    border: none;
+    padding: 1px;
+}
+
+div.ban h2 {
+    background: #7F8CA8 !important;
+    color: #0F0C5D !important;
+}
+
+a, a:visited {
+    color: #8020FF !important;
+}
+
+li.col-12:nth-child(2n+1) {
+    background: #3b4357 !important;
+}
+
+.options_tab{
+  background: #1c1e28 !important;
 }
