@@ -469,12 +469,23 @@ table.board-list-table tr:nth-of-type( even ) .board-tags .board-cell {
 	background: #100000;
 }
 
+/*new design*/
 #boardlist .description{
-  background: transparent !important;
+ background: transparent !important;
+}
+
+div.ban {
+ border-radius: 10px;
+ border: 1px solid #200000 !important;
+ background: transparent !important;
 }
 
 #boardlist li:nth-child(odd) { background:transparent!important; }
 
 #boardlist span{
   color : #FFAA00!important;
+}
+
+div.ban h2{
+ color : #FFAA00 !important;
 }
