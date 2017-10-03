@@ -14,6 +14,9 @@ h1,div.subtitle {
 a:link,a:visited,p.intro a.email span.name {
   color:#81a2be
 }
+a.download_image {
+    color: #81a2be;
+}
 a:link:hover {
   color:#5F89AC
 }
@@ -59,6 +62,9 @@ p.intro span.name {
 }
 .quote {
   color:#adbd68
+}
+.quote_checked{
+ color: #148800;
 }
 span.heading {
   color:#F20
@@ -215,4 +221,10 @@ a.hash_unix, a.hash_unix:visited, a.download_file_8ch, a.download_file_8ch:visit
 
 #boardlist span{
   color : #C5C8C6 !important;
+}
+
+/*09/28/2017*/
+div.ban {
+ background: #282a2e !important;
+ border-color: #111;
 }
