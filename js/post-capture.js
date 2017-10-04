@@ -325,5 +325,4 @@ $('document').ready(function () {
 		}, timeoutdelay);
 
     });
-    $(window).on('keyup', function(e) { if (e.keyCode == 44) $('#grab').trigger('click') });
 });
