@@ -53,7 +53,7 @@ var main = function(){
 
   fix_choice();
 
-  var allboards = $("<label><input type='checkbox' id='css-all-boards'> "+_("Style should affect all boards, not just current board")+" (/"+board_name+"/)</label>").appendTo(tab.content).find('input');
+  var allboards = $("<label><input type='checkbox' id='css-all-boards'> "+_("Apply to all boards, not just this one")+" (/"+board_name+"/)</label>").appendTo(tab.content).find('input');
 
   if (localStorage.stylesheets_all_boards === "true") allboards.prop('checked', 'checked');
 
