@@ -322,6 +322,9 @@ form table tr td div {
     padding-left: 0px;
 
 }
+.recaptchatable .recaptcha_image_cell {
+    padding: 0px !important;
+}
 
 .desktop-style div.boardlist:not(.bottom) {
     background-color: #DDDDDD;
@@ -397,4 +400,14 @@ table.board-list-table tr:nth-of-type( even ) .board-tags .board-cell {
 #activeboards_main section.description.box.col.col-12{
   background: rgb(238, 238, 238) !important;
   border:0px;
+}
+
+/*09/28/2017*/
+div.ban {
+ background: #DDDDDD !important;
+}
+
+div.ban h2 {
+ background: #EEE !important;
+ border-radius: 0px !important;
 }
