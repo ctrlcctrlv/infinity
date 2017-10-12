@@ -268,10 +268,9 @@ div.post p.fileinfo {
 
 div.banner {
   background-color: #E04000;
-  font-size: 12pt;
   font-weight: bold;
   text-align: center;
-  margin: 1em 0;
+  margin: 0 0 1em;
 }
 
 div.banner,div.banner a {
@@ -442,6 +441,13 @@ span.trip {
 .quote {
   color: #789922;
 }
+.quote_checked{
+ color: #148800;
+}
+
+.rquote {
+  color: #E0727F;
+}
 
 span.omitted {
   display: block;
@@ -511,7 +517,6 @@ span.heading {
 span.detected {
   background: #FAF8F8;
   color: #3060A8;
-  border: 1px solid #3060A8;
   padding: 0 1px;
 }
 
@@ -1255,7 +1260,7 @@ div.mix {
 
 /* Mona Font */
 .aa {
-	font-family: Mona, "MS PGothic", "ＭＳ Ｐゴシック", sans-serif;
+	font-family: Mona, "MS PGothic", "ï¼­ï¼³ ï¼°ã‚´ã‚·ãƒƒã‚¯", sans-serif;
 	display: block!important;
 	font-size: 12pt;
 	line-height: 1.1;
@@ -1346,6 +1351,20 @@ div.mix {
 }
 #quick-reply .nonsense {
 	display: none;
+}
+#quick-reply td.recaptcha {
+	text-align: center;
+	padding: 0 0 1px 0;
+}
+#quick-reply td.recaptcha span {
+	display: inline-block;
+	width: 100%;
+	background: white;
+	border: 1px solid #ccc;
+	cursor: pointer;
+}
+#quick-reply td.recaptcha-response {
+	padding: 0 0 1px 0;
 }
 @media screen and (max-width: 600px) {
 	#quick-reply {
@@ -1476,7 +1495,7 @@ table.board-list-table .board-max {
 	padding: 4px;
 }
 table.board-list-table .board-unique {
-	width: 100px;
+	width: 120px;
 	padding: 4px;
 }
 table.board-list-table .board-tags {
@@ -1718,4 +1737,181 @@ table.fileboard th, table.fileboard td {
 }
 table.fileboard .intro a {
   margin-left: 0px;
+}
+/* board list tags */
+li.tag-item {
+max-width: 100%;
+overflow: hidden;
+}
+
+/*Glyphicon Screencapture*/
+#glyphicon-capture{display:block;float:right;margin-left:10px;}
+
+/*show create catalog*/
+a.show-create-thread-catalog {
+    font-size: 1.1em;
+}
+
+/*Screen Capture style*/
+div.post_capture p.fileinfo {
+  padding-left: 5px;
+}
+
+div.post_capture .post-image {
+  padding: 5px;
+  margin: 0 20px 0 0;
+}
+
+div.post_capture img.icon {
+  display: inline;
+  margin: 0 5px;
+  padding: 0;
+}
+
+div.post_capture i.fa, div.thread i.fa {
+  margin: 0 4px;
+  font-size: 16px;
+}
+
+div.post_capture.op {
+  margin-right: 20px;
+  margin-bottom: 5px;
+}
+
+div.post_capture.op hr {
+  border-color: #D9BFB7;
+}
+
+div.post_capture p {
+        display: block;
+        margin: 0;
+
+        line-height: 1.16em;
+        font-size: 13px;
+        min-height: 1.16em;
+}
+
+div.post_capture div.body {
+  margin-top: 0.8em;
+  padding-right: 3em;
+  padding-bottom: 0.3em;
+}
+
+div.post_capture.reply div.body {
+  margin-left: 1.8em;
+}
+
+div.post_capture.reply.highlighted {
+  background: #D6BAD0;
+}
+
+div.post_capture.reply div.body a {
+  color: #D00;
+}
+
+div.post_capture div.body {
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+div.post_capture.reply {
+  background: #D6DAF0;
+  margin: 0.2em 4px;
+  padding: 0.5em 0.3em 0.5em 0.6em;
+  border-width: 1px;
+  border-style: none solid solid none;
+  border-color: #B7C5D9;
+  display: inline-block;
+  max-width: 94%!important;
+}
+
+div.post_capture.reply.has-file.body-not-empty {
+  min-width: 33%;
+}
+
+
+div.post_capture.reply div.body span.spoiler a {
+  color: black;
+}
+
+@media (max-width:961px)  {
+	section.velocious .col-1,
+	section.velocious .col-2,
+	section.velocious .col-8{
+		padding: 2px !important;
+		font-size: 60% !important;
+	}
+
+	section.velocious span.col-2{
+		word-break: break-all !important;
+	}
+
+	section.velocious .col-1{
+		padding: 2px !important;
+		text-align:right !important;
+	}
+}
+
+section.velocious ul.box-content{
+	padding: 0 !important;
+}
+
+section.velocious span.col-8{
+        padding-left: 2px !important;
+}
+
+
+section.velocious span.col-2{
+	word-break: break-all !important;
+}
+
+.velo-cell {
+        position: static;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+}
+
+.centered{
+	text-align:center;
+}
+
+#new-bottom-ads {
+  width:300px;
+  margin-left:1px;
+}
+
+.ech-bottom {
+  float:left;
+  height:250px;
+}
+
+#s-bottom-ad {
+  width:300px;
+  height:250px;
+  margin-left:305px;
+}
+
+@media only screen and (max-width : 480px) {
+
+  .ech-bottom {
+    float:none;
+    height:auto;
+  }
+
+  #s-bottom-ad {
+    width:300px;
+    height:250px;
+    margin-left:1px;
+  }
+
+}
+
+/*09/28/2017*/
+div.module, div.ban {
+ background: #D6DAF0 !important;
+ border: 1px solid #000333;
 }
