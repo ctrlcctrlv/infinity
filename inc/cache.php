@@ -31,7 +31,11 @@ class Cache {
 	}
 	public static function get($key) {
 		global $config;
-		
+
+                if ($key != 'all_boards_indexed' && $key != 'all_boards') {
+                        return false;
+                }
+
 		$key = $config['cache']['prefix'] . $key;
 		
 		$data = false;
@@ -72,7 +76,11 @@ class Cache {
 	}
 	public static function set($key, $value, $expires = false) {
 		global $config;
-		
+
+                if ($key != 'all_boards_indexed' && $key != 'all_boards') {
+                        return false;
+                }
+
 		$key = $config['cache']['prefix'] . $key;
 		
 		if (!$expires)
@@ -108,6 +116,10 @@ class Cache {
 	public static function delete($key) {
 		global $config;
 		
+                if ($key != 'all_boards_indexed' && $key != 'all_boards') {
+                        return false;
+                }
+
 		$key = $config['cache']['prefix'] . $key;
 		
 		switch ($config['cache']['enabled']) {
