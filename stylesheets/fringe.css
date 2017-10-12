@@ -620,7 +620,7 @@ p.intro span.subject {
 
 p.intro span.subject:before {
     color: #D9E2FD;
-    content:"» ";
+    content:"Â» ";
 }
 
 span.trip {
@@ -742,7 +742,7 @@ div.ban h2 { font-family: 'Andada';}
     color: #fff;
 }
 
-#boardlist li:nth-child(odd) { background:#3b4357 !important; }
+#boardlist li:nth-child(odd) { background:#3b4256 !important; }
 
 
 tbody.board-list-tbody tr:nth-child(odd){
@@ -750,23 +750,23 @@ tbody.board-list-tbody tr:nth-child(odd){
 }
 
 #boardlist .box-title{
-  background : #3b4357;
+  background : #3b4357; 
 }
 
 #boardlist .board-list-table .board-list-head th{
-  background : #3b4357 !important;
+  background : #3b4357 !important;  
 }
 
 #velocious_main section.description.box.col.col-12{
-  background: #000 !important;
+  background: #3b4256 !important;
 }
 
 #recent_main section.description.box.col.col-12{
-  background: #000 !important;
+  background: #3b4256 !important;
 }
 
 #tempestuous_main section.description.box.col.col-12{
-  background: #000 !important;
+  background: #3b4256 !important;
 }
 
 table.board-list-table tr:nth-of-type( even ) .board-tags .board-cell {
@@ -778,7 +778,7 @@ tbody.board-list-omitted td {
 }
 
 #boardlist .box-title{
-        color:#fff!important;
+	color:#fff!important;
 }
 
 #boardlist .board-list-head th{
@@ -787,4 +787,18 @@ tbody.board-list-omitted td {
 
 #boardlist span{
   color : #fff !important;
+}
+
+/*09/28/2017*/
+div.module, div.ban {
+ background: #3b4357 !important;
+ border: 1px solid #000333 !important;
+}
+
+#boardlist .box-content.col.col-12 {
+    background: transparent !important;
+}
+
+li.col.col-12 {
+    background: #060100 !important;
 }
