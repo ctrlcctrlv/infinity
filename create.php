@@ -78,7 +78,7 @@ $query->bindValue(':boards', $uri);
 $query->bindValue(':email', $email);
 $query->execute() or error(db_error($query));
 		
-$query = prepare('INSERT INTO ``boards`` (`uri`, `title`, `subtitle`) VALUES (:uri, :title, :subtitle)');
+$query = prepare('INSERT INTO ``boards`` (`uri`, `title`, `subtitle`,`created_at`) VALUES (:uri, :title, :subtitle, NOW())');
 $query->bindValue(':uri', $_POST['uri']);
 $query->bindValue(':title', $_POST['title']);
 $query->bindValue(':subtitle', $_POST['subtitle']);
