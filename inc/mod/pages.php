@@ -1678,6 +1678,7 @@ function mod_ban_postbyip($board, $delete, $post, $global = false, $token = fals
 
     $query_byip->execute() or error(db_error($query_byip));
 
+    $deleted = 0;
     while ($_postbyip = $query_byip->fetch(PDO::FETCH_ASSOC)) {
 
       if($post == $_postbyip['id']){
@@ -1687,14 +1688,18 @@ function mod_ban_postbyip($board, $delete, $post, $global = false, $token = fals
 
       if (isset($_POST['delete']) && (int) $_POST['delete']) {
         deletePost($_postbyip['id'],false);
-        // Rebuild board
-        buildIndex();
-        // Rebuild themes
-        rebuildThemes('post-delete', $board);
+	$deleted = 1;
       }
 
     }////end while
-
+	  
+    if ($deleted === 1){
+      // Rebuild board
+      buildIndex();
+      // Rebuild themes
+      rebuildThemes('post-delete', $board);
+    }
+	  
     if($global){
       modLog("Deleted all posts by IP address: <a href=\"?/IP/$ip\">$ip</a>");
     }else{
