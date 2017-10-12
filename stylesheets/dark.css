@@ -9,7 +9,10 @@ body {
 	font-size: 12px;
 }
 .quote {
-    color:#B8D962;
+    color:#a3d951
+}
+.quote_checked{
+ color: #148800;
 }
 h1 {
 	font-size: 20pt;
@@ -27,6 +30,9 @@ a:link, a:visited, .intro a.email span.name {
 	color: #CCCCCC;
 	text-decoration: none;
 	font-family: sans-serif;
+}
+a.download_image {
+    	color: #CCCCCC;
 }
 a:link:hover, a:visited:hover {
 	color: #fff;
@@ -78,6 +84,9 @@ div.post.reply div.body a:link:hover, div.post.reply div.body a:visited:hover {
 .intro a.email, p.intro a.email span.name, p.intro a.email:hover, p.intro a.email:hover span.name {
 	color: #32ddaf;
 }
+pre {
+        background-color:#ccc;
+}
 input[type="text"], textarea, select {
 	background: #333333;
 	color: #CCCCCC;
@@ -103,7 +112,6 @@ div.banner {
 	background: #32DD72;
 	color: #000;
 	text-align: center;
-	width: 250px;
 	padding: 4px;
 	padding-left: 12px;
 	padding-right: 12px;
@@ -254,4 +262,17 @@ ul.box-content {
 
 a.hash_unix, a.hash_unix:visited, a.download_file_8ch, a.download_file_8ch:visited{
     color: #CCCCCC;
+}
+
+/*09/28/2017*/
+div.ban {
+ background: #1e1e1e!important;
+ border: 1px solid #555555;
+ color: #C5C8C6;
+ border-radius: 10px;
+}
+
+div.ban h2 {
+ background: #333;
+ color: #32DD72;
 }
