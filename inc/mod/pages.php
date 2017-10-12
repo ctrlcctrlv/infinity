@@ -330,6 +330,7 @@ function mod_edit_board($boardName) {
 				cache::delete('board_' . $board['uri']);
 				cache::delete('all_boards');
 				cache::delete('all_boards_uri');
+				cache::delete('all_boards_indexed');
 			}
 			
 			modLog('Deleted board: ' . sprintf($config['board_abbreviation'], $board['uri']), false);
@@ -478,8 +479,10 @@ function mod_new_board() {
 		
 		query($query) or error(db_error());
 		
-		if ($config['cache']['enabled'])
+		if ($config['cache']['enabled']){
 			cache::delete('all_boards');
+			cache::delete('all_boards_indexed');
+		}
 		
 		// Build the board
 		buildIndex();
