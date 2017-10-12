@@ -843,6 +843,7 @@ EOT;
 		if ($config['cache']['enabled']) {
 			cache::delete('board_' . $board['uri']);
 			cache::delete('all_boards');
+			cache::delete('all_boards_indexed');
 
 			cache::delete('config_' . $board['uri']);
 			cache::delete('events_' . $board['uri']);
