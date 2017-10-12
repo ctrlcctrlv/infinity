@@ -812,13 +812,11 @@ function listBoards($just_uri = false, $indexed_only = false) {
 				``boards``.`uri` uri,
 				``boards``.`title` title,
 				``boards``.`subtitle` subtitle,
-				``board_create``.`time` time,
 				``boards``.`indexed` indexed,
 				``boards``.`sfw` sfw,
-				``boards``.`posts_total` posts_total
-			FROM ``boards``
-			LEFT JOIN ``board_create``
-				ON ``boards``.`uri` = ``board_create``.`uri`" .
+				``boards``.`posts_total` posts_total,
+				date(``boards``.`created_at`) time
+			FROM ``boards``" .
 			( $indexed_only ? " WHERE `indexed` = 1 " : "" ) .
 			"ORDER BY ``boards``.`uri`") or error(db_error());
 		
