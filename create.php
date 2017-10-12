@@ -89,8 +89,10 @@ query($query) or error(db_error());
 
 if (!openBoard($_POST['uri']))
 	error(_("Couldn't open board after creation."));
-if ($config['cache']['enabled'])
+if ($config['cache']['enabled']){
 	cache::delete('all_boards');
+	cache::delete('all_boards_indexed');
+}
 
 // Build the board
 buildIndex();
