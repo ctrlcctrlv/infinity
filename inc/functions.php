@@ -793,6 +793,16 @@ function listBoards($just_uri = false, $indexed_only = false) {
 	$just_uri ? $cache_name = 'all_boards_uri' : $cache_name = 'all_boards';
 	$indexed_only ? $cache_name .= 'indexed' : false;
 
+        /*all boards with indexed 0 or 1*/
+        if($config['cache']['enabled'] && !$indexed_only && ($boards = cache::get("all_boards"))){
+                return $boards;
+        }
+
+        /*all boards with indexed 1 only*/
+        if($config['cache']['enabled'] && $indexed_only && ($boards = cache::get("all_boards_indexed"))){
+                return $boards;
+        }
+	
 	if ($config['cache']['enabled'] && ($boards = cache::get($cache_name)))
 		return $boards;
 
@@ -823,11 +833,18 @@ function listBoards($just_uri = false, $indexed_only = false) {
 			$boards[] = $board;
 		}
 	}
- 
-	if ($config['cache']['enabled'])
-		cache::set($cache_name, $boards);
 
-	return $boards;
+        /*all boards with indexed is 0 or 1*/
+        if($config['cache']['enabled'] && !$indexed_only){
+                cache::set("all_boards", $boards);
+        }
+
+        /*all boards with indexed is 1 only*/
+        if($config['cache']['enabled'] && $indexed_only){
+                cache::set("all_boards_indexed", $boards);
+        }
+
+        return $boards;
 }
 
 function loadBoardConfig( $uri ) {
