@@ -2976,3 +2976,14 @@ function markdown($s) {
 
 	return $pd->text($s);
 }
+
+function scan_input($str,$type){
+  if($str != strip_tags($str)) {
+    if($type == "createboard"){
+      error("Cannot create a board with HTML, JavaScript, or PHP tags in the Title and/or Subtitle field.");
+    }elseif($type=="settings"){
+      error("Cannot add HTML, JavaScript, or PHP tags to the Title and/or Subtitle field.");
+    }
+  }
+  return $str;
+}
