@@ -1076,7 +1076,11 @@ function displayBan($ban) {
 			}
 		}
 	}
-	
+
+	if(strpos($ban['ip'],'$2a$07$') !== false) {
+		$ban['ip'] = "...".substr($ban['ip'],-8);
+	}
+
 	// Show banned page and exit
 	die(
 		Element('page.html', array(
