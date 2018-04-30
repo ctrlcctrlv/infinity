@@ -506,8 +506,8 @@ FLAGS;
 			$txtboard = $board_type == 'txtboard';
 			$fileboard = $board_type == 'fileboard';
 
-			$title = $_POST['title'];
-			$subtitle = $_POST['subtitle'];
+			$title = strip_tags(scan_input($_POST['title'],'settings'));
+			$subtitle = strip_tags(scan_input($_POST['subtitle'],'settings'));
 			$country_flags = isset($_POST['country_flags']) ? 'true' : 'false';
 			$field_disable_name = isset($_POST['field_disable_name']) ? 'true' : 'false';
 			$force_anon_thread = isset($_POST['force_anon_thread']) ? 'true' : 'false';
