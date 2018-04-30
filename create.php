@@ -17,10 +17,10 @@ echo Element("page.html", array("config" => $config, "body" => $body, "title" =>
 
 else {
 $uri = $_POST['uri'];
-$title = $_POST['title'];
-$subtitle = $_POST['subtitle'];
-$username = $_POST['username'];
-$password = $_POST['password'];
+$title = strip_tags(scan_input($_POST['title'],'createboard'));
+$subtitle = strip_tags(scan_input($_POST['subtitle'],'createboard'));
+$username = strip_tags($_POST['username']);
+$password = strip_tags($_POST['password']);	
 $email = (isset($_POST['email']) ? $_POST['email'] : '');
 
 $resp = file_get_contents($config['captcha']['provider_check'] . "?" . http_build_query([
@@ -79,9 +79,9 @@ $query->bindValue(':email', $email);
 $query->execute() or error(db_error($query));
 		
 $query = prepare('INSERT INTO ``boards`` (`uri`, `title`, `subtitle`,`created_at`) VALUES (:uri, :title, :subtitle, NOW())');
-$query->bindValue(':uri', $_POST['uri']);
-$query->bindValue(':title', $_POST['title']);
-$query->bindValue(':subtitle', $_POST['subtitle']);
+$query->bindValue(':uri', $uri);
+$query->bindValue(':title', $title);
+$query->bindValue(':subtitle', $subtitle);
 $query->execute() or error(db_error($query));
 
 $query = Element('posts.sql', array('board' => $uri));
