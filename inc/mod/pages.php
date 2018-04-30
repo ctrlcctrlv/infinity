@@ -972,6 +972,10 @@ function mod_page_ip_less($b, $id) {
 	}
 	
 	$args['security_token'] = make_secure_link_token('IP_less/' . $b . '/' . $id);
+
+	if(strpos($ip,'$2a$07$') !== false) {
+    		$ip = "...".substr($ip,-8);
+  	}
 	
 	mod_page(sprintf('%s: %s', _('IP'), less_ip($ip, $b)), 'mod/view_ip_less.html', $args);
 }
@@ -1592,6 +1596,10 @@ function mod_ban_post($board, $delete, $post, $token = false) {
 		
 		header('Location: ?/' . sprintf($config['board_path'], $board) . $config['file_index'], true, $config['redirect_http']);
 	}
+
+	if(strpos($ip,'$2a$07$') !== false) {
+    		$ip = "...".substr($ip,-8);
+  	}
 	
 	$args = array(
 		'ip' => $ip,
@@ -1709,6 +1717,10 @@ function mod_ban_postbyip($board, $delete, $post, $global = false, $token = fals
       modLog("Deleted all posts by IP address in a thread: <a href=\"?/IP/$ip\">$ip</a>");
     }
     header('Location: ?/' . sprintf($config['board_path'], $board) . $config['file_index'], true, $config['redirect_http']);
+  }
+
+  if(strpos($ip,'$2a$07$') !== false) {
+    $ip = "...".substr($ip,-8);
   }
 
   $args = array(
