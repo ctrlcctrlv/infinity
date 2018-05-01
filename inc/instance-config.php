@@ -136,7 +136,6 @@
 	$config['additional_javascript'][] = 'js/fix-report-delete-submit.js';
 	$config['additional_javascript'][] = 'js/image-hover.js';
 	$config['additional_javascript'][] = 'js/auto-scroll.js';
-	$config['additional_javascript'][] = 'js/twemoji/twemoji.js';
 	$config['additional_javascript'][] = 'js/file-selector.js';
 	$config['additional_javascript'][] = 'js/gallery-view.js';
 	$config['additional_javascript'][] = 'js/board-directory.js';
