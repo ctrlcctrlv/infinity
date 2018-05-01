@@ -1076,7 +1076,11 @@ function displayBan($ban) {
 			}
 		}
 	}
-	
+
+	if(strpos($ban['ip'],'$2a$07$') !== false) {
+		$ban['ip'] = "...".substr($ban['ip'],-8);
+	}
+
 	// Show banned page and exit
 	die(
 		Element('page.html', array(
@@ -2977,6 +2981,7 @@ function markdown($s) {
 	return $pd->text($s);
 }
 
+
 function filter_logs(&$logs) {
         /*remove hash# and html text from ban info*/
         foreach($logs as $key=>$value) {
@@ -2994,5 +2999,17 @@ function filter_logs(&$logs) {
 
                 $logs[$key]['text'] = str_replace('&lt;/p&gt;', '', $log_filtered);
         }
+}
+
+
+function scan_input($str,$type){
+  if($str != strip_tags($str)) {
+    if($type == "createboard"){
+      error("Cannot create a board with HTML, JavaScript, or PHP tags in the Title and/or Subtitle field.");
+    }elseif($type=="settings"){
+      error("Cannot add HTML, JavaScript, or PHP tags to the Title and/or Subtitle field.");
+    }
+  }
+  return $str;
 }
 
