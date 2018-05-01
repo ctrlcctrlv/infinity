@@ -2981,6 +2981,27 @@ function markdown($s) {
 	return $pd->text($s);
 }
 
+
+function filter_logs(&$logs) {
+        /*remove hash# and html text from ban info*/
+        foreach($logs as $key=>$value) {
+                $log_filtered = preg_replace('/\<a href\=\"\?\/IP\/[\s\S]+?\<\/a\>/', '&lt;ip hidden&gt;', $value['text']);
+                $log_filtered = preg_replace('/\/ for [\s\S]+? \(\<small\>/', '/ (<small>', $log_filtered);
+                $log_filtered = str_replace('&lt;p class="body-line ltr "&gt;', '', $log_filtered);
+
+                if(strpos($log_filtered,'$2a$07$') !== false) {
+                  $ip_hash = substr($log_filtered,strpos($log_filtered,'$2a$07$'),60);
+                  if($ip_hash!="" && strlen($ip_hash)==60){
+                    $shorten_hash = substr($ip_hash,-8);
+                    $log_filtered = str_replace($ip_hash, "...".$shorten_hash, $log_filtered);
+                  }
+                }
+
+                $logs[$key]['text'] = str_replace('&lt;/p&gt;', '', $log_filtered);
+        }
+}
+
+
 function scan_input($str,$type){
   if($str != strip_tags($str)) {
     if($type == "createboard"){
@@ -2991,3 +3012,4 @@ function scan_input($str,$type){
   }
   return $str;
 }
+
