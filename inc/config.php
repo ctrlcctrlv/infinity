@@ -1411,9 +1411,7 @@
 	$config['mod']['groups'] = array(
 		10	=> 'Janitor',
 		20	=> 'Mod',
-		30	=> 'Admin',
-		// 98	=> 'God',
-		99	=> 'Disabled'
+		30	=> 'Admin'
 	);
 
 	// If you add stuff to the above, you'll need to call this function immediately after.
