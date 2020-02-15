@@ -541,6 +541,13 @@ function setupBoard($array) {
 	if (!file_exists($board['dir'] . $config['dir']['res']))
 		@mkdir($board['dir'] . $config['dir']['res'], 0777)
 			or error("Couldn't create " . $board['dir'] . $config['dir']['img'] . ". Check permissions.", true);
+	
+	$dir = 'static/assets/'. $board['uri'];	
+	if (!is_dir($dir))
+		mkdir($dir, 0777, true);
+		symlink(getcwd() . '/' . $config['image_deleted'], "$dir/deleted.png");
+		symlink(getcwd() . '/' . $config['spoiler_image'], "$dir/spoiler.png");
+		symlink(getcwd() . '/' . $config['no_file_image'], "$dir/no-file.png");
 }
 
 function openBoard($uri) {
