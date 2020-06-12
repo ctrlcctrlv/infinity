@@ -1,17 +1,6 @@
 infinity
 ========================================================
 
-Notice
-------------
-As of April 9, 2017, Infinity is longer be maintained. Development of this project will continue on a security-focused fork located here: https://github.com/OpenIB/OpenIB
-
-A message about infinity GitHub repo
-------------
-Given that Fredrick Brennan is no longer sole administrator of 8chan, maintenance of this repository has passed to N.T. Technology, Inc (NTTEC). NTTEC has decided to split the repo into two branches:
-
-* `master`: The historical infinity repository as it was in November of 2015.
-* `public-site`: A repository containing some patches over master of changes that have been made to infinity since then by either Mr. Brennan or other developers on behalf of NTTEC. Going forward all activity will be on this branch.
-
 About
 ------------
 infinity is a fork of vichan, with the difference that infinity is geared towards allowing users to create their own boards. A running instance is at [8ch.net](https://8ch.net/) (new! a user of the software wrote to me that they created a Polish version: [8ch.pl](http://8ch.pl/))
