@@ -148,6 +148,7 @@
 	$config['additional_javascript'][] = 'js/wpaint.js';
 	// Code tags (fix because we no longer have different scripts for each board)
 	$config['additional_javascript'][] = 'js/code_tags/run_prettify.js';
+	$config['additional_javascript'][] = 'js/download-all-advanced.js';
 
 	//$config['font_awesome_css'] = '/netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css';
 	
