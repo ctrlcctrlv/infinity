@@ -37,7 +37,7 @@
 				{% endif %}
 			{% endif %}
 			{% if mod %}<p><a href="?/">{% trans %}Return to dashboard{% endtrans %}</a></p>{% endif %}
-			<p><a href="{{ config.root }}{{ board.dir }}{{ config.catalog_link }}">Catalog</a></p>
+			<p><a href="{{ config.root }}{% if mod %}mod.php?/{% endif %}{{ board.dir }}{{ config.catalog_link }}">Catalog</a></p>
 		</div>
 	</header>
 
