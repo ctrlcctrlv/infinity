@@ -2621,20 +2621,23 @@ function poster_id($ip, $thread, $board) {
 }
 
 function generate_tripcode($name) {
-	global $config;
+        global $config;
 
-	if ($trip = event('tripcode', $name))
-		return $trip;
+        if ($trip = event('tripcode', $name))
+          return $trip;
 
-	if (!preg_match('/^([^#]+)?(##|#)(.+)$/', $name, $match))
-		return array($name);
+	if (!preg_match('/^([^#]+)?(###|##|#)(.+)$/', $name, $match))
+          return array($name);
 
 	$name = $match[1];
 	$secure = $match[2] == '##';
+	$secure2 = $match[2] == '###';
 	$trip = $match[3];
+
 
 	// convert to SHIT_JIS encoding
 	$trip = mb_convert_encoding($trip, 'Shift_JIS', 'UTF-8');
+
 
 	// generate salt
 	$salt = substr($trip . 'H..', 1, 2);
@@ -2642,18 +2645,22 @@ function generate_tripcode($name) {
 	$salt = strtr($salt, ':;<=>?@[\]^_`', 'ABCDEFGabcdef');
 
 	if ($secure) {
-		if (isset($config['custom_tripcode']["##{$trip}"]))
-			$trip = $config['custom_tripcode']["##{$trip}"];
-		else
-			$trip = '!!' . substr(crypt($trip, str_replace('+', '.', '_..A.' . substr(base64_encode(sha1($trip . $config['secure_trip_salt'], true)), 0, 4))), -10);
+          if (isset($config['custom_tripcode']["##{$trip}"]))
+                  $trip = $config['custom_tripcode']["##{$trip}"];
+          else
+                  $trip = '!!' . substr(crypt($trip, str_replace('+', '.', '_..A.' . substr(base64_encode(sha1($trip . $config['secure_trip_salt'], true)), 0, 4))), -10);
+	} elseif ($secure2) {
+          if (isset($config['custom_tripcode']["###{$trip}"]))
+                  $trip = $config['custom_tripcode']["###{$trip}"];
+          else
+                  $trip = '!!!' . substr(base64_encode(hash('sha256', $trip . $config['secure_trip_salt'])), 0,16);
 	} else {
-		if (isset($config['custom_tripcode']["#{$trip}"]))
-			$trip = $config['custom_tripcode']["#{$trip}"];
-		else
-			$trip = '!' . substr(crypt($trip, $salt), -10);
+          if (isset($config['custom_tripcode']["#{$trip}"]))
+                  $trip = $config['custom_tripcode']["#{$trip}"];
+          else
+                  $trip = '!' . substr(crypt($trip, $salt), -10);
 	}
-
-	return array($name, $trip);
+  return array($name, $trip);
 }
 
 // Highest common factor
