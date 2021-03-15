@@ -234,8 +234,8 @@ function dopost(form) {
 function citeReply(id, with_link) {
 	var textarea = document.getElementById('body');
 
-	if (!textarea) return false;
-	
+	if (!textarea || active_page !== 'thread') return false;
+
 	if (document.selection) {
 		// IE
 		textarea.focus();
